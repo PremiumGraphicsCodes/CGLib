@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GLee.cpp" />
+    <ClCompile Include="ShaderObject.cpp" />
+    <ClCompile Include="DepthRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="IDRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SmoothRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="IRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoardRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="PointRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="LineRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="LegacyLineRenderer.cpp">
+      <Filter>Legacy</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLee.h" />
+    <ClInclude Include="ShaderObject.h" />
+    <ClInclude Include="DepthRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="IDRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoothRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="NullRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="BillBoardRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="PointRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="LineRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyLineRenderer.h">
+      <Filter>Legacy</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{5ea4192e-6ad7-42a3-baef-e0f6945316b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buffer">
+      <UniqueIdentifier>{cd996dae-e6ad-4a42-9296-d1ce1496a8cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GLSL">
+      <UniqueIdentifier>{ec775b1b-fdc8-4a31-892e-cc65876e4f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Legacy">
+      <UniqueIdentifier>{ed00d851-f143-4e9e-afe0-5643e01c6eda}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\GLSL\billboard.gs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\normal.gs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\billboard.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\depth.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\line.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\normal.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\point.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\quad.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\smooth.fs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\billboard.vs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\depth.vs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\line.vs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\normal.vs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\point.vs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\quad.vs">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\GLSL\smooth.vs">
+      <Filter>GLSL</Filter>
+    </None>
+  </ItemGroup>
+</Project>
