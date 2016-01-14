@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<volume fileFormatVersion="0.1">
+    <key x="Hello"/>
+		<english = "">
+		<japanese = "こんにちは！">
+    <volume type="unsigned char" format="png">
+        <image path="../TestFile/IO/CGB/0.png"/>
+        <image path="../TestFile/IO/CGB/1.png"/>
+    </volume>
+</volume>
