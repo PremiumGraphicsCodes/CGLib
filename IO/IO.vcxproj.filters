@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MTLFile.cpp" />
+    <ClCompile Include="OBJFile.cpp" />
+    <ClCompile Include="STLFile.cpp" />
+    <ClCompile Include="DXFFile.cpp" />
+    <ClCompile Include="PLYFile.cpp" />
+    <ClCompile Include="CGBFile.cpp" />
+    <ClCompile Include="TinyXML.cpp" />
+    <ClCompile Include="StringTable.cpp" />
+    <ClCompile Include="KeyStringMap.cpp" />
+    <ClCompile Include="POVFile.cpp" />
+    <ClCompile Include="CGSFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="MTLFile.h" />
+    <ClInclude Include="OBJFile.h" />
+    <ClInclude Include="STLFile.h" />
+    <ClInclude Include="DXFFile.h" />
+    <ClInclude Include="PLYFile.h" />
+    <ClInclude Include="CGBFile.h" />
+    <ClInclude Include="TinyXML.h" />
+    <ClInclude Include="StringTable.h" />
+    <ClInclude Include="KeyStringMap.h" />
+    <ClInclude Include="MetaLanguage.h" />
+    <ClInclude Include="POVFile.h" />
+    <ClInclude Include="CGSFile.h" />
+  </ItemGroup>
+</Project>

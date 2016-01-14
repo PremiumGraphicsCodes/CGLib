@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BoxTest.cpp" />
+    <ClCompile Include="SphereTest.cpp" />
+    <ClCompile Include="QuaternionTest.cpp" />
+    <ClCompile Include="ToleranceTest.cpp" />
+    <ClCompile Include="TriangleTest.cpp" />
+    <ClCompile Include="KernelTest.cpp" />
+    <ClCompile Include="MarchingCubeTableTest.cpp" />
+    <ClCompile Include="MarchingCubeTest.cpp" />
+    <ClCompile Include="PositionValueTest.cpp" />
+    <ClCompile Include="Space2dTest.cpp" />
+    <ClCompile Include="Space3dTest.cpp" />
+    <ClCompile Include="Vector3dTest.cpp" />
+    <ClCompile Include="Matrix4dTest.cpp" />
+    <ClCompile Include="Matrix3dTest.cpp" />
+    <ClCompile Include="Matrix2dTest.cpp" />
+    <ClCompile Include="Grid1dTest.cpp" />
+    <ClCompile Include="Grid3dTest.cpp" />
+    <ClCompile Include="Grid2dTest.cpp" />
+    <ClCompile Include="Plane3dTest.cpp" />
+    <ClCompile Include="Volume3dTest.cpp" />
+    <ClCompile Include="VolumeCell3dTest.cpp" />
+    <ClCompile Include="Line3dTest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Math\Triangle.h" />
+  </ItemGroup>
+</Project>

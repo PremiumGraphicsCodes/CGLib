@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="MTLFileTest.cpp" />
+    <ClCompile Include="STLFileTest.cpp" />
+    <ClCompile Include="OBJFileTest.cpp" />
+    <ClCompile Include="IOTest.cpp" />
+    <ClCompile Include="DXFFileTest.cpp" />
+    <ClCompile Include="PLYFileTest.cpp" />
+    <ClCompile Include="CGBFileTest.cpp" />
+    <ClCompile Include="StringTableTest.cpp" />
+    <ClCompile Include="KeyStringMapTest.cpp" />
+    <ClCompile Include="MetaLanguageTest.cpp" />
+    <ClCompile Include="POVTest.cpp" />
+    <ClCompile Include="CGSFileTest.cpp" />
+  </ItemGroup>
+</Project>
