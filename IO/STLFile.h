@@ -66,6 +66,8 @@ public:
 
 	bool writeBinary(std::ostream& stream);
 
+	bool writeBinary(const std::string& filename);
+
 	void setTitle(const std::string& title) { this->title = title; }
 
 	std::string getTitle() const { return title; }

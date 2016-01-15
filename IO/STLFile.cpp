@@ -153,6 +153,17 @@ bool STLFile::readBinary(std::istream& stream) {
 	return true;
 }
 
+bool STLFile::writeBinary(const std::string& filename)
+{
+	std::ofstream stream;
+	stream.open(filename, std::ios::out | std::ios::binary | std::ios::trunc);
+	if (!stream.is_open()) {
+		return false;
+	}
+	return writeBinary(stream);
+}
+
+
 bool STLFile::writeBinary(std::ostream& stream)
 {
 	const char* head = title.c_str();

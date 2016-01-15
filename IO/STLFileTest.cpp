@@ -113,3 +113,11 @@ TEST(STLFileTest, TestWriteBinary)
 	const std::string& actual = stream.str();
 	//EXPECT_EQ(80, actual.size());
 }
+
+TEST(STLFileTest, TestWriteBinaryToFile)
+{
+	STLFile file;
+	file.setTitle("Test");
+	EXPECT_TRUE( file.writeBinary("../TestFile/IO/STLBinaryWrite.stl") );
+	//EXPECT_EQ(80, actual.size());
+}
