@@ -2,6 +2,7 @@
 #define __CRYSTAL_GRAPHICS_LIGHT_H__
 
 #include "ColorRGB.h"
+#include "ColorRGBA.h"
 #include "../Math/Vector3d.h"
 
 #include <list>
@@ -13,10 +14,7 @@ namespace Crystal {
 template<typename T>
 class PointLight {
 public:
-	PointLight() :
-		pos( Math::Vector3d<T>( 1.0f, 1.0f, 1.0f ) ),
-		diffuse( ColorRGB<float>::Red() ),
-		specular( ColorRGB<float>::Green() )
+	PointLight()
 	{
 	}
 
@@ -24,14 +22,13 @@ public:
 
 public:
 
+	Graphics::ColorRGBA<float> getDiffuse() const { return diffuse; }
 
-	Graphics::ColorRGB<float> getDiffuse() const { return diffuse; }
+	void setDiffuse( const Graphics::ColorRGBA<float>& d ) { this->diffuse = d; }
 
-	void setDiffuse( const Graphics::ColorRGB<float>& d ) { this->diffuse = d; }
+	Graphics::ColorRGBA<float> getSpecular() const { return specular; }
 
-	Graphics::ColorRGB<float> getSpecular() const { return specular; }
-
-	void setSpecular( const Graphics::ColorRGB<float> s ) { this->specular = s; }
+	void setSpecular( const Graphics::ColorRGBA<float> s ) { this->specular = s; }
 
 	Math::Vector3d<float> getPos() const { return pos; }
 
@@ -40,8 +37,8 @@ public:
 private:
 	Math::Vector3d<T> pos;
 
-	Graphics::ColorRGB<float> diffuse;
-	Graphics::ColorRGB<float> specular;
+	Graphics::ColorRGBA<float> diffuse;
+	Graphics::ColorRGBA<float> specular;
 };
 
 template<typename T>

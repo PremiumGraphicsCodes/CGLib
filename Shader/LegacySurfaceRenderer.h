@@ -3,6 +3,7 @@
 
 #include "GLee.h"
 #include "../Graphics/ICamera.h"
+#include "../Graphics/Light.h"
 #include "../Graphics/Surface.h"
 
 namespace Crystal {
@@ -12,7 +13,7 @@ class LegacySurfaceRenderer
 {
 public:
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface, const Graphics::PointLight<float>& light);
 
 };
 	}

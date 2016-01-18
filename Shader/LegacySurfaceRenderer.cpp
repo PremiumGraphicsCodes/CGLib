@@ -5,19 +5,19 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 namespace {
-	GLfloat lightPos[] = { 1.0f, 3.0f, -5.0f, -1.0f };
+	GLfloat lightPos[] = { 1.0f, 3.0f, -5.0f, 1.0f };
 	GLfloat red[] = { 1.0f, 0.4f, 0.3f, 1.0f };
 	GLfloat yellow[] = { 1.0, 1.0, 0.0, 1.0 };
 }
 
-void LegacySurfaceRenderer::render(const ICamera<float>& camera, const Surface<float>& surface)
+void LegacySurfaceRenderer::render(const ICamera<float>& camera, const Surface<float>& surface, const PointLight<float>& light)
 {
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, red);
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
 
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
 	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
