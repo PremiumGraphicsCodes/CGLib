@@ -5,6 +5,7 @@
 #include "../Graphics/ICamera.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Surface.h"
+#include "../Graphics/TriangleBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -13,7 +14,7 @@ class LegacySurfaceRenderer
 {
 public:
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface, const Graphics::PointLight<float>& light);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 
 };
 	}
