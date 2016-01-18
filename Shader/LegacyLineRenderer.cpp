@@ -1,43 +1,34 @@
 #include "LegacyLineRenderer.h"
 
+using namespace Crystal::Math;
+using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void LegacyLineRenderer::render()
+void LegacyLineRenderer::render(const ICamera<float>& camera, const Surface<float>& surface)
 {
-	GLdouble vertex[][3] = {
-		{ 0.0, 0.0, 0.0 },
-		{ 1.0, 0.0, 0.0 },
-		{ 1.0, 1.0, 0.0 },
-		{ 0.0, 1.0, 0.0 },
-		{ 0.0, 0.0, 1.0 },
-		{ 1.0, 0.0, 1.0 },
-		{ 1.0, 1.0, 1.0 },
-		{ 0.0, 1.0, 1.0 }
-	};
+	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
+	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
 
-	int edge[][2] = {
-		{ 0, 1 },
-		{ 1, 2 },
-		{ 2, 3 },
-		{ 3, 0 },
-		{ 4, 5 },
-		{ 5, 6 },
-		{ 6, 7 },
-		{ 7, 4 },
-		{ 0, 4 },
-		{ 1, 5 },
-		{ 2, 6 },
-		{ 3, 7 }
-	};
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glLoadMatrixf(projectionMatrix.toArray().data());
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glColor3d(0.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	for (int i = 0; i < 12; ++i) {
-		glVertex3dv(vertex[edge[i][0]]);
-		glVertex3dv(vertex[edge[i][1]]);
-	}
-	glEnd();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf(modelviewMatrix.toArray().data());
+
+	glClearColor(0.0, 0.0, 1.0, 1.0);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	for (const auto& f : surface.getFaces()) {
+		glBegin(GL_TRIANGLES);
+		for (auto e : surface.getEdges()) {
+			const auto start = e.getStartPosition();
+			glVertex3d(start.getX(), start.getY(), start.getZ());
+		}
+		glEnd();
+	};
 
 	glFlush();
+
 }
