@@ -8,7 +8,7 @@ namespace {
 	GLfloat yellow[] = { 1.0, 1.0, 0.0, 1.0 };
 }
 
-void LegacySurfaceRenderer::render(const ICamera<float>& camera, const Surface<float>& surface, const PointLight<float>& light, const TriangleBuffer& buffer)
+void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
 {
 	const auto& positions = buffer.positions.get();// buffers[0].get();
 	const auto& normals = buffer.normals.get();//buffers[1].get();

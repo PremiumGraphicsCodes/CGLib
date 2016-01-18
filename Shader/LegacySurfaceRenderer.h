@@ -14,7 +14,7 @@ class LegacySurfaceRenderer
 {
 public:
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 
 };
 	}
