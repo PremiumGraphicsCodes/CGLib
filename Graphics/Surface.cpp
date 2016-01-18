@@ -12,19 +12,19 @@ void Surface<T>::buildFromVolume(const Volume3d<float, float>& volume, const T t
 	MarchingCube<T, float>* mc = MarchingCube<T, float>::getInstance();
 	const auto& triangles = mc->march(volume, threshold);
 	for (const auto& t : triangles) {
-		this->add(t, ColorRGBA<T>::Blue() );
+		this->add(t );
 	}
 }
 
 
 template<typename T>
-void Surface<T>::add(const Triangle<T>& t, const ColorRGBA<float>& c)
+void Surface<T>::add(const Triangle<T>& t)
 {
 	const auto normal = t.getNormal();
 	std::vector< Vertex<T> > vs;
-	vs.push_back(Vertex<T>(t.getv0(), normal, Math::Vector3d<float>(0, 0, 0), c));
-	vs.push_back(Vertex<T>(t.getv1(), normal, Math::Vector3d<float>(0, 0, 0), c));
-	vs.push_back(Vertex<T>(t.getv2(), normal, Math::Vector3d<float>(0, 0, 0), c));
+	vs.push_back(Vertex<T>(t.getv0(), normal, Math::Vector3d<float>(0, 0, 0) ));
+	vs.push_back(Vertex<T>(t.getv1(), normal, Math::Vector3d<float>(0, 0, 0) ));
+	vs.push_back(Vertex<T>(t.getv2(), normal, Math::Vector3d<float>(0, 0, 0) ));
 
 	const auto& es = HalfEdge<T>::createClosed(vs);
 	edges.insert(edges.end(), es.begin(), es.end());
@@ -35,7 +35,7 @@ void Surface<T>::add(const Triangle<T>& t, const ColorRGBA<float>& c)
 }
 
 template<typename T>
-void Surface<T>::add(const Box<T>& box, const ColorRGBA<float>& c)
+void Surface<T>::add(const Box<T>& box)
 {
 	const auto minx = box.getMinX();
 	const auto miny = box.getMinY();

@@ -41,9 +41,9 @@ public:
 
 	std::list<Face<T>> getFaces() const { return faces; }
 
-	void add(const Math::Triangle<T>& t, const ColorRGBA<float>& c);
+	void add(const Math::Triangle<T>& t);
 
-	void add(const Math::Box<T>& box, const ColorRGBA<float>& c);
+	void add(const Math::Box<T>& box);
 
 	void move(const Math::Vector3d<T>& vector) {
 		for (auto& v : vertices) {
