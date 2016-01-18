@@ -4,6 +4,7 @@
 #include "GLee.h"
 #include "../Graphics/ICamera.h"
 #include "../Graphics/Surface.h"
+#include "../Graphics/LineBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -12,7 +13,7 @@ class LegacyLineRenderer
 {
 public:
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::Surface<float>& surface, const Graphics::LineBuffer& buffer);
 
 };
 	}

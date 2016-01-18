@@ -4,8 +4,16 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void LegacyLineRenderer::render(const ICamera<float>& camera, const Surface<float>& surface)
+void LegacyLineRenderer::render(const ICamera<float>& camera, const Surface<float>& surface, const LineBuffer& buffer)
 {
+	const auto& positions = buffer.getBuffers()[0].get();// buffers[0].get();
+
+	if (positions.empty()) {
+		return;
+	}
+
+	glEnable(GL_DEPTH_TEST);
+
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
 	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
 
@@ -18,16 +26,15 @@ void LegacyLineRenderer::render(const ICamera<float>& camera, const Surface<floa
 	glLoadMatrixf(modelviewMatrix.toArray().data());
 
 	glClearColor(0.0, 0.0, 1.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (const auto& f : surface.getFaces()) {
-		glBegin(GL_TRIANGLES);
-		for (auto e : surface.getEdges()) {
-			const auto start = e.getStartPosition();
-			glVertex3d(start.getX(), start.getY(), start.getZ());
-		}
-		glEnd();
-	};
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, positions.data());
+	assert(glGetError() == GL_NO_ERROR);
+
+	glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 	glFlush();
 
