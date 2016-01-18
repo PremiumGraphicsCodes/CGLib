@@ -28,8 +28,9 @@ TEST( STLFileTest, TestReadAscii )
 		<< "endfacet" << std::endl
 		<< "endsolid" << std::endl;
 
-	STLFile file;
-	file.readASCII(stream);
+	STLFileReader reader;
+	reader.readASCII(stream);
+	STLFile file = reader.getFile();
 
 	const Vector3d<T> normal1(0.0, 0.0, 1.0);
 	const std::vector< Vector3d<T> > positions1 = {
@@ -79,7 +80,8 @@ TEST(STLFileTest, TestWriteASCII)
 
 	file.setTitle("cube-ascii");
 	file.setCells(cells);
-	file.writeASCII(stream);
+	STLFileWriter writer(file);
+	writer.writeASCII(stream);
 
 	std::stringstream expected;
 	expected
@@ -109,15 +111,8 @@ TEST(STLFileTest, TestWriteBinary)
 	std::ostringstream stream;
 	STLFile file;
 	file.setTitle("Test");
-	file.writeBinary(stream);
+	STLFileWriter writer(file);
+	writer.writeBinary(stream);
 	const std::string& actual = stream.str();
-	//EXPECT_EQ(80, actual.size());
-}
-
-TEST(STLFileTest, TestWriteBinaryToFile)
-{
-	STLFile file;
-	file.setTitle("Test");
-	EXPECT_TRUE( file.writeBinary("../TestFile/IO/STLBinaryWrite.stl") );
 	//EXPECT_EQ(80, actual.size());
 }

@@ -17,31 +17,31 @@ namespace Crystal {
 			STLCell()
 			{}
 
-			STLCell(const std::vector< Math::Vector3d<float> >& positions, const Math::Vector3d<float>& normal) :
-				positions(positions),
-				normal(normal)
-			{}
+	STLCell(const std::vector< Math::Vector3d<float> >& positions, const Math::Vector3d<float>& normal) :
+		positions(positions),
+		normal(normal)
+	{}
 
-			std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
+	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
 
-			void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
-			void addPosition(const Math::Vector3d<float>& pos) { this->positions.push_back(pos); }
+	void addPosition(const Math::Vector3d<float>& pos) { this->positions.push_back(pos); }
 
-			void setNormal(const Math::Vector3d<float>& normal) { this->normal = normal; }
+	void setNormal(const Math::Vector3d<float>& normal) { this->normal = normal; }
 
-			Math::Vector3d<float> getNormal() const { return normal; }
+	Math::Vector3d<float> getNormal() const { return normal; }
 
-			bool operator==(const STLCell& rhs) const {
-				return
-					positions == rhs.positions &&
-					normal == rhs.normal;
-			}
+	bool operator==(const STLCell& rhs) const {
+		return
+			positions == rhs.positions &&
+			normal == rhs.normal;
+	}
 
-		private:
-			std::vector< Math::Vector3d<float> > positions;
-			Math::Vector3d<float> normal;
-		};
+private:
+	std::vector< Math::Vector3d<float> > positions;
+	Math::Vector3d<float> normal;
+};
 
 typedef std::vector< STLCell > STLCellVector;
 
@@ -50,23 +50,12 @@ public:
 	STLFile()
 	{}
 
-	bool read( const std::string& filename );
+	STLFile(const STLCellVector& cells, const std::string title) :
+		 cells( cells ),
+		title( title )
+	{
 
-	bool readASCII(const std::string& filename);
-
-	bool readASCII(std::istream& stream);
-
-	bool writeASCII(const std::string& filename);
-
-	bool writeASCII(std::ostream& stream);
-
-	bool readBinary(const std::string& filename);
-
-	bool readBinary(std::istream& stream);
-
-	bool writeBinary(std::ostream& stream);
-
-	bool writeBinary(const std::string& filename);
+	}
 
 	void setTitle(const std::string& title) { this->title = title; }
 
@@ -88,6 +77,44 @@ private:
 
 };
 
+class STLFileReader
+{
+public:
+	bool read(const std::string& filename);
+
+	bool readASCII(const std::string& filename);
+
+	bool readASCII(std::istream& stream);
+
+	bool readBinary(const std::string& filename);
+
+	bool readBinary(std::istream& stream);
+
+	STLFile getFile() const { return file; }
+
+private:
+	STLFile file;
+
+};
+
+class STLFileWriter
+{
+public:
+	STLFileWriter(const STLFile& file) :
+		file(file)
+	{}
+
+	bool writeASCII(const std::string& filename);
+
+	bool writeASCII(std::ostream& stream);
+
+	bool writeBinary(std::ostream& stream);
+
+	bool writeBinary(const std::string& filename);
+
+private:
+	STLFile file;
+};
 	}
 }
 

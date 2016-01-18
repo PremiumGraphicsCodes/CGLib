@@ -22,13 +22,11 @@
     <ClCompile Include="CGBFile.cpp" />
     <ClCompile Include="CGSFile.cpp" />
     <ClCompile Include="DXFFile.cpp" />
-    <ClCompile Include="KeyStringMap.cpp" />
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
     <ClCompile Include="POVFile.cpp" />
     <ClCompile Include="STLFile.cpp" />
-    <ClCompile Include="StringTable.cpp" />
     <ClCompile Include="TinyXML.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -36,14 +34,11 @@
     <ClInclude Include="CGSFile.h" />
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="KeyStringMap.h" />
-    <ClInclude Include="MetaLanguage.h" />
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="POVFile.h" />
     <ClInclude Include="STLFile.h" />
-    <ClInclude Include="StringTable.h" />
     <ClInclude Include="TinyXML.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

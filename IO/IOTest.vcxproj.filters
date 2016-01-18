@@ -8,9 +8,6 @@
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="PLYFileTest.cpp" />
     <ClCompile Include="CGBFileTest.cpp" />
-    <ClCompile Include="StringTableTest.cpp" />
-    <ClCompile Include="KeyStringMapTest.cpp" />
-    <ClCompile Include="MetaLanguageTest.cpp" />
     <ClCompile Include="POVTest.cpp" />
     <ClCompile Include="CGSFileTest.cpp" />
   </ItemGroup>

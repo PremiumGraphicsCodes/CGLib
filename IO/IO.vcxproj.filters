@@ -8,8 +8,6 @@
     <ClCompile Include="PLYFile.cpp" />
     <ClCompile Include="CGBFile.cpp" />
     <ClCompile Include="TinyXML.cpp" />
-    <ClCompile Include="StringTable.cpp" />
-    <ClCompile Include="KeyStringMap.cpp" />
     <ClCompile Include="POVFile.cpp" />
     <ClCompile Include="CGSFile.cpp" />
   </ItemGroup>
@@ -22,9 +20,6 @@
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="CGBFile.h" />
     <ClInclude Include="TinyXML.h" />
-    <ClInclude Include="StringTable.h" />
-    <ClInclude Include="KeyStringMap.h" />
-    <ClInclude Include="MetaLanguage.h" />
     <ClInclude Include="POVFile.h" />
     <ClInclude Include="CGSFile.h" />
   </ItemGroup>

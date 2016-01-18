@@ -147,6 +147,7 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="LegacyLineRenderer.cpp" />
+    <ClCompile Include="LegacySurfaceRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="BillBoardRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="LegacyLineRenderer.h" />
+    <ClInclude Include="LegacySurfaceRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="NullRenderer.h" />
     <ClInclude Include="BillBoardRenderer.h" />

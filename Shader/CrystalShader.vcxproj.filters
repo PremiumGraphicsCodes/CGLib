@@ -39,6 +39,9 @@
     <ClCompile Include="LegacyLineRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
+    <ClCompile Include="LegacySurfaceRenderer.cpp">
+      <Filter>Legacy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -80,6 +83,9 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="LegacyLineRenderer.h">
+      <Filter>Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacySurfaceRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
   </ItemGroup>
