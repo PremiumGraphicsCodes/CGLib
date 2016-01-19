@@ -4,7 +4,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void LegacyLineRenderer::render(const ICamera<float>& camera, const Surface<float>& surface, const LineBuffer& buffer)
+void LegacyLineRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
 {
 	const auto& positions = buffer.getBuffers()[0].get();// buffers[0].get();
 
