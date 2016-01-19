@@ -106,7 +106,7 @@ tinyxml2::XMLError CGBFile<GeomType, ValueType>::save(const std::string& directo
 	e->SetAttribute("type", "unsigned char");
 	e->SetAttribute("format", "png");
 	
-	for (size_t i = 0; i < volume.getGrid().getSizeZ(); ++i) {
+	for (auto i = 0; i < volume.getGrid().getSizeZ(); ++i) {
 		auto elem = xml.NewElement("image");
 		const auto str = directoryname + "/" + std::to_string(i) + ".png";
 		elem->SetAttribute("path", str.c_str());
