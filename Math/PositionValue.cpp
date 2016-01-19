@@ -17,7 +17,7 @@ PositionValue<GeomType, ValueType>::PositionValue(const Vector3d<GeomType>& p, c
 template<typename GeomType, typename ValueType>
 Vector3d<GeomType> PositionValue<GeomType, ValueType>::getInterpolatedPosition(const ValueType v, const PositionValue& rhs) const
 {
-	const GeomType scale = (v - this->value) / static_cast<GeomType>(rhs.value - this->value);
+	const float scale = static_cast<float> (v - this->value) / static_cast<float>(rhs.value - this->value);
 	return this->pos + scale * (rhs.pos - this->pos);
 }
 
