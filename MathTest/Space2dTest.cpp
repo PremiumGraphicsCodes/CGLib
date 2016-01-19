@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "Space2d.h"
+#include "../Math/Space2d.h"
 
 using namespace Crystal::Math;
 

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Plane3d.h"
+#include "../Math/Plane3d.h"
 
 using namespace Crystal::Math;
 

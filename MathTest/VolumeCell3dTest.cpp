@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
-#include "VolumeCell3d.h"
-#include "PositionValue.h"
+#include "../Math/VolumeCell3d.h"
+#include "../Math/PositionValue.h"
 
 using namespace Crystal::Math;
 
