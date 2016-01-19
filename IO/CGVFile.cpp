@@ -24,7 +24,7 @@ bool CGVFile::save(const std::string& filename, const Volume3d<float, float>& vo
 	stream.write((char*)&startx, sizeof(startx));
 	const auto starty = space.getStart().getY();
 	stream.write((char*)&starty, sizeof(starty));
-	const auto startz = space.getStart().getY();
+	const auto startz = space.getStart().getZ();
 	stream.write((char*)&startz, sizeof(startz));
 
 	const auto lengthx = space.getLengths().getX();
@@ -67,11 +67,11 @@ bool CGVFile::load(const std::string& filename)
 	char str[50];
 	stream.read(str, 50);
 
-	const float startx = 0.0f;
+	float startx = 0.0f;
 	stream.read((char*)&startx, sizeof(startx));
-	const float starty = 0.0f;
+	float starty = 0.0f;
 	stream.read((char*)&starty, sizeof(starty));
-	const float startz = 0.0f;
+	float startz = 0.0f;
 	stream.read((char*)&startz, sizeof(startz));
 
 	float lengthx = 0.0f;
@@ -90,7 +90,8 @@ bool CGVFile::load(const std::string& filename)
 	int resz = 0;
 	stream.read((char*)&resz, sizeof(resz));
 
-	auto space = Space3d<float>(Vector3d<float>(startx, starty, startz), Vector3d<float>(lengthx, lengthy, lengthz));
+	Vector3d<float> start(startx, starty, startz);
+	auto space = Space3d<float>(start, Vector3d<float>(lengthx, lengthy, lengthz));
 	auto grid = Grid3d<float>(resx, resy, resz);
 
 	for (int i = 0; i< resx; i++) {
