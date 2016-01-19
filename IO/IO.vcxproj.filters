@@ -10,6 +10,7 @@
     <ClCompile Include="TinyXML.cpp" />
     <ClCompile Include="POVFile.cpp" />
     <ClCompile Include="CGSFile.cpp" />
+    <ClCompile Include="CGVFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helper.h" />
@@ -22,5 +23,6 @@
     <ClInclude Include="TinyXML.h" />
     <ClInclude Include="POVFile.h" />
     <ClInclude Include="CGSFile.h" />
+    <ClInclude Include="CGVFile.h" />
   </ItemGroup>
 </Project>

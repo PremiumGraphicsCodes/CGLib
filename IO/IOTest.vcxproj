@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="CGBFileTest.cpp" />
     <ClCompile Include="CGSFileTest.cpp" />
+    <ClCompile Include="CGVFileTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="MTLFileTest.cpp" />

@@ -10,5 +10,6 @@
     <ClCompile Include="CGBFileTest.cpp" />
     <ClCompile Include="POVTest.cpp" />
     <ClCompile Include="CGSFileTest.cpp" />
+    <ClCompile Include="CGVFileTest.cpp" />
   </ItemGroup>
 </Project>
