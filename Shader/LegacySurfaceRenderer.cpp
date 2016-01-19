@@ -5,7 +5,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 namespace {
-	GLfloat yellow[] = { 1.0, 1.0, 0.0, 1.0 };
+	GLfloat yellow[] = { 1.0, 0.0, 0.0, 1.0 };
 }
 
 void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
@@ -24,8 +24,8 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
 
-	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
-	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
+	const auto& projectionMatrix = camera.getProjectionMatrix();
+	const auto& modelviewMatrix = camera.getModelviewMatrix();;
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -35,8 +35,6 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glLoadIdentity();
 	glLoadMatrixf(modelviewMatrix.toArray().data());
 
-	glClearColor(0.0, 0.0, 1.0, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, yellow);
 	assert(glGetError() == GL_NO_ERROR);
 
@@ -53,7 +51,10 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
+	glDisable(GL_LIGHTING);
 	glDisable(GL_LIGHT0);
+	glDisable(GL_DEPTH_TEST);
+
 
 	glFlush();
 
