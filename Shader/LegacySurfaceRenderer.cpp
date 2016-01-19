@@ -5,7 +5,8 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 namespace {
-	GLfloat yellow[] = { 1.0, 0.0, 0.0, 1.0 };
+	GLfloat yellow[] = { 0.0, 1.0, 1.0, 1.0 };
+	GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };
 }
 
 void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
@@ -24,6 +25,10 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	const auto& projectionMatrix = camera.getProjectionMatrix();
 	const auto& modelviewMatrix = camera.getModelviewMatrix();;
 
+	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
+
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glLoadMatrixf(projectionMatrix.toArray().data());
@@ -32,8 +37,7 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glLoadIdentity();
 	glLoadMatrixf(modelviewMatrix.toArray().data());
 
-	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
+	//glLightfv(GL_LIGHT0, GL_AMBIENT, white);
 
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, yellow);
 
