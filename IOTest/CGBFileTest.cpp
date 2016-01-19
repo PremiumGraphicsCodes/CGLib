@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "CGBFile.h"
+#include "../IO/CGBFile.h"
 #include <vector>
 #include <string>
 #include <fstream>

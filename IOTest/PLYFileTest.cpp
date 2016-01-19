@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "PLYFile.h"
+#include "../IO/PLYFile.h"
 
 using namespace Crystal::IO;
 

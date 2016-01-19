@@ -2,8 +2,8 @@
  
 #include "../Graphics/IBuffer.h"
 
-#include "OBJFile.h"
-#include "Helper.h"
+#include "../IO/OBJFile.h"
+#include "../IO/Helper.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
