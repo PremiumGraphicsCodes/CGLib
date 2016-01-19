@@ -21,9 +21,6 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 
-	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
-
 	const auto& projectionMatrix = camera.getProjectionMatrix();
 	const auto& modelviewMatrix = camera.getModelviewMatrix();;
 
@@ -35,16 +32,16 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glLoadIdentity();
 	glLoadMatrixf(modelviewMatrix.toArray().data());
 
+	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
+
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, yellow);
-	assert(glGetError() == GL_NO_ERROR);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 0, positions.data());
-	assert(glGetError() == GL_NO_ERROR);
 
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glNormalPointer(GL_FLOAT, 0, normals.data());
-	//glColor3fv(yellow);
 
 	glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size()) / 3);
 
