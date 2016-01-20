@@ -39,6 +39,4 @@ void LegacyLineRenderer::render(const ICamera<float>& camera, const LineBuffer& 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_DEPTH_TEST);
 
-	glFlush();
-
 }

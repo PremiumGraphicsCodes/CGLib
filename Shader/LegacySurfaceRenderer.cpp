@@ -56,7 +56,4 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glDisable(GL_LIGHT0);
 	glDisable(GL_DEPTH_TEST);
 
-
-	glFlush();
-
 }
