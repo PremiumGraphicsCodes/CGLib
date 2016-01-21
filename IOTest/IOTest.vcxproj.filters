@@ -7,9 +7,6 @@
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="PLYFileTest.cpp" />
-    <ClCompile Include="CGBFileTest.cpp" />
     <ClCompile Include="POVTest.cpp" />
-    <ClCompile Include="CGSFileTest.cpp" />
-    <ClCompile Include="CGVFileTest.cpp" />
   </ItemGroup>
 </Project>
