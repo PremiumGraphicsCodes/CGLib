@@ -6,7 +6,7 @@
 
 #include "../Shader/BillBoardRenderer.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 #include "../Graphics/Buffer1d.h"
 #include "../Graphics/Buffer3d.h"
 
@@ -31,7 +31,7 @@ TEST(BillBoardRendererTest, Test)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glDisable(GL_DEPTH_TEST);
 
-	ImageRGBA<unsigned char> image(2, 2);
+	Image<unsigned char> image(2, 2);
 	image.setColor(0, 0, ColorRGBA<unsigned char>::Red());
 	image.setColor(1, 0, ColorRGBA<unsigned char>::Green());
 	image.setColor(0, 1, ColorRGBA<unsigned char>::Black());

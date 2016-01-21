@@ -4,13 +4,13 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 template<typename ColorType>
-Texture<ColorType>::Texture(const ImageRGBA<ColorType>& image)
+Texture<ColorType>::Texture(const Image<ColorType>& image)
 {
 	create(image);
 }
 
 template<typename ColorType>
-bool Texture<ColorType>::create(const ImageRGBA<ColorType>& image)
+bool Texture<ColorType>::create(const Image<ColorType>& image)
 {
 	//glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &texHandle);

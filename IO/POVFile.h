@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_IO_POV_FILE_H__
 #define __CRYSTAL_IO_POV_FILE_H__
 
-#include "../Util/File.h"
 #include "../Graphics/Surface.h"
 
 namespace Crystal {
@@ -10,7 +9,7 @@ namespace Crystal {
 class POVFile
 {
 public:
-	bool write(const File& file, const Graphics::Surface<float>& surface);
+	bool write(const std::string& file, const Graphics::Surface<float>& surface);
 private:
 
 };

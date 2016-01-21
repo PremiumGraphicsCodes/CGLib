@@ -4,9 +4,9 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
-bool POVFile::write(const Crystal::File& file, const Surface<float>& surface)
+bool POVFile::write(const std::string& file, const Surface<float>& surface)
 {
-	std::ofstream stream(file.getFullPath());
+	std::ofstream stream(file);
 	if (!stream.is_open()) {
 		return false;
 	}

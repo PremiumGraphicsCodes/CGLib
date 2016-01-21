@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 #include "../Shader/FrameBuffer.h"
 #include "../Graphics/Buffer2d.h"
 #include "../Graphics/Buffer3d.h"
@@ -54,7 +54,7 @@ TEST(QuadRendererTest, Test)
 	texCoord.add(Vector2d<float>(1.0, 1.0));
 	texCoord.add(Vector2d<float>(1.0, 0.0));
 
-	ImageRGBA<unsigned char> image(2, 2);
+	Image<unsigned char> image(2, 2);
 	image.setColor(0, 0, ColorRGBA<unsigned char>::Red());
 	image.setColor(1, 0, ColorRGBA<unsigned char>::Green());
 	image.setColor(0, 1, ColorRGBA<unsigned char>::Black());
@@ -73,7 +73,7 @@ TEST(QuadRendererTest, Test)
 	const auto actual = frame.toImage();
 	actual.save("../TestFile/Shader/QuadActual.png", ImageFileFormat::PNG);
 
-	ImageRGBA<unsigned char> expected("../TestFile/Shader/QuadExpected.png");
+	Image<unsigned char> expected("../TestFile/Shader/QuadExpected.png");
 	EXPECT_EQ(expected, actual);
 
 	frame.unbind();

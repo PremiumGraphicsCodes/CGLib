@@ -6,7 +6,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 #include "../Shader/FrameBuffer.h"
 #include "../Graphics/OrthogonalCamera.h"
 #include "../Graphics/Buffer3d.h"
@@ -48,7 +48,7 @@ TEST(LineRendererTest, Test)
 	const auto image = frame.toImage();
 	image.save("../TestFile/Shader/LineActual.png", ImageFileFormat::PNG);
 
-	ImageRGBA<unsigned char> expected("../TestFile/Shader/LineExpected.png");
+	Image<unsigned char> expected("../TestFile/Shader/LineExpected.png");
 
 	frame.unbind();
 

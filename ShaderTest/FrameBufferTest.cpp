@@ -6,7 +6,7 @@
 
 #include "../Shader/FrameBuffer.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
@@ -23,7 +23,7 @@ TEST(FrameBufferTest, Test)
 	glClear(GL_COLOR_BUFFER_BIT);
 	const auto& actual = buffer.toImage();
 
-	ImageRGBA<unsigned char> expected = ImageRGBA<unsigned char>::Blue(32, 32);
+	Image<unsigned char> expected = Image<unsigned char>::Blue(32, 32);
 
 	EXPECT_EQ(expected, actual);
 

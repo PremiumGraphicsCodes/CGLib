@@ -5,7 +5,7 @@
 
 #include "gtest/gtest.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 #include "../Shader/SmoothRenderer.h"
 #include "../Shader/FrameBuffer.h"
 #include "../Graphics/PerspectiveCamera.h"

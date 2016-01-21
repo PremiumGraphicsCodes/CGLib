@@ -1,6 +1,6 @@
 #include "CGBFile.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -11,14 +11,14 @@ using GeomType = float;
 using ValueType = float;
 
 namespace {
-	std::vector<ImageRGBA<unsigned char>> toImageRGBAs(const Volume3d<float, float>& volume) {
+	std::vector<Image<unsigned char>> toImageRGBAs(const Volume3d<float, float>& volume) {
 		const auto resx = volume.getGrid().getSizes()[0];
 		const auto resy = volume.getGrid().getSizes()[1];
 		const auto resz = volume.getGrid().getSizes()[2];
 
-		std::vector<ImageRGBA<unsigned char>> images;
+		std::vector<Image<unsigned char>> images;
 		for (int z = 0; z < resz; ++z) {
-			ImageRGBA<unsigned char> image(resx, resy);
+			Image<unsigned char> image(resx, resy);
 			for (int x = 0; x < resx; ++x) {
 				for (int y = 0; y < resy; ++y) {
 					const auto v = volume.getGrid().get(x, y, z);
@@ -32,7 +32,7 @@ namespace {
 		return images;
 	}
 
-	Grid3d<ValueType> toGrid(const std::vector<ImageRGBA<unsigned char>>& images) {
+	Grid3d<ValueType> toGrid(const std::vector<Image<unsigned char>>& images) {
 		assert(!images.empty());
 
 		const auto resx = images.front().getWidth();
@@ -153,10 +153,10 @@ XMLError CGBFile<float, float>::load(const std::string& foldername, const std::s
 	auto volumeElem = root->FirstChildElement("volume");
 	auto imageElem = volumeElem->FirstChildElement("image");
 
-	std::vector<ImageRGBA<unsigned char>> images;
+	std::vector<Image<unsigned char>> images;
 	while (imageElem != nullptr) {
 		const auto& filename = imageElem->Attribute("path");
-		ImageRGBA<unsigned char> image;
+		Image<unsigned char> image;
 		image.read(filename);
 		images.push_back(image);
 		imageElem = imageElem->NextSiblingElement("image");

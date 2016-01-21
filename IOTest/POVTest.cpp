@@ -10,7 +10,7 @@ using namespace Crystal::IO;
 TEST(POVFileTest, TestWrite)
 {
 	POVFile file;
-	Crystal::File dest("../TestFile/IO/POVFileTestWrite.pov");
+	std::string dest("../TestFile/IO/POVFileTestWrite.pov");
 	Surface<float> surface;
 	Triangle<float> triangle( Vector3d<float>(0, 0, 0), Vector3d<float>(1,0,0), Vector3d<float>(1,1,0) );
 	surface.add(triangle);

@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_FRAME_BUFFER_H__
 
 #include "GLee.h"
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 #include "../Graphics/ImageGrayScale.h"
 #include "Texture.h"
 #include <cassert>
@@ -24,7 +24,7 @@ public:
 
 	bool unbind();
 
-	Graphics::ImageRGBA<unsigned char> toImage() const;
+	Graphics::Image<unsigned char> toImage() const;
 
 	Graphics::ColorRGBA<unsigned char> getColor(const int x, const int y) const;
 

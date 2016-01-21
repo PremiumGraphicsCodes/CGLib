@@ -24,8 +24,7 @@
     <ClCompile Include="IBuffer.cpp" />
     <ClCompile Include="DeviceCoord3d.cpp" />
     <ClCompile Include="ICamera.cpp" />
-    <ClCompile Include="ImageRGB.cpp" />
-    <ClCompile Include="ImageRGBA.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="LineBuffer.cpp" />
     <ClCompile Include="OrthogonalCamera.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
@@ -49,8 +48,7 @@
     <ClInclude Include="Face.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="ImageGrayScale.h" />
-    <ClInclude Include="ImageRGB.h" />
-    <ClInclude Include="ImageRGBA.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LineBuffer.h" />
     <ClInclude Include="Material.h" />

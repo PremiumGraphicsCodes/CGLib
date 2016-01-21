@@ -6,7 +6,7 @@
 
 #include "../Shader/PointRenderer.h"
 
-#include "../Graphics/ImageRGBA.h"
+#include "../Graphics/Image.h"
 #include "../Graphics/Buffer1d.h"
 #include "../Graphics/Buffer3d.h"
 
@@ -57,6 +57,6 @@ TEST(PointRendererTest, Test)
 	const auto& actual = frame.toImage();
 	actual.save("../TestFile/Shader/PointActual.png", ImageFileFormat::PNG);
 
-	ImageRGBA<unsigned char> expected("../TestFile/Shader/PointExpected.png");
+	Image<unsigned char> expected("../TestFile/Shader/PointExpected.png");
 	EXPECT_EQ(expected, actual);
 }
