@@ -10,9 +10,9 @@ void main(int argc, char** argv)
 		printf("Usage inputfilename outputfilename\n");
 		return;
 	}
-
-	std::string input = /*"../TestFile/IO/cube-binary.stl";*/ (argv[1]);
-	std::string output = /*"../TestFile/IO/cube.pov";*/ (argv[2]);
+	
+	std::string input = argv[1];//"C:/Users/PremiumGraphics/Desktop/POVTest/cubex.stl"; (argv[1]);
+	std::string output = argv[2];//"C:/Users/PremiumGraphics/Desktop/POVTest/cubex.pov";// (argv[2]);
 	STLFileReader reader;
 	if (!reader.read(input)) {
 		printf("failed");

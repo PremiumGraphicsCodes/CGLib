@@ -88,7 +88,7 @@ bool STLFileReader::readASCII(std::istream& stream)
 
 bool STLFileReader::readBinary(const std::string& filename) {
 	std::ifstream stream;
-	stream.open(filename);
+	stream.open(filename, std::ios::in | std::ios::binary);
 	if (!stream.is_open()) {
 		return false;
 	}
@@ -114,7 +114,11 @@ bool STLFileReader::readBinary(std::istream& stream) {
 		float pos2[3];
 		stream.read((char *)&pos2, sizeof(float) * 3);
 		char padding[2];
-		stream.read(padding, sizeof(char) * 2);
+		stream.read((char *)padding, sizeof(char) * 2);
+		
+		if (!stream.good()) {
+			assert(false);
+		}
 
 		STLCell cell;
 		cell.setNormal(Vector3d<float>(normal[0], normal[1], normal[2]));
