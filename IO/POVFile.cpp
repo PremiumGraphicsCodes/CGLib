@@ -11,7 +11,6 @@ bool POVFile::write(const std::string& file, const Surface<float>& surface)
 		return false;
 	}
 
-	stream << "mesh {" << std::endl;
 	const auto& faces = surface.getFaces();
 	for (const auto& f : faces) {
 		stream << "triangle {";
@@ -25,9 +24,6 @@ bool POVFile::write(const std::string& file, const Surface<float>& surface)
 		}
 		stream << "}" << std::endl;
 	}
-	//stream << "texture { White_Wood}" << std::endl;
-	stream << "texture{ pigment{ color rgb <1,1,1> } } " << std::endl;
-	stream << "}" << std::endl;
 
 	return stream.good();
 }
