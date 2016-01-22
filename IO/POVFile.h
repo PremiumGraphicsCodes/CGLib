@@ -9,7 +9,9 @@ namespace Crystal {
 class POVFile
 {
 public:
-	bool write(const std::string& file, const Graphics::Surface<float>& surface);
+	bool writeScene(const std::string& file, const Graphics::Surface<float>& surface);
+
+	bool writeInc(const std::string& file, const Graphics::Surface<float>& surface);
 private:
 
 };

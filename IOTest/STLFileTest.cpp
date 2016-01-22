@@ -124,8 +124,6 @@ TEST(STLFileTest, TestReadBinary)
 	STLFileReader reader;
 	reader.read("../TestFile/IO/cube-binary.stl");
 	const auto& surface = reader.getFile().toSurface();
-	POVFile pov;
-	pov.write("../TestFile/IO/cube.pov", surface);
 }
 
 

@@ -7,7 +7,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
-TEST(POVFileTest, TestWrite)
+TEST(POVFileTest, TestWriteScene)
 {
 	POVFile file;
 	std::string dest("../TestFile/IO/POVFileTestWrite.pov");
@@ -16,5 +16,17 @@ TEST(POVFileTest, TestWrite)
 	Triangle<float> triangle2(Vector3d<float>(1, 0, 0), Vector3d<float>(2, 0, 0), Vector3d<float>(2, 1, 0));
 	surface.add(triangle1);
 	surface.add(triangle2);
-	EXPECT_TRUE(file.write(dest, surface));
+	EXPECT_TRUE(file.writeScene(dest, surface));
+}
+
+TEST(POVFileTest, TestWriteInc)
+{
+	POVFile file;
+	std::string dest("../TestFile/IO/POVFileTestWrite.inc");
+	Surface<float> surface;
+	Triangle<float> triangle1(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(1, 1, 0));
+	Triangle<float> triangle2(Vector3d<float>(1, 0, 0), Vector3d<float>(2, 0, 0), Vector3d<float>(2, 1, 0));
+	surface.add(triangle1);
+	surface.add(triangle2);
+	EXPECT_TRUE(file.writeScene(dest, surface));
 }

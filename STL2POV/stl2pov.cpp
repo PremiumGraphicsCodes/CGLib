@@ -22,7 +22,7 @@ void main(int argc, char** argv)
 	const auto& surface = file.toSurface();
 
 	POVFile pov;
-	if (!pov.write(output, surface)) {
+	if (!pov.writeInc(output, surface)) {
 		printf("failed");
 		return;
 	}
