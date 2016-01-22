@@ -82,7 +82,7 @@ bool STLFileReader::readASCII(std::istream& stream)
 
 	this->file = STLFile(cells, title);
 
-	return true;
+	return stream.good();
 }
 
 
@@ -125,7 +125,7 @@ bool STLFileReader::readBinary(std::istream& stream) {
 		cells.push_back(cell);
 	}
 	this->file = STLFile(cells, "");
-	return true;
+	return stream.good();
 }
 
 
@@ -159,7 +159,7 @@ bool STLFileWriter::writeASCII(std::ostream& stream)
 	}
 	stream << "endsolid" << std::endl;
 
-	return true;
+	return stream.good();
 }
 
 
@@ -193,8 +193,10 @@ bool STLFileWriter::writeBinary(std::ostream& stream)
 			stream.write((char *)&(p.front()), sizeof(float) * 3);
 		}
 		char padding[2];
+		padding[0] = '0';
+		padding[1] = '0';
 		stream.write(padding, sizeof(char) * 2);
 	}
 
-	return true;
+	return stream.good();
 }
