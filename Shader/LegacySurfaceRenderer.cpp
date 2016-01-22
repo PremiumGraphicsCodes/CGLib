@@ -25,7 +25,8 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	const auto& projectionMatrix = camera.getProjectionMatrix();
 	const auto& modelviewMatrix = camera.getModelviewMatrix();;
 
-	glLightfv(GL_LIGHT0, GL_POSITION, light.getPos().toArray3().data());
+	std::vector<float> lightPos = { light.getPos().getX(), light.getPos().getY(), light.getPos().getZ(), 1.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPos.data());
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
 
 
