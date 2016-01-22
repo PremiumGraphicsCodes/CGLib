@@ -11,14 +11,15 @@ void main(int argc, char** argv)
 		return;
 	}
 
-	std::string input(argv[1]);
-	std::string output(argv[2]);
+	std::string input = /*"../TestFile/IO/cube-binary.stl";*/ (argv[1]);
+	std::string output = /*"../TestFile/IO/cube.pov";*/ (argv[2]);
 	STLFileReader reader;
 	if (!reader.read(input)) {
 		printf("failed");
 		return;
 	}
-	const auto& surface = reader.getFile().toSurface();
+	const auto& file = reader.getFile();
+	const auto& surface = file.toSurface();
 
 	POVFile pov;
 	if (!pov.write(output, surface)) {
