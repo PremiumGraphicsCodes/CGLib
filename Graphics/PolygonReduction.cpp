@@ -19,6 +19,7 @@ float Vertex::computeCost()
 			this->cost = c;
 		}
 	}
+	return this->cost;
 }
 
 float Edge::computeCost() const
@@ -56,6 +57,40 @@ bool TriangleFace::hasVertex(const Vertex* v)
 	return std::find(vertices.begin(),vertices.end(), v) != vertices.end();
 }
 
+void TriangleFace::replaceVertex(Vertex* v1, Vertex* v2)
+{
+	auto pos = std::find(vertices.begin(), vertices.end(), v1);
+	*pos = v2;
+}
+
+TriangleMesh::~TriangleMesh()
+{
+	clear();
+}
+
+Vertex* TriangleMesh::createVertex()
+{
+	auto v = new Vertex;
+	vertices.push_back(v);
+	return v;
+}
+
+void TriangleMesh::clear()
+{
+	for (auto v : vertices) {
+		delete v;
+	}
+	vertices.clear();
+	for (auto e : edges) {
+		delete e;
+	}
+	edges.clear();
+	for (auto f : faces) {
+		delete f;
+	}
+	faces.clear();
+}
+
 
 void TriangleMesh::reduceTo(const int desired)
 {
@@ -80,6 +115,14 @@ void Edge::collapse()
 		if (face->hasVertex(v1)) {
 			delete face;
 		}
+	}
+	for (std::list<TriangleFace*>::reverse_iterator iter = faces.rbegin(); iter != faces.rend(); iter++) {
+		auto face = *iter;
+		face->replaceVertex(v1, v2);
+	}
+	delete v1;
+	for (auto n : neighbors) {
+		n->computeCost();
 	}
 }
 

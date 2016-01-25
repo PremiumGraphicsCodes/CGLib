@@ -34,6 +34,7 @@
     <ClCompile Include="LineBufferTest.cpp" />
     <ClCompile Include="OrthogonalCameraTest.cpp" />
     <ClCompile Include="PerspectiveCameraTest.cpp" />
+    <ClCompile Include="PolygonReductionTest.cpp" />
     <ClCompile Include="SurfaceTest.cpp" />
     <ClCompile Include="TriangleBufferTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />

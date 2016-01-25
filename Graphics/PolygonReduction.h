@@ -59,6 +59,8 @@ public:
 
 	Math::Vector3d<float> getNormal() { return normal; }
 
+	void replaceVertex(Vertex* v1, Vertex* v2);
+
 private:
 				
 	std::array<Vertex*, 3> vertices;
@@ -69,8 +71,19 @@ private:
 class TriangleMesh
 {
 public:
+	~TriangleMesh();
+
+	void clear();
+
 	void reduceTo(const int desired);
 
+	Vertex* createVertex();
+
+	/*
+		vertices.push_back( )
+		return
+		new Vertex(); }
+		*/
 
 private:
 	Edge* getMinimunCostEdge();
