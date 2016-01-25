@@ -9,59 +9,76 @@ namespace Crystal {
 	namespace Graphics {
 		namespace Experiment {
 
-			class TriangleFace;
+class TriangleFace;
 
-			class Vertex
-			{
-			public:
-				Math::Vector3d<float> getPosition() const { return position; }
+class Vertex
+{
+public:
+	Math::Vector3d<float> getPosition() const { return position; }
 				
-				std::list< TriangleFace* > getFaces() const { return faces; }
+	std::list< TriangleFace* > getFaces() const { return faces; }
 
-			private:
-				std::list<TriangleFace*> faces;
+	float computeCost();
 
-				Math::Vector3d<float> position;
-			};
+	std::list<Vertex*> getNeighbors() const { return neighbors; }
 
-			class Edge
-			{
-			public:
-				Edge(Vertex* v1, Vertex* v2) : v1(v1), v2(v2), cost(100000)
-				{}
+private:
+	std::list<TriangleFace*> faces;
+	std::list<Vertex*> neighbors;
+	Vertex* collapse;
+	float cost;
 
-				float computeCost();
+	Math::Vector3d<float> position;
+};
 
-				float getLength() const;
+class Edge
+{
+public:
+	Edge(Vertex* v1, Vertex* v2) : v1(v1), v2(v2)
+	{}
 
+	float computeCost() const;
 
-			private:
-				Vertex* v1;
-				Vertex* v2;
-				float cost;
-			};
+	float getLength() const;
 
-			class TriangleFace
-			{
-			public:
-				bool hasVertex(const Vertex* v);
+	void collapse();
 
-			private:
+	Vertex* getV1() const { return v1; }
+
+	Vertex* getV2() const { return v2; }
+
+private:
+	Vertex* v1;
+	Vertex* v2;
+};
+
+class TriangleFace
+{
+public:
+	bool hasVertex(const Vertex* v);
+
+	Math::Vector3d<float> getNormal() { return normal; }
+
+private:
 				
-				std::array<Vertex*, 3> vertices;
-			};
+	std::array<Vertex*, 3> vertices;
 
-			class TriangleMesh
-			{
-			public:
-				void reduceTo(const int desired);
-			private:
-				Edge* getMinimunCostEdge();
+	Math::Vector3d<float> normal;
+};
 
-				std::list<Vertex*> vertices;
-				std::list<Edge*> edges;
-				std::list<TriangleFace*> triangles;
-			};
+class TriangleMesh
+{
+public:
+	void reduceTo(const int desired);
+
+
+private:
+	Edge* getMinimunCostEdge();
+
+	std::list<Vertex*> vertices;
+	std::list<Edge*> edges;
+	std::list<TriangleFace*> faces;
+};
 
 		}
 	}
