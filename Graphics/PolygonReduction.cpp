@@ -5,6 +5,7 @@ using namespace Crystal::Graphics::Experiment;
 
 float Vertex::computeCost()
 {
+	const auto& neighbors = getNeighbors();
 	if (neighbors.empty()) {
 		this->collapse = nullptr;
 		return 0.0f;
@@ -21,6 +22,18 @@ float Vertex::computeCost()
 	}
 	return this->cost;
 }
+
+std::list<Vertex*> Vertex::getNeighbors() const
+{
+	std::list<Vertex*> neigbors;
+	for (auto f : faces) {
+		neigbors.push_back(f->getVertices()[0]);
+		neigbors.push_back(f->getVertices()[1]);
+		neigbors.push_back(f->getVertices()[2]);
+	}
+	return neigbors;
+}
+
 
 namespace {
 	int toHash(const Vector3d<float>& pos)
@@ -82,6 +95,17 @@ bool TriangleFace::hasVertex(const Vertex* v)
 {
 	return std::find(vertices.begin(),vertices.end(), v) != vertices.end();
 }
+
+bool TriangleFace::isNeighbor(const TriangleFace& rhs)
+{
+	for (const auto& v : rhs.getVertices()) {
+		if (hasVertex(v)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 
 void TriangleFace::replaceVertex(Vertex* v1, Vertex* v2)
 {

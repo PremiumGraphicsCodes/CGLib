@@ -28,11 +28,10 @@ public:
 
 	float computeCost();
 
-	std::list<Vertex*> getNeighbors() const { return neighbors; }
+	std::list<Vertex*> getNeighbors() const;
 
 private:
 	std::list<TriangleFace*> faces;
-	std::list<Vertex*> neighbors;
 	Vertex* collapse;
 	float cost;
 
@@ -71,11 +70,15 @@ public:
 		}
 	}
 
+	std::array<Vertex*, 3> getVertices() const { return vertices; }
+
 	bool hasVertex(const Vertex* v);
 
 	Math::Vector3d<float> getNormal() { return normal; }
 
 	void replaceVertex(Vertex* v1, Vertex* v2);
+
+	bool isNeighbor(const TriangleFace& rhs);
 
 private:
 	std::array<Vertex*, 3> vertices;

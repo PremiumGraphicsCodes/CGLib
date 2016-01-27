@@ -35,7 +35,10 @@ TEST(PolygonReductionTest, TestCreateFacesVertices)
 
 	EXPECT_TRUE(f1->hasVertex(v1));
 	EXPECT_FALSE(f1->hasVertex(v5));
+	EXPECT_FALSE(f1->isNeighbor(*f2));
+
 	f1->replaceVertex(v1, v5);
+	EXPECT_TRUE(f1->isNeighbor(*f2));
 
 	EXPECT_FALSE(f1->hasVertex(v1));
 	EXPECT_TRUE(f1->hasVertex(v5));
@@ -53,6 +56,16 @@ TEST(PolygonReductionTest, TestTriangleFace)
 	EXPECT_EQ(&f, v2.getFaces().front());
 	EXPECT_EQ(&f, v3.getFaces().front());
 
+}
+
+TEST(PolygonReductionTest, TestComputeCost)
+{
+	Vertex v1(Vector3d<float>(0, 0, 0));
+	Vertex v2(Vector3d<float>(1, 0, 0));
+	Vertex v3(Vector3d<float>(0, 1, 0));
+
+	TriangleFace f({ &v1,&v2,&v3 });
+	auto actual = v1.computeCost();
 }
 
 //
