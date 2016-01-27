@@ -2,6 +2,7 @@
 #define __CRYSTAL_GRAPHICS_POLYGON_REDUCTION_H__
 
 #include "../Math/Vector3d.h"
+#include "../Util/UnCopyable.h"
 #include <list>
 #include <array>
 
@@ -48,7 +49,7 @@ private:
 	Math::Vector3d<float> normal;
 };
 
-class TriangleMesh
+class TriangleMesh : private UnCopyable
 {
 public:
 	~TriangleMesh();
@@ -62,6 +63,14 @@ public:
 	TriangleFace* createFace(const std::array< Vertex*, 3 > & vertices);
 
 	std::list<Vertex*> getVertices() const { return vertices; }
+
+	TriangleMesh* clone() {
+		auto newMesh = new TriangleMesh;
+		newMesh->vertices = this->vertices;
+		newMesh->faces = this->faces;
+		this->vertices.clear();
+		this->faces.clear();
+	}
 
 private:
 

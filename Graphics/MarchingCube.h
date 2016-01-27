@@ -34,7 +34,7 @@ namespace Crystal {
 
 		void march(const Math::Volume3d<float, float>& volume, const float isolevel);
 
-		TriangleMesh getMesh() const { return mesh; }
+		TriangleMesh* getMesh() { return mesh.clone(); }
 
 	private:
 		Math::MarchingCubeTable table;
