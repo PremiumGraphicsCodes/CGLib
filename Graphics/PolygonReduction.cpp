@@ -22,6 +22,32 @@ float Vertex::computeCost()
 	return this->cost;
 }
 
+namespace {
+	int toHash(const Vector3d<float>& pos)
+	{
+		const int p1 = 73856093;
+		const int p2 = 19349663;
+		const int p3 = 83492791;
+		const int hashTableSize = 10000;
+		const int x = static_cast<int>(pos.getX() * p1);
+		const int y = static_cast<int>(pos.getY() * p2);
+		const int z = static_cast<int>(pos.getZ() * p3);
+		return  (x^y^z) % hashTableSize;
+	}
+
+	bool compare(Vertex* lhs, Vertex* rhs)
+	{
+		const auto h1 = toHash(lhs->getPosition());
+		const auto h2 = toHash(rhs->getPosition());
+		return h1 < h2;
+	}
+
+	bool isSamePosition(Vertex* lhs, Vertex* rhs)
+	{
+		return lhs->getPosition() == rhs->getPosition();
+	}
+}
+
 float Edge::computeCost() const
 {
 	float curvature = 0.0f;
@@ -68,11 +94,18 @@ TriangleMesh::~TriangleMesh()
 	clear();
 }
 
-Vertex* TriangleMesh::createVertex()
+Vertex* TriangleMesh::createVertex(const Vector3d<float>& position)
 {
-	auto v = new Vertex;
+	auto v = new Vertex(position);
 	vertices.push_back(v);
 	return v;
+}
+
+TriangleFace* TriangleMesh::createFace(const std::array< Vertex*, 3>& vertices)
+{
+	auto f = new TriangleFace(vertices);
+	faces.push_back(f);
+	return f;
 }
 
 void TriangleMesh::clear()
@@ -89,6 +122,17 @@ void TriangleMesh::clear()
 		delete f;
 	}
 	faces.clear();
+}
+
+void TriangleMesh::removeOverlappedVerticies()
+{
+	vertices.sort(compare);
+	vertices.unique(isSamePosition);
+	/*
+	for (auto v : vertices) {
+		v->getPo
+	}
+	*/
 }
 
 

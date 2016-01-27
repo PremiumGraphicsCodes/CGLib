@@ -9,11 +9,21 @@ namespace Crystal {
 	namespace Graphics {
 		namespace Experiment {
 
+class Vertex;
 class TriangleFace;
+
+class SpaceHash {
+public:
+	std::list<Vertex*> vertices;
+};
 
 class Vertex
 {
 public:
+	Vertex(const Math::Vector3d<float>& position) :
+		position(position)
+	{}
+
 	Math::Vector3d<float> getPosition() const { return position; }
 				
 	std::list< TriangleFace* > getFaces() const { return faces; }
@@ -55,6 +65,10 @@ private:
 class TriangleFace
 {
 public:
+	TriangleFace(std::array<Vertex*, 3> vertices) :
+		vertices(vertices)
+	{}
+
 	bool hasVertex(const Vertex* v);
 
 	Math::Vector3d<float> getNormal() { return normal; }
@@ -62,7 +76,6 @@ public:
 	void replaceVertex(Vertex* v1, Vertex* v2);
 
 private:
-				
 	std::array<Vertex*, 3> vertices;
 
 	Math::Vector3d<float> normal;
@@ -75,9 +88,15 @@ public:
 
 	void clear();
 
+	void removeOverlappedVerticies();
+
 	void reduceTo(const int desired);
 
-	Vertex* createVertex();
+	Vertex* createVertex(const Math::Vector3d<float>& position);
+
+	TriangleFace* createFace(const std::array< Vertex*, 3>& vertices);
+
+	std::list<Vertex*> getVertices() const { return vertices; }
 
 	/*
 		vertices.push_back( )
