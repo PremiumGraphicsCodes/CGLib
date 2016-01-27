@@ -4,6 +4,7 @@
 #include "../Math/Vector3d.h"
 #include <list>
 #include <array>
+#include <memory>
 
 namespace Crystal {
 	namespace Graphics {
@@ -26,14 +27,8 @@ public:
 				
 	std::list< TriangleFace* > getFaces() const { return faces; }
 
-	float computeCost();
-
-	std::list<Vertex*> getNeighbors() const;
-
 private:
 	std::list<TriangleFace*> faces;
-	Vertex* collapse;
-	float cost;
 
 	Math::Vector3d<float> position;
 };
@@ -41,28 +36,24 @@ private:
 class Edge
 {
 public:
-	Edge(Vertex* v1, Vertex* v2) : v1(v1), v2(v2)
+	Edge(std::shared_ptr<Vertex> v1, std::shared_ptr<Vertex> v2) : v1(v1), v2(v2)
 	{}
-
-	float computeCost() const;
 
 	float getLength() const;
 
-	void collapse();
+	std::shared_ptr<Vertex> getV1() const { return v1; }
 
-	Vertex* getV1() const { return v1; }
-
-	Vertex* getV2() const { return v2; }
+	std::shared_ptr<Vertex> getV2() const { return v2; }
 
 private:
-	Vertex* v1;
-	Vertex* v2;
+	std::shared_ptr<Vertex> v1;
+	std::shared_ptr<Vertex> v2;
 };
 
 class TriangleFace
 {
 public:
-	TriangleFace(std::array<Vertex*, 3> vertices) :
+	TriangleFace(std::array<std::shared_ptr<Vertex>, 3> vertices) :
 		vertices(vertices)
 	{
 		for (auto v : vertices) {
@@ -70,18 +61,16 @@ public:
 		}
 	}
 
-	std::array<Vertex*, 3> getVertices() const { return vertices; }
+	std::array<std::shared_ptr<Vertex>, 3> getVertices() const { return vertices; }
 
-	bool hasVertex(const Vertex* v);
+	bool hasVertex(const std::shared_ptr<Vertex>& v);
 
 	Math::Vector3d<float> getNormal() { return normal; }
 
-	void replaceVertex(Vertex* v1, Vertex* v2);
-
-	bool isNeighbor(const TriangleFace& rhs);
+	void replaceVertex(std::shared_ptr<Vertex> v1, std::shared_ptr<Vertex> v2);
 
 private:
-	std::array<Vertex*, 3> vertices;
+	std::array<std::shared_ptr<Vertex>, 3> vertices;
 
 	Math::Vector3d<float> normal;
 };
@@ -97,11 +86,11 @@ public:
 
 	void reduceTo(const int desired);
 
-	Vertex* createVertex(const Math::Vector3d<float>& position);
+	std::shared_ptr<Vertex> createVertex(const Math::Vector3d<float>& position);
 
-	TriangleFace* createFace(const std::array< Vertex*, 3>& vertices);
+	std::shared_ptr<TriangleFace> createFace(const std::array< std::shared_ptr<Vertex>, 3>& vertices);
 
-	std::list<Vertex*> getVertices() const { return vertices; }
+	std::list<std::shared_ptr< Vertex> > getVertices() const { return vertices; }
 
 	/*
 		vertices.push_back( )
@@ -110,11 +99,10 @@ public:
 		*/
 
 private:
-	Edge* getMinimunCostEdge();
 
-	std::list<Vertex*> vertices;
-	std::list<Edge*> edges;
-	std::list<TriangleFace*> faces;
+	std::list<std::shared_ptr<Vertex>> vertices;
+	std::list<std::shared_ptr<Edge>> edges;
+	std::list<std::shared_ptr<TriangleFace>> faces;
 };
 
 		}

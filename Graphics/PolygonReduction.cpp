@@ -3,37 +3,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics::Experiment;
 
-float Vertex::computeCost()
-{
-	const auto& neighbors = getNeighbors();
-	if (neighbors.empty()) {
-		this->collapse = nullptr;
-		return 0.0f;
-	}
-	cost = 100000;
-	this->collapse = nullptr;
-	for (auto v : neighbors) {
-		const auto e = Edge(this, v);
-		const auto c = e.computeCost();
-		if (c < this->cost) {
-			this->collapse = v;
-			this->cost = c;
-		}
-	}
-	return this->cost;
-}
-
-std::list<Vertex*> Vertex::getNeighbors() const
-{
-	std::list<Vertex*> neigbors;
-	for (auto f : faces) {
-		neigbors.push_back(f->getVertices()[0]);
-		neigbors.push_back(f->getVertices()[1]);
-		neigbors.push_back(f->getVertices()[2]);
-	}
-	return neigbors;
-}
-
 
 namespace {
 	int toHash(const Vector3d<float>& pos)
@@ -48,66 +17,33 @@ namespace {
 		return  (x^y^z) % hashTableSize;
 	}
 
-	bool compare(Vertex* lhs, Vertex* rhs)
+	bool compare(std::shared_ptr<Vertex> lhs, std::shared_ptr<Vertex> rhs)
 	{
 		const auto h1 = toHash(lhs->getPosition());
 		const auto h2 = toHash(rhs->getPosition());
 		return h1 < h2;
 	}
 
-	bool isSamePosition(Vertex* lhs, Vertex* rhs)
+	bool isSamePosition(std::shared_ptr<Vertex> lhs, std::shared_ptr<Vertex> rhs)
 	{
 		return lhs->getPosition() == rhs->getPosition();
 	}
 }
 
-float Edge::computeCost() const
-{
-	float curvature = 0.0f;
-
-	std::list<TriangleFace*> sides;
-	const auto& faces = v1->getFaces();
-	for (auto f : faces) {
-		if (f->hasVertex(v2)) {
-			sides.push_back(f);
-		}
-	}
-
-	for (auto f1 : faces) {
-		float minCurvature = 1.0f;
-		for (auto& f2 : sides) {
-			const float innerProduct = f1->getNormal().getInnerProduct(f2->getNormal());
-			minCurvature = std::min<float>(minCurvature, (1.0f - innerProduct) / 2.0f);
-		}
-		curvature = std::max<float>(curvature, minCurvature);
-	}
-
-	float length = getLength();
-	return length * curvature;
-}
 
 float Edge::getLength() const
 {
 	return v2->getPosition().getDistance( v1->getPosition() );
 }
 
-bool TriangleFace::hasVertex(const Vertex* v)
+bool TriangleFace::hasVertex(const std::shared_ptr<Vertex>& v)
 {
 	return std::find(vertices.begin(),vertices.end(), v) != vertices.end();
 }
 
-bool TriangleFace::isNeighbor(const TriangleFace& rhs)
-{
-	for (const auto& v : rhs.getVertices()) {
-		if (hasVertex(v)) {
-			return true;
-		}
-	}
-	return false;
-}
 
 
-void TriangleFace::replaceVertex(Vertex* v1, Vertex* v2)
+void TriangleFace::replaceVertex(std::shared_ptr<Vertex> v1, std::shared_ptr<Vertex> v2)
 {
 	auto pos = std::find(vertices.begin(), vertices.end(), v1);
 	*pos = v2;
@@ -118,36 +54,27 @@ TriangleMesh::~TriangleMesh()
 	clear();
 }
 
-Vertex* TriangleMesh::createVertex(const Vector3d<float>& position)
+std::shared_ptr<Vertex> TriangleMesh::createVertex(const Vector3d<float>& position)
 {
-	auto v = new Vertex(position);
+	auto v = std::make_shared< Vertex >(position);
 	vertices.push_back(v);
 	return v;
 }
 
-TriangleFace* TriangleMesh::createFace(const std::array< Vertex*, 3>& vertices)
+std::shared_ptr<TriangleFace> TriangleMesh::createFace(const std::array< std::shared_ptr<Vertex>, 3>& vertices)
 {
-	auto f = new TriangleFace(vertices);
+	auto f = std::make_shared< TriangleFace >(vertices);
 	faces.push_back(f);
-	edges.push_back(new Edge(vertices[0], vertices[1]));
-	edges.push_back(new Edge(vertices[1], vertices[2]));
-	edges.push_back(new Edge(vertices[2], vertices[0]));
+	edges.push_back(std::make_shared<Edge>(vertices[0], vertices[1]));
+	edges.push_back(std::make_shared<Edge>(vertices[1], vertices[2]));
+	edges.push_back(std::make_shared<Edge>(vertices[2], vertices[0]));
 	return f;
 }
 
 void TriangleMesh::clear()
 {
-	for (auto v : vertices) {
-		delete v;
-	}
 	vertices.clear();
-	for (auto e : edges) {
-		delete e;
-	}
 	edges.clear();
-	for (auto f : faces) {
-		delete f;
-	}
 	faces.clear();
 }
 
@@ -160,53 +87,4 @@ void TriangleMesh::removeOverlappedVerticies()
 		v->getPo
 	}
 	*/
-}
-
-
-void TriangleMesh::reduceTo(const int desired)
-{
-	while (vertices.size() > desired) {
-		Edge* e = getMinimunCostEdge();
-		e->collapse();
-	}
-}
-
-void Edge::collapse()
-{
-	if (!v2) {
-		auto v1 = this->v1;
-		delete v1;
-		return;
-	}
-
-	auto neighbors = v1->getNeighbors();
-	auto faces = v1->getFaces();
-	for (std::list<TriangleFace*>::reverse_iterator iter = faces.rbegin(); iter != faces.rend(); iter++) {
-		auto face = *iter;
-		if (face->hasVertex(v1)) {
-			delete face;
-		}
-	}
-	for (std::list<TriangleFace*>::reverse_iterator iter = faces.rbegin(); iter != faces.rend(); iter++) {
-		auto face = *iter;
-		face->replaceVertex(v1, v2);
-	}
-	delete v1;
-	for (auto n : neighbors) {
-		n->computeCost();
-	}
-}
-
-Edge* TriangleMesh::getMinimunCostEdge()
-{
-	float minCost = 100000;
-	Edge* minCostEdge = edges.front();
-	for (auto e : edges) {
-		auto c = e->computeCost();
-		if (c < minCost) {
-			minCostEdge = e;
-			minCost = c;
-		}
-	}
-	return minCostEdge;
 }

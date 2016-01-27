@@ -30,14 +30,9 @@ namespace Crystal {
 			table.buildTriangleTable();
 		}
 
-		static MarchingCube* getInstance() {
-			static MarchingCube instance;
-			return &instance;
-		}
-
 		~MarchingCube() = default;
 
-		void march(const Math::Volume3d<float, float>& ss, const float isolevel) const;
+		void march(const Math::Volume3d<float, float>& volume, const float isolevel) const;
 
 		TriangleMesh getMesh() const { return mesh; }
 
@@ -45,13 +40,13 @@ namespace Crystal {
 		Math::MarchingCubeTable table;
 		TriangleMesh mesh;
 
-		void build(const Math::VolumeCell3d<float, float>& cell, const float isolevel) const;
+		std::vector<TriangleFace> build(const Math::VolumeCell3d<float, float>& cell, const float isolevel);
 
-		void build(const int cubeindex, const std::array<Math::Vector3d<float>, 12>& vertices) const;
+		std::vector<TriangleFace> build(const int cubeindex, const std::array<std::shared_ptr<Vertex>, 12>& vertices);
 
 		int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;
 
-		std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const Math::VolumeCell3d<float, float>& cell, const float isolevel) const;
+		std::array< std::shared_ptr<Vertex>, 12 > getPositions(const int cubeindex, const Math::VolumeCell3d<float, float>& cell, const float isolevel);
 
 	};
 		}
