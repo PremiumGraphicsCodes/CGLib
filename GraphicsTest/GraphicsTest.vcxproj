@@ -32,6 +32,7 @@
     <ClCompile Include="ImageTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
     <ClCompile Include="LineBufferTest.cpp" />
+    <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="OrthogonalCameraTest.cpp" />
     <ClCompile Include="PerspectiveCameraTest.cpp" />
     <ClCompile Include="PolygonReductionTest.cpp" />
