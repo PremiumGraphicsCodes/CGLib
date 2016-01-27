@@ -9,7 +9,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics::Experiment;
 
-void MarchingCube::march(const Volume3d<float, float>& volume, const float isolevel) const
+void MarchingCube::march(const Volume3d<float, float>& volume, const float isolevel)
 {
 	const auto& grid = volume.getGrid();
 	//std::vector<Triangle<GeomType>> triangles;
@@ -18,7 +18,7 @@ void MarchingCube::march(const Volume3d<float, float>& volume, const float isole
 			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
 				if (grid.isBoundary(x, y, z, isolevel)) {
 					const auto& cell = volume.toCell(Index3d{ x, y, z });
-					//const auto& ts = build(cell, isolevel);
+					build(cell, isolevel);
 					//triangles.insert(triangles.end(), ts.begin(), ts.end());
 				}
 			}
@@ -27,27 +27,23 @@ void MarchingCube::march(const Volume3d<float, float>& volume, const float isole
 
 }
 
-std::vector<TriangleFace> MarchingCube::build(const VolumeCell3d<float, float>& cell, const float isolevel)
+void MarchingCube::build(const VolumeCell3d<float, float>& cell, const float isolevel)
 {
 	std::vector<TriangleFace> triangles;
 	const int cubeindex = getCubeIndex(cell.getValues(), isolevel);
-	const auto& vertices = getPositions(cubeindex, cell, isolevel);
-	return std::move(build(cubeindex, vertices));
+	const auto& vertices = createVertices(cubeindex, cell, isolevel);
+	build(cubeindex, vertices);
 }
 
-std::vector<TriangleFace> MarchingCube::build(const int cubeindex, const std::array<std::shared_ptr<Vertex>, 12>& vertices)
+void MarchingCube::build(const int cubeindex, const std::array<Vertex*, 12>& vertices)
 {
-	std::vector<TriangleFace> triangles;
 	const auto& triTable = table.getTriangleTable();
 	for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
 		const auto v1 = vertices[triTable[cubeindex][i]];
 		const auto v2 = vertices[triTable[cubeindex][i + 1]];
 		const auto v3 = vertices[triTable[cubeindex][i + 2]];
-		TriangleFace t({ v1, v2, v3 });
-		triangles.emplace_back(t);
+		mesh.createFace({ v1, v2, v3 });
 	}
-
-	return std::move(triangles);
 }
 
 int MarchingCube::getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const
@@ -64,9 +60,9 @@ int MarchingCube::getCubeIndex(const std::array< float, 8 >& val, const float is
 	return static_cast<int>(bit.to_ulong());
 }
 
-std::array< std::shared_ptr<Vertex>, 12 > MarchingCube::getPositions(const int cubeindex, const VolumeCell3d<float, float>& cell, const float isolevel)
+std::array< Vertex*, 12 > MarchingCube::createVertices(const int cubeindex, const VolumeCell3d<float, float>& cell, const float isolevel)
 {
-	std::array< std::shared_ptr<Vertex>, 12 > vertices;
+	std::array< Vertex*, 12 > vertices;
 	const auto& pvs = cell.toPositionValues();
 	const auto& edgeTable = table.getEdgeTable();
 	if (edgeTable[cubeindex][0]) {

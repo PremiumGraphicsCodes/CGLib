@@ -32,7 +32,7 @@ namespace Crystal {
 
 		~MarchingCube() = default;
 
-		void march(const Math::Volume3d<float, float>& volume, const float isolevel) const;
+		void march(const Math::Volume3d<float, float>& volume, const float isolevel);
 
 		TriangleMesh getMesh() const { return mesh; }
 
@@ -40,13 +40,13 @@ namespace Crystal {
 		Math::MarchingCubeTable table;
 		TriangleMesh mesh;
 
-		std::vector<TriangleFace> build(const Math::VolumeCell3d<float, float>& cell, const float isolevel);
+		void build(const Math::VolumeCell3d<float, float>& cell, const float isolevel);
 
-		std::vector<TriangleFace> build(const int cubeindex, const std::array<std::shared_ptr<Vertex>, 12>& vertices);
+		void build(const int cubeindex, const std::array<Vertex*, 12>& vertices);
 
 		int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;
 
-		std::array< std::shared_ptr<Vertex>, 12 > getPositions(const int cubeindex, const Math::VolumeCell3d<float, float>& cell, const float isolevel);
+		std::array< Vertex*, 12 > createVertices(const int cubeindex, const Math::VolumeCell3d<float, float>& cell, const float isolevel);
 
 	};
 		}
