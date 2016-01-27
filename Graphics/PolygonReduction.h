@@ -12,10 +12,6 @@ namespace Crystal {
 class Vertex;
 class TriangleFace;
 
-class SpaceHash {
-public:
-	std::list<Vertex*> vertices;
-};
 
 class Vertex
 {
@@ -23,6 +19,8 @@ public:
 	Vertex(const Math::Vector3d<float>& position) :
 		position(position)
 	{}
+
+	void addFace(TriangleFace* face) { this->faces.push_back(face); }
 
 	Math::Vector3d<float> getPosition() const { return position; }
 				
@@ -67,7 +65,11 @@ class TriangleFace
 public:
 	TriangleFace(std::array<Vertex*, 3> vertices) :
 		vertices(vertices)
-	{}
+	{
+		for (auto v : vertices) {
+			v->addFace(this);
+		}
+	}
 
 	bool hasVertex(const Vertex* v);
 

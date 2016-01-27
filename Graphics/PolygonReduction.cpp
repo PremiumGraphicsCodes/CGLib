@@ -105,6 +105,9 @@ TriangleFace* TriangleMesh::createFace(const std::array< Vertex*, 3>& vertices)
 {
 	auto f = new TriangleFace(vertices);
 	faces.push_back(f);
+	edges.push_back(new Edge(vertices[0], vertices[1]));
+	edges.push_back(new Edge(vertices[1], vertices[2]));
+	edges.push_back(new Edge(vertices[2], vertices[0]));
 	return f;
 }
 
@@ -138,7 +141,7 @@ void TriangleMesh::removeOverlappedVerticies()
 
 void TriangleMesh::reduceTo(const int desired)
 {
-	while (vertices.size() < desired) {
+	while (vertices.size() > desired) {
 		Edge* e = getMinimunCostEdge();
 		e->collapse();
 	}
