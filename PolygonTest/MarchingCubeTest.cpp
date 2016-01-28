@@ -23,6 +23,10 @@ TEST(MarchingCubeTest, TestMarchScalarSpace)
 
 TEST(MCGridTest, Test)
 {
-	MCGrid grid(2, 2, 2, 0.5);
-	grid.set(0, 0, 0, Vector3d<float>(0.5, 0.5, 0.5), 1.0);
+	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(2,2,2));
+	Grid3d<float> grid(2, 2, 2);
+	grid.set(0, 0, 0, 1);
+
+	Volume3d<float, float> volume(space, grid);
+	MCGrid mcgrid(volume, 0.5);
 }

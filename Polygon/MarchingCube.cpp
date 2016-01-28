@@ -46,28 +46,52 @@ void MarchingCube::build(const MCCell& cell, const float isolevel)
 }
 */
 
-void MCGrid::createEdges() {
+MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
+	sizeX(volume.getGrid().getSizeX()),
+	sizeY(volume.getGrid().getSizeY()),
+	sizeZ(volume.getGrid().getSizeZ()),
+	threshold(threshold)
+{
+	
+	grid.resize(sizeX);
 	for (int i = 0; i < sizeX; ++i) {
+		grid[i].resize(sizeY);
 		for (int j = 0; j < sizeY; ++j) {
+			grid[i][j].resize(sizeZ);
 			for (int k = 0; k < sizeZ; ++k) {
+				const auto& pos = volume.toCenterPosition(i,j,k);
+				const auto value = volume.getGrid().get(i, j, k);
+				grid[i][j][k] = MCCell(pos, value);
+			}
+		}
+	}
+	createEdges();
+	createVertices();
+}
+
+
+void MCGrid::createEdges() {
+	for (int i = 0; i < sizeX-1; ++i) {
+		for (int j = 0; j < sizeY-1; ++j) {
+			for (int k = 0; k < sizeZ-1; ++k) {
 				if (isUnderThreshold(i, j, k) != isUnderThreshold(i + 1, j, k)) {
-					edges.push_back(MCEdge(grid[i][j][k], grid[i + 1][j][k]));
+					edges.push_back(MCEdge(&grid[i][j][k], &grid[i + 1][j][k]));
 					//gridEdges.push_back()
 				}
 				if (isUnderThreshold(i, j, k) != isUnderThreshold(i, j + 1, k)) {
-					edges.push_back(MCEdge(grid[i][j][k], grid[i][j + 1][k]));
+					edges.push_back(MCEdge(&grid[i][j][k], &grid[i][j + 1][k]));
 				}
 				if (isUnderThreshold(i, j, k) != isUnderThreshold(i, j, k + 1)) {
-					edges.push_back(MCEdge(grid[i][j][k], grid[i][j][k + 1]));
+					edges.push_back(MCEdge(&grid[i][j][k], &grid[i][j][k + 1]));
 				}
 				if (isUnderThreshold(i, j, k) != isUnderThreshold(i + 1, j + 1, k)) {
-					edges.push_back(MCEdge(grid[i][j][k], grid[i + 1][j + 1][k]));
+					edges.push_back(MCEdge(&grid[i][j][k], &grid[i + 1][j + 1][k]));
 				}
 				if (isUnderThreshold(i, j, k) != isUnderThreshold(i, j + 1, k + 1)) {
-					edges.push_back(MCEdge(grid[i][j][k], grid[i][j + 1][k + 1]));
+					edges.push_back(MCEdge(&grid[i][j][k], &grid[i][j + 1][k + 1]));
 				}
 				if (isUnderThreshold(i, j, k) != isUnderThreshold(i + 1, j + 1, k + 1)) {
-					edges.push_back(MCEdge(grid[i][j][k], grid[i + 1][j + 1][k + 1]));
+					edges.push_back(MCEdge(&grid[i][j][k], &grid[i + 1][j + 1][k + 1]));
 				}
 
 			}
@@ -75,11 +99,11 @@ void MCGrid::createEdges() {
 	}
 }
 
-std::vector< Vector3d<float> > MCGrid::createVertices(float isolevel)
+std::vector< Vector3d<float> > MCGrid::createVertices()
 {
 	std::vector< Vector3d<float> > vertices;
 	for (const auto& e : edges) {
-		 vertices.push_back( e.getInterpolatedPosition(isolevel) );
+		 vertices.push_back( e.getInterpolatedPosition(threshold) );
 	}
 	return vertices;
 }

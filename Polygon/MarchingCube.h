@@ -60,44 +60,10 @@ public:
 class MCGrid
 {
 public:
-	MCGrid(const int x, const int y, const int z, const float threshold) :
-		sizeX(x),
-		sizeY(y),
-		sizeZ(z),
-		threshold( threshold )
-	{
-		grid.resize(x);
-		for (int i = 0; i < x; ++i) {
-			grid[i].resize(y);
-			for (int j = 0; j < y; ++j) {
-				grid[i][j].resize(z);
-				for (int k = 0; k < z; ++k) {
-					grid[i][j][k] = nullptr;
-				}
-			}
-		}
-	}
-
-	~MCGrid() {
-		for (int i = 0; i < grid.size(); ++i) {
-			for (int j = 0; j < grid[i].size(); ++j) {
-				for (int k = 0; k < grid[j].size(); ++k) {
-					delete grid[i][j][k];
-				}
-			}
-		}
-
-	}
-
-	void set(int x, int y, int z, const Math::Vector3d<float>& pos, const float value) {
-		grid[x][y][z] = new MCCell(pos, value);
-	}
+	MCGrid(const Math::Volume3d<float,float>& volume, const float threshold);
 
 	float getValue(int x, int y, int z) const {
-		if (grid[x][y][z] == nullptr) {
-			return 0.0f;
-		}
-		return grid[x][y][z]->getValue();
+		return grid[x][y][z].getValue();
 	}
 
 	bool isUnderThreshold(int x, int y, int z) const {
@@ -127,11 +93,11 @@ public:
 
 	void createEdges();
 
-	std::vector< Math::Vector3d<float> > createVertices(const float isolevel);
+	std::vector< Math::Vector3d<float> > createVertices();
 
 
 private:
-	std::vector< std::vector< std::vector< MCCell* > > > grid;
+	std::vector< std::vector< std::vector< MCCell > > > grid;
 	std::vector < std::vector< std::vector< std::list<MCEdge*>> > > gridEdges;
 	std::vector<MCEdge> edges;
 	const int sizeX;
