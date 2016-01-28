@@ -6,7 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-
+/*
 TEST(MarchingCubeTest, TestMarchScalarSpace)
 {
 	MarchingCube mc;
@@ -17,5 +17,12 @@ TEST(MarchingCubeTest, TestMarchScalarSpace)
 	grid.set(1, 0, 0, 0.8f);
 	Volume3d<float, float> ss(s, grid);
 
-	mc.march(ss, 0.5);
+	//mc.march(ss, 0.5);
+}
+*/
+
+TEST(MCGridTest, Test)
+{
+	MCGrid grid(2, 2, 2, 0.5);
+	grid.set(0, 0, 0, Vector3d<float>(0.5, 0.5, 0.5), 1.0);
 }

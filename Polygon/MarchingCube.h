@@ -19,105 +19,149 @@ namespace Crystal {
 
 	namespace Polygon {
 
-	class MCCube {
-	public:
-		MCCube(const std::array< float, 8 >& val, const float isolevel);
+class MCCell {
+public:
+	MCCell() {
+	}
 
-	public:
-		std::bitset<8> getBit() const { return bit; }
+	MCCell(const Math::Vector3d<float>& position, float value):
+		position( position),
+		value(value)
+	{}
 
-	private:
+	Math::Vector3d<float> getPosition() const { return position; }
+
+	float getValue() const { return value; }
+
+private:
+	Math::Vector3d<float> position;
+	float value;
+};
+
+class MCEdge {
+public:
+	MCEdge(MCCell* cell1, MCCell* cell2) :
+		v1(cell1),
+		v2(cell2)
+	{}
+
+	Math::Vector3d<float> getInterpolatedPosition(const float value) const
+	{
+		const float scale = (value - v1->getValue()) / (v2->getValue() - v1->getValue());
+		return v1->getPosition() + scale * (v2->getPosition() - v1->getPosition());
+	}
+
+	MCCell* v1;
+	MCCell* v2;
+};
+
+
+
+class MCGrid
+{
+public:
+	MCGrid(const int x, const int y, const int z, const float threshold) :
+		sizeX(x),
+		sizeY(y),
+		sizeZ(z),
+		threshold( threshold )
+	{
+		grid.resize(x);
+		for (int i = 0; i < x; ++i) {
+			grid[i].resize(y);
+			for (int j = 0; j < y; ++j) {
+				grid[i][j].resize(z);
+				for (int k = 0; k < z; ++k) {
+					grid[i][j][k] = nullptr;
+				}
+			}
+		}
+	}
+
+	~MCGrid() {
+		for (int i = 0; i < grid.size(); ++i) {
+			for (int j = 0; j < grid[i].size(); ++j) {
+				for (int k = 0; k < grid[j].size(); ++k) {
+					delete grid[i][j][k];
+				}
+			}
+		}
+
+	}
+
+	void set(int x, int y, int z, const Math::Vector3d<float>& pos, const float value) {
+		grid[x][y][z] = new MCCell(pos, value);
+	}
+
+	float getValue(int x, int y, int z) const {
+		if (grid[x][y][z] == nullptr) {
+			return 0.0f;
+		}
+		return grid[x][y][z]->getValue();
+	}
+
+	bool isUnderThreshold(int x, int y, int z) const {
+		return getValue(x, y, z) < threshold;
+	}
+
+	std::bitset<8> getBit(int x, int y, int z) const {
 		std::bitset<8> bit;
 
-	};
+		const int x1 = x;
+		const int y1 = y;
+		const int z1 = z;
+		const int x2 = x + 1;
+		const int y2 = y + 1;
+		const int z2 = z + 2;
 
-	class MCVertex {
-	public:
-		MCVertex() {
-		}
+		if (getValue(x1,y1,z1) < threshold) { bit.set(0); }
+		if (getValue(x2,y1,z1) < threshold) { bit.set(1); }
+		if (getValue(x2,y2,z1) < threshold) { bit.set(2); }
+		if (getValue(x1,y2,z1) < threshold) { bit.set(3); }
+		if (getValue(x1,y1,z2) < threshold) { bit.set(4); }
+		if (getValue(x2,y1,z2) < threshold) { bit.set(5); }
+		if (getValue(x2,y2,z2) < threshold) { bit.set(6); }
+		if (getValue(x1,y2,z2) < threshold) { bit.set(7); }
+		return bit;
+	}
 
-		MCVertex(const Math::Vector3d<float>& position, float value):
-			position( position),
-			value(value)
-		{}
+	void createEdges();
 
-		Math::Vector3d<float> position;
-		float value;
-	};
-
-	class MCEdge
-	{
-	public:
-		MCEdge()
-		{}
-
-		MCEdge(const MCVertex& v1, const MCVertex& v2) :
-			v1(v1),
-			v2(v2)
-		{}
-
-		Math::Vector3d<float> getInterpolatedPosition(const float value) const
-		{
-			const float scale = (value - v1.value) / (v2.value - v1.value);
-			return v1.position + scale * (v2.position - v1.position);
-		}
+	std::vector< Math::Vector3d<float> > createVertices(const float isolevel);
 
 
-		MCVertex v1;
-		MCVertex v2;
-	};
+private:
+	std::vector< std::vector< std::vector< MCCell* > > > grid;
+	std::vector < std::vector< std::vector< std::list<MCEdge*>> > > gridEdges;
+	std::vector<MCEdge> edges;
+	const int sizeX;
+	const int sizeY;
+	const int sizeZ;
+	const float threshold;
+};
 
-	class MCCell
-	{
-	public:
-		MCCell(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
-			space(space),
-			values(values)
-		{}
+class MarchingCube final : UnCopyable
+{
+public:
+	MarchingCube() {
+		table.buildEdgeTable();
+		table.buildTriangleTable();
+	}
 
-		Math::Space3d<float> getSpace() const { return space; }
+	~MarchingCube() = default;
 
-		std::array< float , 8 > getValues() const { return values; }
+	void march(const Math::Volume3d<float, float>& volume, const float isolevel);
 
-		std::array< MCVertex, 8 > toPositionValues() const {
-			std::array< MCVertex, 8 > pvs;
-			const auto& positions = space.toArray();
-			for (size_t i = 0; i < 8; ++i) {
-				pvs[i] = MCVertex(positions[i], values[i]);
-			}
-			return pvs;
-		}
+	TriangleMesh* getMesh() { return mesh.clone(); }
 
-	private:
-		Math::Space3d<float> space;
-		std::array< float, 8> values;
-	};
+private:
+	MarchingCubeTable table;
+	TriangleMesh mesh;
+
+	void build(const MCCell& cell, const float isolevel);
 
 
-
-	class MarchingCube final : UnCopyable
-	{
-	public:
-		MarchingCube() {
-			table.buildEdgeTable();
-			table.buildTriangleTable();
-		}
-
-		~MarchingCube() = default;
-
-		void march(const Math::Volume3d<float, float>& volume, const float isolevel);
-
-		TriangleMesh* getMesh() { return mesh.clone(); }
-
-	private:
-		MarchingCubeTable table;
-		TriangleMesh mesh;
-
-		void build(const MCCell& cell, const float isolevel);
-
-		std::vector< Vertex* > createVertices(const int cubeindex, const MCCell& cell, const float isolevel);
-
-	};
+};
 	}
 }
 
