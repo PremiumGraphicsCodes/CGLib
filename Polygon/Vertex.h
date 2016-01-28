@@ -42,7 +42,7 @@ public:
 
 	TriangleFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	std::list<Vertex*> getVertices() const { return vertices; }
+	std::vector<Vertex*> getVertices() const { return vertices; }
 
 	TriangleMesh* clone() {
 		auto newMesh = new TriangleMesh;
@@ -54,7 +54,7 @@ public:
 
 private:
 
-	std::list<Vertex*> vertices;
+	std::vector<Vertex*> vertices;
 	std::list<TriangleFace*> faces;
 };
 
