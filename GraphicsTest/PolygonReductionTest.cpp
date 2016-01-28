@@ -2,7 +2,7 @@
 #include "../Graphics/PolygonReduction.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Graphics::Experiment;
+using namespace Crystal::Polygon;
 
 
 

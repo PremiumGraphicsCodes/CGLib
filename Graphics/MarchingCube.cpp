@@ -7,7 +7,7 @@
 #include "PolygonReduction.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Graphics::Experiment;
+using namespace Crystal::Polygon;
 
 void MarchingCube::march(const Volume3d<float, float>& volume, const float isolevel)
 {

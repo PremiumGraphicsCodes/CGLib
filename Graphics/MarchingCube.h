@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_MARCHING_CUBE_H__
-#define __CRYSTAL_GRAPHICS_MARCHING_CUBE_H__
+#ifndef __CRYSTAL_POLYGON_MARCHING_CUBE_H__
+#define __CRYSTAL_POLYGON_MARCHING_CUBE_H__
 
 
 #include "PolygonReduction.h"
@@ -19,8 +19,7 @@ namespace Crystal {
 		class VolumeCell3d;
 	}
 
-	namespace Graphics {
-		namespace Experiment {
+	namespace Polygon {
 
 	class MarchingCube final : UnCopyable
 	{
@@ -49,7 +48,6 @@ namespace Crystal {
 		std::array< Vertex*, 12 > createVertices(const int cubeindex, const Math::VolumeCell3d<float, float>& cell, const float isolevel);
 
 	};
-		}
 	}
 }
 

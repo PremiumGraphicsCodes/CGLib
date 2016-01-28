@@ -4,7 +4,7 @@
 #include "../Math/Volume3d.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Graphics::Experiment;
+using namespace Crystal::Polygon;
 
 
 TEST(MarchingCubeTest, TestMarchScalarSpace)

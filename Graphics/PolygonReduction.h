@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_GRAPHICS_POLYGON_REDUCTION_H__
-#define __CRYSTAL_GRAPHICS_POLYGON_REDUCTION_H__
+#ifndef __CRYSTAL_POLYGON_POLYGON_REDUCTION_H__
+#define __CRYSTAL_POLYGON_POLYGON_REDUCTION_H__
 
 #include "../Math/Vector3d.h"
 #include "../Util/UnCopyable.h"
@@ -7,12 +7,10 @@
 #include <array>
 
 namespace Crystal {
-	namespace Graphics {
-		namespace Experiment {
+	namespace Polygon {
 
 class Vertex;
 class TriangleFace;
-
 
 class Vertex
 {
@@ -78,7 +76,6 @@ private:
 	std::list<TriangleFace*> faces;
 };
 
-		}
 	}
 }
 #endif
