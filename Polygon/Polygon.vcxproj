@@ -19,51 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColorRGB.cpp" />
-    <ClCompile Include="ColorRGBA.cpp" />
-    <ClCompile Include="IBuffer.cpp" />
-    <ClCompile Include="DeviceCoord3d.cpp" />
-    <ClCompile Include="ICamera.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="LineBuffer.cpp" />
-    <ClCompile Include="OrthogonalCamera.cpp" />
-    <ClCompile Include="PerspectiveCamera.cpp" />
-    <ClCompile Include="PointBuffer.cpp" />
-    <ClCompile Include="Surface.cpp" />
-    <ClCompile Include="TriangleBuffer.cpp" />
-    <ClCompile Include="WindowCoord2d.cpp" />
+    <ClCompile Include="MarchingCube.cpp" />
+    <ClCompile Include="MarchingCubeTable.cpp" />
+    <ClCompile Include="PolygonReduction.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Buffer1d.h" />
-    <ClInclude Include="IBuffer.h" />
-    <ClInclude Include="Buffer3d.h" />
-    <ClInclude Include="Buffer4d.h" />
-    <ClInclude Include="DeviceCoord3d.h" />
-    <ClInclude Include="Buffer2d.h" />
-    <ClInclude Include="ICamera.h" />
-    <ClInclude Include="ColorConverter.h" />
-    <ClInclude Include="ColorHSV.h" />
-    <ClInclude Include="ColorRGB.h" />
-    <ClInclude Include="ColorRGBA.h" />
-    <ClInclude Include="Face.h" />
-    <ClInclude Include="HalfEdge.h" />
-    <ClInclude Include="ImageGrayScale.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="LineBuffer.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="OrthogonalCamera.h" />
-    <ClInclude Include="PerspectiveCamera.h" />
-    <ClInclude Include="PointBuffer.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Surface.h" />
-    <ClInclude Include="TriangleBuffer.h" />
-    <ClInclude Include="Vertex.h" />
-    <ClInclude Include="WindowCoord2d.h" />
-    <ClInclude Include="Wireframe.h" />
+    <ClInclude Include="MarchingCube.h" />
+    <ClInclude Include="MarchingCubeTable.h" />
+    <ClInclude Include="PolygonReduction.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{537EAC39-E4FD-4904-A991-4DF9F55D0763}</ProjectGuid>
+    <ProjectGuid>{D223F7E4-2661-4B1B-8E32-CFB895256E2E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GTestSample</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>

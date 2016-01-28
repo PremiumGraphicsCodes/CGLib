@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../Graphics/PolygonReduction.h"
+#include "../Polygon/PolygonReduction.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;

@@ -19,77 +19,37 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ColorRGB.cpp" />
-    <ClCompile Include="ColorRGBA.cpp" />
-    <ClCompile Include="IBuffer.cpp" />
-    <ClCompile Include="DeviceCoord3d.cpp" />
-    <ClCompile Include="ICamera.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="LineBuffer.cpp" />
-    <ClCompile Include="OrthogonalCamera.cpp" />
-    <ClCompile Include="PerspectiveCamera.cpp" />
-    <ClCompile Include="PointBuffer.cpp" />
-    <ClCompile Include="Surface.cpp" />
-    <ClCompile Include="TriangleBuffer.cpp" />
-    <ClCompile Include="WindowCoord2d.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Buffer1d.h" />
-    <ClInclude Include="IBuffer.h" />
-    <ClInclude Include="Buffer3d.h" />
-    <ClInclude Include="Buffer4d.h" />
-    <ClInclude Include="DeviceCoord3d.h" />
-    <ClInclude Include="Buffer2d.h" />
-    <ClInclude Include="ICamera.h" />
-    <ClInclude Include="ColorConverter.h" />
-    <ClInclude Include="ColorHSV.h" />
-    <ClInclude Include="ColorRGB.h" />
-    <ClInclude Include="ColorRGBA.h" />
-    <ClInclude Include="Face.h" />
-    <ClInclude Include="HalfEdge.h" />
-    <ClInclude Include="ImageGrayScale.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="LineBuffer.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="OrthogonalCamera.h" />
-    <ClInclude Include="PerspectiveCamera.h" />
-    <ClInclude Include="PointBuffer.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Surface.h" />
-    <ClInclude Include="TriangleBuffer.h" />
-    <ClInclude Include="Vertex.h" />
-    <ClInclude Include="WindowCoord2d.h" />
-    <ClInclude Include="Wireframe.h" />
+    <ClCompile Include="MarchingCubeTest.cpp" />
+    <ClCompile Include="PolygonReductionTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{537EAC39-E4FD-4904-A991-4DF9F55D0763}</ProjectGuid>
+    <ProjectGuid>{9414E182-179E-4CF4-8574-BD4DF1781602}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GTestSample</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -113,6 +73,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -120,6 +82,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -139,7 +102,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\$(Configuration);../$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>math.lib;gtest.lib;gtest_main.lib;polygon.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,8 +118,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\$(Configuration);../$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\x64\$(Configuration);..\$(Configuration)_x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>math.lib;gtest.lib;gtest_main.lib;polygon.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -178,7 +141,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\$(Configuration);../$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>math.lib;gtest.lib;gtest_main.lib;polygon.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -199,8 +162,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\$(Configuration);../$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>gtest.lib;gtest_main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\ThirdParty\gtest-1.7.0\build\x64\$(Configuration)\;..\$(Configuration)_x64\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>math.lib;gtest.lib;gtest_main.lib;polygon.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
