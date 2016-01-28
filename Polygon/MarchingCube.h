@@ -6,7 +6,7 @@
 #include "../Math/Triangle.h"
 #include "../Math/Vector3d.h"
 #include "../Util/UnCopyable.h"
-#include "../Math/MarchingCubeTable.h"
+#include "MarchingCubeTable.h"
 #include <vector>
 #include <array>
 
@@ -36,7 +36,7 @@ namespace Crystal {
 		TriangleMesh* getMesh() { return mesh.clone(); }
 
 	private:
-		Math::MarchingCubeTable table;
+		MarchingCubeTable table;
 		TriangleMesh mesh;
 
 		void build(const Math::VolumeCell3d<float, float>& cell, const float isolevel);

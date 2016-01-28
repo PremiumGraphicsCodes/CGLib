@@ -13,8 +13,8 @@ TEST(MarchingCubeTest, TestMarchScalarSpace)
 
 	Space3d<float> s(Vector3d<float> (0, 0, 0), Vector3d<float>(10, 10, 10));
 	Grid3d<float> grid(4, 4, 4);
-	grid.set(0, 0, 0, 0.8);
-	grid.set(1, 0, 0, 0.8);
+	grid.set(0, 0, 0, 0.8f);
+	grid.set(1, 0, 0, 0.8f);
 	Volume3d<float, float> ss(s, grid);
 
 	mc.march(ss, 0.5);

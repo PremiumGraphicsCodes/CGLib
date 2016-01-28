@@ -38,10 +38,11 @@ void MarchingCube::build(const VolumeCell3d<float, float>& cell, const float iso
 void MarchingCube::build(const int cubeindex, const std::array<Vertex*, 12>& vertices)
 {
 	const auto& triTable = table.getTriangleTable();
-	for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
-		const auto v1 = vertices[triTable[cubeindex][i]];
-		const auto v2 = vertices[triTable[cubeindex][i + 1]];
-		const auto v3 = vertices[triTable[cubeindex][i + 2]];
+	const auto& table = triTable[cubeindex];
+	for (auto t : table.triangles) {
+		const auto v1 = vertices[t.i1];
+		const auto v2 = vertices[t.i2];
+		const auto v3 = vertices[t.i3];
 		mesh.createFace({ v1, v2, v3 });
 	}
 }

@@ -12,6 +12,10 @@ namespace Crystal {
 
 struct ITriangle
 {
+	ITriangle() :
+		ITriangle(-1, -1, -1)
+	{}
+
 	ITriangle(const int i1, const int i2, const int i3) :
 		i1(i1),
 		i2(i2),
@@ -25,6 +29,9 @@ struct ITriangle
 
 struct IFace
 {
+	IFace()
+	{}
+
 	IFace(const std::vector<ITriangle>& triangles) :
 		triangles(triangles)
 	{}
@@ -55,20 +62,23 @@ struct IFace
 class MarchingCubeTable
 {
 public:
+	MarchingCubeTable() {
+		buildEdgeTable();
+		buildTriangleTable();
+	}
+
 	void buildEdgeTable();
 
 	void buildTriangleTable();
 
 	std::array< std::bitset<12>, 256 > getEdgeTable() const { return edgeTable; }
 
-	std::vector<IFace> getTriangleTable() const { return triTable; }
+	std::array<IFace, 256> getTriangleTable() const { return triTable; }
 
 private:
 	std::array< std::bitset<12>, 256 > edgeTable;
-
-	//std::vector< std::array< int, 16 > > triTable;
-	std::vector<IFace> triTable;
-		};
+	std::array<IFace, 256> triTable;
+};
 	}
 }
 
