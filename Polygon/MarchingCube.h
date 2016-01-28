@@ -21,6 +21,39 @@ namespace Crystal {
 
 		class MCEdge;
 
+class MCNode
+{
+public:
+	MCNode()
+	{}
+
+	MCNode(const Math::Vector3d<float>& position, const float value) :
+		position(position),
+		value(value)
+	{}
+
+	Math::Vector3d<float> getPosition() { return position; }
+
+	float getValue() const { return value; }
+
+private:
+	Math::Vector3d<float> position;
+	float value;
+
+};
+
+class MCEdge
+{
+	Math::Vector3d<float> getPosition(const float threshold)
+	{
+		const float scale = (threshold - node1->getValue()) / (node2->getValue() - node1->getValue());
+		return node1->getPosition() + scale * (node2->getPosition() - node1->getPosition());
+	}
+
+	MCNode* node1;
+	MCNode* node2;
+};
+
 class MCCell {
 public:
 	MCCell() {
@@ -36,10 +69,27 @@ public:
 
 	float getValue() const { return value; }
 
+	/*
+	std::bitset<8> getBit(const float threshold) {
+		std::bitset<8> bit;
+
+		if (nodes[0]->getValue() < threshold) { bit.set(0); }
+		if (nodes[1]->getValue() < threshold) { bit.set(1); }
+		if (getValue(x2, y2, z1) < threshold) { bit.set(2); }
+		if (getValue(x1, y2, z1) < threshold) { bit.set(3); }
+		if (getValue(x1, y1, z2) < threshold) { bit.set(4); }
+		if (getValue(x2, y1, z2) < threshold) { bit.set(5); }
+		if (getValue(x2, y2, z2) < threshold) { bit.set(6); }
+		if (getValue(x1, y2, z2) < threshold) { bit.set(7); }
+		return bit;
+	}
+	*/
 
 	std::array< Vertex*, 12 > vertices;
 
 private:
+	std::array< MCNode*, 8 > nodes;
+	std::array< MCEdge*, 12 > edges;
 	Math::Vector3d<float> position;
 	float value;
 };
@@ -75,6 +125,9 @@ public:
 private:
 
 	std::vector< std::vector< std::vector< MCCell > > > grid;
+
+	std::vector< MCNode > nodes;
+
 	const int sizeX;
 	const int sizeY;
 	const int sizeZ;

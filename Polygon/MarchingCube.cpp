@@ -62,6 +62,7 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 				const auto& pos = volume.toCenterPosition(i,j,k);
 				const auto value = volume.getGrid().get(i, j, k);
 				grid[i][j][k] = MCCell(pos, value);
+				nodes.push_back(MCNode(pos, value));
 			}
 		}
 	}
