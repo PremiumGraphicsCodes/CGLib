@@ -2,7 +2,7 @@
 #define __CRYSTAL_POLYGON_MARCHING_CUBE_H__
 
 
-#include "PolygonReduction.h"
+#include "Vertex.h"
 #include "../Math/Triangle.h"
 #include "../Math/Vector3d.h"
 #include "../Util/UnCopyable.h"

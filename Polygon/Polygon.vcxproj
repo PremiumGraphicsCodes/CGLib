@@ -21,12 +21,12 @@
   <ItemGroup>
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
-    <ClCompile Include="PolygonReduction.cpp" />
+    <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />
-    <ClInclude Include="PolygonReduction.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D223F7E4-2661-4B1B-8E32-CFB895256E2E}</ProjectGuid>

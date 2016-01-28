@@ -4,7 +4,7 @@
 #include "../Math/Volume3d.h"
 #include "../Math/VolumeCell3d.h"
 
-#include "PolygonReduction.h"
+#include "Vertex.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
