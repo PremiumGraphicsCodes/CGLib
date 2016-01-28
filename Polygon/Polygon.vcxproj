@@ -26,6 +26,7 @@
   <ItemGroup>
     <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />
+    <ClInclude Include="TriangleFace.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,4 +1,5 @@
 #include "Vertex.h"
+#include "TriangleFace.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
@@ -19,13 +20,6 @@ namespace {
 
 }
 
-
-void TriangleFace::replaceVertex(Vertex* v1, Vertex* v2)
-{
-	auto pos = std::find(vertices.begin(), vertices.end(), v1);
-	*pos = v2;
-}
-
 TriangleMesh::~TriangleMesh()
 {
 	clear();
@@ -38,19 +32,14 @@ bool TriangleMesh::hasVertex(Vertex* v)
 
 Vertex* TriangleMesh::createVertex(const Vector3d<float>& position)
 {
-	for (auto vv : vertices) {
-		if (vv->getPosition() == position) {
-			return vv;
-		}
-	}
 	auto v = new Vertex(position);
 	vertices.push_back(v);
 	return v;
 }
 
-TriangleFace* TriangleMesh::createFace(const std::array< Vertex*, 3>& vertices)
+TriangleFace* TriangleMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
-	auto f = new TriangleFace(vertices);
+	auto f = new TriangleFace(v1, v2, v3);
 	faces.push_back(f);
 	return f;
 }

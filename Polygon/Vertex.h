@@ -27,25 +27,7 @@ private:
 	Math::Vector3d<float> position;
 };
 
-class TriangleFace
-{
-public:
-	TriangleFace(std::array<Vertex*, 3> vertices) :
-		vertices(vertices)
-	{
-	}
 
-	std::array<Vertex*, 3> getVertices() const { return vertices; }
-
-	Math::Vector3d<float> getNormal() { return normal; }
-
-	void replaceVertex(Vertex* v1, Vertex* v2);
-
-private:
-	std::array<Vertex*, 3> vertices;
-
-	Math::Vector3d<float> normal;
-};
 
 class TriangleMesh : private UnCopyable
 {
@@ -58,7 +40,7 @@ public:
 
 	Vertex* createVertex(const Math::Vector3d<float>& position);
 
-	TriangleFace* createFace(const std::array< Vertex*, 3 > & vertices);
+	TriangleFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	std::list<Vertex*> getVertices() const { return vertices; }
 
