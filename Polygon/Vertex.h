@@ -26,10 +26,16 @@ public:
 
 	unsigned int getId() const { return id;  }
 
+	void setFace(TriangleFace* f);
+
+	TriangleFace* getFace() { return f; }
+
+	unsigned int id;
+
 private:
-	const unsigned int id;
 	Math::Vector3d<float> position;
 	Math::Vector3d<float> normal;
+	TriangleFace* f;
 };
 
 
@@ -46,13 +52,18 @@ public:
 
 	void clear();
 
+	void sortVertices();
+
 	Vertex* createVertex(const Math::Vector3d<float>& position);
+
+	Vertex* createVertexIfNotThere(const Math::Vector3d<float>& position);
+
 
 	//void addVertex(Vertex* v) { this->vertices.push_back(v); }
 
 	TriangleFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	std::vector<Vertex*> getVertices() const { return vertices; }
+	std::list<Vertex*> getVertices() const { return vertices; }
 
 	std::vector<TriangleFace*> getFaces() const { return faces; }
 
@@ -62,11 +73,12 @@ public:
 		newMesh->faces = this->faces;
 		this->vertices.clear();
 		this->faces.clear();
+		return newMesh;
 	}
 
 private:
 	unsigned int nextIndexId;
-	std::vector<Vertex*> vertices;
+	std::list<Vertex*> vertices;
 	std::vector<TriangleFace*> faces;
 };
 

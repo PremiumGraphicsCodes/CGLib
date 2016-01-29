@@ -4,6 +4,11 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
+void Vertex::setFace(TriangleFace* f) {
+	this->f = f;
+	this->normal = f->getNormal();
+}
+
 
 namespace {
 	int toHash(const Vector3d<float>& pos)
@@ -18,7 +23,23 @@ namespace {
 		return  (x^y^z) % hashTableSize;
 	}
 
+	bool comp(Vertex* v1, Vertex* v2)
+	{
+		return toHash(v1->getPosition()) < toHash(v2->getPosition());
+	}
+
+	bool isSame(Vertex* v1, Vertex* v2)
+	{
+		if (v1->getPosition() == v2->getPosition()) {
+			auto face = v2->getFace();
+			face->replace(v2, v1);
+			delete v2;
+			return true;
+		}
+		return false;
+	}
 }
+
 
 TriangleMesh::~TriangleMesh()
 {
@@ -30,12 +51,34 @@ bool TriangleMesh::hasVertex(Vertex* v)
 	return (std::find(vertices.begin(), vertices.end(), v) != vertices.end());
 }
 
+void TriangleMesh::sortVertices()
+{
+	vertices.sort( ::comp);
+	vertices.unique( ::isSame);
+	int nextId = 0;
+	for (auto v: vertices) {
+		v->id = nextId++;
+	}
+}
+
 Vertex* TriangleMesh::createVertex(const Vector3d<float>& position)
 {
 	auto v = new Vertex(position, nextIndexId++);
 	vertices.push_back(v);
 	return v;
 }
+
+
+Vertex* TriangleMesh::createVertexIfNotThere(const Vector3d<float>& position)
+{
+	for (auto v : vertices) {
+		if (v->getPosition() == position) {
+			return v;
+		}
+	}
+	return createVertex(position);
+}
+
 
 TriangleFace* TriangleMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {

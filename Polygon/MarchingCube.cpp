@@ -26,12 +26,16 @@ void MarchingCube::march(const Volume3d<float, float>& volume, const float isole
 						const auto& v1 = mesh.createVertex( vertices[triTable[cubeindex][i]] );
 						const auto& v2 = mesh.createVertex( vertices[triTable[cubeindex][i + 1]] );
 						const auto& v3 = mesh.createVertex( vertices[triTable[cubeindex][i + 2]] );
-						mesh.createFace(v1, v2, v3);
+						auto f = mesh.createFace(v1, v2, v3);
+						v1->setFace(f);
+						v2->setFace(f);
+						v3->setFace(f);
 					}
 				}
 			}
 		}
 	}
+	mesh.sortVertices();
 }
 
 

@@ -34,7 +34,9 @@ public:
 	void march(const Math::Volume3d<float, float>& ss, const float isolevel);
 
 	//TriangleMesh* cloneMesh() {mesh->}
-	std::vector< Vertex* > getVertices() { return mesh.getVertices(); }
+	TriangleMesh* cloneMesh() { return mesh.clone(); }
+
+	std::list< Vertex* > getVertices() { return mesh.getVertices(); }
 
 private:
 	Math::MarchingCubeTable table;
