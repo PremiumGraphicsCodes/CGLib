@@ -65,21 +65,22 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 	for (int i = 0; i < volume.getGrid().getSizeX()-1; ++i) {
 		for (int j = 0; j < volume.getGrid().getSizeY()-1; ++j) {
 			for (int k = 0; k < volume.getGrid().getSizeZ()-1; ++k) {
-				nodes[i][j][k]->xplus = nodes[i+1][j][k];
-				nodes[i+1][j][k]->xminus = nodes[i][j][k];
-				nodes[i][j][k]->yplus = nodes[i][j + 1][k];
-				nodes[i][j + 1][k]->yminus = nodes[i][j][k];
-				nodes[i][j][k]->zplus = nodes[i][j][k + 1];
-				nodes[i][j][k + 1]->zminus = nodes[i][j][k];
 
 				if(nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i+1][j][k]->isUnderThreshold(threshold) ) {
 					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i + 1][j][k]));
+					nodes[i][j][k]->xplus = edges.back();
+					nodes[i+1][j][k]->xminus = edges.back();
 				}
 				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j + 1][k]->isUnderThreshold(threshold)) {
 					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i][j + 1][k]));
+					nodes[i][j][k]->yplus = edges.back();
+					nodes[i][j+1][k]->yminus = edges.back();
 				}
 				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j][k + 1]->isUnderThreshold(threshold)) {
 					edges.push_back(new MCEdge(nodes[i][k][k], nodes[i][j][k + 1]));
+					nodes[i][j][k]->zplus = edges.back();
+					nodes[i][j][k+1]->zminus = edges.back();
+
 				}
 			}
 		}
@@ -88,6 +89,25 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 	for (auto e : edges) {
 		mesh.createVertex( e->getPosition(threshold) );
 	}
+
+	for (int i = 0; i < volume.getGrid().getSizeX() - 1; ++i) {
+		for (int j = 0; j < volume.getGrid().getSizeY() - 1; ++j) {
+			for (int k = 0; k < volume.getGrid().getSizeZ() - 1; ++k) {
+				const std::array<MCNode*, 8> ns = {
+					nodes[i][j][k],
+					nodes[i + 1][j][k],
+					nodes[i + 1][j + 1][k],
+					nodes[i][j + 1][k],
+					nodes[i][j][k + 1],
+					nodes[i + 1][j][k + 1],
+					nodes[i + 1][j + 1][k + 1],
+					nodes[i][j][k + 1]
+				};
+				MCCell* cell = new MCCell(ns);
+			}
+		}
+	}
+
 
 	/*
 	for (int i = 0; i < sizeX-1; ++i) {
@@ -126,6 +146,10 @@ MCGrid::~MCGrid()
 
 	for (auto e : edges) {
 		delete e;
+	}
+
+	for (auto c : cells) {
+		delete c;
 	}
 }
 

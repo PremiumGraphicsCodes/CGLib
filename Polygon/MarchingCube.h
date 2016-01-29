@@ -50,12 +50,12 @@ public:
 
 	bool isUnderThreshold(float threshold) const { return this->value < threshold; }
 
-	MCNode* xplus;
-	MCNode* xminus;
-	MCNode* yplus;
-	MCNode* yminus;
-	MCNode* zplus;
-	MCNode* zminus;
+	MCEdge* xplus;
+	MCEdge* xminus;
+	MCEdge* yplus;
+	MCEdge* yminus;
+	MCEdge* zplus;
+	MCEdge* zminus;
 
 
 private:
@@ -68,24 +68,24 @@ class MCEdge
 {
 public:
 	MCEdge() :
-		node1(nullptr),
-		node2(nullptr)
+		startNode(nullptr),
+		endNode(nullptr)
 	{}
 
-	MCEdge(MCNode* node1, MCNode* node2):
-		node1(node1),
-		node2(node2)
+	MCEdge(MCNode* startNode, MCNode* endNode):
+		startNode(startNode),
+		endNode(endNode)
 	{}
 
 	Math::Vector3d<float> getPosition(const float threshold)
 	{
-		const float scale = (threshold - node1->getValue()) / (node2->getValue() - node1->getValue());
-		return node1->getPosition() + scale * (node2->getPosition() - node1->getPosition());
+		const float scale = (threshold - startNode->getValue()) / (endNode->getValue() - startNode->getValue());
+		return startNode->getPosition() + scale * (endNode->getPosition() - startNode->getPosition());
 	}
 
 
-	MCNode* node1;
-	MCNode* node2;
+	MCNode* startNode;
+	MCNode* endNode;
 };
 
 class MCCell {
@@ -93,32 +93,24 @@ public:
 	MCCell() {
 	}
 
-	MCCell(const std::array< MCNode*, 8 >& nodes, const std::array< MCEdge*, 12 >& edges) :
-		nodes(nodes),
-		edges( edges )
+	MCCell(const std::array<MCNode*, 8>& nodes) :
+		nodes( nodes )
 	{
 	}
 
-
-	/*
 	std::bitset<8> getBit(const float threshold) {
 		std::bitset<8> bit;
 
-		if (nodes[0]->getValue() < threshold) { bit.set(0); }
-		if (nodes[1]->getValue() < threshold) { bit.set(1); }
-		if (getValue(x2, y2, z1) < threshold) { bit.set(2); }
-		if (getValue(x1, y2, z1) < threshold) { bit.set(3); }
-		if (getValue(x1, y1, z2) < threshold) { bit.set(4); }
-		if (getValue(x2, y1, z2) < threshold) { bit.set(5); }
-		if (getValue(x2, y2, z2) < threshold) { bit.set(6); }
-		if (getValue(x1, y2, z2) < threshold) { bit.set(7); }
+		for (int i = 0; i < 8; ++i){
+			if (nodes[i]->isUnderThreshold(threshold)) {
+				bit.set(i);
+			}
+		}
 		return bit;
 	}
-	*/
 
 private:
-	std::array< MCNode*, 8 > nodes;
-	std::array< MCEdge*, 12 > edges;
+	std::array<MCNode*,8> nodes;
 };
 
 
@@ -129,8 +121,6 @@ public:
 	MCGrid(const Math::Volume3d<float, float>& volume, const float threshold);
 
 	~MCGrid();
-
-	std::bitset<8> getBit(int x, int y, int z) const;
 
 	std::vector< Vertex* > getVertices() const { return mesh.getVertices(); }
 
