@@ -10,41 +10,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-/*
-void MarchingCube::march(const Volume3d<float, float>& volume, const float isolevel)
-{
-	std::vector< Index3d > boundaryIndices;
-	const auto& grid = volume.getGrid();
-	MCGrid mcGrid(grid.getSizeX(), grid.getSizeY(), grid.getSizeZ());
-	for (int x = 0; x < grid.getSizeX() - 1; ++x) {
-		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
-			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
-				const auto& pos = volume.toCenterPosition(x, y, z);
-				const auto v = grid.get(x, y, z);
-				mcGrid.set(x, y, z, pos, v);
 
-			}
-		}
-	}
-
-}
-
-void MarchingCube::build(const MCCell& cell, const float isolevel)
-{
-	std::vector<TriangleFace> triangles;
-	const int cubeindex = cell.getBit(isolevel).to_ulong();
-	const auto& vertices = createVertices(cubeindex, cell, isolevel);
-
-	const auto& triTable = table.getTriangleTable();
-	const auto& table = triTable[cubeindex];
-	for (auto t : table.triangles) {
-		const auto v1 = vertices[t.i1];
-		const auto v2 = vertices[t.i2];
-		const auto v3 = vertices[t.i3];
-		mesh.createFace( v1, v2, v3 );
-	}
-}
-*/
 
 MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 	threshold(threshold)
@@ -69,25 +35,21 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 				if(nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i+1][j][k]->isUnderThreshold(threshold) ) {
 					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i + 1][j][k]));
 					nodes[i][j][k]->xplus = edges.back();
-					nodes[i+1][j][k]->xminus = edges.back();
 				}
 				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j + 1][k]->isUnderThreshold(threshold)) {
 					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i][j + 1][k]));
 					nodes[i][j][k]->yplus = edges.back();
-					nodes[i][j+1][k]->yminus = edges.back();
 				}
 				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j][k + 1]->isUnderThreshold(threshold)) {
 					edges.push_back(new MCEdge(nodes[i][k][k], nodes[i][j][k + 1]));
 					nodes[i][j][k]->zplus = edges.back();
-					nodes[i][j][k+1]->zminus = edges.back();
-
 				}
 			}
 		}
 	}
 
 	for (auto e : edges) {
-		mesh.createVertex( e->getPosition(threshold) );
+		mesh.addVertex( e->createVertex(threshold) );
 	}
 
 	for (int x = 0; x < volume.getGrid().getSizeX() - 1; ++x) {
@@ -106,12 +68,12 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 				const std::array< MCEdge*, 12> es = {
 					nodes[x][y][z]->xplus,
 					nodes[x+1][y][z]->yplus,
-					nodes[x+1][y+1][z]->xminus,
-					nodes[x][y+1][z]->yminus,
+					nodes[x][y+1][z]->xplus,
+					nodes[x][y][z]->yplus,
 					nodes[x][y][z+1]->xplus,
 					nodes[x+1][y][z+1]->yplus,
-					nodes[x+1][y+1][z+1]->xminus,
-					nodes[x][y+1][z+1]->yminus,
+					nodes[x][y+1][z+1]->xplus,
+					nodes[x][y][z+1]->yplus,
 					nodes[x][y][z]->zplus,
 					nodes[x+1][y][z]->zplus,
 					nodes[x+1][y+1][z]->zplus,
@@ -122,34 +84,16 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 				const auto& triTable = table.getTriangleTable();
 				const auto& table = triTable[bit.to_ulong()];
 
-				cell->getActiveEdges();
-			}
-		}
-	}
-
-
-	/*
-	for (int i = 0; i < sizeX-1; ++i) {
-		for (int j = 0; j < sizeY-1; ++j) {
-			for (int k = 0; k < sizeZ-1; ++k) {
-				const int cubeIndex = getBit(i, j, k).to_ulong();
-				const auto& triTable = table.getTriangleTable();
-				const auto& table = triTable[cubeIndex];
-				const auto& vertices = grid[i][j][k].vertices;
-
 				for (auto t : table.triangles) {
-					auto e1 = vertices[t.i1];
-					auto e2 = vertices[t.i2];
-					//const auto v1 = vertices[t.i1];
-					//const auto v2 = vertices[t.i2];
-					//const auto v3 = vertices[t.i3];
-					//mesh.createFace(v1, v2, v3);
+					auto e1 = es[t.i1]->v;
+					auto e2 = es[t.i2]->v;
+					auto e3 = es[t.i3]->v;
+					mesh.createFace( e1, e2, e3);
 				}
+
 			}
 		}
 	}
-	*/
-
 }
 
 MCGrid::~MCGrid()

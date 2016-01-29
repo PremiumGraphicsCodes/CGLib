@@ -40,6 +40,8 @@ public:
 
 	Vertex* createVertex(const Math::Vector3d<float>& position);
 
+	void addVertex(Vertex* v) { this->vertices.push_back(v); }
+
 	TriangleFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	std::vector<Vertex*> getVertices() const { return vertices; }

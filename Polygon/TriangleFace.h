@@ -19,13 +19,13 @@ public:
 	{
 	}
 
-	Vertex* getV1() { return v1; }
+	Vertex* getV1() const { return v1; }
 
-	Vertex* getV2() { return v2; }
+	Vertex* getV2() const { return v2; }
 
-	Vertex* getV3() { return v3; }
+	Vertex* getV3() const { return v3; }
 
-	Math::Vector3d<float> getNormal() { return normal; }
+	Math::Vector3d<float> getNormal() const { return normal; }
 
 	void replaceVertex(Vertex* v1, Vertex* v2);
 

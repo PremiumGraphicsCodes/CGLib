@@ -26,23 +26,16 @@ class MCNode
 public:
 	MCNode() :
 		xplus(nullptr),
-		xminus(nullptr),
 		yplus(nullptr),
-		yminus(nullptr),
-		zplus(nullptr),
-		zminus(nullptr)
+		zplus(nullptr)
 	{}
 
 	MCNode(const Math::Vector3d<float>& position, const float value) :
 		position(position),
 		value(value),
 		xplus(nullptr),
-		xminus(nullptr),
 		yplus(nullptr),
-		yminus(nullptr),
-		zplus(nullptr),
-		zminus(nullptr)
-
+		zplus(nullptr)
 	{}
 
 	Math::Vector3d<float> getPosition() { return position; }
@@ -52,11 +45,8 @@ public:
 	bool isUnderThreshold(float threshold) const { return this->value < threshold; }
 
 	MCEdge* xplus;
-	MCEdge* xminus;
 	MCEdge* yplus;
-	MCEdge* yminus;
 	MCEdge* zplus;
-	MCEdge* zminus;
 
 
 private:
@@ -76,17 +66,20 @@ public:
 	MCEdge(MCNode* startNode, MCNode* endNode):
 		startNode(startNode),
 		endNode(endNode)
-	{}
+	{
+	}
 
-	Math::Vector3d<float> getPosition(const float threshold)
+	Vertex* createVertex(const float threshold)
 	{
 		const float scale = (threshold - startNode->getValue()) / (endNode->getValue() - startNode->getValue());
-		return startNode->getPosition() + scale * (endNode->getPosition() - startNode->getPosition());
+		v = new Vertex(startNode->getPosition() + scale * (endNode->getPosition() - startNode->getPosition()));
+		return v;
 	}
 
 
 	MCNode* startNode;
 	MCNode* endNode;
+	Vertex* v;
 };
 
 
