@@ -47,27 +47,49 @@ void MarchingCube::build(const MCCell& cell, const float isolevel)
 */
 
 MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
-	sizeX(volume.getGrid().getSizeX()),
-	sizeY(volume.getGrid().getSizeY()),
-	sizeZ(volume.getGrid().getSizeZ()),
 	threshold(threshold)
-{
-	
-	grid.resize(sizeX);
-	for (int i = 0; i < sizeX; ++i) {
-		grid[i].resize(sizeY);
-		for (int j = 0; j < sizeY; ++j) {
-			grid[i][j].resize(sizeZ);
-			for (int k = 0; k < sizeZ; ++k) {
+{	
+	nodes.resize(volume.getGrid().getSizeX());
+	for (int i = 0; i < volume.getGrid().getSizeX(); ++i) {
+		nodes[i].resize(volume.getGrid().getSizeY());
+		for (int j = 0; j < volume.getGrid().getSizeY(); ++j) {
+			nodes[i][j].resize(volume.getGrid().getSizeZ());
+			for (int k = 0; k < volume.getGrid().getSizeZ(); ++k) {
 				const auto& pos = volume.toCenterPosition(i,j,k);
 				const auto value = volume.getGrid().get(i, j, k);
-				grid[i][j][k] = MCCell(pos, value);
-				nodes.push_back(MCNode(pos, value));
+				nodes[i][j][k] = new MCNode(pos, value);
 			}
 		}
 	}
-	createEdges();
 
+	for (int i = 0; i < volume.getGrid().getSizeX()-1; ++i) {
+		for (int j = 0; j < volume.getGrid().getSizeY()-1; ++j) {
+			for (int k = 0; k < volume.getGrid().getSizeZ()-1; ++k) {
+				nodes[i][j][k]->xplus = nodes[i+1][j][k];
+				nodes[i+1][j][k]->xminus = nodes[i][j][k];
+				nodes[i][j][k]->yplus = nodes[i][j + 1][k];
+				nodes[i][j + 1][k]->yminus = nodes[i][j][k];
+				nodes[i][j][k]->zplus = nodes[i][j][k + 1];
+				nodes[i][j][k + 1]->zminus = nodes[i][j][k];
+
+				if(nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i+1][j][k]->isUnderThreshold(threshold) ) {
+					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i + 1][j][k]));
+				}
+				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j + 1][k]->isUnderThreshold(threshold)) {
+					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i][j + 1][k]));
+				}
+				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j][k + 1]->isUnderThreshold(threshold)) {
+					edges.push_back(new MCEdge(nodes[i][k][k], nodes[i][j][k + 1]));
+				}
+			}
+		}
+	}
+
+	for (auto e : edges) {
+		mesh.createVertex( e->getPosition(threshold) );
+	}
+
+	/*
 	for (int i = 0; i < sizeX-1; ++i) {
 		for (int j = 0; j < sizeY-1; ++j) {
 			for (int k = 0; k < sizeZ-1; ++k) {
@@ -87,61 +109,23 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 			}
 		}
 	}
+	*/
 
 }
 
-std::bitset<8> MCGrid::getBit(int x, int y, int z) const
+MCGrid::~MCGrid()
 {
-	std::bitset<8> bit;
-
-	const int x1 = x;
-	const int y1 = y;
-	const int z1 = z;
-	const int x2 = x + 1;
-	const int y2 = y + 1;
-	const int z2 = z + 1;
-
-	if (getValue(x1, y1, z1) < threshold) { bit.set(0); }
-	if (getValue(x2, y1, z1) < threshold) { bit.set(1); }
-	if (getValue(x2, y2, z1) < threshold) { bit.set(2); }
-	if (getValue(x1, y2, z1) < threshold) { bit.set(3); }
-	if (getValue(x1, y1, z2) < threshold) { bit.set(4); }
-	if (getValue(x2, y1, z2) < threshold) { bit.set(5); }
-	if (getValue(x2, y2, z2) < threshold) { bit.set(6); }
-	if (getValue(x1, y2, z2) < threshold) { bit.set(7); }
-	return bit;
-}
-
-
-void MCGrid::createEdges() {
-	for (int i = 0; i < sizeX-1; ++i) {
-		for (int j = 0; j < sizeY-1; ++j) {
-			for (int k = 0; k < sizeZ-1; ++k) {
-				if (isUnderThreshold(i, j, k) != isUnderThreshold(i + 1, j, k)) {
-					const auto v = mesh.createVertex( getPosition( grid[i][j][k], grid[i+1][j][k] ) );
-					grid[i][j][k].vertices[0] = v;
-					//gridEdges.push_back()
-				}
-				if (isUnderThreshold(i, j, k) != isUnderThreshold(i, j + 1, k)) {
-					const auto v = mesh.createVertex( getPosition( grid[i][j][k], grid[i][j + 1][k]) );
-					//grid[i][j][k].edges[3] = edges.back();
-					//grid[i][j][k].edges[1] = &edges.back();
-
-				}
-				if (isUnderThreshold(i, j, k) != isUnderThreshold(i, j, k + 1)) {
-					mesh.createVertex( getPosition( grid[i][j][k], grid[i][j][k + 1]));
-				}
-				if (isUnderThreshold(i, j, k) != isUnderThreshold(i + 1, j + 1, k)) {
-					mesh.createVertex( getPosition( grid[i][j][k], grid[i + 1][j + 1][k]));
-				}
-				if (isUnderThreshold(i, j, k) != isUnderThreshold(i, j + 1, k + 1)) {
-					mesh.createVertex( getPosition( grid[i][j][k], grid[i][j + 1][k + 1]));
-				}
-				if (isUnderThreshold(i, j, k) != isUnderThreshold(i + 1, j + 1, k + 1)) {
-					mesh.createVertex( getPosition( grid[i][j][k], grid[i + 1][j + 1][k + 1]));
-				}
-
+	for (int i = 0; i < nodes.size(); ++i) {
+		for (int j = 0; j < nodes[i].size(); ++j) {
+			for (int k = 0; k < nodes[j].size(); ++k) {
+				delete nodes[i][j][k];
 			}
 		}
 	}
+
+
+	for (auto e : edges) {
+		delete e;
+	}
 }
+

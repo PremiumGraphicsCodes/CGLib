@@ -31,10 +31,9 @@ TEST(MCGridTest, Test)
 	MCGrid mcgrid(volume, 0.5);
 
 	const auto actual = mcgrid.getVertices();
-	EXPECT_EQ(6, actual .size());
+	EXPECT_EQ(3, actual .size());
 	EXPECT_EQ(Vector3d<float>(1.0, 0.5, 0.5), actual[0]->getPosition());
 	EXPECT_EQ(Vector3d<float>(0.5, 1.0, 0.5), actual[1]->getPosition());
 	EXPECT_EQ(Vector3d<float>(0.5, 0.5, 1.0), actual[2]->getPosition());
-	EXPECT_EQ(Vector3d<float>(1.0, 1.0, 0.5), actual[3]->getPosition());
 
 }

@@ -24,17 +24,39 @@ namespace Crystal {
 class MCNode
 {
 public:
-	MCNode()
+	MCNode() :
+		xplus(nullptr),
+		xminus(nullptr),
+		yplus(nullptr),
+		yminus(nullptr),
+		zplus(nullptr),
+		zminus(nullptr)
 	{}
 
 	MCNode(const Math::Vector3d<float>& position, const float value) :
 		position(position),
-		value(value)
+		value(value),
+		xminus(nullptr),
+		yplus(nullptr),
+		yminus(nullptr),
+		zplus(nullptr),
+		zminus(nullptr)
+
 	{}
 
 	Math::Vector3d<float> getPosition() { return position; }
 
 	float getValue() const { return value; }
+
+	bool isUnderThreshold(float threshold) const { return this->value < threshold; }
+
+	MCNode* xplus;
+	MCNode* xminus;
+	MCNode* yplus;
+	MCNode* yminus;
+	MCNode* zplus;
+	MCNode* zminus;
+
 
 private:
 	Math::Vector3d<float> position;
@@ -44,11 +66,23 @@ private:
 
 class MCEdge
 {
+public:
+	MCEdge() :
+		node1(nullptr),
+		node2(nullptr)
+	{}
+
+	MCEdge(MCNode* node1, MCNode* node2):
+		node1(node1),
+		node2(node2)
+	{}
+
 	Math::Vector3d<float> getPosition(const float threshold)
 	{
 		const float scale = (threshold - node1->getValue()) / (node2->getValue() - node1->getValue());
 		return node1->getPosition() + scale * (node2->getPosition() - node1->getPosition());
 	}
+
 
 	MCNode* node1;
 	MCNode* node2;
@@ -59,15 +93,12 @@ public:
 	MCCell() {
 	}
 
-	MCCell(const Math::Vector3d<float>& position, float value):
-		position( position),
-		value(value)
+	MCCell(const std::array< MCNode*, 8 >& nodes, const std::array< MCEdge*, 12 >& edges) :
+		nodes(nodes),
+		edges( edges )
 	{
 	}
 
-	Math::Vector3d<float> getPosition() const { return position; }
-
-	float getValue() const { return value; }
 
 	/*
 	std::bitset<8> getBit(const float threshold) {
@@ -85,13 +116,9 @@ public:
 	}
 	*/
 
-	std::array< Vertex*, 12 > vertices;
-
 private:
 	std::array< MCNode*, 8 > nodes;
 	std::array< MCEdge*, 12 > edges;
-	Math::Vector3d<float> position;
-	float value;
 };
 
 
@@ -99,38 +126,20 @@ private:
 class MCGrid
 {
 public:
-	MCGrid(const Math::Volume3d<float,float>& volume, const float threshold);
+	MCGrid(const Math::Volume3d<float, float>& volume, const float threshold);
 
-	float getValue(int x, int y, int z) const {
-		return grid[x][y][z].getValue();
-	}
-
-	bool isUnderThreshold(int x, int y, int z) const {
-		return getValue(x, y, z) < threshold;
-	}
+	~MCGrid();
 
 	std::bitset<8> getBit(int x, int y, int z) const;
 
-	void createEdges();
-
 	std::vector< Vertex* > getVertices() const { return mesh.getVertices(); }
-
-	Math::Vector3d<float> getPosition(const MCCell& v1, const MCCell& v2)
-	{
-		const float scale = (threshold - v1.getValue()) / (v2.getValue() - v1.getValue());
-		return v1.getPosition() + scale * (v2.getPosition() - v1.getPosition());
-	}
 
 
 private:
+	std::vector< std::vector< std::vector< MCNode* > > > nodes;
+	std::vector< MCEdge* > edges;
+	std::vector< MCCell* > cells;
 
-	std::vector< std::vector< std::vector< MCCell > > > grid;
-
-	std::vector< MCNode > nodes;
-
-	const int sizeX;
-	const int sizeY;
-	const int sizeZ;
 	const float threshold;
 	MarchingCubeTable table;
 
