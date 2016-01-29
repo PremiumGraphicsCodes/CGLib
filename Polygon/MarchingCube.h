@@ -76,7 +76,11 @@ public:
 		return v;
 	}
 
+	Vertex* getVertex() const { return v; }
 
+	MCNode* getStartNode() const { return startNode; }
+
+private:
 	MCNode* startNode;
 	MCNode* endNode;
 	Vertex* v;
@@ -92,27 +96,32 @@ public:
 		nodes( nodes ),
 		edges( edges )
 	{
+		//assert(nodes[0] == edges[0]->getStartNode());
+	}
+
+	void createFaces(TriangleMesh& mesh, const float threshold, const MarchingCubeTable& mcTable)
+	{
+		const auto bit = getBit(threshold);
+		const auto& triTable = mcTable.getTriangleTable();
+		const auto& table = triTable[bit.to_ulong()];
+
+		for (auto t : table.triangles) {
+			auto e1 = edges[t.i1]->getVertex();
+			auto e2 = edges[t.i2]->getVertex();
+			auto e3 = edges[t.i3]->getVertex();
+			mesh.createFace(e1, e2, e3);
+		}
+
 	}
 
 	std::bitset<8> getBit(const float threshold) {
 		std::bitset<8> bit;
-
 		for (int i = 0; i < 8; ++i){
 			if (nodes[i]->isUnderThreshold(threshold)) {
 				bit.set(i);
 			}
 		}
 		return bit;
-	}
-
-	std::vector<MCEdge*> getActiveEdges() {
-		std::vector<MCEdge*> es;
-		for (auto e : edges) {
-			if (e != nullptr) {
-				es.push_back(e);
-			}
-		}
-		return es;
 	}
 
 
@@ -126,14 +135,26 @@ private:
 class MCGrid
 {
 public:
-	MCGrid(const Math::Volume3d<float, float>& volume, const float threshold);
+	MCGrid(const float threshold) : threshold( threshold )
+	{};
+	
+	void march(const Math::Volume3d<float, float>& volume);
 
 	~MCGrid();
 
+	void clear();
+
 	std::vector< Vertex* > getVertices() const { return mesh.getVertices(); }
 
+	TriangleMesh* cloneMesh() { return mesh.clone(); }
 
 private:
+	void createNodes(const Math::Volume3d<float, float>& volume);
+
+	void createEdges(const Math::Volume3d<float, float>& volume);
+
+	void createFaces(const Math::Volume3d<float, float>& volume);
+
 	std::vector< std::vector< std::vector< MCNode* > > > nodes;
 	std::vector< MCEdge* > edges;
 	std::vector< MCCell* > cells;

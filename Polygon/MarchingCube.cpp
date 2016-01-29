@@ -12,37 +12,47 @@ using namespace Crystal::Polygon;
 
 
 
-MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
-	threshold(threshold)
+
+void MCGrid::march(const Volume3d<float, float>& volume)
 {	
+	createNodes(volume);
+	createEdges(volume);
+	createFaces(volume);
+}
+
+
+void MCGrid::createNodes(const Volume3d<float, float>& volume)
+{
 	nodes.resize(volume.getGrid().getSizeX());
-	for (int i = 0; i < volume.getGrid().getSizeX(); ++i) {
-		nodes[i].resize(volume.getGrid().getSizeY());
-		for (int j = 0; j < volume.getGrid().getSizeY(); ++j) {
-			nodes[i][j].resize(volume.getGrid().getSizeZ());
-			for (int k = 0; k < volume.getGrid().getSizeZ(); ++k) {
-				const auto& pos = volume.toCenterPosition(i,j,k);
-				const auto value = volume.getGrid().get(i, j, k);
-				nodes[i][j][k] = new MCNode(pos, value);
+	for (int x = 0; x < volume.getGrid().getSizeX(); ++x) {
+		nodes[x].resize(volume.getGrid().getSizeY());
+		for (int y = 0; y < volume.getGrid().getSizeY(); ++y) {
+			nodes[x][y].resize(volume.getGrid().getSizeZ());
+			for (int z = 0; z < volume.getGrid().getSizeZ(); ++z) {
+				const auto& pos = volume.toCenterPosition(x, y, z);
+				const auto value = volume.getGrid().get(x, y, z);
+				nodes[x][y][z] = new MCNode(pos, value);
 			}
 		}
 	}
+}
 
-	for (int i = 0; i < volume.getGrid().getSizeX()-1; ++i) {
-		for (int j = 0; j < volume.getGrid().getSizeY()-1; ++j) {
-			for (int k = 0; k < volume.getGrid().getSizeZ()-1; ++k) {
-
-				if(nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i+1][j][k]->isUnderThreshold(threshold) ) {
-					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i + 1][j][k]));
-					nodes[i][j][k]->xplus = edges.back();
+void MCGrid::createEdges(const Volume3d<float, float>& volume)
+{
+	for (int x = 0; x < volume.getGrid().getSizeX() - 1; ++x) {
+		for (int y = 0; y < volume.getGrid().getSizeY() - 1; ++y) {
+			for (int z = 0; z < volume.getGrid().getSizeZ() - 1; ++z) {
+				if (nodes[x][y][z]->isUnderThreshold(threshold) != nodes[x + 1][y][z]->isUnderThreshold(threshold)) {
+					edges.push_back(new MCEdge(nodes[x][y][z], nodes[x + 1][y][z]));
+					nodes[x][y][z]->xplus = edges.back();
 				}
-				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j + 1][k]->isUnderThreshold(threshold)) {
-					edges.push_back(new MCEdge(nodes[i][j][k], nodes[i][j + 1][k]));
-					nodes[i][j][k]->yplus = edges.back();
+				if (nodes[x][y][z]->isUnderThreshold(threshold) != nodes[x][y + 1][z]->isUnderThreshold(threshold)) {
+					edges.push_back(new MCEdge(nodes[x][y][z], nodes[x][y + 1][z]));
+					nodes[x][y][z]->yplus = edges.back();
 				}
-				if (nodes[i][j][k]->isUnderThreshold(threshold) != nodes[i][j][k + 1]->isUnderThreshold(threshold)) {
-					edges.push_back(new MCEdge(nodes[i][k][k], nodes[i][j][k + 1]));
-					nodes[i][j][k]->zplus = edges.back();
+				if (nodes[x][y][z]->isUnderThreshold(threshold) != nodes[x][y][z + 1]->isUnderThreshold(threshold)) {
+					edges.push_back(new MCEdge(nodes[x][z][z], nodes[x][y][z + 1]));
+					nodes[x][y][z]->zplus = edges.back();
 				}
 			}
 		}
@@ -52,6 +62,11 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 		e->createVertex(threshold, &mesh);
 	}
 
+}
+
+
+void MCGrid::createFaces(const Volume3d<float, float>& volume)
+{
 	for (int x = 0; x < volume.getGrid().getSizeX() - 1; ++x) {
 		for (int y = 0; y < volume.getGrid().getSizeY() - 1; ++y) {
 			for (int z = 0; z < volume.getGrid().getSizeZ() - 1; ++z) {
@@ -67,36 +82,27 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 				};
 				const std::array< MCEdge*, 12> es = {
 					nodes[x][y][z]->xplus,
-					nodes[x+1][y][z]->yplus,
-					nodes[x][y+1][z]->xplus,
+					nodes[x + 1][y][z]->yplus,
+					nodes[x][y + 1][z]->xplus,
 					nodes[x][y][z]->yplus,
-					nodes[x][y][z+1]->xplus,
-					nodes[x+1][y][z+1]->yplus,
-					nodes[x][y+1][z+1]->xplus,
-					nodes[x][y][z+1]->yplus,
+					nodes[x][y][z + 1]->xplus,
+					nodes[x + 1][y][z + 1]->yplus,
+					nodes[x][y + 1][z + 1]->xplus,
+					nodes[x][y][z + 1]->yplus,
 					nodes[x][y][z]->zplus,
-					nodes[x+1][y][z]->zplus,
-					nodes[x+1][y+1][z]->zplus,
-					nodes[x][y+1][z]->zplus
+					nodes[x + 1][y][z]->zplus,
+					nodes[x + 1][y + 1][z]->zplus,
+					nodes[x][y + 1][z]->zplus
 				};
 				MCCell* cell = new MCCell(ns, es);
-				const auto bit = cell->getBit(threshold);
-				const auto& triTable = table.getTriangleTable();
-				const auto& table = triTable[bit.to_ulong()];
-
-				for (auto t : table.triangles) {
-					auto e1 = es[t.i1]->v;
-					auto e2 = es[t.i2]->v;
-					auto e3 = es[t.i3]->v;
-					mesh.createFace( e1, e2, e3);
-				}
-
+				cell->createFaces(mesh, threshold, table);
 			}
 		}
 	}
 }
 
-MCGrid::~MCGrid()
+
+void MCGrid::clear()
 {
 	for (int i = 0; i < nodes.size(); ++i) {
 		for (int j = 0; j < nodes[i].size(); ++j) {
@@ -105,14 +111,23 @@ MCGrid::~MCGrid()
 			}
 		}
 	}
-
+	nodes.clear();
 
 	for (auto e : edges) {
 		delete e;
 	}
+	edges.clear();
 
 	for (auto c : cells) {
 		delete c;
 	}
+	cells.clear();
+
+	mesh.clear();
+}
+
+MCGrid::~MCGrid()
+{
+	clear();
 }
 

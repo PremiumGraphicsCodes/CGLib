@@ -27,23 +27,34 @@ TEST(MCGridTest, Test)
 	Grid3d<float> grid(4, 4, 4);
 	grid.set(0, 0, 0, 1);
 
+	MCGrid mcgrid(0.5);
 	{
 		Volume3d<float, float> volume(space, grid);
-		MCGrid mcgrid(volume, 0.5);
+		mcgrid.march(volume);
 		const auto& actual = mcgrid.getVertices();
 		EXPECT_EQ(3, actual.size());
 		EXPECT_EQ(Vector3d<float>(1.0, 0.5, 0.5), actual[0]->getPosition());
 		EXPECT_EQ(Vector3d<float>(0.5, 1.0, 0.5), actual[1]->getPosition());
 		EXPECT_EQ(Vector3d<float>(0.5, 0.5, 1.0), actual[2]->getPosition());
 	}
+	mcgrid.clear();
 
 	grid.set(1, 0, 0, 1);
 	{
 		Volume3d<float, float> volume(space, grid);
-		MCGrid mcgrid(volume, 0.5);
+		mcgrid.march(volume);
 		const auto& actual = mcgrid.getVertices();
 		EXPECT_EQ(5, actual.size());
 
 	}
 
+	/*
+	grid.set(0, 1, 0, 1);
+	{
+		Volume3d<float, float> volume(space, grid);
+		MCGrid mcgrid(volume, 0.5);
+		const auto& actual = mcgrid.getVertices();
+		EXPECT_EQ(5, actual.size());
+	}
+	*/
 }
