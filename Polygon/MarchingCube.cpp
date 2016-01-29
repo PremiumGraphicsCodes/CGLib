@@ -49,7 +49,7 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 	}
 
 	for (auto e : edges) {
-		mesh.addVertex( e->createVertex(threshold) );
+		e->createVertex(threshold, &mesh);
 	}
 
 	for (int x = 0; x < volume.getGrid().getSizeX() - 1; ++x) {

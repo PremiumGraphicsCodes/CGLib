@@ -32,7 +32,7 @@ bool TriangleMesh::hasVertex(Vertex* v)
 
 Vertex* TriangleMesh::createVertex(const Vector3d<float>& position)
 {
-	auto v = new Vertex(position);
+	auto v = new Vertex(position, nextIndexId++);
 	vertices.push_back(v);
 	return v;
 }

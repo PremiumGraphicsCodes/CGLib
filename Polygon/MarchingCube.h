@@ -69,10 +69,10 @@ public:
 	{
 	}
 
-	Vertex* createVertex(const float threshold)
+	Vertex* createVertex(const float threshold, TriangleMesh* mesh)
 	{
 		const float scale = (threshold - startNode->getValue()) / (endNode->getValue() - startNode->getValue());
-		v = new Vertex(startNode->getPosition() + scale * (endNode->getPosition() - startNode->getPosition()));
+		v = mesh->createVertex(startNode->getPosition() + scale * (endNode->getPosition() - startNode->getPosition()));
 		return v;
 	}
 
