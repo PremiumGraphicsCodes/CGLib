@@ -36,6 +36,7 @@ public:
 	MCNode(const Math::Vector3d<float>& position, const float value) :
 		position(position),
 		value(value),
+		xplus(nullptr),
 		xminus(nullptr),
 		yplus(nullptr),
 		yminus(nullptr),
@@ -88,13 +89,15 @@ public:
 	MCNode* endNode;
 };
 
+
 class MCCell {
 public:
 	MCCell() {
 	}
 
-	MCCell(const std::array<MCNode*, 8>& nodes) :
-		nodes( nodes )
+	MCCell(const std::array<MCNode*, 8>& nodes, const std::array<MCEdge*, 12>& edges) :
+		nodes( nodes ),
+		edges( edges )
 	{
 	}
 
@@ -109,8 +112,20 @@ public:
 		return bit;
 	}
 
+	std::vector<MCEdge*> getActiveEdges() {
+		std::vector<MCEdge*> es;
+		for (auto e : edges) {
+			if (e != nullptr) {
+				es.push_back(e);
+			}
+		}
+		return es;
+	}
+
+
 private:
-	std::array<MCNode*,8> nodes;
+	std::array<MCNode*, 8> nodes;
+	std::array<MCEdge*, 12> edges;
 };
 
 

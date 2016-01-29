@@ -90,20 +90,39 @@ MCGrid::MCGrid(const Volume3d<float, float>& volume, const float threshold) :
 		mesh.createVertex( e->getPosition(threshold) );
 	}
 
-	for (int i = 0; i < volume.getGrid().getSizeX() - 1; ++i) {
-		for (int j = 0; j < volume.getGrid().getSizeY() - 1; ++j) {
-			for (int k = 0; k < volume.getGrid().getSizeZ() - 1; ++k) {
+	for (int x = 0; x < volume.getGrid().getSizeX() - 1; ++x) {
+		for (int y = 0; y < volume.getGrid().getSizeY() - 1; ++y) {
+			for (int z = 0; z < volume.getGrid().getSizeZ() - 1; ++z) {
 				const std::array<MCNode*, 8> ns = {
-					nodes[i][j][k],
-					nodes[i + 1][j][k],
-					nodes[i + 1][j + 1][k],
-					nodes[i][j + 1][k],
-					nodes[i][j][k + 1],
-					nodes[i + 1][j][k + 1],
-					nodes[i + 1][j + 1][k + 1],
-					nodes[i][j][k + 1]
+					nodes[x][y][z],
+					nodes[x + 1][y][z],
+					nodes[x + 1][y + 1][z],
+					nodes[x][y + 1][z],
+					nodes[x][y][z + 1],
+					nodes[x + 1][y][z + 1],
+					nodes[x + 1][y + 1][z + 1],
+					nodes[x][y][z + 1]
 				};
-				MCCell* cell = new MCCell(ns);
+				const std::array< MCEdge*, 12> es = {
+					nodes[x][y][z]->xplus,
+					nodes[x+1][y][z]->yplus,
+					nodes[x+1][y+1][z]->xminus,
+					nodes[x][y+1][z]->yminus,
+					nodes[x][y][z+1]->xplus,
+					nodes[x+1][y][z+1]->yplus,
+					nodes[x+1][y+1][z+1]->xminus,
+					nodes[x][y+1][z+1]->yminus,
+					nodes[x][y][z]->zplus,
+					nodes[x+1][y][z]->zplus,
+					nodes[x+1][y+1][z]->zplus,
+					nodes[x][y+1][z]->zplus
+				};
+				MCCell* cell = new MCCell(ns, es);
+				const auto bit = cell->getBit(threshold);
+				const auto& triTable = table.getTriangleTable();
+				const auto& table = triTable[bit.to_ulong()];
+
+				cell->getActiveEdges();
 			}
 		}
 	}
