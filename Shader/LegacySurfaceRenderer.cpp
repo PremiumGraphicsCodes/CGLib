@@ -13,6 +13,7 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 {
 	const auto& positions = buffer.positions.get();// buffers[0].get();
 	const auto& normals = buffer.normals.get();//buffers[1].get();
+	const auto& indices = buffer.indices;
 
 	if (positions.empty()) {
 		return;
@@ -48,7 +49,8 @@ void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLigh
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glNormalPointer(GL_FLOAT, 0, normals.data());
 
-	glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

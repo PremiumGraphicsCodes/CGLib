@@ -37,15 +37,22 @@ public:
 		normals.add(triangle.getNormal());
 		normals.add(triangle.getNormal());
 		normals.add(triangle.getNormal());
+		indices.push_back(nextIndex++);
+		indices.push_back(nextIndex++);
+		indices.push_back(nextIndex++);
 	}
 
 	void clear() {
+		nextIndex = 0;
+		indices.clear();
 		positions.clear();
 		normals.clear();
 	}
 
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
+	unsigned int nextIndex;
+	std::vector<unsigned int> indices;
 };
 
 	}
