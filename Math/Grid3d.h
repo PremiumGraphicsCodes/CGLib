@@ -23,11 +23,17 @@ public:
 
 	~Grid3d() = default;
 
-	Grid3d(const size_t sizex, const size_t sizey, const size_t sizez);
+	Grid3d(const size_t sizex, const size_t sizey, const size_t sizez, const T value = { 0 });
+
+	Grid3d(const Index3d resolution, const T value = { 0 }) :
+		Grid3d(resolution.getX(), resolution.getY(), resolution.getZ(), value)
+	{}
 
 	//Grid3d(const size_t sizex, const size_t sizey, const size_t sizez, const float value);
 
 	explicit Grid3d(const Grid2dVector<T>& grids);
+
+	Grid3d(const Grid2d<T>& grid2ds, const int howMany);
 
 	T get(const size_t x, const size_t y, const size_t z) const { return grids[z].get(x,y); }
 
@@ -86,6 +92,12 @@ public:
 	bool isValidIndex(const int x, const int y, const int z) const;
 
 	Math::Vector3d<T> getLocalCoord(const Index3d index) const;
+
+	Grid3d<T> createRotateX();
+
+	Grid3d<T> createRotateY();
+
+	//Grid3d<T> createRotateZ();
 
 private:
 	Grid2dVector<T> grids;

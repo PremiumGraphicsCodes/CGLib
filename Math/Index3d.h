@@ -20,6 +20,12 @@ public:
 
 	int operator[](int index) const { return i[index]; }
 
+	int getX() const { return i[0]; }
+
+	int getY() const { return i[1]; }
+
+	int getZ() const { return i[2]; }
+
 private:
 	std::array < int, 3 > i;
 };

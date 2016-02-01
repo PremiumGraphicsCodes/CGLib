@@ -6,8 +6,8 @@
 using namespace Crystal::Math;
 
 template<typename T>
-Grid3d<T>::Grid3d(const size_t sizex, const size_t sizey, const size_t sizez) :
-	grids(sizez, Grid2d<T>(sizex, sizey))
+Grid3d<T>::Grid3d(const size_t sizex, const size_t sizey, const size_t sizez, const T value) :
+	grids(sizez, Grid2d<T>(sizex, sizey, value))
 {}
 
 template<typename T>
@@ -22,6 +22,15 @@ Grid3d<T>::Grid3d(const size_t sizex, const size_t sizey, const size_t sizez, co
 
 }
 */
+
+template<typename T>
+Grid3d<T>::Grid3d(const Grid2d<T>& grid2ds, const int howMany)
+{
+	for (int i = 0; i < howMany; ++i) {
+		grids.push_back(grid2ds);
+	}
+}
+
 
 
 template<typename T>
@@ -120,7 +129,7 @@ void Grid3d<T>::not()
 template<typename T>
 void Grid3d<T>::move(const int diffx, const int diffy, const int diffz)
 {
-	Grid3d<T> newGrid(getSizeX(), getSizeY(), getSizeZ());
+	Grid3d<T> newGrid(getSizeX(), getSizeY(), getSizeZ(), T{ 0 });
 	for (int x = 0; x < getSizeX(); ++x) {
 		for (int y = 0; y < getSizeY(); ++y) {
 			for (int z = 0; z < getSizeZ(); ++z) {
@@ -249,6 +258,41 @@ Vector3d<T> Grid3d<T>::getLocalCoord(const Index3d index) const
 		static_cast<T>(index[2]));
 	return result;
 }
+
+template<typename T>
+Grid3d<T> Grid3d<T>::createRotateX()
+{
+	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ(), T{ 0 });
+	for (int x = 0; x < getSizeX(); ++x) {
+		for (int y = 0; y < getSizeY(); ++y) {
+			for (int z = 0; z < getSizeZ(); ++z) {
+				const auto v = this->get(x, y, z);
+				dest.set(x, z, y, v);
+			}
+		}
+	}
+	return dest;
+}
+
+template<typename T>
+Grid3d<T> Grid3d<T>::createRotateY()
+{
+	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ(), T{ 0 });
+	for (int x = 0; x < getSizeX(); ++x) {
+		for (int y = 0; y < getSizeY(); ++y) {
+			for (int z = 0; z < getSizeZ(); ++z) {
+				const auto v = this->get(x, y, z);
+				dest.set(z, y, x, v);
+			}
+		}
+	}
+	return dest;
+}
+
+/*
+Grid3d<T> createRotateZ();
+*/
+
 
 template class Grid3d<float>;
 template class Grid3d<double>;

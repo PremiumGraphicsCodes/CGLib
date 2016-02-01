@@ -12,7 +12,7 @@ class Grid2d final
 public:
 	Grid2d() = default;
 
-	Grid2d(const size_t sizex, const size_t sizey);
+	Grid2d(const size_t sizex, const size_t sizey, const T value = { 0 });
 
 	explicit Grid2d(const std::vector<Grid1d<T>>& grids) :
 		grids(grids)
