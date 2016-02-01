@@ -2,6 +2,7 @@
 #define __CRYSTAL_GRAPHICS_BUFFER_4D_H__
 
 #include "ColorRGBA.h"
+#include "IBuffer.h"
 
 namespace Crystal {
 	namespace Graphics {

@@ -172,7 +172,6 @@
     <ClCompile Include="ShaderTest.cpp" />
     <ClCompile Include="SmoothRendererTest.cpp" />
     <ClCompile Include="TextureTest.cpp" />
-    <ClCompile Include="LineRendererTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw.h" />

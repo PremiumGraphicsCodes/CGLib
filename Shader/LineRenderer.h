@@ -8,7 +8,6 @@
 #include "../Util/UnCopyable.h"
 
 #include "IRenderer.h"
-#include "../Graphics/LineBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -17,6 +16,11 @@ template<typename GeomType>
 class LineRenderer final : public IRenderer<GeomType>
 {
 public:
+	struct {
+		std::vector<float> positions;
+		std::vector<float> colors;
+	};
+
 	LineRenderer() = default;
 
 	LineRenderer(const ShaderObject& shader) :
@@ -24,8 +28,6 @@ public:
 	{}
 
 	~LineRenderer() = default;
-
-	void setBuffer(const Graphics::LineBuffer& b) { this->buffers = b.getBuffers(); }
 
 	void findLocation() override;
 

@@ -6,8 +6,9 @@ using namespace Crystal::Shader;
 
 void LegacyLineRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
 {
-	const auto& positions = buffer.getBuffers()[0].get();// buffers[0].get();
-	const auto& colors = buffer.getBuffers()[1].get();
+	const auto& positions = buffer.position.get();// buffers[0].get();
+	const auto& colors = buffer.color.get();
+	const auto& indices = buffer.indices;
 
 	if (positions.empty()) {
 		return;
@@ -33,7 +34,9 @@ void LegacyLineRenderer::render(const ICamera<float>& camera, const LineBuffer& 
 	glColorPointer(4, GL_FLOAT, 0, colors.data());
 	assert(glGetError() == GL_NO_ERROR);
 
-	glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, indices.data());
+
 
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
