@@ -7,7 +7,6 @@
 #include "ShaderObject.h"
 
 #include "../Graphics/ICamera.h"
-#include "../Graphics/Surface.h"
 
 #include "IRenderer.h"
 

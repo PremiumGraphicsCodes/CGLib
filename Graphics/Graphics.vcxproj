@@ -29,7 +29,6 @@
     <ClCompile Include="OrthogonalCamera.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="PointBuffer.cpp" />
-    <ClCompile Include="Surface.cpp" />
     <ClCompile Include="TriangleBuffer.cpp" />
     <ClCompile Include="WindowCoord2d.cpp" />
   </ItemGroup>
@@ -45,8 +44,6 @@
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGB.h" />
     <ClInclude Include="ColorRGBA.h" />
-    <ClInclude Include="Face.h" />
-    <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="ImageGrayScale.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
@@ -56,9 +53,7 @@
     <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="PointBuffer.h" />
     <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Surface.h" />
     <ClInclude Include="TriangleBuffer.h" />
-    <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowCoord2d.h" />
     <ClInclude Include="Wireframe.h" />
   </ItemGroup>

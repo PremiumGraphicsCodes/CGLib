@@ -123,10 +123,10 @@ TEST(STLFileTest, TestReadBinary)
 {
 	STLFileReader reader;
 	reader.read("../TestFile/IO/cube-binary.stl");
-	const auto& surface = reader.getFile().toSurface();
 }
 
 
+/*
 TEST(STLFileTest, TestToSurface)
 {
 	STLCellVector cells;
@@ -142,3 +142,4 @@ TEST(STLFileTest, TestToSurface)
 	EXPECT_EQ(3, actual.getVertices().size());
 	//EXPECT_EQ(v2, actual.getVertices()[2]);
 }
+*/

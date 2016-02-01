@@ -4,7 +4,6 @@
 #include "GLee.h"
 #include "../Graphics/ICamera.h"
 #include "../Graphics/Light.h"
-#include "../Graphics/Surface.h"
 #include "../Graphics/TriangleBuffer.h"
 
 namespace Crystal {

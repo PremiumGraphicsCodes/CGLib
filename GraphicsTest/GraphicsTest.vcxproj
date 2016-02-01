@@ -26,17 +26,13 @@
     <ClCompile Include="ColorRGBAMapTest.cpp" />
     <ClCompile Include="ColorRGBATest.cpp" />
     <ClCompile Include="ColorRGBTest.cpp" />
-    <ClCompile Include="FaceTest.cpp" />
-    <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="ImageGrayScaleTest.cpp" />
     <ClCompile Include="ImageTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
     <ClCompile Include="LineBufferTest.cpp" />
     <ClCompile Include="OrthogonalCameraTest.cpp" />
     <ClCompile Include="PerspectiveCameraTest.cpp" />
-    <ClCompile Include="SurfaceTest.cpp" />
     <ClCompile Include="TriangleBufferTest.cpp" />
-    <ClCompile Include="VertexTest.cpp" />
     <ClCompile Include="WireframeTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

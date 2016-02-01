@@ -1,10 +1,12 @@
 #include "POVFile.h"
+#include "../Polygon/Vertex.h"
+#include "../Polygon/TriangleFace.h"
 #include <fstream>
 
-using namespace Crystal::Graphics;
+using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-bool POVFile::writeScene(const std::string& file, const Surface<float>& surface)
+bool POVFile::writeScene(const std::string& file, const TriangleMesh& surface)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
@@ -33,13 +35,12 @@ bool POVFile::writeScene(const std::string& file, const Surface<float>& surface)
 	const auto& faces = surface.getFaces();
 	for (const auto& f : faces) {
 		stream << "triangle {";
-		for (const auto& e : f.getEdges()) {
-			const auto& v = e.getStartPosition();
-			const auto x = v.getX();
-			const auto y = v.getY();
-			const auto z = v.getZ();
-			stream << "<" << x << "," << y << "," << z << ">" << std::endl;
-		}
+			const auto v1 = f->getV1()->getPosition();
+			const auto v2 = f->getV2()->getPosition();
+			const auto v3 = f->getV3()->getPosition();
+			stream << "<" << v1.getX() << "," << v1.getY() << "," << v1.getZ() << ">" << std::endl;
+			stream << "<" << v2.getX() << "," << v2.getY() << "," << v2.getZ() << ">" << std::endl;
+			stream << "<" << v3.getX() << "," << v3.getY() << "," << v3.getZ() << ">" << std::endl;
 		stream << "}" << std::endl;
 	}
 	//stream << "texture { White_Wood}" << std::endl;
@@ -50,24 +51,22 @@ bool POVFile::writeScene(const std::string& file, const Surface<float>& surface)
 }
 
 
-bool POVFile::writeInc(const std::string& file, const Surface<float>& surface)
+bool POVFile::writeInc(const std::string& file, const TriangleMesh& mesh)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
 		return false;
 	}
 
-	const auto& faces = surface.getFaces();
+	const auto& faces = mesh.getFaces();
 	for (const auto& f : faces) {
 		stream << "triangle {";
-		const auto& edges = f.getEdges();
-		for (const auto& e : edges) {
-			const auto& v = e.getStartPosition();
-			const auto x = v.getX();
-			const auto y = v.getY();
-			const auto z = v.getZ();
-			stream << "<" << x << "," << y << "," << z << ">" << std::endl;
-		}
+		const auto v1 = f->getV1()->getPosition();
+		const auto v2 = f->getV2()->getPosition();
+		const auto v3 = f->getV3()->getPosition();
+		stream << "<" << v1.getX() << "," << v1.getY() << "," << v1.getZ() << ">" << std::endl;
+		stream << "<" << v2.getX() << "," << v2.getY() << "," << v2.getZ() << ">" << std::endl;
+		stream << "<" << v3.getX() << "," << v3.getY() << "," << v3.getZ() << ">" << std::endl;
 		stream << "}" << std::endl;
 	}
 
