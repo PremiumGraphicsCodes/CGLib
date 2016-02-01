@@ -97,7 +97,7 @@ public:
 
 	Grid3d<T> createRotateY();
 
-	//Grid3d<T> createRotateZ();
+	Grid3d<T> createRotateZ();
 
 private:
 	Grid2dVector<T> grids;

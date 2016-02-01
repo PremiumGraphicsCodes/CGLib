@@ -277,7 +277,7 @@ Grid3d<T> Grid3d<T>::createRotateX()
 template<typename T>
 Grid3d<T> Grid3d<T>::createRotateY()
 {
-	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ(), T{ 0 });
+	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ());
 	for (int x = 0; x < getSizeX(); ++x) {
 		for (int y = 0; y < getSizeY(); ++y) {
 			for (int z = 0; z < getSizeZ(); ++z) {
@@ -289,9 +289,21 @@ Grid3d<T> Grid3d<T>::createRotateY()
 	return dest;
 }
 
-/*
-Grid3d<T> createRotateZ();
-*/
+template<typename T>
+Grid3d<T> Grid3d<T>::createRotateZ()
+{
+	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ());
+	for (int x = 0; x < getSizeX(); ++x) {
+		for (int y = 0; y < getSizeY(); ++y) {
+			for (int z = 0; z < getSizeZ(); ++z) {
+				const auto v = this->get(x, y, z);
+				dest.set(y, x, z, v);
+			}
+		}
+	}
+	return dest;
+
+}
 
 
 template class Grid3d<float>;

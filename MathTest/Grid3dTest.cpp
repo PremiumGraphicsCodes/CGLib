@@ -133,3 +133,17 @@ TEST(Grid3dTest, TestCreateRotateY)
 	EXPECT_EQ(1, actual.get(1, 0, 0));
 	//EXPECT_EQ(1, actual.get(0, 1, 0));
 }
+
+TEST(Grid3dTest, TestCreateRotateZ)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2, 0);
+	grid.set(0, 0, 0, 0);
+	grid.set(1, 0, 0, 100);
+	grid.set(0, 1, 0, 10);
+	grid.set(0, 0, 1, 1);
+
+	const auto& actual = grid.createRotateZ();
+	EXPECT_EQ(0, actual.get(0, 0, 0));
+	EXPECT_EQ(1, actual.get(0, 0, 1));
+}
