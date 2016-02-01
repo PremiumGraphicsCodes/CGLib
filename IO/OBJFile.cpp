@@ -7,6 +7,8 @@
 #include <vector>
 
 #include "../Math/Vector3d.h"
+#include "../Polygon/Vertex.h"
+#include "../Polygon/TriangleFace.h"
 
 #include "Helper.h"
 
@@ -15,6 +17,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
 std::string OBJFace::write(std::ostream& stream) const
@@ -215,7 +218,7 @@ Vector2d<float> OBJGroup::readVector2d(const std::string& str)
 }
 */
 
-bool OBJFileWriter::write(const std::string& path, const std::string& filename, const OBJFile& file)
+bool OBJFileWriter::write(const std::string& path, const std::string& filename, const TriangleMesh& mesh)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -223,49 +226,38 @@ bool OBJFileWriter::write(const std::string& path, const std::string& filename, 
 	if (!stream.is_open()) {
 		return false;
 	}
-	return write(stream, file);
+	return write(stream, mesh);
 }
 
-bool OBJFileWriter::write(std::ostream& stream, const OBJFile& file)
+bool OBJFileWriter::write(std::ostream& stream, const TriangleMesh& mesh)
 {
-	if (!file.getComment().empty()) {
-		strs.push_back( "# " + file.getComment() );
+	const auto& vertices = mesh.getVertices();
+	const auto& faces = mesh.getFaces();
+
+	for (const auto& v : vertices) {
+		const auto pos = v->getPosition();
+		char s[256];
+		sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
+		stream << s << std::endl;
 	}
 
-	//stream << std::endl;
-
-	//stream << "mtllib" << " " << mtlFileName << std::endl;
-
-
-	for (const auto& g : file.getGroups() ) {
-		//stream << "g " << g.getName() << std::endl;
-		strs.push_back("g " + g.getName());
-		//strs.push_back("usemtl " + materialName);
-		/*
-		for (const auto& pos : g->getPositions()) {
-			char s[256];
-			sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ() );
-			strs.push_back(s);
-		}
-		for (const auto& tex : g->getTexCoords() ) {
-			char s[256];
-			sprintf(s, "vt %.4lf %.4lf %.4lf", tex.getX(), tex.getY(), tex.getZ());
-			strs.push_back(s);
-		}
-		for (const auto& n : g->getNormals() ) {
-			strs.push_back("vn " + std::to_string(n.getX()) + " " + std::to_string(n.getY()) + " " + std::to_string(n.getZ()) );
-		}
-		*/
-		for (const OBJFace& f : g.getFaces()) {
-			std::string s = f.write(stream);
-			strs.push_back(s);
-		}
+	for (const auto& v : vertices) {
+		const auto vn = v->getNormal();
+		char s[256];
+		sprintf(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
+		stream << s << std::endl;
 	}
 
+	for (const auto& f : faces) {
+		const auto i1 = f->getV1()->getId() + 1;
+		const auto i2 = f->getV2()->getId() + 1;
+		const auto i3 = f->getV3()->getId() + 1;
 
-	for (const std::string& str : strs) {
-		stream << str << std::endl;
+		stream
+			<< "f "
+			<< i1 << "/" << "/" << i1 << " "
+			<< i2 << "/" << "/" << i2 << " "
+			<< i3 << "/" << "/" << i3 << std::endl;
 	}
-
-	return true;
+	return stream.good();
 }

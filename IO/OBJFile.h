@@ -4,6 +4,7 @@
 #include "../Math/Vector3d.h"
 
 #include "../Graphics/Buffer3d.h"
+#include "../Polygon/TriangleMesh.h"
 
 #include "../IO/MTLFile.h"
 
@@ -194,9 +195,9 @@ private:
 
 class OBJFileWriter {
 public:
-	bool write(const std::string& path, const std::string& filename, const OBJFile& file);
+	bool write(const std::string& path, const std::string& filename, const Polygon::TriangleMesh& mesh);
 
-	bool write(std::ostream& stream, const OBJFile& file);
+	bool write(std::ostream& stream, const Polygon::TriangleMesh& mesh);
 
 	/*
 	std::ostream& operator<<(::std::ostream& os)

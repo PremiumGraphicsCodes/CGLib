@@ -7,6 +7,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
 using T = float;
@@ -163,15 +164,6 @@ TEST( OBJFileTest, TestReadUseMtl )
 	EXPECT_EQ(1, file.getGroups().front().getFaces().size());
 }
 
-TEST(OBJFileTest, TestWriteEmpty)
-{
-	std::ostringstream stream;
-	OBJFile file;
-	OBJFileWriter writer;
-	writer.write(stream, file);
-	const std::vector< std::string >& strs = writer.getStrs();
-	EXPECT_TRUE(strs.empty() );
-}
 
 /*
 TEST(OBJFileTest, TestWriteNormals)
@@ -222,94 +214,14 @@ TEST(OBJFileTest, TestWrite2)
 TEST(OBJFileTest, TestWriteFaces)
 {
 	OBJFileWriter writer;
-	OBJFace face({ 0, 1, 2 }, {}, {} );
-	OBJGroup group;
-	group.setFaces(std::vector < OBJFace > { face });
-	std::stringstream stream;
-	OBJFile file;
-	file.setGroups({ group });
-	writer.write(stream, file);
-	const std::vector< std::string >& strs = writer.getStrs();
-
-	EXPECT_EQ( strs[0], "g ");
-	EXPECT_EQ( strs[1], "f 0 1 2");
+	TriangleMesh mesh;
+	auto v1 = mesh.createVertex(Vector3d<float>(0.0, 0.0, 0.0));
+	auto v2 = mesh.createVertex(Vector3d<float>(1.0, 0.0, 0.0));
+	auto v3 = mesh.createVertex(Vector3d<float>(1.0, 1.0, 0.0));
+	mesh.createFace(v1, v2, v3);
+	writer.write("../TestFile/IO", "OBJWriteTest.obj", mesh);
 }
 
-TEST(OBJFileTest, TestWriteFacesVertexTex)
-{
-	OBJFileWriter writer;
-	OBJFace face({ 0, 1, 2 }, { 1, 1, 1 }, {} );
-	OBJGroup group;
-	group.setFaces(std::vector < OBJFace > { face });
-	std::stringstream stream;
-	OBJFile file;
-	file.setGroups({ group });
-
-	writer.write(stream, file);
-	const std::vector< std::string >& strs = writer.getStrs();
-
-	EXPECT_EQ(strs[0], "g ");
-	EXPECT_EQ(strs[1], "f 0/1 1/1 2/1");
-}
-
-
-TEST(OBJFileTest, TestWriteFacesVertexNormal)
-{
-	OBJFileWriter writer;
-	OBJFace face({ 0, 1, 2 }, {}, {3, 4, 5});
-	OBJGroup group;
-	group.setFaces(std::vector < OBJFace > { face });
-	std::stringstream stream;
-	OBJFile file;
-	file.setGroups({ group });
-	writer.write(stream, file);
-	const std::vector< std::string >& strs = writer.getStrs();
-	EXPECT_EQ(strs[0], "g ");
-	EXPECT_EQ(strs[1], "f 0//3 1//4 2//5");
-
-}
-
-TEST(OBJFileTest, TestWriteFacesVertexTexNormal)
-{
-	OBJFileWriter writer;
-	OBJFace face({ 0, 1, 2 }, { 1, 1, 1 }, {2, 2, 2});
-	OBJGroup group;
-	group.setFaces(std::vector < OBJFace > { face });
-	std::stringstream stream;
-	OBJFile file;
-	file.setGroups({ group });
-	writer.write(stream, file);
-
-	const std::vector< std::string >& strs = writer.getStrs();
-
-	EXPECT_EQ(strs[0], "g ");
-	EXPECT_EQ(strs[1], "f 0/1/2 1/1/2 2/1/2" );
-}
-
-TEST(OBJFileTest, TestWriteGroups)
-{
-	OBJFileWriter writer;
-	OBJGroup group("name");
-	std::stringstream stream;
-	OBJFile file;
-	file.setGroups( {group});
-	writer.write(stream, file);
-	const std::vector< std::string >& strs = writer.getStrs();
-
-	EXPECT_EQ(strs[0], "g name");
-}
-
-	/*
-	{
-		OBJFile file;
-		OBJFace face({ 0, 1, 2 });
-		OBJGroup group("name", { face });
-		std::stringstream stream;
-		file.setGroups({ group });
-		file.write(stream);
-		EXPECT_EQ("g name\nf 0 1 2\n", stream.str());
-	}
-	*/
 
 // from http://www.martinreddy.net/gfx/3d/OBJ.spec
 TEST(OBJFileTest, TestExampleSquare)
