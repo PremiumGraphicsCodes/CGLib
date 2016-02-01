@@ -1,20 +1,7 @@
 #include "Surface.h"
 
-#include "../Math/MarchingCube.h"
-
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-
-template<typename T>
-void Surface<T>::buildFromVolume(const Volume3d<float, float>& volume, const T threshold)
-{
-	clear();
-	MarchingCube<T, float>* mc = MarchingCube<T, float>::getInstance();
-	const auto& triangles = mc->march(volume, threshold);
-	for (const auto& t : triangles) {
-		this->add(t );
-	}
-}
 
 
 template<typename T>

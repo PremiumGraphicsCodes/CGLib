@@ -33,8 +33,6 @@ public:
 		faces.clear();
 	}
 
-	void buildFromVolume(const Math::Volume3d<float, float>& volume, const T threshold);
-
 	std::list<HalfEdge<T>> getEdges() const { return edges; }
 
 	std::vector<Vertex<T>> getVertices() const { return vertices; }

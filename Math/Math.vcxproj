@@ -26,7 +26,6 @@
     <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="Line3d.h" />
-    <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
@@ -49,7 +48,6 @@
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />
     <ClCompile Include="Line3d.cpp" />
-    <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="Matrix2d.cpp" />
     <ClCompile Include="Matrix3d.cpp" />
     <ClCompile Include="Matrix4d.cpp" />
