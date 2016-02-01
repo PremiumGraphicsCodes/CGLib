@@ -64,13 +64,10 @@ public:
 
 	~MarchingCube() = default;
 
-	void march(const Math::Volume3d<float, float>& ss, const float isolevel);
+	std::vector< Math::Triangle<float> > march(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid, const float isolevel);
 	
-	std::vector< Math::Triangle<float> > getTriagles() const { return triangles; }
-
 private:
 	MarchingCubeTable table;
-	std::vector< Math::Triangle<float> > triangles;
 
 	int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;
 

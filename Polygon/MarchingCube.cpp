@@ -36,12 +36,19 @@ std::array< MCNode, 8 > MCCell::toPositionValues() const
 }
 
 namespace {
-	MCCell toCell( const Volume3d<float,float>& volume, const Index3d index)
+	Vector3d<float> getUnitLengths(const Space3d<float>& space, const Index3d res)
 	{
-		const auto& lengths = volume.getUnitLengths();
-		const auto& grid = volume.getGrid();
-		const auto& space = volume.getSpace();
-		const auto& innerSpace = volume.getSpace().offset(lengths);
+		const auto x = space.getLengths().getX() / res[0];
+		const auto y = space.getLengths().getY() / res[1];
+		const auto z = space.getLengths().getZ() / res[2];
+		return Vector3d<float>(x, y, z);
+	}
+
+
+	MCCell toCell( const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
+	{
+		const auto& lengths = getUnitLengths(space, grid.getSizes());
+		const auto& innerSpace = space.offset(lengths);
 
 		const auto divx = grid.getSizeX() - 1;
 		const auto divy = grid.getSizeY() - 1;
@@ -55,14 +62,14 @@ namespace {
 }
 
 
-void MarchingCube::march(const Volume3d<float, float>& volume, const float isolevel)
+std::vector<Triangle<float> > MarchingCube::march(const Space3d<float>& space, const Grid3d<float>& grid, const float isolevel)
 {
-	const auto& grid = volume.getGrid();
+	std::vector<Triangle<float>> triangles;
 	for (int x = 0; x < grid.getSizeX() - 1; ++x) {
 		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
 			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
 				if (grid.isBoundary(x, y, z, isolevel)) {
-					const auto& cell = ::toCell(volume, Index3d{ x, y, z });
+					const auto& cell = ::toCell(space, grid, Index3d{ x, y, z });
 					const int cubeindex = getCubeIndex(cell.getValues(), isolevel);
 					const auto& vertices = getPositions(cubeindex, cell, isolevel);
 					const auto& triTable = table.getTriangleTable();
@@ -77,6 +84,7 @@ void MarchingCube::march(const Volume3d<float, float>& volume, const float isole
 			}
 		}
 	}
+	return triangles;
 }
 
 

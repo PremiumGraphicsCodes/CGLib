@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
+    <ClCompile Include="TriangleFace.cpp" />
     <ClCompile Include="TriangleMesh.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
