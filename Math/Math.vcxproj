@@ -26,7 +26,6 @@
     <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="Line3d.h" />
-    <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Matrix2d.h" />
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />

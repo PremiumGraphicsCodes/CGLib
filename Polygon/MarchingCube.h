@@ -7,7 +7,7 @@
 #include "../Math/Space3d.h"
 #include "../Math/Volume3d.h"
 #include "../Util/UnCopyable.h"
-#include "../Math/MarchingCubeTable.h"
+#include "MarchingCubeTable.h"
 #include <vector>
 #include <array>
 
@@ -71,7 +71,7 @@ public:
 	std::list< Vertex* > getVertices() { return mesh.getVertices(); }
 
 private:
-	Math::MarchingCubeTable table;
+	MarchingCubeTable table;
 	TriangleMesh mesh;
 
 	int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;

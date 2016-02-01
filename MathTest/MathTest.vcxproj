@@ -25,7 +25,6 @@
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
-    <ClCompile Include="MarchingCubeTableTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />

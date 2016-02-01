@@ -7,7 +7,6 @@
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
-    <ClCompile Include="MarchingCubeTableTest.cpp" />
     <ClCompile Include="Space2dTest.cpp" />
     <ClCompile Include="Space3dTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
