@@ -1,6 +1,7 @@
 #include "POVFile.h"
 #include "../Polygon/Vertex.h"
 #include "../Polygon/TriangleFace.h"
+#include "../Polygon/TriangleMesh.h"
 #include <fstream>
 
 using namespace Crystal::Polygon;

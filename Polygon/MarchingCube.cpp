@@ -67,19 +67,16 @@ void MarchingCube::march(const Volume3d<float, float>& volume, const float isole
 					const auto& vertices = getPositions(cubeindex, cell, isolevel);
 					const auto& triTable = table.getTriangleTable();
 					for (int i = 0; triTable[cubeindex][i] != -1; i += 3) {
-						const auto& v1 = mesh.createVertex( vertices[triTable[cubeindex][i]] );
-						const auto& v2 = mesh.createVertex( vertices[triTable[cubeindex][i + 1]] );
-						const auto& v3 = mesh.createVertex( vertices[triTable[cubeindex][i + 2]] );
-						auto f = mesh.createFace(v1, v2, v3);
-						v1->setFace(f);
-						v2->setFace(f);
-						v3->setFace(f);
+						const auto& v1 = vertices[triTable[cubeindex][i]];
+						const auto& v2 = vertices[triTable[cubeindex][i + 1]];
+						const auto& v3 = vertices[triTable[cubeindex][i + 2]];
+						const Triangle<float> t(v1, v2, v3);
+						triangles.emplace_back(t);
 					}
 				}
 			}
 		}
 	}
-	mesh.sortVertices();
 }
 
 

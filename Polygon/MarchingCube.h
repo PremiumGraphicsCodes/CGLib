@@ -6,6 +6,7 @@
 #include "../Math/Vector3d.h"
 #include "../Math/Space3d.h"
 #include "../Math/Volume3d.h"
+#include "../Math/Triangle.h"
 #include "../Util/UnCopyable.h"
 #include "MarchingCubeTable.h"
 #include <vector>
@@ -64,15 +65,12 @@ public:
 	~MarchingCube() = default;
 
 	void march(const Math::Volume3d<float, float>& ss, const float isolevel);
-
-	//TriangleMesh* cloneMesh() {mesh->}
-	TriangleMesh* cloneMesh() { return mesh.clone(); }
-
-	std::list< Vertex* > getVertices() { return mesh.getVertices(); }
+	
+	std::vector< Math::Triangle<float> > getTriagles() const { return triangles; }
 
 private:
 	MarchingCubeTable table;
-	TriangleMesh mesh;
+	std::vector< Math::Triangle<float> > triangles;
 
 	int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;
 

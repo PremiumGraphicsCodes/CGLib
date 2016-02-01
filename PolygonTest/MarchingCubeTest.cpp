@@ -38,8 +38,8 @@ TEST(MCGridTest, Test)
 	{
 		Volume3d<float, float> volume(space, grid);
 		mc.march(volume, 0.5);
-		const auto& actual = mc.getVertices();
-		EXPECT_EQ(4, actual.size());
+		const auto& actual = mc.getTriagles();
+		EXPECT_EQ(2, actual.size());
 		//EXPECT_EQ(Vector3d<float>(1.0, 0.5, 0.5), actual[0]->getPosition());
 		//EXPECT_EQ(Vector3d<float>(0.5, 1.0, 0.5), actual[1]->getPosition());
 		//EXPECT_EQ(Vector3d<float>(0.5, 0.5, 1.0), actual[2]->getPosition());
