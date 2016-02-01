@@ -19,16 +19,14 @@ namespace Crystal {
 
 	namespace Polygon {
 
-		class MCEdge;
-
-class PositionValue
+class MCNode
 {
 public:
-	PositionValue();
+	MCNode();
 
-	PositionValue(const Math::Vector3d<float>& p, const float& v);
+	MCNode(const Math::Vector3d<float>& p, const float& v);
 	
-	Math::Vector3d<float> getInterpolatedPosition(const float v, const PositionValue& rhs) const;
+	Math::Vector3d<float> getInterpolatedPosition(const float v, const MCNode& rhs) const;
 	
 private:
 	Math::Vector3d<float> pos;
@@ -36,10 +34,10 @@ private:
 };
 
 
-class VolumeCell3d
+class MCCell
 {
 public:
-	VolumeCell3d(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
+	MCCell(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
 		space(space),
 		values(values)
 	{}
@@ -48,7 +46,7 @@ public:
 
 	std::array< float, 8 > getValues() const { return values; }
 
-	std::array< PositionValue, 8 > toPositionValues() const;
+	std::array< MCNode, 8 > toPositionValues() const;
 
 private:
 	Math::Space3d<float> space;
@@ -78,7 +76,7 @@ private:
 
 	int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;
 
-	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const VolumeCell3d& cell, const float isolevel) const;
+	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const MCCell& cell, const float isolevel) const;
 
 };
 

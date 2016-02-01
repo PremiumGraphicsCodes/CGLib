@@ -8,35 +8,35 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-PositionValue::PositionValue() :
+MCNode::MCNode() :
 	pos(Vector3d<float>(0, 0, 0)),
 	value(0)
 {}
 
-PositionValue::PositionValue(const Vector3d<float>& p, const float& v) :
+MCNode::MCNode(const Vector3d<float>& p, const float& v) :
 	pos(p),
 	value(v)
 {}
 
-Vector3d<float> PositionValue::getInterpolatedPosition(const float v, const PositionValue& rhs) const
+Vector3d<float> MCNode::getInterpolatedPosition(const float v, const MCNode& rhs) const
 {
 	const float scale = static_cast<float> (v - this->value) / static_cast<float>(rhs.value - this->value);
 	return this->pos + scale * (rhs.pos - this->pos);
 }
 
 
-std::array< PositionValue, 8 > VolumeCell3d::toPositionValues() const
+std::array< MCNode, 8 > MCCell::toPositionValues() const
 {
-	std::array< PositionValue, 8 > pvs;
+	std::array< MCNode, 8 > pvs;
 	const auto& positions = space.toArray();
 	for (size_t i = 0; i < 8; ++i) {
-		pvs[i] = PositionValue(positions[i], values[i]);
+		pvs[i] = MCNode(positions[i], values[i]);
 	}
 	return pvs;
 }
 
 namespace {
-	VolumeCell3d toCell( const Volume3d<float,float>& volume, const Index3d index)
+	MCCell toCell( const Volume3d<float,float>& volume, const Index3d index)
 	{
 		const auto& lengths = volume.getUnitLengths();
 		const auto& grid = volume.getGrid();
@@ -50,7 +50,7 @@ namespace {
 		const auto v = grid.toArray8(index[0], index[1], index[2]);
 		const auto s = space.getSubSpace(index, divx, divy, divz);
 
-		return VolumeCell3d(s, v);
+		return MCCell(s, v);
 	}
 }
 
@@ -98,7 +98,7 @@ int MarchingCube::getCubeIndex(const std::array< float, 8 >& val, const float is
 	return static_cast<int>(bit.to_ulong());
 }
 
-std::array< Vector3d<float>, 12 > MarchingCube::getPositions(const int cubeindex, const VolumeCell3d& cell, const float isolevel) const
+std::array< Vector3d<float>, 12 > MarchingCube::getPositions(const int cubeindex, const MCCell& cell, const float isolevel) const
 {
 	std::array< Vector3d<float>, 12 > vertices;
 	const auto& pvs = cell.toPositionValues();
