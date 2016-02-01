@@ -2,6 +2,7 @@
 #define __CRYSTAL_IO_STL_FILE_H__
 
 #include "../Math/Vector3d.h"
+#include "../Polygon/TriangleMesh.h"
 
 #include <fstream>
 
@@ -57,6 +58,8 @@ public:
 	{
 
 	}
+
+	STLFile(const Polygon::TriangleMesh& mesh);
 
 	void setTitle(const std::string& title) { this->title = title; }
 

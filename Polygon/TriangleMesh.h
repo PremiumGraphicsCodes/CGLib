@@ -1,5 +1,5 @@
 #ifndef __CRYSTAL_POLYGON_TRIANGLE_MESH_H__
-#define __CRYSTAL_POLYGON_TRIABGLE_MESH_H__
+#define __CRYSTAL_POLYGON_TRIANGLE_MESH_H__
 
 #include "../Util/UnCopyable.h"
 #include "../Math/Vector3d.h"
