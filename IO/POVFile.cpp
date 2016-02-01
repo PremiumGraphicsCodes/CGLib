@@ -7,7 +7,7 @@
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-bool POVFile::writeScene(const std::string& file, const TriangleMesh& surface)
+bool POVFile::writeScene(const std::string& file, const TriangleMesh& mesh)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
@@ -32,23 +32,7 @@ bool POVFile::writeScene(const std::string& file, const TriangleMesh& surface)
 	stream << "pigment {color Pink}" << std::endl;
 	stream << "}" << std::endl;
 
-	stream << "mesh {" << std::endl;
-	const auto& faces = surface.getFaces();
-	for (const auto& f : faces) {
-		stream << "triangle {";
-			const auto v1 = f->getV1()->getPosition();
-			const auto v2 = f->getV2()->getPosition();
-			const auto v3 = f->getV3()->getPosition();
-			stream << "<" << v1.getX() << "," << v1.getY() << "," << v1.getZ() << ">" << std::endl;
-			stream << "<" << v2.getX() << "," << v2.getY() << "," << v2.getZ() << ">" << std::endl;
-			stream << "<" << v3.getX() << "," << v3.getY() << "," << v3.getZ() << ">" << std::endl;
-		stream << "}" << std::endl;
-	}
-	//stream << "texture { White_Wood}" << std::endl;
-	stream << "texture{ pigment{ color rgb <1,1,1> } } " << std::endl;
-	stream << "}" << std::endl;
-
-	return stream.good();
+	return writeMesh(stream, mesh);
 }
 
 
@@ -59,17 +43,41 @@ bool POVFile::writeInc(const std::string& file, const TriangleMesh& mesh)
 		return false;
 	}
 
-	const auto& faces = mesh.getFaces();
-	for (const auto& f : faces) {
-		stream << "triangle {";
-		const auto v1 = f->getV1()->getPosition();
-		const auto v2 = f->getV2()->getPosition();
-		const auto v3 = f->getV3()->getPosition();
-		stream << "<" << v1.getX() << "," << v1.getY() << "," << v1.getZ() << ">" << std::endl;
-		stream << "<" << v2.getX() << "," << v2.getY() << "," << v2.getZ() << ">" << std::endl;
-		stream << "<" << v3.getX() << "," << v3.getY() << "," << v3.getZ() << ">" << std::endl;
+	return writeMesh(stream, mesh);
+}
+
+bool POVFile::writeMesh(std::ostream& stream, const TriangleMesh& mesh)
+{
+	const auto& vertices = mesh.getVertices();
+
+	stream << "mesh2 {" << std::endl;
+
+	{
+		stream << "vertex_vectors {" << std::endl;
+		stream << vertices.size() << "," << std::endl;
+		for (const auto& v : vertices) {
+			const auto x = v->getPosition().getX();
+			const auto y = v->getPosition().getY();
+			const auto z = v->getPosition().getZ();
+			stream << "<" << x << "," << y << "," << z << ">" << std::endl;
+		}
 		stream << "}" << std::endl;
 	}
+
+	{
+		const auto& faces = mesh.getFaces();
+		stream << "face_indices {" << std::endl;
+		stream << faces.size() << std::endl;
+		for (const auto& f : faces) {
+			const auto i1 = f->getV1()->getId();
+			const auto i2 = f->getV2()->getId();
+			const auto i3 = f->getV3()->getId();
+			stream << "<" << i1 << "," << i2 << "," << i3 << ">" << std::endl;
+		}
+		stream << "}" << std::endl;
+		stream << "pigment {rgb 1}" << std::endl;
+	}
+	stream << "}" << std::endl;
 
 	return stream.good();
 }

@@ -12,10 +12,13 @@ namespace Crystal {
 class POVFile
 {
 public:
-	bool writeScene(const std::string& file, const Polygon::TriangleMesh& surface);
+	bool writeScene(const std::string& file, const Polygon::TriangleMesh& mesh);
 
-	bool writeInc(const std::string& file, const Polygon::TriangleMesh& surface);
+	bool writeInc(const std::string& file, const Polygon::TriangleMesh& mesh);
+
 private:
+
+	bool writeMesh(std::ostream& stream, const Polygon::TriangleMesh& mesh);
 
 };
 	}

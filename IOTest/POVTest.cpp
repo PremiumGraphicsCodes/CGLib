@@ -31,5 +31,5 @@ TEST(POVFileTest, TestWriteInc)
 	auto v2 = mesh.createVertex(Vector3d<float>(1, 0, 0));
 	auto v3 = mesh.createVertex(Vector3d<float>(1, 1, 0));
 	mesh.createFace(v1, v2, v3);
-	EXPECT_TRUE(file.writeScene(dest, mesh));
+	EXPECT_TRUE(file.writeInc(dest, mesh));
 }

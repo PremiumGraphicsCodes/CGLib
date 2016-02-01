@@ -12,10 +12,16 @@ plane {
 <0,1,0>,-1
 pigment {color Pink}
 }
-mesh {
-triangle {<0,0,0>
+mesh2 {
+vertex_vectors {
+3,
+<0,0,0>
 <1,0,0>
 <1,1,0>
 }
-texture{ pigment{ color rgb <1,1,1> } } 
+face_indices {
+1
+<0,1,2>
+}
+pigment {rgb 1}
 }
