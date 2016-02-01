@@ -6,7 +6,6 @@
 #include "../Graphics/IBuffer.h"
 #include "../Graphics/ICamera.h"
 #include "../Math/Line3d.h"
-#include "../Math/Volume3d.h"
 #include "ShaderObject.h"
 
 #include "../Util/File.h"

@@ -25,6 +25,8 @@ public:
 
 	Grid3d(const size_t sizex, const size_t sizey, const size_t sizez);
 
+	//Grid3d(const size_t sizex, const size_t sizey, const size_t sizez, const float value);
+
 	explicit Grid3d(const Grid2dVector<T>& grids);
 
 	T get(const size_t x, const size_t y, const size_t z) const { return grids[z].get(x,y); }

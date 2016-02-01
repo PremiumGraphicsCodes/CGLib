@@ -37,7 +37,6 @@
     <ClInclude Include="Tolerance.h" />
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Vector2d.h" />
-    <ClInclude Include="Volume3d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
@@ -53,7 +52,6 @@
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Vector2d.cpp" />
-    <ClCompile Include="Volume3d.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50}</ProjectGuid>

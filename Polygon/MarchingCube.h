@@ -5,7 +5,7 @@
 #include "Vertex.h"
 #include "../Math/Vector3d.h"
 #include "../Math/Space3d.h"
-#include "../Math/Volume3d.h"
+#include "../Math/Grid3d.h"
 #include "../Math/Triangle.h"
 #include "../Util/UnCopyable.h"
 #include "MarchingCubeTable.h"

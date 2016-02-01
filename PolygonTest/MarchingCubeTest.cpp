@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 
 #include "../Polygon/MarchingCube.h"
-#include "../Math/Volume3d.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;

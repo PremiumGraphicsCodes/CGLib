@@ -15,6 +15,14 @@ Grid3d<T>::Grid3d(const Grid2dVector<T>& grids) :
 	grids(grids)
 {}
 
+/*
+template<typename T>
+Grid3d<T>::Grid3d(const size_t sizex, const size_t sizey, const size_t sizez, const float value)
+{
+
+}
+*/
+
 
 template<typename T>
 void Grid3d<T>::fill(const T v)

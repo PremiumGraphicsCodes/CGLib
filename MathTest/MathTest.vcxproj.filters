@@ -17,7 +17,6 @@
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Plane3dTest.cpp" />
-    <ClCompile Include="Volume3dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
   </ItemGroup>
   <ItemGroup>
