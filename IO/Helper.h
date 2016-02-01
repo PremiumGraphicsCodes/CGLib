@@ -2,7 +2,6 @@
 #define __CRYSTAL_IO_HELPER_H__
 
 #include "../Math/Vector3d.h"
-#include "../Graphics/ColorRGB.h"
 #include "../Graphics/ColorRGBA.h"
 #include <istream>
 #include <sstream>
@@ -27,11 +26,11 @@ public:
 		return Math::Vector3d<float>( x, y, z );
 	}
 
-	static Graphics::ColorRGB<float> readColorRGB(std::istream& s)
+	static Graphics::ColorRGBA<float> readColorRGB(std::istream& s)
 	{
 		float r, g, b;
 		s >> r >> g >> b;
-		return Graphics::ColorRGB<float>(r, g, b);
+		return Graphics::ColorRGBA<float>(r, g, b);
 	}
 
 

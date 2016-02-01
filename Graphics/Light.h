@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_GRAPHICS_LIGHT_H__
 #define __CRYSTAL_GRAPHICS_LIGHT_H__
 
-#include "ColorRGB.h"
 #include "ColorRGBA.h"
 #include "../Math/Vector3d.h"
 
@@ -45,36 +44,36 @@ template<typename T>
 class DirectionalLight {
 public:
 	DirectionalLight() :
-		color(ColorRGB<float>::White())
+		color(ColorRGBA<float>::White())
 	{}
 
 	void setDirection(const Math::Vector3d<float>& direction) { this->direction = direction; }
 
 	Math::Vector3d<float> getDirection() const { return direction; }
 
-	Graphics::ColorRGB<float> getColor() const { return color; }
+	Graphics::ColorRGBA<float> getColor() const { return color; }
 
-	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }
+	void setColor(const Graphics::ColorRGBA<float>& a) { this->color = a; }
 
 private:
 	Math::Vector3d<T> direction;
 
-	Graphics::ColorRGB<float> color;
+	Graphics::ColorRGBA<float> color;
 };
 
 template<typename T>
 class AmbientLight {
 public:
 	AmbientLight() :
-		color( ColorRGB<float>::White() )
+		color( ColorRGBA<float>::White() )
 	{}
 	
-	Graphics::ColorRGB<float> getColor() const { return color; }
+	Graphics::ColorRGBA<float> getColor() const { return color; }
 
-	void setColor(const Graphics::ColorRGB<float>& a) { this->color = a; }
+	void setColor(const Graphics::ColorRGBA<float>& a) { this->color = a; }
 
 private:
-	Graphics::ColorRGB<float> color;
+	Graphics::ColorRGBA<float> color;
 };
 
 

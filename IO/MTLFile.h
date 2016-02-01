@@ -4,7 +4,7 @@
 #include <map>
 
 #include "../Graphics/Material.h"
-#include "../Graphics/ColorRGB.h"
+#include "../Graphics/ColorRGBA.h"
 
 #include "../Math/Vector3d.h"
 
@@ -116,21 +116,21 @@ struct MTL {
 
 	std::string getName() const { return name; }
 
-	void setAmbient(const Graphics::ColorRGB<float>& a) { this->ambient = a; }
+	void setAmbient(const Graphics::ColorRGBA<float>& a) { this->ambient = a; }
 
-	Graphics::ColorRGB<float> getAmbient() const { return ambient; }
+	Graphics::ColorRGBA<float> getAmbient() const { return ambient; }
 
-	void setDiffuse(const Graphics::ColorRGB<float>& d) { this->diffuse = d; }
+	void setDiffuse(const Graphics::ColorRGBA<float>& d) { this->diffuse = d; }
 
-	Graphics::ColorRGB<float> getDiffuse() const { return diffuse; }
+	Graphics::ColorRGBA<float> getDiffuse() const { return diffuse; }
 
-	void setSpecular(const Graphics::ColorRGB<float>& s) { this->specular = s; }
+	void setSpecular(const Graphics::ColorRGBA<float>& s) { this->specular = s; }
 
 	void setSpecularExponent(const float f) { this->specularExponent = f; }
 
 	float getSpecularExponent() const { return specularExponent; }
 
-	Graphics::ColorRGB<float> getSpecular() const { return specular; }
+	Graphics::ColorRGBA<float> getSpecular() const { return specular; }
 
 	void setIllumination(const Illumination& i) { this->illumination = i; }
 
@@ -178,9 +178,9 @@ struct MTL {
 
 private:
 	std::string name;
-	Graphics::ColorRGB<float> ambient;
-	Graphics::ColorRGB<float> diffuse;
-	Graphics::ColorRGB<float> specular;
+	Graphics::ColorRGBA<float> ambient;
+	Graphics::ColorRGBA<float> diffuse;
+	Graphics::ColorRGBA<float> specular;
 	Illumination illumination;
 	std::string ambientTexture;
 	std::string diffuseTexture;

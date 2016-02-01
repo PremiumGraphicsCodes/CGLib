@@ -6,15 +6,12 @@ template<typename T>
 ColorRGBA<T>::ColorRGBA() : alpha(0)
 {}
 
-template<typename T>
-ColorRGBA<T>::ColorRGBA(const ColorRGB<T>& rgb) :
-	rgb(rgb),
-	alpha(255)
-{}
 
 template<typename T>
 ColorRGBA<T>::ColorRGBA(const T red, const T green, const T blue, const T alpha = 255) :
-	rgb(red, green, blue),
+	red(red),
+	green(green),
+	blue(blue),
 	alpha(alpha)
 {
 }

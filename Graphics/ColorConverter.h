@@ -5,7 +5,6 @@
 
 
 #include "ColorHSV.h"
-#include "ColorRGB.h"
 #include "ColorRGBA.h"
 
 namespace Crystal {
@@ -14,7 +13,7 @@ namespace Crystal {
 template<typename ColorType>
 class ColorConverter {
 public:
-	static ColorRGB<ColorType> toRGB(const ColorHSV<ColorType>& hsv) {
+	static ColorRGBA<ColorType> toRGB(const ColorHSV<ColorType>& hsv) {
 		const auto h = hsv.getH();
 		const auto s = hsv.getS();
 		const auto v = hsv.getV();
@@ -24,35 +23,35 @@ public:
 
 		if (0 <= h && h <= 60) {
 			const auto g = h / 60.0f * (max - min) + min;
-			return ColorRGB<ColorType>(max, g, min).scale(255);
+			return ColorRGBA<ColorType>(max, g, min).getScaled(255);
 		}
 		else if (h <= 120.0f) {
 			const auto r = (120.0f - h) / 60.0f * (max - min) + min;
-			return ColorRGB<ColorType>(r, max, min).scale(255);
+			return ColorRGBA<ColorType>(r, max, min).getScaled(255);
 		}
 		else if (h <= 180.0f) {
 			const auto b = (h - 120.0f) / 60.0f * (max - min) + min;
-			return ColorRGB<ColorType>(min, max, b).scale(255);
+			return ColorRGBA<ColorType>(min, max, b).getScaled(255);
 		}
 		else if (h <= 240.0f) {
 			const auto g = (240.0f - h) / 60.0f * (max - min) + min;
-			return ColorRGB<ColorType>(min, g, max).scale(255);
+			return ColorRGBA<ColorType>(min, g, max).getScaled(255);
 		}
 		else if (h <= 300.0f) {
 			const auto r = (h - 240.0f) / 60.0f * (max - min) + min;
-			return ColorRGB<ColorType>(r, min, max).scale(255);
+			return ColorRGBA<ColorType>(r, min, max).getScaled(255);
 		}
 		else if (h <= 360.0f) {
 			const ColorType b = (360.0f - h) / 60.0f * (max - min) + min;
-			return ColorRGB<ColorType>(max, min, b).scale(255);
+			return ColorRGBA<ColorType>(max, min, b).getScaled(255);
 		}
 		else {
 			assert(false);
-			return ColorRGB<ColorType>::Black();
+			return ColorRGBA<ColorType>::Black();
 		}
 	}
 
-	static ColorHSV<ColorType> toHSV(const ColorRGB<ColorType>& rgb) {
+	static ColorHSV<ColorType> toHSV(const ColorRGBA<ColorType>& rgb) {
 		const auto r = rgb.getRed() / ColorType{ 255 };
 		const auto g = rgb.getGreen() / ColorType{ 255 };
 		const auto b = rgb.getBlue() / ColorType{ 255 };
@@ -86,14 +85,9 @@ public:
 
 	}
 
-	static ColorType toGrayScale(const ColorRGB<ColorType>& rgb) {
+	static ColorType toGrayScale(const ColorRGBA<ColorType>& rgb) {
 		const auto g =  77 * rgb.getRed() + 150 * rgb.getGreen() + 29 * rgb.getBlue();
 		return g / ColorType{255};
-	}
-
-	static ColorType toGrayScale(const ColorRGBA<ColorType>& rgba) {
-		const auto g = 77 * rgba.getRed() + 150 * rgba.getGreen() + 29 * rgba.getBlue();
-		return g / ColorType{ 255 };
 	}
 
 };

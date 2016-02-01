@@ -262,7 +262,7 @@ Vector3d<T> Grid3d<T>::getLocalCoord(const Index3d index) const
 template<typename T>
 Grid3d<T> Grid3d<T>::createRotateX()
 {
-	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ(), T{ 0 });
+	Grid3d<T> dest(getSizeX(), getSizeZ(), getSizeY(), T{ 0 });
 	for (int x = 0; x < getSizeX(); ++x) {
 		for (int y = 0; y < getSizeY(); ++y) {
 			for (int z = 0; z < getSizeZ(); ++z) {
@@ -277,7 +277,7 @@ Grid3d<T> Grid3d<T>::createRotateX()
 template<typename T>
 Grid3d<T> Grid3d<T>::createRotateY()
 {
-	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ());
+	Grid3d<T> dest(getSizeZ(), getSizeY(), getSizeX());
 	for (int x = 0; x < getSizeX(); ++x) {
 		for (int y = 0; y < getSizeY(); ++y) {
 			for (int z = 0; z < getSizeZ(); ++z) {
@@ -292,7 +292,7 @@ Grid3d<T> Grid3d<T>::createRotateY()
 template<typename T>
 Grid3d<T> Grid3d<T>::createRotateZ()
 {
-	Grid3d<T> dest(getSizeX(), getSizeY(), getSizeZ());
+	Grid3d<T> dest(getSizeY(), getSizeX(), getSizeZ());
 	for (int x = 0; x < getSizeX(); ++x) {
 		for (int y = 0; y < getSizeY(); ++y) {
 			for (int z = 0; z < getSizeZ(); ++z) {

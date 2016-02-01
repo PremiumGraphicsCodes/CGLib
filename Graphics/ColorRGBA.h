@@ -3,8 +3,6 @@
 
 #include <vector>
 
-#include "ColorRGB.h"
-
 namespace Crystal {
 	namespace Graphics {
 
@@ -13,31 +11,29 @@ class ColorRGBA {
 public:
 	ColorRGBA();
 
-	ColorRGBA(const ColorRGB<T>& rgb);
-
 	ColorRGBA(const T red, const T green, const T blue, const T alpha = 255);
 
-	void setRed( const T r ) { rgb.setRed( r ); }
+	void setRed( const T r ) { this->red = r; }
 
-	T getRed() const { return rgb.getRed(); }
+	T getRed() const { return red; }
 
-	void setGreen( const T g ) { rgb.setGreen( g ); }
+	void setGreen( const T g ) { this->green = g; }
 
-	T getGreen() const { return rgb.getGreen(); }
+	T getGreen() const { return this->green; }
 
-	void setBlue(const T b) { rgb.setBlue(b); }
+	void setBlue(const T b) { this->blue = b; }
 
-	T getBlue() const { return rgb.getBlue(); }
+	T getBlue() const { return blue; }
 
 	void setAlpha(const T a) { this->alpha = a;  }
 
 	T getAlpha() const { return alpha; }
 
-	static ColorRGBA White() { return ColorRGBA( ColorRGB<T>::White() ); }
+	static ColorRGBA White() { return ColorRGBA( 255, 255, 255 ); }
 
-	static ColorRGBA Black() { return ColorRGBA( ColorRGB<T>::Black()); }
+	static ColorRGBA Black() { return ColorRGBA( 0, 0, 0); }
 
-	static ColorRGBA Red() { return ColorRGBA( ColorRGB<T>::Red()); }
+	static ColorRGBA Red() { return ColorRGBA( 255, 0, 0); }
 
 	static ColorRGBA Green() { return ColorRGBA( 0, 255, 0 ); }
 
@@ -59,16 +55,16 @@ public:
 
 	bool operator!=(const ColorRGBA& rhs) const { return !equals( rhs ); }
 
-	ColorRGBA<T> getScaled( const T f ) const { return ColorRGBA<T>( getRed() * f, getGreen() * f, getBlue() * f, alpha * f ); }
+	ColorRGBA<T> getScaled( const T f ) const { return ColorRGBA<T>( getRed() * f, getGreen() * f, getBlue() * f ); }
 
 	void add( const ColorRGBA& rhs ) {
-		rgb.add(rhs.rgb);
-		//this->alpha+= rhs.alpha;
+		this->red += rhs.red;
+		this->green += rhs.green;
+		this->blue += rhs.blue;
 	}
 
 	ColorRGBA<T> getAdded( const ColorRGBA<T>& rhs ) const {
-		const ColorRGB<T> rgb = this->rgb.getAdd(rhs.rgb);
-		return ColorRGBA<T>( rgb );
+		return ColorRGBA<T>( this->red + rhs.red, this->green + rhs.green, this->blue + rhs.blue );
 	}
 
 	void operator+=( const ColorRGBA& rhs ) { add( rhs ); }
@@ -76,7 +72,9 @@ public:
 	ColorRGBA<T> operator+( const ColorRGBA& rhs ) const { return getAdded( rhs ); }
 
 public:
-	ColorRGB<T> rgb;
+	T red;
+	T green;
+	T blue;
 	T alpha;
 };
 

@@ -58,7 +58,7 @@ void SmoothRenderer<float>::render(const ICamera<float>& camera)
 	assert(GL_NO_ERROR == glGetError());
 
 
-	glDrawArrays(GL_TRIANGLES, 0, positions.size() / 3);
+	glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

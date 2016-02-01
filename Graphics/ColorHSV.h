@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_GRAPHICS_COLOR_HSV_H__
 #define __CRYSTAL_GRAPHICS_COLOR_HSV_H__
 
-#include "ColorRGB.h"
+#include "ColorRGBA.h"
 #include <cassert>
 
 namespace Crystal {
