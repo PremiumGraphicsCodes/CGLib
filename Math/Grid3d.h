@@ -41,6 +41,8 @@ public:
 
 	void set(const size_t x, const size_t y, const size_t z, const T v) { grids[z].set(x, y, v); }
 
+	void set(const size_t z, const Grid2d<T>& grid2d) { grids[z] = grid2d; }
+
 	int getSizeX() const { return static_cast<int>(grids.front().getSizeX()); }
 
 	int getSizeY() const { return static_cast<int>(grids.front().getSizeY()); }

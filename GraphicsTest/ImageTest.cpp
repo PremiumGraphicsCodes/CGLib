@@ -69,6 +69,14 @@ TEST(ImageRGBATest, TestChangeSize)
 	image.save("../TestFile/Graphics/ChangeSize.png", ImageFileFormat::PNG );
 }
 
+TEST(ImageRGBATest, TestReversed)
+{
+	auto image = Image<unsigned char>::Red(2, 4);
+	image.setColor(0, 0, ColorRGBA<unsigned char>(255, 0, 0, 255));
+	const auto& actual = image.reversed();
+	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(0, 3) );
+
+}
 /*
 TYPED_TEST(ColorRGBATest, TestScale)
 {
