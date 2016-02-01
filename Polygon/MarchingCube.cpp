@@ -1,14 +1,58 @@
 #include "MarchingCube.h"
 
-#include "../Math/PositionValue.h"
 #include "../Math/Volume3d.h"
-#include "../Math/VolumeCell3d.h"
 #include "TriangleFace.h"
 
 #include "Vertex.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
+
+PositionValue::PositionValue() :
+	pos(Vector3d<float>(0, 0, 0)),
+	value(0)
+{}
+
+PositionValue::PositionValue(const Vector3d<float>& p, const float& v) :
+	pos(p),
+	value(v)
+{}
+
+Vector3d<float> PositionValue::getInterpolatedPosition(const float v, const PositionValue& rhs) const
+{
+	const float scale = static_cast<float> (v - this->value) / static_cast<float>(rhs.value - this->value);
+	return this->pos + scale * (rhs.pos - this->pos);
+}
+
+
+std::array< PositionValue, 8 > VolumeCell3d::toPositionValues() const
+{
+	std::array< PositionValue, 8 > pvs;
+	const auto& positions = space.toArray();
+	for (size_t i = 0; i < 8; ++i) {
+		pvs[i] = PositionValue(positions[i], values[i]);
+	}
+	return pvs;
+}
+
+namespace {
+	VolumeCell3d toCell( const Volume3d<float,float>& volume, const Index3d index)
+	{
+		const auto& lengths = volume.getUnitLengths();
+		const auto& grid = volume.getGrid();
+		const auto& space = volume.getSpace();
+		const auto& innerSpace = volume.getSpace().offset(lengths);
+
+		const auto divx = grid.getSizeX() - 1;
+		const auto divy = grid.getSizeY() - 1;
+		const auto divz = grid.getSizeZ() - 1;
+
+		const auto v = grid.toArray8(index[0], index[1], index[2]);
+		const auto s = space.getSubSpace(index, divx, divy, divz);
+
+		return VolumeCell3d(s, v);
+	}
+}
 
 
 void MarchingCube::march(const Volume3d<float, float>& volume, const float isolevel)
@@ -18,7 +62,7 @@ void MarchingCube::march(const Volume3d<float, float>& volume, const float isole
 		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
 			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
 				if (grid.isBoundary(x, y, z, isolevel)) {
-					const auto& cell = volume.toCell(Index3d{ x, y, z });
+					const auto& cell = ::toCell(volume, Index3d{ x, y, z });
 					const int cubeindex = getCubeIndex(cell.getValues(), isolevel);
 					const auto& vertices = getPositions(cubeindex, cell, isolevel);
 					const auto& triTable = table.getTriangleTable();
@@ -54,7 +98,7 @@ int MarchingCube::getCubeIndex(const std::array< float, 8 >& val, const float is
 	return static_cast<int>(bit.to_ulong());
 }
 
-std::array< Vector3d<float>, 12 > MarchingCube::getPositions(const int cubeindex, const VolumeCell3d<float, float>& cell, const float isolevel) const
+std::array< Vector3d<float>, 12 > MarchingCube::getPositions(const int cubeindex, const VolumeCell3d& cell, const float isolevel) const
 {
 	std::array< Vector3d<float>, 12 > vertices;
 	const auto& pvs = cell.toPositionValues();

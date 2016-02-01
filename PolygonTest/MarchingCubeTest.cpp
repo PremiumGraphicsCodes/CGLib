@@ -6,18 +6,25 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-/*
-TEST(MarchingCubeTest, TestMarchScalarSpace)
+TEST(PositionValueTest, TestInterpolate)
 {
-	MarchingCube mc;
+	PositionValue pv1(Vector3d<float>(0, 0, 0), 0);
+	PositionValue pv2(Vector3d<float>(2, 4, 6), 10);
+	const auto& actual = pv1.getInterpolatedPosition(5, pv2);
+	const Vector3d<float> expected(1, 2, 3);
+	EXPECT_EQ(expected, actual);
+}
 
-	Space3d<float> s(Vector3d<float> (0, 0, 0), Vector3d<float>(10, 10, 10));
-	Grid3d<float> grid(4, 4, 4);
-	grid.set(0, 0, 0, 0.8f);
-	grid.set(1, 0, 0, 0.8f);
-	Volume3d<float, float> ss(s, grid);
+/*
+TEST(VolumeCell3dTest, TestToPositionValues)
+{
 
-	//mc.march(ss, 0.5);
+	const Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(10, 20, 30));
+	const std::array < float, 8 > values = { 0, 1, 2, 3, 4, 5, 6, 7 };
+	const VolumeCell3d cell(space, values);
+	const auto& actual = cell.toPositionValues();
+	const auto expected = PositionValue(Vector3d<float>(0, 0, 0), 0);
+	EXPECT_EQ(expected, actual[0]);
 }
 */
 

@@ -7,10 +7,6 @@
 namespace Crystal {
 	namespace Math {
 
-
-template< typename, typename>
-class VolumeCell3d;
-
 template< typename GeomType, typename ValueType>
 class Volume3d
 {
@@ -24,14 +20,6 @@ public:
 	Grid3d<ValueType> getGrid() const { return grid; }
 
 	Space3d<GeomType> getSpace() const { return space; }
-
-	VolumeCell3d<GeomType, ValueType> toCell(const Index3d index) const;
-
-	std::vector< VolumeCell3d<GeomType, ValueType> > toCells() const;
-
-	std::vector< VolumeCell3d<GeomType, ValueType> > toBoundaryCells(const ValueType threshold) const;
-
-	std::vector< VolumeCell3d<GeomType, ValueType> > toBoundaryCellsWithEdge(const ValueType threshold) const;
 
 	bool equals(const Volume3d<GeomType, ValueType>& rhs) const;
 

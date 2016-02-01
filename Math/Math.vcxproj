@@ -31,7 +31,6 @@
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />
     <ClInclude Include="Plane3d.h" />
-    <ClInclude Include="PositionValue.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Space3d.h" />
@@ -40,7 +39,6 @@
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Volume3d.h" />
-    <ClInclude Include="VolumeCell3d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
@@ -52,13 +50,11 @@
     <ClCompile Include="Matrix3d.cpp" />
     <ClCompile Include="Matrix4d.cpp" />
     <ClCompile Include="Plane3d.cpp" />
-    <ClCompile Include="PositionValue.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Volume3d.cpp" />
-    <ClCompile Include="VolumeCell3d.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50}</ProjectGuid>

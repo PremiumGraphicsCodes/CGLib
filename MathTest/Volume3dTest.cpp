@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Volume3d.h"
-#include "../Math/VolumeCell3d.h"
 
 #include <tuple>
 
@@ -28,22 +27,6 @@ TYPED_TEST(Volume3dTest, TestGetStart)
 	using ValueType = std::tuple_element<1, TypeParam>::type;
 	Volume3d<GeomType, ValueType> gs;
 	EXPECT_EQ(Vector3d<GeomType>(0.0, 0.0, 0.0), gs.getStart());
-}
-
-TYPED_TEST(Volume3dTest, TestToCells)
-{
-	using GeomType = std::tuple_element<0, TypeParam>::type;
-	using ValueType = std::tuple_element<1, TypeParam>::type;
-	Volume3d<GeomType, ValueType>  volume(Space3d<GeomType>::Unit(), Grid3d<ValueType>(2, 2, 2));
-	EXPECT_EQ(1, volume.toCells().size());
-}
-
-TYPED_TEST(Volume3dTest, TestToBoundaryCells)
-{
-	using GeomType = std::tuple_element<0, TypeParam>::type;
-	using ValueType = std::tuple_element<1, TypeParam>::type;
-	Volume3d<GeomType, ValueType>  volume(Space3d<GeomType>::Unit(), Grid3d<ValueType>(2, 2, 2));
-	EXPECT_TRUE(volume.toBoundaryCells(ValueType(0.5)).empty());
 }
 
 

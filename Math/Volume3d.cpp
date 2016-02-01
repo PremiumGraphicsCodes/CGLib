@@ -1,5 +1,4 @@
 #include "Volume3d.h"
-#include "VolumeCell3d.h"
 
 using namespace Crystal::Math;
 
@@ -31,49 +30,6 @@ std::vector<ValueType> Volume3d<GeomType, ValueType>::getValues() const
 
 
 
-/*
-template<typename GeomType, typename ValueType>
-VolumeCell3d<GeomType, ValueType> Volume3d<GeomType, ValueType>::toCell(const int x, const int y, const int z) const
-{
-	std::array<ValueType, 8 > values;
-	values.emplace_back(grid.toArray8(x, y, z));
-
-	const auto& lengths = getUnitLengths();
-	const auto& innerSpace = getSpace().offset(lengths);
-	const auto& spaces = innerSpace.getDivided(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
-	innerSpace
-}
-*/
-
-template<typename GeomType, typename ValueType>
-std::vector< VolumeCell3d<GeomType, ValueType> > Volume3d<GeomType,ValueType>::toCells() const
-{
-	std::vector< VolumeCell3d<GeomType, ValueType> > cells;
-
-	const auto& lengths = getUnitLengths();
-	const auto& innerSpace = getSpace().offset(lengths);
-	const auto& spaces = innerSpace.getSubSpaces(grid.getSizeX() - 1, grid.getSizeY() - 1, grid.getSizeZ() - 1);
-
-	//std::vector<std::array<8>> bs;
-	std::vector< std::array<ValueType, 8 > > values;
-	for (int x = 0; x < grid.getSizeX() - 1; ++x) {
-		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
-			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
-				values.emplace_back(grid.toArray8(x, y, z));
-			}
-		}
-	}
-
-	assert(spaces.size() == values.size());
-
-	cells.reserve(values.size());
-	for (size_t i = 0; i < spaces.size(); ++i) {
-		VolumeCell3d<GeomType, ValueType> c(spaces[i], values[i]);
-		cells.emplace_back(c);
-	}
-	return std::move(cells);
-}
-
 template<typename GeomType, typename ValueType>
 Vector3d<GeomType> Volume3d<GeomType, ValueType>::toCenterPosition(const size_t x, const size_t y, const size_t z) const
 {
@@ -98,58 +54,7 @@ Vector3dVector<GeomType> Volume3d<GeomType, ValueType>::toCenterPositions() cons
 	return positions;
 }
 
-template<typename GeomType, typename ValueType>
-VolumeCell3d<GeomType, ValueType> Volume3d<GeomType, ValueType>::toCell(const Index3d index) const
-{
-	const auto& lengths = getUnitLengths();
-	const auto& innerSpace = getSpace().offset(lengths);
 
-	const auto divx = grid.getSizeX() - 1;
-	const auto divy = grid.getSizeY() - 1;
-	const auto divz = grid.getSizeZ() - 1;
-
-	const auto v = grid.toArray8(index[0], index[1], index[2]);
-	const auto s = getSpace().getSubSpace(index, divx, divy, divz);
-
-	return VolumeCell3d<GeomType, ValueType>(s,v);
-}
-
-template<typename GeomType, typename ValueType>
-std::vector< VolumeCell3d<GeomType, ValueType> > Volume3d<GeomType, ValueType>::toBoundaryCells(const ValueType threshold) const
-{
-	std::vector< VolumeCell3d<GeomType, ValueType> > cells;
-
-	for (int x = 0; x < grid.getSizeX() - 1; ++x) {
-		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
-			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
-				if (grid.isBoundary(x, y, z, threshold)) {
-					cells.emplace_back(toCell(Index3d{ x, y, z }));
-				}
-			}
-		}
-	}
-
-	return std::move(cells);
-}
-
-template<typename GeomType, typename ValueType>
-std::vector< VolumeCell3d<GeomType, ValueType> > Volume3d<GeomType, ValueType>::toBoundaryCellsWithEdge(const ValueType threshold) const
-{
-	std::vector< VolumeCell3d<GeomType, ValueType> > cells;
-
-	for (int x = -1; x < grid.getSizeX(); ++x) {
-		for (int y = -1; y <= grid.getSizeY(); ++y) {
-			for (int z = -1; z < grid.getSizeZ(); ++z) {
-				if (grid.isBoundary(x, y, z, threshold)) {
-					cells.emplace_back(toCell(Index3d{ x, y, z }));
-				}
-			}
-		}
-	}
-
-	return std::move(cells);
-
-}
 
 
 template<typename GeomType, typename ValueType>
