@@ -3,7 +3,6 @@
 
 #include "GLee.h"
 #include "../Graphics/Image.h"
-#include "../Graphics/ImageGrayScale.h"
 #include "Texture.h"
 #include <cassert>
 #include <vector>

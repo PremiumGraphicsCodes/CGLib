@@ -26,7 +26,6 @@
     <ClCompile Include="ColorRGBAMapTest.cpp" />
     <ClCompile Include="ColorRGBATest.cpp" />
     <ClCompile Include="ColorRGBTest.cpp" />
-    <ClCompile Include="ImageGrayScaleTest.cpp" />
     <ClCompile Include="ImageTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
     <ClCompile Include="LineBufferTest.cpp" />

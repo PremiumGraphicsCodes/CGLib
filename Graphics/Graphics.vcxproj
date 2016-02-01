@@ -44,7 +44,6 @@
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGB.h" />
     <ClInclude Include="ColorRGBA.h" />
-    <ClInclude Include="ImageGrayScale.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="LineBuffer.h" />
