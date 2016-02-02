@@ -136,19 +136,19 @@ struct OBJGroup {
 	std::vector< OBJFace > getFaces() const { return faces; }
 
 
-	void setPositions(const Graphics::Buffer3d<float>& positions) { this->positionBuffer = positions; }
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positionBuffer = positions; }
 
-	Graphics::Buffer3d<float> getPositions() const { return positionBuffer; }
+	std::vector< Math::Vector3d<float> > getPositions() const { return positionBuffer; }
 
-	void setNormals(const Graphics::Buffer3d<float>& normals) { this->normalBuffer = normals; }
+	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normalBuffer = normals; }
 
-	Graphics::Buffer3d<float> getNormals() const { return this->normalBuffer; }
+	std::vector< Math::Vector3d<float> > getNormals() const { return this->normalBuffer; }
 
 	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
-	void setTexCoords(const Graphics::Buffer3d<float>& texCoords) { this->texCoordBuffer = texCoords; }
+	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoordBuffer = texCoords; }
 
-	Graphics::Buffer3d<float> getTexCoords() const { return this->texCoordBuffer; }
+	std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoordBuffer; }
 
 	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
 
@@ -160,15 +160,17 @@ struct OBJGroup {
 
 	OBJFace readFaces(const std::string& str);
 
+	Polygon::TriangleMesh* createPolygon();
+
 
 private:
 	std::string name;
 	std::vector< OBJFace > faces;
 	std::vector< std::string > materials;
 	OBJMTLLib mtlLib;
-	Graphics::Buffer3d<float> positionBuffer;
-	Graphics::Buffer3d<float> normalBuffer;
-	Graphics::Buffer3d<float> texCoordBuffer;
+	std::vector< Math::Vector3d<float> > positionBuffer;
+	std::vector< Math::Vector3d<float> > normalBuffer;
+	std::vector< Math::Vector3d<float> > texCoordBuffer;
 };
 
 struct OBJFile {

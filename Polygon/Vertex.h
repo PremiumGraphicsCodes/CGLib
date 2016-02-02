@@ -15,26 +15,25 @@ class TriangleFace;
 class Vertex
 {
 public:
-	Vertex(const Math::Vector3d<float>& position, const unsigned int id) :
-		position(position),
-		id(id)
+	Vertex() :
+		position(nullptr),
+		normal(nullptr),
+		texCoord(nullptr),
+		id(-1)
 	{}
 
-	Math::Vector3d<float> getPosition() const { return position; }
+	int id;
 
-	Math::Vector3d<float> getNormal() const { return normal; }
+	Math::Vector3d<float>* getPosition() { return position; }
 
-	unsigned int getId() const { return id;  }
+	Math::Vector3d<float> getPosition() const { return *position; }
 
-	void setFace(TriangleFace* f);
 
-	TriangleFace* getFace() { return f; }
+	int getId() const { return id; }
 
-	unsigned int id;
-
-private:
-	Math::Vector3d<float> position;
-	Math::Vector3d<float> normal;
+	Math::Vector3d<float>* position;
+	Math::Vector3d<float>* normal;
+	Math::Vector3d<float>* texCoord;
 	TriangleFace* f;
 };
 

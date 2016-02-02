@@ -13,40 +13,6 @@ using namespace Crystal::IO;
 using T = float;
 
 
-::std::ostream& operator<<(::std::ostream& os, const OBJFace& face) {
-	os << "faces " << face.getVertexIndices().size() << std::endl;
-	for (unsigned int i : face.getVertexIndices()) {
-		os << " " << i;
-	}
-	os << std::endl;
-	os << "normals " << face.getNormalIndices().size() << std::endl;
-	for (unsigned int i : face.getNormalIndices()) {
-		os << " " << i;
-	}
-	os << std::endl;
-	os << "texIds " << face.getTexIndices().size() << std::endl;
-	for (unsigned int i : face.getTexIndices()) {
-		os << " " << i;
-	}
-	os << std::endl;
-	return os;
-}
-
-
-/*
-::std::ostream& operator<<(::std::ostream& os, const OBJFile& file) {
-	for (const OBJFace& f : file.getFaces()) {
-		os << f;
-	}
-	for (const OBJMTLLib& lib : file.getLibs() ) {
-		os << lib;
-	}
-
-	os << std::endl;
-	return os;
-}
-*/
-
 TEST(OBJFileTest, TestReadVertices)
 {
 	std::stringstream stream;
@@ -59,9 +25,9 @@ TEST(OBJFileTest, TestReadVertices)
 
 	const auto actual = file.getGroups().front();
 
-	EXPECT_EQ( Vector3d<T>(0.1f, 0.2f, 0.3f), actual.getPositions().get(0) );
-	EXPECT_EQ( Vector3d<T>(0.5f, 1.0f, 0.0f), actual.getTexCoords().get(0) );
-	EXPECT_EQ( Vector3d<T>(1.0f, 0.0f, 0.0f), actual.getNormals().get(0) );
+	EXPECT_EQ( Vector3d<T>(0.1f, 0.2f, 0.3f), actual.getPositions()[0] );
+	EXPECT_EQ( Vector3d<T>(0.5f, 1.0f, 0.0f), actual.getTexCoords()[0] );
+	EXPECT_EQ( Vector3d<T>(1.0f, 0.0f, 0.0f), actual.getNormals()[0] );
 }
 
 TEST(OBJFileTest, TestReadFaces)
@@ -114,11 +80,12 @@ TEST(OBJFileTest, TestReadSquare)
 	const OBJFileReader actual(stream);
 
 	OBJFile expected;
-	Buffer3d<T> positions;
-	positions.add(Vector3d<T>(0.0, 2.0, 0.0));
-	positions.add(Vector3d<T>(0.0, 0.0, 0.0));
-	positions.add(Vector3d<T>(2.0, 0.0, 0.0));
-	positions.add(Vector3d<T>(2.0, 2.0, 0.0));
+	std::vector< Vector3d<T> > positions = {
+		Vector3d<T>(0.0, 2.0, 0.0),
+		Vector3d<T>(0.0, 0.0, 0.0),
+		Vector3d<T>(2.0, 0.0, 0.0),
+		Vector3d<T>(2.0, 2.0, 0.0)
+	};
 	OBJGroup group;
 	group.setPositions( positions );
 	OBJFace face({ 1, 2, 3, 4 });
@@ -215,9 +182,12 @@ TEST(OBJFileTest, TestWriteFaces)
 {
 	OBJFileWriter writer;
 	TriangleMesh mesh;
-	auto v1 = mesh.createVertex(Vector3d<float>(0.0, 0.0, 0.0));
-	auto v2 = mesh.createVertex(Vector3d<float>(1.0, 0.0, 0.0));
-	auto v3 = mesh.createVertex(Vector3d<float>(1.0, 1.0, 0.0));
+	auto p1 = mesh.createPosition(Vector3d<float>(0.0, 0.0, 0.0));
+	auto p2 = mesh.createPosition(Vector3d<float>(1.0, 0.0, 0.0));
+	auto p3 = mesh.createPosition(Vector3d<float>(1.0, 1.0, 0.0));
+	auto v1 = mesh.createVertex(p1);
+	auto v2 = mesh.createVertex(p2);
+	auto v3 = mesh.createVertex(p3);
 	mesh.createFace(v1, v2, v3);
 	writer.write("../TestFile/IO", "OBJWriteTest.obj", mesh);
 }
@@ -257,7 +227,7 @@ TEST(OBJFileTest, TestExampleCube)
 	OBJFileReader reader;
 	const OBJFile& file = reader.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
-	EXPECT_EQ(24, file.getGroups().front().getPositions().get().size());
+	EXPECT_EQ(8, file.getGroups().front().getPositions().size());
 	EXPECT_EQ(6, file.getGroups().front().getFaces().size());
 }
 
@@ -274,7 +244,7 @@ TEST(OBJFileTest, TestNegativeReferenceNumber)
 	OBJFileReader reader;
 	const OBJFile& file = reader.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
-	EXPECT_EQ(12, file.getGroups().front().getPositions().get().size());
+	EXPECT_EQ(4, file.getGroups().front().getPositions().size());
 	EXPECT_EQ(1, file.getGroups().front().getFaces().size());
 	std::vector<int> expected{ -4, - 3, -2, -1 };
 	EXPECT_EQ(expected, file.getGroups().front().getFaces().front().getVertexIndices());
@@ -332,7 +302,7 @@ TEST(OBJFileTest, TestExampleSmoothingGroup)
 	OBJFileReader reader;
 	const OBJFile& file = reader.read(stream);
 	EXPECT_EQ(2, file.getGroups().size());
-	EXPECT_EQ(18, file.getGroups().front().getPositions().get().size());
+	EXPECT_EQ(6, file.getGroups().front().getPositions().size());
 	EXPECT_EQ(2, file.getGroups().back().getFaces().size());
 }
 
@@ -357,6 +327,6 @@ TEST(OBJFileTest, TestExampleTextureMappedSquare)
 	OBJFileReader reader;
 	const OBJFile& file = reader.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
-	EXPECT_EQ(12, file.getGroups().front().getPositions().get().size());
-	EXPECT_EQ(12, file.getGroups().front().getTexCoords().get().size());
+	EXPECT_EQ(4, file.getGroups().front().getPositions().size());
+	EXPECT_EQ(4, file.getGroups().front().getTexCoords().size());
 }

@@ -79,6 +79,18 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 	return OBJFace( vertexIndices, texIndices, normalIndices );
 }
 
+TriangleMesh* OBJGroup::createPolygon()
+{
+	TriangleMesh mesh;
+	for (const auto p : positionBuffer) {
+		const auto v = mesh.createPosition(p);
+	}
+	for (auto f : faces) {
+		const auto vi = f.getVertexIndices();
+		mesh.createFaces(vi);
+	}
+	return mesh.clone();
+}
 
 OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
 {
@@ -106,9 +118,9 @@ OBJFile OBJFileReader::read(std::istream& stream )
 
 	std::vector<OBJGroup> groups;
 
-	Buffer3d<float> positions;
-	Buffer3d<float> normals;
-	Buffer3d<float> texCoords;
+	std::vector< Vector3d<float> > positions;
+	std::vector< Vector3d<float> > normals;
+	std::vector< Vector3d<float> > texCoords;
 
 	std::string useMtlName;
 	std::vector<OBJFace> faces;
@@ -126,15 +138,15 @@ OBJFile OBJFileReader::read(std::istream& stream )
 		}
 		else if( header == "v" ) {
 			std::getline(stream, str);
-			positions.add( group.readVertices(str) );
+			positions.push_back( group.readVertices(str) );
 		}
 		else if( header == "vt" ) {
 			std::getline(stream, str);
-			texCoords.add( group.readVector3d( str ) );
+			texCoords.push_back( group.readVector3d( str ) );
 		}
 		else if( header == "vn" || header == "-vn" ) {
 			std::getline(stream, str);
-			normals.add(group.readVector3d(str));
+			normals.push_back(group.readVector3d(str));
 		}
 		else if (header == "f") {
 			std::getline(stream, str);
@@ -231,18 +243,19 @@ bool OBJFileWriter::write(const std::string& path, const std::string& filename, 
 
 bool OBJFileWriter::write(std::ostream& stream, const TriangleMesh& mesh)
 {
-	const auto& vertices = mesh.getVertices();
+	const auto& positions = mesh.getPositions();
+	const auto& normals = mesh.getNormals();
 	const auto& faces = mesh.getFaces();
 
-	for (const auto& v : vertices) {
-		const auto pos = v->getPosition();
+	for (const auto& v : positions) {
+		const auto pos = *v;
 		char s[256];
 		sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
 		stream << s << std::endl;
 	}
 
-	for (const auto& v : vertices) {
-		const auto vn = v->getNormal();
+	for (const auto& v : normals) {
+		const auto vn = *v;
 		char s[256];
 		sprintf(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
 		stream << s << std::endl;

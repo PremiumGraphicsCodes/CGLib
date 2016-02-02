@@ -8,7 +8,7 @@ TriangleFace::TriangleFace(Vertex* v1, Vertex* v2, Vertex* v3) :
 	v2(v2),
 	v3(v3)
 {
-	this->normal = (v2->getPosition() - v1->getPosition()).getOuterProduct(v3->getPosition() - v1->getPosition());
+	this->normal = (*v2->getPosition() - *v1->getPosition()).getOuterProduct(*v3->getPosition() - *v1->position);
 	this->normal.normalize();
 }
 

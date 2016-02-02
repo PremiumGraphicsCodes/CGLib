@@ -56,9 +56,9 @@ bool POVFile::writeMesh(std::ostream& stream, const TriangleMesh& mesh)
 		stream << "vertex_vectors {" << std::endl;
 		stream << vertices.size() << "," << std::endl;
 		for (const auto& v : vertices) {
-			const auto x = v->getPosition().getX();
-			const auto y = v->getPosition().getY();
-			const auto z = v->getPosition().getZ();
+			const auto x = v->getPosition()->getX();
+			const auto y = v->getPosition()->getY();
+			const auto z = v->getPosition()->getZ();
 			stream << "<" << x << "," << y << "," << z << ">" << std::endl;
 		}
 		stream << "}" << std::endl;
