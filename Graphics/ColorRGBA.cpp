@@ -3,7 +3,11 @@
 using namespace Crystal::Graphics;
 
 template<typename T>
-ColorRGBA<T>::ColorRGBA() : alpha(0)
+ColorRGBA<T>::ColorRGBA() :
+	red(0),
+	green(0),
+	blue(0),
+	alpha(0)
 {}
 
 
