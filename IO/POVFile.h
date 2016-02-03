@@ -2,6 +2,7 @@
 #define __CRYSTAL_IO_POV_FILE_H__
 
 #include <string>
+#include <list>
 
 namespace Crystal {
 	namespace Polygon {
@@ -12,9 +13,9 @@ namespace Crystal {
 class POVFile
 {
 public:
-	bool writeScene(const std::string& file, const Polygon::TriangleMesh& mesh);
+	bool writeScene(const std::string& file, const std::list< Polygon::TriangleMesh *>& meshes);
 
-	bool writeInc(const std::string& file, const Polygon::TriangleMesh& mesh);
+	bool writeInc(const std::string& file, const std::list< Polygon::TriangleMesh* >& meshes);
 
 private:
 

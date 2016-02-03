@@ -59,7 +59,7 @@ public:
 
 	}
 
-	STLFile(const Polygon::TriangleMesh& mesh);
+	void add(const Polygon::TriangleMesh& mesh);
 
 	void setTitle(const std::string& title) { this->title = title; }
 

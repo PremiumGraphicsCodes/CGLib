@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_APP_OBJ_FILE_H__
-#define __CRYSTAL_APP_OBJ_FILE_H__
+#ifndef __CRYSTAL_IO_OBJ_FILE_H__
+#define __CRYSTAL_IO_OBJ_FILE_H__
 
 #include "../Math/Vector3d.h"
 

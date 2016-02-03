@@ -7,7 +7,7 @@
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-bool POVFile::writeScene(const std::string& file, const TriangleMesh& mesh)
+bool POVFile::writeScene(const std::string& file, const std::list< TriangleMesh *>& meshes)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
@@ -32,18 +32,24 @@ bool POVFile::writeScene(const std::string& file, const TriangleMesh& mesh)
 	stream << "pigment {color Pink}" << std::endl;
 	stream << "}" << std::endl;
 
-	return writeMesh(stream, mesh);
+	for (const auto& m : meshes) {
+		writeMesh(stream, *m);
+	}
+	return stream.good();
 }
 
 
-bool POVFile::writeInc(const std::string& file, const TriangleMesh& mesh)
+bool POVFile::writeInc(const std::string& file, const std::list< TriangleMesh *>& meshes)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
 		return false;
 	}
 
-	return writeMesh(stream, mesh);
+	for (const auto& m : meshes) {
+		writeMesh(stream, *m);
+	}
+	return stream.good();
 }
 
 bool POVFile::writeMesh(std::ostream& stream, const TriangleMesh& mesh)

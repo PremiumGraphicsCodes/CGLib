@@ -21,7 +21,7 @@ TEST(POVFileTest, TestWriteScene)
 	auto v2 = mesh.createVertex(p2);
 	auto v3 = mesh.createVertex(p3);
 	mesh.createFace(v1, v2, v3);
-	EXPECT_TRUE(file.writeScene(dest, mesh));
+	EXPECT_TRUE(file.writeScene(dest, { &mesh }));
 }
 
 TEST(POVFileTest, TestWriteInc)
@@ -37,5 +37,5 @@ TEST(POVFileTest, TestWriteInc)
 	auto v2 = mesh.createVertex(p2);
 	auto v3 = mesh.createVertex(p3);
 	mesh.createFace(v1, v2, v3);
-	EXPECT_TRUE(file.writeInc(dest, mesh));
+	EXPECT_TRUE(file.writeInc(dest, { &mesh }));
 }

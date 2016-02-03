@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
  
 #include "../Graphics/IBuffer.h"
+#include "../Polygon/TriangleFace.h"
+#include "../Polygon/Vertex.h"
 
 #include "../IO/OBJFile.h"
 #include "../IO/Helper.h"
@@ -30,6 +32,10 @@ TEST(OBJGroupTest, TestCreatePolygon)
 	group.setFaces({ face });
 	auto p = group.createPolygon();
 	EXPECT_EQ(3, p->getPositions().size());
+	EXPECT_EQ(1, p->getFaces().size());
+	auto f = p->getFaces().front();
+	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 0.0), *f->getV1()->getPosition() );
+	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 1.0), *f->getV1()->getNormal() );
 	delete p;
 }
 
