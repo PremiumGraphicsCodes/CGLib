@@ -51,6 +51,33 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 	return OBJFace( vertices );
 }
 
+/*
+void OBJGroup::add(const TriangleMesh& mesh)
+{
+	const auto& positions = mesh.getPositions();
+	for (const auto& p : positions) {
+		positionBuffer.push_back(*p);
+	}
+	const auto& normals = mesh.getNormals();
+	for (const auto& n : normals) {
+		normalBuffer.push_back(*n);
+	}
+	const auto& texCoords = mesh.getTexCoords();
+	for (const auto& t : texCoords) {
+		texCoordBuffer.push_back(*t);
+	}
+	const auto& vertices = mesh.getVertices();
+	const auto& faces = mesh.getFaces();
+	for (const auto& f : faces) {
+		OBJVertex vertex;
+		vertex.positionIndex = f->getV1()->getPosition()->getId();
+		vertex.normalIndex = f->getV1()->getId()->
+		OBJFace objf
+		this->faces.push_back()
+	}
+}
+*/
+
 TriangleMesh* OBJGroup::createPolygon()
 {
 	TriangleMesh mesh;
@@ -231,15 +258,16 @@ bool OBJFileWriter::write(std::ostream& stream, const TriangleMesh& mesh)
 	const auto& normals = mesh.getNormals();
 	const auto& faces = mesh.getFaces();
 
-	for (const auto& v : positions) {
-		const auto pos = *v;
+	//for (const auto& v : positions) {
+	for (int i = 0; i < positions.size(); ++i) {
+		const auto pos = positions.get(i)->getVector();
 		char s[256];
 		sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
 		stream << s << std::endl;
 	}
 
-	for (const auto& v : normals) {
-		const auto vn = *v;
+	for (int i = 0; i < normals.size(); ++i ){
+		const auto vn = normals.get(i)->getVector();
 		char s[256];
 		sprintf(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
 		stream << s << std::endl;

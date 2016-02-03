@@ -17,9 +17,9 @@ void STLFile::add(const TriangleMesh& mesh)
 	const auto faces = mesh.getFaces();
 	for (auto f : faces) {
 		STLCell cell;
-		cell.addPosition(*f->getV1()->getPosition());
-		cell.addPosition(*f->getV2()->getPosition());
-		cell.addPosition(*f->getV3()->getPosition());
+		cell.addPosition(f->getV1()->getPosition()->getVector());
+		cell.addPosition(f->getV2()->getPosition()->getVector());
+		cell.addPosition(f->getV3()->getPosition()->getVector());
 		cell.setNormal(f->getNormal());
 		cells.push_back(cell);
 	}

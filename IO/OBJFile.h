@@ -108,6 +108,8 @@ struct OBJGroup {
 		faces( faces )
 	{}
 
+	void add(const Polygon::TriangleMesh& mesh);
+
 	bool operator==(const OBJGroup& rhs) const {
 		return
 			name == rhs.name &&

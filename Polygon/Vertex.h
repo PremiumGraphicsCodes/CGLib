@@ -12,6 +12,55 @@ namespace Crystal {
 class Vertex;
 class TriangleFace;
 
+class VectorId
+{
+public:
+	VectorId(const Math::Vector3d<float>& vector, const int id) :
+		vector(vector),
+		id(id)
+	{}
+
+	Math::Vector3d<float> getVector() const { return vector; }
+
+	int getId() const { return id; }
+
+private:
+	Math::Vector3d<float> vector;
+	int id;
+};
+
+class VectorIdCollection
+{
+public:
+	VectorIdCollection() :
+		nextId(0)
+	{}
+
+	void clear() {
+		for (auto p : positions) {
+			delete p;
+		}
+		positions.clear();
+		nextId = 0;
+	}
+
+	VectorId* get(const int index) const { return positions[index]; }
+
+
+	size_t size() const { return positions.size(); }
+
+	VectorId* create(const Math::Vector3d<float>& position)
+	{
+		auto v = new VectorId(position, nextId++);
+		positions.push_back( v );
+		return v;
+	}
+
+private:
+	std::vector<VectorId*> positions;
+	int nextId;
+};
+
 class Vertex
 {
 public:
@@ -24,19 +73,17 @@ public:
 
 	int id;
 
-	Math::Vector3d<float>* getPosition() { return position; }
+	VectorId* getPosition() { return position; }
 
-	Math::Vector3d<float> getPosition() const { return *position; }
+	VectorId* getNormal() { return normal; }
 
-	Math::Vector3d<float>* getNormal() { return normal; }
-
-	Math::Vector3d<float> getNormal() const { return *normal; }
+	VectorId* getNormal() const { return normal; }
 
 	int getId() const { return id; }
 
-	Math::Vector3d<float>* position;
-	Math::Vector3d<float>* normal;
-	Math::Vector3d<float>* texCoord;
+	VectorId* position;
+	VectorId* normal;
+	VectorId* texCoord;
 	TriangleFace* f;
 };
 

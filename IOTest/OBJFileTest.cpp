@@ -14,6 +14,7 @@ using namespace Crystal::IO;
 
 using T = float;
 
+/*
 TEST(OBJGroupTest, TestCreatePolygon)
 {
 	OBJFile file;
@@ -34,10 +35,10 @@ TEST(OBJGroupTest, TestCreatePolygon)
 	EXPECT_EQ(3, p->getPositions().size());
 	EXPECT_EQ(1, p->getFaces().size());
 	auto f = p->getFaces().front();
-	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 0.0), *f->getV1()->getPosition() );
-	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 1.0), *f->getV1()->getNormal() );
+	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 0.0), f->getV1()->getPosition()->getVector() );
+	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 1.0), f->getV1()->getNormal()->getVector() );
 	delete p;
-}
+}*/
 
 TEST(OBJFileTest, TestReadVertices)
 {

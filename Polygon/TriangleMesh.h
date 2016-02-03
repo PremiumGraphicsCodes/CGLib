@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 #include "../Math/Vector3d.h"
 #include "../Math/Triangle.h"
+#include "Vertex.h"
 
 #include <list>
 
@@ -12,6 +13,7 @@ namespace Crystal {
 
 class Vertex;
 class TriangleFace;
+
 
 class TriangleMesh : private UnCopyable
 {
@@ -30,13 +32,13 @@ public:
 
 	void add(const Math::Triangle<float>& triangle);
 
-	Math::Vector3d<float>* createPosition(const Math::Vector3d<float>& position);
+	VectorId* createPosition(const Math::Vector3d<float>& position);
 
-	Math::Vector3d<float>* createNormal(const Math::Vector3d<float>& normal);
+	VectorId* createNormal(const Math::Vector3d<float>& normal);
 
-	Math::Vector3d<float>* createTexCoord(const Math::Vector3d<float>& texCoord);
+	VectorId* createTexCoord(const Math::Vector3d<float>& texCoord);
 
-	Vertex* createVertex(Math::Vector3d<float>* v, Math::Vector3d<float>* normal = nullptr, Math::Vector3d<float>* texCoord = nullptr);
+	Vertex* createVertex(VectorId* v, VectorId* normal = nullptr, VectorId* texCoord = nullptr);
 
 	Vertex* createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex);
 
@@ -52,10 +54,11 @@ public:
 
 	std::list<Vertex*> getVertices() const { return vertices; }
 
-	std::vector< Math::Vector3d<float>* > getPositions() const{ return positions; }
+	VectorIdCollection getPositions() const{ return positions; }
 
-	std::vector< Math::Vector3d<float>* > getNormals() const { return positions; }
+	VectorIdCollection getNormals() const { return positions; }
 
+	VectorIdCollection getTexCoords() const { return texCoords; }
 
 	std::vector<TriangleFace*> getFaces() const { return faces; }
 
@@ -77,9 +80,9 @@ public:
 private:
 	unsigned int nextIndexId;
 	std::list<Vertex*> vertices;
-	std::vector<Math::Vector3d<float>*> positions;
-	std::vector<Math::Vector3d<float>*> normals;
-	std::vector<Math::Vector3d<float>*> texCoords;
+	VectorIdCollection positions;
+	VectorIdCollection normals;
+	VectorIdCollection texCoords;
 	std::vector<TriangleFace*> faces;
 };
 

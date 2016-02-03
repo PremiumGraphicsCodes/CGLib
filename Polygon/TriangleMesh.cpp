@@ -21,7 +21,7 @@ namespace {
 
 	bool comp(Vertex* v1, Vertex* v2)
 	{
-		return toHash(*v1->position) < toHash(*v2->position);
+		return toHash(v1->getPosition()->getVector()) < toHash(v2->getPosition()->getVector());
 	}
 
 	bool isSame(Vertex* v1, Vertex* v2)
@@ -57,29 +57,23 @@ void TriangleMesh::sortVertices()
 	}
 }
 
-Vector3d<float>* TriangleMesh::createPosition(const Vector3d<float>& position)
+VectorId* TriangleMesh::createPosition(const Vector3d<float>& position)
 {
-	auto v = new Vector3d<float>(position);
-	positions.push_back(v);
-	return v;
+	return positions.create(position);
 }
 
-Vector3d<float>* TriangleMesh::createNormal(const Vector3d<float>& normal)
+VectorId* TriangleMesh::createNormal(const Vector3d<float>& normal)
 {
-	auto n = new Vector3d<float>(normal);
-	normals.push_back(n);
-	return n;
+	return normals.create(normal);
 }
 
-Vector3d<float>* TriangleMesh::createTexCoord(const Vector3d<float>& texCoord)
+VectorId* TriangleMesh::createTexCoord(const Vector3d<float>& texCoord)
 {
-	auto t = new Vector3d<float>(texCoord);
-	texCoords.push_back(t);
-	return t;
+	return texCoords.create(texCoord);
 }
 
 
-Vertex* TriangleMesh::createVertex(Vector3d<float>* position, Vector3d<float>* normal, Vector3d<float>* texCoord)
+Vertex* TriangleMesh::createVertex(VectorId* position, VectorId* normal, VectorId* texCoord)
 {
 	auto v = new Vertex();
 	v->position = position;
@@ -92,14 +86,14 @@ Vertex* TriangleMesh::createVertex(Vector3d<float>* position, Vector3d<float>* n
 
 Vertex* TriangleMesh::createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex)
 {
-	auto p = positions[positionIndex];
-	Math::Vector3d<float>* n = nullptr;
+	auto p = positions.get(positionIndex);
+	VectorId* n = nullptr;
 	if (normalIndex != -1) {
-		n = normals[normalIndex];
+		n = normals.get(normalIndex);
 	}
-	Math::Vector3d<float>* t = nullptr;
+	VectorId* t = nullptr;
 	if (texIndex != -1) {
-		auto t = texCoords[texIndex];
+		auto t = texCoords.get(texIndex);
 	}
 	return createVertex(p, n, t);
 }
@@ -168,21 +162,9 @@ void TriangleMesh::add(const Triangle<float>& triangle)
 
 void TriangleMesh::clear()
 {
-	for (auto p : positions) {
-		delete p;
-	}
 	positions.clear();
-	for (auto n : normals) {
-		delete n;
-	}
 	normals.clear();
-	for (auto t : texCoords) {
-		delete t;
-	}
 	texCoords.clear();
-	for (auto v : vertices) {
-		delete v;
-	}
 	vertices.clear();
 	for (auto f : faces) {
 		delete f;
