@@ -38,6 +38,8 @@ public:
 
 	Vertex* createVertex(Math::Vector3d<float>* v, Math::Vector3d<float>* normal = nullptr, Math::Vector3d<float>* texCoord = nullptr);
 
+	Vertex* createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex);
+
 	//void addVertex(Vertex* v) { this->vertices.push_back(v); }
 
 	TriangleFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
@@ -45,6 +47,8 @@ public:
 	TriangleFace* createFace(const int v1, const int v2, const int v3);
 
 	std::list< TriangleFace* > createFaces(const std::vector<int>& ids);
+
+	std::list< TriangleFace* > createFaces(const std::vector<Vertex*>& vertices);
 
 	std::list<Vertex*> getVertices() const { return vertices; }
 

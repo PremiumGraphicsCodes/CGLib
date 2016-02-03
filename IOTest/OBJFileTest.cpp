@@ -12,7 +12,6 @@ using namespace Crystal::IO;
 
 using T = float;
 
-/*
 TEST(OBJGroupTest, TestCreatePolygon)
 {
 	OBJFile file;
@@ -24,15 +23,15 @@ TEST(OBJGroupTest, TestCreatePolygon)
 	});
 	group.setNormals({ Vector3d<float>(0.0, 0.0, 1.0) });
 	group.setTexCoords({ Vector3d<float>(-1.0, -1.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0) });
-	OBJFace face;
-	face.setVertexIndices({ 1, 2, 3 });
-	face.setNormalIndices({ 1 });
-	face.setTexIndices({ 1 });
+	OBJVertex v1{ 1, 1, 1 };
+	OBJVertex v2{ 2, 1, 1 };
+	OBJVertex v3{ 3, 1, 1 };
+	OBJFace face({ v1, v2, v3 });
 	group.setFaces({ face });
 	auto p = group.createPolygon();
+	EXPECT_EQ(3, p->getPositions().size());
 	delete p;
 }
-*/
 
 TEST(OBJFileTest, TestReadVertices)
 {

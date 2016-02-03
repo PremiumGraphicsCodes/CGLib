@@ -90,6 +90,21 @@ Vertex* TriangleMesh::createVertex(Vector3d<float>* position, Vector3d<float>* n
 	return v;
 }
 
+Vertex* TriangleMesh::createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex)
+{
+	auto p = positions[positionIndex];
+	Math::Vector3d<float>* n = nullptr;
+	if (normalIndex != -1) {
+		n = normals[normalIndex];
+	}
+	Math::Vector3d<float>* t = nullptr;
+	if (texIndex != -1) {
+		auto t = texCoords[texIndex];
+	}
+	return createVertex(p, n, t);
+}
+
+
 
 TriangleFace* TriangleMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
@@ -116,6 +131,19 @@ std::list< TriangleFace* > TriangleMesh::createFaces(const std::vector<int>& ids
 		auto id1 = ids[i];
 		auto id2 = ids[i + 1];
 		fs.push_back( createFace(vs[origin], vs[id1], vs[id2]) );
+	}
+	return fs;
+}
+
+
+std::list< TriangleFace* > TriangleMesh::createFaces(const std::vector<Vertex*>& vertices)
+{
+	std::list< TriangleFace* > fs;
+	auto origin = vertices[0];
+	for (size_t i = 1; i < vertices.size() - 1; i++) {
+		auto v1 = vertices[i];
+		auto v2 = vertices[i + 1];
+		fs.push_back(createFace(origin, v1, v2));
 	}
 	return fs;
 }

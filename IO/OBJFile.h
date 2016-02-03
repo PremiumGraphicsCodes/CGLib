@@ -146,7 +146,7 @@ struct OBJGroup {
 
 	OBJFace readFaces(const std::string& str);
 
-	//Polygon::TriangleMesh* createPolygon();
+	Polygon::TriangleMesh* createPolygon();
 
 
 private:

@@ -51,7 +51,6 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 	return OBJFace( vertices );
 }
 
-/*
 TriangleMesh* OBJGroup::createPolygon()
 {
 	TriangleMesh mesh;
@@ -65,12 +64,17 @@ TriangleMesh* OBJGroup::createPolygon()
 		mesh.createTexCoord(t);
 	}
 	for (auto f : faces) {
-		const auto vi = f.getVertexIndicesZeroOrigin();
-		mesh.createFaces(vi);
+		auto vs = f.getVertices();
+		std::vector<Vertex*> vv;
+		for (const auto v : vs) {
+			vv.push_back(
+				mesh.createVertexFromIndices(v.positionIndex - 1, v.normalIndex - 1, v.texIndex - 1)
+				);
+		}
+		mesh.createFaces(vv);
 	}
 	return mesh.clone();
 }
-*/
 
 OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
 {
