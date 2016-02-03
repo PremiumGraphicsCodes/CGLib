@@ -15,67 +15,53 @@
 namespace Crystal {
 	namespace IO {
 
-typedef std::vector<int> OBJIndices;
+struct OBJVertex
+{
+	OBJVertex() :
+		positionIndex(-1),
+		normalIndex(-1),
+		texIndex(-1)
+	{}
 
+
+	OBJVertex(const int positionIndex, const int normalIndex = -1, const int texIndex = -1) :
+		positionIndex(positionIndex),
+		normalIndex(normalIndex),
+		texIndex(texIndex)
+	{}
+
+	int positionIndex;
+	int normalIndex;
+	int texIndex;
+
+	bool operator==(const OBJVertex& rhs) const {
+		return
+			this->positionIndex == rhs.positionIndex &&
+			this->normalIndex == rhs.normalIndex &&
+			this->texIndex == rhs.texIndex;
+	}
+};
 
 struct OBJFace
 {
 	OBJFace()
 	{}
 
-	OBJFace(const OBJIndices& vertexIndices, const OBJIndices& texIndices = {}, const OBJIndices& normalIndices = {}) :
-		vertexIndices( vertexIndices ),
-		texIndices( texIndices ),
-		normalIndices( normalIndices )
+	OBJFace(const std::vector<OBJVertex>& vertices) :
+		vertices( vertices )
 	{}
-
-	void setVertexIndices(const OBJIndices& vertexIndices) { this->vertexIndices = vertexIndices; }
-
-	OBJIndices getVertexIndices() const { return vertexIndices; }
-
-	void setTexIndices(const OBJIndices& texIndices) { this->texIndices = texIndices; }
-
-	OBJIndices getTexIndices() const { return texIndices; }
-
-	void setNormalIndices(const OBJIndices& normalIndices) { this->normalIndices = normalIndices; }
-
-	OBJIndices getNormalIndices() const { return normalIndices; }
-
-	bool hasTexIndices() const {
-		return !texIndices.empty();
-	}
-
-	bool hasNormals() const {
-		return !normalIndices.empty();
-	}
-
-	bool isValid() const {
-		if(hasTexIndices() && !hasNormals() ) {
-			return vertexIndices == texIndices;
-		}
-		else if (hasNormals()) {
-			return vertexIndices == normalIndices;
-		}
-		else {
-			return true;
-		}
-	}
 
 	bool operator==(const OBJFace& rhs) const {
 		return
-			vertexIndices == rhs.vertexIndices &&
-			texIndices == rhs.texIndices &&
-			normalIndices == rhs.normalIndices;
+			vertices == rhs.vertices;
 	}
 
-	std::string write(std::ostream& stream) const;
+	std::vector<OBJVertex> getVertices() const { return vertices; }
 
 	std::string usemtlname;
 
 private:
-	OBJIndices vertexIndices;
-	OBJIndices texIndices;
-	OBJIndices normalIndices;
+	std::vector<OBJVertex> vertices;
 };
 
 
@@ -160,7 +146,7 @@ struct OBJGroup {
 
 	OBJFace readFaces(const std::string& str);
 
-	Polygon::TriangleMesh* createPolygon();
+	//Polygon::TriangleMesh* createPolygon();
 
 
 private:

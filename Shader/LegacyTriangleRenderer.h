@@ -9,14 +9,7 @@
 namespace Crystal {
 	namespace Shader {
 
-class IndexSurface
-{
-
-private:
-	std::vector<int> indices;
-};
-
-class LegacySurfaceRenderer
+class LegacyTriangleRenderer
 {
 public:
 

@@ -79,11 +79,12 @@ Vector3d<float>* TriangleMesh::createTexCoord(const Vector3d<float>& texCoord)
 }
 
 
-Vertex* TriangleMesh::createVertex(Vector3d<float>* position, Vector3d<float>* normal)
+Vertex* TriangleMesh::createVertex(Vector3d<float>* position, Vector3d<float>* normal, Vector3d<float>* texCoord)
 {
 	auto v = new Vertex();
 	v->position = position;
 	v->normal = normal;
+	v->texCoord = texCoord;
 	v->id = nextIndexId++;
 	vertices.push_back(v);
 	return v;

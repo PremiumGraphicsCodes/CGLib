@@ -20,41 +20,14 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-std::string OBJFace::write(std::ostream& stream) const
-{
-	std::string s;
-	s += "f";
-	if ( hasTexIndices() && !hasNormals()) {
-		for (size_t i = 0; i < vertexIndices.size(); ++i) {
-			s += " " + std::to_string(vertexIndices[i]) + "/" + std::to_string(texIndices[i]);
-		}
-	}
-	else if (hasTexIndices() && hasNormals()) {
-		for (size_t i = 0; i < vertexIndices.size(); ++i) {
-			s += " " + std::to_string(vertexIndices[i]) + "/" + std::to_string(texIndices[i]) + "/" + std::to_string(normalIndices[i]);
-		}
-	}
-	else if (hasNormals()) {
-		for (size_t i = 0; i < vertexIndices.size(); ++i) {
-			s += " " + std::to_string(vertexIndices[i]) + "//" + std::to_string(normalIndices[i]);
-		}
-	}
-	else {
-		for (const unsigned int i : vertexIndices) {
-			s += " " + std::to_string(i);
-		}
-	}
-	return s;
-}
 
 OBJFace OBJGroup::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
-	OBJIndices vertexIndices;
-	OBJIndices texIndices;
-	OBJIndices normalIndices;
+	OBJVertex vertex;
 	//assert(strs.front() == "f");
+	std::vector<OBJVertex> vertices;
 	for (unsigned int i = 0; i < strs.size(); ++i) {
 		if (strs[i].empty()) {
 			continue;
@@ -65,32 +38,40 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 		}
 
 		std::vector<std::string>& splitted = Helper::split(strs[i], '/');
-		const int index = std::stoi(splitted[0]);
-		vertexIndices.push_back(index);
+		vertex.positionIndex = std::stoi(splitted[0]);
+		//vertexIndices.push_back(index);
 		if (splitted.size() >= 2 && splitted[1] != " " ) {
-			const int index = std::stoi(splitted[1]);
-			texIndices.push_back(index);
+			vertex.texIndex = std::stoi(splitted[1]);
 		}
 		if (splitted.size() >= 3) {
-			const int index = std::stoi(splitted[2]);
-			normalIndices.push_back(index);
+			vertex.normalIndex = std::stoi(splitted[2]);
 		}
+		vertices.push_back(vertex);
 	}
-	return OBJFace( vertexIndices, texIndices, normalIndices );
+	vertices.push_back(vertex);
+	return OBJFace( vertices );
 }
 
+/*
 TriangleMesh* OBJGroup::createPolygon()
 {
 	TriangleMesh mesh;
 	for (const auto p : positionBuffer) {
-		const auto v = mesh.createPosition(p);
+		mesh.createPosition(p);
+	}
+	for (const auto n : normalBuffer) {
+		mesh.createNormal(n);
+	}
+	for (const auto t : texCoordBuffer) {
+		mesh.createTexCoord(t);
 	}
 	for (auto f : faces) {
-		const auto vi = f.getVertexIndices();
+		const auto vi = f.getVertexIndicesZeroOrigin();
 		mesh.createFaces(vi);
 	}
 	return mesh.clone();
 }
+*/
 
 OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
 {

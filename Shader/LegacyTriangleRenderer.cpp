@@ -1,4 +1,4 @@
-#include "LegacySurfaceRenderer.h"
+#include "LegacyTriangleRenderer.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -9,7 +9,7 @@ namespace {
 	GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };
 }
 
-void LegacySurfaceRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
+void LegacyTriangleRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
 {
 	const auto& positions = buffer.positions.get();// buffers[0].get();
 	const auto& normals = buffer.normals.get();//buffers[1].get();

@@ -36,7 +36,7 @@ public:
 
 	Math::Vector3d<float>* createTexCoord(const Math::Vector3d<float>& texCoord);
 
-	Vertex* createVertex(Math::Vector3d<float>* v, Math::Vector3d<float>* normal = nullptr);
+	Vertex* createVertex(Math::Vector3d<float>* v, Math::Vector3d<float>* normal = nullptr, Math::Vector3d<float>* texCoord = nullptr);
 
 	//void addVertex(Vertex* v) { this->vertices.push_back(v); }
 

@@ -39,10 +39,10 @@
     <ClCompile Include="LegacyLineRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
-    <ClCompile Include="LegacySurfaceRenderer.cpp">
+    <ClCompile Include="LegacySelectionRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
-    <ClCompile Include="LegacySelectionRenderer.cpp">
+    <ClCompile Include="LegacyTriangleRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,10 +88,10 @@
     <ClInclude Include="LegacyLineRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
-    <ClInclude Include="LegacySurfaceRenderer.h">
+    <ClInclude Include="LegacySelectionRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
-    <ClInclude Include="LegacySelectionRenderer.h">
+    <ClInclude Include="LegacyTriangleRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
   </ItemGroup>
