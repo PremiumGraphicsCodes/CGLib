@@ -276,7 +276,9 @@ TEST(OBJFileTest, TestNegativeReferenceNumber)
 	//EXPECT_EQ(4, file.getGroups().front().getPositions().size());
 	//EXPECT_EQ(1, file.getGroups().front().getFaces().size());
 	//std::vector<int> expected{ -4, - 3, -2, -1 };
-	EXPECT_EQ( OBJVertex(-4), file.getGroups().front().getFaces().front().getVertices().front());
+	std::vector< OBJVertex > expected{ -4, -3, -2, -1 };
+	auto actual = file.getGroups().front().getFaces().front().getVertices();
+	EXPECT_EQ( expected, actual );
 }
 
 TEST(OBJFileTest, TestExampleGroups)

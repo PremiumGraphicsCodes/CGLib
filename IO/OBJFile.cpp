@@ -48,7 +48,6 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 		}
 		vertices.push_back(vertex);
 	}
-	vertices.push_back(vertex);
 	return OBJFace( vertices );
 }
 
