@@ -78,32 +78,31 @@ void OBJGroup::add(const TriangleMesh& mesh)
 }
 */
 
-/*
-PolygonObject OBJGroup::createPolygon()
+PolygonObject* OBJGroup::createPolygon()
 {
-	PolygonObject mesh;
+	PolygonObject* mesh = new PolygonObject();
 	for (const auto p : positionBuffer) {
-		mesh.createPosition(p);
+		mesh->createPosition(p);
 	}
 	for (const auto n : normalBuffer) {
-		mesh.createNormal(n);
+		mesh->createNormal(n);
 	}
 	for (const auto t : texCoordBuffer) {
-		mesh.createTexCoord(t);
+		mesh->createTexCoord(t);
 	}
 	for (auto f : faces) {
 		auto vs = f.getVertices();
 		std::vector<Vertex*> vv;
 		for (const auto v : vs) {
 			vv.push_back(
-				mesh.createVertexFromIndices(v.positionIndex - 1, v.normalIndex - 1, v.texIndex - 1)
+				mesh->createVertexFromIndices(v.positionIndex - 1, v.normalIndex - 1, v.texIndex - 1)
 				);
 		}
-		mesh.createFaces(vv);
+		mesh->createFaces(vv);
 	}
 	return mesh;
 }
-*/
+
 OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
 {
 	const std::string fullPathName = path + "/" + filename;

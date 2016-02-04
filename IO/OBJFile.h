@@ -148,7 +148,7 @@ struct OBJGroup {
 
 	OBJFace readFaces(const std::string& str);
 
-	//Polygon::PolygonObject createPolygon();
+	Polygon::PolygonObject* createPolygon();
 
 
 private:
@@ -216,17 +216,6 @@ public:
 
 	OBJFile read(std::istream& stream);
 };
-
-
-
-static ::std::ostream& operator<<(::std::ostream& os, const OBJMTLLib& lib)
-{
-	os << "name " << lib.getName() << std::endl;
-	for (const std::string& m : lib.getMaterials()) {
-		os << m << std::endl;
-	}
-	return os;
-}
 
 	}
 }

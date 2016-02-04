@@ -28,6 +28,8 @@ public:
 
 	void add(const Math::Triangle<float>& triangle);
 
+	void removeOverlappedVertices() { vertices.sort(); }
+
 	VectorId* createPosition(const Math::Vector3d<float>& position);
 
 	VectorId* createNormal(const Math::Vector3d<float>& normal);
