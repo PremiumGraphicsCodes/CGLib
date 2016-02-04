@@ -96,7 +96,7 @@ void PolygonObject::add(const Triangle<float>& triangle)
 	auto p3 = createPosition(triangle.getv2());
 
 	auto v1 = vertices.create( p1, n );
-	auto v2 = vertices.create( p1, n );
+	auto v2 = vertices.create( p2, n );
 	auto v3 = vertices.create( p3, n );
 	auto f = createFace(v1, v2, v3);
 	v1->f = (f);
