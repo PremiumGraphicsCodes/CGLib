@@ -1,9 +1,9 @@
-#include "TriangleFace.h"
+#include "Face.h"
 #include "Vertex.h"
 
 using namespace Crystal::Polygon;
 
-TriangleFace::TriangleFace(Vertex* v1, Vertex* v2, Vertex* v3) :
+Face::Face(Vertex* v1, Vertex* v2, Vertex* v3) :
 	v1(v1),
 	v2(v2),
 	v3(v3)
@@ -12,7 +12,7 @@ TriangleFace::TriangleFace(Vertex* v1, Vertex* v2, Vertex* v3) :
 	this->normal.normalize();
 }
 
-Vertex* TriangleFace::find(Vertex* v)
+Vertex* Face::find(Vertex* v)
 {
 	if (v == v1) {
 		return v1;
@@ -28,7 +28,7 @@ Vertex* TriangleFace::find(Vertex* v)
 }
 
 
-void TriangleFace::replace(Vertex* oldVertex, Vertex* newVertex) {
+void Face::replace(Vertex* oldVertex, Vertex* newVertex) {
 	if (oldVertex == v1) {
 		v1 = newVertex;
 	}

@@ -8,7 +8,7 @@ using namespace Crystal::IO;
 
 #include <string>
 #include <cassert>
-#include "../Polygon/TriangleFace.h"
+#include "../Polygon/Face.h"
 #include "../Polygon/Vertex.h"
 
 

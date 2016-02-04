@@ -5,6 +5,7 @@
 #include "../Math/Vector3d.h"
 #include "../Math/Triangle.h"
 #include "Vertex.h"
+#include "Face.h"
 
 #include <list>
 
@@ -12,7 +13,7 @@ namespace Crystal {
 	namespace Polygon {
 
 class Vertex;
-class TriangleFace;
+class Face;
 
 
 class PolygonObject : private UnCopyable
@@ -24,11 +25,6 @@ public:
 
 	~PolygonObject();
 
-	bool hasVertex(Vertex* v);
-
-	void clear();
-
-	void sortVertices();
 
 	void add(const Math::Triangle<float>& triangle);
 
@@ -38,21 +34,21 @@ public:
 
 	VectorId* createTexCoord(const Math::Vector3d<float>& texCoord);
 
-	Vertex* createVertex(VectorId* v, VectorId* normal = nullptr, VectorId* texCoord = nullptr);
+	Vertex* createVertex(VectorId* position, VectorId* normal = nullptr, VectorId* texCoord = nullptr);
 
 	Vertex* createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex);
 
 	//void addVertex(Vertex* v) { this->vertices.push_back(v); }
 
-	TriangleFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	TriangleFace* createFace(const int v1, const int v2, const int v3);
+	Face* createFace(const int v1, const int v2, const int v3);
 
-	std::list< TriangleFace* > createFaces(const std::vector<int>& ids);
+	std::list< Face* > createFaces(const std::vector<int>& ids);
 
-	std::list< TriangleFace* > createFaces(const std::vector<Vertex*>& vertices);
+	std::list< Face* > createFaces(const std::vector<Vertex*>& vertices);
 
-	std::list<Vertex*> getVertices() const { return vertices; }
+	VertexCollection getVertices() const { return vertices; }
 
 	VectorIdCollection getPositions() const{ return positions; }
 
@@ -60,30 +56,17 @@ public:
 
 	VectorIdCollection getTexCoords() const { return texCoords; }
 
-	std::vector<TriangleFace*> getFaces() const { return faces; }
+	FaceCollection getFaces() const { return faces; }
 
-	PolygonObject* clone() {
-		auto newMesh = new PolygonObject;
-		newMesh->vertices = this->vertices;
-		newMesh->positions = this->positions;
-		newMesh->normals = this->normals;
-		newMesh->texCoords = this->texCoords;
-		newMesh->faces = this->faces;
-		this->vertices.clear();
-		this->positions.clear();
-		this->normals.clear();
-		this->texCoords.clear();
-		this->faces.clear();
-		return newMesh;
-	}
+	void clear();
 
 private:
 	unsigned int nextIndexId;
-	std::list<Vertex*> vertices;
+	VertexCollection vertices;
 	VectorIdCollection positions;
 	VectorIdCollection normals;
 	VectorIdCollection texCoords;
-	std::vector<TriangleFace*> faces;
+	FaceCollection faces;
 };
 
 	}

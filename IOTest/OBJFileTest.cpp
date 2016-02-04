@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
  
 #include "../Graphics/IBuffer.h"
-#include "../Polygon/TriangleFace.h"
+#include "../Polygon/Face.h"
 #include "../Polygon/Vertex.h"
 
 #include "../IO/OBJFile.h"

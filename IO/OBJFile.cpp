@@ -8,7 +8,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Polygon/Vertex.h"
-#include "../Polygon/TriangleFace.h"
+#include "../Polygon/Face.h"
 
 #include "Helper.h"
 
@@ -78,7 +78,8 @@ void OBJGroup::add(const TriangleMesh& mesh)
 }
 */
 
-PolygonObject* OBJGroup::createPolygon()
+/*
+PolygonObject OBJGroup::createPolygon()
 {
 	PolygonObject mesh;
 	for (const auto p : positionBuffer) {
@@ -100,9 +101,9 @@ PolygonObject* OBJGroup::createPolygon()
 		}
 		mesh.createFaces(vv);
 	}
-	return mesh.clone();
+	return mesh;
 }
-
+*/
 OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
 {
 	const std::string fullPathName = path + "/" + filename;
@@ -273,7 +274,8 @@ bool OBJFileWriter::write(std::ostream& stream, const PolygonObject& mesh)
 		stream << s << std::endl;
 	}
 
-	for (const auto& f : faces) {
+	for (int i = 0; i < faces.size(); ++i ){
+		auto f = faces[i];
 		const auto i1 = f->getV1()->getId() + 1;
 		const auto i2 = f->getV2()->getId() + 1;
 		const auto i3 = f->getV3()->getId() + 1;

@@ -10,7 +10,7 @@ namespace Crystal {
 	namespace Polygon {
 
 class Vertex;
-class TriangleFace;
+class Face;
 
 class VectorId
 {
@@ -84,9 +84,58 @@ public:
 	VectorId* position;
 	VectorId* normal;
 	VectorId* texCoord;
-	TriangleFace* f;
+	Face* f;
 };
 
+class VertexCollection
+{
+public:
+	VertexCollection() :
+		nextId(0)
+	{}
+
+	VertexCollection(const std::vector<Vertex*>& vertices) :
+		vertices( vertices ),
+		nextId(0)
+	{}
+
+	Vertex* create(VectorId* position, VectorId* normal = nullptr, VectorId* texCoord = nullptr);
+
+	~VertexCollection() {
+	}
+
+	void clear() {
+		for (auto v : vertices) {
+			delete v;
+		}
+		vertices.clear();
+	}
+
+	bool hasVertex(Vertex* v) {
+		return (std::find(vertices.begin(), vertices.end(), v) != vertices.end());
+	}
+
+	void sort();
+
+	Vertex* operator[](int index) const{ return vertices[index]; }
+
+	using iterator = std::vector<Vertex*>::iterator;
+	using const_iterator = std::vector<Vertex*>::const_iterator;
+
+	iterator begin() { return vertices.begin(); }
+
+	const_iterator begin() const { return vertices.begin(); }
+
+	iterator end() { return vertices.end(); }
+
+	const_iterator end() const { return vertices.end(); }
+
+	size_t size() const { return vertices.size(); }
+
+private:
+	std::vector<Vertex*> vertices;
+	int nextId;
+};
 
 	}
 }

@@ -1,6 +1,6 @@
 #include "MarchingCube.h"
 
-#include "TriangleFace.h"
+#include "Face.h"
 
 #include "Vertex.h"
 

@@ -148,7 +148,7 @@ struct OBJGroup {
 
 	OBJFace readFaces(const std::string& str);
 
-	Polygon::PolygonObject* createPolygon();
+	//Polygon::PolygonObject createPolygon();
 
 
 private:
