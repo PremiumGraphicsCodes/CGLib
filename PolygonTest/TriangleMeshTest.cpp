@@ -1,13 +1,13 @@
 #include "gtest\gtest.h"
 
-#include "../Polygon/TriangleMesh.h"
+#include "../Polygon/PolygonObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
 TEST(TriangleMeshTest, Test)
 {
-	TriangleMesh mesh;
+	PolygonObject mesh;
 	auto p1 = mesh.createPosition(Vector3d<float>(0.0, 0.0, 0.0));
 	auto p2 = mesh.createPosition(Vector3d<float>(1.0, 0.0, 0.0));
 	auto p3 = mesh.createPosition(Vector3d<float>(1.0, 1.0, 0.0));

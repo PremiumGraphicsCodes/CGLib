@@ -12,7 +12,7 @@ using namespace Crystal::IO;
 #include "../Polygon/Vertex.h"
 
 
-void STLFile::add(const TriangleMesh& mesh)
+void STLFile::add(const PolygonObject& mesh)
 {
 	const auto faces = mesh.getFaces();
 	for (auto f : faces) {

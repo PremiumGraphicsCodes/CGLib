@@ -216,7 +216,7 @@ TEST(OBJFileTest, TestWrite2)
 TEST(OBJFileTest, TestWriteFaces)
 {
 	OBJFileWriter writer;
-	TriangleMesh mesh;
+	PolygonObject mesh;
 	auto p1 = mesh.createPosition(Vector3d<float>(0.0, 0.0, 0.0));
 	auto p2 = mesh.createPosition(Vector3d<float>(1.0, 0.0, 0.0));
 	auto p3 = mesh.createPosition(Vector3d<float>(1.0, 1.0, 0.0));

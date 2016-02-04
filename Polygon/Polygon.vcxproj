@@ -22,14 +22,14 @@
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="TriangleFace.cpp" />
-    <ClCompile Include="TriangleMesh.cpp" />
+    <ClCompile Include="PolygonObject.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="TriangleFace.h" />
-    <ClInclude Include="TriangleMesh.h" />
+    <ClInclude Include="PolygonObject.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

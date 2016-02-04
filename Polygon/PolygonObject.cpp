@@ -1,4 +1,4 @@
-#include "TriangleMesh.h"
+#include "PolygonObject.h"
 
 #include "Vertex.h"
 #include "TriangleFace.h"
@@ -37,17 +37,17 @@ namespace {
 }
 
 
-TriangleMesh::~TriangleMesh()
+PolygonObject::~PolygonObject()
 {
 	clear();
 }
 
-bool TriangleMesh::hasVertex(Vertex* v)
+bool PolygonObject::hasVertex(Vertex* v)
 {
 	return (std::find(vertices.begin(), vertices.end(), v) != vertices.end());
 }
 
-void TriangleMesh::sortVertices()
+void PolygonObject::sortVertices()
 {
 	vertices.sort(::comp);
 	vertices.unique(::isSame);
@@ -57,23 +57,23 @@ void TriangleMesh::sortVertices()
 	}
 }
 
-VectorId* TriangleMesh::createPosition(const Vector3d<float>& position)
+VectorId* PolygonObject::createPosition(const Vector3d<float>& position)
 {
 	return positions.create(position);
 }
 
-VectorId* TriangleMesh::createNormal(const Vector3d<float>& normal)
+VectorId* PolygonObject::createNormal(const Vector3d<float>& normal)
 {
 	return normals.create(normal);
 }
 
-VectorId* TriangleMesh::createTexCoord(const Vector3d<float>& texCoord)
+VectorId* PolygonObject::createTexCoord(const Vector3d<float>& texCoord)
 {
 	return texCoords.create(texCoord);
 }
 
 
-Vertex* TriangleMesh::createVertex(VectorId* position, VectorId* normal, VectorId* texCoord)
+Vertex* PolygonObject::createVertex(VectorId* position, VectorId* normal, VectorId* texCoord)
 {
 	auto v = new Vertex();
 	v->position = position;
@@ -84,7 +84,7 @@ Vertex* TriangleMesh::createVertex(VectorId* position, VectorId* normal, VectorI
 	return v;
 }
 
-Vertex* TriangleMesh::createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex)
+Vertex* PolygonObject::createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex)
 {
 	auto p = positions.get(positionIndex);
 	VectorId* n = nullptr;
@@ -100,14 +100,14 @@ Vertex* TriangleMesh::createVertexFromIndices(const int positionIndex, const int
 
 
 
-TriangleFace* TriangleMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+TriangleFace* PolygonObject::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	auto f = new TriangleFace(v1, v2, v3);
 	faces.push_back(f);
 	return f;
 }
 
-TriangleFace* TriangleMesh::createFace(const int vindex1, const int vindex2, const int vindex3)
+TriangleFace* PolygonObject::createFace(const int vindex1, const int vindex2, const int vindex3)
 {
 	std::vector<Vertex*> vs(vertices.begin(), vertices.end());
 	auto v1 = vs[vindex1];
@@ -116,7 +116,7 @@ TriangleFace* TriangleMesh::createFace(const int vindex1, const int vindex2, con
 	return createFace(v1, v2, v3);
 }
 
-std::list< TriangleFace* > TriangleMesh::createFaces(const std::vector<int>& ids)
+std::list< TriangleFace* > PolygonObject::createFaces(const std::vector<int>& ids)
 {
 	std::list< TriangleFace* > fs;
 	std::vector<Vertex*> vs(vertices.begin(), vertices.end());
@@ -130,7 +130,7 @@ std::list< TriangleFace* > TriangleMesh::createFaces(const std::vector<int>& ids
 }
 
 
-std::list< TriangleFace* > TriangleMesh::createFaces(const std::vector<Vertex*>& vertices)
+std::list< TriangleFace* > PolygonObject::createFaces(const std::vector<Vertex*>& vertices)
 {
 	std::list< TriangleFace* > fs;
 	auto origin = vertices[0];
@@ -143,7 +143,7 @@ std::list< TriangleFace* > TriangleMesh::createFaces(const std::vector<Vertex*>&
 }
 
 
-void TriangleMesh::add(const Triangle<float>& triangle)
+void PolygonObject::add(const Triangle<float>& triangle)
 {
 	auto n = createNormal( triangle.getNormal() );
 	auto p1 = createPosition(triangle.getv0());
@@ -160,7 +160,7 @@ void TriangleMesh::add(const Triangle<float>& triangle)
 }
 
 
-void TriangleMesh::clear()
+void PolygonObject::clear()
 {
 	positions.clear();
 	normals.clear();

@@ -2,7 +2,7 @@
 #define __CRYSTAL_IO_STL_FILE_H__
 
 #include "../Math/Vector3d.h"
-#include "../Polygon/TriangleMesh.h"
+#include "../Polygon/PolygonObject.h"
 
 #include <fstream>
 
@@ -59,7 +59,7 @@ public:
 
 	}
 
-	void add(const Polygon::TriangleMesh& mesh);
+	void add(const Polygon::PolygonObject& mesh);
 
 	void setTitle(const std::string& title) { this->title = title; }
 

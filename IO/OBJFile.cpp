@@ -78,9 +78,9 @@ void OBJGroup::add(const TriangleMesh& mesh)
 }
 */
 
-TriangleMesh* OBJGroup::createPolygon()
+PolygonObject* OBJGroup::createPolygon()
 {
-	TriangleMesh mesh;
+	PolygonObject mesh;
 	for (const auto p : positionBuffer) {
 		mesh.createPosition(p);
 	}
@@ -241,7 +241,7 @@ Vector2d<float> OBJGroup::readVector2d(const std::string& str)
 }
 */
 
-bool OBJFileWriter::write(const std::string& path, const std::string& filename, const TriangleMesh& mesh)
+bool OBJFileWriter::write(const std::string& path, const std::string& filename, const PolygonObject& mesh)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -252,7 +252,7 @@ bool OBJFileWriter::write(const std::string& path, const std::string& filename, 
 	return write(stream, mesh);
 }
 
-bool OBJFileWriter::write(std::ostream& stream, const TriangleMesh& mesh)
+bool OBJFileWriter::write(std::ostream& stream, const PolygonObject& mesh)
 {
 	const auto& positions = mesh.getPositions();
 	const auto& normals = mesh.getNormals();

@@ -4,7 +4,7 @@
 #include "../Math/Vector3d.h"
 
 #include "../Graphics/Buffer3d.h"
-#include "../Polygon/TriangleMesh.h"
+#include "../Polygon/PolygonObject.h"
 
 #include "../IO/MTLFile.h"
 
@@ -108,7 +108,7 @@ struct OBJGroup {
 		faces( faces )
 	{}
 
-	void add(const Polygon::TriangleMesh& mesh);
+	void add(const Polygon::PolygonObject& mesh);
 
 	bool operator==(const OBJGroup& rhs) const {
 		return
@@ -148,7 +148,7 @@ struct OBJGroup {
 
 	OBJFace readFaces(const std::string& str);
 
-	Polygon::TriangleMesh* createPolygon();
+	Polygon::PolygonObject* createPolygon();
 
 
 private:
@@ -185,9 +185,9 @@ private:
 
 class OBJFileWriter {
 public:
-	bool write(const std::string& path, const std::string& filename, const Polygon::TriangleMesh& mesh);
+	bool write(const std::string& path, const std::string& filename, const Polygon::PolygonObject& mesh);
 
-	bool write(std::ostream& stream, const Polygon::TriangleMesh& mesh);
+	bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
 
 	/*
 	std::ostream& operator<<(::std::ostream& os)

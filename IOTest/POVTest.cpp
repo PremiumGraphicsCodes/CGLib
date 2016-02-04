@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Triangle.h"
-#include "../Polygon/TriangleMesh.h"
+#include "../Polygon/PolygonObject.h"
 #include "../IO/POVFile.h"
 
 using namespace Crystal::Math;
@@ -13,7 +13,7 @@ TEST(POVFileTest, TestWriteScene)
 	POVFile file;
 	std::string dest("../TestFile/IO/POVFileTestWrite.pov");
 
-	TriangleMesh mesh;
+	PolygonObject mesh;
 	auto p1 = mesh.createPosition(Vector3d<float>(0, 0, 0));
 	auto p2 = mesh.createPosition(Vector3d<float>(1, 0, 0));
 	auto p3 = mesh.createPosition(Vector3d<float>(1, 1, 0));
@@ -29,7 +29,7 @@ TEST(POVFileTest, TestWriteInc)
 	POVFile file;
 	std::string dest("../TestFile/IO/POVFileTestWrite.inc");
 
-	TriangleMesh mesh;
+	PolygonObject mesh;
 	auto p1 = mesh.createPosition(Vector3d<float>(0, 0, 0));
 	auto p2 = mesh.createPosition(Vector3d<float>(1, 0, 0));
 	auto p3 = mesh.createPosition(Vector3d<float>(1, 1, 0));

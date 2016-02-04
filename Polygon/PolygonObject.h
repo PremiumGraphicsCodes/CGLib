@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_POLYGON_TRIANGLE_MESH_H__
-#define __CRYSTAL_POLYGON_TRIANGLE_MESH_H__
+#ifndef __CRYSTAL_POLYGON_POLYGON_OBJECT_H__
+#define __CRYSTAL_POLYGON_POLYGON_OBJECT_H__
 
 #include "../Util/UnCopyable.h"
 #include "../Math/Vector3d.h"
@@ -15,14 +15,14 @@ class Vertex;
 class TriangleFace;
 
 
-class TriangleMesh : private UnCopyable
+class PolygonObject : private UnCopyable
 {
 public:
-	TriangleMesh() :
+	PolygonObject() :
 		nextIndexId(0)
 	{}
 
-	~TriangleMesh();
+	~PolygonObject();
 
 	bool hasVertex(Vertex* v);
 
@@ -62,8 +62,8 @@ public:
 
 	std::vector<TriangleFace*> getFaces() const { return faces; }
 
-	TriangleMesh* clone() {
-		auto newMesh = new TriangleMesh;
+	PolygonObject* clone() {
+		auto newMesh = new PolygonObject;
 		newMesh->vertices = this->vertices;
 		newMesh->positions = this->positions;
 		newMesh->normals = this->normals;
