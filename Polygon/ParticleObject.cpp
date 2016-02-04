@@ -5,7 +5,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions)
+
+ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions) :
+	radius(0.5)
 {
 	for (const auto& p : positions) {
 		particles.push_back(new Particle(p));
@@ -13,7 +15,8 @@ ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions)
 }
 
 
-ParticleObject::ParticleObject(const Sphere<float>& sphere)
+ParticleObject::ParticleObject(const Sphere<float>& sphere) :
+	radius(0.5)
 {
 	const auto bb = sphere.getBoundingBox();
 	const auto dx = bb.getLength().getX() / 10;
@@ -54,6 +57,44 @@ PolygonObject* ParticleObject::toPolygonObject() const
 }
 */
 
+namespace {
+	/*
+
+	int toHash(const Vector3d<float>& pos)
+	{
+		const int p1 = 73856093;
+		const int p2 = 19349663;
+		const int p3 = 83492791;
+		const int hashTableSize = 10000;
+		const int x = static_cast<int>(pos.getX() * p1);
+		const int y = static_cast<int>(pos.getY() * p2);
+		const int z = static_cast<int>(pos.getZ() * p3);
+		return  (x^y^z) % hashTableSize;
+	}
+
+	bool comp(Particle* v1, Particle* v2)
+	{
+		return toHash(v1->getPosition()->getVector()) < toHash(v2->getPosition()->getVector());
+	}
+
+	bool isSame(Vertex* v1, Vertex* v2)
+	{
+		if (v1->position == v2->position) {
+			return true;
+		}
+		return false;
+	}
+	*/
+}
+
+/*
+void ParticleObject::sort()
+{
+	std::sort(particles.begin(), particles.end(), comp);
+}
+*/
+
+
 Box<float> ParticleObject::getBoundingBox() const
 {
 	Box<float> b(particles.front()->getPosition());
@@ -61,4 +102,49 @@ Box<float> ParticleObject::getBoundingBox() const
 		b.add(p->getPosition());
 	}
 	return b;
+}
+
+std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs)
+{
+	std::vector<Particle*> results;
+	const auto& particles1 = this->particles;
+	const auto& particles2 = rhs.particles;
+	for (auto p1 : particles1) {
+		for (auto p2 : particles2) {
+			if (p1->getPosition().getDistance(p2->getPosition()) < getDimaeter()) {
+				results.push_back(p1);
+			}
+		}
+	}
+	return results;
+}
+
+std::vector<Particle*> ParticleObject::getSub(const ParticleObject& rhs)
+{
+	std::vector<Particle*> results;
+	auto inter = getIntersection(rhs);
+	std::sort(particles.begin(), particles.end());
+	std::sort(inter.begin(), inter.end());
+	std::set_difference(
+		particles.begin(), particles.end(),
+		inter.begin(), inter.end(),
+		std::back_inserter(results)
+		);
+	return results;
+}
+
+
+ParticleObject* ParticleObject::createIntersection(const ParticleObject& rhs)
+{
+	std::vector<Particle*> results;
+	const auto& particles1 = this->particles;
+	const auto& particles2 = rhs.particles;
+	for (auto p1 : particles1) {
+		for (auto p2 : particles2) {
+			if (p1->getPosition().getDistance(p2->getPosition()) < getDimaeter()) {
+				results.push_back(p1->clone());
+			}
+		}
+	}
+	return new ParticleObject(results);
 }

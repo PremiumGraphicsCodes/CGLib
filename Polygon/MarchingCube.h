@@ -42,7 +42,7 @@ public:
 		grid(grid)
 	{}
 
-	std::vector<MCNode> toNodes();
+	std::vector<MCNode> toNodes() const;
 
 private:
 	const Math::Space3d<float> space;

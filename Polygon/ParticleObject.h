@@ -27,15 +27,26 @@ public:
 
 	float getValue() const { return value; }
 
+	Particle* clone() { 
+		return new Particle(position, value);
+	}
+
 private:
 	Math::Vector3d<float> position;
 	float value;
+	float radius;
 };
 
 class ParticleObject
 {
 public:
-	ParticleObject()
+	ParticleObject() :
+		radius(0.5)
+	{}
+
+	ParticleObject(const std::vector<Particle*>& particles) :
+		particles(particles),
+		radius(0.5)
 	{}
 
 	ParticleObject(const std::vector<Math::Vector3d<float>>& positions);
@@ -44,12 +55,35 @@ public:
 
 	~ParticleObject();
 
+	//void sort();
+
 	Math::Box<float> getBoundingBox() const;
 
 	//PolygonObject* toPolygonObject() const;
 
+	//void add(const ParticleObject& rhs);
+
+	//void sub(const ParticleObject& rhs);
+
+	//ParticleObject* createAdd
+
+	//ParticleObject* createSub(const ParticleObject& rhs);
+
+	ParticleObject* createIntersection(const ParticleObject& rhs);
+
+	float getDimaeter() const { return radius * 2.0f; }
+
+	std::vector<Particle*> getParticles() const { return particles; }
+
+	std::vector<Particle*> getSub(const ParticleObject& rhs);
+
 private:
+
+
+	std::vector<Particle*> getIntersection(const ParticleObject& rhs);
+
 	std::vector<Particle*> particles;
+	const float radius;
 };
 	}
 }
