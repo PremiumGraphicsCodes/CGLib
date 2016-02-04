@@ -41,7 +41,7 @@ void VertexCollection::sort()
 	vlist.sort(::comp);
 	vlist.unique(::isSame);
 	int nextId = 0;
-	for (auto v : vertices) {
+	for (auto v : vlist) {
 		v->id = nextId++;
 	}
 	vertices = std::vector<Vertex*>(vlist.begin(), vlist.end());
