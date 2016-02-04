@@ -34,6 +34,21 @@ private:
 	float value;
 };
 
+class MCVolume
+{
+public:
+	MCVolume(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid) :
+		space(space),
+		grid(grid)
+	{}
+
+	std::vector<MCNode> toNodes();
+
+private:
+	const Math::Space3d<float> space;
+	const Math::Grid3d<float> grid;
+};
+
 
 class MCCell
 {

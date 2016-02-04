@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MarchingCubeTest.cpp" />
+    <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="TriangleMeshTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
   </ItemGroup>

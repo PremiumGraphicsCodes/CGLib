@@ -13,6 +13,8 @@ public:
 	
 	Box();
 
+	Box(const Vector3d<T>& point);
+
 	Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY);
 
 	~Box() = default;

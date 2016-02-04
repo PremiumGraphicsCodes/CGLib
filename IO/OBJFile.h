@@ -30,6 +30,14 @@ struct OBJVertex
 		texIndex(texIndex)
 	{}
 
+	bool hasNormal() const {
+		return this->normalIndex != -1;
+	}
+
+	bool hasTex() const {
+		return this->texIndex != -1;
+	}
+
 	int positionIndex;
 	int normalIndex;
 	int texIndex;

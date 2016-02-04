@@ -37,11 +37,11 @@ Vertex* PolygonObject::createVertexFromIndices(const int positionIndex, const in
 {
 	auto p = positions.get(positionIndex);
 	VectorId* n = nullptr;
-	if (normalIndex != -1) {
+	if (normalIndex > -1) {
 		n = normals.get(normalIndex);
 	}
 	VectorId* t = nullptr;
-	if (texIndex != -1) {
+	if (texIndex > -1) {
 		auto t = texCoords.get(texIndex);
 	}
 	return vertices.create(p, n, t);

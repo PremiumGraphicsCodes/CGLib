@@ -22,7 +22,9 @@
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="PolygonObject.cpp" />
+    <ClCompile Include="PolygonObjectBuilder.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -31,6 +33,7 @@
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="PolygonObject.h" />
+    <ClInclude Include="PolygonObjectBuilder.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -23,6 +23,7 @@ Vector3d<float> MCNode::getInterpolatedPosition(const float v, const MCNode& rhs
 	return this->pos + scale * (rhs.pos - this->pos);
 }
 
+//MCVolume::toNodes()
 
 std::array< MCNode, 8 > MCCell::toPositionValues() const
 {

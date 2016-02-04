@@ -8,6 +8,13 @@ Box<T>::Box()
 {
 }
 
+template<typename T>
+Box<T>::Box(const Vector3d<T>& point) :
+	start(point),
+	end(point)
+{
+}
+
 
 template<typename T>
 Box<T>::Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY)
