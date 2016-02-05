@@ -6,9 +6,9 @@ using namespace Crystal::Shader;
 
 void LegacyLineRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
 {
-	const auto& positions = buffer.position.get();// buffers[0].get();
-	const auto& colors = buffer.color.get();
-	const auto& indices = buffer.indices;
+	const auto& positions = buffer.getPosition().get();// buffers[0].get();
+	const auto& colors = buffer.getColor().get();
+	const auto& indices = buffer.getIds();
 
 	if (positions.empty()) {
 		return;
