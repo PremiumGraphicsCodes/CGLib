@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 #include "../Math/Vector3d.h"
 #include "../Math/Triangle.h"
+#include "../Math/Quad.h"
 #include "Vertex.h"
 #include "Face.h"
 
@@ -27,6 +28,8 @@ public:
 
 
 	void add(const Math::Triangle<float>& triangle);
+
+	void add(const Math::Quad<float>& quad);
 
 	void removeOverlappedVertices() { vertices.sort(); }
 

@@ -19,7 +19,4 @@
     <ClCompile Include="Plane3dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Math\Triangle.h" />
-  </ItemGroup>
 </Project>

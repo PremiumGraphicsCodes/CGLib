@@ -30,11 +30,13 @@
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />
     <ClInclude Include="Plane3d.h" />
+    <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tolerance.h" />
+    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Vector2d.h" />
   </ItemGroup>

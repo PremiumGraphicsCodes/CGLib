@@ -11,23 +11,6 @@
 namespace Crystal {
 	namespace Graphics {
 
-class Triangle
-{
-public:
-	Triangle(const Math::Triangle<float>& triangle, const Math::Vector3d<float>& normal) :
-		triangle(triangle),
-		normal(normal)
-	{}
-
-	Math::Triangle<float> getTriangle() const { return triangle; }
-
-	Math::Vector3d<float> getNormal() const { return normal; }
-
-private:
-	Math::Triangle<float> triangle;
-	Math::Vector3d<float> normal;
-};
-
 class TriangleBuffer
 {
 public:

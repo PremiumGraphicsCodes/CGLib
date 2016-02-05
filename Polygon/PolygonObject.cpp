@@ -83,6 +83,8 @@ std::list< Face* > PolygonObject::createFaces(const std::vector<Vertex*>& vertic
 		auto v1 = vertices[i];
 		auto v2 = vertices[i + 1];
 		fs.push_back(createFace(origin, v1, v2));
+		v1->f = fs.back();
+		v2->f = fs.back();
 	}
 	return fs;
 }
@@ -103,6 +105,22 @@ void PolygonObject::add(const Triangle<float>& triangle)
 	v2->f = (f);
 	v3->f = (f);
 }
+
+void PolygonObject::add(const Quad<float>& quad)
+{
+	auto n = createNormal(quad.getNormal());
+	auto p1 = createPosition(quad.getPositions()[0]);
+	auto p2 = createPosition(quad.getPositions()[1]);
+	auto p3 = createPosition(quad.getPositions()[2]);
+	auto p4 = createPosition(quad.getPositions()[3]);
+
+	auto v1 = vertices.create(p1, n);
+	auto v2 = vertices.create(p2, n);
+	auto v3 = vertices.create(p3, n);
+	auto v4 = vertices.create(p4, n);
+	auto f = createFaces({ v1, v2, v3, v4 });
+}
+
 
 
 void PolygonObject::clear()

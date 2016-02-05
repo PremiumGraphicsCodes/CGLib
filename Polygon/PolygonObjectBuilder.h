@@ -12,6 +12,8 @@ class PolygonObject;
 class PolygonObjectBuilder
 {
 public:
+	//PolygonObject* build(const Math::Quad<float>& quad);
+
 	PolygonObject* build(const Math::Box<float>& box);
 
 	//PolygonObject* build(const Math::Sphere<float>& sphere);
