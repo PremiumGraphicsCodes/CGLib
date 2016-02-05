@@ -14,11 +14,11 @@ void PointRenderer<float>::findLocation()
 }
 
 
-void PointRenderer<float>::render(const ICamera<float>& camera)
+void PointRenderer<float>::render(const ICamera<float>& camera, const PointBuffer& buffer)
 {
-	const auto positions = buffers[0].get();
-	const auto colors = buffers[1].get();
-	const auto sizes = buffers[2].get();
+	const auto positions = buffer.getPosition().get();
+	const auto colors = buffer.getColor().get();
+	const auto sizes = buffer.getSize().get();
 
 	if (positions.empty()) {
 		return;

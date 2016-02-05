@@ -56,6 +56,17 @@ public:
 		return v;
 	}
 
+	using iterator = std::vector<VectorId*>::iterator;
+	using const_iterator = std::vector<VectorId*>::const_iterator;
+
+	iterator begin() { return positions.begin(); }
+
+	const_iterator begin() const { return positions.begin(); }
+
+	iterator end() { return positions.end(); }
+
+	const_iterator end() const { return positions.end(); }
+
 private:
 	std::vector<VectorId*> positions;
 	int nextId;

@@ -9,26 +9,23 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType>
-class PointRenderer final : public IRenderer<GeomType>
+class PointRenderer
 {
 public:
-	PointRenderer()
-	{}
-
-	PointRenderer(const ShaderObject& shader) :
-		IRenderer(shader)
+	PointRenderer(ShaderObject& shader) :
+		shader(shader)
 	{}
 
 	~PointRenderer() = default;
 
-	void findLocation() override;
+	void findLocation();
 
-	void setBuffer(const Graphics::PointBuffer& b) { this->buffers = b.getBuffers(); }
-
-	void render(const Graphics::ICamera<float>& camera) override;
+	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
 	//void changeSize(const float size) { this->pointSize = size; }
 
+private:
+	ShaderObject& shader;
 };
 
 	}

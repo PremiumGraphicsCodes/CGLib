@@ -10,7 +10,6 @@
     <ClCompile Include="DepthRendererTest.cpp" />
     <ClCompile Include="QuadRendererTest.cpp" />
     <ClCompile Include="BillBoardRendererTest.cpp" />
-    <ClCompile Include="PointRendererTest.cpp" />
     <ClCompile Include="glfw3.cpp" />
   </ItemGroup>
   <ItemGroup>

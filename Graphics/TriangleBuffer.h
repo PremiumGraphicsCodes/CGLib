@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../Math/Triangle.h"
+#include "../Polygon/PolygonObject.h"
 
 #include "Buffer3d.h"
 
@@ -30,6 +31,8 @@ private:
 class TriangleBuffer
 {
 public:
+	void add(const Polygon::PolygonObject& polygon);
+
 	void add(const Math::Triangle<float>& triangle) {
 		positions.add(triangle.getv0());
 		positions.add(triangle.getv1());

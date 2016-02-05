@@ -166,7 +166,6 @@
     <ClCompile Include="glfw3.cpp" />
     <ClCompile Include="NormalRendererTest.cpp" />
     <ClCompile Include="BillBoardRendererTest.cpp" />
-    <ClCompile Include="PointRendererTest.cpp" />
     <ClCompile Include="QuadRendererTest.cpp" />
     <ClCompile Include="ShaderObjectTest.cpp" />
     <ClCompile Include="ShaderTest.cpp" />

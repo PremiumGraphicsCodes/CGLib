@@ -147,6 +147,7 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="LegacyLineRenderer.cpp" />
+    <ClCompile Include="LegacyPointRenderer.cpp" />
     <ClCompile Include="LegacySelectionRenderer.cpp" />
     <ClCompile Include="LegacyTriangleRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="LegacyLineRenderer.h" />
+    <ClInclude Include="LegacyPointRenderer.h" />
     <ClInclude Include="LegacySelectionRenderer.h" />
     <ClInclude Include="LegacyTriangleRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />

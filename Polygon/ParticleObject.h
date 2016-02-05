@@ -31,6 +31,10 @@ public:
 		return new Particle(position, value);
 	}
 
+	float getRadius() const { return radius; }
+
+	float getDiameter() const { return radius * 2.0f; }
+
 private:
 	Math::Vector3d<float> position;
 	float value;

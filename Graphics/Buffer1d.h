@@ -21,6 +21,9 @@ public:
 
 	T get(const unsigned int i) const { return buffer.get[i]; }
 
+	std::vector< T > get() const { return buffer; }
+
+
 private:
 };
 

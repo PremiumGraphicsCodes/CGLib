@@ -1,28 +1,40 @@
 #include "PointBuffer.h"
 
 using namespace Crystal::Graphics;
+using namespace Crystal::Polygon;
+
+Point::Point(const Particle& particle, const unsigned int id)
+{
+	position = particle.getPosition();
+	color = ColorRGBA<float>(1.0, 1.0, 0.0, 1.0);
+	size = particle.getDiameter();
+	this->id = id;
+}
+
+PointBuffer::PointBuffer(const ParticleObject& object)
+{
+	const auto& particles = object.getParticles();
+	for (size_t i = 0; i < particles.size(); ++i) {
+		add(Point(*particles[i], i) );
+	}
+}
+
 
 void PointBuffer::clear()
 {
 	position.clear();
 	color.clear();
 	sizes.clear();
+	ids.clear();
 }
 
 
-std::vector<IBuffer<float>> PointBuffer::getBuffers() const
-{
-	std::vector<IBuffer<float>> buffers;
-	buffers.push_back(position);
-	buffers.push_back(color);
-	buffers.push_back(sizes);
-	return buffers;
-}
 
 void PointBuffer::add(const Point& point)
 {
 	position.add(point.getPosition());
 	color.add(point.getColor());
 	sizes.add(point.getSize());
+	ids.push_back(point.getId());
 }
 
