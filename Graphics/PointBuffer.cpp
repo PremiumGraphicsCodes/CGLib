@@ -13,10 +13,16 @@ Point::Point(const Particle& particle, const unsigned int id)
 
 PointBuffer::PointBuffer(const ParticleObject& object)
 {
+	add(object);
+}
+
+void PointBuffer::add(const ParticleObject& object)
+{
 	const auto& particles = object.getParticles();
 	for (size_t i = 0; i < particles.size(); ++i) {
-		add(Point(*particles[i], i) );
+		add(Point(*particles[i], ids.size()));
 	}
+
 }
 
 

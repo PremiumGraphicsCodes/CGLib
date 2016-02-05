@@ -48,6 +48,8 @@ public:
 
 	void add(const Point& point);
 
+	void add(const Polygon::ParticleObject& object);
+
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
 	Graphics::Buffer4d<float> getColor() const { return color; }

@@ -16,8 +16,8 @@ ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions) :
 }
 
 
-ParticleObject::ParticleObject(const Sphere<float>& sphere) :
-	radius(0.5)
+ParticleObject::ParticleObject(const Sphere<float>& sphere, const float diameter) :
+	radius(diameter * 0.5)
 {
 	const auto bb = sphere.getBoundingBox();
 	const auto dx = bb.getLength().getX() / 10;
