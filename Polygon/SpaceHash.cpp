@@ -30,11 +30,16 @@ Index3d SpaceHash::toIndex(const Vector3d<float>& pos)
 
 std::list<Particle*> SpaceHash::getNeighbor(Particle* object)
 {
+	return getNeighbor(object->getPosition());
+}
+
+std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
+{
 	std::list<Particle*> neighbors;
-	Index3d index = toIndex(object->getPosition());
-	for (auto x = index.getX() - 1; x <= index.getX(); ++x) {
-		for (auto y = index.getY() - 1; y <= index.getY(); ++y) {
-			for (auto z = index.getZ() - 1; z <= index.getZ(); ++z) {
+	Index3d index = toIndex(pos);
+	for (auto x = index.getX() - 1; x <= index.getX()+1; ++x) {
+		for (auto y = index.getY() - 1; y <= index.getY()+1; ++y) {
+			for (auto z = index.getZ() - 1; z <= index.getZ()+1; ++z) {
 				auto hash = toHash(Index3d{ x,y,z });
 				auto ps = table[hash];
 				for (auto n : ps) {
@@ -45,6 +50,7 @@ std::list<Particle*> SpaceHash::getNeighbor(Particle* object)
 	}
 	return neighbors;
 }
+
 
 void SpaceHash::add(Particle* particle)
 {
@@ -60,8 +66,8 @@ int SpaceHash::toHash(const Vector3d<float>& pos)
 
 int SpaceHash::toHash(const Index3d& index)
 {
-	const int x = ::fabs(index.getX()) * p1;
-	const int y = ::fabs(index.getY()) * p2;
-	const int z = ::fabs(index.getZ()) * p3;
+	const int x = static_cast<int>( ::fabs(index.getX()) * p1 );
+	const int y = static_cast<int>( ::fabs(index.getY()) * p2 );
+	const int z = static_cast<int>( ::fabs(index.getZ()) * p3 );
 	return (x^y^z) % hashTableSize;
 }

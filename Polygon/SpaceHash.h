@@ -21,6 +21,8 @@ public:
 
 	std::list<Particle*> getNeighbor(Particle* object);
 
+	std::list<Particle*> getNeighbor(const Math::Vector3d<float>& pos);
+
 private:
 	std::vector< std::list<Particle*> > table;
 
