@@ -6,40 +6,33 @@
 #include "Buffer4d.h"
 
 #include "../Math/Line3d.h"
+#include "../Polygon/PolygonObject.h"
 
 namespace Crystal {
 	namespace Graphics {
-
-class Line
-{
-public:
-	Line(const Math::Line3d<float>& line, const ColorRGBA<float>& color) :
-		line(line),
-		color(color)
-	{}
-
-	Math::Line3d<float> getLine() const { return line; }
-
-	ColorRGBA<float> getColor() const { return color; }
-
-private:
-	Math::Line3d<float> line;
-	ColorRGBA<float> color;
-};
 
 struct LineBuffer
 {
 	void clear();
 
-	void add(const Line& line);
+	void add(const Polygon::PolygonObject& polygon);
+
+	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color);
 
 	std::vector<IBuffer<float>> getBuffers() const {
 		return{ position, color };
 	}
 
+	Graphics::Buffer3d<float> getPosition() const { return position; }
+
+	Graphics::Buffer4d<float> getColor() const { return color; }
+
+	std::vector<unsigned int> getIds() const { return ids; }
+
 private:
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer4d<float> color;
+	std::vector<unsigned int> ids;
 };
 
 	}
