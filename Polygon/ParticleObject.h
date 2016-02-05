@@ -59,7 +59,9 @@ public:
 
 	ParticleObject(const std::vector<Math::Vector3d<float>>& positions);
 
-	ParticleObject(const Math::Sphere<float>& sphere, const float diameter);
+	ParticleObject(const Math::Sphere<float>& sphere, const float particleDiameter);
+
+	ParticleObject(const Math::Box<float>& box, const float particleDiameter);
 
 	~ParticleObject();
 

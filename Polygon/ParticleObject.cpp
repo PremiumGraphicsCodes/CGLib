@@ -20,13 +20,10 @@ ParticleObject::ParticleObject(const Sphere<float>& sphere, const float diameter
 	radius(diameter * 0.5)
 {
 	const auto bb = sphere.getBoundingBox();
-	const auto dx = bb.getLength().getX() / 10;
-	const auto dy = bb.getLength().getY() / 10;
-	const auto dz = bb.getLength().getZ() / 10;
 
-	for (auto x = bb.getMinX(); x < bb.getMaxX(); x+= dx) {
-		for (auto y = bb.getMinY(); y < bb.getMaxY(); y += dy) {
-			for (auto z = bb.getMinZ(); z < bb.getMaxZ(); z+= dz) {
+	for (auto x = bb.getMinX(); x < bb.getMaxX(); x+= diameter) {
+		for (auto y = bb.getMinY(); y < bb.getMaxY(); y += diameter) {
+			for (auto z = bb.getMinZ(); z < bb.getMaxZ(); z+= diameter) {
 				const Vector3d<float> pos(x, y, z);
 				if (sphere.isInner(pos)) {
 					particles.push_back(new Particle(pos));
@@ -36,6 +33,21 @@ ParticleObject::ParticleObject(const Sphere<float>& sphere, const float diameter
 	}
 	sort();
 }
+
+ParticleObject::ParticleObject(const Box<float>& box, const float diameter) :
+	radius( diameter * 0.5 )
+{
+	for (auto x = box.getMinX(); x < box.getMaxX(); x += diameter) {
+		for (auto y = box.getMinY(); y < box.getMaxY(); y += diameter) {
+			for (auto z = box.getMinZ(); z < box.getMaxZ(); z += diameter) {
+				const Vector3d<float> pos(x, y, z);
+				particles.push_back(new Particle(pos));
+			}
+		}
+	}
+	sort();
+}
+
 
 ParticleObject::~ParticleObject()
 {
