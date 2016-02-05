@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="ColorRGBA.cpp" />
     <ClCompile Include="IBuffer.cpp" />
-    <ClCompile Include="DeviceCoord3d.cpp" />
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="LineBuffer.cpp" />
@@ -36,7 +35,6 @@
     <ClInclude Include="IBuffer.h" />
     <ClInclude Include="Buffer3d.h" />
     <ClInclude Include="Buffer4d.h" />
-    <ClInclude Include="DeviceCoord3d.h" />
     <ClInclude Include="Buffer2d.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="ColorConverter.h" />

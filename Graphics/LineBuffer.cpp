@@ -8,6 +8,7 @@ void LineBuffer::clear()
 {
 	position.clear();
 	color.clear();
+	this->ids.clear();
 }
 
 
@@ -17,6 +18,8 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 	position.add(line.getEnd());
 	this->color.add(color);
 	this->color.add(color);
+	this->ids.push_back(this->ids.size());
+	this->ids.push_back(this->ids.size());
 }
 
 void LineBuffer::add(const PolygonObject& polygon)
