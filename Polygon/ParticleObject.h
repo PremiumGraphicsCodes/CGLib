@@ -42,12 +42,16 @@ class ParticleObject
 public:
 	ParticleObject() :
 		radius(0.5)
-	{}
+	{
+		sort();
+	}
 
 	ParticleObject(const std::vector<Particle*>& particles) :
 		particles(particles),
 		radius(0.5)
-	{}
+	{
+		sort();
+	}
 
 	ParticleObject(const std::vector<Math::Vector3d<float>>& positions);
 
@@ -55,7 +59,7 @@ public:
 
 	~ParticleObject();
 
-	//void sort();
+	void sort();
 
 	Math::Box<float> getBoundingBox() const;
 
@@ -65,22 +69,23 @@ public:
 
 	//void sub(const ParticleObject& rhs);
 
-	//ParticleObject* createAdd
+	ParticleObject* createUnion(const ParticleObject& rhs);
 
-	//ParticleObject* createSub(const ParticleObject& rhs);
+	ParticleObject* createSub(const ParticleObject& rhs);
 
 	ParticleObject* createIntersection(const ParticleObject& rhs);
 
-	float getDimaeter() const { return radius * 2.0f; }
+	float getDiameter() const { return radius * 2.0f; }
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	std::vector<Particle*> getSub(const ParticleObject& rhs);
-
 private:
+	std::vector<Particle*> getUnion(const ParticleObject& rhs) const;
 
+	std::vector<Particle*> getSub(const ParticleObject& rhs) const;
 
-	std::vector<Particle*> getIntersection(const ParticleObject& rhs);
+	std::vector<Particle*> getIntersection(const ParticleObject& rhs) const;
+
 
 	std::vector<Particle*> particles;
 	const float radius;

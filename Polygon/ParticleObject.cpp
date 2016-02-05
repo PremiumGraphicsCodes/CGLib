@@ -12,6 +12,7 @@ ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions) :
 	for (const auto& p : positions) {
 		particles.push_back(new Particle(p));
 	}
+	sort();
 }
 
 
@@ -33,6 +34,7 @@ ParticleObject::ParticleObject(const Sphere<float>& sphere) :
 			}
 		}
 	}
+	sort();
 }
 
 ParticleObject::~ParticleObject()
@@ -87,12 +89,10 @@ namespace {
 	*/
 }
 
-/*
 void ParticleObject::sort()
 {
-	std::sort(particles.begin(), particles.end(), comp);
+	std::sort(particles.begin(), particles.end());
 }
-*/
 
 
 Box<float> ParticleObject::getBoundingBox() const
@@ -104,26 +104,54 @@ Box<float> ParticleObject::getBoundingBox() const
 	return b;
 }
 
-std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs)
+ParticleObject* ParticleObject::createUnion(const ParticleObject& rhs)
 {
+	const auto& inter = getUnion(rhs);
 	std::vector<Particle*> results;
-	const auto& particles1 = this->particles;
-	const auto& particles2 = rhs.particles;
-	for (auto p1 : particles1) {
-		for (auto p2 : particles2) {
-			if (p1->getPosition().getDistance(p2->getPosition()) < getDimaeter()) {
-				results.push_back(p1);
-			}
-		}
+	for (auto i : inter) {
+		results.push_back(i->clone());
 	}
-	return results;
+	return new ParticleObject(results);
 }
 
-std::vector<Particle*> ParticleObject::getSub(const ParticleObject& rhs)
+ParticleObject* ParticleObject::createSub(const ParticleObject& rhs)
+{
+	const auto& inter = getSub(rhs);
+	std::vector<Particle*> results;
+	for (auto i : inter) {
+		results.push_back(i->clone());
+	}
+	return new ParticleObject(results);
+}
+
+
+ParticleObject* ParticleObject::createIntersection(const ParticleObject& rhs)
+{
+	const auto& inter = getIntersection(rhs);
+	std::vector<Particle*> results;
+	for (auto i : inter) {
+		results.push_back(i->clone());
+	}
+	return new ParticleObject(results);
+}
+
+
+std::vector<Particle*> ParticleObject::getUnion(const ParticleObject& rhs) const
+{
+	std::vector<Particle*> particles1 = getSub(rhs);
+	std::vector<Particle*> particles2 = rhs.getSub(*this);
+	std::vector<Particle*> inter = getIntersection(rhs);
+	std::copy(particles2.begin(), particles2.end(), std::back_inserter(particles1));
+	std::copy(inter.begin(), inter.end(), std::back_inserter(particles1));
+	return particles1;
+
+}
+
+std::vector<Particle*> ParticleObject::getSub(const ParticleObject& rhs) const
 {
 	std::vector<Particle*> results;
 	auto inter = getIntersection(rhs);
-	std::sort(particles.begin(), particles.end());
+	//std::sort(particles.begin(), particles.end());
 	std::sort(inter.begin(), inter.end());
 	std::set_difference(
 		particles.begin(), particles.end(),
@@ -134,17 +162,20 @@ std::vector<Particle*> ParticleObject::getSub(const ParticleObject& rhs)
 }
 
 
-ParticleObject* ParticleObject::createIntersection(const ParticleObject& rhs)
+std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs) const
 {
 	std::vector<Particle*> results;
 	const auto& particles1 = this->particles;
 	const auto& particles2 = rhs.particles;
 	for (auto p1 : particles1) {
 		for (auto p2 : particles2) {
-			if (p1->getPosition().getDistance(p2->getPosition()) < getDimaeter()) {
-				results.push_back(p1->clone());
+			if (p1->getPosition().getDistance(p2->getPosition()) < getDiameter()) {
+				results.push_back(p1);
 			}
 		}
 	}
-	return new ParticleObject(results);
+	return results;
 }
+
+
+

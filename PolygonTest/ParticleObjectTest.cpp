@@ -15,6 +15,41 @@ TEST(ParticleObjectTest, TestGetBoundingBox)
 	EXPECT_EQ(expected, object.getBoundingBox());
 }
 
+TEST(ParticleObjectTest, TestCreateUnion)
+{
+	std::vector<Vector3d<float>> positions1{
+		Vector3d<float>(-1.0, -1.0, -1.0),
+		Vector3d<float>(1.0, 1.0, 1.0)
+	};
+	ParticleObject object1(positions1);
+	std::vector<Vector3d<float>> positions2{
+		Vector3d<float>(1.0, 1.0, 1.0),
+		Vector3d<float>(2.0, 2.0, 2.0)
+	};
+	ParticleObject object2(positions2);
+	auto actual = object1.createUnion(object2);
+	EXPECT_EQ(3, actual->getParticles().size());
+	//EXPECT_EQ(Vector3d<float>(-1.0, -1.0, -1.0), actual->getParticles().front()->getPosition());
+}
+
+
+TEST(ParticleObjectTest, TestCreateSub)
+{
+	std::vector<Vector3d<float>> positions1{
+		Vector3d<float>(-1.0, -1.0, -1.0),
+		Vector3d<float>(1.0, 1.0, 1.0)
+	};
+	ParticleObject object1(positions1);
+	std::vector<Vector3d<float>> positions2{
+		Vector3d<float>(1.0, 1.0, 1.0),
+		Vector3d<float>(2.0, 2.0, 2.0)
+	};
+	ParticleObject object2(positions2);
+	auto actual = object1.createSub(object2);
+	EXPECT_EQ(1, actual->getParticles().size());
+	EXPECT_EQ(Vector3d<float>(-1.0, -1.0, -1.0), actual->getParticles().front()->getPosition());
+}
+
 TEST(ParticleObjectTest, TestCreateIntersection)
 {
 	std::vector<Vector3d<float>> positions1{
@@ -31,19 +66,3 @@ TEST(ParticleObjectTest, TestCreateIntersection)
 	EXPECT_EQ(1, actual->getParticles().size());
 }
 
-TEST(ParticleObjectTest, TestCreateSub)
-{
-	std::vector<Vector3d<float>> positions1{
-		Vector3d<float>(-1.0, -1.0, -1.0),
-		Vector3d<float>(1.0, 1.0, 1.0)
-	};
-	ParticleObject object1(positions1);
-	std::vector<Vector3d<float>> positions2{
-		Vector3d<float>(1.0, 1.0, 1.0),
-		Vector3d<float>(2.0, 2.0, 2.0)
-	};
-	ParticleObject object2(positions2);
-	auto actual = object1.getSub(object2);
-	EXPECT_EQ(1, actual.size());
-	EXPECT_EQ(Vector3d<float>(-1.0, -1.0, -1.0), actual[0]->getPosition());
-}
