@@ -39,6 +39,8 @@ public:
 
 	float getDiameter() const { return radius * 2.0f; }
 
+	void addValue(const float v) { this->value += v; }
+
 	bool isCollided(const Particle& rhs);
 
 private:
@@ -63,9 +65,9 @@ public:
 
 	ParticleObject(const std::vector<Math::Vector3d<float>>& positions, const float diameter);
 
-	void add(const Math::Sphere<float>& sphere, const float particleDiameter);
+	void add(const Math::Sphere<float>& sphere, const float particleDiameter, const float charge = 1.0f);
 
-	void add(const Math::Box<float>& box, const float particleDiameter);
+	void add(const Math::Box<float>& box, const float particleDiameter, const float charge = 1.0f);
 
 	~ParticleObject();
 

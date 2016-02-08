@@ -15,7 +15,7 @@ ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions, co
 }
 
 
-void ParticleObject::add(const Sphere<float>& sphere, const float diameter)
+void ParticleObject::add(const Sphere<float>& sphere, const float diameter, const float charge)
 {
 	const auto bb = sphere.getBoundingBox();
 
@@ -24,7 +24,7 @@ void ParticleObject::add(const Sphere<float>& sphere, const float diameter)
 			for (auto z = bb.getMinZ(); z <= bb.getMaxZ(); z+= diameter) {
 				const Vector3d<float> pos(x, y, z);
 				if (sphere.isInner(pos)) {
-					const auto density = sphere.getRadius() - sphere.getCenter().getDistance(pos);
+					const auto density = (sphere.getRadius() - sphere.getCenter().getDistance(pos)) * charge;
 					particles.push_back(new Particle(pos, density, diameter * 0.5f));
 				}
 			}
@@ -33,7 +33,7 @@ void ParticleObject::add(const Sphere<float>& sphere, const float diameter)
 	sort();
 }
 
-void ParticleObject::add(const Box<float>& box, const float diameter)
+void ParticleObject::add(const Box<float>& box, const float diameter, const float charge)
 {
 	for (auto x = box.getMinX(); x < box.getMaxX(); x += diameter) {
 		for (auto y = box.getMinY(); y < box.getMaxY(); y += diameter) {
@@ -168,8 +168,12 @@ std::vector<Particle*> ParticleObject::getUnion(const ParticleObject& rhs) const
 	std::vector<Particle*> particles1 = getSub(rhs);
 	std::vector<Particle*> particles2 = rhs.getSub(*this);
 	std::vector<Particle*> inter = getIntersection(rhs);
-	std::copy(particles2.begin(), particles2.end(), std::back_inserter(particles1));
-	std::copy(inter.begin(), inter.end(), std::back_inserter(particles1));
+	if (!particles2.empty()) {
+		particles1.insert(particles1.end(), particles2.begin(), particles2.end());
+	}
+	if (!inter.empty()) {
+		particles1.insert(particles1.end(), inter.begin(), inter.end());
+	}
 	return particles1;
 
 }
@@ -204,15 +208,6 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 		const auto ns = spaceHash.getNeighbor(p);
 		results.insert(results.end(), ns.begin(), ns.end());
 	}
-	/*
-	for (auto p1 : particles1) {
-		for (auto p2 : particles2) {
-			if (p1->isCollided(*p2)) {
-				results.push_back(p1);
-			}
-		}
-	}
-	*/
 	return results;
 }
 
