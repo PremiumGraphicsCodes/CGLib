@@ -23,6 +23,8 @@ public:
 
 	std::list<Particle*> getNeighbor(const Math::Vector3d<float>& pos);
 
+	std::list<Particle*> getNeighbor(const Math::Index3d index);
+
 private:
 	std::vector< std::list<Particle*> > table;
 

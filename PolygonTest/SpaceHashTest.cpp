@@ -9,9 +9,9 @@ using namespace Crystal::Polygon;
 TEST(SpaceHashTest, Test)
 {
 	SpaceHash hash(1.0f);
-	Particle p1(Vector3d<float>(4.5f, 0.0f, 0.0f));
-	Particle p2(Vector3d<float>(5.0f, 0.0f, 0.0f));
-	Particle p3(Vector3d<float>(5.6f, 0.0f, 0.0f));
+	Particle p1(Vector3d<float>(4.5f, 0.0f, 0.0f), 0.5f);
+	Particle p2(Vector3d<float>(5.0f, 0.0f, 0.0f), 0.5f);
+	Particle p3(Vector3d<float>(5.6f, 0.0f, 0.0f), 0.5f);
 	hash.add(&p1);
 	hash.add(&p2);
 	hash.add(&p3);
@@ -26,7 +26,7 @@ TEST(SpaceHashTest, Test)
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(3.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(4.0, 0.0, 0.0));
 		EXPECT_EQ(1, actual.size());
 	}
 

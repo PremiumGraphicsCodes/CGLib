@@ -40,16 +40,32 @@ std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	for (auto x = index.getX() - 1; x <= index.getX()+1; ++x) {
 		for (auto y = index.getY() - 1; y <= index.getY()+1; ++y) {
 			for (auto z = index.getZ() - 1; z <= index.getZ()+1; ++z) {
-				auto hash = toHash(Index3d{ x,y,z });
-				auto ps = table[hash];
-				for (auto n : ps) {
-					neighbors.push_back(n);
-				}
+				auto& ns = getNeighbor(Index3d{ x,y,z });
+				neighbors.splice(neighbors.end(), ns);
 			}
 		}
 	}
+	std::list<Particle*> results;
+	for (auto n : neighbors) {
+		if (n->getPosition().getDistanceSquared(pos) < divideLength*divideLength) {
+			results.push_back(n);
+		}
+	}
+
+	return results;
+}
+
+std::list<Particle*> SpaceHash::getNeighbor(const Index3d index)
+{
+	std::list<Particle*> neighbors;
+	auto hash = toHash(index);
+	auto ps = table[hash];
+	for (auto n : ps) {
+		neighbors.push_back(n);
+	}
 	return neighbors;
 }
+
 
 
 void SpaceHash::add(Particle* particle)

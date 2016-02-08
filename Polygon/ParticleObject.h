@@ -13,17 +13,21 @@ namespace Crystal {
 class Particle
 {
 public:
-	Particle(const Math::Vector3d<float>& position) :
+	Particle(const Math::Vector3d<float>& position, const float radius) :
 		position(position),
+		radius(radius),
 		value(0)
 	{}
 
-	Particle(const Math::Vector3d<float>& position, const float value) :
+	Particle(const Math::Vector3d<float>& position, const float value, const float radius) :
 		position(position),
+		radius(radius),
 		value(value)
 	{}
 
 	Math::Vector3d<float> getPosition() const { return position; }
+
+	Math::Box<float> getBoundingBox() const;
 
 	float getValue() const { return value; }
 
@@ -57,7 +61,7 @@ public:
 		sort();
 	}
 
-	ParticleObject(const std::vector<Math::Vector3d<float>>& positions);
+	ParticleObject(const std::vector<Math::Vector3d<float>>& positions, const float diameter);
 
 	ParticleObject(const Math::Sphere<float>& sphere, const float particleDiameter);
 
