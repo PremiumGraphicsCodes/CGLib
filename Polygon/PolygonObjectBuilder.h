@@ -12,7 +12,7 @@ namespace Crystal {
 class PolygonObjectBuilder
 {
 public:
-	MCVolume toVolume(const ParticleObject& particles);
+	MCVolume toVolume(const ParticleObject& particles, const Math::Index3d resolution);
 
 private:
 	float getPoly6Kernel(const float distance, const float effectLength) {
