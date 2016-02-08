@@ -10,7 +10,7 @@ namespace {
 	const int p1 = 73856093;
 	const int p2 = 19349663;
 	const int p3 = 83492791;
-	const int hashTableSize = 10000;
+	const int hashTableSize = 100;
 }
 
 SpaceHash::SpaceHash(const float divideLength) :
@@ -28,24 +28,24 @@ Index3d SpaceHash::toIndex(const Vector3d<float>& pos)
 	return{ ix, iy, iz };
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(Particle* object)
+std::vector<Particle*> SpaceHash::getNeighbor(Particle* object)
 {
 	return getNeighbor(object->getPosition());
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
+std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 {
-	std::list<Particle*> neighbors;
+	std::vector<Particle*> neighbors;
 	Index3d index = toIndex(pos);
 	for (auto x = index.getX() - 1; x <= index.getX()+1; ++x) {
 		for (auto y = index.getY() - 1; y <= index.getY()+1; ++y) {
 			for (auto z = index.getZ() - 1; z <= index.getZ()+1; ++z) {
 				auto& ns = getNeighbor(Index3d{ x,y,z });
-				neighbors.splice(neighbors.end(), ns);
+				std::copy(ns.begin(), ns.end(), std::back_inserter(neighbors));
 			}
 		}
 	}
-	std::list<Particle*> results;
+	std::vector<Particle*> results;
 	for (auto n : neighbors) {
 		if (n->getPosition().getDistanceSquared(pos) < divideLength*divideLength) {
 			results.push_back(n);
@@ -55,15 +55,12 @@ std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	return results;
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(const Index3d index)
+std::vector<Particle*> SpaceHash::getNeighbor(const Index3d index)
 {
-	std::list<Particle*> neighbors;
+	std::vector<Particle*> neighbors;
 	auto hash = toHash(index);
-	auto ps = table[hash];
-	for (auto n : ps) {
-		neighbors.push_back(n);
-	}
-	return neighbors;
+	auto ns = table[hash];
+	return ns;
 }
 
 
