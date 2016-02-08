@@ -38,9 +38,9 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	Index3d index = toIndex(pos);
 	for (auto x = index.getX() - 1; x <= index.getX()+1; ++x) {
 		for (auto y = index.getY() - 1; y <= index.getY()+1; ++y) {
-			for (auto z = index.getZ() - 1; z <= index.getZ()+1; ++z) {
-				auto& ns = getNeighbor(Index3d{ x,y,z });
-				std::copy(ns.begin(), ns.end(), std::back_inserter(neighbors));
+			for (auto z = index.getZ() - 1; z <= index.getZ() + 1; ++z) {
+				auto& ns = table[toHash(Index3d{ x,y,z })];
+				neighbors.insert(neighbors.end(), ns.begin(), ns.end());
 			}
 		}
 	}
@@ -56,10 +56,8 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 
 std::vector<Particle*> SpaceHash::getNeighbor(const Index3d index)
 {
-	std::vector<Particle*> neighbors;
 	auto hash = toHash(index);
-	auto ns = table[hash];
-	return ns;
+	return table[hash];
 }
 
 
