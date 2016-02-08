@@ -15,7 +15,8 @@ MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject, co
 	const auto dy = bb.getLength().getY() / resolution.getY();
 	const auto dz = bb.getLength().getZ() / resolution.getZ();
 
-	SpaceHash spaceHash(particleObject.getParticles().front()->getDiameter());
+	const auto effectLength = particleObject.getParticles().front()->getDiameter();
+	SpaceHash spaceHash(effectLength);
 	const auto& particles = particleObject.getParticles();
 	for (const auto& p : particles) {
 		spaceHash.add(p);
@@ -34,7 +35,7 @@ MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject, co
 				for (auto n : neighbors) {
 					Vector3d<float> p(posx, posy, posz);
 					const auto distance = p.getDistance( n->getPosition() );
-					const auto value = getPoly6Kernel(distance, dx);
+					const auto value = getPoly6Kernel(distance, effectLength);
 					grid.add(i, j, k, value );
 				}
 			}

@@ -44,6 +44,10 @@ public:
 
 	std::vector<MCNode> toNodes() const;
 
+	Math::Space3d<float> getSpace() const { return space; }
+
+	Math::Grid3d<float> getGrid() const { return grid; }
+
 private:
 	const Math::Space3d<float> space;
 	const Math::Grid3d<float> grid;
@@ -81,6 +85,8 @@ public:
 
 	std::vector< Math::Triangle<float> > march(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid, const float isolevel);
 	
+	std::vector< Math::Triangle<float> > march(const MCVolume& volume, const float isolevel);
+
 private:
 	MarchingCubeTable table;
 

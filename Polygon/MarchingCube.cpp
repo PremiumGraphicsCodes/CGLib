@@ -121,6 +121,10 @@ std::vector<Triangle<float> > MarchingCube::march(const Space3d<float>& space, c
 	return triangles;
 }
 
+std::vector< Triangle<float> > MarchingCube::march(const MCVolume& volume, const float isolevel)
+{
+	return march(volume.getSpace(), volume.getGrid(), isolevel);
+}
 
 
 int MarchingCube::getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const

@@ -32,7 +32,7 @@ public:
 	float getValue() const { return value; }
 
 	Particle* clone() { 
-		return new Particle(position, value);
+		return new Particle(position, value, radius);
 	}
 
 	float getRadius() const { return radius; }
