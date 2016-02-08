@@ -10,6 +10,7 @@ TEST(PolygonObjectBuilderTest, TestToVolume)
 	PolygonObjectBuilder builder;
 	
 	Box<float> box(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 1.0));
-	ParticleObject object(box, 0.5f);
+	ParticleObject object;
+	object.add(box, 0.25f);
 	builder.toVolume(object);
 }

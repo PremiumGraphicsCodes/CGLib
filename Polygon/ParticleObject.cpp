@@ -6,27 +6,25 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
 
-ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions, const float diameter) :
-	radius(diameter * 0.5)
+ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions, const float diameter)
 {
 	for (const auto& p : positions) {
-		particles.push_back(new Particle(p, radius));
+		particles.push_back(new Particle(p, diameter * 0.5f));
 	}
 	sort();
 }
 
 
-ParticleObject::ParticleObject(const Sphere<float>& sphere, const float diameter) :
-	radius(diameter * 0.5)
+void ParticleObject::add(const Sphere<float>& sphere, const float diameter)
 {
 	const auto bb = sphere.getBoundingBox();
 
-	for (auto x = bb.getMinX(); x < bb.getMaxX(); x+= diameter) {
-		for (auto y = bb.getMinY(); y < bb.getMaxY(); y += diameter) {
-			for (auto z = bb.getMinZ(); z < bb.getMaxZ(); z+= diameter) {
+	for (auto x = bb.getMinX(); x <= bb.getMaxX(); x+= diameter) {
+		for (auto y = bb.getMinY(); y <= bb.getMaxY(); y += diameter) {
+			for (auto z = bb.getMinZ(); z <= bb.getMaxZ(); z+= diameter) {
 				const Vector3d<float> pos(x, y, z);
 				if (sphere.isInner(pos)) {
-					particles.push_back(new Particle(pos,radius));
+					particles.push_back(new Particle(pos, diameter * 0.5f));
 				}
 			}
 		}
@@ -34,14 +32,13 @@ ParticleObject::ParticleObject(const Sphere<float>& sphere, const float diameter
 	sort();
 }
 
-ParticleObject::ParticleObject(const Box<float>& box, const float diameter) :
-	radius( diameter * 0.5 )
+void ParticleObject::add(const Box<float>& box, const float diameter)
 {
 	for (auto x = box.getMinX(); x < box.getMaxX(); x += diameter) {
 		for (auto y = box.getMinY(); y < box.getMaxY(); y += diameter) {
 			for (auto z = box.getMinZ(); z < box.getMaxZ(); z += diameter) {
 				const Vector3d<float> pos(x, y, z);
-				particles.push_back(new Particle(pos, radius));
+				particles.push_back(new Particle(pos, diameter * 0.5f));
 			}
 		}
 	}
@@ -57,6 +54,11 @@ Box<float> Particle::getBoundingBox() const
 	const auto maxy = position.getY() + radius;
 	const auto maxz = position.getZ() + radius;
 	return Box<float>(Vector3d<float>(minx, miny, minz), Vector3d<float>(maxx, maxy, maxz));
+}
+
+bool Particle::isCollided(const Particle& rhs)
+{
+	return position.getDistance(rhs.position) < (this->radius + rhs.radius);
 }
 
 
@@ -121,11 +123,10 @@ void ParticleObject::sort()
 
 Box<float> ParticleObject::getBoundingBox() const
 {
-	Box<float> b(particles.front()->getPosition());
+	Box<float> b(particles.front()->getBoundingBox());
 	for (const auto& p : particles) {
-		b.add(p->getPosition());
+		b.add(p->getBoundingBox());
 	}
-	b.outerOffset(radius);
 	return b;
 }
 
@@ -194,7 +195,7 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 	const auto& particles2 = rhs.particles;
 	for (auto p1 : particles1) {
 		for (auto p2 : particles2) {
-			if (p1->getPosition().getDistance(p2->getPosition()) < getDiameter()) {
+			if (p1->isCollided(*p2)) {
 				results.push_back(p1);
 			}
 		}

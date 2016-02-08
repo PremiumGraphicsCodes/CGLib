@@ -77,3 +77,14 @@ TYPED_TEST(BoxTest, TestGetOverlapped)
 	const auto actual = b1.getOverlapped(b2);
 	EXPECT_EQ(expected, actual);
 }
+
+TYPED_TEST(BoxTest, TestAdd)
+{
+	using T = TypeParam;
+
+	Box<T> b1(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 2, 2));
+	const Box<T> b2(Vector3d<T>(-1, 1, 1), Vector3d<T>(3, 3, 3));
+	b1.add(b2);
+	const Box<T> expected(Vector3d<T>(-1, 0, 0), Vector3d<T>(3, 3, 3));
+	EXPECT_EQ(expected, b1);
+}

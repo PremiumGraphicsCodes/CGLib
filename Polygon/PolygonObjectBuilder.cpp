@@ -9,7 +9,7 @@ using namespace Crystal::Polygon;
 
 MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject)
 {
-	const auto dx = particleObject.getDiameter();
+	const auto dx = particleObject.getParticles().front()->getDiameter();
 	const auto dy = dx;
 	const auto dz = dx;
 

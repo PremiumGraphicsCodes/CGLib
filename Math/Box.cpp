@@ -69,15 +69,15 @@ bool Box<T>::isExterior(const Vector3d<T>& point) const
 template<typename T>
 void Box<T>::add(const Box<T>& b)
 {
-	const auto x = std::min<T>(getMinX(), b.getMinX());
-	const auto y = std::min<T>(getMinY(), b.getMinY());
-	const auto z = std::min<T>(getMinZ(), b.getMinZ());
-
+	const auto sx = std::min<T>(getMinX(), b.getMinX());
+	const auto sy = std::min<T>(getMinY(), b.getMinY());
+	const auto sz = std::min<T>(getMinZ(), b.getMinZ());
+	this->start = Vector3d<T>(sx, sy, sz);
 
 	const auto ex = std::max<T>(end.getX(), b.getMaxX());
 	const auto ey = std::max<T>(end.getY(), b.getMaxY());
 	const auto ez = std::max<T>(end.getZ(), b.getMaxZ());
-	end = Vector3d<T>(ex, ey, ez);
+	this->end = Vector3d<T>(ex, ey, ez);
 }
 
 template<typename T>

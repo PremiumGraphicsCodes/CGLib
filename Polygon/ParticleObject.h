@@ -39,6 +39,8 @@ public:
 
 	float getDiameter() const { return radius * 2.0f; }
 
+	bool isCollided(const Particle& rhs);
+
 private:
 	Math::Vector3d<float> position;
 	float value;
@@ -48,24 +50,22 @@ private:
 class ParticleObject
 {
 public:
-	ParticleObject() :
-		radius(0.5)
+	ParticleObject()
 	{
 		sort();
 	}
 
 	ParticleObject(const std::vector<Particle*>& particles) :
-		particles(particles),
-		radius(0.5)
+		particles(particles)
 	{
 		sort();
 	}
 
 	ParticleObject(const std::vector<Math::Vector3d<float>>& positions, const float diameter);
 
-	ParticleObject(const Math::Sphere<float>& sphere, const float particleDiameter);
+	void add(const Math::Sphere<float>& sphere, const float particleDiameter);
 
-	ParticleObject(const Math::Box<float>& box, const float particleDiameter);
+	void add(const Math::Box<float>& box, const float particleDiameter);
 
 	~ParticleObject();
 
@@ -85,7 +85,7 @@ public:
 
 	ParticleObject* createIntersection(const ParticleObject& rhs);
 
-	float getDiameter() const { return radius * 2.0f; }
+	//float getDiameter() const { return radius * 2.0f; }
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
@@ -96,9 +96,7 @@ private:
 
 	std::vector<Particle*> getIntersection(const ParticleObject& rhs) const;
 
-
 	std::vector<Particle*> particles;
-	const float radius;
 };
 	}
 }
