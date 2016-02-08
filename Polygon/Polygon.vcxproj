@@ -22,6 +22,7 @@
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="ParticleBoolean.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="PolygonObjectBuilder.cpp" />
     <ClCompile Include="PolygonObject.cpp" />
@@ -31,6 +32,7 @@
   <ItemGroup>
     <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />
+    <ClInclude Include="ParticleBoolean.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="PolygonObject.h" />

@@ -35,6 +35,11 @@ private:
 	Math::Index3d toIndex(const Math::Vector3d<float>& pos);
 
 	const float divideLength;
+
+	const long int p1 = 73856093;
+	const long int p2 = 19349663;
+	const long int p3 = 83492791;
+
 };
 	}
 }

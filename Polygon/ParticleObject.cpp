@@ -24,7 +24,8 @@ void ParticleObject::add(const Sphere<float>& sphere, const float diameter)
 			for (auto z = bb.getMinZ(); z <= bb.getMaxZ(); z+= diameter) {
 				const Vector3d<float> pos(x, y, z);
 				if (sphere.isInner(pos)) {
-					particles.push_back(new Particle(pos, diameter * 0.5f));
+					const auto density = sphere.getRadius() - sphere.getCenter().getDistance(pos);
+					particles.push_back(new Particle(pos, density, diameter * 0.5f));
 				}
 			}
 		}
@@ -38,7 +39,7 @@ void ParticleObject::add(const Box<float>& box, const float diameter)
 		for (auto y = box.getMinY(); y < box.getMaxY(); y += diameter) {
 			for (auto z = box.getMinZ(); z < box.getMaxZ(); z += diameter) {
 				const Vector3d<float> pos(x, y, z);
-				particles.push_back(new Particle(pos, diameter * 0.5f));
+				particles.push_back(new Particle(pos, 1.0f, diameter * 0.5f));
 			}
 		}
 	}
@@ -187,12 +188,23 @@ std::vector<Particle*> ParticleObject::getSub(const ParticleObject& rhs) const
 	return results;
 }
 
+#include "SpaceHash.h"
 
 std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs) const
 {
+	SpaceHash spaceHash(this->particles.front()->getDiameter(), 1000);
+	for (const auto& p : particles) {
+		spaceHash.add(p);
+	}
+
 	std::vector<Particle*> results;
-	const auto& particles1 = this->particles;
+	//const auto& particles1 = this->particles;
 	const auto& particles2 = rhs.particles;
+	for (const auto& p : particles2) {
+		const auto ns = spaceHash.getNeighbor(p);
+		results.insert(results.end(), ns.begin(), ns.end());
+	}
+	/*
 	for (auto p1 : particles1) {
 		for (auto p2 : particles2) {
 			if (p1->isCollided(*p2)) {
@@ -200,6 +212,7 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 			}
 		}
 	}
+	*/
 	return results;
 }
 

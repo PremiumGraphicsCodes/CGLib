@@ -108,7 +108,7 @@ public:
 	}
 
 	bool isInner(const Vector3d<float>& v) const {
-		return !isOuter(v);
+		return v.getDistanceSquared(center) < (radius * radius);
 	}
 
 	bool isOnStrictly(const Vector3d<float>& v) const {

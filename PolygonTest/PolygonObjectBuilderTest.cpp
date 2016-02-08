@@ -12,7 +12,7 @@ TEST(PolygonObjectBuilderTest, TestToVolumeBox)
 	Box<float> box(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 1.0));
 	ParticleObject object;
 	object.add(box, 0.25f);
-	builder.toVolume(object, {4,4,4}, 100);
+	auto actual = builder.toVolume(object, 100);
 }
 
 TEST(PolygonObjectBuilderTest, TestToVolumeSphere)
@@ -22,5 +22,5 @@ TEST(PolygonObjectBuilderTest, TestToVolumeSphere)
 	Sphere<float> sphere(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
 	ParticleObject object;
 	object.add(sphere, 0.25f);
-	builder.toVolume(object, { 4,4,4 }, 100);
+	auto actual = builder.toVolume(object, 100);
 }
