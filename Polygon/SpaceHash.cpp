@@ -10,10 +10,9 @@ namespace {
 	const int p1 = 73856093;
 	const int p2 = 19349663;
 	const int p3 = 83492791;
-	const int hashTableSize = 100;
 }
 
-SpaceHash::SpaceHash(const float divideLength) :
+SpaceHash::SpaceHash(const float divideLength, const int hashTableSize) :
 	divideLength(divideLength),
 	table(hashTableSize)
 {
@@ -82,5 +81,5 @@ int SpaceHash::toHash(const Index3d& index)
 	const int x = static_cast<int>( ::fabs(index.getX()) * p1 );
 	const int y = static_cast<int>( ::fabs(index.getY()) * p2 );
 	const int z = static_cast<int>( ::fabs(index.getZ()) * p3 );
-	return (x^y^z) % hashTableSize;
+	return (x^y^z) % table.size();
 }

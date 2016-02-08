@@ -7,7 +7,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject, const Index3d resolution)
+MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject, const Index3d resolution, const int hashTableSize)
 {
 	const auto& bb = particleObject.getBoundingBox();
 
@@ -16,7 +16,7 @@ MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject, co
 	const auto dz = bb.getLength().getZ() / resolution.getZ();
 
 	const auto effectLength = particleObject.getParticles().front()->getDiameter();
-	SpaceHash spaceHash(effectLength);
+	SpaceHash spaceHash(effectLength, hashTableSize);
 	const auto& particles = particleObject.getParticles();
 	for (const auto& p : particles) {
 		spaceHash.add(p);

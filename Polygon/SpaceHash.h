@@ -15,7 +15,7 @@ class ParticleObject;
 class SpaceHash
 {
 public:
-	SpaceHash(const float divideLength);
+	SpaceHash(const float divideLength, const int tableSize);
 
 	void add(Particle* particle);
 

@@ -8,7 +8,7 @@ using namespace Crystal::Polygon;
 
 TEST(SpaceHashTest, Test)
 {
-	SpaceHash hash(1.0f);
+	SpaceHash hash(1.0f, 100);
 	Particle p1(Vector3d<float>(4.5f, 0.0f, 0.0f), 0.5f);
 	Particle p2(Vector3d<float>(5.0f, 0.0f, 0.0f), 0.5f);
 	Particle p3(Vector3d<float>(5.6f, 0.0f, 0.0f), 0.5f);
