@@ -1,4 +1,5 @@
 #include "PointBuffer.h"
+#include "../Polygon/Particle.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;

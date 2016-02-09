@@ -11,30 +11,28 @@ namespace Crystal {
 class Joint
 {
 public:
-	Joint(const Math::Vector3d<float>& pos) :
-		pos(pos)
+	Joint(const Math::Vector3d<float>& pos, const float thickness) :
+		pos(pos),
+		thickness(thickness)
 	{}
+
+	Math::Vector3d<float> getPosition() const { return pos; }
 
 private:
 	Math::Vector3d<float> pos;
+	float thickness;
 };
 
 class Bone
 {
 public:
-	Bone(Joint* origin, Joint* dest):
-		origin( origin ),
-		dest( dest )
-	{}
+	Bone(Joint* origin, Joint* dest);
 
-	std::vector< Math::Vector3d<float> > toPositions() {
-
-	}
+	std::vector< Math::Vector3d<float> > toPositions(const float divideLength);
 
 private:
 	Joint* origin;
 	Joint* dest;
-
 };
 
 class Actor
@@ -44,27 +42,14 @@ public:
 	{}
 
 	~Actor() {
-		for (auto b : bones) {
-			delete b;
-		}
-		bones.clear();
-		for (auto j : joints) {
-			delete j;
-		}
-		joints.clear();
+		clear();
 	}
 
-	Joint* createJoint(const Math::Vector3d<float>& pos) {
-		auto j = new Joint(pos);
-		joints.push_back(j);
-		return j;
-	}
+	void clear();
 
-	Bone* createBone(Joint* j1, Joint* j2) {
-		auto b = new Bone(j1, j2);
-		bones.push_back(b);
-		return b;
-	}
+	Joint* createJoint(const Math::Vector3d<float>& pos, const float thickness);
+
+	Bone* createBone(Joint* j1, Joint* j2);
 
 private:
 	std::list<Bone*> bones;

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="PolygonObjectBuilderTest.cpp" />

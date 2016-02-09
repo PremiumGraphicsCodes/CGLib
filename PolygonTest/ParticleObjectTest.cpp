@@ -1,4 +1,5 @@
 #include "gtest\gtest.h"
+#include "../Polygon/Particle.h"
 #include "../Polygon/ParticleObject.h"
 
 using namespace Crystal::Math;

@@ -2,6 +2,7 @@
 
 #include "../Math/Vector3d.h"
 #include "ParticleObject.h"
+#include "Particle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;

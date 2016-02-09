@@ -3,6 +3,7 @@
 #include "SpaceHash.h"
 
 #include "MarchingCube.h"
+#include "Particle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
