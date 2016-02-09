@@ -13,39 +13,34 @@ namespace Crystal {
 class Particle
 {
 public:
-	Particle(const Math::Vector3d<float>& position, const float radius) :
-		position(position),
-		radius(radius),
-		value(0)
-	{}
 
-	Particle(const Math::Vector3d<float>& position, const float value, const float radius) :
+	Particle(const Math::Vector3d<float>& position, const float density, const float radius) :
 		position(position),
 		radius(radius),
-		value(value)
+		density(density)
 	{}
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
 	Math::Box<float> getBoundingBox() const;
 
-	float getValue() const { return value; }
+	float getDensity() const { return density; }
 
-	Particle* clone() {
-		return new Particle(position, value, radius);
+	Particle* clone() const {
+		return new Particle(position, density, radius);
 	}
 
 	float getRadius() const { return radius; }
 
 	float getDiameter() const { return radius * 2.0f; }
 
-	void addValue(const float v) { this->value += v; }
+	void addValue(const float v) { this->density += v; }
 
 	bool isCollided(const Particle& rhs);
 
 private:
 	Math::Vector3d<float> position;
-	float value;
+	float density;
 	float radius;
 };
 

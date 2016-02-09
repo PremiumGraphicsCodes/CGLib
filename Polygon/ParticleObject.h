@@ -26,7 +26,7 @@ public:
 		sort();
 	}
 
-	ParticleObject(const std::vector<Math::Vector3d<float>>& positions, const float diameter);
+	void add(const Particle& particle);
 
 	void add(const Math::Sphere<float>& sphere, const float particleDiameter, const float charge = 1.0f);
 
@@ -44,12 +44,6 @@ public:
 
 	//void sub(const ParticleObject& rhs);
 
-	ParticleObject* createUnion(const ParticleObject& rhs);
-
-	ParticleObject* createSub(const ParticleObject& rhs);
-
-	ParticleObject* createIntersection(const ParticleObject& rhs);
-
 	//float getDiameter() const { return radius * 2.0f; }
 
 	std::vector<Particle*> getParticles() const { return particles; }
@@ -57,9 +51,6 @@ public:
 	MCVolume toVolume(const int hashTableSize) const;
 
 private:
-	std::vector<Particle*> getUnion(const ParticleObject& rhs) const;
-
-	std::vector<Particle*> getSub(const ParticleObject& rhs) const;
 
 	std::vector<Particle*> getIntersection(const ParticleObject& rhs) const;
 

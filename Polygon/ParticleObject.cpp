@@ -7,14 +7,6 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
 
-ParticleObject::ParticleObject(const std::vector<Vector3d<float>>& positions, const float diameter)
-{
-	for (const auto& p : positions) {
-		particles.push_back(new Particle(p, diameter * 0.5f));
-	}
-	sort();
-}
-
 
 void ParticleObject::add(const Sphere<float>& sphere, const float diameter, const float charge)
 {
@@ -47,6 +39,12 @@ void ParticleObject::add(const Box<float>& box, const float diameter, const floa
 	sort();
 }
 
+
+void ParticleObject::add(const Particle& particle)
+{
+	particles.push_back(particle.clone());
+	sort();
+}
 
 
 
@@ -117,67 +115,6 @@ Box<float> ParticleObject::getBoundingBox() const
 	return b;
 }
 
-ParticleObject* ParticleObject::createUnion(const ParticleObject& rhs)
-{
-	const auto& inter = getUnion(rhs);
-	std::vector<Particle*> results;
-	for (auto i : inter) {
-		results.push_back(i->clone());
-	}
-	return new ParticleObject(results);
-}
-
-ParticleObject* ParticleObject::createSub(const ParticleObject& rhs)
-{
-	const auto& inter = getSub(rhs);
-	std::vector<Particle*> results;
-	for (auto i : inter) {
-		results.push_back(i->clone());
-	}
-	return new ParticleObject(results);
-}
-
-
-ParticleObject* ParticleObject::createIntersection(const ParticleObject& rhs)
-{
-	const auto& inter = getIntersection(rhs);
-	std::vector<Particle*> results;
-	for (auto i : inter) {
-		results.push_back(i->clone());
-	}
-	return new ParticleObject(results);
-}
-
-
-std::vector<Particle*> ParticleObject::getUnion(const ParticleObject& rhs) const
-{
-	std::vector<Particle*> particles1 = getSub(rhs);
-	std::vector<Particle*> particles2 = rhs.getSub(*this);
-	std::vector<Particle*> inter = getIntersection(rhs);
-	if (!particles2.empty()) {
-		particles1.insert(particles1.end(), particles2.begin(), particles2.end());
-	}
-	if (!inter.empty()) {
-		particles1.insert(particles1.end(), inter.begin(), inter.end());
-	}
-	return particles1;
-
-}
-
-std::vector<Particle*> ParticleObject::getSub(const ParticleObject& rhs) const
-{
-	std::vector<Particle*> results;
-	auto inter = getIntersection(rhs);
-	//std::sort(particles.begin(), particles.end());
-	std::sort(inter.begin(), inter.end());
-	std::set_difference(
-		particles.begin(), particles.end(),
-		inter.begin(), inter.end(),
-		std::back_inserter(results)
-		);
-	return results;
-}
-
 #include "SpaceHash.h"
 
 std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs) const
@@ -243,7 +180,7 @@ MCVolume ParticleObject::toVolume(const int hashTableSize) const
 				for (auto n : neighbors) {
 					Vector3d<float> p(posx, posy, posz);
 					const auto distance = p.getDistance(n->getPosition());
-					const auto v = n->getValue();
+					const auto v = n->getDensity();
 					const auto value = getPoly6Kernel(distance, effectLength) * v;
 					grid.add(i, j, k, value);
 				}

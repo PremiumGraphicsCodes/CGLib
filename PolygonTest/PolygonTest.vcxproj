@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ActorTest.cpp" />
+    <ClCompile Include="JointTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="SpaceHashTest.cpp" />

@@ -7,28 +7,23 @@
 
 namespace Crystal {
 	namespace Polygon {
+		class Particle;
+		class ParticleObject;
+		class Joint;
 
-class Joint
-{
-public:
-	Joint(const Math::Vector3d<float>& pos, const float thickness) :
-		pos(pos),
-		thickness(thickness)
-	{}
-
-	Math::Vector3d<float> getPosition() const { return pos; }
-
-private:
-	Math::Vector3d<float> pos;
-	float thickness;
-};
 
 class Bone
 {
 public:
 	Bone(Joint* origin, Joint* dest);
 
-	std::vector< Math::Vector3d<float> > toPositions(const float divideLength);
+	std::vector<Math::Vector3d<float>> toPositions(const int howMany) const;
+
+	std::vector<float> toValues(const int howMany) const;
+
+	float getLength() const;
+
+	ParticleObject toParticleObject(const float divideLength);
 
 private:
 	Joint* origin;
@@ -47,9 +42,11 @@ public:
 
 	void clear();
 
-	Joint* createJoint(const Math::Vector3d<float>& pos, const float thickness);
+	Joint* createJoint(const Math::Vector3d<float>& pos, const float radius, const float thickness);
 
 	Bone* createBone(Joint* j1, Joint* j2);
+
+	//ParticleObject toParticleObject();
 
 private:
 	std::list<Bone*> bones;

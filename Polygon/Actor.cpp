@@ -1,20 +1,44 @@
 #include "Actor.h"
+#include "Particle.h"
+#include "ParticleObject.h"
+#include "Joint.h"
 #include "../Math/Line3d.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
+
+
 
 Bone::Bone(Joint* origin, Joint* dest) :
 	origin(origin),
 	dest(dest)
 {}
 
-std::vector< Vector3d<float> > Bone::toPositions(const float divideLength)
+/*
+std::vector<Vector3d<float>> Bone::toPositions(const int howMany) const
 {
 	Line3d<float> line(origin->getPosition(), dest->getPosition());
-	const auto& positions = line.toPositionsByLength(divideLength);
+	return line.toPositionsByLength(howMany);
+}
+
+std::vector<float> Bone::toValues(const int howMany) const
+{
+	dest->get
+}
+*/
+
+float Bone::getLength() const
+{
+	Line3d<float> line(origin->getPosition(), dest->getPosition());
+	return line.getLength();
+}
+
+/*
+ParticleObject Bone::toParticleObject(const float divideLength)
+{
 	return positions;
 }
+*/
 
 void Actor::clear()
 {
@@ -29,9 +53,9 @@ void Actor::clear()
 }
 
 
-Joint* Actor::createJoint(const Vector3d<float>& pos, const float thickness)
+Joint* Actor::createJoint(const Vector3d<float>& pos, const float radius, const float thickness)
 {
-	auto j = new Joint(pos, thickness);
+	auto j = new Joint(pos, radius, thickness);
 	joints.push_back(j);
 	return j;
 }
