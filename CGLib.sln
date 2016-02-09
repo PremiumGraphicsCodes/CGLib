@@ -37,6 +37,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "Physics\PhysicsTest.vcxproj", "{51436043-10F6-42F3-85BE-F2FEAF480AFA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50} = {EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50}
+		{A75C81D2-613A-4958-A669-A655964419A8} = {A75C81D2-613A-4958-A669-A655964419A8}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ShaderTest", "ShaderTest\ShaderTest.vcxproj", "{27C93403-BD20-4336-8AC3-EDA26EC86600}"
@@ -61,6 +62,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PolygonTest", "PolygonTest\
 	ProjectSection(ProjectDependencies) = postProject
 		{EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50} = {EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50}
 		{D223F7E4-2661-4B1B-8E32-CFB895256E2E} = {D223F7E4-2661-4B1B-8E32-CFB895256E2E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Physics\Physics.vcxproj", "{A75C81D2-613A-4958-A669-A655964419A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50} = {EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50}
 	EndProjectSection
 EndProject
 Global
@@ -159,6 +165,14 @@ Global
 		{9414E182-179E-4CF4-8574-BD4DF1781602}.Release|Win32.Build.0 = Release|Win32
 		{9414E182-179E-4CF4-8574-BD4DF1781602}.Release|x64.ActiveCfg = Release|x64
 		{9414E182-179E-4CF4-8574-BD4DF1781602}.Release|x64.Build.0 = Release|x64
+		{A75C81D2-613A-4958-A669-A655964419A8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A75C81D2-613A-4958-A669-A655964419A8}.Debug|Win32.Build.0 = Debug|Win32
+		{A75C81D2-613A-4958-A669-A655964419A8}.Debug|x64.ActiveCfg = Debug|x64
+		{A75C81D2-613A-4958-A669-A655964419A8}.Debug|x64.Build.0 = Debug|x64
+		{A75C81D2-613A-4958-A669-A655964419A8}.Release|Win32.ActiveCfg = Release|Win32
+		{A75C81D2-613A-4958-A669-A655964419A8}.Release|Win32.Build.0 = Release|Win32
+		{A75C81D2-613A-4958-A669-A655964419A8}.Release|x64.ActiveCfg = Release|x64
+		{A75C81D2-613A-4958-A669-A655964419A8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
