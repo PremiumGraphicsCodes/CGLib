@@ -25,7 +25,7 @@ MCVolume PolygonObjectBuilder::toVolume(const ParticleObject& particleObject, co
 
 	int resx = bb.getLength().getX() / dx;
 	int resy = bb.getLength().getY() / dx;
-	int resz = bb.getLength().getY() / dx;
+	int resz = bb.getLength().getZ() / dx;
 
 	Index3d resolution(resx, resy, resz);
 	Grid3d<float> grid(resolution);

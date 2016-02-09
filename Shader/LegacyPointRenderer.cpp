@@ -14,7 +14,12 @@ void LegacyPointRenderer::render(ICamera<float>& camera, const PointBuffer& buff
 		return;
 	}
 
-	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+
+	glPointSize(10.0f);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
 	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
@@ -40,6 +45,8 @@ void LegacyPointRenderer::render(ICamera<float>& camera, const PointBuffer& buff
 
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glDisable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
 
 }

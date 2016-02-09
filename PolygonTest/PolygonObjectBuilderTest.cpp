@@ -19,8 +19,11 @@ TEST(PolygonObjectBuilderTest, TestToVolumeSphere)
 {
 	PolygonObjectBuilder builder;
 
-	Sphere<float> sphere(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
+	Sphere<float> sphere1(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
+	Sphere<float> sphere2(Vector3d<float>(0.0, 0.5, 0.0), 0.5f);
+
 	ParticleObject object;
-	object.add(sphere, 0.25f);
+	object.add(sphere1, 0.25f);
+	object.add(sphere2, 0.25f);
 	auto actual = builder.toVolume(object, 100);
 }
