@@ -1,6 +1,7 @@
 #include "gtest\gtest.h"
 #include "../Polygon/Particle.h"
 #include "../Polygon/ParticleObject.h"
+#include "../Polygon/MarchingCube.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
@@ -74,3 +75,21 @@ TEST(ParticleObjectTest, TestCreateIntersection)
 	EXPECT_EQ(1, actual->getParticles().size());
 }
 
+TEST(ParticleObjectTest, TestToVolumeBox)
+{
+	Box<float> box(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 1.0));
+	ParticleObject object;
+	object.add(box, 0.25f);
+	auto actual = object.toVolume(100);
+}
+
+TEST(PolygonObjectTest, TestToVolumeSphere)
+{
+	Sphere<float> sphere1(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
+	Sphere<float> sphere2(Vector3d<float>(0.0, 0.5, 0.0), 0.5f);
+
+	ParticleObject object;
+	object.add(sphere1, 0.25f);
+	object.add(sphere2, 0.25f);
+	auto actual = object.toVolume(100);
+}

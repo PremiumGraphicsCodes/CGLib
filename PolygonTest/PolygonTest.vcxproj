@@ -22,7 +22,6 @@
     <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
-    <ClCompile Include="PolygonObjectBuilderTest.cpp" />
     <ClCompile Include="SpaceHashTest.cpp" />
     <ClCompile Include="TriangleMeshTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />

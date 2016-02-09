@@ -25,7 +25,6 @@
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
-    <ClCompile Include="PolygonObjectBuilder.cpp" />
     <ClCompile Include="PolygonObject.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -38,7 +37,6 @@
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="PolygonObject.h" />
-    <ClInclude Include="PolygonObjectBuilder.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>

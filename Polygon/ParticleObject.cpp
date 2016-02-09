@@ -197,5 +197,60 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 	return results;
 }
 
+namespace {
+
+	float getPoly6Kernel(const float distance, const float effectLength) {
+		assert(distance < effectLength);
+		const auto poly6Constant = 315.0f / (64.0f * Tolerance<float>::getPI() * pow(effectLength, 9));
+		const auto result = poly6Constant * pow(effectLength * effectLength - distance * distance, 3);
+		assert(result > 0.0);
+		return result;
+	}
+}
+
+
+
+MCVolume ParticleObject::toVolume(const int hashTableSize) const
+{
+	auto bb = this->getBoundingBox();
+
+	const auto effectLength = this->getParticles().front()->getDiameter();
+	const auto dx = effectLength;
+
+	SpaceHash spaceHash(effectLength, hashTableSize);
+	const auto& particles = this->getParticles();
+	for (const auto& p : particles) {
+		spaceHash.add(p);
+	}
+
+	//bb.innerOffset(particles[0]->getRadius());
+	Space3d<float> space(bb.getStart(), bb.getLength());
+
+	int resx = static_cast<int>( bb.getLength().getX() / dx );
+	int resy = static_cast<int>( bb.getLength().getY() / dx );
+	int resz = static_cast<int>( bb.getLength().getZ() / dx );
+
+	Index3d resolution(resx, resy, resz);
+	Grid3d<float> grid(resolution);
+
+	for (int i = 0; i < resolution.getX(); ++i) {
+		for (int j = 0; j < resolution.getY(); ++j) {
+			for (int k = 0; k < resolution.getZ(); ++k) {
+				const auto posx = space.getStart().getX() + dx * 0.5f + i * dx;
+				const auto posy = space.getStart().getY() + dx * 0.5f + j * dx;
+				const auto posz = space.getStart().getZ() + dx * 0.5f + k * dx;
+				const auto& neighbors = spaceHash.getNeighbor(Vector3d<float>(posx, posy, posz));
+				for (auto n : neighbors) {
+					Vector3d<float> p(posx, posy, posz);
+					const auto distance = p.getDistance(n->getPosition());
+					const auto v = n->getValue();
+					const auto value = getPoly6Kernel(distance, effectLength) * v;
+					grid.add(i, j, k, value);
+				}
+			}
+		}
+	}
+	return MCVolume(space, grid);
+}
 
 

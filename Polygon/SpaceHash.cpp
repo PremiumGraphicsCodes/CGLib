@@ -17,9 +17,9 @@ SpaceHash::SpaceHash(const float divideLength, const int hashTableSize) :
 
 Index3d SpaceHash::toIndex(const Vector3d<float>& pos)
 {
-	const int ix = (pos.getX() + 10.0f) / divideLength;
-	const int iy = (pos.getY() + 10.0f) / divideLength;
-	const int iz = (pos.getZ() + 10.0f) / divideLength;
+	const int ix = static_cast<int>( pos.getX() / divideLength );
+	const int iy = static_cast<int>( pos.getY() / divideLength );
+	const int iz = static_cast<int>( pos.getZ() / divideLength );
 	return{ ix, iy, iz };
 }
 

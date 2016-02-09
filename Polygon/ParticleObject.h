@@ -10,6 +10,7 @@ namespace Crystal {
 
 class PolygonObject;
 class Particle;
+class MCVolume;
 
 class ParticleObject
 {
@@ -52,6 +53,8 @@ public:
 	//float getDiameter() const { return radius * 2.0f; }
 
 	std::vector<Particle*> getParticles() const { return particles; }
+
+	MCVolume toVolume(const int hashTableSize) const;
 
 private:
 	std::vector<Particle*> getUnion(const ParticleObject& rhs) const;
