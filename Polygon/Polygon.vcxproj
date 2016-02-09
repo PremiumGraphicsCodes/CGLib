@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
@@ -32,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />

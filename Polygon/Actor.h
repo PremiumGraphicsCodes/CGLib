@@ -10,25 +10,8 @@ namespace Crystal {
 		class Particle;
 		class ParticleObject;
 		class Joint;
+		class Bone;
 
-
-class Bone
-{
-public:
-	Bone(Joint* origin, Joint* dest);
-
-	std::vector<Math::Vector3d<float>> toPositions(const int howMany) const;
-
-	std::vector<float> toValues(const int howMany) const;
-
-	float getLength() const;
-
-	ParticleObject toParticleObject(const float divideLength);
-
-private:
-	Joint* origin;
-	Joint* dest;
-};
 
 class Actor
 {
