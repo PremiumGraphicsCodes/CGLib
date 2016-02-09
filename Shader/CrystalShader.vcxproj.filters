@@ -48,6 +48,9 @@
     <ClCompile Include="LegacyPointRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
+    <ClCompile Include="LegacyVolumeRenderer.cpp">
+      <Filter>Legacy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -98,6 +101,9 @@
       <Filter>Legacy</Filter>
     </ClInclude>
     <ClInclude Include="LegacyPointRenderer.h">
+      <Filter>Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyVolumeRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
   </ItemGroup>

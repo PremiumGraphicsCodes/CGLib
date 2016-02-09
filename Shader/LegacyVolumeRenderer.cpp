@@ -1,10 +1,10 @@
-#include "LegacyPointRenderer.h"
+#include "LegacyVolumeRenderer.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void LegacyPointRenderer::render(ICamera<float>& camera, const PointBuffer& buffer)
+void LegacyVolumeRenderer::render(ICamera<float>& camera, const PointBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getColor().get();
@@ -15,7 +15,11 @@ void LegacyPointRenderer::render(ICamera<float>& camera, const PointBuffer& buff
 	}
 
 	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+
 	glPointSize(10.0f);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
 	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
@@ -42,6 +46,7 @@ void LegacyPointRenderer::render(ICamera<float>& camera, const PointBuffer& buff
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 
+	glDisable(GL_BLEND);
 	glDisable(GL_DEPTH_TEST);
 
 }

@@ -150,6 +150,7 @@
     <ClCompile Include="LegacyPointRenderer.cpp" />
     <ClCompile Include="LegacySelectionRenderer.cpp" />
     <ClCompile Include="LegacyTriangleRenderer.cpp" />
+    <ClCompile Include="LegacyVolumeRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="BillBoardRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="LegacyPointRenderer.h" />
     <ClInclude Include="LegacySelectionRenderer.h" />
     <ClInclude Include="LegacyTriangleRenderer.h" />
+    <ClInclude Include="LegacyVolumeRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="NullRenderer.h" />
     <ClInclude Include="BillBoardRenderer.h" />
