@@ -59,47 +59,6 @@ ParticleObject::~ParticleObject()
 
 #include "MarchingCube.h"
 
-/*
-PolygonObject* ParticleObject::toPolygonObject() const
-{
-	const auto bb = getBoundingBox();
-	const Space3d<float> space(bb.getMin(), bb.getLength());
-	MarchingCube mc;
-	MCVolume 
-	mc.march(space, )
-}
-*/
-
-namespace {
-	/*
-
-	int toHash(const Vector3d<float>& pos)
-	{
-		const int p1 = 73856093;
-		const int p2 = 19349663;
-		const int p3 = 83492791;
-		const int hashTableSize = 10000;
-		const int x = static_cast<int>(pos.getX() * p1);
-		const int y = static_cast<int>(pos.getY() * p2);
-		const int z = static_cast<int>(pos.getZ() * p3);
-		return  (x^y^z) % hashTableSize;
-	}
-
-	bool comp(Particle* v1, Particle* v2)
-	{
-		return toHash(v1->getPosition()->getVector()) < toHash(v2->getPosition()->getVector());
-	}
-
-	bool isSame(Vertex* v1, Vertex* v2)
-	{
-		if (v1->position == v2->position) {
-			return true;
-		}
-		return false;
-	}
-	*/
-}
-
 void ParticleObject::sort()
 {
 	std::sort(particles.begin(), particles.end());
@@ -134,14 +93,12 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 	return results;
 }
 
-namespace {
+#include "../Physics/SPHKernel.h"
 
+namespace {
+	Crystal::Physics::SPHKernel<float> kernel;
 	float getPoly6Kernel(const float distance, const float effectLength) {
-		assert(distance < effectLength);
-		const auto poly6Constant = 315.0f / (64.0f * Tolerance<float>::getPI() * pow(effectLength, 9));
-		const auto result = poly6Constant * pow(effectLength * effectLength - distance * distance, 3);
-		assert(result > 0.0);
-		return result;
+		return kernel.getPoly6Kernel(distance, effectLength);
 	}
 }
 

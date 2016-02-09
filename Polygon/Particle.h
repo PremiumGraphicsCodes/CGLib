@@ -20,6 +20,8 @@ public:
 		density(density)
 	{}
 
+	Particle createBlended(const Particle& rhs, const float ratio) const;
+
 	Math::Vector3d<float> getPosition() const { return position; }
 
 	Math::Box<float> getBoundingBox() const;

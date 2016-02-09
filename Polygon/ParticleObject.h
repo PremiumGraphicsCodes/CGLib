@@ -38,14 +38,6 @@ public:
 
 	Math::Box<float> getBoundingBox() const;
 
-	//PolygonObject* toPolygonObject() const;
-
-	//void add(const ParticleObject& rhs);
-
-	//void sub(const ParticleObject& rhs);
-
-	//float getDiameter() const { return radius * 2.0f; }
-
 	std::vector<Particle*> getParticles() const { return particles; }
 
 	MCVolume toVolume(const int hashTableSize) const;
