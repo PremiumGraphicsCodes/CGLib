@@ -9,11 +9,11 @@ using GeomType = float;
 
 TEST(NeighborSearchAlgoTest, Test)
 {
-	const auto particle1 = std::make_shared<Particle<GeomType> >(Vector3d<GeomType>(0.0, 0.0, 0.0));
-	const auto particle2 = std::make_shared<Particle<GeomType> >(Vector3d<GeomType>(1.0, 0.0, 0.0));
-	const ParticleSPtrVector<GeomType> particles{
-		particle1,
-		particle2,
+	Particle particle1(Vector3d<GeomType>(0.0, 0.0, 0.0));
+	Particle particle2(Vector3d<GeomType>(1.0, 0.0, 0.0));
+	const std::vector<Particle*> particles{
+		&particle1,
+		&particle2,
 	};
 
 	{

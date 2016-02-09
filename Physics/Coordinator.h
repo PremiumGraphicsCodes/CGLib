@@ -22,7 +22,7 @@ public:
 
 	virtual ~Coordinator(){}
 
-	virtual void coordinate( const ParticleSPtrVector<float>& particles ) = 0;
+	virtual void coordinate( const std::vector<Particle*>& particles ) = 0;
 };
 
 using CoordinatorSPtr = std::shared_ptr < Coordinator > ;
@@ -36,7 +36,7 @@ public:
 	{
 	}
 	
-	virtual void coordinate(const ParticleSPtrVector<float>& particles) override {
+	virtual void coordinate(const std::vector<Particle*>& particles) override {
 		for (const auto& particle : particles) {
 			const auto& accelaration = particle->getAccelaration();//particle->variable.force / particle->variable.density;
 			particle->addVelocity(accelaration * timeStep);
@@ -59,7 +59,7 @@ public:
 		timeStep( timeStep )
 	{}
 
-	virtual void coordinate(const ParticleSPtrVector<float>& particles) override {
+	virtual void coordinate(const std::vector<Particle*>& particles) override {
 		for (const auto& particle : particles) {
 			particle->addForce(force * particle->getDensity());
 		}

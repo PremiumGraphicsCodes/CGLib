@@ -17,7 +17,7 @@ public:
 
 	~RigidCoordinator(void){};
 
-	virtual void coordinate(const ParticleSPtrVector<float>& particles) override {
+	virtual void coordinate(const std::vector<Particle*>& particles) override {
 		const Math::Vector3d<float>& objectCenter = getCenter(particles);
 		const Math::Vector3d<float>& velocityAverage = getAverageVelosity(particles);
 
@@ -88,7 +88,7 @@ private:
 	Math::Vector3d<float> angleVelosity;
 	float proceedTime;
 
-	void convertToFluidForce(const ParticleSPtrVector<float>& particles) {
+	void convertToFluidForce(const std::vector<Particle*>& particles) {
 		Math::Vector3d<float> totalForce(0.0, 0.0, 0.0);
 		for (const auto& p : particles) {
 			totalForce += p->getForce() * p->getVolume();
@@ -101,7 +101,7 @@ private:
 	}
 
 
-	Math::Vector3d<float> getAverageVelosity(const ParticleSPtrVector<float>& particles) {
+	Math::Vector3d<float> getAverageVelosity(const std::vector<Particle*>& particles) {
 		Math::Vector3d<float> averageVelosity(0.0, 0.0, 0.0);
 		for (const auto& p : particles) {
 			averageVelosity += p->getVelocity();// variable.velocity;
@@ -110,7 +110,7 @@ private:
 	}
 
 
-	Math::Vector3d<float> getCenter(const ParticleSPtrVector<float>& particles){
+	Math::Vector3d<float> getCenter(const std::vector<Particle*>& particles){
 		if (particles.empty()) {
 			return Math::Vector3d<float>(0.0, 0.0, 0.0);
 		}
@@ -123,7 +123,7 @@ private:
 
 
 
-	float getWeight(const ParticleSPtrVector<float>& particles) {
+	float getWeight(const std::vector<Particle*>& particles) {
 		auto weight = 0.0f;
 		for (const auto& particle : particles) {
 			weight += particle->getMass();

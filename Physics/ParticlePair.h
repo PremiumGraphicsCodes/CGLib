@@ -15,7 +15,7 @@ public:
 		particle2( nullptr )
 	{}
 
-	ParticlePair(const ParticleSPtr<T>& particle1, const ParticleSPtr<T>& particle2) :
+	ParticlePair(Particle* particle1, Particle* particle2) :
 		particle1(particle1),
 		particle2(particle2)
 	{
@@ -52,13 +52,13 @@ public:
 			particle1 != particle2;
 	}
 
-	ParticleSPtr<T> getParticle1() const { return particle1; }
+	Particle* getParticle1() const { return particle1; }
 
-	ParticleSPtr<T> getParticle2() const { return particle2; }
+	Particle* getParticle2() const { return particle2; }
 
 private:
-	ParticleSPtr<T> particle1;
-	ParticleSPtr<T> particle2;
+	Particle* particle1;
+	Particle* particle2;
 };
 
 using ParticlePairVector = std::vector<ParticlePair<float> >;

@@ -11,12 +11,12 @@ class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const ParticleSPtrVector<GeomType>& particles ) :
+	PhysicsObject(const std::vector<Particle*>& particles ) :
 		particles(particles)
 	{}
 
 
-	PhysicsObject( const ParticleSPtrVector<GeomType>& particles, const CoordinatorSPtrVector& coordinators ) :
+	PhysicsObject( const std::vector<Particle*>& particles, const CoordinatorSPtrVector& coordinators ) :
 		particles( particles ),
 		coordinators( coordinators )
 	{}
@@ -31,7 +31,7 @@ public:
 		}
 	}
 
-	ParticleSPtrVector<GeomType> getParticles() const { return particles; }
+	std::vector<Particle*> getParticles() const { return particles; }
 
 	float getMass() const {
 		auto weight = 0.0f;
@@ -56,7 +56,7 @@ public:
 
 
 private:
-	ParticleSPtrVector<GeomType> particles;
+	std::vector<Particle*> particles;
 	CoordinatorSPtrVector coordinators;
 };
 
