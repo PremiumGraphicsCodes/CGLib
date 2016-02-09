@@ -40,6 +40,12 @@ public:
 
 	bool isCollided(const Particle& rhs);
 
+	bool equals(const Particle& rhs) const;
+
+	bool operator==(const Particle& rhs) const;
+
+	bool operator!=(const Particle& rhs) const;
+
 private:
 	Math::Vector3d<float> position;
 	float density;

@@ -20,6 +20,13 @@ float Bone::getLength() const
 
 std::vector<Particle> Bone::toParticles(const float divideLength)
 {
+	const float length = this->getLength();
 	std::vector<Particle> particles;
+	const Particle originParticle = origin->toParticle();
+	const Particle destParticle = dest->toParticle();
+	for (float l = 0.0f; l <= length; l += divideLength) {
+		const float ratio = l / length;
+		particles.emplace_back( originParticle.createBlended(destParticle, ratio) );
+	}
 	return particles;
 }
