@@ -28,7 +28,6 @@
     <ClCompile Include="RigidCoordinatorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Physics\BoundaryCoordinator.h" />
     <ClInclude Include="..\Physics\Coordinator.h" />
     <ClInclude Include="..\Physics\PhysicsObject.h" />
     <ClInclude Include="..\Physics\PhysicsParticleFindAlgo.h" />
