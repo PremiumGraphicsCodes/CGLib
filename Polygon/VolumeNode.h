@@ -17,7 +17,7 @@ public:
 
 	Math::Vector3d<float> getInterpolatedPosition(const float v, const VolumeNode& rhs) const;
 
-	Particle toParticle(const float radius);
+	Particle toParticle(const float radius) const;
 
 private:
 	Math::Vector3d<float> pos;

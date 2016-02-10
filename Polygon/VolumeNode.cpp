@@ -21,7 +21,7 @@ Vector3d<float> VolumeNode::getInterpolatedPosition(const float v, const VolumeN
 	return this->pos + scale * (rhs.pos - this->pos);
 }
 
-Particle VolumeNode::toParticle(const float radius)
+Particle VolumeNode::toParticle(const float radius) const
 {
 	return Particle(this->pos, this->value, radius);
 }
