@@ -43,27 +43,15 @@ struct PMDVertex
 	bool write(std::ostream& stream);
 };
 
-class PMDVertices
+
+class PMDMaterial
 {
-public:
-	bool read(std::istream& stream);
-
-	bool write(std::ostream& stream);
-
-	int vertexCount;
-	std::vector<PMDVertex> vertices;
 
 };
 
-struct PMDFaces
+class PMDMaterials
 {
-public:
-	bool read(std::istream& stream);
-
-	bool write(std::ostream& stream);
-
-	int vertexCount;
-	std::vector<int> vertexIndices;
+	int materialCount;
 };
 
 enum class PMDBoneType
@@ -82,12 +70,24 @@ enum class PMDBoneType
 
 struct PMDBone
 {
-	char name[20];
+	std::string name;
 	unsigned short parentBoneIndex;
 	unsigned short tailBoneIndex;
 	char type;
 	unsigned short ikParentBoneIndex;
-	float boneHeadPos[3];
+	Math::Vector3d<float> boneHeadPos;
+
+	bool read(std::istream& stream);
+};
+
+class PMDBones
+{
+public:
+	bool read(std::istream& stream);
+
+private:
+	unsigned short boneCount;
+	std::vector<PMDBone> bones;
 };
 
 class PMDFile
@@ -95,11 +95,13 @@ class PMDFile
 public:
 	PMDFile() {};
 
+	/*
 	PMDFile(const PMDHeader& header,const PMDVertices& vertices, const PMDFaces& faces) :
 		header(header),
 		vertices(vertices),
 		faces(faces)
 	{}
+	*/
 
 	bool read(const std::string& filename);
 
@@ -107,8 +109,8 @@ public:
 
 private:
 	PMDHeader header;
-	PMDVertices vertices;
-	PMDFaces faces;
+	std::vector<PMDVertex> vertices;
+	std::vector<unsigned short> vIndices;
 };
 	}
 }

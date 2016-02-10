@@ -1,7 +1,7 @@
 #include "LineBuffer.h"
 
 #include "../Polygon/PolygonObject.h"
-#include "../Polygon/Actor.h"
+#include "../Polygon/ActorObject.h"
 #include "../Polygon/Bone.h"
 
 using namespace Crystal::Math;

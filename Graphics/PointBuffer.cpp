@@ -2,7 +2,7 @@
 #include "../Polygon/PolygonObject.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/Particle.h"
-#include "../Polygon/Actor.h"
+#include "../Polygon/ActorObject.h"
 #include "../Polygon/Joint.h"
 
 using namespace Crystal::Graphics;

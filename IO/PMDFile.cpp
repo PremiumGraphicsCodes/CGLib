@@ -95,33 +95,39 @@ bool PMDVertex::write(std::ostream& stream)
 	return false;
 }
 
-bool PMDVertices::read(std::istream& stream)
-{
-	stream.read((char*)&vertexCount, sizeof(vertexCount));
-	for (auto i = 0; i < vertexCount; ++i) {
-		PMDVertex vertex;
-		vertex.read(stream);
-		vertices.emplace_back(vertex);
-	}
 
+bool PMDBone::read(std::istream& stream)
+{
+	char name[20];
+	stream.read(name, 20);
+	this->name = name;
+	stream.read((char*)&parentBoneIndex, sizeof(parentBoneIndex));
+	stream.read((char*)&tailBoneIndex, sizeof(tailBoneIndex));
+	stream.read((char*)&type, sizeof(type));
+	stream.read((char*)&ikParentBoneIndex, sizeof(ikParentBoneIndex));
+
+	float posx = 0.0f;
+	stream.read((char*)&posx, sizeof(float));
+	float posy = 0.0f;
+	stream.read((char*)&posy, sizeof(float));
+	float posz = 0.0f;
+	stream.read((char*)&posz, sizeof(float));
+	this->boneHeadPos = Vector3d<float>(posx, posy, posz);
 	return stream.good();
 }
 
-
-bool PMDFaces::read(std::istream& stream)
+bool PMDBones::read(std::istream& stream)
 {
-	stream.read((char*)&vertexCount, sizeof(vertexCount));
-	for (auto i = 0; i < vertexCount; ++i) {
-		unsigned short vindex = 0;
-		stream.read((char*)&vindex, sizeof(vindex));
-		this->vertexIndices.push_back(vindex);
-		//PMDVertex vertex;
-		//vertex.read(stream);
-		//vertices.emplace_back(vertex);
+	stream.read((char*)&boneCount, sizeof(boneCount));
+	for (auto i = 0; i < boneCount; ++i) {
+		PMDBone bone;
+		bone.read(stream);
+		bones.emplace_back(bone);
 	}
-	return stream.good();
-}
 
+	return stream.good();
+
+}
 
 #include <fstream>
 
@@ -129,8 +135,22 @@ bool PMDFile::read(const std::string& filename)
 {
 	std::ifstream stream(filename, std::ios::binary);
 	header.read(stream);
-	vertices.read(stream);
-	faces.read(stream);
+	int vertexCount = 0;
+	stream.read((char*)&vertexCount, sizeof(vertexCount));
+	for (auto i = 0; i < vertexCount; ++i) {
+		PMDVertex vertex;
+		vertex.read(stream);
+		vertices.emplace_back(vertex);
+	}
+
+	stream.read((char*)&vertexCount, sizeof(vertexCount));
+	for (auto i = 0; i < vertexCount; ++i) {
+		unsigned short vindex = 0;
+		stream.read((char*)&vindex, sizeof(vindex));
+		vIndices.push_back(vindex);
+	}
+
+	//bones.read(stream);
 
 	return stream.good();
 }
@@ -142,13 +162,13 @@ using namespace Crystal::Polygon;
 PolygonObject* PMDFile::toPolygonObject() const
 {
 	PolygonObject* object = new PolygonObject();
-	auto vs = this->vertices.vertices;
+	auto vs = this->vertices;
 	for (int i = 0; i < vs.size(); ++i ) {
 		auto p = object->createPosition(vs[i].pos);
 		auto n = object->createNormal(vs[i].normal);
 		object->createVertex(p, n);
 	}
-	auto is = this->faces.vertexIndices;
+	auto is = this->vIndices;
 	for (int i = 0; i < is.size(); i+=3 ) {
 		object->createFace(is[i], is[i + 1], is[i + 2]);
 	}
