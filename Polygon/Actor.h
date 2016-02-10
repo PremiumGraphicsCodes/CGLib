@@ -13,13 +13,13 @@ namespace Crystal {
 		class Bone;
 
 
-class Actor
+class ActorObject
 {
 public:
-	Actor()
+	ActorObject()
 	{}
 
-	~Actor() {
+	~ActorObject() {
 		clear();
 	}
 
@@ -28,6 +28,10 @@ public:
 	Joint* createJoint(const Math::Vector3d<float>& pos, const float radius, const float thickness);
 
 	Bone* createBone(Joint* j1, Joint* j2);
+
+	std::list<Bone*> getBones() const { return bones; }
+
+	std::list<Joint*> getJoints() const { return joints; }
 
 	//ParticleObject toParticleObject();
 

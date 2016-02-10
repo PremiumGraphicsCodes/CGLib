@@ -1,5 +1,9 @@
 #include "LineBuffer.h"
 
+#include "../Polygon/PolygonObject.h"
+#include "../Polygon/Actor.h"
+#include "../Polygon/Bone.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 using namespace Crystal::Graphics;
@@ -21,6 +25,14 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 	this->ids.push_back(this->ids.size());
 	this->ids.push_back(this->ids.size());
 }
+
+void LineBuffer::add(const ActorObject& actor)
+{
+	for (auto b : actor.getBones()) {
+		add( b->toLine(), ColorRGBA<float>(1.0f, 1.0f, 1.0f, 1.0f));
+	}
+}
+
 
 void LineBuffer::add(const PolygonObject& polygon)
 {

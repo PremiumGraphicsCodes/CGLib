@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../Math/Vector3d.h"
+#include "../Math/Line3d.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -19,6 +20,8 @@ public:
 	std::vector<float> toValues(const int howMany) const;
 
 	float getLength() const;
+
+	Math::Line3d<float> toLine() const;
 
 	std::vector<Particle> toParticles(const float divideLength);
 

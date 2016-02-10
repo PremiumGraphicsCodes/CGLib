@@ -14,9 +14,14 @@ Bone::Bone(Joint* origin, Joint* dest) :
 
 float Bone::getLength() const
 {
-	Line3d<float> line(origin->getPosition(), dest->getPosition());
-	return line.getLength();
+	return toLine().getLength();
 }
+
+Line3d<float> Bone::toLine() const
+{
+	return Line3d<float>(origin->getPosition(), dest->getPosition());
+}
+
 
 std::vector<Particle> Bone::toParticles(const float divideLength)
 {

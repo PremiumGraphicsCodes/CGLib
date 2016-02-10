@@ -5,9 +5,14 @@
 #include "Buffer1d.h"
 #include "Buffer4d.h"
 
-#include "../Polygon/ParticleObject.h"
-
 namespace Crystal {
+	namespace Polygon {
+		class PointObject;
+		class Particle;
+		class ParticleObject;
+		class ActorObject;
+		class Joint;
+	}
 	namespace Graphics {
 
 class Point
@@ -21,6 +26,8 @@ public:
 	{}
 
 	Point(const Polygon::Particle& particle, const unsigned int id);
+
+	Point(const Polygon::Joint& joint, const unsigned int id);
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
@@ -49,6 +56,8 @@ public:
 	void add(const Point& point);
 
 	void add(const Polygon::ParticleObject& object);
+
+	void add(const Polygon::ActorObject& actor);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 

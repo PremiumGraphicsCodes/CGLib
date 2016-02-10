@@ -9,6 +9,10 @@
 #include "../Polygon/PolygonObject.h"
 
 namespace Crystal {
+	namespace Polygon {
+		class PolygonObject;
+		class ActorObject;
+	}
 	namespace Graphics {
 
 struct LineBuffer
@@ -16,6 +20,9 @@ struct LineBuffer
 	void clear();
 
 	void add(const Polygon::PolygonObject& polygon);
+
+	void add(const Polygon::ActorObject& actor);
+
 
 	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color);
 

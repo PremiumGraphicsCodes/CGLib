@@ -1,5 +1,9 @@
 #include "PointBuffer.h"
+#include "../Polygon/PolygonObject.h"
+#include "../Polygon/ParticleObject.h"
 #include "../Polygon/Particle.h"
+#include "../Polygon/Actor.h"
+#include "../Polygon/Joint.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
@@ -11,6 +15,15 @@ Point::Point(const Particle& particle, const unsigned int id)
 	size = particle.getDiameter();
 	this->id = id;
 }
+
+Point::Point(const Joint& joint, const unsigned int id)
+{
+	position = joint.getPosition();
+	color = ColorRGBA<float>(1.0, 1.0, 1.0, 1.0f);
+	size = 1.0f;//joint.getDiameter();
+	this->id = id;
+}
+
 
 PointBuffer::PointBuffer(const ParticleObject& object)
 {
@@ -25,6 +38,15 @@ void PointBuffer::add(const ParticleObject& object)
 	}
 
 }
+
+void PointBuffer::add(const ActorObject& actor)
+{
+	const auto joints = actor.getJoints();
+	for (auto& j : joints) {
+		add(Point(*j, ids.size()));
+	}
+}
+
 
 
 void PointBuffer::clear()
