@@ -39,21 +39,29 @@ struct PMDVertex
 	bool write(std::ostream& stream);
 };
 
-struct PMDVertices
+class PMDVertices
 {
-	int vertexCount;
-	std::vector<PMDVertex> vertices;
-
+public:
 	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream);
+
+private:
+	int vertexCount;
+	std::vector<PMDVertex> vertices;
 
 };
 
 struct PMDFaces
 {
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
+private:
 	int vertexCount;
-	std::vector<unsigned short> vertexIndices;
+	std::vector<int> vertexIndices;
 };
 
 enum class PMDBoneType
@@ -88,6 +96,7 @@ public:
 private:
 	PMDHeader header;
 	PMDVertices vertices;
+	PMDFaces faces;
 };
 	}
 }

@@ -108,6 +108,21 @@ bool PMDVertices::read(std::istream& stream)
 }
 
 
+bool PMDFaces::read(std::istream& stream)
+{
+	stream.read((char*)&vertexCount, sizeof(vertexCount));
+	for (auto i = 0; i < vertexCount; ++i) {
+		unsigned short vindex = 0;
+		stream.read((char*)&vindex, sizeof(vindex));
+		this->vertexIndices.push_back(vindex);
+		//PMDVertex vertex;
+		//vertex.read(stream);
+		//vertices.emplace_back(vertex);
+	}
+	return stream.good();
+}
+
+
 #include <fstream>
 
 bool PMDFile::read(const std::string& filename)
@@ -115,6 +130,7 @@ bool PMDFile::read(const std::string& filename)
 	std::ifstream stream(filename, std::ios::binary);
 	header.read(stream);
 	vertices.read(stream);
+	faces.read(stream);
 
 	return stream.good();
 }
