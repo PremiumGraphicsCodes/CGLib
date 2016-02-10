@@ -134,3 +134,23 @@ bool PMDFile::read(const std::string& filename)
 
 	return stream.good();
 }
+
+#include "../Polygon/PolygonObject.h"
+
+using namespace Crystal::Polygon;
+
+PolygonObject* PMDFile::toPolygonObject() const
+{
+	PolygonObject* object = new PolygonObject();
+	auto vs = this->vertices.vertices;
+	for (int i = 0; i < vs.size(); ++i ) {
+		auto p = object->createPosition(vs[i].pos);
+		auto n = object->createNormal(vs[i].normal);
+		object->createVertex(p, n);
+	}
+	auto is = this->faces.vertexIndices;
+	for (int i = 0; i < is.size(); i+=3 ) {
+		object->createFace(is[i], is[i + 1], is[i + 2]);
+	}
+	return object;
+}

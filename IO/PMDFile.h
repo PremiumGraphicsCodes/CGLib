@@ -5,7 +5,11 @@
 #include "../Math/Vector3d.h"
 
 namespace Crystal {
+	namespace Polygon {
+		class PolygonObject;
+	}
 	namespace IO {
+
 
 struct PMDHeader
 {
@@ -46,7 +50,6 @@ public:
 
 	bool write(std::ostream& stream);
 
-private:
 	int vertexCount;
 	std::vector<PMDVertex> vertices;
 
@@ -59,7 +62,6 @@ public:
 
 	bool write(std::ostream& stream);
 
-private:
 	int vertexCount;
 	std::vector<int> vertexIndices;
 };
@@ -91,7 +93,17 @@ struct PMDBone
 class PMDFile
 {
 public:
+	PMDFile() {};
+
+	PMDFile(const PMDHeader& header,const PMDVertices& vertices, const PMDFaces& faces) :
+		header(header),
+		vertices(vertices),
+		faces(faces)
+	{}
+
 	bool read(const std::string& filename);
+
+	Polygon::PolygonObject* toPolygonObject() const;
 
 private:
 	PMDHeader header;

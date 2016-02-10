@@ -14,3 +14,13 @@ TEST(PMDFileTest, TestWriteHeader)
 	//auto actual = stream.str();
 
 }
+
+TEST(PMDFileTest, TestToPolygonObject)
+{
+	PMDHeader header;
+	PMDVertices vertices;
+	PMDFaces faces;
+	PMDFile file(header, vertices, faces);
+	auto polygon = file.toPolygonObject();
+	delete polygon;
+}
