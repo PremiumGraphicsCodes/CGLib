@@ -38,7 +38,7 @@ void LineBuffer::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		this->position.add(v->getPosition()->getVector());
+		this->position.add(v->getPosition());
 		this->color.add(ColorRGBA<float>(1.0, 1.0, 0.0, 1.0));
 	}
 	const auto faces = polygon.getFaces();

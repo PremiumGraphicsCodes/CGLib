@@ -12,6 +12,7 @@ namespace Crystal {
 class Vertex;
 class Face;
 
+/*
 class VectorId
 {
 public:
@@ -71,30 +72,28 @@ private:
 	std::vector<VectorId*> positions;
 	int nextId;
 };
+*/
 
 class Vertex
 {
 public:
-	Vertex() :
-		position(nullptr),
-		normal(nullptr),
-		texCoord(nullptr),
-		id(-1)
+	Vertex(const unsigned int id) :
+		id(id)
 	{}
 
-	int id;
 
-	VectorId* getPosition() { return position; }
+	Math::Vector3d<float> getPosition() { return position; }
 
-	VectorId* getNormal() { return normal; }
+	Math::Vector3d<float> getNormal() { return normal; }
 
-	VectorId* getNormal() const { return normal; }
+	Math::Vector3d<float> getNormal() const { return normal; }
 
-	int getId() const { return id; }
+	Math::Vector3d<float> position;
+	Math::Vector3d<float> normal;
+	Math::Vector3d<float> texCoord;
 
-	VectorId* position;
-	VectorId* normal;
-	VectorId* texCoord;
+	unsigned int getId() const { return id; }
+	unsigned int id;
 	Face* f;
 };
 
@@ -110,7 +109,7 @@ public:
 		nextId(0)
 	{}
 
-	Vertex* create(VectorId* position, VectorId* normal = nullptr, VectorId* texCoord = nullptr);
+	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
 
 	~VertexCollection() {
 	}
@@ -145,7 +144,7 @@ public:
 
 private:
 	std::vector<Vertex*> vertices;
-	int nextId;
+	unsigned int nextId;
 };
 
 	}

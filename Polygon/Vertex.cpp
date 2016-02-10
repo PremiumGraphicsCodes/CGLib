@@ -19,7 +19,7 @@ namespace {
 
 	bool comp(Vertex* v1, Vertex* v2)
 	{
-		return toHash(v1->getPosition()->getVector()) < toHash(v2->getPosition()->getVector());
+		return toHash(v1->getPosition()) < toHash(v2->getPosition());
 	}
 
 	bool isSame(Vertex* v1, Vertex* v2)
@@ -47,13 +47,12 @@ void VertexCollection::sort()
 	vertices = std::vector<Vertex*>(vlist.begin(), vlist.end());
 }
 
-Vertex* VertexCollection::create(VectorId* position, VectorId* normal, VectorId* texCoord)
+Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
 {
-	auto v = new Vertex();
+	auto v = new Vertex(nextId++);
 	v->position = position;
 	v->normal = normal;
 	v->texCoord = texCoord;
-	v->id = nextId++;
 	vertices.push_back(v);
 	return v;
 }

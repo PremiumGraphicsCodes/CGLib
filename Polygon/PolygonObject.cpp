@@ -13,27 +13,14 @@ PolygonObject::~PolygonObject()
 	clear();
 }
 
-VectorId* PolygonObject::createPosition(const Vector3d<float>& position)
-{
-	return positions.create(position);
-}
 
-VectorId* PolygonObject::createNormal(const Vector3d<float>& normal)
-{
-	return normals.create(normal);
-}
-
-VectorId* PolygonObject::createTexCoord(const Vector3d<float>& texCoord)
-{
-	return texCoords.create(texCoord);
-}
-
-Vertex* PolygonObject::createVertex(VectorId* position, VectorId* normal, VectorId* texCoord)
+Vertex* PolygonObject::createVertex(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
 {
 	return vertices.create(position, normal, texCoord);
 }
 
-Vertex* PolygonObject::createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex)
+/*
+Vertex* PolygonObject::createVertexFromIndices(const int index)
 {
 	auto p = positions.get(positionIndex);
 	VectorId* n = nullptr;
@@ -46,7 +33,7 @@ Vertex* PolygonObject::createVertexFromIndices(const int positionIndex, const in
 	}
 	return vertices.create(p, n, t);
 }
-
+*/
 
 
 Face* PolygonObject::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
@@ -92,10 +79,10 @@ std::list< Face* > PolygonObject::createFaces(const std::vector<Vertex*>& vertic
 
 void PolygonObject::add(const Triangle<float>& triangle)
 {
-	auto n = createNormal( triangle.getNormal() );
-	auto p1 = createPosition(triangle.getv0());
-	auto p2 = createPosition(triangle.getv1());
-	auto p3 = createPosition(triangle.getv2());
+	auto n = triangle.getNormal();
+	auto p1 = triangle.getv0();
+	auto p2 = triangle.getv1();
+	auto p3 = triangle.getv2();
 
 	auto v1 = vertices.create( p1, n );
 	auto v2 = vertices.create( p2, n );
@@ -108,11 +95,11 @@ void PolygonObject::add(const Triangle<float>& triangle)
 
 void PolygonObject::add(const Quad<float>& quad)
 {
-	auto n = createNormal(quad.getNormal());
-	auto p1 = createPosition(quad.getPositions()[0]);
-	auto p2 = createPosition(quad.getPositions()[1]);
-	auto p3 = createPosition(quad.getPositions()[2]);
-	auto p4 = createPosition(quad.getPositions()[3]);
+	auto n = quad.getNormal();
+	auto p1 = quad.getPositions()[0];
+	auto p2 = quad.getPositions()[1];
+	auto p3 = quad.getPositions()[2];
+	auto p4 = quad.getPositions()[3];
 
 	auto v1 = vertices.create(p1, n);
 	auto v2 = vertices.create(p2, n);
@@ -125,9 +112,9 @@ void PolygonObject::add(const Quad<float>& quad)
 
 void PolygonObject::clear()
 {
-	positions.clear();
-	normals.clear();
-	texCoords.clear();
+	//positions.clear();
+	//normals.clear();
+	//texCoords.clear();
 	vertices.clear();
 	faces.clear();
 }

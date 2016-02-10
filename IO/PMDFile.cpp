@@ -164,9 +164,7 @@ PolygonObject* PMDFile::toPolygonObject() const
 	PolygonObject* object = new PolygonObject();
 	auto vs = this->vertices;
 	for (int i = 0; i < vs.size(); ++i ) {
-		auto p = object->createPosition(vs[i].pos);
-		auto n = object->createNormal(vs[i].normal);
-		object->createVertex(p, n);
+		object->createVertex(vs[i].pos, vs[i].normal);
 	}
 	auto is = this->vIndices;
 	for (int i = 0; i < is.size(); i+=3 ) {

@@ -81,6 +81,8 @@ void OBJGroup::add(const TriangleMesh& mesh)
 PolygonObject* OBJGroup::createPolygon()
 {
 	PolygonObject* mesh = new PolygonObject();
+	/*
+
 	for (const auto p : positionBuffer) {
 		mesh->createPosition(p);
 	}
@@ -100,6 +102,7 @@ PolygonObject* OBJGroup::createPolygon()
 		}
 		mesh->createFaces(vv);
 	}
+	*/
 	return mesh;
 }
 
@@ -260,14 +263,14 @@ bool OBJFileWriter::write(std::ostream& stream, const PolygonObject& mesh)
 
 	//for (const auto& v : positions) {
 	for (int i = 0; i < positions.size(); ++i) {
-		const auto pos = positions.get(i)->getVector();
+		const auto pos = positions[i];
 		char s[256];
 		sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
 		stream << s << std::endl;
 	}
 
 	for (int i = 0; i < normals.size(); ++i ){
-		const auto vn = normals.get(i)->getVector();
+		const auto vn = normals[i];
 		char s[256];
 		sprintf(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
 		stream << s << std::endl;

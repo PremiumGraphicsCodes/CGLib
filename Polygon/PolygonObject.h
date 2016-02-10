@@ -33,15 +33,9 @@ public:
 
 	void removeOverlappedVertices() { vertices.sort(); }
 
-	VectorId* createPosition(const Math::Vector3d<float>& position);
+	Vertex* createVertex(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
 
-	VectorId* createNormal(const Math::Vector3d<float>& normal);
-
-	VectorId* createTexCoord(const Math::Vector3d<float>& texCoord);
-
-	Vertex* createVertex(VectorId* position, VectorId* normal = nullptr, VectorId* texCoord = nullptr);
-
-	Vertex* createVertexFromIndices(const int positionIndex, const int normalIndex, const int texIndex);
+	//Vertex* createVertexFromIndices(const int index);
 
 	//void addVertex(Vertex* v) { this->vertices.push_back(v); }
 
@@ -55,11 +49,23 @@ public:
 
 	VertexCollection getVertices() const { return vertices; }
 
-	VectorIdCollection getPositions() const{ return positions; }
+	std::vector<Math::Vector3d<float>> getPositions() const{
+		std::vector<Math::Vector3d<float>> positions;
+		for (auto p : vertices) {
+			positions.push_back(p->getPosition());
+		}
+		return positions;
+	}
 
-	VectorIdCollection getNormals() const { return positions; }
+	std::vector<Math::Vector3d<float>> getNormals() const {
+		std::vector<Math::Vector3d<float>> positions;
+		for (auto p : vertices) {
+			positions.push_back(p->getNormal());
+		}
+		return positions;
+	}
 
-	VectorIdCollection getTexCoords() const { return texCoords; }
+	//std::vector<Math::Vector3d<float>> getTexCoords() const { return texCoords; }
 
 	FaceCollection getFaces() const { return faces; }
 
@@ -68,9 +74,6 @@ public:
 private:
 	unsigned int nextIndexId;
 	VertexCollection vertices;
-	VectorIdCollection positions;
-	VectorIdCollection normals;
-	VectorIdCollection texCoords;
 	FaceCollection faces;
 };
 

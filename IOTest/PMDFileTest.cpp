@@ -15,6 +15,7 @@ TEST(PMDFileTest, TestWriteHeader)
 
 }
 
+/*
 TEST(PMDFileTest, TestToPolygonObject)
 {
 	PMDHeader header;
@@ -24,3 +25,4 @@ TEST(PMDFileTest, TestToPolygonObject)
 	auto polygon = file.toPolygonObject();
 	delete polygon;
 }
+*/

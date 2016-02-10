@@ -7,8 +7,8 @@ void TriangleBuffer::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		this->positions.add( v->getPosition()->getVector() );
-		this->normals.add(v->getNormal()->getVector());
+		this->positions.add( v->getPosition() );
+		this->normals.add(v->getNormal());
 	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {
