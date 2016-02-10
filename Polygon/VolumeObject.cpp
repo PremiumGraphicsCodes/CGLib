@@ -61,3 +61,18 @@ std::vector<VolumeNode> VolumeObject::toNodes() const
 	}
 	return nodes;
 }
+
+#include "PolygonObject.h"
+#include "MarchingCube.h"
+
+PolygonObject* VolumeObject::toPolygonObject(const float isolevel) const
+{
+	MarchingCube marchingCube;
+	const auto& triangles = marchingCube.march(*this, isolevel);
+	PolygonObject* newMesh = new PolygonObject();
+	for (const auto& t : triangles) {
+		newMesh->add(t);
+	}
+	newMesh->removeOverlappedVertices();
+	return newMesh;
+}

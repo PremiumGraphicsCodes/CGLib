@@ -8,6 +8,8 @@
 namespace Crystal {
 	namespace Polygon {
 
+class PolygonObject;
+
 class VolumeNode
 {
 public:
@@ -55,6 +57,8 @@ public:
 	Math::Space3d<float> getSpace() const { return space; }
 
 	Math::Grid3d<float> getGrid() const { return grid; }
+
+	PolygonObject* toPolygonObject(const float isolevel) const;
 
 private:
 	const Math::Space3d<float> space;
