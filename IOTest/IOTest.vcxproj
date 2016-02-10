@@ -24,6 +24,7 @@
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
     <ClCompile Include="PLYFileTest.cpp" />
+    <ClCompile Include="PMDFileTest.cpp" />
     <ClCompile Include="POVTest.cpp" />
     <ClCompile Include="STLFileTest.cpp" />
   </ItemGroup>

@@ -8,5 +8,6 @@
     <ClCompile Include="DXFFileTest.cpp" />
     <ClCompile Include="PLYFileTest.cpp" />
     <ClCompile Include="POVTest.cpp" />
+    <ClCompile Include="PMDFileTest.cpp" />
   </ItemGroup>
 </Project>

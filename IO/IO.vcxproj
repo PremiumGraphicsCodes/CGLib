@@ -23,6 +23,7 @@
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
+    <ClCompile Include="PMDFile.cpp" />
     <ClCompile Include="POVFile.cpp" />
     <ClCompile Include="STLFile.cpp" />
   </ItemGroup>
