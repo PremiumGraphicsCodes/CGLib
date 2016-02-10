@@ -8,6 +8,7 @@
 #include "../Math/Grid3d.h"
 #include "../Math/Triangle.h"
 #include "../Util/UnCopyable.h"
+#include "VolumeObject.h"
 #include "MarchingCubeTable.h"
 #include <vector>
 #include <array>
@@ -20,58 +21,8 @@ namespace Crystal {
 
 	namespace Polygon {
 
-class MCNode
-{
-public:
-	MCNode();
-
-	MCNode(const Math::Vector3d<float>& p, const float& v);
-	
-	Math::Vector3d<float> getInterpolatedPosition(const float v, const MCNode& rhs) const;
-	
-private:
-	Math::Vector3d<float> pos;
-	float value;
-};
-
-class MCVolume
-{
-public:
-	MCVolume(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid) :
-		space(space),
-		grid(grid)
-	{}
-
-	std::vector<MCNode> toNodes() const;
-
-	Math::Space3d<float> getSpace() const { return space; }
-
-	Math::Grid3d<float> getGrid() const { return grid; }
-
-private:
-	const Math::Space3d<float> space;
-	const Math::Grid3d<float> grid;
-};
 
 
-class MCCell
-{
-public:
-	MCCell(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
-		space(space),
-		values(values)
-	{}
-
-	Math::Space3d<float> getSpace() const { return space; }
-
-	std::array< float, 8 > getValues() const { return values; }
-
-	std::array< MCNode, 8 > toPositionValues() const;
-
-private:
-	Math::Space3d<float> space;
-	std::array< float, 8> values;
-};
 
 class MarchingCube final : UnCopyable
 {
@@ -85,7 +36,7 @@ public:
 
 	std::vector< Math::Triangle<float> > march(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid, const float isolevel);
 	
-	std::vector< Math::Triangle<float> > march(const MCVolume& volume, const float isolevel);
+	std::vector< Math::Triangle<float> > march(const VolumeObject& volume, const float isolevel);
 
 private:
 	MarchingCubeTable table;

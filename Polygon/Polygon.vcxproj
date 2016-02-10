@@ -30,6 +30,7 @@
     <ClCompile Include="PolygonObject.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="VolumeObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="PolygonObject.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VolumeObject.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D223F7E4-2661-4B1B-8E32-CFB895256E2E}</ProjectGuid>

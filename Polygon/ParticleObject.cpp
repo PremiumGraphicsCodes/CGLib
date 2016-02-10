@@ -104,7 +104,7 @@ namespace {
 
 
 
-MCVolume ParticleObject::toVolume(const int hashTableSize) const
+VolumeObject ParticleObject::toVolume(const int hashTableSize) const
 {
 	const auto effectLength = this->getParticles().front()->getDiameter();
 	const auto dx = effectLength;
@@ -146,7 +146,7 @@ MCVolume ParticleObject::toVolume(const int hashTableSize) const
 			}
 		}
 	}
-	return MCVolume(space, grid);
+	return VolumeObject(space, grid);
 }
 
 

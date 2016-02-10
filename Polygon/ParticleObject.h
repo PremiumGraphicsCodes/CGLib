@@ -10,7 +10,7 @@ namespace Crystal {
 
 class PolygonObject;
 class Particle;
-class MCVolume;
+class VolumeObject;
 
 class ParticleObject
 {
@@ -40,7 +40,7 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	MCVolume toVolume(const int hashTableSize) const;
+	VolumeObject toVolume(const int hashTableSize) const;
 
 private:
 

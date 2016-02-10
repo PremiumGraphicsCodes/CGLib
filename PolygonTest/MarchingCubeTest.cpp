@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 
+#include "../Polygon/VolumeObject.h"
 #include "../Polygon/MarchingCube.h"
 
 using namespace Crystal::Math;
@@ -7,8 +8,8 @@ using namespace Crystal::Polygon;
 
 TEST(PositionValueTest, TestInterpolate)
 {
-	MCNode pv1(Vector3d<float>(0, 0, 0), 0);
-	MCNode pv2(Vector3d<float>(2, 4, 6), 10);
+	VolumeNode pv1(Vector3d<float>(0, 0, 0), 0);
+	VolumeNode pv2(Vector3d<float>(2, 4, 6), 10);
 	const auto& actual = pv1.getInterpolatedPosition(5, pv2);
 	const Vector3d<float> expected(1, 2, 3);
 	EXPECT_EQ(expected, actual);

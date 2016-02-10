@@ -7,20 +7,17 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-MCNode::MCNode() :
-	pos(Vector3d<float>(0, 0, 0)),
-	value(0)
-{}
 
-MCNode::MCNode(const Vector3d<float>& p, const float& v) :
-	pos(p),
-	value(v)
-{}
+//MCVolume::toNodes()
 
-Vector3d<float> MCNode::getInterpolatedPosition(const float v, const MCNode& rhs) const
+std::array< VolumeNode, 8 > MCCell::toPositionValues() const
 {
-	const float scale = static_cast<float> (v - this->value) / static_cast<float>(rhs.value - this->value);
-	return this->pos + scale * (rhs.pos - this->pos);
+	std::array< VolumeNode, 8 > pvs;
+	const auto& positions = space.toArray();
+	for (size_t i = 0; i < 8; ++i) {
+		pvs[i] = VolumeNode(positions[i], values[i]);
+	}
+	return pvs;
 }
 
 namespace {
@@ -33,53 +30,7 @@ namespace {
 	}
 
 
-	MCNode toNode(const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
-	{
-		const auto& lengths = getUnitLengths(space, grid.getSizes());
-		const auto& innerSpace = space.offset(lengths);
-
-		const auto divx = grid.getSizeX() - 1;
-		const auto divy = grid.getSizeY() - 1;
-		const auto divz = grid.getSizeZ() - 1;
-
-		const auto v = grid.toArray8(index[0], index[1], index[2]);
-		const auto s = space.getSubSpace(index, divx, divy, divz);
-		const auto& center = s.getCenter();
-
-		return MCNode(center, grid.get(index.getX(), index.getY(), index.getZ()));
-	}
-}
-
-std::vector<MCNode> MCVolume::toNodes() const
-{
-	std::vector<MCNode> nodes;
-	for (int x = 0; x < grid.getSizeX(); ++x) {
-		for (int y = 0; y < grid.getSizeY(); ++y) {
-			for (int z = 0; z < grid.getSizeZ(); ++z) {
-				nodes.push_back( toNode( space, grid, Index3d(x, y, z)) );
-			}
-		}
-	}
-	return nodes;
-}
-
-
-//MCVolume::toNodes()
-
-std::array< MCNode, 8 > MCCell::toPositionValues() const
-{
-	std::array< MCNode, 8 > pvs;
-	const auto& positions = space.toArray();
-	for (size_t i = 0; i < 8; ++i) {
-		pvs[i] = MCNode(positions[i], values[i]);
-	}
-	return pvs;
-}
-
-namespace {
-
-
-	MCCell toCell( const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
+	MCCell toCell(const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
 	{
 		const auto& lengths = getUnitLengths(space, grid.getSizes());
 		const auto& innerSpace = space.offset(lengths);
@@ -94,7 +45,6 @@ namespace {
 		return MCCell(s, v);
 	}
 }
-
 
 std::vector<Triangle<float> > MarchingCube::march(const Space3d<float>& space, const Grid3d<float>& grid, const float isolevel)
 {
@@ -121,7 +71,7 @@ std::vector<Triangle<float> > MarchingCube::march(const Space3d<float>& space, c
 	return triangles;
 }
 
-std::vector< Triangle<float> > MarchingCube::march(const MCVolume& volume, const float isolevel)
+std::vector< Triangle<float> > MarchingCube::march(const VolumeObject& volume, const float isolevel)
 {
 	return march(volume.getSpace(), volume.getGrid(), isolevel);
 }
