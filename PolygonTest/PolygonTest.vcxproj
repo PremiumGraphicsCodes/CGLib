@@ -28,6 +28,7 @@
     <ClCompile Include="SpaceHashTest.cpp" />
     <ClCompile Include="TriangleMeshTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
+    <ClCompile Include="VolumeNodeTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9414E182-179E-4CF4-8574-BD4DF1781602}</ProjectGuid>

@@ -43,7 +43,7 @@ private:
 
 	int getCubeIndex(const std::array< float, 8 >& val, const float isolevel) const;
 
-	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const MCCell& cell, const float isolevel) const;
+	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const VolumeCell& cell, const float isolevel) const;
 
 };
 

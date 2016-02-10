@@ -5,29 +5,19 @@
 #include "../Math/Space3d.h"
 #include "../Math/Grid3d.h"
 
+#include "VolumeNode.h"
+
 namespace Crystal {
 	namespace Polygon {
 
 class PolygonObject;
+class ParticleObject;
 
-class VolumeNode
+
+class VolumeCell
 {
 public:
-	VolumeNode();
-
-	VolumeNode(const Math::Vector3d<float>& p, const float& v);
-
-	Math::Vector3d<float> getInterpolatedPosition(const float v, const VolumeNode& rhs) const;
-
-private:
-	Math::Vector3d<float> pos;
-	float value;
-};
-
-class MCCell
-{
-public:
-	MCCell(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
+	VolumeCell(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
 		space(space),
 		values(values)
 	{}
@@ -59,6 +49,8 @@ public:
 	Math::Grid3d<float> getGrid() const { return grid; }
 
 	PolygonObject* toPolygonObject(const float isolevel) const;
+
+	ParticleObject* toParticleObject() const;
 
 private:
 	const Math::Space3d<float> space;

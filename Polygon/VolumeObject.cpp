@@ -3,21 +3,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-VolumeNode::VolumeNode() :
-	pos(Vector3d<float>(0, 0, 0)),
-	value(0)
-{}
-
-VolumeNode::VolumeNode(const Vector3d<float>& p, const float& v) :
-	pos(p),
-	value(v)
-{}
-
-Vector3d<float> VolumeNode::getInterpolatedPosition(const float v, const VolumeNode& rhs) const
-{
-	const float scale = static_cast<float> (v - this->value) / static_cast<float>(rhs.value - this->value);
-	return this->pos + scale * (rhs.pos - this->pos);
-}
 
 namespace {
 	Vector3d<float> getUnitLengths(const Space3d<float>& space, const Index3d res)
@@ -76,3 +61,15 @@ PolygonObject* VolumeObject::toPolygonObject(const float isolevel) const
 	newMesh->removeOverlappedVertices();
 	return newMesh;
 }
+
+#include "ParticleObject.h"
+
+
+/*
+ParticleObject* VolumeObject::toParticleObject() const
+{
+	ParticleObject* object = new ParticleObject();
+	for( n : nodes)
+	object->add()
+}
+*/

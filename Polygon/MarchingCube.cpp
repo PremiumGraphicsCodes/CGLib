@@ -10,7 +10,7 @@ using namespace Crystal::Polygon;
 
 //MCVolume::toNodes()
 
-std::array< VolumeNode, 8 > MCCell::toPositionValues() const
+std::array< VolumeNode, 8 > VolumeCell::toPositionValues() const
 {
 	std::array< VolumeNode, 8 > pvs;
 	const auto& positions = space.toArray();
@@ -30,7 +30,7 @@ namespace {
 	}
 
 
-	MCCell toCell(const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
+	VolumeCell toCell(const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
 	{
 		const auto& lengths = getUnitLengths(space, grid.getSizes());
 		const auto& innerSpace = space.offset(lengths);
@@ -42,7 +42,7 @@ namespace {
 		const auto v = grid.toArray8(index[0], index[1], index[2]);
 		const auto s = space.getSubSpace(index, divx, divy, divz);
 
-		return MCCell(s, v);
+		return VolumeCell(s, v);
 	}
 }
 
@@ -91,7 +91,7 @@ int MarchingCube::getCubeIndex(const std::array< float, 8 >& val, const float is
 	return static_cast<int>(bit.to_ulong());
 }
 
-std::array< Vector3d<float>, 12 > MarchingCube::getPositions(const int cubeindex, const MCCell& cell, const float isolevel) const
+std::array< Vector3d<float>, 12 > MarchingCube::getPositions(const int cubeindex, const VolumeCell& cell, const float isolevel) const
 {
 	std::array< Vector3d<float>, 12 > vertices;
 	const auto& pvs = cell.toPositionValues();
