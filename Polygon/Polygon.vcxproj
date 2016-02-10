@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorObject.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCube.cpp" />
@@ -34,7 +34,7 @@
     <ClCompile Include="VolumeObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorObject.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCube.h" />
