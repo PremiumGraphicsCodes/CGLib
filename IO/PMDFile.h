@@ -29,23 +29,30 @@ struct PMDVertex
 {
 	Math::Vector3d<float> pos;
 	Math::Vector3d<float> normal;
-	Math::Vector2d<float> uv;
+	Math::Vector2d<float> texCoord;
 	std::array< unsigned short, 2> boneNumers;
 	char boneWeight; // [0,100]
-	char isEdgeActive;
+	char isEdge;
+
+	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream);
 };
 
 struct PMDVertices
 {
-	unsigned long vertexCount;
+	int vertexCount;
 	std::vector<PMDVertex> vertices;
+
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
 };
 
 struct PMDFaces
 {
-	unsigned long vertexCount;
+	int vertexCount;
 	std::vector<unsigned short> vertexIndices;
 };
 
@@ -80,6 +87,7 @@ public:
 
 private:
 	PMDHeader header;
+	PMDVertices vertices;
 };
 	}
 }
