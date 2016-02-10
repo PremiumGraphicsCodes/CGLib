@@ -106,10 +106,12 @@ namespace {
 
 MCVolume ParticleObject::toVolume(const int hashTableSize) const
 {
-	auto bb = this->getBoundingBox();
-
 	const auto effectLength = this->getParticles().front()->getDiameter();
 	const auto dx = effectLength;
+
+	auto bb = this->getBoundingBox();
+	bb.outerOffset(effectLength);
+
 
 	SpaceHash spaceHash(effectLength, hashTableSize);
 	const auto& particles = this->getParticles();
@@ -120,9 +122,9 @@ MCVolume ParticleObject::toVolume(const int hashTableSize) const
 	//bb.innerOffset(particles[0]->getRadius());
 	Space3d<float> space(bb.getStart(), bb.getLength());
 
-	int resx = static_cast<int>( bb.getLength().getX() / dx );
-	int resy = static_cast<int>( bb.getLength().getY() / dx );
-	int resz = static_cast<int>( bb.getLength().getZ() / dx );
+	int resx = static_cast<int>( bb.getLength().getX() / dx ) + 2;
+	int resy = static_cast<int>( bb.getLength().getY() / dx ) + 2;
+	int resz = static_cast<int>( bb.getLength().getZ() / dx ) + 2;
 
 	Index3d resolution(resx, resy, resz);
 	Grid3d<float> grid(resolution);
