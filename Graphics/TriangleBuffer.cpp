@@ -6,21 +6,11 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 
 
-namespace {
-	ColorRGBA<unsigned char> toColor(const unsigned int id) {
-		const auto r = 0.0f;
-		const auto g = id % 255;
-		const auto b = (id % 255) % 255;
-		return ColorRGBA<unsigned char>(r, g, b, 255);
-	}
-}
-
-
 void TriangleBuffer::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		add(*v, toColor( v->getId()) );
+		add(*v, ColorRGBA<unsigned char>( v->getId()) );
 	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {

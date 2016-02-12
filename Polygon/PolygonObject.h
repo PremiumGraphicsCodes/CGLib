@@ -35,9 +35,9 @@ public:
 
 	Vertex* createVertex(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
 
-	//Vertex* createVertexFromIndices(const int index);
+	Vertex* findVertexById(const unsigned int id) const;
 
-	//void addVertex(Vertex* v) { this->vertices.push_back(v); }
+	//Face* findFaceById(const unsigned int id) const;
 
 	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 

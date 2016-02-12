@@ -8,26 +8,29 @@
 namespace Crystal {
 	namespace Polygon {
 		class PointObject;
+		class PolygonObject;
 		class Particle;
 		class ParticleObject;
 		class ActorObject;
 		class Joint;
+		class Vertex;
 	}
 	namespace Graphics {
 
 class Point
 {
 public:
-	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size, const unsigned int id) :
+	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size) :
 		position(position),
 		color(color),
-		size(size),
-		id(id)
+		size(size)
 	{}
 
-	Point(const Polygon::Particle& particle, const unsigned int id);
+	Point(const Polygon::Vertex& vertex);
 
-	Point(const Polygon::Joint& joint, const unsigned int id);
+	Point(const Polygon::Particle& particle);
+
+	Point(const Polygon::Joint& joint);
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
@@ -35,13 +38,10 @@ public:
 
 	float getSize() const { return size; }
 
-	unsigned int getId() const { return id; }
-
 private:
 	Math::Vector3d<float> position;
 	ColorRGBA<float> color;
 	float size;
-	unsigned int id;
 };
 
 class PointBuffer
@@ -59,19 +59,18 @@ public:
 
 	void add(const Polygon::ActorObject& actor);
 
+	void add(const Polygon::PolygonObject& polygon);
+
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
 	Graphics::Buffer4d<float> getColor() const { return color; }
 
 	Graphics::Buffer1d<float> getSize() const { return sizes; }
 	
-	std::vector<unsigned int> getIds() const { return ids; }
-
 private:
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer4d<float> color;
 	Graphics::Buffer1d<float> sizes;
-	std::vector<unsigned int> ids;
 };
 
 	}

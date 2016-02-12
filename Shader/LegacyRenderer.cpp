@@ -45,8 +45,8 @@ void LegacyRenderer::render(ICamera<float>& camera, const PointBuffer& buffer)
 	glColorPointer(4, GL_FLOAT, 0, colors.data());
 	assert(glGetError() == GL_NO_ERROR);
 
-	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
-	glDrawElements(GL_POINTS, indices.size(), GL_UNSIGNED_INT, indices.data());
+	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(positions.size()) / 3);
+	//glDrawElements(GL_POINTS, indices.size(), GL_UNSIGNED_INT, indices.data());
 
 
 	glDisableClientState(GL_COLOR_ARRAY);

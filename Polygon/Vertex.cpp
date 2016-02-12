@@ -24,8 +24,8 @@ namespace {
 
 	bool isSame(Vertex* v1, Vertex* v2)
 	{
-		if (v1->position == v2->position) {
-			auto face = v2->f;
+		if (v1->getPosition() == v2->getPosition()) {
+			auto face = v2->getFace();
 			face->replace(v2, v1);
 			delete v2;
 			return true;
@@ -49,10 +49,7 @@ void VertexCollection::sort()
 
 Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
 {
-	auto v = new Vertex(nextId++);
-	v->position = position;
-	v->normal = normal;
-	v->texCoord = texCoord;
+	auto v = new Vertex(nextId++, position, normal, texCoord);
 	vertices.push_back(v);
 	return v;
 }

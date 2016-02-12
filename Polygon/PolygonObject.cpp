@@ -19,21 +19,28 @@ Vertex* PolygonObject::createVertex(Vector3d<float> position, Vector3d<float> no
 	return vertices.create(position, normal, texCoord);
 }
 
-/*
-Vertex* PolygonObject::createVertexFromIndices(const int index)
+Vertex* PolygonObject::findVertexById(const unsigned int id) const
 {
-	auto p = positions.get(positionIndex);
-	VectorId* n = nullptr;
-	if (normalIndex > -1) {
-		n = normals.get(normalIndex);
+	for (auto v : vertices) {
+		if (v->getId() == id) {
+			return v;
+		}
 	}
-	VectorId* t = nullptr;
-	if (texIndex > -1) {
-		auto t = texCoords.get(texIndex);
+	return nullptr;
+}
+
+/*
+Face* PolygonObject::findFaceById(const unsigned int id) const
+{
+	for (auto f : faces) {
+		if (f->getId() == id) {
+			return f;
+		}
 	}
-	return vertices.create(p, n, t);
+	return nullptr;
 }
 */
+
 
 
 Face* PolygonObject::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
@@ -70,8 +77,8 @@ std::list< Face* > PolygonObject::createFaces(const std::vector<Vertex*>& vertic
 		auto v1 = vertices[i];
 		auto v2 = vertices[i + 1];
 		fs.push_back(createFace(origin, v1, v2));
-		v1->f = fs.back();
-		v2->f = fs.back();
+		v1->setFace( fs.back() );
+		v2->setFace( fs.back() );
 	}
 	return fs;
 }
@@ -88,9 +95,9 @@ void PolygonObject::add(const Triangle<float>& triangle)
 	auto v2 = vertices.create( p2, n );
 	auto v3 = vertices.create( p3, n );
 	auto f = createFace(v1, v2, v3);
-	v1->f = (f);
-	v2->f = (f);
-	v3->f = (f);
+	v1->setFace( f );
+	v2->setFace( f );
+	v3->setFace( f );
 }
 
 void PolygonObject::add(const Quad<float>& quad)
