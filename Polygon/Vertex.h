@@ -82,11 +82,11 @@ public:
 	{}
 
 
-	Math::Vector3d<float> getPosition() { return position; }
-
-	Math::Vector3d<float> getNormal() { return normal; }
+	Math::Vector3d<float> getPosition() const { return position; }
 
 	Math::Vector3d<float> getNormal() const { return normal; }
+
+	Math::Vector3d<float> getTexCoord() const { return normal; }
 
 	Math::Vector3d<float> position;
 	Math::Vector3d<float> normal;

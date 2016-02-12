@@ -12,6 +12,17 @@ typedef ::testing::Types<float, double> TestTypes;
 
 TYPED_TEST_CASE( ColorRGBATest , TestTypes);
 
+TEST(ColorRGBATest, TestConstruct)
+{
+	const ColorRGBA<unsigned char> c(30);
+	EXPECT_EQ(0, c.getRed());
+	EXPECT_EQ(30, c.getGreen());
+	EXPECT_EQ(0, c.getBlue());
+	EXPECT_EQ(255, c.getAlpha());
+	EXPECT_EQ(30, c.toUInt());
+}
+
+
 TYPED_TEST( ColorRGBATest, TestEquals )
 {
 	const ColorRGBA<TypeParam>& c = ColorRGBA<TypeParam>::Red();
@@ -71,4 +82,3 @@ TYPED_TEST( ColorRGBATest, TestToArray4 )
 	const std::vector<TypeParam> expected{ 255, 0, 0, 255 };
 	EXPECT_EQ( expected, actual );
 }
-

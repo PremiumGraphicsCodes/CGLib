@@ -14,10 +14,27 @@ TEST( ImageRGBATest, ContructTest )
 
 TEST( ImageRGBATest, TestGetColor )
 {
-	Image<float> color( 2, 1);
-	color.setColor(0, 0, ColorRGBA<float>::Red() );
-	EXPECT_EQ( ColorRGBA<float>::Red(), color.getColor(0, 0) );
-	EXPECT_EQ( ColorRGBA<float>(0,0,0,0), color.getColor(1, 0) );
+	{
+		Image<float> color(2, 1);
+		color.setColor(0, 0, ColorRGBA<float>::Red());
+		EXPECT_EQ(ColorRGBA<float>::Red(), color.getColor(0, 0));
+		EXPECT_EQ(ColorRGBA<float>(0, 0, 0, 0), color.getColor(1, 0));
+	}
+
+	{
+		std::vector<unsigned char> colors = {
+			255, 0 ,0, 255,
+			0, 255, 0, 255,
+			0, 0, 255, 255,
+			255, 255, 255, 255
+		};
+		Image<unsigned char> image(2, 2, colors);
+		EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), image.getColor(0, 0));
+		EXPECT_EQ(ColorRGBA<unsigned char>(0, 255, 0, 255), image.getColor(1, 0));
+		EXPECT_EQ(ColorRGBA<unsigned char>(0, 0, 255, 255), image.getColor(0, 1));
+		EXPECT_EQ(ColorRGBA<unsigned char>(255, 255, 255, 255), image.getColor(1, 1));
+
+	}
 
 }
 

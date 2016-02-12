@@ -7,14 +7,21 @@
 #include "../Polygon/PolygonObject.h"
 
 #include "Buffer3d.h"
+#include "Buffer4d.h"
 
 namespace Crystal {
+	namespace Polygon {
+		class PolygonObject;
+		class Vertex;
+	}
 	namespace Graphics {
 
 class TriangleBuffer
 {
 public:
 	void add(const Polygon::PolygonObject& polygon);
+
+	void add(const Polygon::Vertex& vertex, const Graphics::ColorRGBA<unsigned char>& color);
 
 	void add(const Math::Triangle<float>& triangle) {
 		positions.add(triangle.getv0());
@@ -33,10 +40,12 @@ public:
 		indices.clear();
 		positions.clear();
 		normals.clear();
+		colors.clear();
 	}
 
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
+	Buffer4d<unsigned char> colors;
 	unsigned int nextIndex;
 	std::vector<unsigned int> indices;
 };
