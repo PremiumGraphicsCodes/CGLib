@@ -29,6 +29,7 @@ namespace Crystal {
 class IVisualObject
 {
 public:
+
 	IVisualObject(const Polygon::ParticleObject& particle)
 	{
 		pointBuffer.add(particle);
@@ -38,8 +39,6 @@ public:
 	{
 		lineBuffer.add(actor);
 	}
-
-
 
 	IVisualObject(const Polygon::PolygonObject& polygon)
 	{
@@ -75,37 +74,6 @@ private:
 
 };
 
-
-class VisualObject
-{
-public:
-
-	~VisualObject() {
-		clear();
-	}
-
-	void add(IVisualObject* object) {
-		objects.push_back(object);
-	}
-
-	void clear() {
-		for (auto o : objects) {
-			delete o;
-		}
-		objects.clear();
-	}
-
-	void render(const Graphics::ICamera<float>& camera, RenderingMode mode);
-
-private:
-
-	Shader::LegacyRenderer renderer;
-	std::list<IVisualObject*> objects;
-	//VisualPoint point;
-	//VisualLine line;
-	//VisualTriangle triangle;
-
-};
 
 	}
 }
