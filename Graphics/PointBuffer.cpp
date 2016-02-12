@@ -12,7 +12,7 @@ using namespace Crystal::Polygon;
 Point::Point(const Particle& particle)
 {
 	position = particle.getPosition();
-	color = ColorRGBA<unsigned char>(1.0, 1.0, 0.0, particle.getDensity());
+	color = ColorRGBA<unsigned char>(255, 255, 0.0, particle.getDensity() * 255);
 	size = particle.getDiameter();
 }
 

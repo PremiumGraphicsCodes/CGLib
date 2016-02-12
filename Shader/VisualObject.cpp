@@ -24,29 +24,20 @@ void VisualObject::render(const ICamera<float>& camera, RenderingMode mode)
 
 	//glClear(GL_DEPTH_BUFFER_BIT);
 
-
+	for (auto o : objects) {
+		o->render(camera);
+	}
+	/*
 	if (mode == RenderingMode::Wireframe) {
-		renderer.render(camera, lineBuffer);
+		line.render(camera);
 		//renderer.render(camera, boneLineBuffer);
 	}
 	else if (mode == RenderingMode::Point) {
-		renderer.render(camera, pointBuffer);
+		point.render(camera);
 	}
-	else if (mode == RenderingMode::ID) {
-		glClearColor(0.0, 0.0, 0.0, 1.0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		renderer.renderId(camera, triangleBuffer);
+	else if(mode == RenderingMode::Surface){
+		triangle.render(camera);
 	}
-	else if (mode == RenderingMode::Volume) {
-		renderer.renderAlphaBlend(camera, pointBuffer);
-	}
-	else {
-		PointLight<float> light;
-		light.setPos(Vector3d<float>(-10.0, 10.0, 10.0));
-		light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-		renderer.render(camera, light, triangleBuffer);
-	}
-
+	*/
 	renderer.render(camera, axisBuffer);
 }
