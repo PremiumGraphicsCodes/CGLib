@@ -147,7 +147,6 @@
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="LegacyRenderer.cpp" />
-    <ClCompile Include="LegacyVolumeRenderer.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="BillBoardRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
@@ -156,6 +155,7 @@
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
+    <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DepthRenderer.h" />
@@ -164,7 +164,6 @@
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="LegacyRenderer.h" />
-    <ClInclude Include="LegacyVolumeRenderer.h" />
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="NullRenderer.h" />
     <ClInclude Include="BillBoardRenderer.h" />
@@ -174,6 +173,7 @@
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="LineRenderer.h" />
+    <ClInclude Include="VisualObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\GLSL\billboard.fs" />

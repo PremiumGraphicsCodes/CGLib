@@ -20,7 +20,7 @@ namespace Crystal {
 class Point
 {
 public:
-	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size) :
+	Point(const Math::Vector3d<float>& position, const ColorRGBA<unsigned char>& color, const float size) :
 		position(position),
 		color(color),
 		size(size)
@@ -34,13 +34,13 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
-	ColorRGBA<float> getColor() const { return color; }
+	ColorRGBA<unsigned char> getColor() const { return color; }
 
 	float getSize() const { return size; }
 
 private:
 	Math::Vector3d<float> position;
-	ColorRGBA<float> color;
+	ColorRGBA<unsigned char> color;
 	float size;
 };
 
@@ -63,13 +63,13 @@ public:
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
-	Graphics::Buffer4d<float> getColor() const { return color; }
+	Graphics::Buffer4d<unsigned char> getColor() const { return color; }
 
 	Graphics::Buffer1d<float> getSize() const { return sizes; }
 	
 private:
 	Graphics::Buffer3d<float> position;
-	Graphics::Buffer4d<float> color;
+	Graphics::Buffer4d<unsigned char> color;
 	Graphics::Buffer1d<float> sizes;
 };
 

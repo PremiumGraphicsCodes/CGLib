@@ -18,9 +18,13 @@ namespace Crystal {
 class LegacyRenderer
 {
 public:
-	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
-	void render(Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+	void renderId(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+
+	void renderAlphaBlend(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+
+	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 

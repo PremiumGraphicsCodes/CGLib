@@ -36,12 +36,10 @@
     <ClCompile Include="LineRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="LegacyVolumeRenderer.cpp">
-      <Filter>Legacy</Filter>
-    </ClCompile>
     <ClCompile Include="LegacyRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
+    <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -82,12 +80,10 @@
     <ClInclude Include="LineRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="LegacyVolumeRenderer.h">
-      <Filter>Legacy</Filter>
-    </ClInclude>
     <ClInclude Include="LegacyRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
+    <ClInclude Include="VisualObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">
