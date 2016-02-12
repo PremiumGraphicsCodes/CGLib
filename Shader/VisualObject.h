@@ -29,117 +29,52 @@ namespace Crystal {
 class IVisualObject
 {
 public:
-	virtual void add(const Polygon::ParticleObject& point) = 0;
-	virtual void add(const Polygon::ActorObject& actor) = 0;
-	virtual void add(const Polygon::PolygonObject& polygon) = 0;
-
-	virtual void clear() = 0;
-
-	virtual void render(const Graphics::ICamera<float>& camera) = 0;
-};
-
-class VisualPoint : public IVisualObject
-{
-public:
-	virtual void add(const Polygon::ParticleObject& particle) override {
-		buffer.add(particle);
-	}
-
-	virtual void add(const Polygon::PolygonObject& polygon) override {
-		buffer.add(polygon);
-	}
-
-	virtual void add(const Polygon::ActorObject& actor) override {
-		buffer.add(actor);
-	}
-
-	virtual void clear() override{
-		buffer.clear();
-	}
-
-	virtual void render(const Graphics::ICamera<float>& camera) override {
-		LegacyRenderer renderer;
-		renderer.render(camera, buffer);
-	}
-
-
-private:
-	Graphics::PointBuffer buffer;
-
-};
-
-class VisualLine : public IVisualObject
-{
-public:
-	virtual void add(const Polygon::ParticleObject& particle) override {
-		;
-	}
-
-	virtual void add(const Polygon::PolygonObject& polygon) override {
-		buffer.add(polygon);
-	}
-
-	virtual void add(const Polygon::ActorObject& actor) override {
-		buffer.add(actor);
-	}
-
-	virtual void clear() override {
-		buffer.clear();
-	}
-
-	virtual void render(const Graphics::ICamera<float>& camera) override {
-		LegacyRenderer renderer;
-		renderer.render(camera, buffer);
-	}
-
-
-
-private:
-	Graphics::LineBuffer buffer;
-
-};
-
-class VisualTriangle : public IVisualObject
-{
-public:
-	VisualTriangle(const Polygon::PolygonObject& polygon) {
-		buffer.add(polygon);
-	}
-
-	virtual void add(const Polygon::ParticleObject& particle) override {
-		;
-	}
-
-
-	virtual void add(const Polygon::PolygonObject& polygon) override {
-		buffer.add(polygon);
-	}
-
-
-	void add(const Polygon::ActorObject& actor) override
+	IVisualObject(const Polygon::ParticleObject& particle)
 	{
-		;//buffer.add(actor);
-		//triangleBuffer.add(actor);
+		pointBuffer.add(particle);
 	}
 
-	virtual void clear() override {
-		buffer.clear();
+	IVisualObject(const Polygon::ActorObject& actor)
+	{
+		lineBuffer.add(actor);
 	}
 
-	virtual void render(const Graphics::ICamera<float>& camera) override {
-		LegacyRenderer renderer;
+
+
+	IVisualObject(const Polygon::PolygonObject& polygon)
+	{
+		pointBuffer.add(polygon);
+		lineBuffer.add(polygon);
+		triangleBuffer.add(polygon);
+	}
+
+	void renderPoints(const Graphics::ICamera<float>& camera)
+	{
+		renderer.render(camera, pointBuffer);
+	}
+
+	void renderLines(const Graphics::ICamera<float>& camera)
+	{
+		renderer.render(camera, lineBuffer);
+	}
+
+	void renderTriangles(const Graphics::ICamera<float>& camera){
 		Graphics::PointLight<float> light;
 		light.setPos(Math::Vector3d<float>(-10.0, 10.0, 10.0));
 		light.setDiffuse(Graphics::ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
 
-		renderer.render(camera, light, buffer);
+		renderer.render(camera, light, triangleBuffer);
 	}
 
 private:
-	Graphics::TriangleBuffer buffer;
-	//Graphics::PointLight<float> light;
+	LegacyRenderer renderer;
+
+	Graphics::PointBuffer pointBuffer;
+	Graphics::LineBuffer lineBuffer;
+	Graphics::TriangleBuffer triangleBuffer;
 
 };
+
 
 class VisualObject
 {
@@ -151,26 +86,6 @@ public:
 
 	void add(IVisualObject* object) {
 		objects.push_back(object);
-	}
-
-	void add(const Polygon::ParticleObject& particle) {
-		for (auto o : objects) {
-			o->add(particle);
-		}
-	}
-
-
-	void add(const Polygon::PolygonObject& polygon) {
-		for (auto o : objects) {
-			o->add(polygon);
-		}
-	}
-
-
-	void add(const Polygon::ActorObject& actor) {
-		for (auto o : objects) {
-			o->add(actor);
-		}
 	}
 
 	void clear() {

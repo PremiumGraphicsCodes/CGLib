@@ -24,9 +24,24 @@ void VisualObject::render(const ICamera<float>& camera, RenderingMode mode)
 
 	//glClear(GL_DEPTH_BUFFER_BIT);
 
-	for (auto o : objects) {
-		o->render(camera);
+	if (mode == RenderingMode::Point) {
+		for (auto o : objects) {
+			o->renderPoints(camera);
+		}
 	}
+
+	if (mode == RenderingMode::Wireframe) {
+		for (auto o : objects) {
+			o->renderLines(camera);
+		}
+	}
+
+	if (mode == RenderingMode::Surface) {
+		for (auto o : objects) {
+			o->renderTriangles(camera);
+		}
+	}
+
 	/*
 	if (mode == RenderingMode::Wireframe) {
 		line.render(camera);
