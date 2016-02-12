@@ -12,14 +12,16 @@ using namespace Crystal::Polygon;
 Point::Point(const Particle& particle)
 {
 	position = particle.getPosition();
-	color = ColorRGBA<unsigned char>(255, 255, 0.0, particle.getDensity() * 255);
+	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity());
+	//idColor = ColorRGBA<unsigned char>(particle.getId());
 	size = particle.getDiameter();
 }
 
 Point::Point(const Vertex& vertex)
 {
 	position = vertex.getPosition();
-	color = ColorRGBA<unsigned char>(vertex.getId());
+	color = ColorRGBA<float>(vertex.getId());
+	idColor = ColorRGBA<unsigned char>(vertex.getId());
 	size = 1.0f;
 }
 
@@ -27,7 +29,9 @@ Point::Point(const Vertex& vertex)
 Point::Point(const Joint& joint)
 {
 	position = joint.getPosition();
-	color = ColorRGBA<unsigned char>(1.0, 1.0, 1.0, 1.0f);
+	color = ColorRGBA<float>(1.0, 1.0, 1.0, 1.0f);
+	//idColor = ColorRGBA<unsigned char>(joing.getId());
+
 	size = 1.0f;//joint.getDiameter();
 }
 
@@ -77,6 +81,7 @@ void PointBuffer::add(const Point& point)
 {
 	position.add(point.getPosition());
 	color.add(point.getColor());
+	idColor.add(point.getIdColor());
 	sizes.add(point.getSize());
 }
 

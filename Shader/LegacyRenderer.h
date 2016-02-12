@@ -26,6 +26,8 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
 
+	void renderId(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
+
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 
 	void renderId(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);

@@ -33,9 +33,19 @@ public:
 		renderer.render(camera, pointBuffer);
 	}
 
+	void renderPointIds(const Graphics::ICamera<float>& camera)
+	{
+		renderer.renderId(camera, pointBuffer);
+	}
+
 	void renderLines(const Graphics::ICamera<float>& camera)
 	{
 		renderer.render(camera, lineBuffer);
+	}
+
+	void renderLineIds(const Graphics::ICamera<float>& camera)
+	{
+		renderer.renderId(camera, lineBuffer);
 	}
 
 	void renderTriangles(const Graphics::ICamera<float>& camera);

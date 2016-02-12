@@ -33,12 +33,15 @@ public:
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
+	Graphics::Buffer4d<unsigned char> getIdColors() const { return idColors; }
+
 	Graphics::Buffer4d<float> getColor() const { return color; }
 
 	std::vector<unsigned int> getIds() const { return ids; }
 
 private:
 	Graphics::Buffer3d<float> position;
+	Graphics::Buffer4d<unsigned char> idColors;
 	Graphics::Buffer4d<float> color;
 	std::vector<unsigned int> ids;
 };
