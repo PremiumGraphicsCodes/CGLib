@@ -8,6 +8,9 @@
 namespace Crystal {
 	namespace Polygon {
 		class PolygonObject;
+		class ActorObject;
+		class Bone;
+		class Joint;
 	}
 	namespace IO {
 
@@ -55,8 +58,8 @@ private:
 	float specularity;
 	Graphics::ColorRGBA<float> specular;
 	Graphics::ColorRGBA<float> ambient;
-	unsigned short toonIndex;
-	unsigned short isEdge;
+	unsigned char toonIndex;
+	unsigned char isEdge;
 	unsigned int faceVertexCount;
 	std::string textureFileName;
 };
@@ -75,16 +78,21 @@ enum class PMDBoneType
 	ROTATION_MOVE = 9
 };
 
-struct PMDBone
+class PMDBone
 {
+public:
+	bool read(std::istream& stream);
+
+	Polygon::Bone toBone() const;
+
+	Polygon::Joint toJoint() const;
+
 	std::string name;
 	unsigned short parentBoneIndex;
 	unsigned short tailBoneIndex;
 	char type;
 	unsigned short ikParentBoneIndex;
 	Math::Vector3d<float> boneHeadPos;
-
-	bool read(std::istream& stream);
 };
 
 class PMDFile
@@ -103,6 +111,8 @@ public:
 	bool read(const std::string& filename);
 
 	Polygon::PolygonObject* toPolygonObject() const;
+
+	Polygon::ActorObject* toActorObject() const;
 
 private:
 	PMDHeader header;

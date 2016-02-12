@@ -15,8 +15,9 @@ namespace Crystal {
 	}
 	namespace Graphics {
 
-struct LineBuffer
+class LineBuffer
 {
+public:
 	void clear();
 
 	void add(const Polygon::PolygonObject& polygon);

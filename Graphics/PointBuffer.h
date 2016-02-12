@@ -44,7 +44,7 @@ private:
 	unsigned int id;
 };
 
-struct PointBuffer
+class PointBuffer
 {
 public:
 	PointBuffer() {};

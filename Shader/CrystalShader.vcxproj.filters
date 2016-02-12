@@ -36,19 +36,10 @@
     <ClCompile Include="LineRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="LegacyLineRenderer.cpp">
-      <Filter>Legacy</Filter>
-    </ClCompile>
-    <ClCompile Include="LegacySelectionRenderer.cpp">
-      <Filter>Legacy</Filter>
-    </ClCompile>
-    <ClCompile Include="LegacyTriangleRenderer.cpp">
-      <Filter>Legacy</Filter>
-    </ClCompile>
-    <ClCompile Include="LegacyPointRenderer.cpp">
-      <Filter>Legacy</Filter>
-    </ClCompile>
     <ClCompile Include="LegacyVolumeRenderer.cpp">
+      <Filter>Legacy</Filter>
+    </ClCompile>
+    <ClCompile Include="LegacyRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -91,19 +82,10 @@
     <ClInclude Include="LineRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="LegacyLineRenderer.h">
-      <Filter>Legacy</Filter>
-    </ClInclude>
-    <ClInclude Include="LegacySelectionRenderer.h">
-      <Filter>Legacy</Filter>
-    </ClInclude>
-    <ClInclude Include="LegacyTriangleRenderer.h">
-      <Filter>Legacy</Filter>
-    </ClInclude>
-    <ClInclude Include="LegacyPointRenderer.h">
-      <Filter>Legacy</Filter>
-    </ClInclude>
     <ClInclude Include="LegacyVolumeRenderer.h">
+      <Filter>Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="LegacyRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,16 +1,107 @@
-#include "LegacyTriangleRenderer.h"
-#include "../Graphics/Buffer4d.h"
+#include "GLee.h"
+
+#include "LegacyRenderer.h"
+
+#include "../Math/Vector3d.h"
+#include "../Math/Matrix4d.h"
+#include "../Graphics/ICamera.h"
+#include "../Graphics/Light.h"
+#include "../Graphics/PointBuffer.h"
+#include "../Graphics/LineBuffer.h"
+#include "../Graphics/TriangleBuffer.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
+
+void LegacyRenderer::render(ICamera<float>& camera, const PointBuffer& buffer)
+{
+	const auto& positions = buffer.getPosition().get();// buffers[0].get();
+	const auto& colors = buffer.getColor().get();
+	const auto& indices = buffer.getIds();
+
+	if (positions.empty()) {
+		return;
+	}
+
+	glDisable(GL_DEPTH_TEST);
+	glPointSize(10.0f);
+
+	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
+	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glLoadMatrixf(projectionMatrix.toArray().data());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf(modelviewMatrix.toArray().data());
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, positions.data());
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colors.data());
+	assert(glGetError() == GL_NO_ERROR);
+
+	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	glDrawElements(GL_POINTS, indices.size(), GL_UNSIGNED_INT, indices.data());
+
+
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glDisable(GL_DEPTH_TEST);
+
+}
+
+void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
+{
+	const auto& positions = buffer.getPosition().get();// buffers[0].get();
+	const auto& colors = buffer.getColor().get();
+	const auto& indices = buffer.getIds();
+
+	if (positions.empty()) {
+		return;
+	}
+
+	glEnable(GL_DEPTH_TEST);
+
+	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
+	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glLoadMatrixf(projectionMatrix.toArray().data());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf(modelviewMatrix.toArray().data());
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, 0, positions.data());
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colors.data());
+	assert(glGetError() == GL_NO_ERROR);
+
+	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, indices.data());
+
+
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisable(GL_DEPTH_TEST);
+
+}
 
 namespace {
 	GLfloat yellow[] = { 0.0, 1.0, 1.0, 1.0 };
 	GLfloat white[] = { 1.0, 1.0, 1.0, 1.0 };
 }
 
-void LegacyTriangleRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
+void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
 {
 	const auto& positions = buffer.positions.get();// buffers[0].get();
 	const auto& normals = buffer.normals.get();//buffers[1].get();
@@ -71,14 +162,14 @@ namespace {
 	}
 }
 
-void LegacyTriangleRenderer::renderId(const ICamera<float>& camera, const TriangleBuffer& buffer)
+void LegacyRenderer::renderId(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
 	const auto& positions = buffer.positions.get();// buffers[0].get();
 	const auto& indices = buffer.indices;
 	std::vector<ColorRGBA<float>> colors;
 	Buffer4d<float> colorBuffer;
 	for (auto i : buffer.indices) {
-		colorBuffer.add( toColor(i) );
+		colorBuffer.add(toColor(i));
 	}
 
 	if (positions.empty()) {

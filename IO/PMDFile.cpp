@@ -1,9 +1,16 @@
 #include "PMDFile.h"
 
+
+#include "../Polygon/PolygonObject.h"
+#include "../Polygon/ActorObject.h"
+#include "../Polygon/Bone.h"
+#include "../Polygon/Joint.h"
+
 #include <ostream>
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
+using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
 PMDHeader::PMDHeader() :
@@ -149,6 +156,18 @@ bool PMDBone::read(std::istream& stream)
 	return stream.good();
 }
 
+/*
+Bone PMDBone::toActorBone() const
+{
+	Bone bone()
+}
+*/
+
+Joint PMDBone::toJoint() const
+{
+	return Joint(boneHeadPos, 1.0f, 1.0f);
+}
+
 #include <fstream>
 
 bool PMDFile::read(const std::string& filename)
@@ -191,7 +210,6 @@ bool PMDFile::read(const std::string& filename)
 	return stream.good();
 }
 
-#include "../Polygon/PolygonObject.h"
 
 using namespace Crystal::Polygon;
 
@@ -205,6 +223,35 @@ PolygonObject* PMDFile::toPolygonObject() const
 	auto is = this->vIndices;
 	for (size_t i = 0; i < is.size(); i+=3 ) {
 		object->createFace(is[i], is[i + 1], is[i + 2]);
+	}
+	return object;
+}
+
+ActorObject* PMDFile::toActorObject() const
+{
+	ActorObject* object = new ActorObject();
+	std::vector<Joint*> joints;
+	for (size_t i = 0; i < bones.size(); ++i) {
+		//vertices.push_back(new Vertex());
+		//bones[i].toJoint();
+		joints.emplace_back( object->createJoint(bones[i].boneHeadPos, 1.0f, 1.0f) );
+	}
+	for (size_t i = 0; i < bones.size(); ++i) {
+		const auto parentBoneIndex = bones[i].parentBoneIndex;
+		Joint* headJoint = nullptr;
+		if (parentBoneIndex != 0xFFFF) {
+			headJoint = joints[parentBoneIndex];
+		}
+		const auto tailBoneIndex = bones[i].tailBoneIndex;
+		Joint* tailJoint = nullptr;
+		if (tailBoneIndex != 0xFFFF) {
+			if (tailBoneIndex != 0) {
+				tailJoint = joints[tailBoneIndex];
+			}
+		}
+		if (headJoint && tailJoint) {
+			object->createBone(headJoint, tailJoint);
+		}
 	}
 	return object;
 }
