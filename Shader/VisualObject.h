@@ -17,35 +17,16 @@
 namespace Crystal {
 	namespace Shader {
 
-		enum class RenderingMode {
-			Surface,
-			Wireframe,
-			Point,
-			ID,
-			Volume,
-		};
 
-
-class IVisualObject
+class VisualObject
 {
 public:
 
-	IVisualObject(const Polygon::ParticleObject& particle)
-	{
-		pointBuffer.add(particle);
-	}
+	VisualObject(const Polygon::ParticleObject& particle);
 
-	IVisualObject(const Polygon::ActorObject& actor)
-	{
-		lineBuffer.add(actor);
-	}
+	VisualObject(const Polygon::ActorObject& actor);
 
-	IVisualObject(const Polygon::PolygonObject& polygon)
-	{
-		pointBuffer.add(polygon);
-		lineBuffer.add(polygon);
-		triangleBuffer.add(polygon);
-	}
+	VisualObject(const Polygon::PolygonObject& polygon);
 
 	void renderPoints(const Graphics::ICamera<float>& camera)
 	{
@@ -57,20 +38,18 @@ public:
 		renderer.render(camera, lineBuffer);
 	}
 
-	void renderTriangles(const Graphics::ICamera<float>& camera){
-		Graphics::PointLight<float> light;
-		light.setPos(Math::Vector3d<float>(-10.0, 10.0, 10.0));
-		light.setDiffuse(Graphics::ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+	void renderTriangles(const Graphics::ICamera<float>& camera);
 
-		renderer.render(camera, light, triangleBuffer);
-	}
 
 private:
 	LegacyRenderer renderer;
 
+
 	Graphics::PointBuffer pointBuffer;
 	Graphics::LineBuffer lineBuffer;
 	Graphics::TriangleBuffer triangleBuffer;
+
+
 
 };
 
