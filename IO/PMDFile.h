@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../Math/Vector3d.h"
+#include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -46,12 +47,18 @@ struct PMDVertex
 
 class PMDMaterial
 {
+public:
+	bool read(std::istream& stream);
 
-};
-
-class PMDMaterials
-{
-	int materialCount;
+private:
+	Graphics::ColorRGBA<float> diffuse;
+	float specularity;
+	Graphics::ColorRGBA<float> specular;
+	Graphics::ColorRGBA<float> ambient;
+	unsigned short toonIndex;
+	unsigned short isEdge;
+	unsigned int faceVertexCount;
+	std::string textureFileName;
 };
 
 enum class PMDBoneType
@@ -80,16 +87,6 @@ struct PMDBone
 	bool read(std::istream& stream);
 };
 
-class PMDBones
-{
-public:
-	bool read(std::istream& stream);
-
-private:
-	unsigned short boneCount;
-	std::vector<PMDBone> bones;
-};
-
 class PMDFile
 {
 public:
@@ -111,6 +108,8 @@ private:
 	PMDHeader header;
 	std::vector<PMDVertex> vertices;
 	std::vector<unsigned short> vIndices;
+	std::vector<PMDMaterial> materials;
+	std::vector<PMDBone> bones;
 };
 	}
 }

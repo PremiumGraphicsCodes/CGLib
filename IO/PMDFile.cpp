@@ -3,6 +3,7 @@
 #include <ostream>
 
 using namespace Crystal::Math;
+using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
 PMDHeader::PMDHeader() :
@@ -95,6 +96,38 @@ bool PMDVertex::write(std::ostream& stream)
 	return false;
 }
 
+bool PMDMaterial::read(std::istream& stream)
+{
+	float red = 0.0f;
+	float green = 0.0f;
+	float blue = 0.0f;
+	float alpha = 0.0f;
+	stream.read((char*)&red, sizeof(red));
+	stream.read((char*)&green, sizeof(green));
+	stream.read((char*)&blue, sizeof(blue));
+	stream.read((char*)&alpha, sizeof(alpha));
+	diffuse = ColorRGBA<float>(red, green, blue, alpha);
+	stream.read((char*)&specularity, sizeof(specularity));
+
+	stream.read((char*)&red, sizeof(red));
+	stream.read((char*)&green, sizeof(green));
+	stream.read((char*)&blue, sizeof(blue));
+	specular = ColorRGBA<float>(red, green, blue, 1.0f);
+
+	stream.read((char*)&red, sizeof(red));
+	stream.read((char*)&green, sizeof(green));
+	stream.read((char*)&blue, sizeof(blue));
+	ambient = ColorRGBA<float>(red, green, blue, 1.0f);
+
+	stream.read((char*)&toonIndex, sizeof(toonIndex));
+	stream.read((char*)&isEdge, sizeof(isEdge));
+	stream.read((char*)&faceVertexCount, sizeof(faceVertexCount));
+	char textureFileName[20];
+	stream.read(textureFileName, sizeof(textureFileName));
+
+	return stream.good();
+}
+
 
 bool PMDBone::read(std::istream& stream)
 {
@@ -114,19 +147,6 @@ bool PMDBone::read(std::istream& stream)
 	stream.read((char*)&posz, sizeof(float));
 	this->boneHeadPos = Vector3d<float>(posx, posy, posz);
 	return stream.good();
-}
-
-bool PMDBones::read(std::istream& stream)
-{
-	stream.read((char*)&boneCount, sizeof(boneCount));
-	for (auto i = 0; i < boneCount; ++i) {
-		PMDBone bone;
-		bone.read(stream);
-		bones.emplace_back(bone);
-	}
-
-	return stream.good();
-
 }
 
 #include <fstream>
@@ -150,6 +170,22 @@ bool PMDFile::read(const std::string& filename)
 		vIndices.push_back(vindex);
 	}
 
+	int materialCount = 0;
+	stream.read((char*)&materialCount, sizeof(materialCount));
+	for (auto i = 0; i < materialCount; ++i) {
+		PMDMaterial material;
+		material.read(stream);
+		materials.emplace_back(material);
+	}
+
+	short int boneCount = 0;
+	stream.read((char*)&boneCount, sizeof(boneCount));
+	for (auto i = 0; i < boneCount; ++i) {
+		PMDBone bone;
+		bone.read(stream);
+		bones.emplace_back(bone);
+	}
+
 	//bones.read(stream);
 
 	return stream.good();
@@ -163,11 +199,11 @@ PolygonObject* PMDFile::toPolygonObject() const
 {
 	PolygonObject* object = new PolygonObject();
 	auto vs = this->vertices;
-	for (int i = 0; i < vs.size(); ++i ) {
+	for (size_t i = 0; i < vs.size(); ++i ) {
 		object->createVertex(vs[i].pos, vs[i].normal);
 	}
 	auto is = this->vIndices;
-	for (int i = 0; i < is.size(); i+=3 ) {
+	for (size_t i = 0; i < is.size(); i+=3 ) {
 		object->createFace(is[i], is[i + 1], is[i + 2]);
 	}
 	return object;
