@@ -22,7 +22,6 @@
     <ClCompile Include="ActorObject.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Joint.cpp" />
-    <ClCompile Include="MarchingCube.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -38,7 +37,6 @@
     <ClInclude Include="ActorObject.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Joint.h" />
-    <ClInclude Include="MarchingCube.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />

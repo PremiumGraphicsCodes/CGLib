@@ -2,6 +2,7 @@
 #include "Particle.h"
 
 #include "../Math/Sphere.h"
+#include "VolumeObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
@@ -55,9 +56,6 @@ ParticleObject::~ParticleObject()
 	}
 	particles.clear();
 }
-
-
-#include "MarchingCube.h"
 
 void ParticleObject::sort()
 {

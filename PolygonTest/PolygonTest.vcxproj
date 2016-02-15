@@ -22,7 +22,6 @@
     <ClCompile Include="ActorObjectTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
-    <ClCompile Include="MarchingCubeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PolygonObjectTest.cpp" />
@@ -31,6 +30,7 @@
     <ClCompile Include="VertexTest.cpp" />
     <ClCompile Include="VolumeCellTest.cpp" />
     <ClCompile Include="VolumeNodeTest.cpp" />
+    <ClCompile Include="VolumeObjectTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9414E182-179E-4CF4-8574-BD4DF1781602}</ProjectGuid>

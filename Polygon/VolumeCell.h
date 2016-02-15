@@ -19,23 +19,19 @@ public:
 		values(values)
 	{}
 
-	Math::Space3d<float> getSpace() const { return space; }
-
-	std::array< float, 8 > getValues() const { return values; }
-
-	std::array< VolumeNode, 8 > toPositionValues() const;
-
-	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const float isolevel) const;
 
 	std::vector< Math::Triangle<float> > toTriangles(const float isolevel) const;
-
-	int getCubeIndex(const float isolevel) const;
 
 
 private:
 	Math::Space3d<float> space;
 	std::array< float, 8> values;
 
+	std::array< VolumeNode, 8 > toPositionValues() const;
+
+	int getCubeIndex(const float isolevel) const;
+
+	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const float isolevel) const;
 
 };
 	}
