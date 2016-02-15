@@ -7,6 +7,15 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
+TEST(BoneTest, TestCreateChild)
+{
+	Joint joint1(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f, 10.0f);
+	Joint joint2(Vector3d<float>(10.0f, 0.0f, 0.0f), 1.0f, 10.0f);
+	Joint joint3(Vector3d<float>(20.0f, 0.0f, 0.0f), 1.0f, 10.0f);
+	Bone bone(&joint1, &joint2);
+	auto child = bone.createChild(&joint3);
+}
+
 TEST(BoneTest, TestGetLength)
 {
 	Joint joint1(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f, 10.0f);

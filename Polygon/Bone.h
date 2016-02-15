@@ -21,6 +21,8 @@ public:
 
 	Bone* createChild(Joint* childDest);
 
+	std::vector<Bone*> getChildren() const { return children; }
+
 	float getLength() const;
 
 	Math::Line3d<float> toLine() const;
@@ -30,6 +32,8 @@ public:
 	Joint* getOriginJoint() const { return origin; }
 
 	Joint* getDestJoint() const { return dest; }
+
+	std::string getName() const { return "Test";  }
 
 private:
 	Joint* origin;

@@ -29,6 +29,8 @@ public:
 
 	void setRoot(Bone* bone) { this->rootBone = bone; }
 
+	Bone* getRoot() const { return this->rootBone; }
+
 	Bone* createBone(Joint* j1, Joint* j2);
 
 	std::list<Bone*> getBones() const { return bones; }
