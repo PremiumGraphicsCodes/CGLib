@@ -30,6 +30,7 @@
     <ClCompile Include="PolygonObject.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="VolumeCell.cpp" />
     <ClCompile Include="VolumeNode.cpp" />
     <ClCompile Include="VolumeObject.cpp" />
   </ItemGroup>
@@ -45,6 +46,7 @@
     <ClInclude Include="PolygonObject.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VolumeCell.h" />
     <ClInclude Include="VolumeNode.h" />
     <ClInclude Include="VolumeObject.h" />
   </ItemGroup>

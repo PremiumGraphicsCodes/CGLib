@@ -20,9 +20,7 @@ namespace Crystal {
 	}
 
 	namespace Polygon {
-
-
-
+		class VolumeCell;
 
 class MarchingCube final : UnCopyable
 {

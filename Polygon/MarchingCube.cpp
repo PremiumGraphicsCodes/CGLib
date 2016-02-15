@@ -3,6 +3,7 @@
 #include "Face.h"
 
 #include "Vertex.h"
+#include "VolumeCell.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
@@ -10,15 +11,6 @@ using namespace Crystal::Polygon;
 
 //MCVolume::toNodes()
 
-std::array< VolumeNode, 8 > VolumeCell::toPositionValues() const
-{
-	std::array< VolumeNode, 8 > pvs;
-	const auto& positions = space.toArray();
-	for (size_t i = 0; i < 8; ++i) {
-		pvs[i] = VolumeNode(positions[i], values[i]);
-	}
-	return pvs;
-}
 
 namespace {
 	Vector3d<float> getUnitLengths(const Space3d<float>& space, const Index3d res)
