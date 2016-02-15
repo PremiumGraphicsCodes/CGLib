@@ -63,6 +63,20 @@ bool PMDHeader::write(std::ostream& stream)
 	return stream.good();
 }
 
+PMDVertex::PMDVertex(const Vertex& v)
+{
+	this->pos = v.getPosition();
+	this->normal = v.getNormal();
+	this->texCoord = Vector2d<float>( v.getTexCoord().getX(), v.getTexCoord().getY() );
+}
+
+Vertex PMDVertex::toVertex(const unsigned int id)
+{
+	Vector3d<float> t(this->texCoord.getX(), this->texCoord.getY(), 0.0f);
+	return Vertex(id, this->pos, this->normal, t);
+}
+
+
 bool PMDVertex::read(std::istream& stream)
 {
 	float posx = 0.0f;
@@ -170,6 +184,22 @@ Joint PMDBone::toJoint() const
 
 #include <fstream>
 
+PMDFile::PMDFile(const PolygonObject& polygon)
+{
+	const auto& vs = polygon.getVertices();
+	for (auto v : vs) {
+		PMDVertex pmdv(*v);
+		vertices.push_back(pmdv);
+	}
+	const auto& fs = polygon.getFaces();
+	for (auto f : fs) {
+		 faces.push_back( f->getV1()->getId() );
+		 faces.push_back( f->getV2()->getId() );
+		 faces.push_back( f->getV3()->getId() );
+	}
+}
+
+
 bool PMDFile::read(const std::string& filename)
 {
 	std::ifstream stream(filename, std::ios::binary);
@@ -186,7 +216,7 @@ bool PMDFile::read(const std::string& filename)
 	for (auto i = 0; i < vertexCount; ++i) {
 		unsigned short vindex = 0;
 		stream.read((char*)&vindex, sizeof(vindex));
-		vIndices.push_back(vindex);
+		faces.push_back(vindex);
 	}
 
 	int materialCount = 0;
@@ -220,7 +250,7 @@ PolygonObject* PMDFile::toPolygonObject() const
 	for (size_t i = 0; i < vs.size(); ++i ) {
 		object->createVertex(vs[i].pos, vs[i].normal);
 	}
-	auto is = this->vIndices;
+	auto is = this->faces;
 	for (size_t i = 0; i < is.size(); i+=3 ) {
 		object->createFace(is[i], is[i + 1], is[i + 2]);
 	}

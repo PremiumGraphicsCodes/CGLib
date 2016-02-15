@@ -53,21 +53,19 @@ std::vector<VolumeNode> VolumeObject::toNodes() const
 
 #include "PolygonObject.h"
 
-namespace {
-	VolumeCell toCell(const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
-	{
-		const auto& lengths = getUnitLengths(space, grid.getSizes());
-		const auto& innerSpace = space.offset(lengths);
+VolumeCell VolumeObject::toCell(const Index3d index) const
+{
+	const auto& lengths = getUnitLengths(space, grid.getSizes());
+	const auto& innerSpace = space.offset(lengths);
 
-		const auto divx = grid.getSizeX() - 1;
-		const auto divy = grid.getSizeY() - 1;
-		const auto divz = grid.getSizeZ() - 1;
+	const auto divx = grid.getSizeX() - 1;
+	const auto divy = grid.getSizeY() - 1;
+	const auto divz = grid.getSizeZ() - 1;
 
-		const auto v = grid.toArray8(index[0], index[1], index[2]);
-		const auto s = space.getSubSpace(index, divx, divy, divz);
+	const auto v = grid.toArray8(index[0], index[1], index[2]);
+	const auto s = space.getSubSpace(index, divx, divy, divz);
 
-		return VolumeCell(s, v);
-	}
+	return VolumeCell(s, v);
 }
 
 
@@ -90,7 +88,7 @@ std::vector< Triangle<float> > VolumeObject::toTriangles(const float isolevel) c
 		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
 			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {
 				if (grid.isBoundary(x, y, z, isolevel)) {
-					const auto& cell = ::toCell(space, grid, Index3d{ x, y, z });
+					const auto& cell = toCell(Index3d{ x, y, z });
 					const auto& ts = cell.toTriangles(isolevel);
 					triangles.insert(triangles.end(), ts.begin(), ts.end());
 				}

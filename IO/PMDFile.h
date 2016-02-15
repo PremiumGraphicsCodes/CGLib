@@ -7,6 +7,7 @@
 
 namespace Crystal {
 	namespace Polygon {
+		class Vertex;
 		class PolygonObject;
 		class ActorObject;
 		class Bone;
@@ -33,8 +34,20 @@ private:
 
 };
 
-struct PMDVertex
+class PMDVertex
 {
+public:
+	PMDVertex() = default;
+
+	PMDVertex(const Polygon::Vertex& v);
+
+	Polygon::Vertex toVertex(const unsigned int id);
+
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
+public:
 	Math::Vector3d<float> pos;
 	Math::Vector3d<float> normal;
 	Math::Vector2d<float> texCoord;
@@ -42,9 +55,6 @@ struct PMDVertex
 	char boneWeight; // [0,100]
 	char isEdge;
 
-	bool read(std::istream& stream);
-
-	bool write(std::ostream& stream);
 };
 
 
@@ -100,13 +110,15 @@ class PMDFile
 public:
 	PMDFile() {};
 
-	/*
-	PMDFile(const PMDHeader& header,const PMDVertices& vertices, const PMDFaces& faces) :
-		header(header),
-		vertices(vertices),
-		faces(faces)
-	{}
-	*/
+	//PMDFile(const std::vector<PMDVertex>& vertices, const std::vector<unsigned int>& faces) :
+	//	header(header),
+	//	vertices(vertices),
+	//	faces(faces)
+	//{}
+
+	PMDFile(const Polygon::PolygonObject& object);
+
+	//void add(const Polygon::PolygonObject& object);
 
 	bool read(const std::string& filename);
 
@@ -117,7 +129,7 @@ public:
 private:
 	PMDHeader header;
 	std::vector<PMDVertex> vertices;
-	std::vector<unsigned short> vIndices;
+	std::vector<unsigned short> faces;
 	std::vector<PMDMaterial> materials;
 	std::vector<PMDBone> bones;
 };

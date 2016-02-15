@@ -15,6 +15,8 @@ class Bone
 public:
 	Bone(Joint* origin, Joint* dest);
 
+	void addChild(Bone* child);
+
 	std::vector<Math::Vector3d<float>> toPositions(const int howMany) const;
 
 	std::vector<float> toValues(const int howMany) const;
@@ -28,6 +30,8 @@ public:
 private:
 	Joint* origin;
 	Joint* dest;
+	//Bone* parent;
+	std::vector<Bone*> children;
 };
 
 	}

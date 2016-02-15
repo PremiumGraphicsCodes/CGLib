@@ -12,6 +12,12 @@ Bone::Bone(Joint* origin, Joint* dest) :
 	dest(dest)
 {}
 
+void Bone::addChild(Bone* child)
+{
+	children.push_back(child);
+}
+
+
 float Bone::getLength() const
 {
 	return toLine().getLength();

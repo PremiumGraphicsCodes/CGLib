@@ -16,6 +16,7 @@ namespace Crystal {
 
 class PolygonObject;
 class ParticleObject;
+class VolumeCell;
 
 class VolumeObject
 {
@@ -27,10 +28,6 @@ public:
 
 	std::vector<VolumeNode> toNodes() const;
 
-	//Math::Space3d<float> getSpace() const { return space; }
-
-	//Math::Grid3d<float> getGrid() const { return grid; }
-
 	PolygonObject* toPolygonObject(const float isolevel) const;
 
 	ParticleObject* toParticleObject() const;
@@ -40,6 +37,8 @@ private:
 	const Math::Grid3d<float> grid;
 
 	std::vector< Math::Triangle<float> > toTriangles(const float isolevel) const;
+
+	VolumeCell toCell(const Math::Index3d index) const;
 };
 	}
 }
