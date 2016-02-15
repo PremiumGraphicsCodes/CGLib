@@ -15,17 +15,21 @@ class Bone
 public:
 	Bone(Joint* origin, Joint* dest);
 
-	void addChild(Bone* child);
+	~Bone();
 
-	std::vector<Math::Vector3d<float>> toPositions(const int howMany) const;
+	void clear();
 
-	std::vector<float> toValues(const int howMany) const;
+	Bone* createChild(Joint* childDest);
 
 	float getLength() const;
 
 	Math::Line3d<float> toLine() const;
 
 	std::vector<Particle> toParticles(const float divideLength);
+
+	Joint* getOriginJoint() const { return origin; }
+
+	Joint* getDestJoint() const { return dest; }
 
 private:
 	Joint* origin;

@@ -182,6 +182,47 @@ Joint PMDBone::toJoint() const
 	return Joint(boneHeadPos, 1.0f, 1.0f);
 }
 
+bool PMDBoneCollection::read(std::istream& stream)
+{
+	short int boneCount = 0;
+	stream.read((char*)&boneCount, sizeof(boneCount));
+	for (auto i = 0; i < boneCount; ++i) {
+		PMDBone bone;
+		bone.read(stream);
+		bones.emplace_back(bone);
+	}
+	return stream.good();
+}
+
+ActorObject* PMDBoneCollection::toActorObject() const
+{
+	ActorObject* object = new ActorObject();
+	std::vector<Joint*> joints;
+	for (size_t i = 0; i < bones.size(); ++i) {
+		//vertices.push_back(new Vertex());
+		//bones[i].toJoint();
+		auto j = object->createJoint(bones[i].boneHeadPos, 1.0f, 1.0f);
+		joints.emplace_back(j);
+	}
+	for (size_t i = 0; i < bones.size(); ++i) {
+		const auto parentBoneIndex = bones[i].parentBoneIndex;
+		Joint* headJoint = nullptr;
+		if (parentBoneIndex != 0xFFFF) {
+			headJoint = joints[parentBoneIndex];
+		}
+		const auto tailBoneIndex = bones[i].tailBoneIndex;
+		Joint* tailJoint = nullptr;
+		if (tailBoneIndex != 0xFFFF) {
+			if (tailBoneIndex != 0) {
+				tailJoint = joints[tailBoneIndex];
+			}
+		}
+		object->createBone(headJoint, tailJoint);
+	}
+	return object;
+}
+
+
 #include <fstream>
 
 PMDFile::PMDFile(const PolygonObject& polygon)
@@ -227,13 +268,7 @@ bool PMDFile::read(const std::string& filename)
 		materials.emplace_back(material);
 	}
 
-	short int boneCount = 0;
-	stream.read((char*)&boneCount, sizeof(boneCount));
-	for (auto i = 0; i < boneCount; ++i) {
-		PMDBone bone;
-		bone.read(stream);
-		bones.emplace_back(bone);
-	}
+	bones.read(stream);
 
 	//bones.read(stream);
 
@@ -241,7 +276,12 @@ bool PMDFile::read(const std::string& filename)
 }
 
 
-using namespace Crystal::Polygon;
+/*
+void PMDFile::add(const ActorObject& actor)
+{
+	actor.get
+}
+*/
 
 PolygonObject* PMDFile::toPolygonObject() const
 {
@@ -257,31 +297,3 @@ PolygonObject* PMDFile::toPolygonObject() const
 	return object;
 }
 
-ActorObject* PMDFile::toActorObject() const
-{
-	ActorObject* object = new ActorObject();
-	std::vector<Joint*> joints;
-	for (size_t i = 0; i < bones.size(); ++i) {
-		//vertices.push_back(new Vertex());
-		//bones[i].toJoint();
-		joints.emplace_back( object->createJoint(bones[i].boneHeadPos, 1.0f, 1.0f) );
-	}
-	for (size_t i = 0; i < bones.size(); ++i) {
-		const auto parentBoneIndex = bones[i].parentBoneIndex;
-		Joint* headJoint = nullptr;
-		if (parentBoneIndex != 0xFFFF) {
-			headJoint = joints[parentBoneIndex];
-		}
-		const auto tailBoneIndex = bones[i].tailBoneIndex;
-		Joint* tailJoint = nullptr;
-		if (tailBoneIndex != 0xFFFF) {
-			if (tailBoneIndex != 0) {
-				tailJoint = joints[tailBoneIndex];
-			}
-		}
-		if (headJoint && tailJoint) {
-			object->createBone(headJoint, tailJoint);
-		}
-	}
-	return object;
-}

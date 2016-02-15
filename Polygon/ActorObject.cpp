@@ -3,6 +3,7 @@
 #include "ParticleObject.h"
 #include "Joint.h"
 #include "Bone.h"
+#include "BoneTree.h"
 #include "../Math/Line3d.h"
 
 using namespace Crystal::Math;

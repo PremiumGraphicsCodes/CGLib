@@ -12,10 +12,27 @@ Bone::Bone(Joint* origin, Joint* dest) :
 	dest(dest)
 {}
 
-void Bone::addChild(Bone* child)
+Bone::~Bone()
 {
-	children.push_back(child);
+	clear();
 }
+
+void Bone::clear()
+{
+	for (auto c : children) {
+		delete c;
+	}
+	children.clear();
+}
+
+
+Bone* Bone::createChild(Joint* childDest)
+{
+	auto b = new Bone(dest, childDest);
+	children.push_back(b);
+	return b;
+}
+
 
 
 float Bone::getLength() const

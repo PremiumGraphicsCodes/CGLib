@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ActorObject.cpp" />
     <ClCompile Include="Bone.cpp" />
+    <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Face.cpp" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="ActorObject.h" />
     <ClInclude Include="Bone.h" />
+    <ClInclude Include="BoneTree.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Particle.h" />

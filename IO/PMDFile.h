@@ -105,6 +105,24 @@ public:
 	Math::Vector3d<float> boneHeadPos;
 };
 
+class PMDBoneCollection
+{
+public:
+	PMDBoneCollection()
+	{}
+
+	PMDBoneCollection(const std::vector<PMDBone>& bones) :
+		bones(bones)
+	{}
+
+	bool read(std::istream& stream);
+
+	Polygon::ActorObject* toActorObject() const;
+
+private:
+	std::vector<PMDBone> bones;
+};
+
 class PMDFile
 {
 public:
@@ -120,18 +138,18 @@ public:
 
 	//void add(const Polygon::PolygonObject& object);
 
+	void add(const Polygon::ActorObject& actor);
+
 	bool read(const std::string& filename);
 
 	Polygon::PolygonObject* toPolygonObject() const;
-
-	Polygon::ActorObject* toActorObject() const;
 
 private:
 	PMDHeader header;
 	std::vector<PMDVertex> vertices;
 	std::vector<unsigned short> faces;
 	std::vector<PMDMaterial> materials;
-	std::vector<PMDBone> bones;
+	PMDBoneCollection bones;
 };
 	}
 }
