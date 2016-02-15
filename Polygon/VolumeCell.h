@@ -25,11 +25,18 @@ public:
 
 	std::array< VolumeNode, 8 > toPositionValues() const;
 
-	Math::Triangle<float> toTriangle() const;
+	std::array< Math::Vector3d<float>, 12 > getPositions(const int cubeindex, const float isolevel) const;
+
+	std::vector< Math::Triangle<float> > toTriangles(const float isolevel) const;
+
+	int getCubeIndex(const float isolevel) const;
+
 
 private:
 	Math::Space3d<float> space;
 	std::array< float, 8> values;
+
+
 };
 	}
 }
