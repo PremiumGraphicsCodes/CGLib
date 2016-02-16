@@ -38,7 +38,8 @@ public:
 	std::list<Joint*> getJoints() const { return joints; }
 
 	BoneTree toBoneTree();
-		
+	
+	ParticleObject* toParticleObject(const float radius, const float density) const;
 
 	//ParticleObject toParticleObject();
 

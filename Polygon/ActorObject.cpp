@@ -39,3 +39,17 @@ Bone* ActorObject::createBone(Joint* j1, Joint* j2)
 	bones.push_back(b);
 	return b;
 }
+
+ParticleObject* ActorObject::toParticleObject(const float radius, const float density) const
+{
+	//rootBone->getOriginJoint();
+	//auto children =
+	std::vector<Particle*> particles;
+	for (auto b : bones) {
+		const auto& ps = b->toParticles(radius * 2.0f, density);
+		for (const auto& p : ps) {
+			particles.push_back( p.clone() );
+		}
+	}
+	return new ParticleObject( particles );
+}
