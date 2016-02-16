@@ -25,9 +25,9 @@ void ActorObject::clear()
 }
 
 
-Joint* ActorObject::createJoint(const Vector3d<float>& pos, const float radius, const float thickness)
+Joint* ActorObject::createJoint(const Vector3d<float>& pos)
 {
-	auto j = new Joint(pos, radius, thickness);
+	auto j = new Joint(pos);
 	joints.push_back(j);
 	return j;
 }

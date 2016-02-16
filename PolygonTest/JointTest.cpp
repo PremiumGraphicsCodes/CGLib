@@ -6,8 +6,8 @@ using namespace Crystal::Polygon;
 
 TEST(JointTest, Test)
 {
-	Joint joint( Vector3d<float>(1.0, 0.0, 0.0), 0.5f, 1.0f);
-	const Particle& actual = joint.toParticle();
+	Joint joint( Vector3d<float>(1.0, 0.0, 0.0));
+	const Particle& actual = joint.toParticle(0.5f, 1.0f);
 	EXPECT_EQ(Vector3d<float>(1.0, 0.0, 0.0), actual.getPosition());
-	EXPECT_EQ(1.0f, actual.getDensity());
+	EXPECT_EQ(0.5f, actual.getDensity());
 }

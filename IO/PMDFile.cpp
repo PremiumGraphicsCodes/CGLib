@@ -179,7 +179,7 @@ Bone PMDBone::toActorBone() const
 
 Joint PMDBone::toJoint() const
 {
-	return Joint(boneHeadPos, 1.0f, 1.0f);
+	return Joint(boneHeadPos);
 }
 
 bool PMDBoneCollection::read(std::istream& stream)
@@ -201,7 +201,7 @@ ActorObject* PMDBoneCollection::toActorObject() const
 	for (size_t i = 0; i < bones.size(); ++i) {
 		//vertices.push_back(new Vertex());
 		//bones[i].toJoint();
-		auto j = object->createJoint(bones[i].boneHeadPos, 1.0f, 1.0f);
+		auto j = object->createJoint(bones[i].boneHeadPos);
 		joints.emplace_back(j);
 	}
 	for (size_t i = 0; i < bones.size(); ++i) {

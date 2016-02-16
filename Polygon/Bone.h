@@ -27,7 +27,7 @@ public:
 
 	Math::Line3d<float> toLine() const;
 
-	std::vector<Particle> toParticles(const float divideLength);
+	std::vector<Particle> toParticles(const float divideLength, const float density);
 
 	Joint* getOriginJoint() const { return origin; }
 

@@ -25,7 +25,7 @@ public:
 
 	void clear();
 
-	Joint* createJoint(const Math::Vector3d<float>& pos, const float radius, const float thickness);
+	Joint* createJoint(const Math::Vector3d<float>& pos);
 
 	void setRoot(Bone* bone) { this->rootBone = bone; }
 
