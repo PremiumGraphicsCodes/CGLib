@@ -11,6 +11,12 @@
 #include <list>
 
 namespace Crystal {
+	namespace Math {
+		template<typename>
+		class Sphere;
+		template<typename>
+		class Box;
+	}
 	namespace Polygon {
 
 class Vertex;
@@ -30,6 +36,10 @@ public:
 	void add(const Math::Triangle<float>& triangle);
 
 	void add(const Math::Quad<float>& quad);
+
+	void add(const Math::Box<float>& box);
+
+	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
 
 	void removeOverlappedVertices() { vertices.sort(); }
 

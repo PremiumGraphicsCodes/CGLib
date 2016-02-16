@@ -3,6 +3,9 @@
 #include "Vertex.h"
 #include "Face.h"
 
+#include "../Math/Sphere.h"
+#include "../Math/Box.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
@@ -100,6 +103,8 @@ void PolygonObject::add(const Triangle<float>& triangle)
 	v3->setFace( f );
 }
 
+
+
 void PolygonObject::add(const Quad<float>& quad)
 {
 	auto n = quad.getNormal();
@@ -115,6 +120,50 @@ void PolygonObject::add(const Quad<float>& quad)
 	auto f = createFaces({ v1, v2, v3, v4 });
 }
 
+void PolygonObject::add(const Box<float>& box)
+{
+	const auto& center = box.getCenter();
+	const auto minx = box.getMinX();
+	const auto miny = box.getMinY();
+	const auto minz = box.getMinZ();
+	const auto maxx = box.getMaxX();
+	const auto maxy = box.getMaxY();
+	const auto maxz = box.getMaxZ();
+
+	std::array< Vector3d<float>, 8 > ps = {
+		Vector3d<float>(minx, miny, minz),
+		Vector3d<float>(maxx, miny, minz),
+		Vector3d<float>(maxx, maxy, minz),
+		Vector3d<float>(minx, maxy, minz),
+		Vector3d<float>(minx, miny, maxz),
+		Vector3d<float>(maxx, miny, maxz),
+		Vector3d<float>(maxx, maxy, maxz),
+		Vector3d<float>(minx, maxy, maxz) };
+
+	std::array< Vector3d<float>, 8 > ns;
+	for (int i = 0; i < 8; ++i) {
+		ns[i] = Vector3d<float>(ps[i] - center).getNormalized();
+	}
+
+	for (int i = 0; i < 8; ++i) {
+		vertices.create(ps[i], ns[i]);
+	}
+
+	createFace(vertices[0], vertices[1], vertices[2]);
+	createFace(vertices[2], vertices[3], vertices[0]);
+
+	createFace(vertices[6], vertices[5], vertices[4]);
+	createFace(vertices[7], vertices[6], vertices[4]);
+
+	createFace(vertices[6], vertices[1], vertices[5]);
+	createFace(vertices[2], vertices[1], vertices[6]);
+
+}
+
+void PolygonObject::add(const Sphere<float>& sphere, const int udiv, const int vdiv)
+{
+	;
+}
 
 
 void PolygonObject::clear()
