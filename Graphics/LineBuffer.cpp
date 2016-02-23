@@ -29,7 +29,9 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 void LineBuffer::add(const ActorObject& actor)
 {
 	for (auto b : actor.getBones()) {
-		add( b->toLine(), ColorRGBA<float>(1.0f, 1.0f, 1.0f, 1.0f));
+		if (b->getOriginJoint() != nullptr && b->getDestJoint() != nullptr) {
+			add(b->toLine(), ColorRGBA<float>(1.0f, 1.0f, 1.0f, 1.0f));
+		}
 	}
 }
 

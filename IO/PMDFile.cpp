@@ -297,3 +297,8 @@ PolygonObject* PMDFile::toPolygonObject() const
 	return object;
 }
 
+ActorObject* PMDFile::toActorObject() const
+{
+	return bones.toActorObject();
+}
+

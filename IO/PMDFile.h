@@ -144,6 +144,8 @@ public:
 
 	Polygon::PolygonObject* toPolygonObject() const;
 
+	Polygon::ActorObject* toActorObject() const;
+
 private:
 	PMDHeader header;
 	std::vector<PMDVertex> vertices;
