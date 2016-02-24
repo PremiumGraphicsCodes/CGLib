@@ -26,6 +26,7 @@
     <ClCompile Include="PMDFile.cpp" />
     <ClCompile Include="POVFile.cpp" />
     <ClCompile Include="STLFile.cpp" />
+    <ClCompile Include="VMDFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="PMDFile.h" />
     <ClInclude Include="POVFile.h" />
     <ClInclude Include="STLFile.h" />
+    <ClInclude Include="VMDFile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{028C3897-F00D-4265-B059-BC79B022A0A0}</ProjectGuid>

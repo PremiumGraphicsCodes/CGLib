@@ -9,5 +9,6 @@
     <ClCompile Include="PLYFileTest.cpp" />
     <ClCompile Include="POVTest.cpp" />
     <ClCompile Include="PMDFileTest.cpp" />
+    <ClCompile Include="VMDFileTest.cpp" />
   </ItemGroup>
 </Project>

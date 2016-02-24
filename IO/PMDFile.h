@@ -15,6 +15,10 @@ namespace Crystal {
 	}
 	namespace IO {
 
+		using DWORD = unsigned long;
+		using BYTE = unsigned char;
+		using WORD = unsigned short;
+
 
 struct PMDHeader
 {
@@ -131,12 +135,12 @@ public:
 	bool write(std::ostream& stream);
 
 private:
-	unsigned short boneIndex;
-	unsigned short targetBoneIndex;
-	char childrenNumber;
-	unsigned short iterationNumber;
+	WORD boneIndex;
+	WORD targetBoneIndex;
+	BYTE childrenNumber;
+	WORD iterationNumber;
 	float limitAngle;
-	std::vector<unsigned short> childBoneIndices;
+	std::vector<WORD> childBoneIndices;
 };
 
 class PMDIKCollection
