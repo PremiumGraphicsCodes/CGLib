@@ -43,8 +43,45 @@ private:
 
 class VMDSkin
 {
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
 private:
-	//char 
+	char name[15];
+	DWORD frameNumber;
+	float weight;
+};
+
+class VMDCamera
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
+private:
+	DWORD flameNumber;
+	float length;
+	float location[3];
+	float rotation[3];
+	BYTE interpolation[24];
+	DWORD viewAngle;
+	BYTE perspective;
+};
+
+class VMDLight
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
+private:
+	DWORD flameNumber;
+	float rgb[3];
+	float location[3];
 };
 
 class VMDFile
@@ -57,6 +94,8 @@ public:
 private:
 	VMDHeader header;
 	std::vector<VMDMotion> motions;
+	std::vector<VMDSkin> skins;
+	std::vector<VMDCamera> cameras;
 };
 
 

@@ -35,6 +35,7 @@
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="PMDFile.h" />
+    <ClInclude Include="PMMFile.h" />
     <ClInclude Include="POVFile.h" />
     <ClInclude Include="STLFile.h" />
     <ClInclude Include="VMDFile.h" />

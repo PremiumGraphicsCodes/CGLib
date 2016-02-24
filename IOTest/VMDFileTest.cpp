@@ -6,5 +6,5 @@ using namespace Crystal::IO;
 TEST(VMDFileTest, TestWrite)
 {
 	VMDFile file;
-	file.write("../TestFile/IO/VMDFileWriteTest.vmd");
+	file.read("../TestFile/IO/test.vmd");
 }
