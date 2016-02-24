@@ -24,17 +24,14 @@ struct PMDHeader
 {
 	PMDHeader();
 
-	PMDHeader(const std::string& modelName, const std::string& comment);
-
 	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream);
 
 private:
-	std::string magic;
 	float version;
-	std::string modelName;
-	std::string comment;
+	char modelName[20];
+	char comment[256];
 
 };
 
@@ -153,6 +150,27 @@ public:
 
 private:
 	std::vector<PMDIK> iks;
+};
+
+class PMDSkinVertex
+{
+public:
+	bool read(std::istream& stream);
+private:
+	DWORD vertexIndex;
+
+
+};
+
+class PMDSkin
+{
+public:
+	bool read(std::istream& stream);
+
+private:
+	char name[20];
+	DWORD vertexCount;
+	BYTE type;
 };
 
 class PMDFile

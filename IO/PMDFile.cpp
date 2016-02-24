@@ -14,21 +14,10 @@ using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
 PMDHeader::PMDHeader() :
-magic("Pmd"),
 version(1.0f)
 {
 }
 
-
-PMDHeader::PMDHeader(const std::string& modelName, const std::string& comment) :
-	magic("Pmd"),
-	version(1.0f),
-	modelName(modelName),
-	comment(comment)
-{
-	//assert(modelName.size() <= 20);
-	//assert(comment.size() <= 256);
-}
 
 /*
 namespace {
@@ -41,25 +30,22 @@ namespace {
 
 bool PMDHeader::read(std::istream& stream)
 {
-	char str[256];
-	stream.read(str, 3);
-	
-	this->magic = str;
+	char magic[3];
+	stream.read(magic, 3);
+	assert(magic == "Pmd");
 	stream.read((char*)&version, sizeof(version));
-	stream.read(str, 20);
-	this->modelName = str;
-	stream.read(str, 256);
-	this->comment = str;
+	stream.read(modelName, sizeof(modelName));
+	stream.read(comment, sizeof(comment));
 	return stream.good();
 }
 
 
 bool PMDHeader::write(std::ostream& stream)
 {
-	stream.write((char *)magic.c_str(), 3);
+	stream.write("Pmd", 3);
 	stream.write((char *)&version, sizeof(version));
-	stream.write((char *)modelName.c_str(), 20);
-	stream.write((char *)comment.c_str(), 256);
+	stream.write(modelName, 20);
+	stream.write(comment, 256);
 	return stream.good();
 }
 

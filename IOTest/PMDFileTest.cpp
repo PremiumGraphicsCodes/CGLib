@@ -11,15 +11,6 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-TEST(PMDFileTest, TestWriteHeader)
-{
-	PMDHeader header("modelname", "comment");
-	//std::ostringstream stream(std::ios::binary);
-	std::ofstream stream("../TestFile/IO/PMDHeaderTest.pmd", std::ios::binary);
-	EXPECT_TRUE( header.write(stream) );
-	//auto actual = stream.str();
-
-}
 
 TEST(PMDFileTest, TestFromPolygonObject)
 {
