@@ -84,6 +84,19 @@ private:
 	float location[3];
 };
 
+class VMDSelfShadow
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
+private:
+	DWORD frameNumber;
+	BYTE mode;
+	float distance;
+};
+
 class VMDFile
 {
 public:
@@ -96,6 +109,8 @@ private:
 	std::vector<VMDMotion> motions;
 	std::vector<VMDSkin> skins;
 	std::vector<VMDCamera> cameras;
+	std::vector<VMDLight> lights;
+	std::vector<VMDSelfShadow> selfShadows;
 };
 
 

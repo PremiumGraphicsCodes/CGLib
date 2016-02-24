@@ -55,6 +55,23 @@ bool VMDCamera::read(std::istream& stream)
 	return stream.good();
 }
 
+bool VMDLight::read(std::istream& stream)
+{
+	stream.read((char*)&flameNumber, sizeof(flameNumber));
+	stream.read((char*)&rgb, sizeof(rgb));
+	stream.read((char*)&location, sizeof(location));
+	return stream.good();
+}
+
+bool VMDSelfShadow::read(std::istream& stream)
+{
+	stream.read((char*)&frameNumber, sizeof(frameNumber));
+	stream.read((char*)&mode, sizeof(mode));
+	stream.read((char*)&distance, sizeof(distance));
+	return stream.good();
+}
+
+
 bool VMDFile::read(const std::string& filename)
 {
 	std::ifstream stream(filename, std::ios::binary);
@@ -64,14 +81,14 @@ bool VMDFile::read(const std::string& filename)
 	header.read(stream);
 	DWORD motionNumber = 0;
 	stream.read((char*)&motionNumber, sizeof(motionNumber));
-	for (int i = 0; i < motionNumber; ++i) {
+	for (unsigned int i = 0; i < motionNumber; ++i) {
 		VMDMotion motion;
 		motion.read(stream);
 		motions.emplace_back(motion);
 	}
 	DWORD skinNumber = 0;
 	stream.read((char*)&skinNumber, sizeof(skinNumber));
-	for (int i = 0; i < skinNumber; ++i) {
+	for (unsigned int i = 0; i < skinNumber; ++i) {
 		VMDSkin skin;
 		skin.read(stream);
 		skins.emplace_back(skin);
@@ -83,6 +100,21 @@ bool VMDFile::read(const std::string& filename)
 		camera.read(stream);
 		cameras.emplace_back(camera);
 	}
+	DWORD lightNumber = 0;
+	stream.read((char*)&lightNumber, sizeof(lightNumber));
+	for (unsigned int i = 0; i < lightNumber; ++i) {
+		VMDLight light;
+		light.read(stream);
+		lights.emplace_back(light);
+	}
+	DWORD selfShadowNumber = 0;
+	stream.read((char*)&selfShadowNumber, sizeof(selfShadowNumber));
+	for (unsigned int i = 0; i < selfShadowNumber; ++i) {
+		VMDSelfShadow shadow;
+		shadow.read(stream);
+		selfShadows.emplace_back(shadow);
+	}
+
 	return stream.good();
 }
 
