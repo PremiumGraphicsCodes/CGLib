@@ -13,6 +13,10 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
+namespace {
+	//void read( stream, )
+}
+
 PMDHeader::PMDHeader() :
 version(1.0f)
 {
@@ -32,7 +36,7 @@ bool PMDHeader::read(std::istream& stream)
 {
 	char magic[3];
 	stream.read(magic, 3);
-	assert(magic == "Pmd");
+	//assert(magic == "Pmd");
 	stream.read((char*)&version, sizeof(version));
 	stream.read(modelName, sizeof(modelName));
 	stream.read(comment, sizeof(comment));
@@ -242,6 +246,44 @@ bool PMDIKCollection::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDSkinVertex::read(std::istream& stream)
+{
+	stream.read((char*)&vertexIndex, sizeof(vertexIndex));
+	stream.read((char*)&position, sizeof(position));
+	return stream.good();
+}
+
+bool PMDSkinVertex::write(std::ostream& stream)
+{
+	return false;
+}
+
+
+bool PMDSkin::read(std::istream& stream)
+{
+	stream.read(name, sizeof(name));
+	stream.read((char*)&vertexCount, sizeof(vertexCount));
+	stream.read(&type, sizeof(type));
+	for (unsigned int i = 0; i < vertexCount; ++i) {
+		PMDSkinVertex skinVertex;
+		skinVertex.read(stream);
+		skinVertices.emplace_back(skinVertex);
+		
+		//if (type == 0) {
+
+		//}
+	}
+	return stream.good();
+}
+
+bool PMDDisplayBone::read(std::istream& stream)
+{
+	stream.read((char*)&boneIndex, sizeof(boneIndex));
+	stream.read((char*)&dispFrameIndex, sizeof(dispFrameIndex));
+	return stream.good();
+}
+
+
 #include <fstream>
 
 PMDFile::PMDFile(const PolygonObject& polygon)
@@ -264,7 +306,7 @@ bool PMDFile::read(const std::string& filename)
 {
 	std::ifstream stream(filename, std::ios::binary);
 	header.read(stream);
-	int vertexCount = 0;
+	DWORD vertexCount = 0;
 	stream.read((char*)&vertexCount, sizeof(vertexCount));
 	for (auto i = 0; i < vertexCount; ++i) {
 		PMDVertex vertex;
@@ -289,7 +331,55 @@ bool PMDFile::read(const std::string& filename)
 
 	bones.read(stream);
 
+	iks.read(stream);
+
+	WORD skinCount = 0;
+	stream.read((char*)&skinCount, sizeof(skinCount));
+	for (unsigned int i = 0; i < skinCount; ++i) {
+		PMDSkin skin;
+		skin.read(stream);
+		skins.emplace_back(skin);
+	}
 	//bones.read(stream);
+
+	BYTE displaySkinCount = 0;
+	stream.read((char*)&displaySkinCount, sizeof(displaySkinCount));
+	for (unsigned int i = 0; i < displaySkinCount; ++i) {
+		WORD skinIndex;
+		stream.read((char*)&skinIndex, sizeof(skinIndex));
+		displaySkinIndices.push_back(skinIndex);
+	}
+
+	BYTE displayBoneCount = 0;
+	stream.read((char*)&displayBoneCount, sizeof(displayBoneCount));
+	for (unsigned int i = 0; i < displayBoneCount; ++i) {
+		char dispName[50];
+		stream.read((char*)&dispName, sizeof(dispName));
+		displayBoneNames.push_back(dispName);
+	}
+
+	DWORD displayBonesCount = 0;
+	stream.read((char*)&displayBonesCount, sizeof(displayBonesCount));
+	for (unsigned int i = 0; i < displayBonesCount; ++i) {
+		PMDDisplayBone dispBone;
+		dispBone.read(stream);
+		displayBones.emplace_back(dispBone);
+	}
+
+	BYTE englishNameCompatibility;
+	stream.read((char*)&englishNameCompatibility, sizeof(englishNameCompatibility));
+	char modelNameInEnglish[20];
+	stream.read(modelNameInEnglish, sizeof(modelNameInEnglish));
+	char commentInEnglish[256];
+	stream.read(commentInEnglish, sizeof(commentInEnglish));
+
+	unsigned char boneCount;
+	stream.read((char*)&boneCount, sizeof(boneCount));
+	for (int i = 0; i < boneCount; ++i) {
+		char boneName[20];
+		stream.read(boneName, sizeof(boneName));
+		boneNamesInEnglish.emplace_back(boneName);
+	}
 
 	return stream.good();
 }

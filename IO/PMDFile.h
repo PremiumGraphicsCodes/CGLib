@@ -120,6 +120,8 @@ public:
 
 	Polygon::ActorObject* toActorObject() const;
 
+	size_t getSize() const { return bones.size(); }
+
 private:
 	std::vector<PMDBone> bones;
 };
@@ -156,10 +158,12 @@ class PMDSkinVertex
 {
 public:
 	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
 private:
 	DWORD vertexIndex;
-
-
+	float position[3];
 };
 
 class PMDSkin
@@ -167,10 +171,69 @@ class PMDSkin
 public:
 	bool read(std::istream& stream);
 
+	enum class Type {
+		Base = 0,
+		EyeBrow = 1,
+		Eye = 2,
+		Lip = 3,
+		Other = 4,
+	};
+
 private:
 	char name[20];
 	DWORD vertexCount;
-	BYTE type;
+	char type;
+	std::vector<PMDSkinVertex> skinVertices;
+};
+
+class PMDDisplayBone
+{
+public:
+	bool read(std::istream& stream);
+
+private:
+	WORD boneIndex;
+	BYTE dispFrameIndex;
+};
+
+class PMDPhysicsBody
+{
+public:
+	bool read(std::istream& stream);
+private:
+	char name[20];
+	WORD relatedBoneIndex;
+	BYTE groupIndex;
+	WORD groupTarget;
+	BYTE shapeType;
+	float width;
+	float height;
+	float depth;
+	float position[3];
+	float rotation[3];
+	float weight;
+	float translateDumpingCoe;
+	float rotationDumpingCoe;
+	float repulse;
+	float friction;
+	BYTE rigidType;
+};
+
+class PMDPhysicsJoint
+{
+public:
+private:
+	char name[20];
+	DWORD rigidIndex1;
+	DWORD rigidIndex2;
+	float position[3];
+	float rotation[3];
+	float constrainPosition1[3];
+	float constrainPosition2[3];
+	float constrainAngle1[3];
+	float constrainAngle2[3];
+	float springPosition[3];
+	float springRotation[3];
 };
 
 class PMDFile
@@ -202,6 +265,12 @@ private:
 	std::vector<unsigned short> faces;
 	std::vector<PMDMaterial> materials;
 	PMDBoneCollection bones;
+	PMDIKCollection iks;
+	std::vector<PMDSkin> skins;
+	std::vector<WORD> displaySkinIndices;
+	std::vector<std::string> displayBoneNames;
+	std::vector<PMDDisplayBone> displayBones;
+	std::vector<std::string> boneNamesInEnglish;
 };
 	}
 }
