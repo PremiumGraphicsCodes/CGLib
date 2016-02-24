@@ -123,6 +123,34 @@ private:
 	std::vector<PMDBone> bones;
 };
 
+class PMDIK
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream);
+
+private:
+	unsigned short boneIndex;
+	unsigned short targetBoneIndex;
+	char childrenNumber;
+	unsigned short iterationNumber;
+	float limitAngle;
+	std::vector<unsigned short> childBoneIndices;
+};
+
+class PMDIKCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ofstream& stream);
+
+
+private:
+	std::vector<PMDIK> iks;
+};
+
 class PMDFile
 {
 public:

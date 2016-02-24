@@ -222,6 +222,39 @@ ActorObject* PMDBoneCollection::toActorObject() const
 	return object;
 }
 
+bool PMDIK::read(std::istream& stream)
+{
+	stream.read((char*)&boneIndex, sizeof(boneIndex));
+	stream.read((char*)&targetBoneIndex, sizeof(targetBoneIndex));
+	stream.read((char*)&childrenNumber, sizeof(childrenNumber));
+	stream.read((char*)&iterationNumber, sizeof(iterationNumber));
+	stream.read((char*)&limitAngle, sizeof(limitAngle));
+	for (int i = 0; i < childrenNumber; ++i) {
+		unsigned short childBoneIndex;
+		stream.read((char*)&childBoneIndex, sizeof(childBoneIndex));
+		childBoneIndices.emplace_back(childBoneIndex);
+	}
+
+	return stream.good();
+}
+
+bool PMDIK::write(std::ostream& stream)
+{
+	return false;
+}
+
+bool PMDIKCollection::read(std::istream& stream)
+{
+	unsigned short ikCount = 0;
+	stream.read((char*)&ikCount, sizeof(ikCount));
+	for (auto i = 0; i < ikCount; ++i) {
+		PMDIK ik;
+		ik.read(stream);
+		iks.emplace_back(ik);
+	}
+
+	return stream.good();
+}
 
 #include <fstream>
 
