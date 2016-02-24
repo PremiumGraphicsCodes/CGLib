@@ -210,7 +210,7 @@ private:
 	std::vector<std::string> boneDispNames;
 };
 
-class PMDPhysicsBody
+class PMDRigidBody
 {
 public:
 	bool read(std::istream& stream);
@@ -233,9 +233,10 @@ private:
 	BYTE rigidType;
 };
 
-class PMDPhysicsJoint
+class PMDRigidJoint
 {
 public:
+	bool read(std::istream& stream);
 private:
 	char name[20];
 	DWORD rigidIndex1;
@@ -286,6 +287,8 @@ private:
 	std::vector<PMDDisplayBone> displayBones;
 	PMDNamesInEnglish namesInEnglish;
 	std::vector<std::string> toonTextureFileNames;
+	std::vector<PMDRigidBody> rigidBodies;
+	std::vector<PMDRigidJoint> rigidJoints;
 };
 	}
 }

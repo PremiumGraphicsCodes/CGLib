@@ -333,6 +333,45 @@ bool PMDNamesInEnglish::read(std::istream& stream)
 
 #include <fstream>
 
+bool PMDRigidBody::read(std::istream& stream)
+{
+	stream.read(name, sizeof(name));
+	stream.read((char*)&relatedBoneIndex, sizeof(relatedBoneIndex));
+	stream.read((char*)&groupIndex, sizeof(groupIndex));
+	stream.read((char*)&groupTarget, sizeof(groupTarget));
+	stream.read((char*)&shapeType, sizeof(shapeType));
+	stream.read((char*)&width, sizeof(width));
+	stream.read((char*)&height, sizeof(height));
+	stream.read((char*)&depth, sizeof(depth));
+	stream.read((char*)&position, sizeof(position));
+	stream.read((char*)&rotation, sizeof(rotation));
+	stream.read((char*)&weight, sizeof(weight));
+	stream.read((char*)&translateDumpingCoe, sizeof(translateDumpingCoe));
+	stream.read((char*)&rotationDumpingCoe, sizeof(rotationDumpingCoe));
+	stream.read((char*)&repulse, sizeof(repulse));
+	stream.read((char*)&friction, sizeof(friction));
+	stream.read((char*)&rigidType, sizeof(rigidType));
+	return stream.good();
+}
+
+bool PMDRigidJoint::read(std::istream& stream)
+{
+	stream.read(name,sizeof(name));
+	stream.read((char*)&rigidIndex1, sizeof(rigidIndex1));
+	stream.read((char*)&rigidIndex2, sizeof(rigidIndex2));
+	stream.read((char*)&position, sizeof(position));
+	stream.read((char*)&rotation, sizeof(rotation));
+	stream.read((char*)&constrainPosition1, sizeof(constrainPosition1));
+	stream.read((char*)&constrainPosition2, sizeof(constrainPosition2));
+	stream.read((char*)&constrainAngle1, sizeof(constrainAngle1));
+	stream.read((char*)&constrainAngle2, sizeof(constrainAngle2));
+	stream.read((char*)&springPosition, sizeof(springPosition));
+	stream.read((char*)&springRotation, sizeof(springRotation));
+	return stream.good();
+}
+
+
+
 PMDFile::PMDFile(const PolygonObject& polygon)
 {
 	const auto& vs = polygon.getVertices();
@@ -434,6 +473,22 @@ bool PMDFile::read(const std::string& filename)
 		char toonTextureFileName[100];
 		stream.read(toonTextureFileName, sizeof(toonTextureFileName));
 		toonTextureFileNames.emplace_back(toonTextureFileName);
+	}
+
+	DWORD rigidBodyCount = 0;
+	stream.read((char*)&rigidBodyCount, sizeof(rigidBodyCount));
+	for (unsigned int i = 0; i < rigidBodyCount; ++i) {
+		PMDRigidBody rigidBody;
+		rigidBody.read(stream);
+		rigidBodies.emplace_back(rigidBody);
+	}
+
+	DWORD rigidJointCount = 0;
+	stream.read((char*)&rigidJointCount, sizeof(rigidJointCount));
+	for (unsigned int i = 0; i < rigidJointCount; ++i) {
+		PMDRigidJoint joint;
+		joint.read(stream);
+		rigidJoints.emplace_back(joint);
 	}
 
 	return stream.good();
