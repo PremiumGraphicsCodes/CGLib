@@ -118,12 +118,15 @@ public:
 
 	bool read(std::istream& stream);
 
+	bool readEnglishNames(std::istream& stream);
+
 	Polygon::ActorObject* toActorObject() const;
 
-	size_t getSize() const { return bones.size(); }
+	//size_t getSize() const { return bones.size(); }
 
 private:
 	std::vector<PMDBone> bones;
+	std::vector<std::string> englishNames;
 };
 
 class PMDIK
@@ -194,6 +197,17 @@ public:
 private:
 	WORD boneIndex;
 	BYTE dispFrameIndex;
+};
+
+class PMDNamesInEnglish
+{
+public:
+	bool read(std::istream& stream);
+
+private:
+	std::vector<std::string> boneNamesInEnglish;
+	std::vector<std::string> skinNamesInEnglish;
+	std::vector<std::string> boneDispNames;
 };
 
 class PMDPhysicsBody
@@ -270,7 +284,8 @@ private:
 	std::vector<WORD> displaySkinIndices;
 	std::vector<std::string> displayBoneNames;
 	std::vector<PMDDisplayBone> displayBones;
-	std::vector<std::string> boneNamesInEnglish;
+	PMDNamesInEnglish namesInEnglish;
+	std::vector<std::string> toonTextureFileNames;
 };
 	}
 }

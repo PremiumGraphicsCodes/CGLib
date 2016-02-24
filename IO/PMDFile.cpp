@@ -184,6 +184,17 @@ bool PMDBoneCollection::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDBoneCollection::readEnglishNames(std::istream& stream)
+{
+	for (int i = 0; i < bones.size(); ++i) {
+		char boneName[20];
+		stream.read(boneName, sizeof(boneName));
+		englishNames.emplace_back(boneName);
+	}
+	return stream.good();
+}
+
+
 ActorObject* PMDBoneCollection::toActorObject() const
 {
 	ActorObject* object = new ActorObject();
@@ -283,6 +294,42 @@ bool PMDDisplayBone::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDNamesInEnglish::read(std::istream& stream)
+{
+	BYTE englishNameCompatibility;
+	stream.read((char*)&englishNameCompatibility, sizeof(englishNameCompatibility));
+	char modelNameInEnglish[20];
+	stream.read(modelNameInEnglish, sizeof(modelNameInEnglish));
+	char commentInEnglish[256];
+	stream.read(commentInEnglish, sizeof(commentInEnglish));
+
+	/*
+	unsigned char boneCount;
+	stream.read((char*)&boneCount, sizeof(boneCount));
+	for (int i = 0; i < boneCount; ++i) {
+		char boneName[20];
+		stream.read(boneName, sizeof(boneName));
+		boneNamesInEnglish.emplace_back(boneName);
+	}
+
+	unsigned char skinCount = 16;
+	//stream.read((char*)&skinCount, sizeof(skinCount));
+	for (int i = 0; i < skinCount - 1; ++i) {
+		char skinName[20];
+		stream.read(skinName, sizeof(skinName));
+		skinNamesInEnglish.emplace_back(skinName);
+	}
+
+	unsigned char boneDispCount = 0;
+	stream.read((char*)boneDispCount, sizeof(boneDispCount));
+	for (int i = 0; i < boneDispCount; ++i) {
+		char name[50];
+		stream.read(name, sizeof(name));
+		boneDispNames.emplace_back(name);
+	}
+	*/
+	return stream.good();
+}
 
 #include <fstream>
 
@@ -366,19 +413,27 @@ bool PMDFile::read(const std::string& filename)
 		displayBones.emplace_back(dispBone);
 	}
 
-	BYTE englishNameCompatibility;
-	stream.read((char*)&englishNameCompatibility, sizeof(englishNameCompatibility));
-	char modelNameInEnglish[20];
-	stream.read(modelNameInEnglish, sizeof(modelNameInEnglish));
-	char commentInEnglish[256];
-	stream.read(commentInEnglish, sizeof(commentInEnglish));
+	namesInEnglish.read(stream);
+	bones.readEnglishNames(stream);
 
-	unsigned char boneCount;
-	stream.read((char*)&boneCount, sizeof(boneCount));
-	for (int i = 0; i < boneCount; ++i) {
-		char boneName[20];
-		stream.read(boneName, sizeof(boneName));
-		boneNamesInEnglish.emplace_back(boneName);
+	std::vector<std::string> skinNamesInEnglish;
+	for (int i = 0; i < skinCount - 1; ++i) {
+		char skinName[20];
+		stream.read(skinName, sizeof(skinName));
+		skinNamesInEnglish.emplace_back(skinName);
+	}
+
+	std::vector<std::string> displayBoneNamesInEnglish;
+	for (int i = 0; i < displayBoneCount; ++i) {
+		char skinName[50];
+		stream.read(skinName, sizeof(skinName));
+		displayBoneNamesInEnglish.emplace_back(skinName);
+	}
+
+	for (int i = 0; i < 10; ++i) {
+		char toonTextureFileName[100];
+		stream.read(toonTextureFileName, sizeof(toonTextureFileName));
+		toonTextureFileNames.emplace_back(toonTextureFileName);
 	}
 
 	return stream.good();
