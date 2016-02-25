@@ -11,20 +11,18 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
 
-namespace {
-	Vector3d<float> getUnitLengths(const Space3d<float>& space, const Index3d res)
-	{
-		const auto x = space.getLengths().getX() / res[0];
-		const auto y = space.getLengths().getY() / res[1];
-		const auto z = space.getLengths().getZ() / res[2];
-		return Vector3d<float>(x, y, z);
-	}
+Vector3d<float> VolumeObject::getUnitLength() const
+{
+	const auto x = space.getLengths().getX() / grid.getSizeX();
+	const auto y = space.getLengths().getY() / grid.getSizeY();
+	const auto z = space.getLengths().getZ() / grid.getSizeZ();
+	return Vector3d<float>(x, y, z);
 }
 
 
 VolumeNode VolumeObject::toNode(const Index3d index) const
 {
-	const auto& lengths = getUnitLengths(space, grid.getSizes());
+	const auto& lengths = getUnitLength();
 	const auto& innerSpace = space.offset(lengths);
 
 	const auto divx = grid.getSizeX() - 1;
@@ -58,7 +56,7 @@ std::vector<VolumeNode> VolumeObject::toNodes() const
 
 VolumeCell VolumeObject::toCell(const Index3d index) const
 {
-	const auto& lengths = getUnitLengths(space, grid.getSizes());
+	const auto& lengths = getUnitLength();
 	const auto& innerSpace = space.offset(lengths);
 
 	const auto divx = grid.getSizeX() - 1;
@@ -83,16 +81,40 @@ PolygonObject* VolumeObject::toPolygonObject(const float isolevel) const
 	return newMesh;
 }
 
+Vector3d<float> VolumeObject::toPosition(const Index3d index) const
+{
+	const auto unitLength = getUnitLength();
+	const auto origin = space.getStart();
+	const auto x = origin.getX() + unitLength.getX() * index.getX();
+	const auto y = origin.getY() + unitLength.getY() * index.getY();
+	const auto z = origin.getZ() + unitLength.getZ() * index.getZ();
+	return Vector3d<float>(x, y, z);
+}
+
+
+Particle VolumeObject::toParticle(const Index3d index, const float radius) const
+{
+	const auto position = toPosition(index);
+	const auto density = grid.get(index.getX(), index.getY(), index.getZ());
+	return Particle(position, density, radius);
+}
+
+
 ParticleObject* VolumeObject::toParticleObject(const float radius,const float isolevel) const
 {
 	const auto& nodes = toNodes();
-	ParticleObject* particleObject = new ParticleObject();
-	for (const auto& n : nodes) {
-		if (n.isOverThan(isolevel)) {
-			const auto& p = n.toParticle(radius);
-			particleObject->add(p);
+	std::vector<Particle*> particles;
+	for (int x = 0; x < grid.getSizeX(); ++x) {
+		for (int y = 0; y < grid.getSizeY(); ++y) {
+			for (int z = 0; z < grid.getSizeZ(); ++z) {
+				if (grid.get(x, y, z) > isolevel) {
+					const auto& p = toParticle(Index3d(x, y, z), radius);
+					particles.push_back( p.clone() );
+				}
+			}
 		}
 	}
+	ParticleObject* particleObject = new ParticleObject(particles);
 	return particleObject;
 }
 

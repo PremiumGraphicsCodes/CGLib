@@ -17,6 +17,7 @@ TEST(VolumeObjectTest, TestToNodes)
 	grid.set(1, 0, 0, 1);
 	VolumeObject object(space, grid);
 	const auto& actual = object.toNodes();
+	EXPECT_EQ(8, actual.size());
 }
 
 TEST(VolumeObjectTest, TestToPolygon)

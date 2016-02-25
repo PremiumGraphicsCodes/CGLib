@@ -12,6 +12,7 @@ namespace Crystal {
 	}
 	namespace Polygon {
 
+class Particle;
 class PolygonObject;
 class ParticleObject;
 class VolumeCell;
@@ -30,6 +31,12 @@ public:
 	std::vector<VolumeNode> toNodes() const;
 
 	PolygonObject* toPolygonObject(const float isolevel) const;
+
+	Math::Vector3d<float> getUnitLength() const;
+
+	Math::Vector3d<float> toPosition(const Math::Index3d index) const;
+
+	Particle toParticle(const Math::Index3d index, const float radius) const;
 
 	ParticleObject* toParticleObject(const float radius,const float isolevel) const;
 
