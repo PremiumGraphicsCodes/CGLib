@@ -15,6 +15,10 @@ public:
 
 	VolumeNode(const Math::Vector3d<float>& p, const float& v);
 
+	bool isOverThan(const float v) const { return value > v; }
+
+	bool isLessThan(const float v) const { return value < v; }
+
 	Math::Vector3d<float> getInterpolatedPosition(const float v, const VolumeNode& rhs) const;
 
 	Particle toParticle(const float radius) const;

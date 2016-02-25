@@ -2,7 +2,10 @@
 
 #include "../Math/Triangle.h"
 
+#include "VolumeNode.h"
 #include "VolumeCell.h"
+#include "Particle.h"
+#include "ParticleObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
@@ -16,35 +19,35 @@ namespace {
 		const auto z = space.getLengths().getZ() / res[2];
 		return Vector3d<float>(x, y, z);
 	}
-
-
-	VolumeNode toNode(const Space3d<float>& space, const Grid3d<float>& grid, const Index3d index)
-	{
-		const auto& lengths = getUnitLengths(space, grid.getSizes());
-		const auto& innerSpace = space.offset(lengths);
-
-		const auto divx = grid.getSizeX() - 1;
-		const auto divy = grid.getSizeY() - 1;
-		const auto divz = grid.getSizeZ() - 1;
-
-		const auto v = grid.toArray8(index[0], index[1], index[2]);
-		const auto s = space.getSubSpace(index, divx, divy, divz);
-		const auto& center = s.getCenter();
-
-		return VolumeNode(center, grid.get(index.getX(), index.getY(), index.getZ()));
-	}
-
-
-
 }
+
+
+VolumeNode VolumeObject::toNode(const Index3d index) const
+{
+	const auto& lengths = getUnitLengths(space, grid.getSizes());
+	const auto& innerSpace = space.offset(lengths);
+
+	const auto divx = grid.getSizeX() - 1;
+	const auto divy = grid.getSizeY() - 1;
+	const auto divz = grid.getSizeZ() - 1;
+
+	const auto v = grid.toArray8(index[0], index[1], index[2]);
+	const auto s = space.getSubSpace(index, divx, divy, divz);
+	const auto& center = s.getCenter();
+
+	return VolumeNode(center, grid.get(index.getX(), index.getY(), index.getZ()));
+}
+
+
+
 
 std::vector<VolumeNode> VolumeObject::toNodes() const
 {
 	std::vector<VolumeNode> nodes;
-	for (int x = 0; x < grid.getSizeX(); ++x) {
-		for (int y = 0; y < grid.getSizeY(); ++y) {
-			for (int z = 0; z < grid.getSizeZ(); ++z) {
-				nodes.push_back(toNode(space, grid, Index3d(x, y, z)));
+	for (int x = 1; x < grid.getSizeX()-1; ++x) {
+		for (int y = 1; y < grid.getSizeY()-1; ++y) {
+			for (int z = 1; z < grid.getSizeZ()-1; ++z) {
+				nodes.push_back(toNode(Index3d(x, y, z)));
 			}
 		}
 	}
@@ -79,6 +82,20 @@ PolygonObject* VolumeObject::toPolygonObject(const float isolevel) const
 	newMesh->removeOverlappedVertices();
 	return newMesh;
 }
+
+ParticleObject* VolumeObject::toParticleObject(const float radius,const float isolevel) const
+{
+	const auto& nodes = toNodes();
+	ParticleObject* particleObject = new ParticleObject();
+	for (const auto& n : nodes) {
+		if (n.isOverThan(isolevel)) {
+			const auto& p = n.toParticle(radius);
+			particleObject->add(p);
+		}
+	}
+	return particleObject;
+}
+
 
 
 std::vector< Triangle<float> > VolumeObject::toTriangles(const float isolevel) const

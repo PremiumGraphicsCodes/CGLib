@@ -5,8 +5,6 @@
 #include "../Math/Space3d.h"
 #include "../Math/Grid3d.h"
 
-#include "VolumeNode.h"
-
 namespace Crystal {
 	namespace Math {
 		template<typename>
@@ -17,6 +15,7 @@ namespace Crystal {
 class PolygonObject;
 class ParticleObject;
 class VolumeCell;
+class VolumeNode;
 
 class VolumeObject
 {
@@ -26,11 +25,13 @@ public:
 		grid(grid)
 	{}
 
+	VolumeNode toNode(const Math::Index3d index) const;
+
 	std::vector<VolumeNode> toNodes() const;
 
 	PolygonObject* toPolygonObject(const float isolevel) const;
 
-	ParticleObject* toParticleObject() const;
+	ParticleObject* toParticleObject(const float radius,const float isolevel) const;
 
 private:
 	const Math::Space3d<float> space;
