@@ -47,8 +47,8 @@ TEST(OBJFileTest, TestReadVertices)
 		<< "v 0.1 0.2 0.3" << std::endl
 		<< "vt 0.5 1.0" << std::endl
 		<< "vn 1.0 0.0 0.0" << std::endl;
-	OBJFileReader reader;
-	OBJFile file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 
 	const auto actual = file.getGroups().front();
 
@@ -66,8 +66,8 @@ TEST(OBJFileTest, TestReadFaces)
 		<< "f 1//1 2//2 3//3 4//4 "<< std::endl
 		<< "f 6/4/1 3/5/3 7/6/5" << std::endl;
 
-	OBJFileReader reader;
-	OBJFile file =reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 
 	OBJVertex v1(1);
 	OBJVertex v2(2);
@@ -94,7 +94,8 @@ TEST(OBJFileTest, TestReadComments)
 		<< "v 0.0 0.0 0.0" << std::endl
 		<< "# comment2" << std::endl;
 
-	const OBJFileReader file(stream);
+	OBJFile file;
+	file.read(stream);
 
 	OBJFile expected;
 	OBJGroup group;
@@ -112,7 +113,8 @@ TEST(OBJFileTest, TestReadSquare)
 		<< "v 2.0 0.0 0.0" << std::endl
 		<< "v 2.0 2.0 0.0" << std::endl
 		<< "f 1 2 3 4" << std::endl;
-	const OBJFileReader actual(stream);
+	OBJFile actual;
+	actual.read(stream);
 
 	OBJFile expected;
 	std::vector< Vector3d<T> > positions = {
@@ -138,8 +140,8 @@ TEST(OBJFileTest, TestReadGroup )
 		<< "g back" << std::endl
 		<< "f 4 3 2 1" << std::endl;
 
-	OBJFileReader reader;
-	OBJFile file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 	EXPECT_EQ(3, file.getGroups().size() );
 
 	/*
@@ -160,8 +162,8 @@ TEST( OBJFileTest, TestReadUseMtl )
 		<< "usemtl wood" << std::endl
 		<< "f 1 2 3 4" << std::endl;
 
-	OBJFileReader reader;
-	OBJFile file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 
 	EXPECT_EQ(1, file.getGroups().front().getFaces().size());
 }
@@ -215,13 +217,13 @@ TEST(OBJFileTest, TestWrite2)
 
 TEST(OBJFileTest, TestWriteFaces)
 {
-	OBJFileWriter writer;
 	PolygonObject mesh;
 	auto v1 = mesh.createVertex(Vector3d<float>(0.0, 0.0, 0.0));
 	auto v2 = mesh.createVertex(Vector3d<float>(1.0, 0.0, 0.0));
 	auto v3 = mesh.createVertex(Vector3d<float>(1.0, 1.0, 0.0));
 	mesh.createFace(v1, v2, v3);
-	writer.write("../TestFile/IO", "OBJWriteTest.obj", mesh);
+	OBJFile file;
+	file.write("../TestFile/IO", "OBJWriteTest.obj", mesh);
 }
 
 
@@ -256,8 +258,8 @@ TEST(OBJFileTest, TestExampleCube)
 		<< "f 5 6 2 1" << std::endl
 		<< "f 2 6 7 3" << std::endl;
 
-	OBJFileReader reader;
-	const OBJFile& file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
 	EXPECT_EQ(8, file.getGroups().front().getPositions().size());
 	EXPECT_EQ(6, file.getGroups().front().getFaces().size());
@@ -273,8 +275,8 @@ TEST(OBJFileTest, TestNegativeReferenceNumber)
 		<< "v 2.000000 2.000000 2.000000" << std::endl
 		<< "f -4 -3 -2 -1" << std::endl;
 
-	OBJFileReader reader;
-	const OBJFile& file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 	//EXPECT_EQ(1, file.getGroups().size());
 	//EXPECT_EQ(4, file.getGroups().front().getPositions().size());
 	//EXPECT_EQ(1, file.getGroups().front().getFaces().size());
@@ -311,8 +313,8 @@ TEST(OBJFileTest, TestExampleGroups)
 		<< "f 2 6 7 3" << std::endl
 		<< "# 6 elements" << std::endl;
 
-	OBJFileReader reader;
-	const OBJFile& file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 	EXPECT_EQ( 7, file.getGroups().size() );
 }
 
@@ -333,8 +335,8 @@ TEST(OBJFileTest, TestExampleSmoothingGroup)
 		<< "f 4 3 5 6" << std::endl
 		<< "# 2 elements" << std::endl;
 
-	OBJFileReader reader;
-	const OBJFile& file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 	EXPECT_EQ(2, file.getGroups().size());
 	EXPECT_EQ(6, file.getGroups().front().getPositions().size());
 	EXPECT_EQ(2, file.getGroups().back().getFaces().size());
@@ -358,8 +360,8 @@ TEST(OBJFileTest, TestExampleTextureMappedSquare)
 		<< "f 1/1 2/2 3/3 4/4" << std::endl
 		<< "# 1 element" << std::endl;
 
-	OBJFileReader reader;
-	const OBJFile& file = reader.read(stream);
+	OBJFile file;
+	file.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
 	EXPECT_EQ(4, file.getGroups().front().getPositions().size());
 	EXPECT_EQ(4, file.getGroups().front().getTexCoords().size());

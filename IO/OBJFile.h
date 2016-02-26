@@ -15,215 +15,190 @@
 namespace Crystal {
 	namespace IO {
 
-struct OBJVertex
-{
-	OBJVertex() :
-		positionIndex(-1),
-		normalIndex(-1),
-		texIndex(-1)
-	{}
+		struct OBJVertex
+		{
+			OBJVertex() :
+				positionIndex(-1),
+				normalIndex(-1),
+				texIndex(-1)
+			{}
 
 
-	OBJVertex(const int positionIndex, const int normalIndex = -1, const int texIndex = -1) :
-		positionIndex(positionIndex),
-		normalIndex(normalIndex),
-		texIndex(texIndex)
-	{}
+			OBJVertex(const int positionIndex, const int normalIndex = -1, const int texIndex = -1) :
+				positionIndex(positionIndex),
+				normalIndex(normalIndex),
+				texIndex(texIndex)
+			{}
 
-	bool hasNormal() const {
-		return this->normalIndex != -1;
-	}
+			bool hasNormal() const {
+				return this->normalIndex != -1;
+			}
 
-	bool hasTex() const {
-		return this->texIndex != -1;
-	}
+			bool hasTex() const {
+				return this->texIndex != -1;
+			}
 
-	int positionIndex;
-	int normalIndex;
-	int texIndex;
+			int positionIndex;
+			int normalIndex;
+			int texIndex;
 
-	bool operator==(const OBJVertex& rhs) const {
-		return
-			this->positionIndex == rhs.positionIndex &&
-			this->normalIndex == rhs.normalIndex &&
-			this->texIndex == rhs.texIndex;
-	}
-};
+			bool operator==(const OBJVertex& rhs) const {
+				return
+					this->positionIndex == rhs.positionIndex &&
+					this->normalIndex == rhs.normalIndex &&
+					this->texIndex == rhs.texIndex;
+			}
+		};
 
-struct OBJFace
-{
-	OBJFace()
-	{}
+		struct OBJFace
+		{
+			OBJFace()
+			{}
 
-	OBJFace(const std::vector<OBJVertex>& vertices) :
-		vertices( vertices )
-	{}
+			OBJFace(const std::vector<OBJVertex>& vertices) :
+				vertices(vertices)
+			{}
 
-	bool operator==(const OBJFace& rhs) const {
-		return
-			vertices == rhs.vertices;
-	}
+			bool operator==(const OBJFace& rhs) const {
+				return
+					vertices == rhs.vertices;
+			}
 
-	std::vector<OBJVertex> getVertices() const { return vertices; }
+			std::vector<OBJVertex> getVertices() const { return vertices; }
 
-	std::string usemtlname;
+			std::string usemtlname;
 
-private:
-	std::vector<OBJVertex> vertices;
-};
-
-
-struct OBJMTLLib {
-	OBJMTLLib()
-	{};
-
-	OBJMTLLib(const std::string& name) :
-		name(name)
-	{}
-
-	OBJMTLLib(const std::string& name, const std::vector< std::string >& materials) :
-		name(name),
-		materials(materials)
-	{}
-
-	std::string getName() const { return name; }
-
-	std::vector< std::string > getMaterials() const { return materials; }
-
-	bool operator==(const OBJMTLLib& rhs) const {
-		return
-			name == rhs.name &&
-			materials == rhs.materials;
-	}
-
-private:
-	std::string name;
-	std::vector< std::string > materials;
-};
+		private:
+			std::vector<OBJVertex> vertices;
+		};
 
 
-struct OBJGroup {
+		struct OBJMTLLib {
+			OBJMTLLib()
+			{};
 
-	OBJGroup()
-	{}
+			OBJMTLLib(const std::string& name) :
+				name(name)
+			{}
 
-	OBJGroup( const std::string& name ) :
-		name( name )
-	{}
+			OBJMTLLib(const std::string& name, const std::vector< std::string >& materials) :
+				name(name),
+				materials(materials)
+			{}
 
-	OBJGroup( const std::string& name, const std::vector<OBJFace>& faces) :
-		name( name ),
-		faces( faces )
-	{}
+			std::string getName() const { return name; }
 
-	void add(const Polygon::PolygonObject& mesh);
+			std::vector< std::string > getMaterials() const { return materials; }
 
-	bool operator==(const OBJGroup& rhs) const {
-		return
-			name == rhs.name &&
-			faces == rhs.faces &&
-			materials == rhs.materials;
-	}
+			bool operator==(const OBJMTLLib& rhs) const {
+				return
+					name == rhs.name &&
+					materials == rhs.materials;
+			}
 
-	std::string getName() const { return name; }
-
-	void setFaces(const std::vector< OBJFace>& faces) { this->faces = faces; }
-
-	std::vector< OBJFace > getFaces() const { return faces; }
-
-
-	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positionBuffer = positions; }
-
-	std::vector< Math::Vector3d<float> > getPositions() const { return positionBuffer; }
-
-	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normalBuffer = normals; }
-
-	std::vector< Math::Vector3d<float> > getNormals() const { return this->normalBuffer; }
-
-	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
-
-	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoordBuffer = texCoords; }
-
-	std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoordBuffer; }
-
-	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
-
-	Math::Vector3d<float> readVertices(const std::string& str);
-
-	Math::Vector3d<float> readVector3d(const std::string& str);
-
-	//Math::Vector2d<float> readVector2d(const std::string& str);
-
-	OBJFace readFaces(const std::string& str);
-
-	Polygon::PolygonObject* createPolygon();
+		private:
+			std::string name;
+			std::vector< std::string > materials;
+		};
 
 
-private:
-	std::string name;
-	std::vector< OBJFace > faces;
-	std::vector< std::string > materials;
-	OBJMTLLib mtlLib;
-	std::vector< Math::Vector3d<float> > positionBuffer;
-	std::vector< Math::Vector3d<float> > normalBuffer;
-	std::vector< Math::Vector3d<float> > texCoordBuffer;
-};
+		struct OBJGroup {
 
-struct OBJFile {
-	bool isValid() const {
-		return true;	//@TODO.
-	}
+			OBJGroup()
+			{}
 
-	void setComment(const std::string& comment) { this->comment = comment; }
+			OBJGroup(const std::string& name) :
+				name(name)
+			{}
 
-	std::string getComment() const { return comment; }
+			OBJGroup(const std::string& name, const std::vector<OBJFace>& faces) :
+				name(name),
+				faces(faces)
+			{}
 
-	void setGroups(const std::vector<OBJGroup>& groups) { this->groups = groups; }
+			void add(const Polygon::PolygonObject& mesh);
 
-	std::vector<OBJGroup> getGroups() const { return groups; }
+			bool operator==(const OBJGroup& rhs) const {
+				return
+					name == rhs.name &&
+					faces == rhs.faces &&
+					materials == rhs.materials;
+			}
 
-	std::string getMaterialName() const { return materialName; }
+			std::string getName() const { return name; }
 
-private:
-	std::string comment;
-	std::vector<OBJGroup> groups;
-	std::string materialName;
+			void setFaces(const std::vector< OBJFace>& faces) { this->faces = faces; }
 
-};
+			std::vector< OBJFace > getFaces() const { return faces; }
 
-class OBJFileWriter {
-public:
-	bool write(const std::string& path, const std::string& filename, const Polygon::PolygonObject& mesh);
 
-	bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
+			void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positionBuffer = positions; }
 
-	/*
-	std::ostream& operator<<(::std::ostream& os)
-	{
-		write(os);
-		return os;
-	}
-	*/
+			std::vector< Math::Vector3d<float> > getPositions() const { return positionBuffer; }
 
-	std::vector< std::string > getStrs() const { return strs; }
+			void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normalBuffer = normals; }
 
-private:
-	std::vector< std::string > strs;
-};
+			std::vector< Math::Vector3d<float> > getNormals() const { return this->normalBuffer; }
 
-class OBJFileReader {
-public:
-	OBJFileReader()
-	{}
+			void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
-	OBJFileReader(std::istream& stream) {
-		read(stream);
-	}
+			void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoordBuffer = texCoords; }
 
-	OBJFile read(const std::string& path, const std::string& filename);
+			std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoordBuffer; }
 
-	OBJFile read(std::istream& stream);
-};
+			void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
+
+			Math::Vector3d<float> readVertices(const std::string& str);
+
+			Math::Vector3d<float> readVector3d(const std::string& str);
+
+			//Math::Vector2d<float> readVector2d(const std::string& str);
+
+			OBJFace readFaces(const std::string& str);
+
+			Polygon::PolygonObject* createPolygon();
+
+
+		private:
+			std::string name;
+			std::vector< OBJFace > faces;
+			std::vector< std::string > materials;
+			OBJMTLLib mtlLib;
+			std::vector< Math::Vector3d<float> > positionBuffer;
+			std::vector< Math::Vector3d<float> > normalBuffer;
+			std::vector< Math::Vector3d<float> > texCoordBuffer;
+		};
+
+		struct OBJFile {
+			bool isValid() const {
+				return true;	//@TODO.
+			}
+
+			void setComment(const std::string& comment) { this->comment = comment; }
+
+			std::string getComment() const { return comment; }
+
+			void setGroups(const std::vector<OBJGroup>& groups) { this->groups = groups; }
+
+			std::vector<OBJGroup> getGroups() const { return groups; }
+
+			std::string getMaterialName() const { return materialName; }
+
+			bool read(const std::string& path, const std::string& filename);
+
+			bool read(std::istream& stream);
+
+			bool write(const std::string& path, const std::string& filename, const Polygon::PolygonObject& mesh);
+
+			bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
+
+
+		private:
+			std::string comment;
+			std::vector<OBJGroup> groups;
+			std::string materialName;
+
+		};
 
 	}
 }

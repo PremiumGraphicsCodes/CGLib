@@ -106,7 +106,7 @@ PolygonObject* OBJGroup::createPolygon()
 	return mesh;
 }
 
-OBJFile OBJFileReader::read(const std::string& path, const std::string& filename)
+bool OBJFile::read(const std::string& path, const std::string& filename)
 {
 	const std::string fullPathName = path + "/" + filename;
 
@@ -119,9 +119,8 @@ OBJFile OBJFileReader::read(const std::string& path, const std::string& filename
 }
 
 
-OBJFile OBJFileReader::read(std::istream& stream )
+bool OBJFile::read(std::istream& stream )
 {
-	OBJFile file;
 	std::string str;
 
 	std::string header = Helper::read< std::string >(stream);
@@ -130,7 +129,6 @@ OBJFile OBJFileReader::read(std::istream& stream )
 
 	std::vector< std::string > materials;
 
-	std::vector<OBJGroup> groups;
 
 	std::vector< Vector3d<float> > positions;
 	std::vector< Vector3d<float> > normals;
@@ -193,10 +191,8 @@ OBJFile OBJFileReader::read(std::istream& stream )
 	group.setMaterials(materials);
 
 	groups.push_back(group);
-
-	file.setGroups(groups);
 	
-	return file;
+	return stream.good();
 }
 
 
@@ -244,7 +240,7 @@ Vector2d<float> OBJGroup::readVector2d(const std::string& str)
 }
 */
 
-bool OBJFileWriter::write(const std::string& path, const std::string& filename, const PolygonObject& mesh)
+bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonObject& mesh)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -255,7 +251,7 @@ bool OBJFileWriter::write(const std::string& path, const std::string& filename, 
 	return write(stream, mesh);
 }
 
-bool OBJFileWriter::write(std::ostream& stream, const PolygonObject& mesh)
+bool OBJFile::write(std::ostream& stream, const PolygonObject& mesh)
 {
 	const auto& positions = mesh.getPositions();
 	const auto& normals = mesh.getNormals();
