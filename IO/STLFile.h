@@ -75,6 +75,8 @@ public:
 			cells == rhs.cells;
 	}
 
+	Polygon::PolygonObject* toPolygonObject() const;
+
 private:
 	STLCellVector cells;
 	std::string title;

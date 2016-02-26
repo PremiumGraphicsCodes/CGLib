@@ -25,6 +25,21 @@ void STLFile::add(const PolygonObject& mesh)
 	}
 }
 
+PolygonObject* STLFile::toPolygonObject() const
+{
+	PolygonObject* polygon = new PolygonObject();
+	for (const auto& c : cells) {
+		const auto& pos = c.getPositions();
+		const auto& normal = c.getNormal();
+		const auto v1 = polygon->createVertex(pos[0], normal);
+		const auto v2 = polygon->createVertex(pos[1], normal);
+		const auto v3 = polygon->createVertex(pos[2], normal);
+		polygon->createFace(v1, v2, v3);
+	}
+	return polygon;
+}
+
+
 
 bool STLFileReader::read(const std::string& filename) {
 	std::ifstream stream(filename);
