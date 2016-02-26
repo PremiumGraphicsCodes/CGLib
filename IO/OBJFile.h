@@ -7,6 +7,10 @@
 #include "../Polygon/PolygonObject.h"
 
 #include "../IO/MTLFile.h"
+#include "../IO/File.h"
+
+#include "OBJVertex.h"
+#include "OBJFace.h"
 
 #include <fstream>
 #include <string>
@@ -15,136 +19,77 @@
 namespace Crystal {
 	namespace IO {
 
-		struct OBJVertex
-		{
-			OBJVertex() :
-				positionIndex(-1),
-				normalIndex(-1),
-				texIndex(-1)
-			{}
+class OBJMTLLib
+{
+public:
+	OBJMTLLib()
+	{};
+
+	OBJMTLLib(const std::string& name) :
+		name(name)
+	{}
+
+	OBJMTLLib(const std::string& name, const std::vector< std::string >& materials) :
+		name(name),
+		materials(materials)
+	{}
+
+	std::string getName() const { return name; }
+
+	std::vector< std::string > getMaterials() const { return materials; }
+
+	bool operator==(const OBJMTLLib& rhs) const {
+		return
+			name == rhs.name &&
+			materials == rhs.materials;
+	}
+
+private:
+	std::string name;
+	std::vector< std::string > materials;
+};
 
 
-			OBJVertex(const int positionIndex, const int normalIndex = -1, const int texIndex = -1) :
-				positionIndex(positionIndex),
-				normalIndex(normalIndex),
-				texIndex(texIndex)
-			{}
+struct OBJGroup {
+	OBJGroup(){}
 
-			bool hasNormal() const {
-				return this->normalIndex != -1;
-			}
-
-			bool hasTex() const {
-				return this->texIndex != -1;
-			}
-
-			int positionIndex;
-			int normalIndex;
-			int texIndex;
-
-			bool operator==(const OBJVertex& rhs) const {
-				return
-					this->positionIndex == rhs.positionIndex &&
-					this->normalIndex == rhs.normalIndex &&
-					this->texIndex == rhs.texIndex;
-			}
-		};
-
-		struct OBJFace
-		{
-			OBJFace()
-			{}
-
-			OBJFace(const std::vector<OBJVertex>& vertices) :
-				vertices(vertices)
-			{}
-
-			bool operator==(const OBJFace& rhs) const {
-				return
-					vertices == rhs.vertices;
-			}
-
-			std::vector<OBJVertex> getVertices() const { return vertices; }
-
-			std::string usemtlname;
-
-		private:
-			std::vector<OBJVertex> vertices;
-		};
-
-
-		struct OBJMTLLib {
-			OBJMTLLib()
-			{};
-
-			OBJMTLLib(const std::string& name) :
+	OBJGroup(const std::string& name) :
 				name(name)
 			{}
 
-			OBJMTLLib(const std::string& name, const std::vector< std::string >& materials) :
-				name(name),
-				materials(materials)
-			{}
+	OBJGroup(const std::string& name, const std::vector<OBJFace>& faces) :
+		name(name),
+		faces(faces)
+	{}
 
-			std::string getName() const { return name; }
+	void add(const Polygon::PolygonObject& polygon);
 
-			std::vector< std::string > getMaterials() const { return materials; }
+	bool operator==(const OBJGroup& rhs) const {
+		return
+			name == rhs.name &&
+			faces == rhs.faces &&
+			materials == rhs.materials;
+	}
 
-			bool operator==(const OBJMTLLib& rhs) const {
-				return
-					name == rhs.name &&
-					materials == rhs.materials;
-			}
+	std::string getName() const { return name; }
 
-		private:
-			std::string name;
-			std::vector< std::string > materials;
-		};
+	void setFaces(const std::vector< OBJFace>& faces) { this->faces = faces; }
 
+	std::vector< OBJFace > getFaces() const { return faces; }
 
-		struct OBJGroup {
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
-			OBJGroup()
-			{}
+	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
 
-			OBJGroup(const std::string& name) :
-				name(name)
-			{}
+	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
 
-			OBJGroup(const std::string& name, const std::vector<OBJFace>& faces) :
-				name(name),
-				faces(faces)
-			{}
+	std::vector< Math::Vector3d<float> > getNormals() const { return this->normals; }
 
-			void add(const Polygon::PolygonObject& mesh);
+	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
-			bool operator==(const OBJGroup& rhs) const {
-				return
-					name == rhs.name &&
-					faces == rhs.faces &&
-					materials == rhs.materials;
-			}
+			void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
 
-			std::string getName() const { return name; }
-
-			void setFaces(const std::vector< OBJFace>& faces) { this->faces = faces; }
-
-			std::vector< OBJFace > getFaces() const { return faces; }
-
-
-			void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
-
-			std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
-
-			void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
-
-			std::vector< Math::Vector3d<float> > getNormals() const { return this->normals; }
-
-			void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
-
-			void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoordBuffer = texCoords; }
-
-			std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoordBuffer; }
+			std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoords; }
 
 			void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
 
@@ -159,46 +104,43 @@ namespace Crystal {
 			Polygon::PolygonObject* toPolygonObject();
 
 
-		private:
-			std::string name;
-			std::vector< OBJFace > faces;
-			std::vector< std::string > materials;
-			OBJMTLLib mtlLib;
-			std::vector< Math::Vector3d<float> > positions;
-			std::vector< Math::Vector3d<float> > normals;
-			std::vector< Math::Vector3d<float> > texCoordBuffer;
-		};
+private:
+	std::string name;
+	std::vector< OBJFace > faces;
+	std::vector< std::string > materials;
+	OBJMTLLib mtlLib;
+	std::vector< Math::Vector3d<float> > positions;
+	std::vector< Math::Vector3d<float> > normals;
+	std::vector< Math::Vector3d<float> > texCoords;
+};
 
-		struct OBJFile {
-			bool isValid() const {
-				return true;	//@TODO.
-			}
+struct OBJFile
+{
+	OBJFile()
+	{}
 
-			void setComment(const std::string& comment) { this->comment = comment; }
+	OBJFile(const std::string& comment, std::vector<OBJGroup>& groups) :
+		comment(comment),
+		groups(groups)
+	{}
 
-			std::string getComment() const { return comment; }
+	std::string getComment() const { return comment; }
 
-			void setGroups(const std::vector<OBJGroup>& groups) { this->groups = groups; }
+	std::vector<OBJGroup> getGroups() const { return groups; }
 
-			std::vector<OBJGroup> getGroups() const { return groups; }
+	bool read(const File& filename);
 
-			std::string getMaterialName() const { return materialName; }
+	bool read(std::istream& stream);
 
-			bool read(const std::string& path, const std::string& filename);
+	bool write(const std::string& path, const std::string& filename, const Polygon::PolygonObject& mesh);
 
-			bool read(std::istream& stream);
+	bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
 
-			bool write(const std::string& path, const std::string& filename, const Polygon::PolygonObject& mesh);
-
-			bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
-
-
-		private:
-			std::string comment;
-			std::vector<OBJGroup> groups;
-			std::string materialName;
-
-		};
+private:
+	std::string comment;
+	std::vector<OBJGroup> groups;
+	std::string materialName;
+};
 
 	}
 }

@@ -51,32 +51,27 @@ OBJFace OBJGroup::readFaces(const std::string& str)
 	return OBJFace( vertices );
 }
 
-/*
-void OBJGroup::add(const TriangleMesh& mesh)
+void OBJGroup::add(const PolygonObject& polygon)
 {
-	const auto& positions = mesh.getPositions();
-	for (const auto& p : positions) {
-		positionBuffer.push_back(*p);
+	const auto& vertices = polygon.getVertices();
+	for (const auto& v : vertices) {
+		positions.push_back(v->getPosition());
+		normals.push_back(v->getNormal());
+		texCoords.push_back(v->getTexCoord());
 	}
-	const auto& normals = mesh.getNormals();
-	for (const auto& n : normals) {
-		normalBuffer.push_back(*n);
-	}
-	const auto& texCoords = mesh.getTexCoords();
-	for (const auto& t : texCoords) {
-		texCoordBuffer.push_back(*t);
-	}
-	const auto& vertices = mesh.getVertices();
-	const auto& faces = mesh.getFaces();
+	const auto& faces = polygon.getFaces();
 	for (const auto& f : faces) {
-		OBJVertex vertex;
-		vertex.positionIndex = f->getV1()->getPosition()->getId();
-		vertex.normalIndex = f->getV1()->getId()->
-		OBJFace objf
-		this->faces.push_back()
+		std::vector<OBJVertex> vs;
+		const auto index1 = f->getV1()->getId();
+		const auto index2 = f->getV2()->getId();
+		const auto index3 = f->getV3()->getId();
+		OBJVertex v1(index1, index1, index1);
+		OBJVertex v2(index2, index2, index2);
+		OBJVertex v3(index3, index3, index3);
+		OBJFace face({ v1, v2, v3 });
+		this->faces.push_back(face);
 	}
 }
-*/
 
 PolygonObject* OBJGroup::toPolygonObject()
 {
@@ -87,7 +82,7 @@ PolygonObject* OBJGroup::toPolygonObject()
 		for (const auto v : vs) {
 			const auto& position = positions[v.positionIndex - 1];
 			const auto& normal = normals[v.normalIndex - 1];
-			const auto& texCoord = texCoordBuffer[v.texIndex - 1];
+			const auto& texCoord = texCoords[v.texIndex - 1];
 			auto v = polygon->createVertex(position, normal, texCoord);
 			vv.push_back(v);
 		}
@@ -96,9 +91,9 @@ PolygonObject* OBJGroup::toPolygonObject()
 	return polygon;
 }
 
-bool OBJFile::read(const std::string& path, const std::string& filename)
+bool OBJFile::read(const File& file)
 {
-	const std::string fullPathName = path + "/" + filename;
+	const std::string fullPathName = file.getFullPath();// path + "/" + filename;
 
 	std::ifstream stream;
 	stream.open(fullPathName.c_str());
