@@ -61,17 +61,18 @@ public:
 
 	void add(const Polygon::PolygonObject& mesh);
 
-	void setTitle(const std::string& title) { this->title = title; }
-
-	std::string getTitle() const { return title; }
-
-	void setCells(const std::vector< STLCell >& cells) { this->cells = cells; }
-
-	std::vector< STLCell > getCells() const { return cells; }
-
 	bool read(const std::string& filename);
 
 	bool read(std::istream& stream);
+
+	bool writeASCII(const std::string& filename);
+
+	bool writeASCII(std::ostream& stream);
+
+	bool writeBinary(std::ostream& stream);
+
+	bool writeBinary(const std::string& filename);
+
 
 	bool operator==(const STLFile& rhs) const {
 		return
@@ -85,32 +86,9 @@ private:
 	STLCellVector cells;
 	std::string title;
 
-	bool readASCII(const std::string& filename);
-
 	bool readASCII(std::istream& stream);
 
-	bool readBinary(const std::string& filename);
-
 	bool readBinary(std::istream& stream);
-};
-
-class STLFileWriter
-{
-public:
-	STLFileWriter(const STLFile& file) :
-		file(file)
-	{}
-
-	bool writeASCII(const std::string& filename);
-
-	bool writeASCII(std::ostream& stream);
-
-	bool writeBinary(std::ostream& stream);
-
-	bool writeBinary(const std::string& filename);
-
-private:
-	STLFile file;
 };
 	}
 }

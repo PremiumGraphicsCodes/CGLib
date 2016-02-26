@@ -48,17 +48,13 @@ TEST( STLFileTest, TestReadAscii )
 		STLCell(positions2, normal2)
 	};
 
-	STLFile expected;
-	expected.setCells(cells);
-	expected.setTitle(" cube-ascii");
-
+	STLFile expected(cells," cube-ascii");
 	EXPECT_EQ( expected, file );
 }
 
 TEST(STLFileTest, TestWriteASCII)
 {
 	std::ostringstream stream;
-	STLFile file;
 
 	const Vector3d<T> normal1(0.0, 0.0, 1.0);
 	const std::vector< Vector3d<T> > positions1 = {
@@ -77,10 +73,8 @@ TEST(STLFileTest, TestWriteASCII)
 		STLCell(positions2, normal2)
 	};
 
-	file.setTitle("cube-ascii");
-	file.setCells(cells);
-	STLFileWriter writer(file);
-	writer.writeASCII(stream);
+	STLFile file(cells, "cube-ascii");
+	file.writeASCII(stream);
 
 	std::stringstream expected;
 	expected
@@ -109,9 +103,7 @@ TEST(STLFileTest, TestWriteBinary)
 {
 	std::ostringstream stream;
 	STLFile file;
-	file.setTitle("Test");
-	STLFileWriter writer(file);
-	writer.writeBinary(stream);
+	file.writeBinary(stream);
 	const std::string& actual = stream.str();
 	//EXPECT_EQ(80, actual.size());
 }

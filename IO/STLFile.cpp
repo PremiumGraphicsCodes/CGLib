@@ -64,15 +64,6 @@ bool STLFile::read(std::istream& stream)
 }
 
 
-bool STLFile::readASCII(const std::string& filename) {
-	std::ifstream stream;
-	stream.open(filename);
-	if (!stream.is_open()) {
-		return false;
-	}
-	return readASCII(stream);
-}
-
 bool STLFile::readASCII(std::istream& stream)
 {
 	std::string str = Helper::read<std::string>(stream);
@@ -121,16 +112,6 @@ bool STLFile::readASCII(std::istream& stream)
 }
 
 
-bool STLFile::readBinary(const std::string& filename) {
-	std::ifstream stream;
-	stream.open(filename, std::ios::in | std::ios::binary);
-	if (!stream.is_open()) {
-		return false;
-	}
-	return readBinary(stream);
-}
-
-
 bool STLFile::readBinary(std::istream& stream) {
 	char head[80];
 	stream.read(head, 80);
@@ -167,7 +148,7 @@ bool STLFile::readBinary(std::istream& stream) {
 
 
 
-bool STLFileWriter::writeASCII(const std::string& filename)
+bool STLFile::writeASCII(const std::string& filename)
 {
 	std::ofstream stream;
 	stream.open(filename);
@@ -178,11 +159,11 @@ bool STLFileWriter::writeASCII(const std::string& filename)
 	return writeASCII(stream);
 }
 
-bool STLFileWriter::writeASCII(std::ostream& stream)
+bool STLFile::writeASCII(std::ostream& stream)
 {
-	stream << "solid" << " " << file.getTitle() << std::endl;
+	stream << "solid" << " " << title << std::endl;
 
-	for (const STLCell& cell : file.getCells()) {
+	for (const STLCell& cell : cells) {
 		stream << "facet" << " ";
 		const Vector3d<float>& normal = cell.getNormal();
 		stream << "normal" << " " << normal.getX() << " " << normal.getY() << " " << normal.getZ() << std::endl;
@@ -201,7 +182,7 @@ bool STLFileWriter::writeASCII(std::ostream& stream)
 
 
 
-bool STLFileWriter::writeBinary(const std::string& filename)
+bool STLFile::writeBinary(const std::string& filename)
 {
 	std::ofstream stream;
 	stream.open(filename, std::ios::out | std::ios::binary | std::ios::trunc);
@@ -212,13 +193,11 @@ bool STLFileWriter::writeBinary(const std::string& filename)
 }
 
 
-bool STLFileWriter::writeBinary(std::ostream& stream)
+bool STLFile::writeBinary(std::ostream& stream)
 {
-	const auto title = file.getTitle();
 	const char* head = title.c_str();
 	stream.write(head, 80);
 
-	const auto& cells = file.getCells();
 	const auto howMany = cells.size();
 	stream.write((char *)&howMany, sizeof(unsigned int));
 
