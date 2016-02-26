@@ -132,13 +132,13 @@ namespace Crystal {
 			std::vector< OBJFace > getFaces() const { return faces; }
 
 
-			void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positionBuffer = positions; }
+			void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
-			std::vector< Math::Vector3d<float> > getPositions() const { return positionBuffer; }
+			std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
 
-			void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normalBuffer = normals; }
+			void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
 
-			std::vector< Math::Vector3d<float> > getNormals() const { return this->normalBuffer; }
+			std::vector< Math::Vector3d<float> > getNormals() const { return this->normals; }
 
 			void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
@@ -156,7 +156,7 @@ namespace Crystal {
 
 			OBJFace readFaces(const std::string& str);
 
-			Polygon::PolygonObject* createPolygon();
+			Polygon::PolygonObject* toPolygonObject();
 
 
 		private:
@@ -164,8 +164,8 @@ namespace Crystal {
 			std::vector< OBJFace > faces;
 			std::vector< std::string > materials;
 			OBJMTLLib mtlLib;
-			std::vector< Math::Vector3d<float> > positionBuffer;
-			std::vector< Math::Vector3d<float> > normalBuffer;
+			std::vector< Math::Vector3d<float> > positions;
+			std::vector< Math::Vector3d<float> > normals;
 			std::vector< Math::Vector3d<float> > texCoordBuffer;
 		};
 

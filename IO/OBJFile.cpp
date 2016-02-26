@@ -78,32 +78,22 @@ void OBJGroup::add(const TriangleMesh& mesh)
 }
 */
 
-PolygonObject* OBJGroup::createPolygon()
+PolygonObject* OBJGroup::toPolygonObject()
 {
-	PolygonObject* mesh = new PolygonObject();
-	/*
-
-	for (const auto p : positionBuffer) {
-		mesh->createPosition(p);
-	}
-	for (const auto n : normalBuffer) {
-		mesh->createNormal(n);
-	}
-	for (const auto t : texCoordBuffer) {
-		mesh->createTexCoord(t);
-	}
+	PolygonObject* polygon = new PolygonObject();
 	for (auto f : faces) {
 		auto vs = f.getVertices();
 		std::vector<Vertex*> vv;
 		for (const auto v : vs) {
-			vv.push_back(
-				mesh->createVertexFromIndices(v.positionIndex - 1, v.normalIndex - 1, v.texIndex - 1)
-				);
+			const auto& position = positions[v.positionIndex - 1];
+			const auto& normal = normals[v.normalIndex - 1];
+			const auto& texCoord = texCoordBuffer[v.texIndex - 1];
+			auto v = polygon->createVertex(position, normal, texCoord);
+			vv.push_back(v);
 		}
-		mesh->createFaces(vv);
+		polygon->createFaces(vv);
 	}
-	*/
-	return mesh;
+	return polygon;
 }
 
 bool OBJFile::read(const std::string& path, const std::string& filename)

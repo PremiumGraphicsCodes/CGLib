@@ -12,10 +12,8 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-using T = float;
 
-/*
-TEST(OBJGroupTest, TestCreatePolygon)
+TEST(OBJGroupTest, TestToPolygonObject)
 {
 	OBJFile file;
 	OBJGroup group;
@@ -31,7 +29,7 @@ TEST(OBJGroupTest, TestCreatePolygon)
 	OBJVertex v3{ 3, 1, 1 };
 	OBJFace face({ v1, v2, v3 });
 	group.setFaces({ face });
-	auto p = group.createPolygon();
+	auto p = group.toPolygonObject();
 	EXPECT_EQ(3, p->getPositions().size());
 	EXPECT_EQ(1, p->getFaces().size());
 	auto f = p->getFaces()[0];
@@ -39,7 +37,7 @@ TEST(OBJGroupTest, TestCreatePolygon)
 	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 1.0), f->getV1()->getNormal() );
 	delete p;
 }
-*/
+
 TEST(OBJFileTest, TestReadVertices)
 {
 	std::stringstream stream;
@@ -52,9 +50,9 @@ TEST(OBJFileTest, TestReadVertices)
 
 	const auto actual = file.getGroups().front();
 
-	EXPECT_EQ( Vector3d<T>(0.1f, 0.2f, 0.3f), actual.getPositions()[0] );
-	EXPECT_EQ( Vector3d<T>(0.5f, 1.0f, 0.0f), actual.getTexCoords()[0] );
-	EXPECT_EQ( Vector3d<T>(1.0f, 0.0f, 0.0f), actual.getNormals()[0] );
+	EXPECT_EQ( Vector3d<float>(0.1f, 0.2f, 0.3f), actual.getPositions()[0] );
+	EXPECT_EQ( Vector3d<float>(0.5f, 1.0f, 0.0f), actual.getTexCoords()[0] );
+	EXPECT_EQ( Vector3d<float>(1.0f, 0.0f, 0.0f), actual.getNormals()[0] );
 }
 
 TEST(OBJFileTest, TestReadFaces)
@@ -99,7 +97,7 @@ TEST(OBJFileTest, TestReadComments)
 
 	OBJFile expected;
 	OBJGroup group;
-	//group.setPositions( {Vector3d<T>(0.0, 0.0, 0.0)} );
+	//group.setPositions( {Vector3d<float>(0.0, 0.0, 0.0)} );
 	//expected.setGroups({ group });
 	//EXPECT_EQ( expected, file );
 }
@@ -117,11 +115,11 @@ TEST(OBJFileTest, TestReadSquare)
 	actual.read(stream);
 
 	OBJFile expected;
-	std::vector< Vector3d<T> > positions = {
-		Vector3d<T>(0.0, 2.0, 0.0),
-		Vector3d<T>(0.0, 0.0, 0.0),
-		Vector3d<T>(2.0, 0.0, 0.0),
-		Vector3d<T>(2.0, 2.0, 0.0)
+	std::vector< Vector3d<float> > positions = {
+		Vector3d<float>(0.0, 2.0, 0.0),
+		Vector3d<float>(0.0, 0.0, 0.0),
+		Vector3d<float>(2.0, 0.0, 0.0),
+		Vector3d<float>(2.0, 2.0, 0.0)
 	};
 	OBJGroup group;
 	group.setPositions( positions );
@@ -174,7 +172,7 @@ TEST(OBJFileTest, TestWriteNormals)
 {
 	OBJFileWriter writer;
 	OBJGroupSPtr group( new OBJGroup() );
-	group->setNormals({ Vector3d<T>(0.5f, 1.0f, 0.0f) });
+	group->setNormals({ Vector3d<float>(0.5f, 1.0f, 0.0f) });
 	std::stringstream stream;
 	OBJFile file;
 	//stream << file;
@@ -202,7 +200,7 @@ TEST(OBJFileTest, TestWrite2)
 	std::stringstream stream;
 	OBJFileWriter writer;
 	OBJGroupSPtr group( new OBJGroup() );
-	Buffer3d<T> buffer({0.1f, 0.2f, 0.3f});
+	Buffer3d<float> buffer({0.1f, 0.2f, 0.3f});
 	group->setPositions(buffer);
 	OBJFile file;
 	file.setGroups({ group });
