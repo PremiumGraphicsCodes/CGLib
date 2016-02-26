@@ -28,9 +28,8 @@ TEST( STLFileTest, TestReadAscii )
 		<< "endfacet" << std::endl
 		<< "endsolid" << std::endl;
 
-	STLFileReader reader;
-	reader.readASCII(stream);
-	STLFile file = reader.getFile();
+	STLFile file;
+	file.read(stream);
 
 	const Vector3d<T> normal1(0.0, 0.0, 1.0);
 	const std::vector< Vector3d<T> > positions1 = {
@@ -121,8 +120,8 @@ TEST(STLFileTest, TestWriteBinary)
 
 TEST(STLFileTest, TestReadBinary)
 {
-	STLFileReader reader;
-	reader.read("../TestFile/IO/cube-binary.stl");
+	STLFile file;
+	file.read("../TestFile/IO/cube-binary.stl");
 }
 
 

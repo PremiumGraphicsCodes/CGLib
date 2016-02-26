@@ -41,24 +41,30 @@ PolygonObject* STLFile::toPolygonObject() const
 
 
 
-bool STLFileReader::read(const std::string& filename) {
+bool STLFile::read(const std::string& filename) {
 	std::ifstream stream(filename);
+	return read(stream);
+}
 
+bool STLFile::read(std::istream& stream)
+{
 	std::string str0, str1, str2;
 	stream >> str0;
 	stream >> str1;
 	stream >> str2;
-	stream.close();
+	stream.seekg(0, std::ios_base::beg);
 
 	if (str0 == "solid" && str2 == "facet") {
-		return readASCII(filename);
+		return readASCII(stream);
 	}
 	else {
-		return readBinary(filename);
+		return readBinary(stream);
 	}
+
 }
 
-bool STLFileReader::readASCII(const std::string& filename) {
+
+bool STLFile::readASCII(const std::string& filename) {
 	std::ifstream stream;
 	stream.open(filename);
 	if (!stream.is_open()) {
@@ -67,7 +73,7 @@ bool STLFileReader::readASCII(const std::string& filename) {
 	return readASCII(stream);
 }
 
-bool STLFileReader::readASCII(std::istream& stream)
+bool STLFile::readASCII(std::istream& stream)
 {
 	std::string str = Helper::read<std::string>(stream);
 
@@ -75,8 +81,7 @@ bool STLFileReader::readASCII(std::istream& stream)
 
 	std::getline(stream, str);
 
-	std::string title = str;
-	STLCellVector cells;
+	this->title = str;
 
 	str = Helper::read<std::string>(stream);
 	while (str != "endsolid") {
@@ -112,13 +117,11 @@ bool STLFileReader::readASCII(std::istream& stream)
 		str = Helper::read<std::string>(stream);
 	}
 
-	this->file = STLFile(cells, title);
-
 	return stream.good();
 }
 
 
-bool STLFileReader::readBinary(const std::string& filename) {
+bool STLFile::readBinary(const std::string& filename) {
 	std::ifstream stream;
 	stream.open(filename, std::ios::in | std::ios::binary);
 	if (!stream.is_open()) {
@@ -128,13 +131,12 @@ bool STLFileReader::readBinary(const std::string& filename) {
 }
 
 
-bool STLFileReader::readBinary(std::istream& stream) {
+bool STLFile::readBinary(std::istream& stream) {
 	char head[80];
 	stream.read(head, 80);
 
 	unsigned int howMany;
 	stream.read((char *)&howMany, sizeof(unsigned int));
-	STLCellVector cells;
 
 	for (size_t i = 0; i < howMany; ++i) {
 		float normal[3];
@@ -160,7 +162,6 @@ bool STLFileReader::readBinary(std::istream& stream) {
 		//faces.push_back( f );
 		cells.push_back(cell);
 	}
-	this->file = STLFile(cells, "");
 	return stream.good();
 }
 

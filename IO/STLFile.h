@@ -69,6 +69,10 @@ public:
 
 	std::vector< STLCell > getCells() const { return cells; }
 
+	bool read(const std::string& filename);
+
+	bool read(std::istream& stream);
+
 	bool operator==(const STLFile& rhs) const {
 		return
 			title == rhs.title &&
@@ -81,13 +85,6 @@ private:
 	STLCellVector cells;
 	std::string title;
 
-};
-
-class STLFileReader
-{
-public:
-	bool read(const std::string& filename);
-
 	bool readASCII(const std::string& filename);
 
 	bool readASCII(std::istream& stream);
@@ -95,12 +92,6 @@ public:
 	bool readBinary(const std::string& filename);
 
 	bool readBinary(std::istream& stream);
-
-	STLFile getFile() const { return file; }
-
-private:
-	STLFile file;
-
 };
 
 class STLFileWriter
