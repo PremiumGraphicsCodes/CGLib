@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXFFile.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
@@ -30,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />

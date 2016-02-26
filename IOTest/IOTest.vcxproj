@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXFFileTest.cpp" />
+    <ClCompile Include="FileTest.cpp" />
     <ClCompile Include="IOTest.cpp" />
     <ClCompile Include="MTLFileTest.cpp" />
     <ClCompile Include="OBJFileTest.cpp" />
