@@ -67,3 +67,11 @@ TYPED_TEST(Line3dTest, TestMoveEndTo)
 	EXPECT_EQ(Vector3d<T>(3, 1, 2), line.getEnd());
 
 }
+
+TYPED_TEST(Line3dTest, TestGetDistance)
+{
+	using T = TypeParam;
+	Line3d<T> line(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 0, 0));
+	const auto actual = line.getDistance(Vector3d<T>(0.5, 1.0, 0.0));
+	EXPECT_EQ(actual, 1.0);
+}

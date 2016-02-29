@@ -22,6 +22,8 @@ public:
 
 	void moveEndTo(const Vector3d<T>& p) { this->vector -= (getEnd() - p); }
 
+	T getDistance(const Math::Vector3d<T>& position) const;
+
 	Vector3d<T> getStart() const { return start; }
 
 	Vector3d<T> getCenter() const { return start + vector * T(0.5); }

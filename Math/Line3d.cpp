@@ -31,6 +31,15 @@ bool Line3d<T>::equals(const Line3d<T>& rhs) const
 }
 
 template<typename T>
+T Line3d<T>::getDistance(const Vector3d<T>& position) const
+{
+	const auto v = position - this->start;
+	const auto area = this->vector.getOuterProduct(v).getLength();
+	return area / this->getLength();
+}
+
+
+template<typename T>
 Vector3dVector<T> Line3d<T>::toPositionsByLength(const double divideLength) const
 {
 	Vector3dVector<T> positions;
