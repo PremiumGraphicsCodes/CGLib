@@ -1,14 +1,13 @@
-#include "SPHSolver.h"
+#include "PhysicsWorld.h"
 
-#include "SPHKernel.h"
+#include "PhysicsParticleFindAlgo.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-	SPHKernel<float> kernel;
-
-void SPHSolver::solve(const std::vector< PhysicsObject>& objects, const float effectLength) {
-	const auto& particles = getParticles(objects);
+void PhysicsWorld::simulate(const float dt)
+{
+	const auto& particles = getParticles();
 
 	if (particles.empty()) {
 		return;
@@ -45,7 +44,18 @@ void SPHSolver::solve(const std::vector< PhysicsObject>& objects, const float ef
 	}
 
 	for (const auto& object : objects) {
-		object.coordinate();
+		object->coordinate();
 	}
 
 }
+
+std::vector<Particle*> PhysicsWorld::getParticles()
+{
+	std::vector<Particle*> ordered;
+	for (const auto& object : objects) {
+		const auto& particles = object->getParticles();
+		ordered.insert(ordered.end(), particles.begin(), particles.end());
+	}
+	return ordered;
+}
+

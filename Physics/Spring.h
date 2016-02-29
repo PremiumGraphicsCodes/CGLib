@@ -18,7 +18,7 @@ public:
 
 	Spring(const ParticlePair& pair, const Param param);
 
-	void proceedTime(const float dt);
+	void coordinate(const float dt);
 
 private:
 	const ParticlePair& pair;

@@ -28,32 +28,6 @@ public:
 using CoordinatorSPtr = std::shared_ptr < Coordinator > ;
 using CoordinatorSPtrVector = std::vector<CoordinatorSPtr>;
 
-
-class ExternalForceCoordinator final : public Coordinator
-{
-public:
-	ExternalForceCoordinator(const Math::Vector3d<float>& force, const float timeStep) :
-		force( force ),
-		timeStep( timeStep )
-	{}
-
-	virtual void coordinate(const std::vector<Particle*>& particles) override {
-		for (const auto& particle : particles) {
-			particle->addForce(force * particle->getDensity());
-		}
-	}
-
-	Math::Vector3d<float> getForce() const { return force; }
-
-	void addForce( const Math::Vector3d<float>& force ) { this->force += force; }
-
-	float getTimeStep() const { return timeStep; }
-
-private:
-	Math::Vector3d<float> force;
-	const float timeStep;
-};
-
 	}
 }
 

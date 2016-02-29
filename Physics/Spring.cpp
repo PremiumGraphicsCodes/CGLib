@@ -8,7 +8,7 @@ Spring::Spring(const ParticlePair& pair, const Param param) :
 	param(param)
 {}
 
-void Spring::proceedTime(const float dt)
+void Spring::coordinate(const float dt)
 {
 	const auto diff =  pair.getDistance() - param.restDistance;
 	const auto force = diff * param.springCoe * pair.getDistanceVector();
