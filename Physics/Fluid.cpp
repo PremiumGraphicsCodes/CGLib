@@ -1,5 +1,7 @@
 #include "Fluid.h"
 
+#include "Particle.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 

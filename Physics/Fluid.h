@@ -4,6 +4,10 @@
 #include "PhysicsObject.h"
 
 namespace Crystal {
+	namespace Math {
+		template<typename T>
+		class Vector3d;
+	}
 	namespace Physics {
 
 class Fluid : PhysicsObject

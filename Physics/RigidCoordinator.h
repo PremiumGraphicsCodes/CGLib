@@ -2,7 +2,6 @@
 #define __CRYSTAL_PHYSICS_RIGID_ENFORCER_H__
 
 #include "Particle.h"
-#include "Coordinator.h"
 
 #include "../Math/Matrix3d.h"
 #include "../Math/Quaternion.h"
@@ -10,14 +9,14 @@
 namespace Crystal{
 	namespace Physics{
 
-class RigidCoordinator : public Coordinator
+class RigidCoordinator
 {
 public:
 	RigidCoordinator(){};
 
 	~RigidCoordinator(void){};
 
-	virtual void coordinate(const std::vector<Particle*>& particles) override;
+	void coordinate(const std::vector<Particle*>& particles);
 
 	void setTimeStep(const float timeStep) { this->proceedTime = timeStep; }
 

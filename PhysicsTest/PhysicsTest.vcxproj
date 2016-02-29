@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoundaryCoordinatorTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />

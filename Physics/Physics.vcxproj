@@ -19,9 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BoundaryCoordinator.h" />
     <ClInclude Include="Cloth.h" />
-    <ClInclude Include="Coordinator.h" />
     <ClInclude Include="Fluid.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticlePair.h" />

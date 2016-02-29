@@ -1,10 +1,11 @@
 #ifndef __CRYSTAL_PHYSICS_PHYSICS_OBJECT_H__
 #define __CRYSTAL_PHYSICS_PHYSICS_OBJECT_H__
 
-#include "Coordinator.h"
+#include <vector>
 
 namespace Crystal {
 	namespace Physics {
+		class Particle;
 
 class PhysicsObject {
 public:
@@ -12,11 +13,9 @@ public:
 
 	PhysicsObject(const std::vector<Particle*>& particles);
 
-	PhysicsObject(const std::vector<Particle*>& particles, const CoordinatorSPtrVector& coordinators);
-
 	virtual ~PhysicsObject();
 
-	void coordinate() const;
+	virtual void coordinate() {};
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
@@ -26,13 +25,11 @@ public:
 
 	void clear() {
 		particles.clear();
-		coordinators.clear();
 	}
 
 
 private:
 	std::vector<Particle*> particles;
-	CoordinatorSPtrVector coordinators;
 };
 
 
