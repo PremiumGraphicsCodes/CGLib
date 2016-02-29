@@ -13,18 +13,9 @@ template<typename T>
 class Triangle final
 {
 public:
-	Triangle() :
-		v0(Vector3d<T>(0.0, 0.0, 0.0)),
-		v1(Vector3d<T>(1.0, 0.0, 0.0)),
-		v2(Vector3d<T>(0.0, 1.0, 0.0))
-	{}
+	Triangle();
 
-	Triangle( const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) :
-		v0( v0 ),
-		v1( v1 ),
-		v2( v2 )
-	{
-	}
+	Triangle(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2);
 
 	static Triangle<T> UnitXY() {
 		return Triangle<T>(
@@ -51,31 +42,15 @@ public:
 	}
 
 
-	Vector3d<T> getNormal() const {
-		const Vector3d<T> v01 = v0 - v1;
-		const Vector3d<T> v02 = v1 - v2;
-		return v01.getOuterProduct(v02).getNormalized();
-	}
+	Vector3d<T> getNormal() const;
 
-	T getArea() const {
-		const Vector3d<T> v01 = v0 - v1;
-		const Vector3d<T> v02 = v1 - v2;
-		return v01.getOuterProduct(v02).getLength() * T(0.5);
-	}
+	T getArea() const;
 
-	bool isCCW() const {
-		assert( isValid() );
-		return getNormal().getLength() >= 0.0f;
-	}
+	bool isCCW() const;
 
-	bool isCW() const {
-		assert( isValid() );
-		return !isCCW();
-	}
+	bool isCW() const;
 
-	Vector3d<T> getCenter() const {
-		return (v0 + v1 + v2) / T(3);
-	}
+	Vector3d<T> getCenter() const;
 
 	bool isValid() const {
 		return ( v0 != v1 ) && ( v1 != v2 ) && ( v0 != v2 );
