@@ -20,8 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundaryCoordinator.h" />
+    <ClInclude Include="Coordinator.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticlePair.h" />
+    <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="PhysicsParticleFindAlgo.h" />
+    <ClInclude Include="RigidCoordinator.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="SPHSolver.h" />
   </ItemGroup>

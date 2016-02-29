@@ -27,12 +27,6 @@
     <ClCompile Include="PhysicsParticleFindAlgoTest.cpp" />
     <ClCompile Include="RigidCoordinatorTest.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Physics\Coordinator.h" />
-    <ClInclude Include="..\Physics\PhysicsObject.h" />
-    <ClInclude Include="..\Physics\PhysicsParticleFindAlgo.h" />
-    <ClInclude Include="..\Physics\RigidCoordinator.h" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51436043-10F6-42F3-85BE-F2FEAF480AFA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
