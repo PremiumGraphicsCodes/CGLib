@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundaryCoordinatorTest.cpp" />
-    <ClCompile Include="CoordinatorTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />

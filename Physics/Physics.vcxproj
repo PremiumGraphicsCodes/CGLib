@@ -22,10 +22,12 @@
     <ClInclude Include="BoundaryCoordinator.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Coordinator.h" />
+    <ClInclude Include="Fluid.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PhysicsParticleFindAlgo.h" />
+    <ClInclude Include="Rigid.h" />
     <ClInclude Include="RigidCoordinator.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="SPHSolver.h" />
@@ -33,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cloth.cpp" />
+    <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />

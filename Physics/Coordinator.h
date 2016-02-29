@@ -28,28 +28,6 @@ public:
 using CoordinatorSPtr = std::shared_ptr < Coordinator > ;
 using CoordinatorSPtrVector = std::vector<CoordinatorSPtr>;
 
-class EulerIntegrator final : public Coordinator
-{
-public:
-	EulerIntegrator(const float timeStep) :
-		timeStep( timeStep )
-	{
-	}
-	
-	virtual void coordinate(const std::vector<Particle*>& particles) override {
-		for (const auto& particle : particles) {
-			const auto& accelaration = particle->getAccelaration();//particle->variable.force / particle->variable.density;
-			particle->addVelocity(accelaration * timeStep);
-			particle->addCenter(particle->getVelocity() * timeStep);
-		}
-	}
-
-	float getTimeStep() const { return timeStep; }
-
-private:
-	const float timeStep;
-};
-
 
 class ExternalForceCoordinator final : public Coordinator
 {

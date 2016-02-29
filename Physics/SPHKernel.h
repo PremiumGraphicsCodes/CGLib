@@ -10,6 +10,8 @@ template<typename GeomType>
 class SPHKernel
 {
 public:
+	SPHKernel() {};
+
 	float getPoly6Kernel(const GeomType distance, const GeomType effectLength);
 
 	Math::Vector3d<GeomType> getPoly6KernelGradient(const Math::Vector3d<GeomType>& distanceVector, const GeomType effectLength);
