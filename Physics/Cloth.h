@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Physics {
 
-class Cloth : PhysicsObject<float>
+class Cloth : PhysicsObject
 {
 public:
 

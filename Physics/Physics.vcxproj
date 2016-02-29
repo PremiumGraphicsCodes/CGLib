@@ -29,14 +29,17 @@
     <ClInclude Include="RigidCoordinator.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="SPHSolver.h" />
+    <ClInclude Include="Spring.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="SPHSolver.cpp" />
+    <ClCompile Include="Spring.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A75C81D2-613A-4958-A669-A655964419A8}</ProjectGuid>

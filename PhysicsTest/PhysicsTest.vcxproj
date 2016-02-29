@@ -26,6 +26,7 @@
     <ClCompile Include="PhysicsObjectTest.cpp" />
     <ClCompile Include="PhysicsParticleFindAlgoTest.cpp" />
     <ClCompile Include="RigidCoordinatorTest.cpp" />
+    <ClCompile Include="SpringTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51436043-10F6-42F3-85BE-F2FEAF480AFA}</ProjectGuid>
