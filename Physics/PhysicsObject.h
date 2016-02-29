@@ -6,30 +6,17 @@
 namespace Crystal {
 	namespace Physics {
 
-template<typename GeomType>
 class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const std::vector<Particle*>& particles ) :
-		particles(particles)
-	{}
+	PhysicsObject(const std::vector<Particle*>& particles);
 
+	PhysicsObject(const std::vector<Particle*>& particles, const CoordinatorSPtrVector& coordinators);
 
-	PhysicsObject( const std::vector<Particle*>& particles, const CoordinatorSPtrVector& coordinators ) :
-		particles( particles ),
-		coordinators( coordinators )
-	{}
+	virtual ~PhysicsObject();
 
-	virtual ~PhysicsObject() {
-		clear();
-	}
-
-	void coordinate() const {
-		for (const auto& coordinator : coordinators) {
-			coordinator->coordinate(particles);
-		}
-	}
+	void coordinate() const;
 
 	std::vector<Particle*> getParticles() const { return particles; }
 

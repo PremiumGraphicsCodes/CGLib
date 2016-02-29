@@ -7,7 +7,7 @@ using namespace Crystal::Physics;
 
 	SPHKernel<float> kernel;
 
-void SPHSolver<float>::solve(const std::vector< PhysicsObject<float> >& objects, const float effectLength) {
+void SPHSolver::solve(const std::vector< PhysicsObject>& objects, const float effectLength) {
 	const auto& particles = getParticles(objects);
 
 	if (particles.empty()) {

@@ -15,14 +15,13 @@
 namespace Crystal{
 	namespace Physics{
 
-template<typename GeomType = float>
 class SPHSolver
 {
 public:
-	void solve(const std::vector< PhysicsObject<GeomType> >& objects, const GeomType effectLength);
+	void solve(const std::vector< PhysicsObject >& objects, const float effectLength);
 
 private:
-	std::vector<Particle*> getParticles(const std::vector< PhysicsObject<GeomType> >& objects) {
+	std::vector<Particle*> getParticles(const std::vector< PhysicsObject >& objects) {
 		std::vector<Particle*> ordered;
 		for (const auto& object : objects) {
 			const auto& particles = object.getParticles();
