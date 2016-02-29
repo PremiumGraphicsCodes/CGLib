@@ -3,11 +3,14 @@
 
 #include "PolygonObject.h"
 #include "ActorObject.h"
-#include "ParticleObject.h"
+#include "../Physics/PhysicsObject.h"
 
 #include <memory>
 
 namespace Crystal {
+	namespace Physics {
+		class PhysicsObject;
+	}
 	namespace Polygon {
 
 class CGModel
@@ -22,17 +25,18 @@ public:
 		actor(actor)
 	{}
 
-	CGModel(PolygonObject* polygon, ActorObject* actor, ParticleObject* particle) :
+	CGModel(PolygonObject* polygon, ActorObject* actor, Physics::PhysicsObject* physics) :
 		polygon(polygon),
 		actor(actor),
-		particle(particle)
+		physics(physics)
 	{}
 
 private:
 	std::unique_ptr< Polygon::PolygonObject > polygon;
 	std::unique_ptr< Polygon::ActorObject > actor;
-	std::unique_ptr< Polygon::ParticleObject > particle;
+	std::unique_ptr< Physics::PhysicsObject > physics;
 };
+
 
 	}
 }

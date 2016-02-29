@@ -5,6 +5,7 @@
 #include "../Polygon/ActorObject.h"
 #include "../Polygon/Bone.h"
 #include "../Polygon/Joint.h"
+#include "../Polygon/CGModel.h"
 
 #include <ostream>
 
@@ -521,3 +522,7 @@ ActorObject* PMDFile::toActorObject() const
 	return bones.toActorObject();
 }
 
+CGModel* PMDFile::toCGModel() const
+{
+	return new CGModel(toPolygonObject(), toActorObject());
+}

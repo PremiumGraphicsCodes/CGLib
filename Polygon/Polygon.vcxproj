@@ -39,6 +39,7 @@
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoneTree.h" />
     <ClInclude Include="CGModel.h" />
+    <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Particle.h" />

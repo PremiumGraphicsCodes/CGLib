@@ -12,6 +12,7 @@ namespace Crystal {
 		class ActorObject;
 		class Bone;
 		class Joint;
+		class CGModel;
 	}
 	namespace IO {
 
@@ -273,6 +274,8 @@ public:
 	Polygon::PolygonObject* toPolygonObject() const;
 
 	Polygon::ActorObject* toActorObject() const;
+
+	Polygon::CGModel* toCGModel() const;
 
 private:
 	PMDHeader header;
