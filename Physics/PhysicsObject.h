@@ -20,21 +20,9 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	float getMass() const {
-		auto weight = 0.0f;
-		for (const auto& particle : particles) {
-			weight += particle->getMass();
-		}
-		return weight;
-	}
+	float getMass() const;
 
-	float getRestVolume() const {
-		auto volume = 0.0f;
-		for (const auto& particle : particles) {
-			volume += particle->getRestVolume();
-		}
-		return volume;
-	}
+	float getRestVolume() const;
 
 	void clear() {
 		particles.clear();

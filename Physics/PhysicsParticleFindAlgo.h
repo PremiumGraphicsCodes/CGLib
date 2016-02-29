@@ -81,8 +81,8 @@ private:
 			while (yIter != particles.end() && ((*yIter)->getGridID() <= gridID + 1)) {
 				const auto& centerY = (*yIter)->getCenter();
 				if (centerX.getDistanceSquared(centerY) < effectLengthSquared) {
-					pairs.push_back(ParticlePair<float>((*xIter), (*yIter)));
-					pairs.push_back(ParticlePair<float>((*yIter), (*xIter)));
+					pairs.push_back(ParticlePair((*xIter), (*yIter)));
+					pairs.push_back(ParticlePair((*yIter), (*xIter)));
 				}
 				++yIter;
 			}
@@ -112,8 +112,8 @@ private:
 				while (zIter != particles.end() && ((*zIter)->getGridID() <= baseID + 2)) {
 					const auto& centerZ = (*zIter)->getCenter();
 					if (centerX.getDistanceSquared(centerZ) < effectLengthSquared) {
-						pairs.push_back(ParticlePair<float>((*xIter), (*zIter)));
-						pairs.push_back(ParticlePair<float>((*zIter), (*xIter)));
+						pairs.push_back(ParticlePair((*xIter), (*zIter)));
+						pairs.push_back(ParticlePair((*zIter), (*xIter)));
 					}
 					++zIter;
 				}

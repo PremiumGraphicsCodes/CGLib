@@ -32,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="RigidCoordinator.cpp" />
     <ClCompile Include="SPHKernel.cpp" />

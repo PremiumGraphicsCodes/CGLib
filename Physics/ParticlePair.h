@@ -6,28 +6,16 @@
 namespace Crystal {
 	namespace Physics {
 
-template<typename T>
 class ParticlePair final
 {
 public:
-	ParticlePair() :
-		particle1( nullptr ),
-		particle2( nullptr )
-	{}
+	ParticlePair();
 
-	ParticlePair(Particle* particle1, Particle* particle2) :
-		particle1(particle1),
-		particle2(particle2)
-	{
-	}
+	ParticlePair(Particle* particle1, Particle* particle2);
 
-	Math::Vector3d<T> getDistanceVector() const {
-		return Math::Vector3d<T>(particle1->getCenter() - particle2->getCenter());
-	}
+	Math::Vector3d<float> getDistanceVector() const;
 
-	float getDistance() const {
-		return getDistanceVector().getLength();
-	}
+	float getDistance() const;
 
 	float getDistanceSquared() const {
 		return particle1->getCenter().getDistanceSquared(particle2->getCenter());
@@ -41,8 +29,8 @@ public:
 		return (particle1->getViscosityCoe() + particle2->getViscosityCoe()) * 0.5f;
 	}
 
-	Math::Vector3d<T> getVelocityDiff() const {
-		return Math::Vector3d<T>(particle1->getVelocity(), particle2->getVelocity());
+	Math::Vector3d<float> getVelocityDiff() const {
+		return Math::Vector3d<float>(particle1->getVelocity(), particle2->getVelocity());
 	}
 
 	bool isValid() const {
@@ -61,7 +49,7 @@ private:
 	Particle* particle2;
 };
 
-using ParticlePairVector = std::vector<ParticlePair<float> >;
+using ParticlePairVector = std::vector<ParticlePair>;
 
 	}
 }

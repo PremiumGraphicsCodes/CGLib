@@ -24,3 +24,21 @@ void PhysicsObject::coordinate() const
 		coordinator->coordinate(particles);
 	}
 }
+
+float PhysicsObject::getMass() const
+{
+	auto weight = 0.0f;
+	for (const auto& particle : particles) {
+		weight += particle->getMass();
+	}
+	return weight;
+}
+
+float PhysicsObject::getRestVolume() const
+{
+	auto volume = 0.0f;
+	for (const auto& particle : particles) {
+		volume += particle->getRestVolume();
+	}
+	return volume;
+}
