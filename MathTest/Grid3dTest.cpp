@@ -32,7 +32,7 @@ TEST(Grid3dTest, TestSubGrid)
 	using T = float;
 	Grid3d<T> grid(2, 2, 2, 0);
 	grid.set(0, 1, 0, 20);
-	const auto& actual = grid.subGrid(Index3d(0, 1, 0));
+	const auto& actual = grid.subGrid(Index3d(0, 1, 0), Index3d(2,2,2));
 
 	Grid3d<T> expected(2, 1, 2, 0);
 	expected.set(0, 0, 0, 20);

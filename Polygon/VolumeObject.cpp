@@ -10,18 +10,22 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-VolumeObject VolumeObject::subVolume(const Vector3d<float>& offset) const
+Grid3d<float> VolumeObject::subGrid(const Vector3d<float>& start, const Vector3d<float>& end) const
 {
-	const auto& newSpace = space.moveStart(offset);
 	const auto& unitLength = getUnitLength();
-	const auto resx = offset.getX() / unitLength.getX();
-	const auto resy = offset.getY() / unitLength.getY();
-	const auto resz = offset.getZ() / unitLength.getZ();
-	Index3d offsetIndex(resx, resy, resz);
-	const auto newGrid = grid.subGrid(offsetIndex);
+	const auto startx = static_cast<int>( start.getX() / unitLength.getX());
+	const auto starty = static_cast<int>( start.getY() / unitLength.getY());
+	const auto startz = static_cast<int>( start.getZ() / unitLength.getZ());
+	Index3d startIndex(startx, starty, startz);
+	const auto endx = static_cast<int>(end.getX() / unitLength.getX());
+	const auto endy = static_cast<int>(end.getY() / unitLength.getY());
+	const auto endz = static_cast<int>(end.getZ() / unitLength.getZ());
+	Index3d endIndex(endx, endy, endz);
+	const auto newGrid = grid.subGrid(startIndex, endIndex);
 	//space.getSubSpace(Index3d(x, indexy, indexz));
-	return VolumeObject(newSpace, newGrid);
+	return newGrid;
 }
+
 
 Vector3d<float> VolumeObject::getUnitLength() const
 {
@@ -163,9 +167,29 @@ std::vector< Triangle<float> > VolumeObject::toTriangles(const float isolevel) c
 VolumeObject VolumeObject::getOverlapped(const VolumeObject& rhs) const
 {
 	Space3d<float> newSpace = space.getOverlapped(rhs.space);
-	Vector3d<float> startDiff = space.getStart() - newSpace.getStart();
-	return subVolume(startDiff);
+	Vector3d<float> startDiff = newSpace.getStart() - space.getStart();
+	Vector3d<float> endDiff = newSpace.getEnd() - newSpace.getStart() + startDiff;
+	const auto& grid = subGrid(startDiff, endDiff);
+	return VolumeObject(newSpace, grid);
 }
+
+bool VolumeObject::equals(const VolumeObject& rhs) const
+{
+	return
+		(space == rhs.space) &&
+		(grid == rhs.grid);
+}
+
+bool VolumeObject::operator==(const VolumeObject& rhs) const
+{
+	return equals(rhs);
+}
+
+bool VolumeObject::operator!=(const VolumeObject& rhs) const
+{
+	return !equals(rhs);
+}
+
 
 /*
 ParticleObject* VolumeObject::toParticleObject() const

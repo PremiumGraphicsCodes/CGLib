@@ -26,7 +26,7 @@ public:
 		grid(grid)
 	{}
 
-	VolumeObject subVolume(const Math::Vector3d<float>& offset) const;
+	Math::Grid3d<float> subGrid(const Math::Vector3d<float>& start, const Math::Vector3d<float>& end) const;
 
 	VolumeNode toNode(const Math::Index3d index) const;
 
@@ -47,6 +47,12 @@ public:
 	//void add(const VolumeObject& rhs);
 
 	VolumeObject getOverlapped(const VolumeObject& rhs) const;
+
+	bool equals(const VolumeObject& rhs) const;
+
+	bool operator==(const VolumeObject& rhs) const;
+
+	bool operator!=(const VolumeObject& rhs) const;
 
 private:
 	const Math::Space3d<float> space;
