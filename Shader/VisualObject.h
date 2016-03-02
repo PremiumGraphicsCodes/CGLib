@@ -15,6 +15,9 @@
 #include "LegacyRenderer.h"
 
 namespace Crystal {
+	namespace Physics {
+		class PhysicsObject;
+	}
 	namespace Shader {
 
 
@@ -27,6 +30,10 @@ public:
 	VisualObject(const Polygon::ActorObject& actor);
 
 	VisualObject(const Polygon::PolygonObject& polygon);
+
+	VisualObject(const Physics::PhysicsObject& physics);
+
+	VisualObject(const Polygon::VolumeObject& volume);
 
 	void renderPoints(const Graphics::ICamera<float>& camera)
 	{

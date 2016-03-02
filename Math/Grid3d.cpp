@@ -31,7 +31,25 @@ Grid3d<T>::Grid3d(const Grid2d<T>& grid2ds, const int howMany)
 	}
 }
 
-
+template<typename T>
+Grid3d<T> Grid3d<T>::subGrid(const Index3d offset) const
+{
+	int resx = getSizeX() - offset.getX();
+	int resy = getSizeY() - offset.getY();
+	int resz = getSizeZ() - offset.getZ();
+	Grid3d<T> newGrid(resx, resy, resz, 0);
+	for (int x = 0; x < resx; ++x) {
+		for (int y = 0; y < resy; ++y) {
+			for (int z = 0; z < resz; ++z) {
+				const int ix = x + offset.getX();
+				const int iy = y + offset.getY();
+				const int iz = z + offset.getZ();
+				newGrid.set(x,y,z, get(ix, iy, iz));
+			}
+		}
+	}
+	return newGrid;
+}
 
 template<typename T>
 void Grid3d<T>::fill(const T v)

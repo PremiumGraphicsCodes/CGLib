@@ -34,7 +34,6 @@ TEST(Space3dTest, TestGetVolume)
 	EXPECT_EQ(125, Space3d<T>(Vector3d<T>(5, 5, 5), Vector3d<T>(5, 5, 5)).getVolume());
 }
 
-
 TEST(Space3dTest, TestGetSubSpaces)
 {
 	using T = float;

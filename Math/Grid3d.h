@@ -35,6 +35,8 @@ public:
 
 	Grid3d(const Grid2d<T>& grid2ds, const int howMany);
 
+	Grid3d subGrid(const Index3d offset) const;
+
 	T get(const size_t x, const size_t y, const size_t z) const { return grids[z].get(x,y); }
 
 	void fill(const T v);

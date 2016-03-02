@@ -58,6 +58,8 @@ public:
 
 	bool operator!=(const Space3d& rhs) const { return !equals(rhs); }
 
+	Space3d<T> getSubSpace(const Index3d index) const;
+
 	Space3d<T> getSubSpace(const Index3d index, const unsigned int xdiv, const unsigned int ydiv, const unsigned int zdiv) const;
 
 	std::vector< Space3d<T> > getSubSpaces(const int xdiv, const int ydiv, const int zdiv) const;

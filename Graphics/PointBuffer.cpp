@@ -4,7 +4,10 @@
 #include "../Polygon/Particle.h"
 #include "../Polygon/ActorObject.h"
 #include "../Polygon/PolygonObject.h"
+#include "../Polygon/VolumeObject.h"
 #include "../Polygon/Joint.h"
+
+#include <memory>
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
@@ -55,6 +58,14 @@ void PointBuffer::add(const ActorObject& actor)
 	const auto joints = actor.getJoints();
 	for (auto& j : joints) {
 		add(Point(*j));
+	}
+}
+
+void PointBuffer::add(const VolumeObject& volume)
+{
+	const auto& particles = volume.toParticles(0.1f, 0.1f);
+	for (const auto& p : particles) {
+		add(p);
 	}
 }
 

@@ -27,6 +27,18 @@ TEST(Grid3dTest, TestAdd)
 	EXPECT_EQ(expected, lhs);
 }
 
+TEST(Grid3dTest, TestSubGrid)
+{
+	using T = float;
+	Grid3d<T> grid(2, 2, 2, 0);
+	grid.set(0, 1, 0, 20);
+	const auto& actual = grid.subGrid(Index3d(0, 1, 0));
+
+	Grid3d<T> expected(2, 1, 2, 0);
+	expected.set(0, 0, 0, 20);
+	EXPECT_EQ(expected, actual);
+}
+
 TEST(Grid3dTest, TestSub)
 {
 	using T = float;

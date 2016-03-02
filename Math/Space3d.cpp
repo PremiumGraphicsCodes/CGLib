@@ -36,6 +36,20 @@ std::array< Vector3d<T>, 8 > Space3d<T>::toArray() const {
 	});
 }
 
+/*
+template<typename T>
+Space3d<T> Space3d<T>::getSubSpace(const Index3d index) const
+{
+	const auto originx = origin.getX() + lengthx * index[0];
+	const auto originy = origin.getY() + lengthy * index[1];
+	const auto originz = origin.getZ() + lengthz * index[2];
+	const Vector3d<T> origin_(originx, originy, originz);
+
+	return Space3d<T>(origin_, vector);
+}
+*/
+
+
 template<typename T>
 Space3d<T> Space3d<T>::getSubSpace(const Index3d index, const unsigned int xdiv, const unsigned int ydiv, const unsigned int zdiv) const
 {
@@ -44,13 +58,13 @@ Space3d<T> Space3d<T>::getSubSpace(const Index3d index, const unsigned int xdiv,
 	const auto lengthx = vector.getX() / xdiv;
 	const auto lengthy = vector.getY() / ydiv;
 	const auto lengthz = vector.getZ() / zdiv;
-	const Vector3d<T> l(lengthx, lengthy, lengthz);
+	const Vector3d<T> length(lengthx, lengthy, lengthz);
 
 	const auto originx = origin.getX() + lengthx * index[0];
 	const auto originy = origin.getY() + lengthy * index[1];
 	const auto originz = origin.getZ() + lengthz * index[2];
 	const Vector3d<T> origin_(originx, originy, originz);
-	return Space3d<T>(origin_, l);
+	return Space3d<T>(origin_, length);
 }
 
 template<typename T>

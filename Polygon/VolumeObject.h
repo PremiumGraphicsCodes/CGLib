@@ -26,6 +26,8 @@ public:
 		grid(grid)
 	{}
 
+	VolumeObject subVolume(const Math::Vector3d<float>& offset) const;
+
 	VolumeNode toNode(const Math::Index3d index) const;
 
 	std::vector<VolumeNode> toNodes() const;
@@ -38,7 +40,13 @@ public:
 
 	Particle toParticle(const Math::Index3d index, const float radius) const;
 
+	std::vector<Particle> toParticles(const float radius, const float isolevel) const;
+
 	ParticleObject* toParticleObject(const float radius,const float isolevel) const;
+
+	//void add(const VolumeObject& rhs);
+
+	VolumeObject getOverlapped(const VolumeObject& rhs) const;
 
 private:
 	const Math::Space3d<float> space;

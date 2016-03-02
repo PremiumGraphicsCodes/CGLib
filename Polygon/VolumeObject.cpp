@@ -10,6 +10,18 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
+VolumeObject VolumeObject::subVolume(const Vector3d<float>& offset) const
+{
+	const auto& newSpace = space.moveStart(offset);
+	const auto& unitLength = getUnitLength();
+	const auto resx = offset.getX() / unitLength.getX();
+	const auto resy = offset.getY() / unitLength.getY();
+	const auto resz = offset.getZ() / unitLength.getZ();
+	Index3d offsetIndex(resx, resy, resz);
+	const auto newGrid = grid.subGrid(offsetIndex);
+	//space.getSubSpace(Index3d(x, indexy, indexz));
+	return VolumeObject(newSpace, newGrid);
+}
 
 Vector3d<float> VolumeObject::getUnitLength() const
 {
@@ -99,22 +111,32 @@ Particle VolumeObject::toParticle(const Index3d index, const float radius) const
 	return Particle(position, density, radius);
 }
 
-
-ParticleObject* VolumeObject::toParticleObject(const float radius,const float isolevel) const
+std::vector<Particle> VolumeObject::toParticles(const float radius, const float isolevel) const
 {
 	const auto& nodes = toNodes();
-	std::vector<Particle*> particles;
+	std::vector<Particle> particles;
 	for (int x = 0; x < grid.getSizeX(); ++x) {
 		for (int y = 0; y < grid.getSizeY(); ++y) {
 			for (int z = 0; z < grid.getSizeZ(); ++z) {
 				if (grid.get(x, y, z) > isolevel) {
 					const auto& p = toParticle(Index3d(x, y, z), radius);
-					particles.push_back( p.clone() );
+					particles.push_back(p);
 				}
 			}
 		}
 	}
-	ParticleObject* particleObject = new ParticleObject(particles);
+	return particles;
+}
+
+
+ParticleObject* VolumeObject::toParticleObject(const float radius,const float isolevel) const
+{
+	const auto& particles = toParticles(radius, isolevel);
+	std::vector<Particle*> ps;
+	for (const auto& p : particles) {
+		ps.push_back( p.clone() );
+	}
+	ParticleObject* particleObject = new ParticleObject(ps);
 	return particleObject;
 }
 
@@ -138,8 +160,12 @@ std::vector< Triangle<float> > VolumeObject::toTriangles(const float isolevel) c
 
 }
 
-#include "ParticleObject.h"
-
+VolumeObject VolumeObject::getOverlapped(const VolumeObject& rhs) const
+{
+	Space3d<float> newSpace = space.getOverlapped(rhs.space);
+	Vector3d<float> startDiff = space.getStart() - newSpace.getStart();
+	return subVolume(startDiff);
+}
 
 /*
 ParticleObject* VolumeObject::toParticleObject() const

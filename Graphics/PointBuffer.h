@@ -11,6 +11,7 @@ namespace Crystal {
 		class PolygonObject;
 		class Particle;
 		class ParticleObject;
+		class VolumeObject;
 		class ActorObject;
 		class Joint;
 		class Vertex;
@@ -65,6 +66,8 @@ public:
 	void add(const Polygon::ActorObject& actor);
 
 	void add(const Polygon::PolygonObject& polygon);
+
+	void add(const Polygon::VolumeObject& volume);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
