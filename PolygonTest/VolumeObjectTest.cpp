@@ -24,49 +24,62 @@ TEST(VolumeObjectTest, TestSubGrid)
 
 TEST(VolumeObjectTest, TestGetOverlappedCase1)
 {
-	Space3d<float> space1(Vector3d<float>(0, 0, 0), Vector3d<float>(2, 2, 2));
-	Grid3d<float> grid1(2, 2, 2);
+	const Space3d<float> space1(Vector3d<float>(0, 0, 0), Vector3d<float>(2, 2, 2));
+	const Grid3d<float> grid1(2, 2, 2);
 	const VolumeObject volume1(space1, grid1);
 
-	Space3d<float> space2(Vector3d<float>(1, 1, 1), Vector3d<float>(2, 2, 2));
-	Grid3d<float> grid2(2, 2, 2);
+	const Space3d<float> space2(Vector3d<float>(1, 1, 1), Vector3d<float>(2, 2, 2));
+	const Grid3d<float> grid2(2, 2, 2);
 	const VolumeObject volume2(space2, grid2);
 	const auto& actual = volume1.getOverlapped(volume2);
 
-	Space3d<float> space3(Vector3d<float>(1, 1, 1), Vector3d<float>(1, 1, 1));
-	Grid3d<float> grid3(1, 1, 1);
+	const Space3d<float> space3(Vector3d<float>(1, 1, 1), Vector3d<float>(1, 1, 1));
+	const Grid3d<float> grid3(1, 1, 1);
 	const VolumeObject expected(space3, grid3);
 	EXPECT_EQ(expected, actual);
 }
 
 TEST(VolumeObjectTest, TestGetOverlappedCase2)
 {
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(2, 2, 2));
-	Grid3d<float> grid(2, 2, 2);
-	const VolumeObject volume1(space, grid);
+	const Space3d<float> space1(Vector3d<float>(0, 0, 0), Vector3d<float>(2, 2, 2));
+	const Grid3d<float> grid1(2, 2, 2);
+	const VolumeObject volume1(space1, grid1);
 
-	{
-		Space3d<float> space(Vector3d<float>(-1, -1, -1), Vector3d<float>(2, 2, 2));
-		Grid3d<float> grid(2, 2, 2);
-		const VolumeObject volume2(space, grid);
-		const auto& actual = volume1.getOverlapped(volume2);
-	}
+	const Space3d<float> space2(Vector3d<float>(-1, -1, -1), Vector3d<float>(2, 2, 2));
+	const Grid3d<float> grid2(2, 2, 2);
+	const VolumeObject volume2(space2, grid2);
+	const auto& actual = volume1.getOverlapped(volume2);
 
-	{
-		Space3d<float> space(Vector3d<float>(1, 1, 1), Vector3d<float>(10, 10, 10));
-		Grid3d<float> grid(2, 2, 2);
-		const VolumeObject volume2(space, grid);
-		const auto& actual = volume1.getOverlapped(volume2);
-	}
-
+	const Space3d<float> space3(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+	const Grid3d<float> grid3(1, 1, 1);
+	const VolumeObject expected(space3, grid3);
+	EXPECT_EQ(expected, actual);
 }
+
+TEST(VolumeObjectTest, TestGetOverlappedCase3)
+{
+	const Space3d<float> space1(Vector3d<float>(0, 0, 0), Vector3d<float>(2, 2, 2));
+	const Grid3d<float> grid1(2, 2, 2);
+	const VolumeObject volume1(space1, grid1);
+
+	const Space3d<float> space2(Vector3d<float>(1, 1, 1), Vector3d<float>(10, 10, 10));
+	const Grid3d<float> grid2(2, 2, 2);
+	const VolumeObject volume2(space2, grid2);
+	const auto& actual = volume1.getOverlapped(volume2);
+
+	const Space3d<float> space3(Vector3d<float>(1, 1, 1), Vector3d<float>(1, 1, 1));
+	const Grid3d<float> grid3(1, 1, 1);
+	const VolumeObject expected(space3, grid3);
+	EXPECT_EQ(expected, actual);
+}
+
 
 TEST(VolumeObjectTest, TestToNodes)
 {
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(4, 4, 4));
+	const Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(4, 4, 4));
 	Grid3d<float> grid(4, 4, 4);
 	grid.set(1, 0, 0, 1);
-	VolumeObject object(space, grid);
+	const VolumeObject object(space, grid);
 	const auto& actual = object.toNodes();
 	EXPECT_EQ(8, actual.size());
 }
