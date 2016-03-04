@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void PhysicsWorld::simulate()
+void PhysicsWorld::simulate(const float effectLength, const float timeStep)
 {
 	const auto& particles = getParticles();
 
@@ -60,25 +60,26 @@ std::vector<Particle*> PhysicsWorld::getParticles()
 }
 
 
-void PhysicsWorld::solveBoundary(const std::vector<Particle*>& particles) {
+void PhysicsWorld::solveBoundary(const std::vector<Particle*>& particles, const float timeStep) {
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		particles[i]->addForce(getBoundaryForce(particles[i]->getCenter()) * particles[i]->getDensity());
+		const auto force = getBoundaryForce(particles[i]->getCenter(), timeStep);
+		particles[i]->addForce( force * particles[i]->getDensity());
 	}
 }
 
-Vector3d<float> PhysicsWorld::getBoundaryForce(const Vector3d<float>& center)
+Vector3d<float> PhysicsWorld::getBoundaryForce(const Vector3d<float>& center, const float timeStep)
 {
 	Math::Vector3d<float> force = Math::Vector3d<float>::Zero();
 
-	force += getForceX(center.getX());
-	force += getForceY(center.getY());
-	force += getForceZ(center.getZ());
+	force += getForceX(center.getX(),timeStep);
+	force += getForceY(center.getY(),timeStep);
+	force += getForceZ(center.getZ(), timeStep);
 
 	return force;
 }
 
-Vector3d<float> PhysicsWorld::getForceX(const float x)
+Vector3d<float> PhysicsWorld::getForceX(const float x, const float timeStep)
 {
 	float over = 0;
 	if (x > boundary.getMaxX()) {
@@ -88,11 +89,11 @@ Vector3d<float> PhysicsWorld::getForceX(const float x)
 		over = x - boundary.getMinX();
 	}
 
-	const auto force = getForce(over);
+	const auto force = getForce(over, timeStep);
 	return Math::Vector3d<float>::UnitX() * force;
 }
 
-Vector3d<float> PhysicsWorld::getForceY(const float y)
+Vector3d<float> PhysicsWorld::getForceY(const float y, const float timeStep)
 {
 	float over = 0;
 	if (y > boundary.getMaxY()) {
@@ -101,11 +102,11 @@ Vector3d<float> PhysicsWorld::getForceY(const float y)
 	else if (y < boundary.getMinY()) {
 		over = y - boundary.getMinY();
 	}
-	const auto force = getForce(over);
+	const auto force = getForce(over, timeStep);
 	return Math::Vector3d<float>::UnitY() * force;
 }
 
-Vector3d<float> PhysicsWorld::getForceZ(const float z)
+Vector3d<float> PhysicsWorld::getForceZ(const float z, const float timeStep)
 {
 	float over = 0;
 	if (z > boundary.getMaxZ()) {
@@ -114,10 +115,10 @@ Vector3d<float> PhysicsWorld::getForceZ(const float z)
 	else if (z < boundary.getMinZ()) {
 		over = z - boundary.getMinZ();
 	}
-	const float force = getForce(over);
+	const float force = getForce(over, timeStep);
 	return Math::Vector3d<float>::UnitZ() * force;
 }
 
-float PhysicsWorld::getForce(const float over) {
+float PhysicsWorld::getForce(const float over, const float timeStep) {
 	return -over / timeStep / timeStep;
 }

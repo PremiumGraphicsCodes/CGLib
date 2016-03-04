@@ -40,11 +40,14 @@ void FluidSample::setup()
 		}
 	}
 	object = std::make_unique<PhysicsObject>(particles);
+	world.add(object.get());
 }
 
 void FluidSample::demonstrate()
 {
 	while (!glfwWindowShouldClose(window)) {
+		world.simulate(1.25f, 0.001f);
+
 		PerspectiveCamera<float> camera;
 		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
 		camera.setCameraXY();

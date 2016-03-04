@@ -15,14 +15,14 @@ namespace Crystal {
 class PhysicsWorld
 {
 public:
-	PhysicsWorld();
+	PhysicsWorld() {}
 
-	void simulate();
+	void add(PhysicsObject* object) { objects.push_back(object); }
+
+	void simulate(const float effectLength, const float timeStep);
 
 private:
 	std::vector< PhysicsObject* > objects;
-	float effectLength;
-	float timeStep;
 	Math::Vector3d<float> externalForce;
 	SPHKernel<float> kernel;
 
@@ -30,15 +30,15 @@ private:
 
 	std::vector<Particle*> getParticles();
 
-	void solveBoundary(const std::vector<Particle*>& particles);
+	void solveBoundary(const std::vector<Particle*>& particles, const float timeStep);
 
-	Math::Vector3d<float> getBoundaryForce(const Math::Vector3d<float>& center);
+	Math::Vector3d<float> getBoundaryForce(const Math::Vector3d<float>& center, const float timeStep);
 
-	Math::Vector3d<float> getForceX(const float x);
-	Math::Vector3d<float> getForceY(const float y);
-	Math::Vector3d<float> getForceZ(const float z);
+	Math::Vector3d<float> getForceX(const float x, const float timeStep);
+	Math::Vector3d<float> getForceY(const float y, const float timeStep);
+	Math::Vector3d<float> getForceZ(const float z, const float timeStep);
 
-	float getForce(const float over);
+	float getForce(const float over, const float timeStep);
 
 };
 

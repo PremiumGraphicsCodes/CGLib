@@ -4,6 +4,7 @@
 #include "glfw.h"
 
 #include "../Physics/Fluid.h"
+#include "../Physics/PhysicsWorld.h"
 #include <memory>
 
 class FluidSample
@@ -19,6 +20,7 @@ public:
 private:
 	GLFWwindow* window;
 	std::unique_ptr< Crystal::Physics::PhysicsObject> object;
+	Crystal::Physics::PhysicsWorld world;
 };
 
 #endif
