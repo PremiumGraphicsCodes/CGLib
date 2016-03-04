@@ -161,13 +161,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CouplingSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
-    <ClCompile Include="glfw3.cpp" />
+    <ClCompile Include="glfw.cpp" />
     <ClCompile Include="RenderingSample.cpp" />
     <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CouplingSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
     <ClInclude Include="RenderingSample.h" />

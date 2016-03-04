@@ -6,6 +6,7 @@
 #include "RenderingSample.h"
 #include "FluidSample.h"
 #include "RigidSample.h"
+#include "CouplingSample.h"
 
 
 int main(int argc, char* argv)
@@ -21,8 +22,11 @@ int main(int argc, char* argv)
 	//FluidSample fluidSample;
 	//fluidSample.demonstrate();
 
-	RigidSample rigidSample;
-	rigidSample.demonstrate();
+	//RigidSample rigidSample;
+	//rigidSample.demonstrate();
+
+	CouplingSample coupling;
+	coupling.demonstrate();
 
 	glfwTerminate();
 	return EXIT_SUCCESS;

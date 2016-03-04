@@ -19,7 +19,8 @@ public:
 	void demonstrate();
 private:
 	GLFWwindow* window;
-	std::unique_ptr< Crystal::Physics::Rigid> rigid;
+	std::unique_ptr< Crystal::Physics::Rigid> rigid1;
+	std::unique_ptr< Crystal::Physics::Rigid> rigid2;
 	Crystal::Physics::PhysicsWorld world;
 };
 

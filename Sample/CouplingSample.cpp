@@ -1,18 +1,20 @@
-#include "RigidSample.h"
+#include "CouplingSample.h"
 
-#include <iostream>
-
+#include "../Physics/Fluid.h"
 #include "../Physics/Particle.h"
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
+#include "../Graphics/LineBuffer.h"
 #include "../Shader/LegacyRenderer.h"
+
+#include <iostream>
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void RigidSample::setup()
+void CouplingSample::setup()
 {
 	window = glfwCreateWindow(512, 512, "Crystal Fluid Sample", nullptr, nullptr);
 	if (!window) {
@@ -32,14 +34,14 @@ void RigidSample::setup()
 					constant.diameter = 1.0f;
 					constant.viscosityCoe = 1.0f;
 					constant.restDensity = 1000.0f;
-					Vector3d<float> pos(i * 1.0, j * 1.0, k * 1.0);
+					Vector3d<float> pos(i * 1.0- 5, j * 1.0, k * 1.0);
 					Particle* p = new Particle(constant, pos);
 					particles1.push_back(p);
 				}
 			}
 		}
-		rigid1 = std::make_unique<Rigid>(particles1);
-		world.add(rigid1.get());
+		rigid = std::make_unique<Rigid>(particles1);
+		world.add(rigid.get());
 	}
 	{
 		std::vector<Particle*> particles2;
@@ -51,23 +53,24 @@ void RigidSample::setup()
 					constant.diameter = 1.0f;
 					constant.viscosityCoe = 1.0f;
 					constant.restDensity = 1000.0f;
-					Vector3d<float> pos(i * 1.0 + 3, j * 1.0 + 5, k * 1.0);
+					Vector3d<float> pos(i * 1.0 + 3, j * 1.0, k * 1.0);
 					Particle* p = new Particle(constant, pos);
 					particles2.push_back(p);
 				}
 			}
 		}
-		rigid2 = std::make_unique<Rigid>(particles2);
-		world.add(rigid2.get());
+		fluid = std::make_unique<Fluid>(particles2);
+		world.add(fluid.get());
 
 	}
 
 	world.setExternalForce(Vector3d<float>(0.0, -9.8, 0.0));
 	Box<float> boundary(Vector3d<float>(-10.0, 0.0, -100.0), Vector3d<float>(20.0, 100.0, 100.0));
 	world.setBoundary(boundary);
+
 }
 
-void RigidSample::demonstrate()
+void CouplingSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window)) {
@@ -82,9 +85,10 @@ void RigidSample::demonstrate()
 
 		LegacyRenderer renderer;
 		PointBuffer buffer;
+		Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
 		ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-		buffer.add(*rigid1);
-		buffer.add(*rigid2);
+		buffer.add(*rigid);
+		buffer.add(*fluid);
 		renderer.render(camera, buffer);
 
 

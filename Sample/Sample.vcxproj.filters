@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="glfw3.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="RenderingSample.cpp">
       <Filter>Shader</Filter>
@@ -12,9 +11,12 @@
     <ClCompile Include="RigidSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="glfw.cpp" />
+    <ClCompile Include="CouplingSample.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="glfw.h" />
     <ClInclude Include="RenderingSample.h">
       <Filter>Shader</Filter>
     </ClInclude>
@@ -24,6 +26,10 @@
     <ClInclude Include="RigidSample.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="CouplingSample.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="glfw.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
