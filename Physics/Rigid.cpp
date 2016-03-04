@@ -66,13 +66,13 @@ void Rigid::coordinate(const float timeStep)
 
 	Math::Quaternion<float> quaternion(angleVelosity.getNormalized(), rotateAngle);
 	const Math::Matrix3d<float>& rotateMatrix = quaternion.toMatrix();
-	/*	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
-	(*iter)->variable.center.rotate( rotateMatrix );
+	for( const auto& p : particles ) {
+		p->rotate( rotateMatrix );
 	}
 
-	for( ParticleVector::const_iterator iter = particles.begin(); iter != particles.end(); ++iter ) {
-	(*iter)->variable.center += objectCenter;
-	} */
+	for (const auto& p : particles) {
+		p->addCenter(1.0 * objectCenter);
+	}
 	convertToFluidForce();
 
 }

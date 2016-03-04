@@ -164,12 +164,14 @@
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw3.cpp" />
     <ClCompile Include="RenderingSample.cpp" />
+    <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
     <ClInclude Include="RenderingSample.h" />
+    <ClInclude Include="RigidSample.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

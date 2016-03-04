@@ -10,7 +10,7 @@ namespace Crystal {
 	}
 	namespace Physics {
 
-class Fluid : PhysicsObject
+class Fluid : public PhysicsObject
 {
 public:
 	Fluid();

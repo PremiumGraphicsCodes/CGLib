@@ -1,20 +1,18 @@
-#include "FluidSample.h"
+#include "RigidSample.h"
 
-#include "../Physics/Fluid.h"
+#include <iostream>
+
 #include "../Physics/Particle.h"
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
-#include "../Graphics/LineBuffer.h"
 #include "../Shader/LegacyRenderer.h"
-
-#include <iostream>
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void FluidSample::setup()
+void RigidSample::setup()
 {
 	window = glfwCreateWindow(512, 512, "Crystal Fluid Sample", nullptr, nullptr);
 	if (!window) {
@@ -39,18 +37,18 @@ void FluidSample::setup()
 			}
 		}
 	}
-	fluid = std::make_unique<Fluid>(particles);
-	world.add(fluid.get());
+	rigid = std::make_unique<Rigid>(particles);
+	world.add(rigid.get());
 	world.setExternalForce(Vector3d<float>(0.0, -9.8, 0.0));
-	Box<float> boundary( Vector3d<float>(-10.0, 0.0, -100.0 ), Vector3d<float>( 11.0, 100.0, 100.0 ));
+	Box<float> boundary(Vector3d<float>(-10.0, -1.0, -100.0), Vector3d<float>(11.0, 100.0, 100.0));
 	world.setBoundary(boundary);
 }
 
-void FluidSample::demonstrate()
+void RigidSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window)) {
-		world.simulate(1.25f, 0.001f);
+		world.simulate(1.25f, 0.01f);
 
 		PerspectiveCamera<float> camera;
 		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
@@ -61,9 +59,8 @@ void FluidSample::demonstrate()
 
 		LegacyRenderer renderer;
 		PointBuffer buffer;
-		Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
 		ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-		buffer.add(*fluid);
+		buffer.add(*rigid);
 		renderer.render(camera, buffer);
 
 

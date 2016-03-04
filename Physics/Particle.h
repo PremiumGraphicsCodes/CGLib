@@ -116,6 +116,9 @@ public:
 
 	void addExternalForce(const Math::Vector3d<float>& force);
 
+	void rotate(const Math::Matrix3d<float>& matrix) {
+		center.rotate(matrix);
+	}
 
 
 private:

@@ -1,16 +1,16 @@
-#ifndef __CRYSTAL_SAMPLE_FLUID_SAMPLE_H__
-#define __CRYSTAL_SAMPLE_FLUID_SAMPLE_H__
+#ifndef __CRYSTAL_SAMPLE_RIGID_SAMPLE_H__
+#define __CRYSTAL_SAMPLE_RIGID_SAMPLE_H__
 
 #include "glfw.h"
 
-#include "../Physics/Fluid.h"
+#include "../Physics/Rigid.h"
 #include "../Physics/PhysicsWorld.h"
 #include <memory>
 
-class FluidSample
+class RigidSample
 {
 public:
-	FluidSample() {
+	RigidSample() {
 		setup();
 	}
 
@@ -19,7 +19,7 @@ public:
 	void demonstrate();
 private:
 	GLFWwindow* window;
-	std::unique_ptr<Crystal::Physics::Fluid> fluid;
+	std::unique_ptr< Crystal::Physics::Rigid> rigid;
 	Crystal::Physics::PhysicsWorld world;
 };
 
