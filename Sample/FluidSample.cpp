@@ -42,7 +42,7 @@ void FluidSample::setup()
 	object = std::make_unique<PhysicsObject>(particles);
 	world.add(object.get());
 	world.setExternalForce(Vector3d<float>(0.0, -9.8, 0.0));
-	Box<float> boundary( Vector3d<float>(-10.0, -1.0, -100.0 ), Vector3d<float>( 11.0, 100.0, 100.0 ));
+	Box<float> boundary( Vector3d<float>(-10.0, 0.0, -100.0 ), Vector3d<float>( 11.0, 100.0, 100.0 ));
 	world.setBoundary(boundary);
 }
 

@@ -57,7 +57,7 @@ void PhysicsWorld::simulate(const float effectLength, const float timeStep)
 
 
 	for (const auto& object : objects) {
-		object->coordinate();
+		object->coordinate(timeStep);
 	}
 
 	for (const auto& object : objects) {

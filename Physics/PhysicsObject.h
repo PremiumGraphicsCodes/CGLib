@@ -17,7 +17,7 @@ public:
 
 	virtual ~PhysicsObject();
 
-	virtual void coordinate() {};
+	virtual void coordinate(const float timeStep) {};
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
@@ -32,6 +32,14 @@ public:
 	void forwardTime(const float timeStep);
 
 	void addExternalForce(const Math::Vector3d<float>& force);
+
+	Math::Vector3d<float> getCenter() const;
+
+	Math::Vector3d<float> getAverageVelosity() const;
+
+	float getWeight() const;
+
+	void convertToFluidForce();
 
 private:
 	std::vector<Particle*> particles;

@@ -28,7 +28,6 @@
     <ClInclude Include="PhysicsParticleFindAlgo.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="Rigid.h" />
-    <ClInclude Include="RigidCoordinator.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
   </ItemGroup>
@@ -40,7 +39,7 @@
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
-    <ClCompile Include="RigidCoordinator.cpp" />
+    <ClCompile Include="Rigid.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Spring.cpp" />
   </ItemGroup>
