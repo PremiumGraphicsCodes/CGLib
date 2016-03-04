@@ -4,6 +4,7 @@
 #include "PhysicsObject.h"
 #include "SPHKernel.h"
 #include "../Math/Box.h"
+#include <vector>
 
 namespace Crystal {
 	namespace Math {
@@ -11,6 +12,7 @@ namespace Crystal {
 		class Box;
 	}
 	namespace Physics {
+		class PhysicsObject;
 
 class PhysicsWorld
 {
@@ -21,24 +23,17 @@ public:
 
 	void simulate(const float effectLength, const float timeStep);
 
+	void setBoundary(const Math::Box<float>& boundary) { this->boundary = boundary; }
+
 private:
 	std::vector< PhysicsObject* > objects;
 	Math::Vector3d<float> externalForce;
 	SPHKernel<float> kernel;
-
 	Math::Box<float> boundary;
+
 
 	std::vector<Particle*> getParticles();
 
-	void solveBoundary(const std::vector<Particle*>& particles, const float timeStep);
-
-	Math::Vector3d<float> getBoundaryForce(const Math::Vector3d<float>& center, const float timeStep);
-
-	Math::Vector3d<float> getForceX(const float x, const float timeStep);
-	Math::Vector3d<float> getForceY(const float y, const float timeStep);
-	Math::Vector3d<float> getForceZ(const float z, const float timeStep);
-
-	float getForce(const float over, const float timeStep);
 
 };
 

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoundarySolver.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Fluid.h" />
     <ClInclude Include="Particle.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="Spring.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoundarySolver.cpp" />
     <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="Particle.cpp" />
