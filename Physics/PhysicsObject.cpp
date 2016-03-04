@@ -54,7 +54,7 @@ Vector3d<float> PhysicsObject::getCenter() const
 	}
 	Math::Vector3d<float> center(0.0, 0.0, 0.0);
 	for (const auto& p : particles) {
-		center += p->getCenter();
+		center += p->getPosition();
 	}
 	return center /= static_cast<float>(particles.size());
 }

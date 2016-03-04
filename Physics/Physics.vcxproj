@@ -38,6 +38,7 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Rigid.cpp" />
     <ClCompile Include="SPHKernel.cpp" />

@@ -24,13 +24,13 @@ TEST(ParticleConstantTest, TestGetVolume)
 TEST(ParticleTest, TestConstruct)
 {
 	const Particle particle;
-	EXPECT_EQ(Vector3d<float>(0.0f, 0.0f, 0.0f), particle.getCenter());
+	EXPECT_EQ(Vector3d<float>(0.0f, 0.0f, 0.0f), particle.getPosition());
 }
 
 TEST(ParticleTest, TestConstructByPosition)
 {
 	const Particle particle(Vector3d<float>(1.0f, 2.0f, 3.0f));
-	EXPECT_EQ(Vector3d<float>(1.0f, 2.0f, 3.0f), particle.getCenter());
+	EXPECT_EQ(Vector3d<float>(1.0f, 2.0f, 3.0f), particle.getPosition());
 }
 
 TEST(ParticleTest, TestConstructByConstant)

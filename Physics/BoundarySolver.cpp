@@ -15,7 +15,7 @@ BoundarySolver::BoundarySolver(const float timeStep, const Box<float>& boundary)
 void BoundarySolver::solve(const std::vector<Particle*>& particles) {
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		const auto force = getBoundaryForce(particles[i]->getCenter());
+		const auto force = getBoundaryForce(particles[i]->getPosition());
 		particles[i]->addForce(force * particles[i]->getDensity());
 	}
 }

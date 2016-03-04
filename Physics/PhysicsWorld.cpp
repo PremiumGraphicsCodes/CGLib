@@ -20,7 +20,7 @@ void PhysicsWorld::simulate(const float effectLength, const float timeStep)
 
 	ParticleFindAlgo<float> algo;
 	algo.createPairs(particles, effectLength);
-	const ParticlePairVector& pairs = algo.getPairs();
+	const auto& pairs = algo.getPairs();
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {

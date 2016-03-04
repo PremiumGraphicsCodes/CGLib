@@ -25,7 +25,7 @@ Point::Point(const Crystal::Polygon::Particle& particle)
 
 Point::Point(const Crystal::Physics::Particle& particle)
 {
-	position = particle.getCenter();
+	position = particle.getPosition();
 	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity() / 1000.0f);
 	size = particle.getDiameter();
 }

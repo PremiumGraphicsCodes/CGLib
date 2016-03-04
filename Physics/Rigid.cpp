@@ -25,7 +25,7 @@ void Rigid::coordinate(const float timeStep)
 	}
 
 	for (const auto& p : particles) {
-		p->addCenter(-1.0 * objectCenter);
+		p->move(-1.0 * objectCenter);
 	}
 
 	//assert( getCenter( particles ) == Math::Vector3d( 0.0, 0.0, 0.0 ) );
@@ -34,14 +34,14 @@ void Rigid::coordinate(const float timeStep)
 	Math::Vector3d<float> torque(0.0, 0.0, 0.0);
 
 	for (const auto& particle : particles) {
-		const auto& center = particle->getCenter();
+		const auto& center = particle->getPosition();
 
 		Math::Vector3d<float> particleMoment(pow(center.getY(), 2) + pow(center.getZ(), 2),
 			pow(center.getZ(), 2) + pow(center.getX(), 2),
 			pow(center.getX(), 2) + pow(center.getY(), 2));
 		inertiaMoment += (particleMoment)* particle->getMass();
 
-		const Math::Vector3d<float> diffVector(Math::Vector3d<float>(0.0, 0.0, 0.0), particle->getCenter());
+		const Math::Vector3d<float> diffVector(Math::Vector3d<float>(0.0, 0.0, 0.0), particle->getPosition());
 		const Math::Vector3d<float>& particleTorque = diffVector.getOuterProduct(particle->getForce() * particle->getVolume());
 		torque += particleTorque;
 	}
@@ -50,7 +50,7 @@ void Rigid::coordinate(const float timeStep)
 
 	if (Math::Tolerance<float>::isEqualStrictly(angleVelosity.getLength())) {
 		for (const auto& p : particles) {
-			p->addCenter(objectCenter);
+			p->move(objectCenter);
 		}
 		convertToFluidForce();
 		return;
@@ -58,7 +58,7 @@ void Rigid::coordinate(const float timeStep)
 	const float rotateAngle = angleVelosity.getLength() * timeStep;
 	if (rotateAngle < 1.0e-5) {
 		for (const auto& p : particles) {
-			p->addCenter(objectCenter);
+			p->move(objectCenter);
 		}
 		convertToFluidForce();
 		return;
@@ -71,7 +71,7 @@ void Rigid::coordinate(const float timeStep)
 	}
 
 	for (const auto& p : particles) {
-		p->addCenter(1.0 * objectCenter);
+		p->move(1.0 * objectCenter);
 	}
 	convertToFluidForce();
 

@@ -17,28 +17,15 @@ public:
 
 	float getDistance() const;
 
-	float getDistanceSquared() const {
-		return particle1->getCenter().getDistanceSquared(particle2->getCenter());
-	}
+	float getDistanceSquared() const;
 
-	float getPressure() const {
-		return (particle1->getPressure() + particle2->getPressure()) * 0.5f;
-	}
+	float getPressure() const;
 
-	float getViscosityCoe() const {
-		return (particle1->getViscosityCoe() + particle2->getViscosityCoe()) * 0.5f;
-	}
+	float getViscosityCoe() const;
 
-	Math::Vector3d<float> getVelocityDiff() const {
-		return Math::Vector3d<float>(particle1->getVelocity(), particle2->getVelocity());
-	}
+	Math::Vector3d<float> getVelocityDiff() const;
 
-	bool isValid() const {
-		return
-			particle1 != nullptr &&
-			particle2 != nullptr &&
-			particle1 != particle2;
-	}
+	bool isValid() const;
 
 	Particle* getParticle1() const { return particle1; }
 
@@ -48,8 +35,6 @@ private:
 	Particle* particle1;
 	Particle* particle2;
 };
-
-using ParticlePairVector = std::vector<ParticlePair>;
 
 	}
 }

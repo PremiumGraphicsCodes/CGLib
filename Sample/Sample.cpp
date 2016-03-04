@@ -19,14 +19,14 @@ int main(int argc, char* argv)
 	//RenderingSample renderingDemo;
 	//renderingDemo.demonstrate();
 
-	//FluidSample fluidSample;
-	//fluidSample.demonstrate();
+	FluidSample fluidSample;
+	fluidSample.demonstrate();
 
 	//RigidSample rigidSample;
 	//rigidSample.demonstrate();
 
-	CouplingSample coupling;
-	coupling.demonstrate();
+	//CouplingSample coupling;
+	//coupling.demonstrate();
 
 	glfwTerminate();
 	return EXIT_SUCCESS;

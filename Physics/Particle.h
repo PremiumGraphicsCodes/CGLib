@@ -40,40 +40,21 @@ public:
 	private:
 	};
 	
-	Particle()
-	{
-	}
+	Particle();
 
-	Particle( const Math::Vector3d<float>& center ) :
-		center( center )
-	{}
+	Particle(const Math::Vector3d<float>& center);
 
-	Particle(const Constant& constant, const Math::Vector3d<float>& center) :
-	constant( constant ),
-	center( center )
-	{
-		density = constant.restDensity;
-	}
+	Particle(const Constant& constant, const Math::Vector3d<float>& center);
 
-	float getDensityRatio() const {
-		return density / constant.getRestDensity();
-	}
+	float getDensityRatio() const;
 
-	float getPressure() const {
-		return constant.pressureCoe * (std::pow(getDensityRatio(), 1) - 1.0f);
-	}
+	float getPressure() const;
 
-	float getMass() const {
-		return constant.getRestDensity() * std::pow(constant.getDiameter(), 3);
-	}
+	float getMass() const;
 
-	float getVolume() const {
-		return getMass() / density;
-	}
+	float getVolume() const;
 
-	float getRestVolume() const {
-		return getMass() / getRestDensity();
-	}
+	float getRestVolume() const;
 
 	void addForce(const Math::Vector3d<float>& force) { this->force += force; }
 
@@ -92,11 +73,11 @@ public:
 		force = Math::Vector3d<float>( 0.0f, 0.0f, 0.0f);
 	}
 
-	void addCenter( const Math::Vector3d<float>& center ) { this->center += center; }
+	void move( const Math::Vector3d<float>& center ) { this->position += center; }
 
-	void setCenter( const Math::Vector3d<float>& center ) { this->center = center; } 
+	void moveTo( const Math::Vector3d<float>& center ) { this->position = center; } 
 
-	Math::Vector3d<float> getCenter() const { return center; }
+	Math::Vector3d<float> getPosition() const { return position; }
 
 	Math::Vector3d<float> getAccelaration() { return force / density; }
 
@@ -117,7 +98,7 @@ public:
 	void addExternalForce(const Math::Vector3d<float>& force);
 
 	void rotate(const Math::Matrix3d<float>& matrix) {
-		center.rotate(matrix);
+		position.rotate(matrix);
 	}
 
 
@@ -126,7 +107,7 @@ private:
 
 public:
 	void setGridID( const float effectLength ) {
-		const Math::Vector3d<float>& point = center;
+		const Math::Vector3d<float>& point = position;
 		int gridX = static_cast<int>( point.getX() / effectLength );
 		int gridY = static_cast<int>( point.getY() / effectLength );
 		int gridZ = static_cast<int>( point.getZ() / effectLength );
@@ -148,13 +129,9 @@ private:
 	float density;
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
-	Math::Vector3d<float> center;
+	Math::Vector3d<float> position;
 	int gridID;
 };
-
-
-//typedef std::pair<Particle*, Particle*> ParticlePair;
-
 
 	}
 }
