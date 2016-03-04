@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{27C93403-BD20-4336-8AC3-EDA26EC86600}</ProjectGuid>
+    <ProjectGuid>{2868A53E-2475-48AF-898B-E2A000EDCC73}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ShaderTest</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -97,7 +97,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../$(Configuration)/;..\ThirdParty\gtest-1.7.0\build\$(Configuration);..\ThirdParty\glfw-3.1.2\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>math.lib;gtest.lib;graphics.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>math.lib;physics.lib;graphics.lib;polygon.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -113,7 +113,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>math.lib;gtest.lib;graphics.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>math.lib;physics.lib;graphics.lib;polygon.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\$(Configuration)_x64\;..\ThirdParty\gtest-1.7.0\build\x64\$(Configuration);..\ThirdParty\glfw-3.1.2\lib\Debug_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -135,7 +135,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>math.lib;gtest.lib;shader.lib;graphics.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>math.lib;physics.lib;graphics.lib;polygon.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../$(Configuration)/;..\ThirdParty\gtest-1.7.0\build\$(Configuration);..\ThirdParty\glfw-3.1.2\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -157,20 +157,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\$(Configuration)_x64\;..\ThirdParty\gtest-1.7.0\build\x64\$(Configuration);..\ThirdParty\glfw-3.1.2\lib\Release_x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>math.lib;gtest.lib;graphics.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>math.lib;graphics.lib;shader.lib;io.lib;opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DepthRendererTest.cpp" />
-    <ClCompile Include="FrameBufferTest.cpp" />
     <ClCompile Include="glfw3.cpp" />
-    <ClCompile Include="NormalRendererTest.cpp" />
-    <ClCompile Include="BillBoardRendererTest.cpp" />
-    <ClCompile Include="QuadRendererTest.cpp" />
-    <ClCompile Include="ShaderObjectTest.cpp" />
-    <ClCompile Include="ShaderTest.cpp" />
-    <ClCompile Include="SmoothRendererTest.cpp" />
-    <ClCompile Include="TextureTest.cpp" />
+    <ClCompile Include="Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw.h" />
