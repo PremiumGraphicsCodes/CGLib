@@ -16,33 +16,49 @@ using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-int main(int argc, char* argv)
+class FluidDemo
 {
-	if (!glfwInit()) {
-		std::cerr << "glufw Init failed." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	GLFWwindow* window = glfwCreateWindow( 512, 512, "Crystal Sample", nullptr, nullptr);
+public:
+private:
+};
+
+class RenderingDemo
+{
+public:
+	void setup();
+
+	void demonstrate();
+private:
+	GLFWwindow* window;
+};
+
+void RenderingDemo::setup()
+{
+	window = glfwCreateWindow(512, 512, "Crystal Rendering Demo", nullptr, nullptr);
 	if (!window) {
 		std::cerr << "glufw CreateWindow failed." << std::endl;
 		exit(EXIT_FAILURE);
 	}
 	glfwMakeContextCurrent(window);
 
-	PerspectiveCamera<float> camera;
-	camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
-	camera.setCameraXY();
 
 	glEnable(GL_DEPTH_TEST);
 
-	while (!glfwWindowShouldClose(window)) {
+}
+
+void RenderingDemo::demonstrate()
+{
+	while( !glfwWindowShouldClose(window)) {
+		PerspectiveCamera<float> camera;
+		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
+		camera.setCameraXY();
+
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 
 		int width;
 		int height;
-		glfwGetFramebufferSize(window, &width, &height);
-		glViewport(0, 0, width, height);
 
 		//gluPerspective(30.0, width / height, 1.0, 100.0);
 
@@ -53,10 +69,27 @@ int main(int argc, char* argv)
 		buffer.add(line, color);
 		renderer.render(camera, buffer);
 
-
+		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+
+
+
+}
+
+
+int main(int argc, char* argv)
+{
+	if (!glfwInit()) {
+		std::cerr << "glufw Init failed." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+
+	RenderingDemo renderingDemo;
+	renderingDemo.setup();
+	renderingDemo.demonstrate();
+
 
 	glfwTerminate();
 	return EXIT_SUCCESS;

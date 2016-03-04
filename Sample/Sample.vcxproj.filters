@@ -7,4 +7,9 @@
   <ItemGroup>
     <ClInclude Include="glfw.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{982a0d3a-dfd6-492b-8845-160a14a9fd9e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
 </Project>
