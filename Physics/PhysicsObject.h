@@ -41,6 +41,10 @@ public:
 
 	void convertToFluidForce();
 
+	void move(const Math::Vector3d<float>& v);
+
+	void setVelocity(const Math::Vector3d<float>& velocity);
+
 private:
 	std::vector<Particle*> particles;
 };

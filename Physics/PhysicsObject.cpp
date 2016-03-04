@@ -89,3 +89,18 @@ void PhysicsObject::convertToFluidForce()
 		p->setForce(totalForce / weight * p->getDensity());
 	}
 }
+
+void PhysicsObject::move(const Vector3d<float>& v)
+{
+	for (const auto& p : particles) {
+		p->move(v);
+	}
+}
+
+void PhysicsObject::setVelocity(const Vector3d<float>& velocity)
+{
+	for (const auto& p : particles) {
+		p->setVelocity(velocity);
+	}
+
+}

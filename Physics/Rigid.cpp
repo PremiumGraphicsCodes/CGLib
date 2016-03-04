@@ -17,16 +17,12 @@ Rigid::Rigid(const std::vector<Particle*>& particles) :
 void Rigid::coordinate(const float timeStep)
 {
 	const auto& particles = getParticles();
-	const Math::Vector3d<float>& objectCenter = getCenter();
-	const Math::Vector3d<float>& velocityAverage = getAverageVelosity();
+	const auto& objectCenter = getCenter();
+	const auto& velocityAverage = getAverageVelosity();
 
-	for (const auto& p : particles) {
-		p->setVelocity(velocityAverage);
-	}
+	setVelocity(velocityAverage);
 
-	for (const auto& p : particles) {
-		p->move(-1.0 * objectCenter);
-	}
+	move(-1.0 * objectCenter);
 
 	//assert( getCenter( particles ) == Math::Vector3d( 0.0, 0.0, 0.0 ) );
 
@@ -49,32 +45,25 @@ void Rigid::coordinate(const float timeStep)
 	getAngleVelosity(inertiaMoment, torque, timeStep);
 
 	if (Math::Tolerance<float>::isEqualStrictly(angleVelosity.getLength())) {
-		for (const auto& p : particles) {
-			p->move(objectCenter);
-		}
+		move(objectCenter);
 		convertToFluidForce();
 		return;
 	}
 	const float rotateAngle = angleVelosity.getLength() * timeStep;
 	if (rotateAngle < 1.0e-5) {
-		for (const auto& p : particles) {
-			p->move(objectCenter);
-		}
+		move(objectCenter);
 		convertToFluidForce();
 		return;
 	}
 
 	Math::Quaternion<float> quaternion(angleVelosity.getNormalized(), rotateAngle);
-	const Math::Matrix3d<float>& rotateMatrix = quaternion.toMatrix();
+	const auto& rotateMatrix = quaternion.toMatrix();
 	for( const auto& p : particles ) {
 		p->rotate( rotateMatrix );
 	}
 
-	for (const auto& p : particles) {
-		p->move(1.0 * objectCenter);
-	}
+	move(objectCenter);
 	convertToFluidForce();
-
 }
 
 
@@ -111,8 +100,20 @@ void Rigid::getAngleVelosity(const Vector3d<float>& I, const Vector3d<float>& N,
 		x3 += dx3;
 	}
 
-	//angleVelosity.x = x1;
-	//angleVelosity.y = x2;
-	//angleVelosity.z = x3;
 	angleVelosity = Math::Vector3d<float>(x1, x2, x3);
+}
+
+float Rigid::getAngleAccelerationX(float x1, float x2, float x3, const Vector3d<float>& I, const Vector3d<float>& N)
+{
+	return (N.getX() + (I.getY() - I.getZ()) * x2 * x3) / I.getX() - 10.0f * x1;
+}
+
+float Rigid::getAngleAccelerationY(float x1, float x2, float x3, const Vector3d<float>& I, const Vector3d<float>& N)
+{
+	return (N.getY() + (I.getZ() - I.getX()) * x3 * x1) / I.getY() - 10.0f * x2;
+}
+
+float Rigid::getAngleAccelerationZ(float x1, float x2, float x3, const Vector3d<float>& I, const Vector3d<float>& N)
+{
+	return (N.getZ() + (I.getX() - I.getY()) * x1 * x2) / I.getZ() - 10.0f * x3;
 }
