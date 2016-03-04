@@ -30,6 +30,7 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="glfw.h" />
+    <ClInclude Include="AntTweakBar.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">

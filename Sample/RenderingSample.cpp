@@ -1,4 +1,5 @@
 #include "RenderingSample.h"
+#include "AntTweakBar.h"
 
 #include <iostream>
 
@@ -38,6 +39,7 @@ void RenderingSample::demonstrate()
 		int width;
 		int height;
 
+
 		LegacyRenderer renderer;
 		LineBuffer buffer;
 		Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
@@ -45,6 +47,7 @@ void RenderingSample::demonstrate()
 		buffer.add(line, color);
 		renderer.render(camera, buffer);
 
+		TwDraw();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

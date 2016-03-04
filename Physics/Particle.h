@@ -25,9 +25,7 @@ public:
 		float restDensity;
 
 		float getDiameter() const { return diameter; }
-
 		float getVolume() const { return std::pow(diameter, 3); }
-
 		float getRestDensity() const { return restDensity; }
 
 		Constant() :

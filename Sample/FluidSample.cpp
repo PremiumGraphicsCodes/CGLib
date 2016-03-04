@@ -1,4 +1,5 @@
 #include "FluidSample.h"
+#include "AntTweakBar.h"
 
 #include "../Physics/Fluid.h"
 #include "../Physics/Particle.h"
@@ -58,6 +59,7 @@ void FluidSample::demonstrate()
 
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
 		LegacyRenderer renderer;
 		PointBuffer buffer;
