@@ -1,4 +1,6 @@
 #include "PointBuffer.h"
+#include "../Physics/Particle.h"
+#include "../Physics/PhysicsObject.h"
 #include "../Polygon/PolygonObject.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/Particle.h"
@@ -9,16 +11,25 @@
 
 #include <memory>
 
+using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 
-Point::Point(const Particle& particle)
+Point::Point(const Crystal::Polygon::Particle& particle)
 {
 	position = particle.getPosition();
 	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity());
 	//idColor = ColorRGBA<unsigned char>(particle.getId());
 	size = particle.getDiameter();
 }
+
+Point::Point(const Crystal::Physics::Particle& particle)
+{
+	position = particle.getCenter();
+	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity() / 1000.0f);
+	size = particle.getDiameter();
+}
+
 
 Point::Point(const Vertex& vertex)
 {
@@ -75,6 +86,14 @@ void PointBuffer::add(const PolygonObject& polygon)
 	const auto& vertices = polygon.getVertices();
 	for (auto& v : vertices) {
 		add(Point(*v));
+	}
+}
+
+void PointBuffer::add(const PhysicsObject& physics)
+{
+	const auto& particles = physics.getParticles();
+	for (auto& p : particles) {
+		add(Point(*p));
 	}
 }
 

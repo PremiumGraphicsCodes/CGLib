@@ -3,13 +3,28 @@
   <ItemGroup>
     <ClCompile Include="glfw3.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="RenderingSample.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="FluidSample.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glfw.h" />
+    <ClInclude Include="RenderingSample.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="FluidSample.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
       <UniqueIdentifier>{982a0d3a-dfd6-492b-8845-160a14a9fd9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{9b326244-88ae-469b-be9e-87c8f093fe2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

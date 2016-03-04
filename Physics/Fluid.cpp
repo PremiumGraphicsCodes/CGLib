@@ -9,6 +9,12 @@ Fluid::Fluid()
 {
 }
 
+Fluid::Fluid(const std::vector<Particle*>& particles) :
+	PhysicsObject(particles)
+{
+}
+
+
 void Fluid::addExternalForce(const Vector3d<float>& force)
 {
 	const auto particles = getParticles();

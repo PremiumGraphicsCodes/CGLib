@@ -15,6 +15,8 @@ class Fluid : PhysicsObject
 public:
 	Fluid();
 
+	Fluid(const std::vector<Particle*>& particles);
+
 	void addExternalForce(const Math::Vector3d<float>& force);
 
 	void forwardTime(const float timeStep);

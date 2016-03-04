@@ -108,6 +108,11 @@ public:
 
 	float getViscosityCoe() const { return constant.viscosityCoe; }
 
+	float getRaius() const { return constant.diameter * 0.5; }
+
+	float getDiameter() const { return constant.diameter * 1.0f; }
+
+
 private:
 	const Constant constant;
 

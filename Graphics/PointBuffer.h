@@ -6,6 +6,10 @@
 #include "Buffer4d.h"
 
 namespace Crystal {
+	namespace Physics {
+		class Particle;
+		class PhysicsObject;
+	}
 	namespace Polygon {
 		class PointObject;
 		class PolygonObject;
@@ -32,6 +36,8 @@ public:
 	Point(const Polygon::Vertex& vertex);
 
 	Point(const Polygon::Particle& particle);
+
+	Point(const Physics::Particle& particle);
 
 	Point(const Polygon::Joint& joint);
 
@@ -68,6 +74,8 @@ public:
 	void add(const Polygon::PolygonObject& polygon);
 
 	void add(const Polygon::VolumeObject& volume);
+
+	void add(const Physics::PhysicsObject& physics);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
