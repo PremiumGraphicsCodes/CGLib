@@ -32,3 +32,17 @@ float PhysicsObject::getRestVolume() const
 	}
 	return volume;
 }
+
+void PhysicsObject::forwardTime(const float timeStep)
+{
+	for (const auto& p : particles) {
+		p->forwardTime(timeStep);
+	}
+}
+
+void PhysicsObject::addExternalForce(const Vector3d<float>& externalForce)
+{
+	for (const auto& p : particles) {
+		p->addExternalForce(externalForce);
+	}
+}

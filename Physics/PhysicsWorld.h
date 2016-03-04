@@ -25,6 +25,8 @@ public:
 
 	void setBoundary(const Math::Box<float>& boundary) { this->boundary = boundary; }
 
+	void setExternalForce(const Math::Vector3d<float>& force) { this->externalForce = force; }
+
 private:
 	std::vector< PhysicsObject* > objects;
 	Math::Vector3d<float> externalForce;

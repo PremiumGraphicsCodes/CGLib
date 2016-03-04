@@ -23,6 +23,7 @@ void Fluid::addExternalForce(const Vector3d<float>& force)
 	}
 }
 
+/*
 void Fluid::forwardTime(const float timeStep)
 {
 	const auto particles = getParticles();
@@ -32,3 +33,4 @@ void Fluid::forwardTime(const float timeStep)
 		particle->addCenter(particle->getVelocity() * timeStep);
 	}
 }
+*/

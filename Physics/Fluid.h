@@ -19,7 +19,7 @@ public:
 
 	void addExternalForce(const Math::Vector3d<float>& force);
 
-	void forwardTime(const float timeStep);
+	//void forwardTime(const float timeStep);
 };
 
 	}

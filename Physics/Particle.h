@@ -112,6 +112,11 @@ public:
 
 	float getDiameter() const { return constant.diameter * 1.0f; }
 
+	void forwardTime(const float timeStep);
+
+	void addExternalForce(const Math::Vector3d<float>& force);
+
+
 
 private:
 	const Constant constant;

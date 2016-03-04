@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "../Math/Vector3d.h"
+
 namespace Crystal {
 	namespace Physics {
 		class Particle;
@@ -27,6 +29,9 @@ public:
 		particles.clear();
 	}
 
+	void forwardTime(const float timeStep);
+
+	void addExternalForce(const Math::Vector3d<float>& force);
 
 private:
 	std::vector<Particle*> particles;

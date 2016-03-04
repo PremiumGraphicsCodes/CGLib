@@ -16,8 +16,8 @@ int main(int argc, char* argv)
 		exit(EXIT_FAILURE);
 	}
 
-	RenderingSample renderingDemo;
-	renderingDemo.demonstrate();
+	//RenderingSample renderingDemo;
+	//renderingDemo.demonstrate();
 
 	FluidSample fluidSample;
 	fluidSample.demonstrate();

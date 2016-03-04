@@ -44,13 +44,25 @@ void PhysicsWorld::simulate(const float effectLength, const float timeStep)
 		pairs[i].getParticle2()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
 	}
 
+	for (const auto& object : objects) {
+		object->addExternalForce(externalForce);
+	}
+
 	BoundarySolver boundarySolver(timeStep, boundary);
 	boundarySolver.solve(particles);
+
+	for (const auto& object : objects) {
+		object->addExternalForce(externalForce);
+	}
+
 
 	for (const auto& object : objects) {
 		object->coordinate();
 	}
 
+	for (const auto& object : objects) {
+		object->forwardTime(timeStep);
+	}
 }
 
 std::vector<Particle*> PhysicsWorld::getParticles()
