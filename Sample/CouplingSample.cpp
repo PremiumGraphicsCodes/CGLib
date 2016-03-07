@@ -68,7 +68,7 @@ void CouplingSample::demonstrate()
 	world.simulate(1.25f, 0.001f);
 
 		PerspectiveCamera<float> camera;
-		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
+		camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
 		camera.setCameraXY();
 
 

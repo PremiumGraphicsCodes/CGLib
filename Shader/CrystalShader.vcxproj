@@ -151,6 +151,7 @@
     <ClCompile Include="BillBoardRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="QuadRenderer.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="BillBoardRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="QuadRenderer.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="Texture.h" />

@@ -9,10 +9,7 @@
 #include "RigidSample.h"
 #include "CouplingSample.h"
 #include "BulletSample.h"
-
-#include "../Graphics/PerspectiveCamera.h"
-#include "../Shader/LegacyRenderer.h"
-#include "../Graphics/PointBuffer.h"
+#include "IOSample.h"
 
 inline void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods) { TwEventMouseButtonGLFW(button, action); }
 inline void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos) { TwMouseMotion(int(xpos), int(ypos)); }
@@ -50,6 +47,13 @@ void TW_CALL onBullet(void*)
 	activeSample->setup();
 }
 
+void TW_CALL onIO(void*)
+{
+	activeSample->cleanup();
+	activeSample = std::make_unique<IOSample>();
+	activeSample->setup();
+}
+
 int main(int argc, char* argv)
 {
 	if (!glfwInit()) {
@@ -73,6 +77,7 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Rigid", onRigid, nullptr, " label='Rigid' ");
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
+	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 
 	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);

@@ -165,6 +165,7 @@
     <ClCompile Include="CouplingSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
+    <ClCompile Include="IOSample.cpp" />
     <ClCompile Include="RenderingSample.cpp" />
     <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="Sample.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="CouplingSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
+    <ClInclude Include="IOSample.h" />
     <ClInclude Include="ISample.h" />
     <ClInclude Include="RenderingSample.h" />
     <ClInclude Include="RigidSample.h" />

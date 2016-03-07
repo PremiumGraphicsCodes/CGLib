@@ -47,9 +47,8 @@ void FluidSample::demonstrate()
 	world.simulate(1.25f, 0.001f);
 
 	PerspectiveCamera<float> camera;
-	camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
+	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
 	camera.setCameraXY();
-
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

@@ -61,10 +61,9 @@ void BulletSample::demonstrate()
 	glEnable(GL_DEPTH_TEST);
 	world.stepSimulation(1.0f/ 60.0f / 1000.0f, 10);
 
-		PerspectiveCamera<float> camera;
-		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
-		camera.setCameraXY();
-
+	PerspectiveCamera<float> camera;
+	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
+	camera.setCameraXY();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

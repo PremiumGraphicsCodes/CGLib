@@ -1,8 +1,7 @@
-#include "RenderingSample.h"
-#include "AntTweakBar.h"
+#include "glfw.h"
+#include "IOSample.h"
 
-#include <iostream>
-
+#include "../IO/STLFile.h"
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/LineBuffer.h"
 #include "../Shader/LegacyRenderer.h"
@@ -10,12 +9,17 @@
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
+using namespace Crystal::IO;
 
-void RenderingSample::setup()
+void IOSample::setup()
 {
+	STLFile file;
+	bool result = file.read("../TestFile/IO/cube-binary.stl");
+	assert(result == true);
+	polygon.reset(file.toPolygonObject());
 }
 
-void RenderingSample::demonstrate()
+void IOSample::demonstrate()
 {
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
@@ -26,7 +30,12 @@ void RenderingSample::demonstrate()
 	LegacyRenderer renderer;
 	LineBuffer buffer;
 	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
-	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-	buffer.add(line, color);
+	buffer.add(*polygon);
 	renderer.render(camera, buffer);
+
+}
+
+void IOSample::cleanup()
+{
+
 }

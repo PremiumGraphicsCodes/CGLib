@@ -16,6 +16,9 @@
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="BulletSample.cpp" />
+    <ClCompile Include="IOSample.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -34,6 +37,9 @@
     <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="BulletSample.h" />
     <ClInclude Include="ISample.h" />
+    <ClInclude Include="IOSample.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
@@ -41,6 +47,9 @@
     </Filter>
     <Filter Include="Shader">
       <UniqueIdentifier>{9b326244-88ae-469b-be9e-87c8f093fe2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{5953bcab-3ee1-4ad5-8cf1-901dd140ad8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
