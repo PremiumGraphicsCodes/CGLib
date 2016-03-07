@@ -22,37 +22,57 @@ void BulletSample::setup()
 {
 	world.setGravity(btVector3(0, -9.8, 0));
 
-	auto colShape = new btSphereShape(btScalar(1.));
-	
-	btTransform startTransform;
-	startTransform.setIdentity();
+	{
+		auto shape = new btSphereShape(btScalar(1.0f));
+		btVector3 localInertia(0, 0, 0);
+		btScalar mass(1.0f);
+		shape->calculateLocalInertia(mass, localInertia);
 
-	btScalar mass(1.0f);
-	bool isDynamic = (mass != 0.0f);
+		btTransform startTransform;
+		startTransform.setIdentity();
+		startTransform.setOrigin(btVector3(0, 0, 0));
 
-	btVector3 localInertia(0, 0, 0);
-	if (isDynamic) {
-		colShape->calculateLocalInertia(mass, localInertia);
+		auto state = new btDefaultMotionState(startTransform);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, state, shape, localInertia);
+		rigid = new btRigidBody(rbInfo);
+		world.addRigidBody(rigid);
 	}
 
-	startTransform.setOrigin(btVector3(0, 0, 0));
+	{
+		auto shape = new btSphereShape(btScalar(1.0f));
+		btVector3 localInertia(0, 0, 0);
+		btScalar mass(10.0f);
+		shape->calculateLocalInertia(mass, localInertia);
 
-	auto state = new btDefaultMotionState(startTransform);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo
-			(
-				mass,
-				state,
-				colShape,
-				localInertia
-				);
-	rigid = new btRigidBody(rbInfo);
-	world.addRigidBody(rigid);
+		btTransform startTransform;
+		startTransform.setIdentity();
+		startTransform.setOrigin(btVector3(0, 2, 0));
+
+		auto state = new btDefaultMotionState(startTransform);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, state, shape, localInertia);
+		rigid2 = new btRigidBody(rbInfo);
+		world.addRigidBody(rigid2);
+	}
+
+
+	{
+		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
+		btTransform groundTransform;
+		groundTransform.setIdentity();
+		groundTransform.setOrigin(btVector3(0, -55.0f, 0));
+		btScalar groundMass(0.0f);
+		btVector3 localInertia(0, 0, 0);
+		btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+		btRigidBody::btRigidBodyConstructionInfo rbInfo(groundMass, myMotionState, groundShape, localInertia);
+		btRigidBody* body = new btRigidBody(rbInfo);
+		world.addRigidBody(body);
+	}
 }
 
 void BulletSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
-	world.stepSimulation(1.0f/ 60.0f / 1000.0f, 10);
+	world.stepSimulation(1.0f/ 60.0f / 100.0f, 10);
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
@@ -63,10 +83,20 @@ void BulletSample::demonstrate()
 	LegacyRenderer renderer;
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-	const auto x = rigid->getWorldTransform().getOrigin().getX();
-	const auto y = rigid->getWorldTransform().getOrigin().getY();
-	const auto z = rigid->getWorldTransform().getOrigin().getZ();
-	Point point( Vector3d<float>(x,y,z), ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 10.0f);
-	buffer.add(point);
+	{
+		const auto x = rigid->getWorldTransform().getOrigin().getX();
+		const auto y = rigid->getWorldTransform().getOrigin().getY();
+		const auto z = rigid->getWorldTransform().getOrigin().getZ();
+		Point point(Vector3d<float>(x, y, z), ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 10.0f);
+		buffer.add(point);
+	}
+	{
+		const auto x = rigid2->getWorldTransform().getOrigin().getX();
+		const auto y = rigid2->getWorldTransform().getOrigin().getY();
+		const auto z = rigid2->getWorldTransform().getOrigin().getZ();
+		Point point(Vector3d<float>(x, y, z), ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 10.0f);
+		buffer.add(point);
+	}
+
 	renderer.render(camera, buffer);
 }

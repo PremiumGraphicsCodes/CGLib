@@ -10,10 +10,10 @@ namespace Crystal {
 	namespace Physics {
 		class PhysicsObject;
 
-class PhysicsWorld
+class ParticleWorld
 {
 public:
-	PhysicsWorld() {}
+	ParticleWorld() {}
 
 	void add(PhysicsObject* object) { objects.push_back(object); }
 

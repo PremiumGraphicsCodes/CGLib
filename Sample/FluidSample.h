@@ -17,7 +17,7 @@ public:
 
 private:
 	std::unique_ptr<Crystal::Physics::Fluid> fluid;
-	Crystal::Physics::PhysicsWorld world;
+	Crystal::Physics::ParticleWorld world;
 
 };
 

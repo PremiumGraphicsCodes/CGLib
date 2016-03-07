@@ -22,7 +22,7 @@ private:
 
 	std::unique_ptr< Crystal::Physics::Fluid > fluid;
 	std::unique_ptr< Crystal::Physics::Rigid > rigid;
-	Crystal::Physics::PhysicsWorld world;
+	Crystal::Physics::ParticleWorld world;
 };
 
 #endif

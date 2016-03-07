@@ -21,6 +21,7 @@ private:
 	btSequentialImpulseConstraintSolver solver;
 	btDiscreteDynamicsWorld world;
 	btRigidBody* rigid;
+	btRigidBody* rigid2;
 };
 
 #endif

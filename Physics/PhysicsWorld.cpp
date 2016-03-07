@@ -6,7 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void PhysicsWorld::simulate(const float effectLength, const float timeStep)
+void ParticleWorld::simulate(const float effectLength, const float timeStep)
 {
 	const auto& particles = getParticles();
 
@@ -65,7 +65,7 @@ void PhysicsWorld::simulate(const float effectLength, const float timeStep)
 	}
 }
 
-std::vector<Particle*> PhysicsWorld::getParticles()
+std::vector<Particle*> ParticleWorld::getParticles()
 {
 	std::vector<Particle*> ordered;
 	for (const auto& object : objects) {
