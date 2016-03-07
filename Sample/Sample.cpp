@@ -8,6 +8,7 @@
 #include "FluidSample.h"
 #include "RigidSample.h"
 #include "CouplingSample.h"
+#include "BulletSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Shader/LegacyRenderer.h"
@@ -38,6 +39,11 @@ void TW_CALL onCoupling(void*)
 	couplingSample.demonstrate();
 }
 
+void TW_CALL onBullet(void*)
+{
+	BulletSample bullet;
+	bullet.demonstrate();
+}
 
 int main(int argc, char* argv)
 {
@@ -53,6 +59,7 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Fluid", onFluid, NULL, " label='Fluid' ");
 	TwAddButton(bar, "Rigid", onRigid, nullptr, " label='Rigid' ");
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
+	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
 
 	auto window = glfwCreateWindow(512, 512, "Crystal Fluid Sample", nullptr, nullptr);
 	if (!window) {

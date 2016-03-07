@@ -25,13 +25,11 @@ namespace Crystal {
 class Point
 {
 public:
-	/*
-	Point(const Math::Vector3d<float>& position, const ColorRGBA<unsigned char>& color, const float size) :
+	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size) :
 		position(position),
 		color(color),
 		size(size)
 	{}
-	*/
 
 	Point(const Polygon::Vertex& vertex);
 
