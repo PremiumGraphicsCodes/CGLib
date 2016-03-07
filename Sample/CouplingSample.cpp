@@ -26,7 +26,7 @@ void CouplingSample::setup()
 					constant.diameter = 1.0f;
 					constant.viscosityCoe = 1.0f;
 					constant.restDensity = 1000.0f;
-					Vector3d<float> pos(i * 1.0- 5, j * 1.0, k * 1.0);
+					Vector3d<float> pos(i * 1.0f- 5, j * 1.0f, k * 1.0f);
 					Particle* p = new Particle(constant, pos);
 					particles1.push_back(p);
 				}
@@ -45,7 +45,7 @@ void CouplingSample::setup()
 					constant.diameter = 1.0f;
 					constant.viscosityCoe = 1.0f;
 					constant.restDensity = 1000.0f;
-					Vector3d<float> pos(i * 1.0 + 3, j * 1.0, k * 1.0);
+					Vector3d<float> pos(i * 1.0f + 3, j * 1.0f, k * 1.0f);
 					Particle* p = new Particle(constant, pos);
 					particles2.push_back(p);
 				}

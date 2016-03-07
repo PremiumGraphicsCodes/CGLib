@@ -21,35 +21,31 @@ std::unique_ptr< ISample > activeSample;
 
 void TW_CALL onFluid(void * /*clientData*/)
 {
-	activeSample->cleanup();
 	activeSample = std::make_unique<FluidSample>();
 	activeSample->setup();
 }
 
 void TW_CALL onRigid(void*)
 {
-	activeSample->cleanup();
 	activeSample = std::make_unique<RigidSample>();
 	activeSample->setup();
 }
 
 void TW_CALL onCoupling(void*)
 {
-	activeSample->cleanup();
 	activeSample = std::make_unique<CouplingSample>();
 	activeSample->setup();
 }
 
 void TW_CALL onBullet(void*)
 {
-	activeSample->cleanup();
 	activeSample = std::make_unique<BulletSample>();
 	activeSample->setup();
+
 }
 
 void TW_CALL onIO(void*)
 {
-	activeSample->cleanup();
 	activeSample = std::make_unique<IOSample>();
 	activeSample->setup();
 }
@@ -86,7 +82,6 @@ int main(int argc, char* argv)
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
 
 	activeSample = std::make_unique<RenderingSample>();
-	activeSample->setup();
 
 	while (!glfwWindowShouldClose(window)) {
 		activeSample->demonstrate();
@@ -97,8 +92,6 @@ int main(int argc, char* argv)
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
-
-	activeSample->cleanup();
 
 	TwTerminate();
 	glfwTerminate();

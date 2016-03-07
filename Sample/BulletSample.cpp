@@ -18,15 +18,8 @@ BulletSample::BulletSample() :
 {
 }
 
-BulletSample::~BulletSample()
-{
-	cleanup();
-}
-
 void BulletSample::setup()
 {
-
-
 	world.setGravity(btVector3(0, -9.8, 0));
 
 	auto colShape = new btSphereShape(btScalar(1.));
@@ -65,23 +58,15 @@ void BulletSample::demonstrate()
 	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
 	camera.setCameraXY();
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-		LegacyRenderer renderer;
-		PointBuffer buffer;
-		ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-		const auto x = rigid->getWorldTransform().getOrigin().getX();
-		const auto y = rigid->getWorldTransform().getOrigin().getY();
-		const auto z = rigid->getWorldTransform().getOrigin().getZ();
-		Point point( Vector3d<float>(x,y,z), ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 10.0f);
-		buffer.add(point);
-		renderer.render(camera, buffer);
+	LegacyRenderer renderer;
+	PointBuffer buffer;
+	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
+	const auto x = rigid->getWorldTransform().getOrigin().getX();
+	const auto y = rigid->getWorldTransform().getOrigin().getY();
+	const auto z = rigid->getWorldTransform().getOrigin().getZ();
+	Point point( Vector3d<float>(x,y,z), ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 10.0f);
+	buffer.add(point);
+	renderer.render(camera, buffer);
 }
-
-void BulletSample::cleanup()
-{
-
-}
-
-//#endif

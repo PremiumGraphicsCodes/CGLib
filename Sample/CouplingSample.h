@@ -12,16 +12,14 @@
 class CouplingSample : public ISample
 {
 public:
-	CouplingSample() {};
-
 	void setup();
 
 	void demonstrate();
 
+private:
+
 	void cleanup() {};
 
-private:
-	GLFWwindow* window;
 	std::unique_ptr< Crystal::Physics::Fluid > fluid;
 	std::unique_ptr< Crystal::Physics::Rigid > rigid;
 	Crystal::Physics::PhysicsWorld world;

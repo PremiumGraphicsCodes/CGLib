@@ -395,14 +395,14 @@ bool PMDFile::read(const std::string& filename)
 	header.read(stream);
 	DWORD vertexCount = 0;
 	stream.read((char*)&vertexCount, sizeof(vertexCount));
-	for (auto i = 0; i < vertexCount; ++i) {
+	for (DWORD i = 0; i < vertexCount; ++i) {
 		PMDVertex vertex;
 		vertex.read(stream);
 		vertices.emplace_back(vertex);
 	}
 
 	stream.read((char*)&vertexCount, sizeof(vertexCount));
-	for (auto i = 0; i < vertexCount; ++i) {
+	for (DWORD i = 0; i < vertexCount; ++i) {
 		unsigned short vindex = 0;
 		stream.read((char*)&vindex, sizeof(vindex));
 		faces.push_back(vindex);

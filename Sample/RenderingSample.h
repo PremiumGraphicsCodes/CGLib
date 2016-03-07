@@ -8,13 +8,11 @@
 class RenderingSample : public ISample
 {
 public:
-	RenderingSample() {}
-
 	void setup() override;
 
 	void demonstrate() override;
 
-	void cleanup() override {};
+private:
 };
 
 #endif

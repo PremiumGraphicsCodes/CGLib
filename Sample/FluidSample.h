@@ -11,16 +11,14 @@
 class FluidSample : public ISample
 {
 public:
-	FluidSample() {}
+	void demonstrate() override;
 
 	void setup() override;
 
-	void demonstrate() override;
-
-	void cleanup() override;
 private:
 	std::unique_ptr<Crystal::Physics::Fluid> fluid;
 	Crystal::Physics::PhysicsWorld world;
+
 };
 
 #endif

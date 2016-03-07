@@ -11,13 +11,10 @@
 class RigidSample : public ISample
 {
 public:
-	RigidSample() {}
-
 	void setup() override;
 
 	void demonstrate() override;
 
-	void cleanup() override;
 
 private:
 	std::unique_ptr< Crystal::Physics::Rigid> rigid1;

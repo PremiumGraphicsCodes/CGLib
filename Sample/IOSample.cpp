@@ -32,10 +32,4 @@ void IOSample::demonstrate()
 	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
 	buffer.add(*polygon);
 	renderer.render(camera, buffer);
-
-}
-
-void IOSample::cleanup()
-{
-
 }

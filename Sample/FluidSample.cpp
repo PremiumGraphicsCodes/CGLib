@@ -27,7 +27,7 @@ void FluidSample::setup()
 				constant.diameter = 1.0f;
 				constant.viscosityCoe = 1.0f;
 				constant.restDensity = 1000.0f;
-				Vector3d<float> pos(i * 1.0, j * 1.0, k * 1.0);
+				Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
 				Particle* p = new Particle(constant, pos);
 				particles.push_back(p);
 			}
@@ -35,7 +35,7 @@ void FluidSample::setup()
 	}
 	fluid = std::make_unique<Fluid>(particles);
 	world.add(fluid.get());
-	world.setExternalForce(Vector3d<float>(0.0, -9.8, 0.0));
+	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
 	Box<float> boundary( Vector3d<float>(-10.0, 0.0, -100.0 ), Vector3d<float>( 11.0, 100.0, 100.0 ));
 	world.setBoundary(boundary);
 }
@@ -59,9 +59,4 @@ void FluidSample::demonstrate()
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	buffer.add(*fluid);
 	renderer.render(camera, buffer);
-}
-
-void FluidSample::cleanup()
-{
-
 }

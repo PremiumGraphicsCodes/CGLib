@@ -79,7 +79,3 @@ void RigidSample::demonstrate()
 	buffer.add(*rigid2);
 	renderer.render(camera, buffer);
 }
-
-void RigidSample::cleanup()
-{
-}

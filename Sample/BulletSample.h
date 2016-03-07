@@ -10,13 +10,9 @@ class BulletSample : public ISample
 public:
 	BulletSample();
 
-	~BulletSample();
-
 	void setup() override;
 
 	void demonstrate() override;
-
-	void cleanup() override;
 
 private:
 	btDefaultCollisionConfiguration collisionConfig;

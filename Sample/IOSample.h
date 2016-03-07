@@ -12,11 +12,10 @@ public:
 
 	~IOSample() {};
 
-	void setup() override;
-
 	void demonstrate() override;
 
-	void cleanup() override;
+private:
+	void setup() override;
 
 private:
 	std::unique_ptr< Crystal::Polygon::PolygonObject > polygon;

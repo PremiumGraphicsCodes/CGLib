@@ -21,7 +21,7 @@ Sphere<T>::Sphere(const Box<T>& boundingBox)
 {
 	center = Vector3d<T>(boundingBox.getCenter().getX(), boundingBox.getCenter().getY(), boundingBox.getCenter().getZ());
 	const Vector3d<T>& length = boundingBox.getLength();
-	radius = std::min<float>(std::min<float>(length.getX(), length.getY()), length.getZ()) * 0.5f;
+	radius = std::min<T>(std::min<T>(length.getX(), length.getY()), length.getZ()) * T{ 0.5 };
 }
 
 template<typename T>

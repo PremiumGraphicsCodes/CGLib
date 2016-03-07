@@ -4,15 +4,17 @@
 class ISample
 {
 public:
-	ISample() {};
-
-	virtual ~ISample() {};
+	ISample() {
+	};
 
 	virtual void setup() = 0;
 
+	virtual ~ISample() {
+	};
+
 	virtual void demonstrate() = 0;
 
-	virtual void cleanup() = 0;
+private:
 };
 
 #endif

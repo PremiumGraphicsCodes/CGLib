@@ -15,9 +15,11 @@
     <ClCompile Include="CouplingSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="BulletSample.cpp" />
     <ClCompile Include="IOSample.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletSample.cpp">
+      <Filter>Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,10 +37,12 @@
     </ClInclude>
     <ClInclude Include="glfw.h" />
     <ClInclude Include="AntTweakBar.h" />
-    <ClInclude Include="BulletSample.h" />
     <ClInclude Include="ISample.h" />
     <ClInclude Include="IOSample.h">
       <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletSample.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
