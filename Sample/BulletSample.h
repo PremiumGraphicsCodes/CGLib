@@ -2,7 +2,7 @@
 #define __CRYSTAL_SAMPLE_BULLET_SAMPLE_H__
 
 #include "glfw.h"
-#include "../../bullet/src/btBulletDynamicsCommon.h"
+#include "../ThirdParty/bullet/src/btBulletDynamicsCommon.h"
 
 
 class BulletSample
