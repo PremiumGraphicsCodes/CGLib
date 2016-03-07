@@ -3,58 +3,65 @@
 
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
+#include "../Math/Quaternion.h"
+#include "../Physics/Particle.h"
 
 #include "../ThirdParty/bullet/src/btBulletDynamicsCommon.h"
 
 namespace Crystal {
 	namespace Physics {
 
-class IRigid
+class Converter
 {
 public:
+
+	static btVector3 convert(const Math::Vector3d<float>& src);
+
+	static Math::Vector3d<float> convert(const btVector3& src);
+
+	static Math::Quaternion<float> convert(const btQuaternion& src);
+
+	static btQuaternion convert(const Math::Quaternion<float>& src);
+};
+
+class Surfels
+{
+public:
+	Surfels(const Math::Box<float>& box, const float divideLength);
+
+	Surfels(const Math::Sphere<float>& sphere, const float divideLength);
+
+	std::vector<Math::Vector3d<float>> getWorld(const Math::Vector3d<float>& center, const Math::Quaternion<float>& rotation) const;
+
+private:
+	std::vector<Math::Vector3d<float>> positions;
+};
+
+class Solid
+{
+public:
+
+	Solid(const Math::Box<float>& box, const float mass);
+
+	Solid(const Math::Sphere<float>& sphere, const float mass);
+
+	float getMass() const;
+
+	bool isDynamic() const;
+
+	bool isStatic() const;
+
+	Math::Vector3d<float> getOrigin() const;
+
+	Math::Quaternion<float> getOrientation() const;
+
+	std::vector<Math::Vector3d<float>> getWorldSurfels();
+
+private:
+	std::vector<Math::Vector3d<float>> localSurfels;
 	btRigidBody* body;
-
-	virtual Math::Vector3d<float> getSurfels() = 0;
-
-private:
-	Math::Vector3d<float> surfels;
 };
 
-class DynamicRigid : public IRigid
-{
-public:
-	DynamicRigid(const Math::Box<float>& box, const float mass);
-
-	DynamicRigid(const Math::Sphere<float>& sphere, const float mass);
-
-private:
-	const float mass;
-	btVector3 inertia;
-};
-
-class StaticRigid : public IRigid
-{
-public:
-	StaticRigid(const Math::Box<float>& box);
-
-	StaticRigid(const Math::Sphere<float>& sphere);
-
-private:
-
-};
-
-class RigidWorld
-{
-public:
-	void add(IRigid* rigid) { world->addRigidBody(rigid->body); }
-
-	void simulate(const float timeStep);
-
-
-private:
-	std::vector< IRigid*> rigids;
-	btDynamicsWorld* world;
-};
 	}
 }
 
