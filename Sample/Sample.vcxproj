@@ -175,6 +175,7 @@
     <ClInclude Include="CouplingSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
+    <ClInclude Include="ISample.h" />
     <ClInclude Include="RenderingSample.h" />
     <ClInclude Include="RigidSample.h" />
   </ItemGroup>

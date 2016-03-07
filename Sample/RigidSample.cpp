@@ -14,14 +14,6 @@ using namespace Crystal::Shader;
 
 void RigidSample::setup()
 {
-	window = glfwCreateWindow(512, 512, "Crystal Fluid Sample", nullptr, nullptr);
-	if (!window) {
-		std::cerr << "glufw CreateWindow failed." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
-	glEnable(GL_DEPTH_TEST);
-
 	{
 		std::vector<Particle*> particles1;
 		for (int i = 0; i < 5; ++i) {
@@ -70,8 +62,8 @@ void RigidSample::setup()
 void RigidSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
-	while (!glfwWindowShouldClose(window)) {
-		world.simulate(1.25f, 0.001f);
+	
+	world.simulate(1.25f, 0.001f);
 
 		PerspectiveCamera<float> camera;
 		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
@@ -87,8 +79,8 @@ void RigidSample::demonstrate()
 		buffer.add(*rigid2);
 		renderer.render(camera, buffer);
 
+}
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
+void RigidSample::cleanup()
+{
 }

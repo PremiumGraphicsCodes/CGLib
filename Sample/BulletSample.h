@@ -3,22 +3,22 @@
 
 #include "glfw.h"
 #include "../ThirdParty/bullet/src/btBulletDynamicsCommon.h"
+#include "ISample.h"
 
-
-class BulletSample
+class BulletSample : public ISample
 {
 public:
 	BulletSample();
 
 	~BulletSample();
 
-	void setup();
+	void setup() override;
 
-	void demonstrate();
+	void demonstrate() override;
 
-	void cleanup();
+	void cleanup() override;
+
 private:
-	GLFWwindow* window;
 	btDefaultCollisionConfiguration collisionConfig;
 	btCollisionDispatcher dispatcher;
 	btDbvtBroadphase overlappingPairCache;

@@ -2,19 +2,19 @@
 #define __CRYSTAL_SAMPLE_RENDERING_SAMPLE_H__
 
 #include "glfw.h"
+#include "ISample.h"
 
-class RenderingSample
+
+class RenderingSample : public ISample
 {
 public:
-	RenderingSample() {
-		setup();
-	}
+	RenderingSample() {}
 
-	void setup();
+	void setup() override;
 
-	void demonstrate();
-private:
-	GLFWwindow* window;
+	void demonstrate() override;
+
+	void cleanup() override {};
 };
 
 #endif

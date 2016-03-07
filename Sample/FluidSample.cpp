@@ -17,13 +17,6 @@ using namespace Crystal::Shader;
 
 void FluidSample::setup()
 {
-	window = glfwCreateWindow(512, 512, "Crystal Fluid Sample", nullptr, nullptr);
-	if (!window) {
-		std::cerr << "glufw CreateWindow failed." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
-	glEnable(GL_DEPTH_TEST);
 
 	std::vector<Particle*> particles;
 	for (int i = 0; i < 10; ++i) {
@@ -50,26 +43,26 @@ void FluidSample::setup()
 void FluidSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
-	while (!glfwWindowShouldClose(window)) {
-		world.simulate(1.25f, 0.001f);
+	
+	world.simulate(1.25f, 0.001f);
 
-		PerspectiveCamera<float> camera;
-		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
-		camera.setCameraXY();
-
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	PerspectiveCamera<float> camera;
+	camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
+	camera.setCameraXY();
 
 
-		LegacyRenderer renderer;
-		PointBuffer buffer;
-		Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
-		ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-		buffer.add(*fluid);
-		renderer.render(camera, buffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
+	LegacyRenderer renderer;
+	PointBuffer buffer;
+	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
+	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
+	buffer.add(*fluid);
+	renderer.render(camera, buffer);
+}
+
+void FluidSample::cleanup()
+{
+
 }

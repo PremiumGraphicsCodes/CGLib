@@ -13,22 +13,11 @@ using namespace Crystal::Shader;
 
 void RenderingSample::setup()
 {
-	window = glfwCreateWindow(512, 512, "Crystal Rendering Demo", nullptr, nullptr);
-	if (!window) {
-		std::cerr << "glufw CreateWindow failed." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
-
-
-	glEnable(GL_DEPTH_TEST);
-
 }
 
 void RenderingSample::demonstrate()
 {
-	while (!glfwWindowShouldClose(window)) {
-		PerspectiveCamera<float> camera;
+	PerspectiveCamera<float> camera;
 		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
 		camera.setCameraXY();
 
@@ -46,10 +35,4 @@ void RenderingSample::demonstrate()
 		ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 		buffer.add(line, color);
 		renderer.render(camera, buffer);
-
-		TwDraw();
-
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
 }

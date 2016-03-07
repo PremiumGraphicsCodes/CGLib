@@ -16,7 +16,6 @@ BulletSample::BulletSample() :
 	dispatcher(&collisionConfig),
 	world(&dispatcher, &overlappingPairCache, &solver, &collisionConfig)
 {
-	setup();
 }
 
 BulletSample::~BulletSample()
@@ -26,12 +25,6 @@ BulletSample::~BulletSample()
 
 void BulletSample::setup()
 {
-	window = glfwCreateWindow(512, 512, "Crystal Rendering Demo", nullptr, nullptr);
-	if (!window) {
-		//std::cerr << "glufw CreateWindow failed." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
 
 
 	world.setGravity(btVector3(0, -9.8, 0));
@@ -66,8 +59,7 @@ void BulletSample::setup()
 void BulletSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
-	while (!glfwWindowShouldClose(window)) {
-		world.stepSimulation(1.0f/ 60.0f / 1000.0f, 10);
+	world.stepSimulation(1.0f/ 60.0f / 1000.0f, 10);
 
 		PerspectiveCamera<float> camera;
 		camera.setPos(Vector3d<float>(0.0, 0.0, -5.0));
@@ -86,11 +78,6 @@ void BulletSample::demonstrate()
 		Point point( Vector3d<float>(x,y,z), ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 10.0f);
 		buffer.add(point);
 		renderer.render(camera, buffer);
-
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
-
 }
 
 void BulletSample::cleanup()

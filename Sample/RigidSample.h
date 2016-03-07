@@ -5,20 +5,21 @@
 
 #include "../Physics/Rigid.h"
 #include "../Physics/PhysicsWorld.h"
+#include "ISample.h"
 #include <memory>
 
-class RigidSample
+class RigidSample : public ISample
 {
 public:
-	RigidSample() {
-		setup();
-	}
+	RigidSample() {}
 
-	void setup();
+	void setup() override;
 
-	void demonstrate();
+	void demonstrate() override;
+
+	void cleanup() override;
+
 private:
-	GLFWwindow* window;
 	std::unique_ptr< Crystal::Physics::Rigid> rigid1;
 	std::unique_ptr< Crystal::Physics::Rigid> rigid2;
 	Crystal::Physics::PhysicsWorld world;

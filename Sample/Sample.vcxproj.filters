@@ -33,6 +33,7 @@
     <ClInclude Include="glfw.h" />
     <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="BulletSample.h" />
+    <ClInclude Include="ISample.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">

@@ -20,29 +20,34 @@ inline void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yo
 inline void TwEventKeyGLFW3(GLFWwindow* window, int key, int scancode, int action, int mods) { TwEventKeyGLFW(key, action); }
 inline void TwEventCharGLFW3(GLFWwindow* window, int codepoint) { TwEventCharGLFW(codepoint, GLFW_PRESS); }
 
+std::unique_ptr< ISample > activeSample;
 
 void TW_CALL onFluid(void * /*clientData*/)
 {
-	FluidSample fluidSample;
-	fluidSample.demonstrate();
+	activeSample->cleanup();
+	activeSample = std::make_unique<FluidSample>();
+	activeSample->setup();
 }
 
 void TW_CALL onRigid(void*)
 {
-	RigidSample rigidSample;
-	rigidSample.demonstrate();
+	activeSample->cleanup();
+	activeSample = std::make_unique<RigidSample>();
+	activeSample->setup();
 }
 
 void TW_CALL onCoupling(void*)
 {
-	CouplingSample couplingSample;
-	couplingSample.demonstrate();
+	activeSample->cleanup();
+	activeSample = std::make_unique<CouplingSample>();
+	activeSample->setup();
 }
 
 void TW_CALL onBullet(void*)
 {
-	BulletSample bullet;
-	bullet.demonstrate();
+	activeSample->cleanup();
+	activeSample = std::make_unique<BulletSample>();
+	activeSample->setup();
 }
 
 int main(int argc, char* argv)
@@ -51,6 +56,14 @@ int main(int argc, char* argv)
 		std::cerr << "glufw Init failed." << std::endl;
 		exit(EXIT_FAILURE);
 	}
+
+	auto window = glfwCreateWindow(512, 512, "Crystal Sample", nullptr, nullptr);
+	if (!window) {
+		//std::cerr << "glufw CreateWindow failed." << std::endl;
+		exit(EXIT_FAILURE);
+	}
+	glfwMakeContextCurrent(window);
+
 
 	TwInit(TW_OPENGL, nullptr);
 	TwBar* bar = TwNewBar("Bar");
@@ -61,23 +74,18 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
 
-	auto window = glfwCreateWindow(512, 512, "Crystal Fluid Sample", nullptr, nullptr);
-	if (!window) {
-		std::cerr << "glufw CreateWindow failed." << std::endl;
-		exit(EXIT_FAILURE);
-	}
-	glfwMakeContextCurrent(window);
-	glEnable(GL_DEPTH_TEST);
-
-
 	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);
 	glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW3);
 	glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW3);
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
 
+	activeSample = std::make_unique<RenderingSample>();
+	activeSample->setup();
+
 	while (!glfwWindowShouldClose(window)) {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		activeSample->demonstrate();
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		TwDraw();
 
@@ -85,24 +93,7 @@ int main(int argc, char* argv)
 		glfwPollEvents();
 	}
 
-
-	/*
-	float speed = 0.0f;
-	TwAddVarRW(bar, "speed", TW_TYPE_DOUBLE, &speed,
-		" label='Rot speed' min=0 max=2 step=0.01 keyIncr=s keyDecr=S help='Rotation speed (turns/second)' ");
-	TwAddButton(bar, "comment1", NULL, NULL, " label='ButtonTest' ");
-	*/
-	//RenderingSample renderingDemo;
-	//renderingDemo.demonstrate();
-
-
-
-
-	//RigidSample rigidSample;
-	//rigidSample.demonstrate();
-
-	//CouplingSample coupling;
-	//coupling.demonstrate();
+	activeSample->cleanup();
 
 	TwTerminate();
 	glfwTerminate();
