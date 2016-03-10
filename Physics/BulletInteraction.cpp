@@ -7,7 +7,7 @@
 //using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletInteraction::BulletInteraction(ParticleWorld* particleWorld, btDiscreteDynamicsWorld* btWorld) :
+BulletInteraction::BulletInteraction(ParticleWorld* particleWorld, btDiscreteDynamicsWorld* bulletWorld) :
 	particleWorld( particleWorld ),
 	bulletWorld( bulletWorld )
 {
