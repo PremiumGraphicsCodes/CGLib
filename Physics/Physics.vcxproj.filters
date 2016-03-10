@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BoundarySolver.cpp" />
+    <ClCompile Include="Cloth.cpp" />
+    <ClCompile Include="Fluid.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticlePair.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
+    <ClCompile Include="Rigid.cpp" />
+    <ClCompile Include="SPHKernel.cpp" />
+    <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="Solid.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletInteraction.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletMap.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletBoundary.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletConverter.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BoundarySolver.h" />
+    <ClInclude Include="Cloth.h" />
+    <ClInclude Include="Fluid.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticlePair.h" />
+    <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="PhysicsParticleFindAlgo.h" />
+    <ClInclude Include="PhysicsWorld.h" />
+    <ClInclude Include="Rigid.h" />
+    <ClInclude Include="SPHKernel.h" />
+    <ClInclude Include="Spring.h" />
+    <ClInclude Include="Solid.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletInteraction.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletMap.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletBoundary.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletConverter.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{ff1ddc0c-a2c0-49e4-8e47-11382907778a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

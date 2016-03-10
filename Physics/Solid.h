@@ -11,18 +11,6 @@
 namespace Crystal {
 	namespace Physics {
 
-class Converter
-{
-public:
-
-	static btVector3 convert(const Math::Vector3d<float>& src);
-
-	static Math::Vector3d<float> convert(const btVector3& src);
-
-	static Math::Quaternion<float> convert(const btQuaternion& src);
-
-	static btQuaternion convert(const Math::Quaternion<float>& src);
-};
 
 class Surfels
 {
