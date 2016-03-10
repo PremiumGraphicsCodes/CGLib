@@ -7,23 +7,10 @@
 #include "../Physics/Particle.h"
 
 #include "../ThirdParty/bullet/src/btBulletDynamicsCommon.h"
+#include "Surfels.h"
 
 namespace Crystal {
 	namespace Physics {
-
-
-class Surfels
-{
-public:
-	Surfels(const Math::Box<float>& box, const float divideLength);
-
-	Surfels(const Math::Sphere<float>& sphere, const float divideLength);
-
-	std::vector<Math::Vector3d<float>> getWorld(const Math::Vector3d<float>& center, const Math::Quaternion<float>& rotation) const;
-
-private:
-	std::vector<Math::Vector3d<float>> positions;
-};
 
 class Solid
 {

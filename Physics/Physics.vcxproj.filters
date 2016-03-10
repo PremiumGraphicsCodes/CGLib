@@ -27,6 +27,10 @@
     <ClCompile Include="BulletConverter.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="BulletRigid.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Surfels.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -55,6 +59,10 @@
     <ClInclude Include="BulletConverter.h">
       <Filter>Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="BulletRigid.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Surfels.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">

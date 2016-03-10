@@ -9,7 +9,7 @@
 namespace Crystal {
 	namespace Physics {
 
-class Converter
+class BulletConverter
 {
 public:
 

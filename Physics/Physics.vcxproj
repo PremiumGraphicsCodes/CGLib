@@ -24,6 +24,7 @@
     <ClInclude Include="BulletConverter.h" />
     <ClInclude Include="BulletInteraction.h" />
     <ClInclude Include="BulletMap.h" />
+    <ClInclude Include="BulletRigid.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Fluid.h" />
     <ClInclude Include="Particle.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Solid.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
+    <ClInclude Include="Surfels.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundarySolver.cpp" />
@@ -42,6 +44,7 @@
     <ClCompile Include="BulletConverter.cpp" />
     <ClCompile Include="BulletInteraction.cpp" />
     <ClCompile Include="BulletMap.cpp" />
+    <ClCompile Include="BulletRigid.cpp" />
     <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -53,6 +56,7 @@
     <ClCompile Include="Solid.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="Surfels.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A75C81D2-613A-4958-A669-A655964419A8}</ProjectGuid>
