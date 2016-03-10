@@ -28,6 +28,7 @@
     <ClInclude Include="BulletRigid.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Fluid.h" />
+    <ClInclude Include="NeighborFinder.h" />
     <ClInclude Include="SPHParticle.h" />
     <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsObject.h" />
@@ -47,6 +48,7 @@
     <ClCompile Include="BulletRigid.cpp" />
     <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Fluid.cpp" />
+    <ClCompile Include="NeighborFinder.cpp" />
     <ClCompile Include="SPHParticle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />

@@ -19,19 +19,6 @@
 namespace Crystal{
 	namespace Physics{
 
-class NeighborFinder
-{
-public:
-	NeighborFinder(const float divideLength, const int tableSize);
-
-	void add(SPHParticle* particle);
-
-	std::vector<SPHParticlePair> getPairs() const { return pairs; }
-
-private:
-	Polygon::SpaceHash spaceHash;
-	std::vector<SPHParticlePair> pairs;
-};
 
 template<typename GeomType>
 class ParticleFindAlgo final : private UnCopyable{

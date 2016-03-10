@@ -28,6 +28,7 @@
       <Filter>Bullet</Filter>
     </ClCompile>
     <ClCompile Include="SPHParticle.cpp" />
+    <ClCompile Include="NeighborFinder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -60,6 +61,7 @@
       <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="SPHParticle.h" />
+    <ClInclude Include="NeighborFinder.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
