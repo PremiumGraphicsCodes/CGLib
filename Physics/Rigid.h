@@ -11,6 +11,8 @@ class Rigid : public PhysicsObject
 public:
 	Rigid();
 
+	Rigid(const Math::Box<float>& box, const float divideLength, const float restDensity, const float pressureCoe, const float viscosityCoe);
+
 	Rigid(const std::vector<SPHParticle*>& particles);
 
 	void coordinate(const float timeStep) override;

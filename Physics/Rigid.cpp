@@ -9,6 +9,11 @@ using namespace Crystal::Physics;
 Rigid::Rigid()
 {}
 
+Rigid::Rigid(const Box<float>& box, const float divideLength, const float restDensity, const float pressureCoe, const float viscosityCoe) :
+	PhysicsObject(box, divideLength, restDensity, pressureCoe, viscosityCoe)
+{
+}
+
 Rigid::Rigid(const std::vector<SPHParticle*>& particles) :
 	PhysicsObject(particles)
 {

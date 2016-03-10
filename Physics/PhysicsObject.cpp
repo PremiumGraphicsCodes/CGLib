@@ -9,6 +9,14 @@ PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 	particles(particles)
 {}
 
+PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, const float restDensity, const float pressureCoe, const float viscosityCoe)
+{
+	const auto points = box.toPoints(divideLength);
+	for (const auto& pos : points) {
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, restDensity, pressureCoe, viscosityCoe);
+		particles.push_back(p);
+	}
+}
 
 PhysicsObject::~PhysicsObject()
 {

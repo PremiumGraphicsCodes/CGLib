@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "../Math/Vector3d.h"
+#include "../Math/Box.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -12,6 +13,8 @@ namespace Crystal {
 class PhysicsObject {
 public:
 	PhysicsObject() {};
+
+	PhysicsObject(const Math::Box<float>& box, const float divideLength, const float restDensity, const float pressureCoe, const float viscosityCoe);
 
 	PhysicsObject(const std::vector<SPHParticle*>& particles);
 

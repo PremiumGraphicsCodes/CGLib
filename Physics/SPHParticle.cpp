@@ -11,13 +11,19 @@ SPHParticle::SPHParticle():
 
 }
 
+SPHParticle::SPHParticle(const Particle& particle, float pressureCoe, float viscosityCoe) :
+	Particle(particle),
+	pressureCoe(pressureCoe),
+	viscosityCoe(viscosityCoe)
+{}
+
 SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float density, float pressureCoe, float viscosityCoe) :
 	Particle(center, density, radius),
 	pressureCoe(pressureCoe),
 	viscosityCoe(viscosityCoe),
-	restDensity(1.0f)
+	restDensity(density)
 {
-	density = restDensity;
+	this->density = restDensity;
 }
 
 
