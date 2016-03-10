@@ -29,7 +29,7 @@ TEST(ParticleTest, TestConstruct)
 
 TEST(ParticleTest, TestConstructByPosition)
 {
-	const SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f));
+	const SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, 1.0f);
 	EXPECT_EQ(Vector3d<float>(1.0f, 2.0f, 3.0f), particle.getPosition());
 }
 

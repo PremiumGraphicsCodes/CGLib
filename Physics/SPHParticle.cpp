@@ -1,18 +1,19 @@
 #include "SPHParticle.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
 SPHParticle::SPHParticle()
 {}
 
-SPHParticle::SPHParticle(const Vector3d<float>& center) :
-	position(center)
+SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float density) :
+	Particle(center, radius, density)
 {}
 
 SPHParticle::SPHParticle(const Constant& constant, const Vector3d<float>& center) :
 	constant(constant),
-	position(center)
+	Particle(center, constant.getRestDensity(), constant.getDiameter()*0.5f)
 {
 	density = constant.restDensity;
 }
@@ -47,7 +48,7 @@ void SPHParticle::forwardTime(const float timeStep)
 {
 	const auto& acc = getAccelaration();
 	this->velocity += (acc* timeStep);
-	this->position += this->velocity * timeStep;
+	this->move( this->velocity * timeStep );
 }
 
 void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)

@@ -14,11 +14,20 @@ class Particle
 {
 public:
 
+	Particle()
+	{}
+
 	Particle(const Math::Vector3d<float>& position, const float density, const float radius) :
 		position(position),
 		radius(radius),
 		density(density)
 	{}
+
+	virtual ~Particle() {}
+
+	void move(const Math::Vector3d<float>& center) { this->position += center; }
+
+	void moveTo(const Math::Vector3d<float>& center) { this->position = center; }
 
 	Particle createBlended(const Particle& rhs, const float ratio) const;
 
@@ -45,6 +54,11 @@ public:
 	bool operator==(const Particle& rhs) const;
 
 	bool operator!=(const Particle& rhs) const;
+
+	void rotate(const Math::Matrix3d<float>& matrix) {
+		position.rotate(matrix);
+	}
+
 
 private:
 	Math::Vector3d<float> position;

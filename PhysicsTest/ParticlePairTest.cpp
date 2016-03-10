@@ -33,8 +33,8 @@ TEST(ParticlePairTest, TestIsValid)
 
 TEST(ParticlePairTest, TestGetDistanceSquared)
 {
-	const auto p1 = std::make_shared< SPHParticle >( Vector3d<float>( 0, 0, 0 ));
-	const auto p2 = std::make_shared< SPHParticle >( Vector3d<float>( 1, 1, 1 ));
+	const auto p1 = std::make_shared< SPHParticle >( Vector3d<float>( 0, 0, 0 ), 0.5f, 1.0f);
+	const auto p2 = std::make_shared< SPHParticle >( Vector3d<float>( 1, 1, 1 ), 0.5f, 1.0f);
 
 	const ParticlePair pair(p1.get(), p2.get());
 	EXPECT_FLOAT_EQ(3, pair.getDistanceSquared());
@@ -42,8 +42,8 @@ TEST(ParticlePairTest, TestGetDistanceSquared)
 
 TEST(ParticlePairTest, TestGetDistance)
 {
-	const auto p1 = std::make_shared< SPHParticle >(Vector3d<float>(0, 0, 0));
-	const auto p2 = std::make_shared< SPHParticle >(Vector3d<float>(1, 1, 1));
+	const auto p1 = std::make_shared< SPHParticle >(Vector3d<float>(0, 0, 0), 0.5f, 1.0f);
+	const auto p2 = std::make_shared< SPHParticle >(Vector3d<float>(1, 1, 1), 0.5f, 1.0f);
 
 	const ParticlePair pair(p1.get(), p2.get());
 	EXPECT_FLOAT_EQ(std::sqrt(3.0f), pair.getDistance());
@@ -51,8 +51,8 @@ TEST(ParticlePairTest, TestGetDistance)
 
 TEST(ParticlePairTest, TestGetDistanceVector)
 {
-	const auto p1 = std::make_shared< SPHParticle >(Vector3d<float>(1, 2, 3));
-	const auto p2 = std::make_shared< SPHParticle >(Vector3d<float>(0, 0, 0));
+	const auto p1 = std::make_shared< SPHParticle >(Vector3d<float>(1, 2, 3), 0.5f, 1.0f);
+	const auto p2 = std::make_shared< SPHParticle >(Vector3d<float>(0, 0, 0), 0.5f, 1.0f);
 
 	const ParticlePair pair(p1.get(), p2.get());
 	const auto actual = pair.getDistanceVector();
