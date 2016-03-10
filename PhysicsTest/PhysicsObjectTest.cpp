@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
  
 #include "../Physics/PhysicsObject.h"
-#include "../Physics/Particle.h"
+#include "../Physics/SPHParticle.h"
 #include "../Math/Vector3d.h"
 
 using namespace Crystal::Math;

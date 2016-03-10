@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_PARTICLE_FIND_ALGO_H__
 #define __CRYSTAL_PHYSICS_PARTICLE_FIND_ALGO_H__
 
-#include "Particle.h"
+#include "SPHParticle.h"
 #include "ParticlePair.h"
 
 #include "../Util/UnCopyable.h"

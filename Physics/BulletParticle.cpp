@@ -1,6 +1,6 @@
 #include "BulletParticle.h"
 
-#include "Particle.h"
+#include "SPHParticle.h"
 #include "PhysicsObject.h"
 #include "BulletRigid.h"
 

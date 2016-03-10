@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_PARTICLE_PAIR_H__
 #define __CRYSTAL_PHYSICS_PARTICLE_PAIR_H__
 
-#include "Particle.h"
+#include "SPHParticle.h"
 
 namespace Crystal {
 	namespace Physics {

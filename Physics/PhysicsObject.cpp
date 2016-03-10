@@ -1,5 +1,5 @@
 #include "PhysicsObject.h"
-#include "Particle.h"
+#include "SPHParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;

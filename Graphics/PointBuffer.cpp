@@ -1,5 +1,5 @@
 #include "PointBuffer.h"
-#include "../Physics/Particle.h"
+#include "../Physics/SPHParticle.h"
 #include "../Physics/PhysicsObject.h"
 #include "../Polygon/PolygonObject.h"
 #include "../Polygon/ParticleObject.h"

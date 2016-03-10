@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "../Physics/Particle.h"
+#include "../Physics/SPHParticle.h"
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "../Shader/LegacyRenderer.h"

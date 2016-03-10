@@ -2,7 +2,7 @@
 #include "AntTweakBar.h"
 
 #include "../Physics/Fluid.h"
-#include "../Physics/Particle.h"
+#include "../Physics/SPHParticle.h"
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/LineBuffer.h"
