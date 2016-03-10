@@ -12,7 +12,7 @@ namespace Crystal {
 
 class SPHParticle;
 class PhysicsObject;
-class ParticlePair;
+class SPHParticlePair;
 class BulletRigid;
 
 class BulletBoundary
@@ -25,7 +25,7 @@ public:
 		bp2(bp2)
 	{}
 
-	std::vector<ParticlePair> createPairs();
+	std::vector<SPHParticlePair> createPairs();
 
 private:
 	BulletParticle bp1;

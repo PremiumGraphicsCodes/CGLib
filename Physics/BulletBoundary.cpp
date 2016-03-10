@@ -4,12 +4,12 @@
 
 using namespace Crystal::Physics;
 
-std::vector<ParticlePair> BulletBoundary::createPairs()
+std::vector<SPHParticlePair> BulletBoundary::createPairs()
 {
 	/*
 	const auto& particles1 = bulletRigid->toSurfaceParticles();
 	const auto& particles2 = physicsObject->getParticles();
 	*/
-	return std::vector< ParticlePair >();
+	return std::vector< SPHParticlePair >();
 }
 

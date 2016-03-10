@@ -3,7 +3,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-Spring::Spring(const ParticlePair& pair, const Param param) :
+Spring::Spring(const SPHParticlePair& pair, const Param param) :
 	pair(pair),
 	param(param)
 {}

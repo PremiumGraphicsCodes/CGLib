@@ -19,7 +19,7 @@ void ParticleFindAlgo<GeomType>::createPairs(std::vector<SPHParticle*> particles
 	// optimization for quad core.
 	const int threads = 8;
 
-	std::vector<std::vector<ParticlePair>> eachPairs(threads);
+	std::vector<std::vector<SPHParticlePair>> eachPairs(threads);
 
 	std::vector<std::vector<SPHParticle*>::const_iterator> iters;
 	for (int i = 0; i < threads; ++i) {
@@ -47,9 +47,9 @@ void ParticleFindAlgo<GeomType>::createPairs(std::vector<SPHParticle*> particles
 }
 
 template<typename GeomType>
-std::vector<ParticlePair> ParticleFindAlgo<GeomType>::search1(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared)
+std::vector<SPHParticlePair> ParticleFindAlgo<GeomType>::search1(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared)
 {
-	std::vector<ParticlePair> pairs;
+	std::vector<SPHParticlePair> pairs;
 	for (auto xIter = startIter; xIter != endIter; ++xIter) {
 		const auto gridID = (*xIter)->getGridID();
 		const auto& centerX = (*xIter)->getPosition();
@@ -58,8 +58,8 @@ std::vector<ParticlePair> ParticleFindAlgo<GeomType>::search1(const std::vector<
 		while (yIter != particles.end() && ((*yIter)->getGridID() <= gridID + 1)) {
 			const auto& centerY = (*yIter)->getPosition();
 			if (centerX.getDistanceSquared(centerY) < effectLengthSquared) {
-				pairs.push_back(ParticlePair((*xIter), (*yIter)));
-				pairs.push_back(ParticlePair((*yIter), (*xIter)));
+				pairs.push_back(SPHParticlePair((*xIter), (*yIter)));
+				pairs.push_back(SPHParticlePair((*yIter), (*xIter)));
 			}
 			++yIter;
 		}
@@ -68,9 +68,9 @@ std::vector<ParticlePair> ParticleFindAlgo<GeomType>::search1(const std::vector<
 }
 
 template<typename GeomType>
-std::vector<ParticlePair> ParticleFindAlgo<GeomType>::search2(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared)
+std::vector<SPHParticlePair> ParticleFindAlgo<GeomType>::search2(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared)
 {
-	std::vector<ParticlePair> pairs;
+	std::vector<SPHParticlePair> pairs;
 
 	std::vector<std::vector<SPHParticle*>::const_iterator> yIter(4, startIter);
 	std::vector<int> offsetIds;
@@ -91,8 +91,8 @@ std::vector<ParticlePair> ParticleFindAlgo<GeomType>::search2(const std::vector<
 			while (zIter != particles.end() && ((*zIter)->getGridID() <= baseID + 2)) {
 				const auto& centerZ = (*zIter)->getPosition();
 				if (centerX.getDistanceSquared(centerZ) < effectLengthSquared) {
-					pairs.push_back(ParticlePair((*xIter), (*zIter)));
-					pairs.push_back(ParticlePair((*zIter), (*xIter)));
+					pairs.push_back(SPHParticlePair((*xIter), (*zIter)));
+					pairs.push_back(SPHParticlePair((*zIter), (*xIter)));
 				}
 				++zIter;
 			}

@@ -1,17 +1,17 @@
-#ifndef __CRYSTAL_PHYSICS_PARTICLE_PAIR_H__
-#define __CRYSTAL_PHYSICS_PARTICLE_PAIR_H__
+#ifndef __CRYSTAL_PHYSICS_SPH_PARTICLE_PAIR_H__
+#define __CRYSTAL_PHYSICS_SPH_PARTICLE_PAIR_H__
 
 #include "SPHParticle.h"
 
 namespace Crystal {
 	namespace Physics {
 
-class ParticlePair final
+class SPHParticlePair final
 {
 public:
-	ParticlePair();
+	SPHParticlePair();
 
-	ParticlePair(SPHParticle* particle1, SPHParticle* particle2);
+	SPHParticlePair(SPHParticle* particle1, SPHParticle* particle2);
 
 	Math::Vector3d<float> getDistanceVector() const;
 

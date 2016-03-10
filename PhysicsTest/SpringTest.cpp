@@ -13,7 +13,7 @@ TEST(SpringTest, Test)
 	param.restDistance = 1.0f;
 	SPHParticle particle1;
 	SPHParticle particle2;
-	ParticlePair pair(&particle1, &particle2);
+	SPHParticlePair pair(&particle1, &particle2);
 	Spring spring(pair, param);
 	spring.coordinate(1.0f);
 }

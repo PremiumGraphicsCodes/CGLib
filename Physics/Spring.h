@@ -16,12 +16,12 @@ public:
 		float restDistance;
 	};
 
-	Spring(const ParticlePair& pair, const Param param);
+	Spring(const SPHParticlePair& pair, const Param param);
 
 	void coordinate(const float dt);
 
 private:
-	const ParticlePair& pair;
+	const SPHParticlePair& pair;
 	Param param;
 };
 	}

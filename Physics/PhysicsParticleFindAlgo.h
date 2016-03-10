@@ -26,14 +26,14 @@ public:
 
 	void createPairs(std::vector<SPHParticle*> particles, const GeomType effectLength);
 
-	std::vector<ParticlePair> getPairs() const { return pairs; }
+	std::vector<SPHParticlePair> getPairs() const { return pairs; }
 
 private:
-	std::vector<ParticlePair> pairs;
+	std::vector<SPHParticlePair> pairs;
 
-	std::vector<ParticlePair> search1(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
+	std::vector<SPHParticlePair> search1(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
 
-	std::vector<ParticlePair> search2(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
+	std::vector<SPHParticlePair> search2(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
 
 };
 
