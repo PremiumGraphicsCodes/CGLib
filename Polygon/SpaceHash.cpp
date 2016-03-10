@@ -17,9 +17,9 @@ SpaceHash::SpaceHash(const float divideLength, const int hashTableSize) :
 
 Index3d SpaceHash::toIndex(const Vector3d<float>& pos)
 {
-	const int ix = static_cast<int>( pos.getX() / divideLength );
-	const int iy = static_cast<int>( pos.getY() / divideLength );
-	const int iz = static_cast<int>( pos.getZ() / divideLength );
+	const int ix = static_cast<int>( (pos.getX()/* + 100.0*/) / divideLength );
+	const int iy = static_cast<int>( (pos.getY()/* + 100.0*/) / divideLength );
+	const int iz = static_cast<int>( (pos.getZ()/* + 100.0*/) / divideLength );
 	return{ ix, iy, iz };
 }
 
@@ -46,6 +46,7 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	std::vector<Particle*> results;
 	for (auto n : neighbors) {
 		if (n->getPosition().getDistanceSquared(pos) < n->getRadius()*n->getRadius()) {
+		//if(n->getPosition().getDistanceSquared(pos) < divideLength * divideLength) {
 			results.push_back(n);
 		}
 	}

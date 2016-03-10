@@ -22,6 +22,13 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	algo.createPairs(particles, effectLength);
 	const auto& pairs = algo.getPairs();
 
+	/*
+	NeighborFinder finder(effectLength, 1000);
+	for (const auto& particle : particles) {
+		finder.add(particle);
+	}
+	const auto& pairs = finder.getPairs();
+	*/
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
 		const float distance = pairs[i].getDistance();
