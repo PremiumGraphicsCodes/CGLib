@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
+    <ClInclude Include="BulletInteraction.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Fluid.h" />
     <ClInclude Include="Particle.h" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundarySolver.cpp" />
+    <ClCompile Include="BulletInteraction.cpp" />
     <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="Particle.cpp" />
