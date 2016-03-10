@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "BulletRigid.h"
+#include "BulletParticle.h"
 
 class btRigidBody;
 
@@ -12,20 +13,23 @@ namespace Crystal {
 class Particle;
 class PhysicsObject;
 class ParticlePair;
-
+class BulletRigid;
 
 class BulletBoundary
 {
 public:
 	//BulletBoundary()
 
-	BulletBoundary(PhysicsObject* physicsObject, btRigidBody* bulletRigid);
+	BulletBoundary(const BulletParticle& bp1, const BulletParticle& bp2) :
+		bp1(bp1),
+		bp2(bp2)
+	{}
 
 	std::vector<ParticlePair> createPairs();
 
 private:
-	PhysicsObject* physicsObject;
-	btRigidBody* bulletRigid;
+	BulletParticle bp1;
+	BulletParticle bp2;
 };
 
 	}

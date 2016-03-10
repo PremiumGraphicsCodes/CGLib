@@ -19,7 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BulletBoundaryTest.cpp" />
+    <ClCompile Include="BulletConverterTest.cpp" />
     <ClCompile Include="BulletInteractionTest.cpp" />
+    <ClCompile Include="BulletRigidTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />

@@ -4,7 +4,7 @@
 #include "../Math/Vector3d.h"
 #include "../Math/Quaternion.h"
 
-#include "../ThirdParty/bullet/src/btBulletCollisionCommon.h"
+#include "Bullet.h"
 
 namespace Crystal {
 	namespace Physics {

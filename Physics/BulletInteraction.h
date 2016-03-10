@@ -3,7 +3,7 @@
 
 class btDiscreteDynamicsWorld;
 
-#include "BulletMap.h"
+#include "BulletParticle.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -19,12 +19,14 @@ class BulletInteraction
 public:
 	BulletInteraction(ParticleWorld* particleWorld, btDiscreteDynamicsWorld* bulletWorld);
 
+	void add(const BulletParticle& bp) { bulletParticles.push_back(bp); }
+
 	void forwardTime(const float timeStep);
 
 	//Particle
 
 private:
-	BulletMap map;
+	std::vector<BulletParticle> bulletParticles;
 	ParticleWorld* particleWorld;
 	btDiscreteDynamicsWorld* bulletWorld;
 };

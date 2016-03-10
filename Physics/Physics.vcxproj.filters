@@ -12,13 +12,7 @@
     <ClCompile Include="Rigid.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Spring.cpp" />
-    <ClCompile Include="Solid.cpp">
-      <Filter>Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="BulletInteraction.cpp">
-      <Filter>Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="BulletMap.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletBoundary.cpp">
@@ -31,6 +25,9 @@
       <Filter>Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Surfels.cpp" />
+    <ClCompile Include="BulletParticle.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -44,13 +41,7 @@
     <ClInclude Include="Rigid.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
-    <ClInclude Include="Solid.h">
-      <Filter>Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="BulletInteraction.h">
-      <Filter>Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletMap.h">
       <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletBoundary.h">
@@ -63,6 +54,12 @@
       <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Surfels.h" />
+    <ClInclude Include="Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletParticle.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
