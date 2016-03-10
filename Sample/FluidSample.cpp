@@ -22,13 +22,8 @@ void FluidSample::setup()
 	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 10; ++j) {
 			for (int k = 0; k < 1; ++k) {
-				SPHParticle::Constant constant;
-				constant.pressureCoe = 1000.0f;
-				constant.diameter = 1.0f;
-				constant.viscosityCoe = 1.0f;
-				constant.restDensity = 1000.0f;
 				Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
-				SPHParticle* p = new SPHParticle(constant, pos);
+				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 1.0f);
 				particles.push_back(p);
 			}
 		}

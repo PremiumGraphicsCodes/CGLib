@@ -45,6 +45,8 @@ public:
 
 	float getDiameter() const { return radius * 2.0f; }
 
+	float getVolume() const { return std::pow(getDiameter(), 3); }
+
 	void addValue(const float v) { this->density += v; }
 
 	bool isCollided(const Particle& rhs);
