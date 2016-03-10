@@ -5,7 +5,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
 
-PhysicsObject::PhysicsObject(const std::vector<Particle*>& particles) :
+PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 	particles(particles)
 {}
 

@@ -24,16 +24,16 @@ public:
 
 	~ParticleFindAlgo() = default;
 
-	void createPairs(std::vector<Particle*> particles, const GeomType effectLength);
+	void createPairs(std::vector<SPHParticle*> particles, const GeomType effectLength);
 
 	std::vector<ParticlePair> getPairs() const { return pairs; }
 
 private:
 	std::vector<ParticlePair> pairs;
 
-	std::vector<ParticlePair> search1(const std::vector<Particle*>& particles, std::vector<Particle*>::const_iterator startIter, std::vector<Particle*>::const_iterator endIter, const float effectLengthSquared);
+	std::vector<ParticlePair> search1(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
 
-	std::vector<ParticlePair> search2(const std::vector<Particle*>& particles, std::vector<Particle*>::const_iterator startIter, std::vector<Particle*>::const_iterator endIter, const float effectLengthSquared);
+	std::vector<ParticlePair> search2(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
 
 };
 

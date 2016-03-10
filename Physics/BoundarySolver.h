@@ -5,7 +5,7 @@
 
 namespace Crystal {
 	namespace Physics {
-		class Particle;
+		class SPHParticle;
 
 class BoundarySolver
 {
@@ -15,7 +15,7 @@ public:
 
 	BoundarySolver(const float timeStep, const Math::Box<float>& boundary);
 
-	void solve(const std::vector<Particle*>& particles);
+	void solve(const std::vector<SPHParticle*>& particles);
 
 private:
 	Math::Vector3d<float> getBoundaryForce(const Math::Vector3d<float>& center);

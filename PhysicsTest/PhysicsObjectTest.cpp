@@ -17,7 +17,7 @@ TEST( PhysicsObjectTest, TestConstruct )
 
 TEST( PhysicsObjectTest, TestConstructByParticles )
 {
-	const std::vector<Particle*> particles{ &Particle(Vector3d<GeomType>(1.0f, 0.0f, 0.0f)) };
+	const std::vector<SPHParticle*> particles{ &SPHParticle(Vector3d<GeomType>(1.0f, 0.0f, 0.0f)) };
 	const PhysicsObject fluid(particles);
 	EXPECT_EQ(1, fluid.getParticles().size());
 }
@@ -31,8 +31,8 @@ TEST(PhysicsObjectTest, TestGetMass)
 	}
 
 	{
-		Particle p(Vector3d<GeomType>(1, 0, 0));
-		const std::vector<Particle*> particles{ &p };
+		SPHParticle p(Vector3d<GeomType>(1, 0, 0));
+		const std::vector<SPHParticle*> particles{ &p };
 		const PhysicsObject fluid(particles);
 		EXPECT_FLOAT_EQ(1, fluid.getMass());
 	}
@@ -40,8 +40,8 @@ TEST(PhysicsObjectTest, TestGetMass)
 
 TEST(PhysicsObjectTest, TestGetRestVolume)
 {
-	Particle p(Vector3d<GeomType>(1, 0, 0));
-	const std::vector<Particle*> particles{ &p };
+	SPHParticle p(Vector3d<GeomType>(1, 0, 0));
+	const std::vector<SPHParticle*> particles{ &p };
 	const PhysicsObject fluid(particles);
 	EXPECT_FLOAT_EQ(1, fluid.getRestVolume());
 }

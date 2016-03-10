@@ -9,7 +9,7 @@ Fluid::Fluid()
 {
 }
 
-Fluid::Fluid(const std::vector<Particle*>& particles) :
+Fluid::Fluid(const std::vector<SPHParticle*>& particles) :
 	PhysicsObject(particles)
 {
 }

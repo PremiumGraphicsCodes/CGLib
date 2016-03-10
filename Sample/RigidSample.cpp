@@ -15,17 +15,17 @@ using namespace Crystal::Shader;
 void RigidSample::setup()
 {
 	{
-		std::vector<Particle*> particles1;
+		std::vector<SPHParticle*> particles1;
 		for (int i = 0; i < 5; ++i) {
 			for (int j = 0; j < 5; ++j) {
 				for (int k = 0; k < 1; ++k) {
-					Particle::Constant constant;
+					SPHParticle::Constant constant;
 					constant.pressureCoe = 10000.0f;
 					constant.diameter = 1.0f;
 					constant.viscosityCoe = 1.0f;
 					constant.restDensity = 1000.0f;
 					Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
-					Particle* p = new Particle(constant, pos);
+					SPHParticle* p = new SPHParticle(constant, pos);
 					particles1.push_back(p);
 				}
 			}
@@ -34,17 +34,17 @@ void RigidSample::setup()
 		world.add(rigid1.get());
 	}
 	{
-		std::vector<Particle*> particles2;
+		std::vector<SPHParticle*> particles2;
 		for (int i = 0; i < 5; ++i) {
 			for (int j = 0; j < 5; ++j) {
 				for (int k = 0; k < 1; ++k) {
-					Particle::Constant constant;
+					SPHParticle::Constant constant;
 					constant.pressureCoe = 10000.0f;
 					constant.diameter = 1.0f;
 					constant.viscosityCoe = 1.0f;
 					constant.restDensity = 1000.0f;
 					Vector3d<float> pos(i * 1.0f + 3, j * 1.0f + 5, k * 1.0f);
-					Particle* p = new Particle(constant, pos);
+					SPHParticle* p = new SPHParticle(constant, pos);
 					particles2.push_back(p);
 				}
 			}

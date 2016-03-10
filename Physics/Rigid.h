@@ -11,7 +11,7 @@ class Rigid : public PhysicsObject
 public:
 	Rigid();
 
-	Rigid(const std::vector<Particle*>& particles);
+	Rigid(const std::vector<SPHParticle*>& particles);
 
 	void coordinate(const float timeStep) override;
 

@@ -9,7 +9,7 @@ namespace Crystal {
 
 class UVParticle
 {
-	UVParticle(const std::vector< std::vector< Particle*> >& particles);
+	UVParticle(const std::vector< std::vector< SPHParticle*> >& particles);
 
 };
 
@@ -21,7 +21,7 @@ public:
 		float damperCoe;
 	};
 
-	Cloth( const std::vector< std::vector< Particle*> >& particles );
+	Cloth( const std::vector< std::vector< SPHParticle*> >& particles );
 
 	void coordinate();
 

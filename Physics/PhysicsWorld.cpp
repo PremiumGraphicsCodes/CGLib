@@ -65,9 +65,9 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	}
 }
 
-std::vector<Particle*> ParticleWorld::getParticles()
+std::vector<SPHParticle*> ParticleWorld::getParticles()
 {
-	std::vector<Particle*> ordered;
+	std::vector<SPHParticle*> ordered;
 	for (const auto& object : objects) {
 		const auto& particles = object->getParticles();
 		ordered.insert(ordered.end(), particles.begin(), particles.end());

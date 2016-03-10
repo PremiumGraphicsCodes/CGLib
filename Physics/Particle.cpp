@@ -3,54 +3,54 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-Particle::Particle()
+SPHParticle::SPHParticle()
 {}
 
-Particle::Particle(const Vector3d<float>& center) :
+SPHParticle::SPHParticle(const Vector3d<float>& center) :
 	position(center)
 {}
 
-Particle::Particle(const Constant& constant, const Vector3d<float>& center) :
+SPHParticle::SPHParticle(const Constant& constant, const Vector3d<float>& center) :
 	constant(constant),
 	position(center)
 {
 	density = constant.restDensity;
 }
 
-float Particle::getDensityRatio() const
+float SPHParticle::getDensityRatio() const
 {
 	return density / constant.getRestDensity();
 }
 
-float Particle::getPressure() const
+float SPHParticle::getPressure() const
 {
 	return constant.pressureCoe * (std::pow(getDensityRatio(), 1) - 1.0f);
 }
 
-float Particle::getMass() const
+float SPHParticle::getMass() const
 {
 	return constant.getRestDensity() * std::pow(constant.getDiameter(), 3);
 }
 
-float Particle::getVolume() const
+float SPHParticle::getVolume() const
 {
 	return getMass() / density;
 }
 
-float Particle::getRestVolume() const
+float SPHParticle::getRestVolume() const
 {
 	return getMass() / getRestDensity();
 }
 
 
-void Particle::forwardTime(const float timeStep)
+void SPHParticle::forwardTime(const float timeStep)
 {
 	const auto& acc = getAccelaration();
 	this->velocity += (acc* timeStep);
 	this->position += this->velocity * timeStep;
 }
 
-void Particle::addExternalForce(const Vector3d<float>& externalForce)
+void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
 	this->force += externalForce;
 }

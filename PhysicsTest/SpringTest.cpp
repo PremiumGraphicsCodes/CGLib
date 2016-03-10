@@ -11,8 +11,8 @@ TEST(SpringTest, Test)
 	param.damperCoe = 1.0f;
 	param.springCoe = 1.0f;
 	param.restDistance = 1.0f;
-	Particle particle1;
-	Particle particle2;
+	SPHParticle particle1;
+	SPHParticle particle2;
 	ParticlePair pair(&particle1, &particle2);
 	Spring spring(pair, param);
 	spring.coordinate(1.0f);

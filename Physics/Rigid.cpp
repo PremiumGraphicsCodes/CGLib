@@ -9,7 +9,7 @@ using namespace Crystal::Physics;
 Rigid::Rigid()
 {}
 
-Rigid::Rigid(const std::vector<Particle*>& particles) :
+Rigid::Rigid(const std::vector<SPHParticle*>& particles) :
 	PhysicsObject(particles)
 {
 }

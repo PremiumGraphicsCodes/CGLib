@@ -9,9 +9,9 @@ using GeomType = float;
 
 TEST(NeighborSearchAlgoTest, Test)
 {
-	Particle particle1(Vector3d<GeomType>(0.0, 0.0, 0.0));
-	Particle particle2(Vector3d<GeomType>(1.0, 0.0, 0.0));
-	const std::vector<Particle*> particles{
+	SPHParticle particle1(Vector3d<GeomType>(0.0, 0.0, 0.0));
+	SPHParticle particle2(Vector3d<GeomType>(1.0, 0.0, 0.0));
+	const std::vector<SPHParticle*> particles{
 		&particle1,
 		&particle2,
 	};

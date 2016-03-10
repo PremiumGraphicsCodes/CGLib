@@ -7,7 +7,7 @@
 
 namespace Crystal {
 	namespace Physics {
-		class Particle;
+		class SPHParticle;
 		class PhysicsObject;
 	}
 	namespace Polygon {
@@ -35,7 +35,7 @@ public:
 
 	Point(const Polygon::Particle& particle);
 
-	Point(const Physics::Particle& particle);
+	Point(const Physics::SPHParticle& particle);
 
 	Point(const Polygon::Joint& joint);
 

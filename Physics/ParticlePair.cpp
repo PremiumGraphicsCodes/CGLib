@@ -8,7 +8,7 @@ ParticlePair::ParticlePair() :
 	particle2(nullptr)
 {}
 
-ParticlePair::ParticlePair(Particle* particle1, Particle* particle2) :
+ParticlePair::ParticlePair(SPHParticle* particle1, SPHParticle* particle2) :
 	particle1(particle1),
 	particle2(particle2)
 {

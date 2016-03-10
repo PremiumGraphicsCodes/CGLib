@@ -7,19 +7,19 @@
 
 namespace Crystal {
 	namespace Physics {
-		class Particle;
+		class SPHParticle;
 
 class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const std::vector<Particle*>& particles);
+	PhysicsObject(const std::vector<SPHParticle*>& particles);
 
 	virtual ~PhysicsObject();
 
 	virtual void coordinate(const float timeStep) {};
 
-	std::vector<Particle*> getParticles() const { return particles; }
+	std::vector<SPHParticle*> getParticles() const { return particles; }
 
 	float getMass() const;
 
@@ -46,7 +46,7 @@ public:
 	void setVelocity(const Math::Vector3d<float>& velocity);
 
 private:
-	std::vector<Particle*> particles;
+	std::vector<SPHParticle*> particles;
 };
 
 

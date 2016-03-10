@@ -3,7 +3,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-Cloth::Cloth(const std::vector< std::vector< Particle*> >& particles)
+Cloth::Cloth(const std::vector< std::vector< SPHParticle*> >& particles)
 {
 	/*
 	for (int i = 1; i < particles.size(); ++i) {

@@ -29,7 +29,7 @@ private:
 	SPHKernel<float> kernel;
 	Math::Box<float> boundary;
 
-	std::vector<Particle*> getParticles();
+	std::vector<SPHParticle*> getParticles();
 };
 
 	}

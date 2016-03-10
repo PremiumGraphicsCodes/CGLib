@@ -23,7 +23,7 @@ Point::Point(const Crystal::Polygon::Particle& particle)
 	size = particle.getDiameter();
 }
 
-Point::Point(const Crystal::Physics::Particle& particle)
+Point::Point(const Crystal::Physics::SPHParticle& particle)
 {
 	position = particle.getPosition();
 	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity() / 1000.0f);

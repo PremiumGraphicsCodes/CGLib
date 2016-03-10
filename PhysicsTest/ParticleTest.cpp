@@ -8,7 +8,7 @@ using namespace Crystal::Physics;
 
 TEST(ParticleConstantTest, TestConstruct)
 {
-	Particle::Constant constant;
+	SPHParticle::Constant constant;
 	EXPECT_EQ(1.0f, constant.getDiameter() );
 	EXPECT_EQ(1.0f, constant.getRestDensity());
 }
@@ -16,25 +16,25 @@ TEST(ParticleConstantTest, TestConstruct)
 
 TEST(ParticleConstantTest, TestGetVolume)
 {
-	Particle::Constant constant;
+	SPHParticle::Constant constant;
 	constant.diameter = 2.0f;
 	EXPECT_FLOAT_EQ(8.0f, constant.getVolume());
 }
 
 TEST(ParticleTest, TestConstruct)
 {
-	const Particle particle;
+	const SPHParticle particle;
 	EXPECT_EQ(Vector3d<float>(0.0f, 0.0f, 0.0f), particle.getPosition());
 }
 
 TEST(ParticleTest, TestConstructByPosition)
 {
-	const Particle particle(Vector3d<float>(1.0f, 2.0f, 3.0f));
+	const SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f));
 	EXPECT_EQ(Vector3d<float>(1.0f, 2.0f, 3.0f), particle.getPosition());
 }
 
 TEST(ParticleTest, TestConstructByConstant)
 {
-	const Particle::Constant constant;
-	const Particle particle(constant, Vector3d<float>( 0.0f, 0.0f, 0.0f ) );
+	const SPHParticle::Constant constant;
+	const SPHParticle particle(constant, Vector3d<float>( 0.0f, 0.0f, 0.0f ) );
 }

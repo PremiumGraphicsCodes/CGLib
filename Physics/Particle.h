@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_PHYSICS_PARTICLE_H__
-#define __CRYSTAL_PHYSICS_PARTICLE_H__
+#ifndef __CRYSTAL_PHYSICS_SPH_PARTICLE_H__
+#define __CRYSTAL_PHYSICS_SPH_PARTICLE_H__
 
 #include <list>
 #include <vector>
@@ -13,7 +13,7 @@ namespace Crystal{
 	namespace Physics{
 		class Coordinator;
 
-class Particle final : private UnCopyable
+class SPHParticle final : private UnCopyable
 {
 public:
 	
@@ -38,11 +38,11 @@ public:
 	private:
 	};
 	
-	Particle();
+	SPHParticle();
 
-	Particle(const Math::Vector3d<float>& center);
+	SPHParticle(const Math::Vector3d<float>& center);
 
-	Particle(const Constant& constant, const Math::Vector3d<float>& center);
+	SPHParticle(const Constant& constant, const Math::Vector3d<float>& center);
 
 	float getDensityRatio() const;
 
@@ -114,7 +114,7 @@ public:
 
 	int getGridID() const { return gridID; }
 
-	static bool compare(const Particle* lhs, const Particle* rhs){
+	static bool compare(const SPHParticle* lhs, const SPHParticle* rhs){
 		return lhs->getGridID() < rhs->getGridID();
 	}
 

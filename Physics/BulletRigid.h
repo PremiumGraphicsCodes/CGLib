@@ -14,7 +14,7 @@ class btRigidBody;
 
 namespace Crystal {
 	namespace Physics {
-		class Particle;
+		class SPHParticle;
 
 class BulletRigid
 {
