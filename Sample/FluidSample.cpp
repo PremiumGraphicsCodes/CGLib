@@ -6,11 +6,16 @@
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/LineBuffer.h"
+#include "../Graphics/TriangleBuffer.h"
 #include "../Shader/LegacyRenderer.h"
+#include "../Polygon/ParticleObject.h"
+#include "../Polygon/PolygonObject.h"
+#include "../Graphics/Light.h"
 
 #include <iostream>
 
 using namespace Crystal::Math;
+using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
@@ -40,17 +45,30 @@ void FluidSample::demonstrate()
 	
 	world.simulate(1.2f, 0.5f);
 
+	//ParticleObject particleObject;
+	//particleObject.add()
+
+	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(1000.0f) );
+
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(0.0, 0.0, -10.0));
 	camera.setCameraXY();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 	LegacyRenderer renderer;
+	/*
+
 	PointBuffer buffer;
-	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	buffer.add(*fluid);
 	renderer.render(camera, buffer, 10.0f);
+	*/
+	PointLight<float> light;
+	light.setPos(Vector3d <float>(10.0, 10.0, -10.0));
+	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+
+	TriangleBuffer buffer;
+	buffer.add(*polygon);
+	renderer.render(camera, light, buffer);
 }

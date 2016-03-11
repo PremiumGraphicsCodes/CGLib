@@ -7,6 +7,10 @@
 #include "../Math/Box.h"
 
 namespace Crystal {
+	namespace Polygon {
+		class ParticleObject;
+		class PolygonObject;
+	}
 	namespace Physics {
 		class SPHParticle;
 
@@ -47,6 +51,10 @@ public:
 	void move(const Math::Vector3d<float>& v);
 
 	void setVelocity(const Math::Vector3d<float>& velocity);
+
+	Polygon::ParticleObject* toParticleObject() const;
+
+	Polygon::PolygonObject* toPolygonObject(const float isolevel) const;
 
 private:
 	std::vector<SPHParticle*> particles;

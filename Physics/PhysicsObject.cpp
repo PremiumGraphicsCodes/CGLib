@@ -1,7 +1,10 @@
 #include "PhysicsObject.h"
 #include "SPHParticle.h"
 
+#include "../Polygon/ParticleObject.h"
+
 using namespace Crystal::Math;
+using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
 
@@ -111,4 +114,19 @@ void PhysicsObject::setVelocity(const Vector3d<float>& velocity)
 		p->setVelocity(velocity);
 	}
 
+}
+
+ParticleObject* PhysicsObject::toParticleObject() const
+{
+	std::vector<Particle*> ps;
+	for (int i = 0; i < particles.size(); ++i) {
+		ps.push_back(particles[i]->clone());
+	}
+	return new ParticleObject(ps);
+}
+
+PolygonObject* PhysicsObject::toPolygonObject(const float isolevel) const
+{
+	std::unique_ptr<ParticleObject> particleObject( toParticleObject() );
+	return particleObject->toPolygon(isolevel);
 }

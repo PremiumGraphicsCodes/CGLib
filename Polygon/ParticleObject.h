@@ -40,7 +40,9 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	VolumeObject toVolume(const int hashTableSize) const;
+	VolumeObject toVolume() const;
+
+	PolygonObject* toPolygon(const float isolevel) const;
 
 private:
 

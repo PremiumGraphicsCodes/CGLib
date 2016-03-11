@@ -102,7 +102,7 @@ namespace {
 
 
 
-VolumeObject ParticleObject::toVolume(const int hashTableSize) const
+VolumeObject ParticleObject::toVolume() const
 {
 	const auto effectLength = this->getParticles().front()->getDiameter();
 	const auto dx = effectLength;
@@ -111,7 +111,7 @@ VolumeObject ParticleObject::toVolume(const int hashTableSize) const
 	bb.outerOffset(effectLength);
 
 
-	SpaceHash spaceHash(effectLength, hashTableSize);
+	SpaceHash spaceHash(effectLength, particles.size());
 	const auto& particles = this->getParticles();
 	for (const auto& p : particles) {
 		spaceHash.add(p);
@@ -133,7 +133,7 @@ VolumeObject ParticleObject::toVolume(const int hashTableSize) const
 				const auto posx = space.getStart().getX() + dx * 0.5f + i * dx;
 				const auto posy = space.getStart().getY() + dx * 0.5f + j * dx;
 				const auto posz = space.getStart().getZ() + dx * 0.5f + k * dx;
-				const auto& neighbors = spaceHash.getNeighbor(Vector3d<float>(posx, posy, posz), bb.getLength().getX());
+				const auto& neighbors = spaceHash.getNeighbor(Vector3d<float>(posx, posy, posz), effectLength);
 				for (auto n : neighbors) {
 					Vector3d<float> p(posx, posy, posz);
 					const auto distance = p.getDistance(n->getPosition());
@@ -147,4 +147,8 @@ VolumeObject ParticleObject::toVolume(const int hashTableSize) const
 	return VolumeObject(space, grid);
 }
 
-
+PolygonObject* ParticleObject::toPolygon(const float isolevel) const
+{
+	const auto& volume = toVolume();
+	return volume.toPolygonObject(isolevel);
+}
