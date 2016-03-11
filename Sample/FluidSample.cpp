@@ -23,7 +23,7 @@ using namespace Crystal::Shader;
 void FluidSample::setup()
 {
 	std::vector<SPHParticle*> particles;
-	for (int i = 0; i < 20; ++i) {
+	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 20; ++j) {
 			for (int k = 0; k < 10; ++k) {
 				Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
@@ -35,7 +35,7 @@ void FluidSample::setup()
 	fluid = std::make_unique<Fluid>(particles);
 	world.add(fluid.get());
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-	Box<float> boundary( Vector3d<float>(0.0, 0.0f, 0.0 ), Vector3d<float>( 50.0, 100.0, 10.0 ));
+	Box<float> boundary( Vector3d<float>(-10.0, 0.0f, 0.0 ), Vector3d<float>(10.0, 100.0, 10.0 ));
 	world.setBoundary(boundary);
 }
 
@@ -48,12 +48,12 @@ void FluidSample::demonstrate()
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	Box<float> boundary(Vector3d<float>(0.0, 0.0f, 0.0), Vector3d<float>(50.0, 10.0, 10.0));
+	Box<float> boundary(Vector3d<float>(-11.0, -1.0f, -1.0), Vector3d<float>(11.0, 20.0, 11.0));
 
 	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, Index3d(100, 100, 100) ) );
 
 	PerspectiveCamera<float> camera;
-	camera.moveTo(Vector3d<float>(-10.0, -5.0, -20.0));
+	camera.moveTo(Vector3d<float>(0.0, -5.0, -20.0));
 	camera.setCameraXY();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -71,14 +71,13 @@ void FluidSample::demonstrate()
 	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
 	light.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
 
-	
 	/*
+	
 	TriangleBuffer buffer;
 	buffer.add(*polygon);
 	renderer.render(camera, light, buffer);
-*/
+	*/
 	LineBuffer buffer;
 	buffer.add(*polygon);
 	renderer.render(camera, buffer);
-
 }

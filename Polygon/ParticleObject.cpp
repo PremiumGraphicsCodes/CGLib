@@ -108,16 +108,16 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution)
 	const auto dx = effectLength;
 
 	auto bb = box;
-	//bb.outerOffset(effectLength);
+	bb.outerOffset(dx*0.5);
 
 	SpaceHash spaceHash(effectLength, 1000);
 
 	std::vector< std::vector< std::vector<Particle*>>> samplings;
-	for (float x = box.getMinX(); x < box.getMaxX(); x+=dx) {
+	for (float x = bb.getMinX(); x < bb.getMaxX(); x+=dx/2.0) {
 		std::vector<std::vector<Particle*>> ys;
-		for (float y = box.getMinY(); y < box.getMaxY(); y += dx) {
+		for (float y = bb.getMinY(); y < bb.getMaxY(); y += dx/2.0) {
 			std::vector<Particle*> zs;
-			for (float z = box.getMinZ(); z < box.getMaxZ(); z += dx) {
+			for (float z = bb.getMinZ(); z < bb.getMaxZ(); z += dx/2.0) {
 				Particle* p= new Particle(Vector3d<float>(x, y, z), 0.0f, dx * 0.5f);
 				zs.push_back(p);
 				spaceHash.add(p);
