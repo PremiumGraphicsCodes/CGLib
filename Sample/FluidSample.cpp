@@ -23,7 +23,7 @@ using namespace Crystal::Shader;
 void FluidSample::setup()
 {
 	std::vector<SPHParticle*> particles;
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 20; ++i) {
 		for (int j = 0; j < 20; ++j) {
 			for (int k = 0; k < 10; ++k) {
 				Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
@@ -35,7 +35,7 @@ void FluidSample::setup()
 	fluid = std::make_unique<Fluid>(particles);
 	world.add(fluid.get());
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-	Box<float> boundary( Vector3d<float>(-10.0, 0.0f, 0.0 ), Vector3d<float>(10.0, 100.0, 10.0 ));
+	Box<float> boundary( Vector3d<float>(-20.0, 0.0f, 0.0 ), Vector3d<float>(20.0, 100.0, 10.0 ));
 	world.setBoundary(boundary);
 }
 
@@ -43,14 +43,15 @@ void FluidSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
 	
-	world.simulate(1.2f, 0.5f);
+	const float effectLength = 1.25f;
+	world.simulate(effectLength, 0.5f);
 
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	Box<float> boundary(Vector3d<float>(-11.0, -1.0f, -1.0), Vector3d<float>(11.0, 20.0, 11.0));
+	Box<float> boundary(Vector3d<float>(-21.0, -1.0f, -1.0), Vector3d<float>(21.0, 20.0, 11.0));
 
-	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, Index3d(100, 100, 100) ) );
+	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, effectLength) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(0.0, -5.0, -20.0));

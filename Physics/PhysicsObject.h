@@ -55,7 +55,7 @@ public:
 
 	Polygon::ParticleObject* toParticleObject() const;
 
-	Polygon::PolygonObject* toPolygonObject(const float isolevel,const Math::Box<float>& box, Math::Index3d resolution) const;
+	Polygon::PolygonObject* toPolygonObject(const float isolevel,const Math::Box<float>& box, const float effectLength) const;
 
 private:
 	std::vector<SPHParticle*> particles;

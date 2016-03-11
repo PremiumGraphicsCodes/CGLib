@@ -102,9 +102,8 @@ namespace {
 
 
 
-VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution) const
+VolumeObject ParticleObject::toVolume(const Box<float>& box, const float effectLength) const
 {
-	const auto effectLength = this->getParticles().front()->getDiameter();
 	const auto dx = effectLength;
 
 	auto bb = box;
@@ -113,11 +112,11 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution)
 	SpaceHash spaceHash(effectLength, 1000);
 
 	std::vector< std::vector< std::vector<Particle*>>> samplings;
-	for (float x = bb.getMinX(); x < bb.getMaxX(); x+=dx/2.0) {
+	for (float x = bb.getMinX(); x < bb.getMaxX(); x+=dx/1.0) {
 		std::vector<std::vector<Particle*>> ys;
-		for (float y = bb.getMinY(); y < bb.getMaxY(); y += dx/2.0) {
+		for (float y = bb.getMinY(); y < bb.getMaxY(); y += dx/1.0) {
 			std::vector<Particle*> zs;
-			for (float z = bb.getMinZ(); z < bb.getMaxZ(); z += dx/2.0) {
+			for (float z = bb.getMinZ(); z < bb.getMaxZ(); z += dx/1.0) {
 				Particle* p= new Particle(Vector3d<float>(x, y, z), 0.0f, dx * 0.5f);
 				zs.push_back(p);
 				spaceHash.add(p);
@@ -152,8 +151,8 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution)
 	return VolumeObject(space, grid);
 }
 
-PolygonObject* ParticleObject::toPolygon(const float isolevel, const Box<float>& box, Index3d resolution) const
+PolygonObject* ParticleObject::toPolygon(const float isolevel, const Box<float>& box, const float effectLength) const
 {
-	const auto& volume = toVolume(box,resolution);
+	const auto& volume = toVolume(box,effectLength);
 	return volume.toPolygonObject(isolevel);
 }
