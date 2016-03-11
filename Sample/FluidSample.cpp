@@ -18,9 +18,9 @@ using namespace Crystal::Shader;
 void FluidSample::setup()
 {
 	std::vector<SPHParticle*> particles;
-	for (int i = 0; i < 500; ++i) {
-		for (int j = 0; j < 100; ++j) {
-			for (int k = 0; k < 1; ++k) {
+	for (int i = 0; i < 100; ++i) {
+		for (int j = 0; j < 10; ++j) {
+			for (int k = 0; k < 100; ++k) {
 				Vector3d<float> pos(i * 1.0f - 100.0f, j * 1.0f - 2.0f, k * 1.0f);
 				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
 				particles.push_back(p);
@@ -52,5 +52,5 @@ void FluidSample::demonstrate()
 	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	buffer.add(*fluid);
-	renderer.render(camera, buffer, 0.1f);
+	renderer.render(camera, buffer, 10.0f);
 }

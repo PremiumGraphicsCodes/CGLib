@@ -23,6 +23,10 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buf
 		return;
 	}
 
+	GLfloat distance[] = { 0.0, 0.0, 1.0 };
+	glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, distance);
+
+	glEnable(GL_POINT_SPRITE);
 	glDisable(GL_DEPTH_TEST);
 	glPointSize(pointSize);
 
@@ -52,6 +56,8 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buf
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_POINT_SPRITE);
+
 
 }
 
