@@ -48,9 +48,9 @@ void FluidSample::demonstrate()
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	Box<float> boundary(Vector3d<float>(0.0, 0.0f, 0.0), Vector3d<float>(10.0, 10.0, 10.0));
+	Box<float> boundary(Vector3d<float>(0.0, 0.0f, 0.0), Vector3d<float>(50.0, 10.0, 10.0));
 
-	//std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, Index3d(100, 100, 100) ) );
+	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, Index3d(100, 100, 100) ) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(-10.0, -5.0, -20.0));
@@ -60,11 +60,12 @@ void FluidSample::demonstrate()
 
 	LegacyRenderer renderer;
 
+	/*
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	buffer.add(*fluid);
 	renderer.render(camera, buffer, 10.0f);
-
+	*/
 	PointLight<float> light;
 	light.setPos(Vector3d <float>(10.0, 10.0, 10.0));
 	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
@@ -75,10 +76,9 @@ void FluidSample::demonstrate()
 	TriangleBuffer buffer;
 	buffer.add(*polygon);
 	renderer.render(camera, light, buffer);
-
+*/
 	LineBuffer buffer;
 	buffer.add(*polygon);
 	renderer.render(camera, buffer);
-	*/
 
 }

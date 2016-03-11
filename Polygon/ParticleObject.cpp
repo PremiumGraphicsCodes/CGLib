@@ -110,64 +110,45 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution)
 	auto bb = box;
 	//bb.outerOffset(effectLength);
 
+	SpaceHash spaceHash(effectLength, 1000);
 
-	/*
-	SpaceHash spaceHash(effectLength, particles.size());
-	const auto& particles = this->getParticles();
-	for (const auto& p : particles) {
-		spaceHash.add(p);
+	std::vector< std::vector< std::vector<Particle*>>> samplings;
+	for (float x = box.getMinX(); x < box.getMaxX(); x+=dx) {
+		std::vector<std::vector<Particle*>> ys;
+		for (float y = box.getMinY(); y < box.getMaxY(); y += dx) {
+			std::vector<Particle*> zs;
+			for (float z = box.getMinZ(); z < box.getMaxZ(); z += dx) {
+				Particle* p= new Particle(Vector3d<float>(x, y, z), 0.0f, dx * 0.5f);
+				zs.push_back(p);
+				spaceHash.add(p);
+			}
+			ys.push_back(zs);
+		}
+		samplings.push_back(ys);
 	}
-	*/
 
-	bb.outerOffset(dx);
 	Space3d<float> space(bb.getStart(), bb.getLength());
 
-	Grid3d<float> grid(resolution.getX()+2, resolution.getY()+2, resolution.getZ()+2);
+	Grid3d<float> grid(samplings.size(), samplings[0].size(), samplings[0][0].size());
 
 	for (const auto& p : particles) {
 		const auto& position = p->getPosition();
-		const auto indexx = position.getX() / dx;
-		const auto indexy = position.getY() / dx;
-		const auto indexz = position.getZ() / dx;
-		for (int i = indexx - 1; i <= indexx + 1; ++i) {
-			for (int j = indexy - 1; j <= indexy + 1; ++j) {
-				for (int k = indexz - 1; k <= indexz + 1; ++k) {
-					const auto posx = /*space.getStart().getX()*/ + dx * 0.5f + i * dx;
-					const auto posy = /*space.getStart().getY()*/ + dx * 0.5f + j * dx;
-					const auto posz = /*space.getStart().getZ()*/ + dx * 0.5f + k * dx;
-					Vector3d<float> nodePosition(posx, posy, posz);
-
-					const auto distanceSquared = position.getDistanceSquared(nodePosition);
-					if (distanceSquared < effectLength * effectLength) {
-						const auto v = p->getDensity();
-						const auto value = getPoly6Kernel(std::sqrt(distanceSquared), effectLength) * v;
-						if (grid.isValidIndex(i, j, k)) {
-							grid.add(i, j, k, value);
-						}
-					}
-				}
+		const auto neighborSamples = spaceHash.getNeighbor(position, dx);
+		for (auto n : neighborSamples) {
+			const auto distance = p->getPosition().getDistance(n->getPosition());
+			const auto v = p->getDensity();
+			const auto value = getPoly6Kernel(distance, effectLength) * v;
+			n->addValue(value);
+		}
+	}
+	for (int i = 0; i < samplings.size(); ++i) {
+		for (int j = 0; j < samplings[i].size(); ++j) {
+			for (int k = 0; k < samplings[i][j].size(); ++k) {
+				grid.set(i, j, k, samplings[i][j][k]->getDensity());
+				delete samplings[i][j][k];
 			}
 		}
 	}
-	/*
-	for (int i = 0; i < resolution.getX(); ++i) {
-		for (int j = 0; j < resolution.getY(); ++j) {
-			for (int k = 0; k < resolution.getZ(); ++k) {
-				const auto posx = space.getStart().getX() + dx * 0.5f + i * dx;
-				const auto posy = space.getStart().getY() + dx * 0.5f + j * dx;
-				const auto posz = space.getStart().getZ() + dx * 0.5f + k * dx;
-				const auto& neighbors = spaceHash.getNeighbor(Vector3d<float>(posx, posy, posz), effectLength);
-				for (auto n : neighbors) {
-					Vector3d<float> p(posx, posy, posz);
-					const auto distance = p.getDistance(n->getPosition());
-					const auto v = n->getDensity();
-					const auto value = getPoly6Kernel(distance, effectLength) * v;
-					grid.add(i, j, k, value);
-				}
-			}
-		}
-	}
-	*/
 	return VolumeObject(space, grid);
 }
 
