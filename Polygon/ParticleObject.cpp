@@ -111,17 +111,45 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution)
 	//bb.outerOffset(effectLength);
 
 
+	/*
 	SpaceHash spaceHash(effectLength, particles.size());
 	const auto& particles = this->getParticles();
 	for (const auto& p : particles) {
 		spaceHash.add(p);
 	}
+	*/
 
-	//bb.innerOffset(particles[0]->getRadius());
+	bb.outerOffset(dx);
 	Space3d<float> space(bb.getStart(), bb.getLength());
 
-	Grid3d<float> grid(resolution);
+	Grid3d<float> grid(resolution.getX()+2, resolution.getY()+2, resolution.getZ()+2);
 
+	for (const auto& p : particles) {
+		const auto& position = p->getPosition();
+		const auto indexx = position.getX() / dx;
+		const auto indexy = position.getY() / dx;
+		const auto indexz = position.getZ() / dx;
+		for (int i = indexx - 1; i <= indexx + 1; ++i) {
+			for (int j = indexy - 1; j <= indexy + 1; ++j) {
+				for (int k = indexz - 1; k <= indexz + 1; ++k) {
+					const auto posx = /*space.getStart().getX()*/ + dx * 0.5f + i * dx;
+					const auto posy = /*space.getStart().getY()*/ + dx * 0.5f + j * dx;
+					const auto posz = /*space.getStart().getZ()*/ + dx * 0.5f + k * dx;
+					Vector3d<float> nodePosition(posx, posy, posz);
+
+					const auto distanceSquared = position.getDistanceSquared(nodePosition);
+					if (distanceSquared < effectLength * effectLength) {
+						const auto v = p->getDensity();
+						const auto value = getPoly6Kernel(std::sqrt(distanceSquared), effectLength) * v;
+						if (grid.isValidIndex(i, j, k)) {
+							grid.add(i, j, k, value);
+						}
+					}
+				}
+			}
+		}
+	}
+	/*
 	for (int i = 0; i < resolution.getX(); ++i) {
 		for (int j = 0; j < resolution.getY(); ++j) {
 			for (int k = 0; k < resolution.getZ(); ++k) {
@@ -139,6 +167,7 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, Index3d resolution)
 			}
 		}
 	}
+	*/
 	return VolumeObject(space, grid);
 }
 

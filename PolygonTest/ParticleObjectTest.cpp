@@ -21,7 +21,7 @@ TEST(ParticleObjectTest, TestToVolumeBox)
 	Box<float> box(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 1.0));
 	ParticleObject object;
 	object.add(box, 0.25f);
-	auto actual = object.toVolume(100);
+	auto actual = object.toVolume(box, Index3d(2,2,2));
 }
 
 TEST(PolygonObjectTest, TestToVolumeSphere)
@@ -32,5 +32,5 @@ TEST(PolygonObjectTest, TestToVolumeSphere)
 	ParticleObject object;
 	object.add(sphere1, 0.25f);
 	object.add(sphere2, 0.25f);
-	auto actual = object.toVolume(100);
+	//auto actual = object.toVolume(box, Index3d(2, 2, 2));
 }

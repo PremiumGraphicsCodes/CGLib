@@ -256,7 +256,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 	std::vector<float> lightPos = { light.getPos().getX(), light.getPos().getY(), light.getPos().getZ(), 1.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPos.data());
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light.getDiffuse().toArray4().data());
-
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light.getSpecular().toArray4().data());
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
