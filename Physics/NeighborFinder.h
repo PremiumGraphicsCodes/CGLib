@@ -3,6 +3,7 @@
 
 #include "ParticlePair.h"
 #include "../Polygon/SpaceHash.h"
+#include <array>
 
 namespace Crystal {
 	namespace Physics {
@@ -14,10 +15,13 @@ public:
 
 	void add(SPHParticle* particle);
 
+	void create(const std::vector<SPHParticle*>& particle);
+
 	std::vector<SPHParticlePair> getPairs() const { return pairs; }
 
 private:
 	Polygon::SpaceHash spaceHash;
+	float divideLength;
 	std::vector<SPHParticlePair> pairs;
 };
 

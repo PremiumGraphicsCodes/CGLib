@@ -20,7 +20,7 @@ void RigidSample::setup()
 			for (int j = 0; j < 5; ++j) {
 				for (int k = 0; k < 1; ++k) {
 					Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
-					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 10000.0f, 1.0f);
+					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 10000.0f, 100.0f);
 					particles1.push_back(p);
 				}
 			}
@@ -34,7 +34,7 @@ void RigidSample::setup()
 			for (int j = 0; j < 5; ++j) {
 				for (int k = 0; k < 1; ++k) {
 					Vector3d<float> pos(i * 1.0f + 3, j * 1.0f + 5, k * 1.0f);
-					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 10000.0f, 1.0f);
+					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 10000.0f, 100.0f);
 					particles2.push_back(p);
 				}
 			}

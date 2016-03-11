@@ -133,7 +133,7 @@ VolumeObject ParticleObject::toVolume(const int hashTableSize) const
 				const auto posx = space.getStart().getX() + dx * 0.5f + i * dx;
 				const auto posy = space.getStart().getY() + dx * 0.5f + j * dx;
 				const auto posz = space.getStart().getZ() + dx * 0.5f + k * dx;
-				const auto& neighbors = spaceHash.getNeighbor(Vector3d<float>(posx, posy, posz));
+				const auto& neighbors = spaceHash.getNeighbor(Vector3d<float>(posx, posy, posz), bb.getLength().getX());
 				for (auto n : neighbors) {
 					Vector3d<float> p(posx, posy, posz);
 					const auto distance = p.getDistance(n->getPosition());

@@ -16,17 +16,17 @@ TEST(SpaceHashTest, TestCenter)
 	hash.add(&p2);
 	hash.add(&p3);
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
 		EXPECT_EQ(3, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(1.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(1.0, 0.0, 0.0), 1.0f);
 		EXPECT_EQ(1, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(-1.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(-1.0, 0.0, 0.0), 1.0f);
 		EXPECT_EQ(1, actual.size());
 	}
 
@@ -43,17 +43,17 @@ TEST(SpaceHashTest, TestAxisX)
 	hash.add(&p2);
 	hash.add(&p3);
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(5.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(5.0, 0.0, 0.0), 0.5f);
 		EXPECT_EQ(1, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
 		EXPECT_EQ(0, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(4.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(4.0, 0.0, 0.0), 0.5f);
 		EXPECT_EQ(0, actual.size());
 	}
 
@@ -69,17 +69,17 @@ TEST(SpaceHashTest, TestAxisY)
 	hash.add(&p2);
 	hash.add(&p3);
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 5.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 5.0, 0.0), 0.5f);
 		EXPECT_EQ(1, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
 		EXPECT_EQ(0, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 4.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 4.0, 0.0), 0.5f);
 		EXPECT_EQ(0, actual.size());
 	}
 }

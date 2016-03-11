@@ -21,6 +21,8 @@ public:
 
 	std::vector<Particle*> getNeighbor(Particle* object);
 
+	std::vector<Particle*> getNeighbor(const Math::Vector3d<float>& pos, const float length);
+
 	std::vector<Particle*> getNeighbor(const Math::Vector3d<float>& pos);
 
 	std::vector<Particle*> getNeighbor(const Math::Index3d index);

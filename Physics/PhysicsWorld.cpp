@@ -2,6 +2,7 @@
 
 #include "PhysicsParticleFindAlgo.h"
 #include "BoundarySolver.h"
+#include "NeighborFinder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
@@ -18,17 +19,23 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		particle->init();
 	}
 
+	/*
 	ParticleFindAlgo<float> algo;
 	algo.createPairs(particles, effectLength);
 	const auto& pairs = algo.getPairs();
+	*/
 
-	/*
-	NeighborFinder finder(effectLength, 1000);
+	NeighborFinder finder(effectLength, particles.size());
 	for (const auto& particle : particles) {
 		finder.add(particle);
 	}
-	const auto& pairs = finder.getPairs();
+	/*
+	for (const auto& particle : particles) {
+		finder.create(particle);
+	}
 	*/
+	finder.create(particles);
+	const auto& pairs = finder.getPairs();
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
 		const float distance = pairs[i].getDistance();
@@ -48,7 +55,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		const auto viscosityCoe = pairs[i].getViscosityCoe();
 		const auto& velocityDiff = pairs[i].getVelocityDiff();
 		const auto distance = pairs[i].getDistance();
-		pairs[i].getParticle2()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
+		pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
 	}
 
 	for (const auto& object : objects) {

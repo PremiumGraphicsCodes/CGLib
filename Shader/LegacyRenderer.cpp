@@ -14,7 +14,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
+void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer, const float pointSize)
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getColor().get();
@@ -24,7 +24,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buf
 	}
 
 	glDisable(GL_DEPTH_TEST);
-	glPointSize(10.0f);
+	glPointSize(pointSize);
 
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
 	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;

@@ -17,9 +17,9 @@ SpaceHash::SpaceHash(const float divideLength, const int hashTableSize) :
 
 Index3d SpaceHash::toIndex(const Vector3d<float>& pos)
 {
-	const int ix = static_cast<int>( (pos.getX()/* + 100.0*/) / divideLength );
-	const int iy = static_cast<int>( (pos.getY()/* + 100.0*/) / divideLength );
-	const int iz = static_cast<int>( (pos.getZ()/* + 100.0*/) / divideLength );
+	const int ix = static_cast<int>( (pos.getX() + 100.0) / divideLength );
+	const int iy = static_cast<int>( (pos.getY() + 100.0) / divideLength );
+	const int iz = static_cast<int>( (pos.getZ() + 100.0) / divideLength );
 	return{ ix, iy, iz };
 }
 
@@ -45,13 +45,38 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 
 	std::vector<Particle*> results;
 	for (auto n : neighbors) {
-		if (n->getPosition().getDistanceSquared(pos) < n->getRadius()*n->getRadius()) {
-		//if(n->getPosition().getDistanceSquared(pos) < divideLength * divideLength) {
+		//if (n->getPosition().getDistanceSquared(pos) < length*length) {
+		if(n->getPosition().getDistanceSquared(pos) < divideLength * divideLength) {
 			results.push_back(n);
 		}
 	}
 
 	return results;
+}
+
+std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos, const float length)
+{
+	std::vector<Particle*> neighbors;
+	Index3d index = toIndex(pos);
+	for (auto x = index.getX() - 1; x <= index.getX() + 1; ++x) {
+		for (auto y = index.getY() - 1; y <= index.getY() + 1; ++y) {
+			for (auto z = index.getZ() - 1; z <= index.getZ() + 1; ++z) {
+				const auto& ns = table[toHash(Index3d{ x,y,z })];
+				for (const auto& n : ns) {
+					if (n->getPosition().getDistanceSquared(pos) < length*length) {
+						//if (n->getPosition().getDistanceSquared(pos) < divideLength * divideLength) {
+						neighbors.emplace_back(n);
+					}
+				}
+
+				//neighbors.insert(neighbors.end(), ns.begin(), ns.end());
+			}
+		}
+	}
+	//neighbors.sort();
+	//neighbors.unique();
+
+	return std::move(neighbors);
 }
 
 std::vector<Particle*> SpaceHash::getNeighbor(const Index3d index)
