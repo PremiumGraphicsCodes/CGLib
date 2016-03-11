@@ -1,6 +1,5 @@
 #include "PhysicsWorld.h"
 
-#include "PhysicsParticleFindAlgo.h"
 #include "BoundarySolver.h"
 #include "NeighborFinder.h"
 
@@ -51,7 +50,10 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		const auto pressure = pairs[i].getPressure();
 		const auto& distanceVector = pairs[i].getDistanceVector();
 		pairs[i].getParticle1()->addForce(kernel.getSpikyKernelGradient(distanceVector, effectLength) * pressure * pairs[i].getParticle2()->getVolume());
+	}
 
+#pragma omp parallel for
+	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
 		const auto viscosityCoe = pairs[i].getViscosityCoe();
 		const auto& velocityDiff = pairs[i].getVelocityDiff();
 		const auto distance = pairs[i].getDistance();

@@ -26,7 +26,6 @@
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
-    <ClCompile Include="PhysicsParticleFindAlgoTest.cpp" />
     <ClCompile Include="SpringTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

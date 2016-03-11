@@ -22,7 +22,7 @@ void CouplingSample::setup()
 			for (int j = 0; j < 5; ++j) {
 				for (int k = 0; k < 1; ++k) {
 					Vector3d<float> pos(i * 1.0f- 5, j * 1.0f, k * 1.0f);
-					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 10000.0f, 1.0f);
+					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
 					particles1.push_back(p);
 				}
 			}
@@ -36,7 +36,7 @@ void CouplingSample::setup()
 			for (int j = 0; j < 5; ++j) {
 				for (int k = 0; k < 1; ++k) {
 					Vector3d<float> pos(i * 1.0f + 3, j * 1.0f, k * 1.0f);
-					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 10000.0f, 1.0f);
+					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
 					particles2.push_back(p);
 				}
 			}
@@ -55,7 +55,7 @@ void CouplingSample::setup()
 void CouplingSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
-	world.simulate(1.25f, 0.001f);
+	world.simulate(1.25f, 0.1f);
 
 		PerspectiveCamera<float> camera;
 		camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));

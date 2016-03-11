@@ -32,7 +32,6 @@
     <ClInclude Include="SPHParticle.h" />
     <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="PhysicsParticleFindAlgo.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="Rigid.h" />
     <ClInclude Include="SPHKernel.h" />
@@ -52,7 +51,6 @@
     <ClCompile Include="SPHParticle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="PhysicsParticleFindAlgo.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Rigid.cpp" />
     <ClCompile Include="SPHKernel.cpp" />

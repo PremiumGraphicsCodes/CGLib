@@ -18,11 +18,16 @@ void NeighborFinder::create(const std::vector<SPHParticle*>& particles)
 {
 	constexpr int threads = 8;
 	std::array< std::vector<SPHParticlePair>, threads> tpairs;
+	std::array< int, threads > starts;
+	std::array< int, threads > ends;
+	for (int i = 0; i < threads; ++i) {
+		starts[i] = (particles.size() / threads) * (i);
+		ends[i] = (particles.size() / threads) * (i + 1);
+	}
+	ends[threads - 1] = particles.size();
 #pragma omp parallel for
 	for (int i = 0; i < threads; ++i) {
-		const auto startIndex = (particles.size() / threads) * i;
-		const auto endIndex = (particles.size() / threads) * (i+1);
-		for (int j = startIndex; j < endIndex; ++j) {
+		for (int j = starts[i]; j < ends[i]; ++j) {
 			const auto particle = particles[j];
 			const auto& neighbors = spaceHash.getNeighbor(particle->getPosition(), divideLength);
 			for (const auto& p : neighbors) {
