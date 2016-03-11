@@ -19,16 +19,16 @@ public:
 
 	void add(Particle* particle);
 
-	std::vector<Particle*> getNeighbor(Particle* object);
+	std::list<Particle*> getNeighbor(Particle* object);
 
-	std::vector<Particle*> getNeighbor(const Math::Vector3d<float>& pos, const float length);
+	std::list<Particle*> getNeighbor(const Math::Vector3d<float>& pos, const float length);
 
-	std::vector<Particle*> getNeighbor(const Math::Vector3d<float>& pos);
+	std::list<Particle*> getNeighbor(const Math::Vector3d<float>& pos);
 
-	std::vector<Particle*> getNeighbor(const Math::Index3d index);
+	std::list<Particle*> getNeighbor(const Math::Index3d index);
 
 private:
-	std::vector< std::vector<Particle*> > table;
+	std::vector< std::list<Particle*> > table;
 
 	int toHash(const Math::Vector3d<float>& pos);
 

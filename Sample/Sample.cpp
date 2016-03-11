@@ -57,7 +57,7 @@ int main(int argc, char* argv)
 		exit(EXIT_FAILURE);
 	}
 
-	auto window = glfwCreateWindow(512, 512, "Crystal Sample", nullptr, nullptr);
+	auto window = glfwCreateWindow(1024, 756, "Crystal Sample", nullptr, nullptr);
 	if (!window) {
 		//std::cerr << "glufw CreateWindow failed." << std::endl;
 		exit(EXIT_FAILURE);
@@ -68,7 +68,7 @@ int main(int argc, char* argv)
 	TwInit(TW_OPENGL, nullptr);
 	TwBar* bar = TwNewBar("Bar");
 
-	TwWindowSize(512, 512);
+	TwWindowSize(1024, 756);
 	TwAddButton(bar, "Fluid", onFluid, NULL, " label='Fluid' ");
 	TwAddButton(bar, "Rigid", onRigid, nullptr, " label='Rigid' ");
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");

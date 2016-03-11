@@ -23,12 +23,12 @@ Index3d SpaceHash::toIndex(const Vector3d<float>& pos)
 	return{ ix, iy, iz };
 }
 
-std::vector<Particle*> SpaceHash::getNeighbor(Particle* object)
+std::list<Particle*> SpaceHash::getNeighbor(Particle* object)
 {
 	return getNeighbor(object->getPosition());
 }
 
-std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
+std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 {
 	std::list<Particle*> neighbors;
 	Index3d index = toIndex(pos);
@@ -43,7 +43,7 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	neighbors.sort();
 	neighbors.unique();
 
-	std::vector<Particle*> results;
+	std::list<Particle*> results;
 	for (auto n : neighbors) {
 		//if (n->getPosition().getDistanceSquared(pos) < length*length) {
 		if(n->getPosition().getDistanceSquared(pos) < divideLength * divideLength) {
@@ -54,16 +54,17 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	return results;
 }
 
-std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos, const float length)
+std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos, const float length)
 {
-	std::vector<Particle*> neighbors;
+	std::list<Particle*> neighbors;
 	Index3d index = toIndex(pos);
 	for (auto x = index.getX() - 1; x <= index.getX() + 1; ++x) {
 		for (auto y = index.getY() - 1; y <= index.getY() + 1; ++y) {
 			for (auto z = index.getZ() - 1; z <= index.getZ() + 1; ++z) {
 				const auto& ns = table[toHash(Index3d{ x,y,z })];
 				for (const auto& n : ns) {
-					if (n->getPosition().getDistanceSquared(pos) < length*length) {
+					const auto distanceSquared = n->getPosition().getDistanceSquared(pos);
+					if ( distanceSquared < length*length) {
 						//if (n->getPosition().getDistanceSquared(pos) < divideLength * divideLength) {
 						neighbors.emplace_back(n);
 					}
@@ -73,13 +74,13 @@ std::vector<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos, const 
 			}
 		}
 	}
-	//neighbors.sort();
-	//neighbors.unique();
+	neighbors.sort();
+	neighbors.unique();
 
 	return std::move(neighbors);
 }
 
-std::vector<Particle*> SpaceHash::getNeighbor(const Index3d index)
+std::list<Particle*> SpaceHash::getNeighbor(const Index3d index)
 {
 	auto hash = toHash(index);
 	return table[hash];

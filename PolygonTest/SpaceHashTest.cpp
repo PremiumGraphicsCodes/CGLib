@@ -94,17 +94,17 @@ TEST(SpaceHashTest, TestAxisZ)
 	hash.add(&p2);
 	hash.add(&p3);
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 5.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 5.0), 0.5f);
 		EXPECT_EQ(1, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
 		EXPECT_EQ(0, actual.size());
 	}
 
 	{
-		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 4.0));
+		auto actual = hash.getNeighbor(Vector3d<float>(0.0, 0.0, 4.0), 0.5f);
 		EXPECT_EQ(0, actual.size());
 	}
 }

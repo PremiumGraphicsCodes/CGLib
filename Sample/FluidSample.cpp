@@ -49,7 +49,7 @@ void FluidSample::demonstrate()
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	Box<float> boundary(Vector3d<float>(-21.0, -1.0f, -1.0), Vector3d<float>(21.0, 20.0, 11.0));
+	Box<float> boundary(Vector3d<float>(-21.0, -1.0f, -2.0), Vector3d<float>(21.0, 20.0, 12.0));
 
 	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, effectLength) );
 
@@ -68,12 +68,11 @@ void FluidSample::demonstrate()
 	renderer.render(camera, buffer, 10.0f);
 	*/
 	PointLight<float> light;
-	light.setPos(Vector3d <float>(10.0, 10.0, 10.0));
+	light.setPos(Vector3d <float>(-10.0, -10.0, 10.0));
 	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-	light.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+	//light.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
 
 	/*
-	
 	TriangleBuffer buffer;
 	buffer.add(*polygon);
 	renderer.render(camera, light, buffer);
