@@ -4,6 +4,7 @@
 #include "Vertex.h"
 #include "../Math/Sphere.h"
 #include "../Math/Box.h"
+#include "../Math/Index3d.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -40,9 +41,9 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	VolumeObject toVolume() const;
+	VolumeObject toVolume(const Math::Box<float>& box, Math::Index3d resolution) const;
 
-	PolygonObject* toPolygon(const float isolevel) const;
+	PolygonObject* toPolygon(const float isolevel,const Math::Box<float>& box, Math::Index3d resolution) const;
 
 private:
 

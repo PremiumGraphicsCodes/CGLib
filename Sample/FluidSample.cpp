@@ -23,10 +23,10 @@ using namespace Crystal::Shader;
 void FluidSample::setup()
 {
 	std::vector<SPHParticle*> particles;
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 10; ++j) {
-			for (int k = 0; k < 100; ++k) {
-				Vector3d<float> pos(i * 1.0f - 100.0f, j * 1.0f - 2.0f, k * 1.0f);
+			for (int k = 0; k < 10; ++k) {
+				Vector3d<float> pos(i * 1.0f, j * 1.0f, k * 1.0f);
 				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
 				particles.push_back(p);
 			}
@@ -48,7 +48,9 @@ void FluidSample::demonstrate()
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(1000.0f) );
+	Box<float> boundary(Vector3d<float>(-10.0, -2.0f, -10.0), Vector3d<float>(10.0, 10.0, 10.0));
+
+	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(10.0f, boundary, Index3d(20, 20, 20) ) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(0.0, 0.0, -10.0));
@@ -68,7 +70,12 @@ void FluidSample::demonstrate()
 	light.setPos(Vector3d <float>(10.0, 10.0, -10.0));
 	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
 
+	/*
 	TriangleBuffer buffer;
 	buffer.add(*polygon);
 	renderer.render(camera, light, buffer);
+	*/
+	LineBuffer buffer;
+	buffer.add(*polygon);
+	renderer.render(camera, buffer);
 }

@@ -5,6 +5,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Math/Box.h"
+#include "../Math/Index3d.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -54,7 +55,7 @@ public:
 
 	Polygon::ParticleObject* toParticleObject() const;
 
-	Polygon::PolygonObject* toPolygonObject(const float isolevel) const;
+	Polygon::PolygonObject* toPolygonObject(const float isolevel,const Math::Box<float>& box, Math::Index3d resolution) const;
 
 private:
 	std::vector<SPHParticle*> particles;
