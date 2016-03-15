@@ -50,6 +50,7 @@
     <ClCompile Include="Matrix3d.cpp" />
     <ClCompile Include="Matrix4d.cpp" />
     <ClCompile Include="Plane3d.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Sphere.cpp" />
