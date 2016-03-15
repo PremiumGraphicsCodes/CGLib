@@ -23,6 +23,12 @@ public:
 	std::array<OctTree, 8> createChildren();
 
 	bool isEmpty() const;
+
+	bool equals(const OctTree& rhs) const;
+
+	bool operator==(const OctTree& rhs) const;
+
+	bool operator!=(const OctTree& rhs) const;
 private:
 	std::vector<Particle*> particles;
 	Math::Space3d<float> space;
