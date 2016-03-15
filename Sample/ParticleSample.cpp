@@ -1,6 +1,7 @@
-#include "VolumeSample.h"
+#include "ParticleSample.h"
 
 #include "../Math/Space3d.h"
+#include "../Math/Sphere.h"
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/LineBuffer.h"
@@ -11,17 +12,14 @@ using namespace Crystal::Polygon;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void VolumeSample::setup()
+void ParticleSample::setup()
 {
-	Space3d<float> space(Vector3d<float>(0, 0,0), Vector3d<float>(1,1,1));
-	Grid3d<float> grid(4, 4, 4);
-	grid.set(0, 0, 0, 1.0f);
-	grid.set(1, 1, 1, 1.0f);
-	volume = std::make_unique<VolumeObject>(space, grid);
-	polygon.reset(volume->toPolygonObject(0.5f));
+	particle = std::make_unique<ParticleObject>();
+	Sphere<float> sphere(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f);
+	particle->add(sphere, 0.1f, 1.0f);
 }
 
-void VolumeSample::demonstrate()
+void ParticleSample::demonstrate()
 {
 	glEnable(GL_DEPTH_TEST);
 
@@ -33,10 +31,12 @@ void VolumeSample::demonstrate()
 
 	LegacyRenderer renderer;
 	PointBuffer buffer;
-	buffer.add(*volume);
+	buffer.add(*particle);
 	renderer.render(camera, buffer);
 
+	/*
 	LineBuffer lineBuffer;
 	lineBuffer.add(*polygon);
 	renderer.render(camera, lineBuffer);
+	*/
 }

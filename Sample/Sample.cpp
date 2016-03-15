@@ -11,6 +11,7 @@
 #include "BulletSample.h"
 #include "IOSample.h"
 #include "VolumeSample.h"
+#include "ParticleSample.h"
 
 inline void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods) { TwEventMouseButtonGLFW(button, action); }
 inline void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos) { TwMouseMotion(int(xpos), int(ypos)); }
@@ -57,6 +58,12 @@ void TW_CALL onVolume(void*)
 	activeSample->setup();
 }
 
+void TW_CALL onParticle(void*)
+{
+	activeSample = std::make_unique<ParticleSample>();
+	activeSample->setup();
+}
+
 int main(int argc, char* argv)
 {
 	if (!glfwInit()) {
@@ -82,6 +89,8 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
 	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
+	TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");
+
 
 	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);
