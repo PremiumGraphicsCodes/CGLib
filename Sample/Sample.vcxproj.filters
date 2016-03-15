@@ -21,6 +21,9 @@
     <ClCompile Include="BulletSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="VolumeSample.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -44,6 +47,9 @@
     <ClInclude Include="BulletSample.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="VolumeSample.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
@@ -54,6 +60,9 @@
     </Filter>
     <Filter Include="IO">
       <UniqueIdentifier>{5953bcab-3ee1-4ad5-8cf1-901dd140ad8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Polygon">
+      <UniqueIdentifier>{781110b5-86ee-4f97-a4e0-fbda037c63da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

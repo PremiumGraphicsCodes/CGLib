@@ -10,6 +10,7 @@
 #include "CouplingSample.h"
 #include "BulletSample.h"
 #include "IOSample.h"
+#include "VolumeSample.h"
 
 inline void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods) { TwEventMouseButtonGLFW(button, action); }
 inline void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos) { TwMouseMotion(int(xpos), int(ypos)); }
@@ -50,6 +51,12 @@ void TW_CALL onIO(void*)
 	activeSample->setup();
 }
 
+void TW_CALL onVolume(void*)
+{
+	activeSample = std::make_unique<VolumeSample>();
+	activeSample->setup();
+}
+
 int main(int argc, char* argv)
 {
 	if (!glfwInit()) {
@@ -74,6 +81,7 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
 	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
+	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
 
 	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);

@@ -1,0 +1,36 @@
+#include "VolumeSample.h"
+
+#include "../Math/Space3d.h"
+#include "../Graphics/PerspectiveCamera.h"
+#include "../Graphics/PointBuffer.h"
+#include "../Shader/LegacyRenderer.h"
+
+using namespace Crystal::Math;
+using namespace Crystal::Polygon;
+using namespace Crystal::Graphics;
+using namespace Crystal::Shader;
+
+void VolumeSample::setup()
+{
+	Space3d<float> space(Vector3d<float>(0, 0,0), Vector3d<float>(1,1,1));
+	Grid3d<float> grid(4, 4, 4);
+	grid.set(0, 0, 0, 1.0f);
+	volume = std::make_unique<VolumeObject>(space, grid);
+}
+
+void VolumeSample::demonstrate()
+{
+	glEnable(GL_DEPTH_TEST);
+
+	PerspectiveCamera<float> camera;
+	camera.moveTo(Vector3d<float>(0.0, -5.0, -5.0));
+	camera.setCameraXY();
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	LegacyRenderer renderer;
+	PointBuffer buffer;
+	buffer.add(*volume);
+	renderer.render(camera, buffer);
+
+}
