@@ -13,14 +13,15 @@ namespace Crystal {
 class OctTree
 {
 public:
-
 	OctTree() {};
 
 	OctTree(const Math::Space3d<float>& space);
 	
 	void add(Particle* particle) { this->particles.push_back(particle); }
 
-	std::array<OctTree, 8> createChildren();
+	std::vector<OctTree> createChildren() const;
+
+	std::vector<OctTree> createChildren(const int depth) const;
 
 	bool isEmpty() const;
 
@@ -29,6 +30,7 @@ public:
 	bool operator==(const OctTree& rhs) const;
 
 	bool operator!=(const OctTree& rhs) const;
+
 private:
 	std::vector<Particle*> particles;
 	Math::Space3d<float> space;
