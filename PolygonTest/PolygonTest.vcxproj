@@ -22,6 +22,7 @@
     <ClCompile Include="ActorObjectTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
+    <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PolygonObjectTest.cpp" />

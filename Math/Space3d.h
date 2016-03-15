@@ -23,6 +23,8 @@ public:
 
 	static Space3d<T> Unit() { return Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1)); }
 
+	bool isInner(const Math::Vector3d<float>& position) const;
+
 	Vector3d<T> getStart() const { return origin; }
 
 	Vector3d<T> getLengths() const { return vector; }
@@ -57,8 +59,6 @@ public:
 	bool operator==(const Space3d& rhs) const { return equals(rhs); }
 
 	bool operator!=(const Space3d& rhs) const { return !equals(rhs); }
-
-	Space3d<T> getSubSpace(const Index3d index) const;
 
 	Space3d<T> getSubSpace(const Index3d index, const unsigned int xdiv, const unsigned int ydiv, const unsigned int zdiv) const;
 

@@ -25,6 +25,7 @@
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="PolygonObject.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
+    <ClInclude Include="OctTree.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="Face.h" />
