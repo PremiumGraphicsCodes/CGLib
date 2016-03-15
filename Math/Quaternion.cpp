@@ -1,5 +1,7 @@
 #include "Quaternion.h"
 
+#include "Matrix3d.h"
+
 using namespace Crystal::Math;
 
 template<typename T>
@@ -78,6 +80,25 @@ template<typename T>
 bool Quaternion<T>::isNormalized() const
 {
 	return Tolerance<T>::isEqualStrictly(getNorm(), 1.0);
+}
+
+template<typename T>
+void Quaternion<T>::getMult(const Quaternion& q1, const Quaternion& q2)
+{
+	const auto pw = q1.getW();
+	const auto px = q1.getX();
+	const auto py = q1.getY();
+	const auto pz = q1.getZ();
+
+	const auto qw = q2.getW();
+	const auto qx = q2.getX();
+	const auto qy = q2.getY();
+	const auto qz = q2.getZ();
+
+	this->w = pw * qw - px * qx - py * qy - pz * qz;
+	this->x = pw * qx + px * qw + py * qz - pz * qy;
+	this->y = pw * qy - px * qz + py * qw + pz * qx;
+	this->z = pw * qz + px * qy - py * qx + pz * qw;
 }
 
 

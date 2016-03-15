@@ -49,6 +49,8 @@ public:
 	~FaceCollection() {
 	}
 
+	void add(const FaceCollection& rhs);
+
 	Face* create(Vertex* v1, Vertex* v2, Vertex* v3) {
 		auto f = new Face(v1, v2, v3);
 		faces.push_back(f);

@@ -2,10 +2,12 @@
 #define __CRYSTAL_MATH_QUATERNION_H__
 
 #include "Vector3d.h"
-#include "Matrix3d.h"
 
 namespace Crystal{
 	namespace Math{
+
+template<typename>
+class Matrix3d;
 
 template<typename T>
 class Quaternion
@@ -43,22 +45,7 @@ public:
 
 	void setW( const T w ) { this->w = w; }
 
-	void getMult(const Quaternion& q1, const Quaternion& q2) {
-		const auto pw = q1.getW();
-		const auto px = q1.getX();
-		const auto py = q1.getY();
-		const auto pz = q1.getZ();
-
-		const auto qw = q2.getW();
-		const auto qx = q2.getX();
-		const auto qy = q2.getY();
-		const auto qz = q2.getZ();
-
-		this->w = pw * qw - px * qx - py * qy - pz * qz;
-		this->x = pw * qx + px * qw + py * qz - pz * qy;
-		this->y = pw * qy - px * qz + py * qw + pz * qx;
-		this->z = pw * qz + px * qy - py * qx + pz * qw;
-	}
+	void getMult(const Quaternion& q1, const Quaternion& q2);
 
 private:
 	T x;

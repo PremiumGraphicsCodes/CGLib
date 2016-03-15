@@ -17,6 +17,7 @@ void ParticleSample::setup()
 	particle = std::make_unique<ParticleObject>();
 	Sphere<float> sphere(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f);
 	particle->add(sphere, 0.1f, 1.0f);
+	//particle->toVolumes(1.25f);
 }
 
 void ParticleSample::demonstrate()

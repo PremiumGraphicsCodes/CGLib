@@ -34,6 +34,24 @@ namespace {
 	}
 }
 
+Vertex::Vertex(const unsigned int id, const Vector3d<float>& position) :
+	id(id),
+	position(position)
+{}
+
+Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal) :
+	id(id),
+	position(position),
+	normal(normal)
+{}
+
+Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal, const Vector3d<float>& texCoord) :
+	id(id),
+	position(position),
+	normal(normal),
+	texCoord(texCoord)
+{}
+
 
 void VertexCollection::sort()
 {
@@ -52,4 +70,10 @@ Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> norma
 	auto v = new Vertex(nextId++, position, normal, texCoord);
 	vertices.push_back(v);
 	return v;
+}
+
+void VertexCollection::add(const VertexCollection& rhs)
+{
+	vertices.insert(vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
+	sort();
 }

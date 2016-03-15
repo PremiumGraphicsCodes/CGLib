@@ -18,10 +18,10 @@ std::vector< OctTree > OctTree::createChildren() const
 	for (int i = 0; i < 8; ++i) {
 		OctTree result(spaces[i]);
 		//spaces[i].offset(particle)
-		const auto offsetLength = -particles.front()->getRadius();
-		const auto expanded = spaces[i].offset( Vector3d<float>(offsetLength, offsetLength, offsetLength ) );
+		//const auto offsetLength = -particles.front()->getRadius();
+		//const auto expanded = spaces[i].offset( Vector3d<float>(offsetLength, offsetLength, offsetLength ) );
 		for (const auto p : particles) {
-			if (expanded.isInner(p->getPosition())) {
+			if (spaces[i].isInner(p->getPosition())) {
 				result.add(p);
 			}
 		}
@@ -69,4 +69,9 @@ bool OctTree::operator==(const OctTree& rhs) const
 bool OctTree::operator!=(const OctTree& rhs) const
 {
 	return !equals(rhs);
+}
+
+Box<float> OctTree::getBoundingBox() const
+{
+	return Box<float>(space.getStart(), space.getEnd());
 }

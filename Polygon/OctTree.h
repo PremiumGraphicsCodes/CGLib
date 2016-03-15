@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../Math/Space3d.h"
+#include "../Math/Box.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -30,6 +31,8 @@ public:
 	bool operator==(const OctTree& rhs) const;
 
 	bool operator!=(const OctTree& rhs) const;
+
+	Math::Box<float> getBoundingBox() const;
 
 private:
 	std::vector<Particle*> particles;

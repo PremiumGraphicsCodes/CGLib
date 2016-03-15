@@ -43,7 +43,11 @@ public:
 
 	VolumeObject toVolume(const Math::Box<float>& box, const float effectLength) const;
 
-	PolygonObject* toPolygon(const float isolevel,const Math::Box<float>& box, const float effectLength) const;
+	std::vector<VolumeObject> toVolumes(const float effectLength) const;
+
+	PolygonObject* toPolygon(const Math::Box<float> box, const float isolevel, const float effectLength) const;
+
+	//std::vector<PolygonObject*> toPolygons(const float isolevel, const float effectLength) const;
 
 private:
 

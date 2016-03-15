@@ -16,25 +16,11 @@ class Face;
 class Vertex
 {
 public:
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position) :
-		id(id),
-		position(position)
-	{}
+	Vertex(const unsigned int id, const Math::Vector3d<float>& position);
 
+	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal);
 
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal) :
-		id(id),
-		position(position),
-		normal(normal)
-	{}
-
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector3d<float>& texCoord) :
-		id(id),
-		position(position),
-		normal(normal),
-		texCoord(texCoord)
-	{}
-
+	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector3d<float>& texCoord);
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
@@ -69,10 +55,13 @@ public:
 		nextId(0)
 	{}
 
-	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
-
 	~VertexCollection() {
 	}
+
+
+	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
+
+	void add(const VertexCollection& rhs);
 
 	void clear() {
 		for (auto v : vertices) {

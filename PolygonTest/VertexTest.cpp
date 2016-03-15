@@ -5,7 +5,14 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
 
-
+TEST(VertexCollectionTest, TestAdd)
+{
+	VertexCollection vertices1;
+	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	VertexCollection vertices2;
+	vertices2.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
+	vertices1.add(vertices2);
+}
 
 
 

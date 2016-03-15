@@ -167,6 +167,13 @@ void PolygonObject::add(const Sphere<float>& sphere, const int udiv, const int v
 	;
 }
 
+void PolygonObject::add(PolygonObject* rhs)
+{
+	this->vertices.add(rhs->vertices);
+	this->faces.add(rhs->faces);
+}
+
+
 
 void PolygonObject::clear()
 {

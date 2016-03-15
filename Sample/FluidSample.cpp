@@ -51,7 +51,7 @@ void FluidSample::demonstrate()
 
 	Box<float> boundary(Vector3d<float>(-21.0, -1.0f, -2.0), Vector3d<float>(21.0, 20.0, 12.0));
 
-	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(200.0f, boundary, effectLength) );
+	std::unique_ptr<PolygonObject> polygon( fluid->toPolygonObject(boundary, 200.0f, effectLength) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(0.0, -5.0, -20.0));

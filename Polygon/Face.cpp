@@ -42,3 +42,8 @@ void Face::replace(Vertex* oldVertex, Vertex* newVertex) {
 		assert(false);
 	}
 }
+
+void FaceCollection::add(const FaceCollection& rhs)
+{
+	this->faces.insert(this->faces.end(), rhs.begin(), rhs.end());
+}

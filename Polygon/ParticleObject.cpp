@@ -3,6 +3,7 @@
 
 #include "../Math/Sphere.h"
 #include "VolumeObject.h"
+#include "PolygonObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
@@ -100,24 +101,23 @@ namespace {
 	}
 }
 
-
+#include "OctTree.h"
 
 VolumeObject ParticleObject::toVolume(const Box<float>& box, const float effectLength) const
 {
 	const auto dx = effectLength;
-
 	auto bb = box;
 	bb.outerOffset(dx*0.5);
 
 	SpaceHash spaceHash(effectLength, 1000);
 
 	std::vector< std::vector< std::vector<Particle*>>> samplings;
-	for (float x = bb.getMinX(); x < bb.getMaxX(); x+=dx/1.0) {
+	for (float x = bb.getMinX(); x < bb.getMaxX(); x += dx / 1.0) {
 		std::vector<std::vector<Particle*>> ys;
-		for (float y = bb.getMinY(); y < bb.getMaxY(); y += dx/1.0) {
+		for (float y = bb.getMinY(); y < bb.getMaxY(); y += dx / 1.0) {
 			std::vector<Particle*> zs;
-			for (float z = bb.getMinZ(); z < bb.getMaxZ(); z += dx/1.0) {
-				Particle* p= new Particle(Vector3d<float>(x, y, z), 0.0f, dx * 0.5f);
+			for (float z = bb.getMinZ(); z < bb.getMaxZ(); z += dx / 1.0) {
+				Particle* p = new Particle(Vector3d<float>(x, y, z), 0.0f, dx * 0.5f);
 				zs.push_back(p);
 				spaceHash.add(p);
 			}
@@ -151,8 +151,39 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, const float effectL
 	return VolumeObject(space, grid);
 }
 
-PolygonObject* ParticleObject::toPolygon(const float isolevel, const Box<float>& box, const float effectLength) const
+
+std::vector<VolumeObject> ParticleObject::toVolumes(const float effectLength) const
 {
-	const auto& volume = toVolume(box,effectLength);
-	return volume.toPolygonObject(isolevel);
+	std::vector<VolumeObject> results;
+	const auto dx = effectLength;
+
+	Vector3d<float> start(-32.0f, -32.0f, -32.0f);
+	Vector3d<float> length(64.0f, 64.0f, 64.0f);
+	OctTree tree( Space3d<float>( start, length) );
+	for (const auto p : particles) {
+		tree.add(p);
+	}
+
+	const auto& children = tree.createChildren(1);
+	for (const auto& child : children) {
+		results.push_back(toVolume(child.getBoundingBox(), effectLength));
+	}
+	return results;
 }
+
+PolygonObject* ParticleObject::toPolygon(const Box<float> box, const float isolevel, const float effectLength) const
+{
+	auto v = toVolume(box, effectLength);
+	return v.toPolygonObject(isolevel);
+	/*
+	const auto& volumes = toVolumes(effectLength);
+	PolygonObject* result = new PolygonObject();
+	for (const auto& v : volumes) {
+		PolygonObject* p = v.toPolygonObject(isolevel);
+		result->add( p );
+		delete p;
+	}
+	return result;
+	*/
+}
+

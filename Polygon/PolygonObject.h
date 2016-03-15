@@ -41,6 +41,8 @@ public:
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
 
+	void add(PolygonObject* rhs);
+
 	void removeOverlappedVertices() { vertices.sort(); }
 
 	Vertex* createVertex(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
