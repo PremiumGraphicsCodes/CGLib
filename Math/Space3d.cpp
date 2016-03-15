@@ -22,6 +22,11 @@ bool Space3d<T>::isInner(const Vector3d<float>& position) const
 	return xin && yin && zin;
 }
 
+template<typename T>
+bool Space3d<T>::isOuter(const Vector3d<float>& position) const
+{
+	return !isInner(position);
+}
 
 template<typename T>
 std::array< Vector3d<T>, 8 > Space3d<T>::toArray() const {
@@ -157,6 +162,50 @@ bool Space3d<T>::hasIntersection(const Space3d<T>& rhs) const
 	const auto lz = getLengths().getZ() * 0.5 + rhs.getLengths().getZ() * 0.5;
 
 	return (distx < lx && disty < ly && distz < lz);
+}
+
+template<typename T>
+T Space3d<T>::getVolume() const
+{
+	return vector.getX() * vector.getY() * vector.getZ();
+}
+
+template<typename T>
+void Space3d<T>::move(const Vector3d<T>& v)
+{
+	moveStart(v);
+	moveEnd(v);
+}
+
+template<typename T>
+Space3d<T> Space3d<T>::moveStart(const Vector3d<T>& v) const
+{
+	return Space3d<T>(origin + v, vector - v);
+}
+
+template<typename T>
+void Space3d<T>::moveStart(const Vector3d<T>& v)
+{
+	origin += v;
+	vector -= v;
+}
+
+template<typename T>
+void Space3d<T>::moveEnd(const Vector3d<T>& v)
+{
+	vector += v;
+}
+
+template<typename T>
+Space3d<T> Space3d<T>::moveEnd(const Vector3d<T>& v) const
+{
+	return Space3d<T>(origin, vector + v);
+}
+
+template<typename T>
+Space3d<T> Space3d<T>::offset(const Vector3d<T>& v) const
+{
+	return Space3d<T>(origin + v * 0.5, vector - v);
 }
 
 template<typename T>

@@ -8,10 +8,9 @@
 namespace Crystal {
 	namespace Math {
 
-
-
 template< typename T >
-class Space3d final {
+class Space3d final
+{
 public:
 	Space3d() = default;
 
@@ -25,11 +24,13 @@ public:
 
 	bool isInner(const Math::Vector3d<float>& position) const;
 
+	bool isOuter(const Math::Vector3d<float>& position) const;
+
 	Vector3d<T> getStart() const { return origin; }
 
 	Vector3d<T> getLengths() const { return vector; }
 
-	T getVolume() const { return vector.getX() * vector.getY() * vector.getZ(); }
+	T getVolume() const;
 
 	Vector3d<T> getEnd() const { return origin + vector; }
 
@@ -37,22 +38,15 @@ public:
 
 	void scale(const Vector3d<T>& v) { vector.scale( v.getX(), v.getY(), v.getZ() ); }
 
-	Space3d moveStart(const Vector3d<T>& v) const { return Space3d<T>(origin + v, vector - v); }
+	Space3d moveStart(const Vector3d<T>& v) const;
 
-	void moveStart(const Vector3d<T>& v) {
-		origin += v;
-		vector -= v;
-	}
+	void moveStart(const Vector3d<T>& v);
 
-	Space3d<T> moveEnd(const Vector3d<T>& v) const { return Space3d<T>(origin, vector + v); }
+	Space3d<T> moveEnd(const Vector3d<T>& v) const;
 
-	void moveEnd(const Vector3d<T>& v) { vector += v; }
+	void moveEnd(const Vector3d<T>& v);
 
-	Space3d& move(const Vector3d<T>& v) {
-		moveStart(v);
-		moveEnd(v);
-		return (*this);
-	}
+	void move(const Vector3d<T>& v);
 
 	bool equals(const Space3d& rhs) const;
 
@@ -72,7 +66,7 @@ public:
 
 	Space3d getOverlapped(const Space3d& rhs) const;
 
-	Space3d<T> offset(const Vector3d<T>& v) const { return Space3d<T>(origin + v * 0.5, vector - v); }
+	Space3d<T> offset(const Vector3d<T>& v) const;
 
 	Space3d<T> getBoundingSpace(const Space3d<T>& rhs) const;
 

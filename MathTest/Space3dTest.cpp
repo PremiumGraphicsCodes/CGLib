@@ -162,10 +162,11 @@ TEST(Space3dTest, TestMove)
 {
 	using T = float;
 
-	EXPECT_EQ(
-		Space3d<T>(Vector3d<T>(1, 1, 1), Vector3d<T>(10, 10, 10)),
-		Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10)).move(Vector3d<T>(1, 1, 1))
-		);
+	Space3d<T> s0(Vector3d<T>(1, 1, 1), Vector3d<T>(10, 10, 10));
+	Space3d<T> s1(Vector3d<T>(0, 0, 0), Vector3d<T>(10, 10, 10));
+	s1.move(Vector3d<T>(1, 1, 1));
+
+	EXPECT_EQ(s0, s1);
 }
 
 TEST(Space3dTest, TestScale)
