@@ -17,7 +17,8 @@ std::vector< OctTree > OctTree::createChildren() const
 
 	for (int i = 0; i < 8; ++i) {
 		OctTree result(spaces[i]);
-		//spaces[i].offset(particle)
+		//const float effectLength = 1.25f * 0.5f;
+		//spaces[i].offset( Vector3d<float>(effectLength, effectLength, effectLength));
 		//const auto offsetLength = -particles.front()->getRadius();
 		//const auto expanded = spaces[i].offset( Vector3d<float>(offsetLength, offsetLength, offsetLength ) );
 		for (const auto p : particles) {

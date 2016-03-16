@@ -156,14 +156,14 @@ std::vector<VolumeObject*> ParticleObject::toVolumes(const float effectLength) c
 {
 	const auto dx = effectLength;
 
-	Vector3d<float> start(-32.0f, -32.0f, -32.0f);
-	Vector3d<float> length(64.0f, 64.0f, 64.0f);
+	Vector3d<float> start(-128.0f, -128.0f, -128.0f);
+	Vector3d<float> length(256.0f, 256.0f, 256.0f);
 	OctTree tree( Space3d<float>( start, length) );
 	for (const auto p : particles) {
 		tree.add(p);
 	}
 
-	auto& children = tree.createChildren(Vector3d<float>(16.0f, 16.0f, 16.0f));
+	std::vector<OctTree> children = tree.createChildren(Vector3d<float>(16.0f, 16.0f, 16.0f));
 	//for (const auto& child : children) {
 	std::vector<ParticleObject*> cp;
 
@@ -182,7 +182,7 @@ std::vector<VolumeObject*> ParticleObject::toVolumes(const float effectLength) c
 	return results;
 }
 
-PolygonObject* ParticleObject::toPolygon(const Box<float> box, const float isolevel, const float effectLength) const
+PolygonObject* ParticleObject::toPolygon(const float isolevel, const float effectLength) const
 {
 	/*
 	auto v = toVolume(box, effectLength);

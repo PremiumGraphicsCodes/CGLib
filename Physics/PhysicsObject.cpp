@@ -125,8 +125,8 @@ ParticleObject* PhysicsObject::toParticleObject() const
 	return new ParticleObject(ps);
 }
 
-PolygonObject* PhysicsObject::toPolygonObject(const Box<float> box, const float isolevel, const float effectLength) const
+PolygonObject* PhysicsObject::toPolygonObject(const float isolevel, const float effectLength) const
 {
 	std::unique_ptr<ParticleObject> particleObject( toParticleObject() );
-	return particleObject->toPolygon(box, isolevel, effectLength);
+	return particleObject->toPolygon(isolevel, effectLength);
 }
