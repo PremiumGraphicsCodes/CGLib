@@ -24,7 +24,7 @@ TEST(ParticleObjectTest, TestToVolumeBox)
 	auto actual = object.toVolume(box, 0.5f);
 }
 
-TEST(PolygonObjectTest, TestToVolumeSphere)
+TEST(ParticleObjectTest, TestToVolumeSphere)
 {
 	Sphere<float> sphere1(Vector3d<float>(0.0, 0.0, 0.0), 0.5f);
 	Sphere<float> sphere2(Vector3d<float>(0.0, 0.5, 0.0), 0.5f);

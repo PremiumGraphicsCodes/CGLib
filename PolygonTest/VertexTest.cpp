@@ -5,13 +5,15 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
 
-TEST(VertexCollectionTest, TestAdd)
+TEST(VertexCollectionTest, TestMerge)
 {
 	VertexCollection vertices1;
 	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
 	VertexCollection vertices2;
-	vertices2.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
-	vertices1.add(vertices2);
+	vertices2.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	vertices1.merge(vertices2);
+	EXPECT_EQ( 2, vertices1.size() );
+	EXPECT_EQ( 0, vertices2.size() );
 }
 
 

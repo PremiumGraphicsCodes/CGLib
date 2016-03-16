@@ -12,7 +12,6 @@ namespace Crystal {
 class Vertex;
 class Face;
 
-
 class Vertex
 {
 public:
@@ -46,33 +45,19 @@ private:
 class VertexCollection
 {
 public:
-	VertexCollection() :
-		nextId(0)
-	{}
+	VertexCollection();
 
-	VertexCollection(const std::vector<Vertex*>& vertices) :
-		vertices( vertices ),
-		nextId(0)
-	{}
+	VertexCollection(const std::vector<Vertex*>& vertices);
 
-	~VertexCollection() {
-	}
-
+	~VertexCollection();
 
 	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
 
-	void add(const VertexCollection& rhs);
+	void merge(VertexCollection& rhs);
 
-	void clear() {
-		for (auto v : vertices) {
-			delete v;
-		}
-		vertices.clear();
-	}
+	void clear();
 
-	bool hasVertex(Vertex* v) {
-		return (std::find(vertices.begin(), vertices.end(), v) != vertices.end());
-	}
+	bool hasVertex(Vertex* v);
 
 	void sort();
 

@@ -17,7 +17,6 @@ public:
 
 	void replace(Vertex* oldVertex, Vertex* newVertex);
 
-
 	Vertex* getV1() const { return v1; }
 
 	Vertex* getV2() const { return v2; }
@@ -39,30 +38,17 @@ private:
 class FaceCollection
 {
 public:
-	FaceCollection()
-	{}
+	FaceCollection();
 
-	FaceCollection(const std::vector<Face*>& faces) :
-		faces(faces)
-	{}
+	FaceCollection(const std::vector<Face*>& faces);
 
-	~FaceCollection() {
-	}
+	~FaceCollection();
 
-	void add(const FaceCollection& rhs);
+	void merge(FaceCollection& rhs);
 
-	Face* create(Vertex* v1, Vertex* v2, Vertex* v3) {
-		auto f = new Face(v1, v2, v3);
-		faces.push_back(f);
-		return f;
-	}
+	Face* create(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	void clear() {
-		for (auto f : faces) {
-			delete f;
-		}
-		faces.clear();
-	}
+	void clear();
 
 	using iterator = std::vector<Face*>::iterator;
 	using const_iterator = std::vector<Face*>::const_iterator;

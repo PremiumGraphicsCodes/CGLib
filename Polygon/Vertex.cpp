@@ -52,6 +52,23 @@ Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vec
 	texCoord(texCoord)
 {}
 
+VertexCollection::VertexCollection() : nextId(0)
+{}
+
+VertexCollection::VertexCollection(const std::vector<Vertex*>& vertices) :
+	vertices(vertices),
+	nextId(0)
+{}
+
+VertexCollection::~VertexCollection()
+{
+}
+
+bool VertexCollection::hasVertex(Vertex* v)
+{
+	return (std::find(vertices.begin(), vertices.end(), v) != vertices.end());
+}
+
 
 void VertexCollection::sort()
 {
@@ -72,8 +89,20 @@ Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> norma
 	return v;
 }
 
-void VertexCollection::add(const VertexCollection& rhs)
+void VertexCollection::merge(VertexCollection& rhs)
 {
 	vertices.insert(vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
-	sort();
+	int nextId = 0;
+	for (auto v : vertices) {
+		v->id = nextId++;
+	}
+	rhs.vertices.clear();
+}
+
+void VertexCollection::clear()
+{
+	for (auto v : vertices) {
+		delete v;
+	}
+	vertices.clear();
 }

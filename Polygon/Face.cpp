@@ -28,7 +28,8 @@ Vertex* Face::find(Vertex* v)
 }
 
 
-void Face::replace(Vertex* oldVertex, Vertex* newVertex) {
+void Face::replace(Vertex* oldVertex, Vertex* newVertex)
+{
 	if (oldVertex == v1) {
 		v1 = newVertex;
 	}
@@ -43,7 +44,34 @@ void Face::replace(Vertex* oldVertex, Vertex* newVertex) {
 	}
 }
 
-void FaceCollection::add(const FaceCollection& rhs)
+FaceCollection::FaceCollection()
+{}
+
+FaceCollection::FaceCollection(const std::vector<Face*>& faces) :
+	faces(faces)
+{}
+
+FaceCollection::~FaceCollection()
 {
-	this->faces.insert(this->faces.end(), rhs.begin(), rhs.end());
+}
+
+void FaceCollection::merge(FaceCollection& rhs)
+{
+	this->faces.insert(this->faces.end(), rhs.faces.begin(), rhs.faces.end());
+	rhs.faces.clear();
+}
+
+Face* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
+{
+	auto f = new Face(v1, v2, v3);
+	faces.push_back(f);
+	return f;
+}
+
+void FaceCollection::clear()
+{
+	for (auto f : faces) {
+		delete f;
+	}
+	faces.clear();
 }

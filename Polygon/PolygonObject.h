@@ -41,7 +41,7 @@ public:
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
 
-	void add(PolygonObject* rhs);
+	void merge(PolygonObject* rhs);
 
 	void removeOverlappedVertices() { vertices.sort(); }
 
