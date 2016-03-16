@@ -16,9 +16,9 @@ Space3d<T>::Space3d(const Vector3d<T>& origin, const Vector3d<T>& length) :
 template<typename T>
 bool Space3d<T>::isInner(const Vector3d<float>& position) const
 {
-	const bool xin = (getStart().getX() <= position.getX()) && (position.getX() <= getEnd().getX());
-	const bool yin = (getStart().getY() <= position.getY()) && (position.getY() <= getEnd().getY());
-	const bool zin = (getStart().getZ() <= position.getZ()) && (position.getZ() <= getEnd().getZ());
+	const bool xin = (getStart().getX() <= position.getX()) && (position.getX() < getEnd().getX());
+	const bool yin = (getStart().getY() <= position.getY()) && (position.getY() < getEnd().getY());
+	const bool zin = (getStart().getZ() <= position.getZ()) && (position.getZ() < getEnd().getZ());
 	return xin && yin && zin;
 }
 

@@ -43,9 +43,5 @@ TEST(ParticleObjectTest, TestToVolumes)
 	Particle p( Vector3d<float>(1.0f, 1.0f, 1.0f),1.0f, 1.0f);
 	object.add(p);
 	const auto& volumes = object.toVolumes(1.0f);
-	std::vector<PolygonObject*> polygons;
-	for (auto v : volumes) {
-		auto polygon = v.toPolygonObject(0.5f);
-		polygons.push_back(polygon);
-	}
+	EXPECT_EQ(1, volumes.size());
 }

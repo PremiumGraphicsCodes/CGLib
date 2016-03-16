@@ -164,7 +164,7 @@ std::vector<VolumeObject> ParticleObject::toVolumes(const float effectLength) co
 		tree.add(p);
 	}
 
-	const auto& children = tree.createChildren(1);
+	const auto& children = tree.createChildren(Vector3d<float>(effectLength, effectLength, effectLength));
 	for (const auto& child : children) {
 		results.push_back(toVolume(child.getBoundingBox(), effectLength));
 	}
