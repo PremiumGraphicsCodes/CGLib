@@ -33,17 +33,29 @@ std::vector< OctTree > OctTree::createChildren() const
 	return results;
 }
 
+std::vector<OctTree> OctTree::createChildren(const Vector3d<float>& length) const
+{
+	const auto howMany2 = static_cast<int>( space.getLengths().getX() / length.getX());
+	const int howMany = std::log2f(howMany2);
+	return createChildren(howMany);
+}
+
+
 std::vector<OctTree> OctTree::createChildren(const int depth) const
 {
-	assert(depth >= 1);
+	assert(depth >= 0);
 
+	if (depth == 0) {
+		return{ *this };
+	}
 	if (depth == 1) {
 		return createChildren();
 	}
 	const auto& children = createChildren();
 	std::vector<OctTree> results;
 	for (const auto& child : children) {
-		results = child.createChildren(depth-1);
+		const auto& rs = child.createChildren(depth-1);
+		results.insert(results.end(), rs.begin(), rs.end());
 	}
 	return results;
 }

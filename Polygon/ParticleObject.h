@@ -47,7 +47,7 @@ public:
 
 	PolygonObject* toPolygon(const Math::Box<float> box, const float isolevel, const float effectLength) const;
 
-	//std::vector<PolygonObject*> toPolygons(const float isolevel, const float effectLength) const;
+	std::vector<PolygonObject*> toPolygons(const float isolevel, const float effectLength) const;
 
 private:
 

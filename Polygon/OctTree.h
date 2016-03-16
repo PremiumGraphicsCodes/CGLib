@@ -22,6 +22,8 @@ public:
 
 	std::vector<OctTree> createChildren() const;
 
+	std::vector<OctTree> createChildren(const Math::Vector3d<float>& length) const;
+
 	std::vector<OctTree> createChildren(const int depth) const;
 
 	bool isEmpty() const;

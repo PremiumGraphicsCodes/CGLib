@@ -32,5 +32,20 @@ TEST(ParticleObjectTest, TestToVolumeSphere)
 	ParticleObject object;
 	object.add(sphere1, 0.25f);
 	object.add(sphere2, 0.25f);
-	//auto actual = object.toVolume(box, Index3d(2, 2, 2));
+
+	Box<float> box(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 1.0));
+	auto actual = object.toVolume(box, 0.25f);
+}
+
+TEST(ParticleObjectTest, TestToVolumes)
+{
+	ParticleObject object;
+	Particle p( Vector3d<float>(1.0f, 1.0f, 1.0f),1.0f, 1.0f);
+	object.add(p);
+	const auto& volumes = object.toVolumes(1.0f);
+	std::vector<PolygonObject*> polygons;
+	for (auto v : volumes) {
+		auto polygon = v.toPolygonObject(0.5f);
+		polygons.push_back(polygon);
+	}
 }
