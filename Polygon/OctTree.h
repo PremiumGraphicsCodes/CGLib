@@ -36,6 +36,8 @@ public:
 
 	Math::Box<float> getBoundingBox() const;
 
+	std::vector<Particle*> getParticles() const { return particles; }
+
 private:
 	std::vector<Particle*> particles;
 	Math::Space3d<float> space;

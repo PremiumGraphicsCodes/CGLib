@@ -41,9 +41,9 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	VolumeObject toVolume(const Math::Box<float>& box, const float effectLength) const;
+	VolumeObject* toVolume(const Math::Box<float>& box, const float effectLength) const;
 
-	std::vector<VolumeObject> toVolumes(const float effectLength) const;
+	std::vector<VolumeObject*> toVolumes(const float effectLength) const;
 
 	PolygonObject* toPolygon(const Math::Box<float> box, const float isolevel, const float effectLength) const;
 

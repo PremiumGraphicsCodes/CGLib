@@ -103,13 +103,13 @@ namespace {
 
 #include "OctTree.h"
 
-VolumeObject ParticleObject::toVolume(const Box<float>& box, const float effectLength) const
+VolumeObject* ParticleObject::toVolume(const Box<float>& box, const float effectLength) const
 {
 	const auto dx = effectLength;
 	auto bb = box;
 	bb.outerOffset(dx*0.5);
 
-	SpaceHash spaceHash(effectLength, 1000);
+	SpaceHash spaceHash(effectLength, this->particles.size());
 
 	std::vector< std::vector< std::vector<Particle*>>> samplings;
 	for (float x = bb.getMinX(); x < bb.getMaxX(); x += dx / 1.0) {
@@ -148,13 +148,12 @@ VolumeObject ParticleObject::toVolume(const Box<float>& box, const float effectL
 			}
 		}
 	}
-	return VolumeObject(space, grid);
+	return new VolumeObject(space, grid);
 }
 
 
-std::vector<VolumeObject> ParticleObject::toVolumes(const float effectLength) const
+std::vector<VolumeObject*> ParticleObject::toVolumes(const float effectLength) const
 {
-	std::vector<VolumeObject> results;
 	const auto dx = effectLength;
 
 	Vector3d<float> start(-32.0f, -32.0f, -32.0f);
@@ -164,26 +163,39 @@ std::vector<VolumeObject> ParticleObject::toVolumes(const float effectLength) co
 		tree.add(p);
 	}
 
-	const auto& children = tree.createChildren(Vector3d<float>(effectLength, effectLength, effectLength));
-	for (const auto& child : children) {
-		results.push_back(toVolume(child.getBoundingBox(), effectLength));
+	auto& children = tree.createChildren(Vector3d<float>(16.0f, 16.0f, 16.0f));
+	//for (const auto& child : children) {
+	std::vector<ParticleObject*> cp;
+
+	for (int i = 0; i < children.size(); ++i) {
+		cp.push_back( new ParticleObject(children[i].getParticles()) );
+	}
+	std::vector<VolumeObject*> results(cp.size());
+
+
+#ifdef _OPENMP
+#pragma omp parallel for
+#endif
+	for (int i = 0; i < cp.size(); ++i) {
+		results[i] = cp[i]->toVolume( children[i].getBoundingBox(), effectLength);
 	}
 	return results;
 }
 
 PolygonObject* ParticleObject::toPolygon(const Box<float> box, const float isolevel, const float effectLength) const
 {
+	/*
 	auto v = toVolume(box, effectLength);
 	return v.toPolygonObject(isolevel);
-	/*
+*/
 	const auto& volumes = toVolumes(effectLength);
 	PolygonObject* result = new PolygonObject();
 	for (const auto& v : volumes) {
-		PolygonObject* p = v.toPolygonObject(isolevel);
-		result->add( p );
+		PolygonObject* p = v->toPolygonObject(isolevel);
+		result->merge( p );
 		delete p;
+		delete v;
 	}
 	return result;
-	*/
 }
 
