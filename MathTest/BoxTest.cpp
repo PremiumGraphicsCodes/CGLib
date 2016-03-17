@@ -88,3 +88,14 @@ TYPED_TEST(BoxTest, TestAdd)
 	const Box<T> expected(Vector3d<T>(-1, 0, 0), Vector3d<T>(3, 3, 3));
 	EXPECT_EQ(expected, b1);
 }
+
+#include "../Math/Space3d.h"
+
+TYPED_TEST(BoxTest, TestToSpace3d)
+{
+	using T = TypeParam;
+	Box<T> box(Vector3d<T>(-1, -1, -1), Vector3d<T>(2, 2, 2));
+	const auto& actual = box.toSpace();
+	Space3d<T> expected(Vector3d<T>(-1, -1, -1), Vector3d<T>(3, 3, 3));
+	EXPECT_EQ(expected, actual);
+}

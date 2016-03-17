@@ -12,7 +12,7 @@ TEST(OctTreeTest, CreateChildren)
 	OctTree tree(space);
 	EXPECT_TRUE( tree.isEmpty() );
 
-	Particle particle( Vector3d<float>( 0.5f, 0.5f, 0.5f), 1.0f, 0.5f);
+	Particle particle( Vector3d<float>( 0.5f, 0.5f, 0.5f), 1.0f, 0.25f);
 	tree.add(&particle);
 	EXPECT_FALSE( tree.isEmpty() );
 
@@ -33,7 +33,7 @@ TEST(OctTreeTest, CreateChildrenByDepth)
 	OctTree tree(space);
 	EXPECT_TRUE(tree.isEmpty());
 
-	Particle particle(Vector3d<float>(0.5f, 0.5f, 0.5f), 1.0f, 0.5f);
+	Particle particle(Vector3d<float>(0.5f, 0.5f, 0.5f), 1.0f, 0.25f);
 	tree.add(&particle);
 	EXPECT_FALSE(tree.isEmpty());
 
@@ -53,7 +53,7 @@ TEST(OctTreeTest, CreateChildrenByLength)
 	OctTree tree(space);
 	EXPECT_TRUE(tree.isEmpty());
 
-	Particle particle(Vector3d<float>(0.5f, 0.5f, 0.5f), 1.0f, 0.5f);
+	Particle particle(Vector3d<float>(0.5f, 0.5f, 0.5f), 1.0f, 0.25f);
 	tree.add(&particle);
 	EXPECT_FALSE(tree.isEmpty());
 
@@ -66,4 +66,14 @@ TEST(OctTreeTest, CreateChildrenByLength)
 		expected.add(&particle);
 		EXPECT_EQ(expected, actual.front());
 	}
+}
+
+TEST(OctTreeTest, CreateChildrenByNumber256)
+{
+	Vector3d<float> start(-128.0f, -128.0f, -128.0f);
+	Vector3d<float> length(256.0f, 256.0f, 256.0f);
+	OctTree tree(Space3d<float>(start, length));
+	Particle particle(Vector3d<float>(0.5f, 0.5f, 0.5f), 1.0f, 0.25f);
+	tree.add(&particle);
+	const auto& children = tree.createChildren(8);//Vector3d<float>(effectLength,effectLength,effectLength));
 }

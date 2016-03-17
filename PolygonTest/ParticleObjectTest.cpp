@@ -45,3 +45,4 @@ TEST(ParticleObjectTest, TestToVolumes)
 	const auto& volumes = object.toVolumes(1.0f);
 	EXPECT_EQ(1, volumes.size());
 }
+

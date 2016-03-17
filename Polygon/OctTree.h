@@ -20,6 +20,8 @@ public:
 	
 	void add(Particle* particle) { this->particles.push_back(particle); }
 
+	bool isNeighbor(Particle* particle) const;
+
 	std::vector<OctTree> createChildren() const;
 
 	std::vector<OctTree> createChildren(const Math::Vector3d<float>& length) const;

@@ -182,20 +182,50 @@ std::vector<VolumeObject*> ParticleObject::toVolumes(const float effectLength) c
 	return results;
 }
 
+#include "VolumeCell.h"
+
 PolygonObject* ParticleObject::toPolygon(const float isolevel, const float effectLength) const
 {
 	/*
 	auto v = toVolume(box, effectLength);
 	return v.toPolygonObject(isolevel);
 */
-	const auto& volumes = toVolumes(effectLength);
-	PolygonObject* result = new PolygonObject();
-	for (const auto& v : volumes) {
-		PolygonObject* p = v->toPolygonObject(isolevel);
-		result->merge( p );
-		delete p;
-		delete v;
+	Vector3d<float> start(-128.0f, -128.0f, -128.0f);
+	Vector3d<float> length(256.0f, 256.0f, 256.0f);
+
+	OctTree tree(Space3d<float>(start, length));
+	for (auto& p : particles) {
+		tree.add(p);
 	}
+	std::vector<VolumeCell> cells;
+	const auto& children = tree.createChildren(8);//Vector3d<float>(effectLength,effectLength,effectLength));
+	for (const auto& c : children) {
+		const auto& box = c.getBoundingBox();
+		const auto& poss = box.toSpace().toArray();
+		std::array<float, 8> values;
+		values.fill(0.0f);
+		for (int i = 0; i < 8; ++i) {
+			for (const auto& particle : c.getParticles()) {
+				const auto dist2 = poss[i].getDistanceSquared(particle->getPosition());
+				if (dist2 < effectLength * effectLength) {
+					const auto value = kernel.getPoly6Kernel(std::sqrt(dist2), effectLength) * particle->getDensity();
+					values[i] += value;
+				}
+			}
+		}
+		VolumeCell cell(c.getBoundingBox().toSpace(),values);
+		cells.emplace_back(cell);
+	}
+	std::vector<Triangle<float>> triangles;
+	for (const auto& cell : cells) {
+		const auto& ts = cell.toTriangles(isolevel);
+		triangles.insert(triangles.end(), ts.begin(), ts.end());
+	}
+	PolygonObject* result = new PolygonObject();
+	for (const auto& t : triangles) {
+		result->add(t);
+	}
+	result->removeOverlappedVertices();
 	return result;
 }
 

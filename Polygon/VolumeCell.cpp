@@ -10,6 +10,12 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
+VolumeCell::VolumeCell(const Space3d<float>& space, const std::array< float, 8>& values) :
+	space(space),
+	values(values)
+{}
+
+
 int VolumeCell::getCubeIndex(const float isolevel) const
 {
 	std::bitset<8> bit;

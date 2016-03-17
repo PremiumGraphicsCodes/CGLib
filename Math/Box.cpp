@@ -1,4 +1,5 @@
 #include "Box.h"
+#include "Space3d.h"
 
 using namespace Crystal::Math;
 
@@ -170,6 +171,12 @@ bool Box<T>::isShirinked() const
 {
 	return
 		(getMinX() == end.getX()) && (getMinY() == end.getY()) && (getMinZ() == end.getZ());
+}
+
+template<typename T>
+Space3d<T> Box<T>::toSpace() const
+{
+	return Space3d<T>(start, getLength());
 }
 
 

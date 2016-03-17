@@ -14,11 +14,7 @@ class VolumeNode;
 class VolumeCell
 {
 public:
-	VolumeCell(const Math::Space3d<float>& space, const std::array< float, 8>& values) :
-		space(space),
-		values(values)
-	{}
-
+	VolumeCell(const Math::Space3d<float>& space, const std::array< float, 8>& values);
 
 	std::vector< Math::Triangle<float> > toTriangles(const float isolevel) const;
 

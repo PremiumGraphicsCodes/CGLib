@@ -5,7 +5,8 @@
 
 namespace Crystal{
 	namespace Math{
-
+		template<typename>
+		class Space3d;
 template<typename T>
 class Box final
 {
@@ -93,6 +94,8 @@ public:
 	bool hasIntersection(const Box& rhs) const;
 
 	Box getOverlapped(const Box& rhs) const;
+
+	Space3d<T> toSpace() const;
 
 private:
 	Vector3d<T> start;

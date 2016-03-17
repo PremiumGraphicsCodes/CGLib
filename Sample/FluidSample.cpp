@@ -49,7 +49,7 @@ void FluidSample::demonstrate()
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(200.0f, effectLength) );
+	std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(500.0f, effectLength) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));

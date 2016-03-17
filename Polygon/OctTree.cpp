@@ -8,6 +8,14 @@ OctTree::OctTree(const Space3d<float>& space) :
 	space(space)
 {}
 
+bool OctTree::isNeighbor(Particle* particle) const
+{
+	const auto offset = particle->getRadius() * 1.25f;
+	const auto bb = this->getBoundingBox().getOuterOffset(offset);
+	return bb.isInterior(particle->getPosition());
+}
+
+
 std::vector< OctTree > OctTree::createChildren() const
 {
 	const auto& spaces = this->space.getSubSpaces(2, 2, 2);
@@ -19,11 +27,11 @@ std::vector< OctTree > OctTree::createChildren() const
 		//OctTree result(spaces[i]);
 		//const float effectLength = 1.25f * 0.5f;
 		//spaces[i].offset( Vector3d<float>(effectLength, effectLength, effectLength));
-		const auto offsetLength = -particles.front()->getDiameter() * 1.25f;
-		const auto expanded = spaces[i].offset( Vector3d<float>(offsetLength, offsetLength, offsetLength ) );
-		OctTree result(expanded);
+		//const auto offsetLength = -particles.front()->getDiameter() * 1.25f;
+		//const auto expanded = spaces[i].offset( Vector3d<float>(offsetLength, offsetLength, offsetLength ) );
+		OctTree result(spaces[i]);
 		for (const auto p : particles) {
-			if (expanded.isInner(p->getPosition())) {
+			if (result.isNeighbor(p)) {
 				result.add(p);
 			}
 		}
