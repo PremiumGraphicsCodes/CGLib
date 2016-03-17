@@ -5,6 +5,7 @@
 #include "../Math/Sphere.h"
 #include "../Math/Box.h"
 #include "../Math/Index3d.h"
+#include "Particle.h"
 
 namespace Crystal {
 	namespace Polygon {

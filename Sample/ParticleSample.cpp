@@ -15,9 +15,12 @@ using namespace Crystal::Shader;
 void ParticleSample::setup()
 {
 	particle = std::make_unique<ParticleObject>();
-	Sphere<float> sphere(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f);
-	particle->add(sphere, 0.1f, 1.0f);
+	//Sphere<float> sphere(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f);
+	//particle->add(sphere, 0.1f, 1.0f);
 	//particle->toVolumes(1.25f);
+	Particle p(Vector3d<float>(0.0f, 0.0f, 0.0f),1.0f, 1.0f);
+	particle->add(p);
+	polygon.reset( particle->toPolygon(0.5f, 0.5f));
 }
 
 void ParticleSample::demonstrate()
@@ -31,13 +34,12 @@ void ParticleSample::demonstrate()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	LegacyRenderer renderer;
+
 	PointBuffer buffer;
 	buffer.add(*particle);
 	renderer.render(camera, buffer);
 
-	/*
 	LineBuffer lineBuffer;
 	lineBuffer.add(*polygon);
 	renderer.render(camera, lineBuffer);
-	*/
 }
