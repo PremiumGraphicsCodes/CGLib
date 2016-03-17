@@ -27,6 +27,7 @@ namespace {
 		if (v1->getPosition() == v2->getPosition()) {
 			auto face = v2->getFace();
 			face->replace(v2, v1);
+			v1->normalize(*v2);
 			delete v2;
 			return true;
 		}
@@ -51,6 +52,12 @@ Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vec
 	normal(normal),
 	texCoord(texCoord)
 {}
+
+void Vertex::normalize(const Vertex& rhs)
+{
+	this->normal = normal * 0.5f + rhs.normal * 0.5f;
+	this->normal.normalize();
+}
 
 VertexCollection::VertexCollection() : nextId(0)
 {}

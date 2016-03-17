@@ -27,6 +27,8 @@ public:
 
 	Math::Vector3d<float> getTexCoord() const { return normal; }
 
+	void normalize(const Vertex& rhs);
+
 	void setFace(Face* f) { this->f = f; }
 
 	Face* getFace() const { return f; }
