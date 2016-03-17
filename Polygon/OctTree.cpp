@@ -10,9 +10,28 @@ OctTree::OctTree(const Space3d<float>& space) :
 
 bool OctTree::isNeighbor(Particle* particle) const
 {
+	const auto& position = particle->getPosition();
 	const auto offset = particle->getRadius() * 1.25f;
-	const auto bb = this->getBoundingBox().getOuterOffset(offset);
-	return bb.isInterior(particle->getPosition());
+	//const auto bb = this->getBoundingBox().getOuterOffset(offset);
+	const auto minx = space.getStart().getX() - offset;
+	const auto maxx = space.getEnd().getX() + offset;
+	const auto x = position.getX();
+	if( x < minx || maxx < x) {
+		return false;
+	}
+	const auto miny = space.getStart().getY() - offset;
+	const auto maxy = space.getEnd().getY() + offset;
+	const auto y = position.getY();
+	if (y < miny || maxy < y) {
+		return false;
+	}
+	const auto minz = space.getStart().getZ() - offset;
+	const auto maxz = space.getEnd().getZ() + offset;
+	const auto z = position.getZ();
+	if (z < minz || maxz < z) {
+		return false;
+	}
+	return true;
 }
 
 
@@ -35,12 +54,13 @@ std::vector< OctTree > OctTree::createChildren() const
 				result.add(p);
 			}
 		}
-		if (!result.isEmpty()) {
+		//const auto density = result.getDensity();
+		if (!result.isEmpty() ){//&& density < 100.0f) {
 			results.push_back(result);
 		}
 	}
 
-	return results;
+	return std::move(results);
 }
 
 std::vector<OctTree> OctTree::createChildren(const Vector3d<float>& length) const
@@ -59,7 +79,7 @@ std::vector<OctTree> OctTree::createChildren(const int depth) const
 		return{ *this };
 	}
 	if (depth == 1) {
-		return createChildren();
+		return std::move( createChildren() );
 	}
 	const auto& children = createChildren();
 	std::vector<OctTree> results;
@@ -67,7 +87,7 @@ std::vector<OctTree> OctTree::createChildren(const int depth) const
 		const auto& rs = child.createChildren(depth-1);
 		results.insert(results.end(), rs.begin(), rs.end());
 	}
-	return results;
+	return std::move(results);
 }
 
 
@@ -96,4 +116,19 @@ bool OctTree::operator!=(const OctTree& rhs) const
 Box<float> OctTree::getBoundingBox() const
 {
 	return Box<float>(space.getStart(), space.getEnd());
+}
+
+float OctTree::getVolume() const
+{
+	return space.getVolume();
+}
+
+float OctTree::getMass() const
+{
+	return particles.size() * 1.0f;
+}
+
+float OctTree::getDensity() const
+{
+	return getMass() / getVolume();
 }

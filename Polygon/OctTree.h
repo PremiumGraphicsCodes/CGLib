@@ -40,6 +40,12 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
+	float getVolume() const;
+
+	float getMass() const;
+
+	float getDensity() const;
+
 private:
 	std::vector<Particle*> particles;
 	Math::Space3d<float> space;
