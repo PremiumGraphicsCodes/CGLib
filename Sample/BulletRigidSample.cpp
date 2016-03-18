@@ -27,16 +27,9 @@ void BulletRigidSample::setup()
 	world.getWorld()->addRigidBody(rigid->getBody());
 	world.getWorld()->setGravity(btVector3(0, -9.8, 0));
 	{
-		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
-		btTransform groundTransform;
-		groundTransform.setIdentity();
-		groundTransform.setOrigin(btVector3(0, -55.0f, 0));
-		btScalar groundMass(0.0f);
-		btVector3 localInertia(0, 0, 0);
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(groundMass, myMotionState, groundShape, localInertia);
-		btRigidBody* body = new btRigidBody(rbInfo);
-		world.getWorld()->addRigidBody(body);
+		const Box<float> box(Vector3d<float>(-5.0f, -55.0f, -5.0f), Vector3d<float>(5.0f, -5.0f, 5.0f));
+		ground = std::make_unique<BulletRigid>(box, 0.0f);
+		world.getWorld()->addRigidBody(ground->getBody());
 	}
 }
 

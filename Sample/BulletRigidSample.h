@@ -26,6 +26,7 @@ private:
 	void cleanup() {};
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > rigid;
+	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;
 };
 

@@ -8,7 +8,7 @@ using namespace Crystal::Physics;
 
 BulletRigid::BulletRigid(const Box<float>& box, const float mass)
 {
-	const auto length = box.getLength() * 0.5;
+	const auto length = box.getLength();
 	auto shape = new btBoxShape(BulletConverter::convert(length));
 	btTransform transform;
 	transform.setIdentity();
