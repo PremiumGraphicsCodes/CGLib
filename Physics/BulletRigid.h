@@ -5,6 +5,7 @@
 
 #include "Bullet.h"
 
+#include "../Math/Vector3d.h"
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
 #include "../Math/Quaternion.h"
@@ -19,7 +20,7 @@ namespace Crystal {
 class BulletRigid
 {
 public:
-	BulletRigid(const Math::Box<float>& box, const float mass);
+	BulletRigid(const Math::Vector3d<float>& length, const Math::Vector3d<float>& origin, const float mass);
 
 	BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
@@ -44,6 +45,7 @@ public:
 private:
 	btRigidBody* body;
 	Math::Box<float> localBox;
+	std::vector<Math::Vector3d<float>> positions;
 };
 
 	}

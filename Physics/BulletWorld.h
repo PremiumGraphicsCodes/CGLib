@@ -2,6 +2,7 @@
 #define __CRYSTAL_PHYSICS_BULLET_WORLD_H__
 
 #include "Bullet.h"
+#include "../Math/Vector3d.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -15,6 +16,10 @@ public:
 	~BulletWorld() {};
 
 	void add(BulletRigid* rigid);
+
+	void setExternalForce(const Math::Vector3d<float>& force);
+
+	void simulate(const float timeStep) { world->stepSimulation(timeStep, 10); }
 
 	btDynamicsWorld* getWorld() { return world; }
 

@@ -1,8 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_BULLET_INTERACTION_H__
 #define __CRYSTAL_PHYSICS_BULLET_INTERACTION_H__
 
-class btDiscreteDynamicsWorld;
-
+#include "BulletWorld.h"
 #include "BulletParticle.h"
 
 namespace Crystal {
@@ -17,18 +16,18 @@ class ParticleWorld;
 class BulletInteraction
 {
 public:
-	BulletInteraction(ParticleWorld* particleWorld, btDiscreteDynamicsWorld* bulletWorld);
+	BulletInteraction(ParticleWorld* particleWorld, BulletWorld* bulletWorld);
 
 	void add(const BulletParticle& bp) { bulletParticles.push_back(bp); }
 
-	void forwardTime(const float timeStep);
+	void simulate(const float timeStep);
 
 	//Particle
 
 private:
 	std::vector<BulletParticle> bulletParticles;
 	ParticleWorld* particleWorld;
-	btDiscreteDynamicsWorld* bulletWorld;
+	BulletWorld* bulletWorld;
 };
 	}
 }

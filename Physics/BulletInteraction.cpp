@@ -7,14 +7,14 @@
 //using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletInteraction::BulletInteraction(ParticleWorld* particleWorld, btDiscreteDynamicsWorld* bulletWorld) :
+BulletInteraction::BulletInteraction(ParticleWorld* particleWorld, BulletWorld* bulletWorld) :
 	particleWorld( particleWorld ),
 	bulletWorld( bulletWorld )
 {
 }
 
-void BulletInteraction::forwardTime(const float timeStep)
+void BulletInteraction::simulate(const float timeStep)
 {
 	particleWorld->simulate(1.25f, timeStep);
-	bulletWorld->stepSimulation(timeStep, 10);
+	bulletWorld->simulate(timeStep);
 }

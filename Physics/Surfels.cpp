@@ -31,13 +31,12 @@ Surfels::Surfels(const Box<float>& box, const float divideLength)
 	}
 }
 
-std::vector<Vector3d<float>> Surfels::getWorld(const Vector3d<float>& center, const Quaternion<float>& rotation) const
+void Surfels::transform(const Vector3d<float>& center, const Quaternion<float>& rotation)
 {
 	std::vector<Vector3d<float>> result;
 	const auto& matrix = rotation.toMatrix();
-	for (const auto& p : positions) {
-		auto pos = p * matrix;
-		pos += center;
+	for (auto& p : positions) {
+		p = p * matrix;
+		p += center;
 	}
-	return result;
 }

@@ -6,13 +6,12 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box<float>& box, const float mass)
+BulletRigid::BulletRigid(const Vector3d<float>& length, const Vector3d<float>& origin, const float mass)
 {
-	const auto length = box.getLength();
 	auto shape = new btBoxShape(BulletConverter::convert(length));
 	btTransform transform;
 	transform.setIdentity();
-	transform.setOrigin(BulletConverter::convert(box.getMin()));
+	transform.setOrigin( BulletConverter::convert(origin) );
 
 	btVector3 inertia;
 	shape->calculateLocalInertia(mass, inertia);
@@ -21,7 +20,15 @@ BulletRigid::BulletRigid(const Box<float>& box, const float mass)
 	btRigidBody::btRigidBodyConstructionInfo info(mass, motionState, shape, inertia);
 	body = new btRigidBody(info);
 
-	localBox = box;
+	if (mass != 0.0f) {
+		for (auto x = -length.getX(); x < length.getX(); x += 0.25f) {
+			for (auto y = - length.getY(); y < length.getY(); y += 0.25f) {
+				for (auto z = - length.getZ(); z < length.getZ(); z += 0.25f) {
+					positions.push_back(Vector3d<float>(x, y, z));
+				}
+			}
+		}
+	}
 	//box.getMin
 };
 
@@ -63,16 +70,17 @@ Vector3d<float> BulletRigid::getOrigin() const
 
 Quaternion<float> BulletRigid::getOrientation() const
 {
-	return BulletConverter::convert(body->getOrientation());
+	btTransform transform;
+	body->getMotionState()->getWorldTransform(transform);
+	return BulletConverter::convert(transform.getRotation());
 }
 
 Surfels BulletRigid::toSurlfes(const float divideLength) const
 {
-	const auto translate = BulletConverter::convert( body->getWorldTransform().getOrigin() );
-	const auto rotation = BulletConverter::convert(body->getWorldTransform().getRotation());
-	body->getWorldTransform().getRotation();
+	const auto translate = getOrigin();
+	const auto rotation = getOrientation();
 
-	Surfels surfels(localBox, divideLength);
-	surfels.getWorld(translate, rotation);
+	Surfels surfels(positions);
+	surfels.transform(translate, rotation);
 	return surfels;
 }
