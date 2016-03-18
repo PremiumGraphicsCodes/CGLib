@@ -9,6 +9,7 @@
 #include "RigidSample.h"
 #include "CouplingSample.h"
 #include "BulletSample.h"
+#include "BulletRigidSample.h"
 #include "IOSample.h"
 #include "VolumeSample.h"
 #include "ParticleSample.h"
@@ -42,6 +43,13 @@ void TW_CALL onCoupling(void*)
 void TW_CALL onBullet(void*)
 {
 	activeSample = std::make_unique<BulletSample>();
+	activeSample->setup();
+
+}
+
+void TW_CALL onBulletRigid(void*)
+{
+	activeSample = std::make_unique<BulletRigidSample>();
 	activeSample->setup();
 
 }
@@ -87,6 +95,7 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Rigid", onRigid, nullptr, " label='Rigid' ");
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
+	TwAddButton(bar, "BulletRigid", onBulletRigid, nullptr, " label = 'BulletRigid' ");
 	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
 	TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");

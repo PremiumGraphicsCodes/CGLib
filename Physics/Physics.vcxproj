@@ -26,6 +26,7 @@
     <ClInclude Include="BulletInteraction.h" />
     <ClInclude Include="BulletParticle.h" />
     <ClInclude Include="BulletRigid.h" />
+    <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="Fluid.h" />
     <ClInclude Include="NeighborFinder.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="BulletInteraction.cpp" />
     <ClCompile Include="BulletParticle.cpp" />
     <ClCompile Include="BulletRigid.cpp" />
+    <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="NeighborFinder.cpp" />

@@ -39,6 +39,8 @@ public:
 
 	Surfels toSurlfes(const float divideLength) const;
 
+	btRigidBody* getBody() const { return body; }
+
 private:
 	btRigidBody* body;
 	Math::Box<float> localBox;
