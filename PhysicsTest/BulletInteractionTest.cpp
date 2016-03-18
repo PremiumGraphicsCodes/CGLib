@@ -10,12 +10,8 @@ TEST(BulletInteractionTest, Test)
 {
 	ParticleWorld particleWorld;
 
-	btDefaultCollisionConfiguration collisionConfig;
-	btCollisionDispatcher dispatcher(&collisionConfig);
-	btDbvtBroadphase overlappingPairCache;
-	btSequentialImpulseConstraintSolver solver;
-	btDiscreteDynamicsWorld bulletWorld(&dispatcher, &overlappingPairCache, &solver, &collisionConfig);
+	BulletWorld bulletWorld;
 
 	BulletInteraction interaction(&particleWorld, &bulletWorld);
-	interaction.forwardTime(1.0f);
+	interaction.simulate(1.0f);
 }
