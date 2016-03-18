@@ -11,8 +11,7 @@ TEST(BulletBoundaryTest, Test)
 	Fluid fluid;
 	BulletParticle bp1(fluid.getParticles());
 
-	Box <float> box;
-	BulletRigid rigid(box, 1.0f);
+	BulletRigid rigid( Vector3d<float>(1.0f,1.0f,1.0f), Vector3d<float>(1.0f, 1.0f, 1.0f), 1.0f);
 	BulletParticle bp2(&rigid);
 
 	BulletBoundary boundary(bp1, bp2);

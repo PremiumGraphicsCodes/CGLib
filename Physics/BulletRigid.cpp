@@ -32,6 +32,7 @@ BulletRigid::BulletRigid(const Vector3d<float>& length, const Vector3d<float>& o
 	//box.getMin
 };
 
+/*
 BulletRigid::BulletRigid(const Sphere<float>& sphere, const float mass)
 {
 	const auto center = sphere.getCenter();
@@ -45,6 +46,7 @@ BulletRigid::BulletRigid(const Sphere<float>& sphere, const float mass)
 	transform.setIdentity();
 	transform.setOrigin(btVector3(originx, originy, originz));
 }
+*/
 
 float BulletRigid::getMass() const
 {

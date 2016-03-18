@@ -22,7 +22,7 @@ class BulletRigid
 public:
 	BulletRigid(const Math::Vector3d<float>& length, const Math::Vector3d<float>& origin, const float mass);
 
-	BulletRigid(const Math::Sphere<float>& sphere, const float mass);
+	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
 	BulletRigid(btRigidBody* body) :
 		body(body)
