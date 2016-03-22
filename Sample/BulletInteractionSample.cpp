@@ -21,11 +21,16 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
-	rigid = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-1.0f, -2.0f, -1.0f), 10.0f);
-	bulletWorld.add(rigid.get());
+	//rigid = std::make_unique<BulletRigid>(Vector3d<float>(4.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 2.0f, -1.0f), 10.0f);
+	//rigid->transform();
+	//bulletWorld.add(rigid.get());
+
+	rigid2 = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 2.0f, 0.0f), 10.0f);
+	rigid2->transform();
+	bulletWorld.add(rigid2.get());
 
 	{
-		ground = std::make_unique<BulletRigid>(Vector3d<float>(50.0f, 5.0f, 50.0f), Vector3d<float>(0.0f, -10.0f, 0.0f), 0.0f);
+		ground = std::make_unique<BulletRigid>(Vector3d<float>(50.0f, 10.0f, 50.0f), Vector3d<float>(0.0f, -10.0f, 0.0f), 0.0f);
 		bulletWorld.add(ground.get());
 	}
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));
@@ -44,13 +49,14 @@ void BulletInteractionSample::setup()
 		fluid = std::make_unique<Fluid>(particles);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-		Box<float> boundary(Vector3d<float>(-10.0, -5.0f, -10.0), Vector3d<float>(40.0, 1000.0, 0.0));
+		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, -20.0), Vector3d<float>(100.0, 1000.0, 0.0));
 		particleWorld.setBoundary(boundary);
 
 	}
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
-	interaction.add(rigid.get());
+	//interaction.add(rigid.get());
+	interaction.add(rigid2.get());
 }
 
 void BulletInteractionSample::demonstrate()
@@ -70,6 +76,7 @@ void BulletInteractionSample::demonstrate()
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
+	/*
 	{
 		const auto& surfels = rigid->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
 		for (const auto& p : surfels) {
@@ -77,6 +84,16 @@ void BulletInteractionSample::demonstrate()
 			buffer.add(pt);
 		}
 	}
+	*/
+
+	{
+		const auto& surfels = rigid2->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
+		for (const auto& p : surfels) {
+			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(1, 1, 0, 1), 100.0f);
+			buffer.add(pt);
+		}
+	}
+
 	{
 		const auto& particles = fluid->getParticles();
 		for (const auto& p : particles) {

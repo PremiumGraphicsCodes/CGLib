@@ -7,9 +7,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Vector3d<float>& length, const Vector3d<float>& origin, const float mass)
+BulletRigid::BulletRigid(const Vector3d<float>& halfLength, const Vector3d<float>& origin, const float mass)
 {
-	auto shape = new btBoxShape(BulletConverter::convert(length));
+	auto shape = new btBoxShape(BulletConverter::convert(halfLength));
 	btTransform transform;
 	transform.setIdentity();
 	transform.setOrigin( BulletConverter::convert(origin) );
@@ -22,15 +22,26 @@ BulletRigid::BulletRigid(const Vector3d<float>& length, const Vector3d<float>& o
 	body = new btRigidBody(info);
 
 	if (mass != 0.0f) {
-		for (auto x = -length.getX(); x < length.getX(); x += 1.0f) {
-			for (auto y = - length.getY(); y < length.getY(); y += 1.0f) {
-				for (auto z = - length.getZ(); z < length.getZ(); z += 1.0f) {
-					positions.push_back(Vector3d<float>(x, y, z));
-					SPHParticle* particle = new SPHParticle(Vector3d<float>(x, y, z), 0.5f, 1000.0f, 1000.0f, 100.0f);
+		/*
+		for (auto x = -halfLength.getX(); x <= halfLength.getX(); x += 1.0f) {
+			for (auto y = -halfLength.getY(); y <= halfLength.getY(); y += 1.0f) {
+				for (auto z = -halfLength.getZ(); z <= halfLength.getZ(); z += 1.0f) {
+					const auto pos = Vector3d<float>(x, y, z);
+					positions.push_back(pos);
+					SPHParticle* particle = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
 					sampleParticles.push_back(particle);
 				}
 			}
 		}
+		*/
+		Box<float> box(-halfLength,halfLength);
+		Surfels surfels(box, 1.0f);
+		localPositions = surfels.toPositions();
+		for (auto pos : localPositions) {
+			SPHParticle* particle = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
+			sampleParticles.push_back(particle);
+		}
+
 	}
 	//box.getMin
 };
@@ -98,7 +109,7 @@ Surfels BulletRigid::toSurlfes(const float divideLength) const
 	const auto& translate = getOrigin();
 	const auto& rotation = getOrientation();
 
-	Surfels surfels(positions);
+	Surfels surfels(localPositions);
 	surfels.transform(translate, rotation);
 	return surfels;
 }
@@ -109,10 +120,10 @@ void BulletRigid::transform()
 	const auto& rotation = getOrientation();
 	std::vector<Vector3d<float>> result;
 	const auto& matrix = rotation.toMatrix();
-	for (int i = 0; i < positions.size(); ++i) {
-		sampleParticles[i]->moveTo(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	for (int i = 0; i < localPositions.size(); ++i) {
+		sampleParticles[i]->moveTo(localPositions[i]);
 		sampleParticles[i]->rotate(matrix);
-		sampleParticles[i]->moveTo(positions[i] + translate);
+		sampleParticles[i]->move(translate);
 	}
 
 }
@@ -121,4 +132,14 @@ void BulletRigid::transform()
 std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
 {
 	return sampleParticles;
+}
+
+void BulletRigid::solveBoundary()
+{
+	const auto& center = BulletConverter::convert( body->getCenterOfMassPosition() );
+	for (const auto p : sampleParticles) {
+		const auto& f = p->getForce(); /// p->getDensity();// / p->getDensity();
+		const auto& diff = p->getPosition() - center;
+		body->applyForce(BulletConverter::convert(f), BulletConverter::convert(diff));
+	}
 }

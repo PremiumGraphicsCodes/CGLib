@@ -18,8 +18,8 @@ void BulletInteraction::add(BulletRigid* bulletRigid)
 {
 	const auto& rigids = bulletWorld->getRigids();
 	for (auto& r : rigids) {
-		const auto& ps = r->getSurfaceParticles();
-		particleWorld->add(ps);
+		particleWorld->add(r);
+		r->transform();
 	}
 }
 
@@ -31,5 +31,10 @@ void BulletInteraction::simulate(const float timeStep)
 	}
 
 	particleWorld->simulate(1.25f, timeStep*10);
+	for (auto& r : rigids) {
+		r->solveBoundary();
+	}
+
 	bulletWorld->simulate(timeStep);
+
 }

@@ -9,6 +9,7 @@
 namespace Crystal {
 	namespace Physics {
 		class PhysicsObject;
+		class BulletRigid;
 
 class ParticleWorld
 {
@@ -17,7 +18,7 @@ public:
 
 	void add(PhysicsObject* object) { objects.push_back(object); }
 
-	void add(const std::vector<SPHParticle*>& particles);
+	void add(BulletRigid* rigid);
 
 	void simulate(const float effectLength, const float timeStep);
 
@@ -30,11 +31,13 @@ private:
 	Math::Vector3d<float> externalForce;
 	SPHKernel<float> kernel;
 	Math::Box<float> boundary;
+	std::vector<BulletRigid*> bulletRigids;
 
+	std::vector< SPHParticle*> getAllParticles() const;
 
 	std::vector< SPHParticle* > externalParticles;
 
-	std::vector<SPHParticle*> getParticles();
+	std::vector<SPHParticle*> getParticles() const;
 };
 
 	}

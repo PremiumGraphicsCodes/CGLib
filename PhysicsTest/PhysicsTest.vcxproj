@@ -27,6 +27,7 @@
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
     <ClCompile Include="SpringTest.cpp" />
+    <ClCompile Include="SurfelsTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51436043-10F6-42F3-85BE-F2FEAF480AFA}</ProjectGuid>

@@ -11,24 +11,14 @@ Surfels::Surfels(const Box<float>& box, const float divideLength)
 	const auto maxx = box.getMaxX();
 	const auto maxy = box.getMaxY();
 	const auto maxz = box.getMaxZ();
-	for (auto y = miny; y < maxy; y += divideLength) {
-		for (auto z = minz; z < maxz; z += divideLength) {
-			positions.push_back(Vector3d<float>(minx, y, z));
-			positions.push_back(Vector3d<float>(maxx, y, z));
-		}
-	}
 	for (auto x = minx; x < maxx; x += divideLength) {
 		for (auto y = miny; y < maxy; y += divideLength) {
-			positions.push_back(Vector3d<float>(x, y, minz));
-			positions.push_back(Vector3d<float>(x, y, maxz));
+			for (auto z = minz; z < maxz; z += divideLength) {
+				positions.push_back(Vector3d<float>(x, y, z));
+			}
 		}
 	}
-	for (auto x = minx; x < maxx; x += divideLength) {
-		for (auto z = miny; z < maxz; z += divideLength) {
-			positions.push_back(Vector3d<float>(x, miny, z));
-			positions.push_back(Vector3d<float>(x, maxy, z));
-		}
-	}
+
 }
 
 void Surfels::transform(const Vector3d<float>& center, const Quaternion<float>& rotation)

@@ -20,7 +20,7 @@ namespace Crystal {
 class BulletRigid
 {
 public:
-	BulletRigid(const Math::Vector3d<float>& length, const Math::Vector3d<float>& origin, const float mass);
+	BulletRigid(const Math::Vector3d<float>& halfLength, const Math::Vector3d<float>& origin, const float mass);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
@@ -48,12 +48,14 @@ public:
 
 	void transform();
 
+	void solveBoundary();
+
 	std::vector<SPHParticle*> getSurfaceParticles();
 
 private:
 	btRigidBody* body;
 	Math::Box<float> localBox;
-	std::vector<Math::Vector3d<float>> positions;
+	std::vector<Math::Vector3d<float>> localPositions;
 	std::vector<SPHParticle*> sampleParticles;
 };
 
