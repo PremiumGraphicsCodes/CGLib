@@ -28,6 +28,10 @@ public:
 		body(body)
 	{}
 
+	~BulletRigid();
+
+	void clear();
+
 	float getMass() const;
 
 	bool isDynamic() const;
@@ -42,10 +46,13 @@ public:
 
 	btRigidBody* getBody() const { return body; }
 
+	std::vector<SPHParticle*> getSurfaceParticles();
+
 private:
 	btRigidBody* body;
 	Math::Box<float> localBox;
 	std::vector<Math::Vector3d<float>> positions;
+	std::vector<SPHParticle*> sampleParticles;
 };
 
 	}

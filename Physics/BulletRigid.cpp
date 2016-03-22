@@ -2,6 +2,7 @@
 
 #include "Bullet.h"
 #include "BulletConverter.h"
+#include "SPHParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
@@ -21,16 +22,31 @@ BulletRigid::BulletRigid(const Vector3d<float>& length, const Vector3d<float>& o
 	body = new btRigidBody(info);
 
 	if (mass != 0.0f) {
-		for (auto x = -length.getX(); x < length.getX(); x += 0.25f) {
-			for (auto y = - length.getY(); y < length.getY(); y += 0.25f) {
-				for (auto z = - length.getZ(); z < length.getZ(); z += 0.25f) {
+		for (auto x = -length.getX(); x < length.getX(); x += 1.0f) {
+			for (auto y = - length.getY(); y < length.getY(); y += 1.0f) {
+				for (auto z = - length.getZ(); z < length.getZ(); z += 1.0f) {
 					positions.push_back(Vector3d<float>(x, y, z));
+					SPHParticle* particle = new SPHParticle(Vector3d<float>(x, y, z), 0.5f, 1000.0f, 1000.0f, 100.0f);
+					sampleParticles.push_back(particle);
 				}
 			}
 		}
 	}
 	//box.getMin
 };
+
+BulletRigid::~BulletRigid()
+{
+	clear();
+}
+
+void BulletRigid::clear()
+{
+	for (auto p : sampleParticles) {
+		delete p;
+	}
+	sampleParticles.clear();
+}
 
 /*
 BulletRigid::BulletRigid(const Sphere<float>& sphere, const float mass)
@@ -79,10 +95,24 @@ Quaternion<float> BulletRigid::getOrientation() const
 
 Surfels BulletRigid::toSurlfes(const float divideLength) const
 {
-	const auto translate = getOrigin();
-	const auto rotation = getOrientation();
+	const auto& translate = getOrigin();
+	const auto& rotation = getOrientation();
 
 	Surfels surfels(positions);
 	surfels.transform(translate, rotation);
 	return surfels;
+}
+
+std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
+{
+	const auto& translate = getOrigin();
+	const auto& rotation = getOrientation();
+	std::vector<Vector3d<float>> result;
+	const auto& matrix = rotation.toMatrix();
+	for (int i = 0; i < positions.size(); ++i) {
+		sampleParticles[i]->moveTo(Vector3d<float>(0.0f, 0.0f, 0.0f));
+		sampleParticles[i]->rotate(matrix);
+		sampleParticles[i]->moveTo(positions[i] + translate);
+	}
+	return sampleParticles;
 }

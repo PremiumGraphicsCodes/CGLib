@@ -21,7 +21,7 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
-	rigid = std::make_unique<BulletRigid>(Vector3d<float>(0.5f, 0.5f, 0.5f), Vector3d<float>(0.0f, -2.0f, 0.0f), 10.0f);
+	rigid = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-1.0f, -2.0f, -1.0f), 10.0f);
 	bulletWorld.add(rigid.get());
 
 	{
@@ -29,6 +29,25 @@ void BulletInteractionSample::setup()
 		bulletWorld.add(ground.get());
 	}
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));
+
+	{
+		std::vector<SPHParticle*> particles;
+		for (int i = 0; i < 20; ++i) {
+			for (int j = 0; j < 20; ++j) {
+				for (int k = 0; k < 1; ++k) {
+					Vector3d<float> pos(i * 1.0f, j * 1.0f, -k * 1.0f);
+					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
+					particles.push_back(p);
+				}
+			}
+		}
+		fluid = std::make_unique<Fluid>(particles);
+		particleWorld.add(fluid.get());
+		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
+		Box<float> boundary(Vector3d<float>(-10.0, -5.0f, -10.0), Vector3d<float>(40.0, 1000.0, 0.0));
+		particleWorld.setBoundary(boundary);
+
+	}
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
 }
@@ -51,9 +70,16 @@ void BulletInteractionSample::demonstrate()
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
 	{
-		const auto& surfels = rigid->toSurlfes(0.25f).toPositions();
+		const auto& surfels = rigid->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
 		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
+			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(1, 0, 0, 1), 10.0f);
+			buffer.add(pt);
+		}
+	}
+	{
+		const auto& particles = fluid->getParticles();
+		for (const auto& p : particles) {
+			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(0, 0, 1, 1), 10.0f);
 			buffer.add(pt);
 		}
 	}

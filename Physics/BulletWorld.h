@@ -19,15 +19,18 @@ public:
 
 	void setExternalForce(const Math::Vector3d<float>& force);
 
-	void simulate(const float timeStep) { world->stepSimulation(timeStep, 10); }
+	void simulate(const float timeStep);
 
 	btDynamicsWorld* getWorld() { return world; }
+
+	std::vector<BulletRigid*> getRigids() const { return rigids; }
 
 private:
 	btDefaultCollisionConfiguration collisionConfig;
 	btCollisionDispatcher dispatcher;
 	btDbvtBroadphase overlappingPairCache;
 	btSequentialImpulseConstraintSolver solver;
+	std::vector< BulletRigid* > rigids;
 
 	btDynamicsWorld* world;
 };

@@ -17,6 +17,8 @@ public:
 
 	void add(PhysicsObject* object) { objects.push_back(object); }
 
+	void add(const std::vector<SPHParticle*>& particles);
+
 	void simulate(const float effectLength, const float timeStep);
 
 	void setBoundary(const Math::Box<float>& boundary) { this->boundary = boundary; }
@@ -28,6 +30,9 @@ private:
 	Math::Vector3d<float> externalForce;
 	SPHKernel<float> kernel;
 	Math::Box<float> boundary;
+
+
+	std::vector< SPHParticle* > externalParticles;
 
 	std::vector<SPHParticle*> getParticles();
 };

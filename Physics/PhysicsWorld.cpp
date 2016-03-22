@@ -6,6 +6,11 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+void ParticleWorld::add(const std::vector<SPHParticle*>& particles)
+{
+	externalParticles.insert(externalParticles.end(), particles.begin(), particles.end());
+}
+
 void ParticleWorld::simulate(const float effectLength, const float timeStep)
 {
 	const auto& particles = getParticles();
@@ -83,12 +88,13 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 std::vector<SPHParticle*> ParticleWorld::getParticles()
 {
-	std::vector<SPHParticle*> ordered;
+	std::vector<SPHParticle*> results;
 	for (const auto& object : objects) {
 		const auto& particles = object->getParticles();
-		ordered.insert(ordered.end(), particles.begin(), particles.end());
+		results.insert(results.end(), particles.begin(), particles.end());
 	}
-	return ordered;
+	results.insert(results.end(), externalParticles.begin(), externalParticles.end());
+	return results;
 }
 
 
