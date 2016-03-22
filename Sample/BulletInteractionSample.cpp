@@ -21,9 +21,9 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
-	//rigid = std::make_unique<BulletRigid>(Vector3d<float>(4.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 2.0f, -1.0f), 10.0f);
-	//rigid->transform();
-	//bulletWorld.add(rigid.get());
+	rigid = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 8.0f, 0.0f), 10.0f);
+	rigid->transform();
+	bulletWorld.add(rigid.get());
 
 	rigid2 = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 2.0f, 0.0f), 10.0f);
 	rigid2->transform();
@@ -55,7 +55,7 @@ void BulletInteractionSample::setup()
 	}
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
-	//interaction.add(rigid.get());
+	interaction.add(rigid.get());
 	interaction.add(rigid2.get());
 }
 
@@ -76,7 +76,6 @@ void BulletInteractionSample::demonstrate()
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
-	/*
 	{
 		const auto& surfels = rigid->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
 		for (const auto& p : surfels) {
@@ -84,7 +83,6 @@ void BulletInteractionSample::demonstrate()
 			buffer.add(pt);
 		}
 	}
-	*/
 
 	{
 		const auto& surfels = rigid2->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
