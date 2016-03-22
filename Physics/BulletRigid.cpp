@@ -103,7 +103,7 @@ Surfels BulletRigid::toSurlfes(const float divideLength) const
 	return surfels;
 }
 
-std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
+void BulletRigid::transform()
 {
 	const auto& translate = getOrigin();
 	const auto& rotation = getOrientation();
@@ -114,5 +114,11 @@ std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
 		sampleParticles[i]->rotate(matrix);
 		sampleParticles[i]->moveTo(positions[i] + translate);
 	}
+
+}
+
+
+std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
+{
 	return sampleParticles;
 }

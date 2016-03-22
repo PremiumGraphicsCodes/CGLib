@@ -46,6 +46,8 @@ public:
 
 	btRigidBody* getBody() const { return body; }
 
+	void transform();
+
 	std::vector<SPHParticle*> getSurfaceParticles();
 
 private:

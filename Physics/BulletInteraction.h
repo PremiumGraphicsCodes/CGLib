@@ -25,6 +25,8 @@ public:
 
 	void add(const BulletParticle& bp) { bulletParticles.push_back(bp); }
 
+	void add(BulletRigid* bulletRigid);
+
 	void simulate(const float timeStep);
 
 	//Particle

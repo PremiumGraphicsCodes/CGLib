@@ -50,6 +50,7 @@ void BulletInteractionSample::setup()
 	}
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
+	interaction.add(rigid.get());
 }
 
 void BulletInteractionSample::demonstrate()
@@ -72,19 +73,19 @@ void BulletInteractionSample::demonstrate()
 	{
 		const auto& surfels = rigid->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
 		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(1, 0, 0, 1), 10.0f);
+			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(1, 0, 0, 1), 100.0f);
 			buffer.add(pt);
 		}
 	}
 	{
 		const auto& particles = fluid->getParticles();
 		for (const auto& p : particles) {
-			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(0, 0, 1, 1), 10.0f);
+			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(0, 0, 1, 1), 20.0f);
 			buffer.add(pt);
 		}
 	}
 
-	renderer.render(camera, buffer);
+	renderer.render(camera, buffer, 100.0f);
 
 	/*
 	LineBuffer buffer;

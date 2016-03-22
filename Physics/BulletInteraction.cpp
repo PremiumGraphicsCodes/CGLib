@@ -14,13 +14,22 @@ BulletInteraction::BulletInteraction(ParticleWorld* particleWorld, BulletWorld* 
 {
 }
 
-void BulletInteraction::simulate(const float timeStep)
+void BulletInteraction::add(BulletRigid* bulletRigid)
 {
 	const auto& rigids = bulletWorld->getRigids();
 	for (auto& r : rigids) {
 		const auto& ps = r->getSurfaceParticles();
 		particleWorld->add(ps);
 	}
-	particleWorld->simulate(1.25f, timeStep*20);
+}
+
+void BulletInteraction::simulate(const float timeStep)
+{
+	const auto& rigids = bulletWorld->getRigids();
+	for (auto& r : rigids) {
+		r->transform();
+	}
+
+	particleWorld->simulate(1.25f, timeStep*10);
 	bulletWorld->simulate(timeStep);
 }
