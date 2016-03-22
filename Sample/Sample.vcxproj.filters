@@ -30,6 +30,9 @@
     <ClCompile Include="BulletRigidSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="BulletInteractionSample.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -60,6 +63,9 @@
       <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="BulletRigidSample.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletInteractionSample.h">
       <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -10,6 +10,7 @@
 #include "CouplingSample.h"
 #include "BulletSample.h"
 #include "BulletRigidSample.h"
+#include "BulletInteractionSample.h"
 #include "IOSample.h"
 #include "VolumeSample.h"
 #include "ParticleSample.h"
@@ -44,14 +45,18 @@ void TW_CALL onBullet(void*)
 {
 	activeSample = std::make_unique<BulletSample>();
 	activeSample->setup();
-
 }
 
 void TW_CALL onBulletRigid(void*)
 {
 	activeSample = std::make_unique<BulletRigidSample>();
 	activeSample->setup();
+}
 
+void TW_CALL onBulletInteraction(void*)
+{
+	activeSample = std::make_unique<BulletInteractionSample>();
+	activeSample->setup();
 }
 
 void TW_CALL onIO(void*)
@@ -96,6 +101,7 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
 	TwAddButton(bar, "BulletRigid", onBulletRigid, nullptr, " label = 'BulletRigid' ");
+	TwAddButton(bar, "BulletInteraction", onBulletInteraction, nullptr, " label = 'BulletInteraction' ");
 	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
 	TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");

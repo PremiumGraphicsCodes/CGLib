@@ -16,6 +16,11 @@ class ParticleWorld;
 class BulletInteraction
 {
 public:
+	BulletInteraction() :
+		particleWorld(nullptr),
+		bulletWorld(nullptr)
+	{}
+
 	BulletInteraction(ParticleWorld* particleWorld, BulletWorld* bulletWorld);
 
 	void add(const BulletParticle& bp) { bulletParticles.push_back(bp); }

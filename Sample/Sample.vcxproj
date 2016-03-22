@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletInteractionSample.cpp" />
     <ClCompile Include="BulletRigidSample.cpp" />
     <ClCompile Include="BulletSample.cpp" />
     <ClCompile Include="CouplingSample.cpp" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AntTweakBar.h" />
+    <ClInclude Include="BulletInteractionSample.h" />
     <ClInclude Include="BulletRigidSample.h" />
     <ClInclude Include="BulletSample.h" />
     <ClInclude Include="CouplingSample.h" />
