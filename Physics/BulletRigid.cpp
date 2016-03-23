@@ -138,7 +138,7 @@ void BulletRigid::solveBoundary()
 {
 	const auto& center = BulletConverter::convert( body->getCenterOfMassPosition() );
 	for (const auto p : sampleParticles) {
-		const auto& f = p->getForce() / p->getDensity();// / p->getDensity();
+		const auto& f = p->getForce();// / p->getDensity();// / p->getDensity();
 		const auto& diff = p->getPosition() - center;
 		body->applyForce(BulletConverter::convert(f), BulletConverter::convert(diff));
 	}

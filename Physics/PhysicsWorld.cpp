@@ -15,21 +15,31 @@ void ParticleWorld::add(BulletRigid* rigid)
 
 void ParticleWorld::simulate(const float effectLength, const float timeStep)
 {
-	const auto& particles = getParticles();
+	const auto& fluidParticles = getFluidParticles();
+	const auto& boundaryParticles = getBoundaryParticles();
 	const auto& allParticles = getAllParticles();
 
 	for (const auto& particle : allParticles) {
 		particle->init();
 	}
 
-	NeighborFinder finder(effectLength, allParticles.size());
-	for (const auto& particle : allParticles) {
-		finder.add(particle);
+	NeighborFinder fluidFinder(effectLength, fluidParticles.size());
+	for (const auto& particle : fluidParticles) {
+		fluidFinder.add(particle);
 	}
+	fluidFinder.create(fluidParticles);
+	fluidFinder.create(boundaryParticles);
 
-	finder.create(allParticles);
+	NeighborFinder boundaryFinder(effectLength, boundaryParticles.size());
+	for (const auto& particle : boundaryParticles) {
+		boundaryFinder.add(particle);
+	}
+	boundaryFinder.create(fluidParticles);
 
-	const auto& pairs = finder.getPairs();
+	auto pairs = fluidFinder.getPairs();
+	const auto& bpairs = boundaryFinder.getPairs();
+
+	pairs.insert(pairs.end(), bpairs.begin(), bpairs.end());
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
 		pairs[i].getParticle1()->addDensity(*pairs[i].getParticle2(), effectLength);
@@ -70,7 +80,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	}
 
 	BoundarySolver boundarySolver(timeStep, boundary);
-	boundarySolver.solve(particles);
+	boundarySolver.solve(fluidParticles);
 
 	for (const auto& object : objects) {
 		object->addExternalForce(externalForce);
@@ -86,7 +96,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	}
 }
 
-std::vector<SPHParticle*> ParticleWorld::getParticles() const
+std::vector<SPHParticle*> ParticleWorld::getFluidParticles() const
 {
 	std::vector<SPHParticle*> results;
 	for (const auto& object : objects) {
@@ -96,14 +106,24 @@ std::vector<SPHParticle*> ParticleWorld::getParticles() const
 	return results;
 }
 
-std::vector< SPHParticle*> ParticleWorld::getAllParticles() const
+std::vector< SPHParticle*> ParticleWorld::getBoundaryParticles() const
 {
-	std::vector<SPHParticle*> results = getParticles();
-
+	std::vector<SPHParticle*> results;
 	for (const auto rigid : bulletRigids) {
 		const auto& surfaces = rigid->getSurfaceParticles();
 		results.insert(results.end(), surfaces.begin(), surfaces.end());
 	}
 	return results;
+}
+
+
+
+std::vector< SPHParticle*> ParticleWorld::getAllParticles() const
+{
+	std::vector<SPHParticle*> fluids = getFluidParticles();
+	std::vector<SPHParticle*> boundaries = getBoundaryParticles();
+
+	fluids.insert(fluids.end(), boundaries.begin(), boundaries.end());
+	return fluids;
 }
 

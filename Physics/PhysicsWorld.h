@@ -35,9 +35,12 @@ private:
 
 	std::vector< SPHParticle*> getAllParticles() const;
 
-	std::vector< SPHParticle* > externalParticles;
+	//std::vector< SPHParticle* > externalParticles;
 
-	std::vector<SPHParticle*> getParticles() const;
+	std::vector<SPHParticle*> getFluidParticles() const;
+
+	std::vector< SPHParticle*> getBoundaryParticles() const;
+
 };
 
 	}
