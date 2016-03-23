@@ -22,12 +22,16 @@ using namespace Crystal::Shader;
 void BulletRigidSample::setup()
 {
 	{
+		Box<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
 		rigid1 = std::make_unique<BulletRigid>(Vector3d<float>(0.5f, 0.5f, 0.5f), Vector3d<float>(0.0f, -2.0f, 0.0f), 10.0f);
 		rigid1->getBody()->applyForce(btVector3(2000.0f, 0.0f, 0.0f), btVector3(0.5f, 0.0f, 0.0f));
 		//rigid1->getBody()->setAngularVelocity(btVector3(1.0f, 0.0f, 0.0f));
+		shape1.add(box);
 		world.add(rigid1.get());
 	}
 	{
+		Box<float> box(Vector3d<float>(-0.5, -1.0f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
+		shape2.add(box);
 		rigid2 = std::make_unique<BulletRigid>(Vector3d<float>(0.5f, 2.0f, 0.5f), Vector3d<float>(2.0f, 0.0f, 0.0f), 0.1f);
 		world.add(rigid2.get());
 	}
@@ -47,6 +51,7 @@ void BulletRigidSample::setup()
 
 void BulletRigidSample::demonstrate()
 {
+
 	glEnable(GL_DEPTH_TEST);
 
 	world.simulate(1.0f/60.0f);
@@ -62,20 +67,36 @@ void BulletRigidSample::demonstrate()
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
+
 	{
+		LineBuffer lineBuffer;
+
+		auto p = shape1.clone();
+		p->transform(rigid1->getTransformMatrix());
 		const auto& surfels = rigid1->toSurlfes(0.25f).toPositions();
 		//rigid1->
 		for (const auto& p : surfels) {
 			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
 			buffer.add(pt);
 		}
+		lineBuffer.add(*p);
+		renderer.render(camera, lineBuffer);
+		delete p;
 	}
 	{
+		LineBuffer lineBuffer;
+
+		auto p = shape2.clone();
+		p->transform(rigid2->getTransformMatrix());
 		const auto& surfels = rigid2->toSurlfes(0.25f).toPositions();
 		for (const auto& p : surfels) {
 			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
 			buffer.add(pt);
 		}
+		lineBuffer.add(*p);
+
+		renderer.render(camera, lineBuffer);
+		delete p;
 	}
 	{
 		const auto& surfels = rigid3->toSurlfes(0.25f).toPositions();
@@ -85,7 +106,7 @@ void BulletRigidSample::demonstrate()
 		}
 	}
 
-	renderer.render(camera, buffer);
+
 
 	/*
 	LineBuffer buffer;

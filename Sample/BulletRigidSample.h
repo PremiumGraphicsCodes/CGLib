@@ -9,6 +9,7 @@
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
+#include "../Polygon/PolygonObject.h"
 #include "ISample.h"
 #include <memory>
 
@@ -28,6 +29,9 @@ private:
 	std::unique_ptr< Crystal::Physics::BulletRigid > rigid1;
 	std::unique_ptr< Crystal::Physics::BulletRigid > rigid2;
 	std::unique_ptr< Crystal::Physics::BulletRigid > rigid3;
+	Crystal::Polygon::PolygonObject shape1;
+	Crystal::Polygon::PolygonObject shape2;
+
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;

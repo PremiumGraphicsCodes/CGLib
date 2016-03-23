@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
  
 #include "../Math/Vector3d.h"
+#include "../Math/Matrix4d.h"
 
 using namespace Crystal::Math;
 
@@ -141,3 +142,11 @@ TYPED_TEST(Vector3dTest, TestRotateZ)
 	Vector3d<T> expected(-1, 0, 0);
 	EXPECT_EQ(expected, v);
 };
+
+TYPED_TEST(Vector3dTest, TestTransform)
+{
+	using T = TypeParam;
+	const Matrix4d<T> m;
+	Vector3d<T> v(1, 0., 0);
+	v.transform(m);
+}

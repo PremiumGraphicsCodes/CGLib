@@ -16,6 +16,8 @@ namespace Crystal {
 		class Sphere;
 		template<typename>
 		class Box;
+		template<typename>
+		class Matrix4d;
 	}
 	namespace Polygon {
 
@@ -55,11 +57,15 @@ public:
 
 	Face* createFace(const int v1, const int v2, const int v3);
 
+	PolygonObject* clone();
+
 	std::list< Face* > createFaces(const std::vector<int>& ids);
 
 	std::list< Face* > createFaces(const std::vector<Vertex*>& vertices);
 
 	VertexCollection getVertices() const { return vertices; }
+
+	void transform(const Math::Matrix4d<float>& matrix);
 
 	std::vector<Math::Vector3d<float>> getPositions() const{
 		std::vector<Math::Vector3d<float>> positions;

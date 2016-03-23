@@ -29,6 +29,12 @@ T Vector4d<T>::getDistanceSquared(const Vector4d& rhs) const
 	return pow(x - rhs.x, 2) + pow(y - rhs.y, 2) + pow(z - rhs.z, 2) + pow(w - rhs.w, 2);
 }
 
+template<typename T>
+Vector3d<T> Vector4d<T>::toVector3d() const
+{
+	return Vector3d<T>(x / w, y / w, z / w);
+}
+
 
 template class Vector4d<float>;
 template class Vector4d<double>;

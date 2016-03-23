@@ -24,5 +24,15 @@ TEST(PolygonObjectTest, TestMerge)
 	object1.merge(&object2);
 	EXPECT_EQ( 2, object1.getVertices().size() );
 	EXPECT_EQ( 0, object2.getVertices().size());
+}
 
+TEST(PolygonObjectTest, TestClone)
+{
+	PolygonObject object1;
+	auto v1 = object1.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
+	auto v2 = object1.createVertex(Vector3d<float>(1.0f, 1.0f, 0.0f));
+	auto v3 = object1.createVertex(Vector3d<float>(1.0f, 1.0f, 1.0f));
+	object1.createFace(v1, v2, v3);
+	auto actual = object1.clone();
+	delete actual;
 }

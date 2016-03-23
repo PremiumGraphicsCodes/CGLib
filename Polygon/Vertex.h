@@ -2,6 +2,7 @@
 #define __CRYSTAL_POLYGON_POLYGON_REDUCTION_H__
 
 #include "../Math/Vector3d.h"
+#include "../Math/Matrix4d.h"
 #include "../Util/UnCopyable.h"
 #include <list>
 #include <array>
@@ -33,6 +34,10 @@ public:
 
 	Face* getFace() const { return f; }
 
+	void transform(const Math::Matrix4d<float>& matrix);
+
+	Vertex* clone();
+
 	unsigned int getId() const { return id; }
 	unsigned int id;
 
@@ -54,6 +59,8 @@ public:
 	~VertexCollection();
 
 	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
+
+	VertexCollection clone();
 
 	void merge(VertexCollection& rhs);
 

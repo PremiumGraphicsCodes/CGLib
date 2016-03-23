@@ -9,6 +9,8 @@
 
 namespace Crystal{
 	namespace Math{
+		template<typename>
+		class Matrix4d;
 
 template<typename T>
 class Vector3d final
@@ -100,6 +102,8 @@ public:
 	void rotate(const Matrix3d<T>& matrix) {
 		*(this) = getMult(matrix);
 	}
+
+	void transform(const Matrix4d<T>& matrix);
 
 	Vector3d getMult(const Matrix3d<T>& matrix) const;
 

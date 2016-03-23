@@ -1,4 +1,5 @@
 #include "Vector3d.h"
+#include "Matrix4d.h"
 
 using namespace Crystal::Math;
 
@@ -89,6 +90,15 @@ Vector3d<T> Vector3d<T>::getMult(const Matrix3d<T>& matrix) const
 	return Vector3d(nx, ny, nz);
 }
 
+#include "Vector4d.h"
+
+template<typename T>
+void Vector3d<T>::transform(const Matrix4d<T>& matrix)
+{
+	Vector4d<T> v(*this);
+	v.multiple(matrix);
+	*this = v.toVector3d();
+}
 
 
 template class Vector3d<float>;

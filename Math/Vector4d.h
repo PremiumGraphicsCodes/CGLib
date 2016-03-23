@@ -48,12 +48,14 @@ public:
 
 	Vector4d getMult(const Matrix4d<T>& matrix) const;
 
+	Vector3d<T> toVector3d() const;
+
 public:
 	T getX() const { return x; }
 
-			T getY() const { return y; }
+	T getY() const { return y; }
 
-			T getZ() const { return z; }
+	T getZ() const { return z; }
 
 			void setX(const T x) { this->x = x; }
 

@@ -59,6 +59,18 @@ void Vertex::normalize(const Vertex& rhs)
 	this->normal.normalize();
 }
 
+void Vertex::transform(const Matrix4d<float>& matrix)
+{
+	this->position.transform(matrix);
+	this->normal.transform(matrix);
+}
+
+Vertex* Vertex::clone()
+{
+	return new Vertex(id, position, normal, texCoord);
+}
+
+
 VertexCollection::VertexCollection() : nextId(0)
 {}
 
@@ -70,6 +82,16 @@ VertexCollection::VertexCollection(const std::vector<Vertex*>& vertices) :
 VertexCollection::~VertexCollection()
 {
 }
+
+VertexCollection VertexCollection::clone()
+{
+	std::vector<Vertex*> vs;
+	for (auto v : vertices) {
+		vs.push_back(v->clone());
+	}
+	return VertexCollection(vs);
+}
+
 
 bool VertexCollection::hasVertex(Vertex* v)
 {

@@ -181,3 +181,24 @@ void PolygonObject::clear()
 	vertices.clear();
 	faces.clear();
 }
+
+#include "../Math/Matrix4d.h"
+
+void PolygonObject::transform(const Matrix4d<float>& matrix)
+{
+	for (auto v : vertices) {
+		v->transform(matrix);
+	}
+}
+
+PolygonObject* PolygonObject::clone()
+{
+	PolygonObject* newPolygon = new PolygonObject();
+	for (auto v : vertices) {
+		newPolygon->createVertex( v->getPosition(), v->getNormal(), v->getTexCoord());
+	}
+	for (auto f : faces) {
+		newPolygon->createFace(f->getV1()->getId(), f->getV2()->getId(), f->getV3()->getId());
+	}
+	return newPolygon;
+}
