@@ -23,6 +23,12 @@ Vector4d<T> Vector4d<T>::getMult(const Matrix4d<T>& matrix) const
 	return Vector4d(nx, ny, nz, nw);
 }
 
+template<typename T>
+T Vector4d<T>::getDistanceSquared(const Vector4d& rhs) const
+{
+	return pow(x - rhs.x, 2) + pow(y - rhs.y, 2) + pow(z - rhs.z, 2) + pow(w - rhs.w, 2);
+}
+
 
 template class Vector4d<float>;
 template class Vector4d<double>;

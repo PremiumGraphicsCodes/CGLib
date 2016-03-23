@@ -18,5 +18,6 @@
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Plane3dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
+    <ClCompile Include="Vector4dTest.cpp" />
   </ItemGroup>
 </Project>

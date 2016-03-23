@@ -34,7 +34,7 @@ public:
 
 	T getDistance(const Vector4d& rhs) const { return ::sqrt(getDistanceSquared(rhs)); }
 
-	T getDistanceSquared(const Vector4d& rhs) const { return pow(x - rhs.x, 2) + pow(y - rhs.y, 2) + pow(z - rhs.z, 2); }
+	T getDistanceSquared(const Vector4d& rhs) const;
 
 	bool equals(const Vector4d&rhs) const { return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs)); }
 

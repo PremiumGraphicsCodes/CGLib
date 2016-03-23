@@ -10,29 +10,17 @@
 namespace Crystal{
 	namespace Math{
 
-
 template<typename T>
 class Vector3d final
 {
 public:
-	Vector3d(void) : Vector3d(0, 0, 0)
-	{}
+	Vector3d(void);
 
-	explicit Vector3d(const Vector2d<T>& v) :
-		x(v.getX()),
-		y(v.getY()),
-		z(0)
-	{}
+	explicit Vector3d(const Vector2d<T>& v);
 
-	Vector3d(const T x, const T y, const T z) :
-		x(x), y(y), z(z)
-	{}
+	Vector3d(const T x, const T y, const T z);
 
-	Vector3d(const Vector3d& start, const Vector3d& end) :
-		x(end.x - start.x),
-		y(end.y - start.y),
-		z(end.z - start.z)
-	{}
+	Vector3d(const Vector3d& start, const Vector3d& end);
 
 	~Vector3d() = default;
 
@@ -113,13 +101,8 @@ public:
 		*(this) = getMult(matrix);
 	}
 
-	Vector3d getMult(const Matrix3d<T>& matrix) const {
-		const auto nx = x * matrix.getX00() + y * matrix.getX10() + z * matrix.getX20();
-		const auto ny = x * matrix.getX01() + y * matrix.getX11() + z * matrix.getX21();
-		const auto nz = x * matrix.getX02() + y * matrix.getX12() + z * matrix.getX22();
-		return Vector3d(nx, ny, nz);
-	}
-	
+	Vector3d getMult(const Matrix3d<T>& matrix) const;
+
 	const Vector3d operator*( const Matrix3d<T>& rhs ) const { return getMult(rhs); }
 
 

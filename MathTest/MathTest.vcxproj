@@ -36,6 +36,7 @@
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
+    <ClCompile Include="Vector4dTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E7634880-87E0-4EF1-99FA-E9871BC1B152}</ProjectGuid>
