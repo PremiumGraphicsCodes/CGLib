@@ -31,7 +31,7 @@ private:
 	std::unique_ptr< Crystal::Physics::BulletRigid > rigid3;
 	Crystal::Polygon::PolygonObject shape1;
 	Crystal::Polygon::PolygonObject shape2;
-
+	Crystal::Polygon::PolygonObject shape3;
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;

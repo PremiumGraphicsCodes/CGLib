@@ -158,6 +158,9 @@ void PolygonObject::add(const Box<float>& box)
 	createFace(vertices[6], vertices[1], vertices[5]);
 	createFace(vertices[2], vertices[1], vertices[6]);
 
+	createFace(vertices[7], vertices[3], vertices[4]);
+	createFace(vertices[3], vertices[4], vertices[0]);
+
 	//createFace(vertices)
 
 }

@@ -36,6 +36,8 @@ void BulletRigidSample::setup()
 		world.add(rigid2.get());
 	}
 	{
+		Box<float> box(Vector3d<float>(-0.5, -1.0f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
+		shape3.add(box);
 		rigid3 = std::make_unique<BulletRigid>(Vector3d<float>(0.5f, 2.0f, 0.5f), Vector3d<float>(2.0f, 10.0f, 0.0f), 0.1f);
 		world.add(rigid3.get());
 	}
@@ -99,11 +101,21 @@ void BulletRigidSample::demonstrate()
 		delete p;
 	}
 	{
+		LineBuffer lineBuffer;
+
 		const auto& surfels = rigid3->toSurlfes(0.25f).toPositions();
+		auto p = shape3.clone();
+		p->transform(rigid3->getTransformMatrix());
+
 		for (const auto& p : surfels) {
 			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
 			buffer.add(pt);
 		}
+		lineBuffer.add(*p);
+
+		renderer.render(camera, lineBuffer);
+		delete p;
+
 	}
 
 
