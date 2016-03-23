@@ -24,7 +24,7 @@ void FluidSample::setup()
 {
 	std::vector<SPHParticle*> particles;
 	for (int i = 0; i < 20; ++i) {
-		for (int j = 0; j < 20; ++j) {
+		for (int j = 0; j < 200; ++j) {
 			for (int k = 0; k < 10; ++k) {
 				Vector3d<float> pos(i * 1.0f, j * 1.0f, -k * 1.0f);
 				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
@@ -49,7 +49,7 @@ void FluidSample::demonstrate()
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(500.0f, effectLength) );
+	std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(800.0f, effectLength) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));

@@ -16,14 +16,16 @@ SPHParticle::SPHParticle():
 SPHParticle::SPHParticle(const Particle& particle, float pressureCoe, float viscosityCoe) :
 	Particle(particle),
 	pressureCoe(pressureCoe),
-	viscosityCoe(viscosityCoe)
+	viscosityCoe(viscosityCoe),
+	tensionCoe(0.0f)
 {}
 
 SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float density, float pressureCoe, float viscosityCoe) :
 	Particle(center, density, radius),
 	pressureCoe(pressureCoe),
 	viscosityCoe(viscosityCoe),
-	restDensity(density)
+	restDensity(density),
+	tensionCoe(0.0f)
 {
 	this->density = restDensity;
 }
@@ -72,19 +74,29 @@ void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
 	this->force += externalForce;
 }
+
 namespace {
 	SPHKernel<float> kernel;
 }
 
 
-void SPHParticle::addNormal(const SPHParticle& rhs, const float effectLength)
+void SPHParticle::solveNormal(const SPHParticle& rhs, const float effectLength)
 {
-	const auto distanceVector = this->getPosition() - rhs.getPosition();
+	const auto& distanceVector = this->getPosition() - rhs.getPosition();
 	this->normal += kernel.getPoly6KernelGradient(distanceVector, effectLength) * rhs.getVolume();
 	//pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
 }
 
-#include "SPHKernel.h"
+void SPHParticle::solveSurfaceTension(const SPHParticle& rhs, const float effectLength)
+{
+	if (this->normal.getLengthSquared() < 0.1f) {
+		return;
+	}
+	const auto distance = this->getPosition().getDistance( rhs.getPosition() );
+	const auto n = this->normal.getNormalized();
+	const float tensionCoe = (this->tensionCoe + rhs.tensionCoe) * 0.5f;;
+	this->force -= tensionCoe * kernel.getPoly6KernelLaplacian(distance,effectLength) * n;
+}
 
 
 void SPHParticle::solvePressureForce(const SPHParticle& rhs, const float effectLength)

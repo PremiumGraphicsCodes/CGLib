@@ -23,6 +23,8 @@ public:
 
 	SPHParticle(const Math::Vector3d<float>& center, float radius, float density, float pressureCoe = 1.0f, float viscosityCoe = 0.0f);
 
+	void setTensionCoe(const float coe) { this->tensionCoe = coe; }
+
 	float getDensityRatio() const;
 
 	float getPressure() const;
@@ -61,7 +63,9 @@ public:
 
 	void addExternalForce(const Math::Vector3d<float>& force);
 
-	void addNormal(const SPHParticle& rhs, const float effectLength);
+	void solveNormal(const SPHParticle& rhs, const float effectLength);
+
+	void solveSurfaceTension(const SPHParticle& rhs, const float effectLength);
 
 	void solvePressureForce(const SPHParticle& rhs, const float effectLength);
 
@@ -82,6 +86,7 @@ private:
 	Math::Vector3d<float> normal;
 	float pressureCoe;
 	float viscosityCoe;
+	float tensionCoe;
 };
 
 	}

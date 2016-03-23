@@ -129,7 +129,8 @@ ParticleObject* PhysicsObject::toSurfaceParticleObject() const
 {
 	std::vector<Particle*> ps;
 	for (int i = 0; i < particles.size(); ++i) {
-		if (particles[i]->getDensityRatio() < 0.99) {
+		const auto length = particles[i]->getNormal().getLength();
+		if ( length > 0.20f) {
 			ps.push_back(particles[i]->clone());
 		}
 	}

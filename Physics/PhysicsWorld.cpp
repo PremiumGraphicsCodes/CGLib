@@ -22,8 +22,6 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		particle->init();
 	}
 
-
-
 	NeighborFinder finder(effectLength, allParticles.size());
 	for (const auto& particle : allParticles) {
 		finder.add(particle);
@@ -43,12 +41,18 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].getParticle1()->solvePressureForce( *pairs[i].getParticle2(), effectLength );
+		pairs[i].getParticle1()->solvePressureForce(*pairs[i].getParticle2(), effectLength);
+		pairs[i].getParticle1()->solveViscosityForce(*pairs[i].getParticle2(), effectLength);
 	}
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].getParticle1()->solveViscosityForce(*pairs[i].getParticle2(), effectLength);
+		pairs[i].getParticle1()->solveNormal(*pairs[i].getParticle2(), effectLength);
+	}
+
+#pragma omp parallel for
+	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
+		pairs[i].getParticle1()->solveSurfaceTension(*pairs[i].getParticle2(), effectLength);
 	}
 
 
