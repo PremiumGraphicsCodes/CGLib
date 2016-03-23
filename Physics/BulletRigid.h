@@ -9,6 +9,7 @@
 #include "../Math/Box.h"
 #include "../Math/Sphere.h"
 #include "../Math/Quaternion.h"
+#include "../Math/Matrix4d.h"
 #include "Surfels.h"
 
 class btRigidBody;
@@ -41,6 +42,8 @@ public:
 	Math::Vector3d<float> getOrigin() const;
 
 	Math::Quaternion<float> getOrientation() const;
+
+	Math::Matrix4d<float> getTransformMatrix() const;
 
 	Surfels toSurlfes(const float divideLength) const;
 

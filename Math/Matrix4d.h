@@ -8,6 +8,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename>
+		class Vector3d;
 
 template< typename T >
 class Matrix4d
@@ -90,6 +92,8 @@ public:
 	}
 
 	void multiple(const Matrix4d& rhs);
+
+	Vector3d<T> multiple(const Vector3d<T>& v);
 
 	void operator*=(const Matrix4d& rhs) { multiple(rhs); }
 

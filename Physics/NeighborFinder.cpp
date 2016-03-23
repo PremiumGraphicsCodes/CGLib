@@ -16,6 +16,9 @@ void NeighborFinder::add(SPHParticle* particle)
 
 void NeighborFinder::create(const std::vector<SPHParticle*>& particles)
 {
+	if (spaceHash.isEmpty()) {
+		return;
+	}
 	constexpr int threads = 8;
 	std::array< std::vector<SPHParticlePair>, threads> tpairs;
 	std::array< int, threads > starts;

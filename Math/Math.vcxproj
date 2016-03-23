@@ -39,6 +39,7 @@
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector4d.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Box.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Vector2d.cpp" />
+    <ClCompile Include="Vector4d.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EF87AE9B-8651-451D-B8AF-ADCF3F1CEA50}</ProjectGuid>

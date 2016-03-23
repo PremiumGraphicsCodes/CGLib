@@ -104,6 +104,14 @@ Quaternion<float> BulletRigid::getOrientation() const
 	return BulletConverter::convert(transform.getRotation());
 }
 
+Matrix4d<float> BulletRigid::getTransformMatrix() const
+{
+	btTransform transform;
+	body->getMotionState()->getWorldTransform(transform);
+	return BulletConverter::convert(transform);
+}
+
+
 Surfels BulletRigid::toSurlfes(const float divideLength) const
 {
 	const auto& translate = getOrigin();

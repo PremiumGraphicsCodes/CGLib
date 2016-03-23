@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Matrix4d.h"
+#include "../Math/Vector3d.h"
 
 using namespace Crystal::Math;
 
@@ -44,4 +45,16 @@ TYPED_TEST(Matrix4dTest, TestEquals)
 	using T = TypeParam;
 
 	EXPECT_NE(Matrix4d<T>::Zero(), Matrix4d<T>::Identity());
+}
+
+TYPED_TEST(Matrix4dTest, TestMultipleVector3d)
+{
+	using T = TypeParam;
+
+	Matrix4d<T> m(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		1, 1, 1, 1);
+	const auto actual = m.multiple(Vector3d<T>(1, 2, 3));
 }

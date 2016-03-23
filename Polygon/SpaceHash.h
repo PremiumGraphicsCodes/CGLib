@@ -27,6 +27,8 @@ public:
 
 	std::list<Particle*> getNeighbor(const Math::Index3d index);
 
+	bool isEmpty() const { return table.empty(); }
+
 private:
 	std::vector< std::list<Particle*> > table;
 

@@ -1,4 +1,5 @@
 #include "Matrix4d.h"
+#include "Vector3d.h"
 
 using namespace Crystal::Math;
 
@@ -48,6 +49,16 @@ bool Matrix4d<T>::equals(const Matrix4d<T>& rhs) const {
 		}
 	}
 	return true;
+}
+
+template<typename T>
+Vector3d<T> Matrix4d<T>::multiple(const Vector3d<T>& v)
+{
+	const auto x = getX00() * v.getX() + getX01() * v.getY() + getX02() * v.getZ() + getX03() * 1.0f;
+	const auto y = getX10() * v.getX() + getX11() * v.getY() + getX12() * v.getZ() + getX13() * 1.0f;
+	const auto z = getX20() * v.getX() + getX21() * v.getY() + getX22() * v.getZ() + getX23() * 1.0f;
+	const auto w = getX30() * v.getX() + getX31() * v.getY() + getX23() * v.getZ() + getX33() * 1.0f;
+	return Vector3d<T>(x/w, y/w, z/w);
 }
 
 

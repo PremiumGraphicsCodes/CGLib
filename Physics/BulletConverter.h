@@ -3,6 +3,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Math/Quaternion.h"
+#include "../Math/Matrix4d.h"
 
 #include "Bullet.h"
 
@@ -20,6 +21,8 @@ public:
 	static Math::Quaternion<float> convert(const btQuaternion& src);
 
 	static btQuaternion convert(const Math::Quaternion<float>& src);
+
+	static Math::Matrix4d<float> convert(const btTransform& src);
 };
 
 	}

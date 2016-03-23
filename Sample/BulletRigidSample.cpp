@@ -64,6 +64,7 @@ void BulletRigidSample::demonstrate()
 
 	{
 		const auto& surfels = rigid1->toSurlfes(0.25f).toPositions();
+		//rigid1->
 		for (const auto& p : surfels) {
 			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
 			buffer.add(pt);
