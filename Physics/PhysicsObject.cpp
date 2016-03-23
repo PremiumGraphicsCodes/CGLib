@@ -125,8 +125,26 @@ ParticleObject* PhysicsObject::toParticleObject() const
 	return new ParticleObject(ps);
 }
 
+ParticleObject* PhysicsObject::toSurfaceParticleObject() const
+{
+	std::vector<Particle*> ps;
+	for (int i = 0; i < particles.size(); ++i) {
+		if (particles[i]->getDensityRatio() < 0.99) {
+			ps.push_back(particles[i]->clone());
+		}
+	}
+	return new ParticleObject(ps);
+
+}
+
 PolygonObject* PhysicsObject::toPolygonObject(const float isolevel, const float effectLength) const
 {
 	std::unique_ptr<ParticleObject> particleObject( toParticleObject() );
+	return particleObject->toPolygon(isolevel, effectLength);
+}
+
+PolygonObject* PhysicsObject::toSurfacePolygonObject(const float isolevel, const float effectLength) const
+{
+	std::unique_ptr<ParticleObject> particleObject(toSurfaceParticleObject());
 	return particleObject->toPolygon(isolevel, effectLength);
 }

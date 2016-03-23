@@ -55,7 +55,12 @@ public:
 
 	Polygon::ParticleObject* toParticleObject() const;
 
+	Polygon::ParticleObject* toSurfaceParticleObject() const;
+
 	Polygon::PolygonObject* toPolygonObject(const float isolevel,const float effectLength) const;
+
+	Polygon::PolygonObject* toSurfacePolygonObject(const float isolevel, const float effectLength) const;
+
 
 private:
 	std::vector<SPHParticle*> particles;

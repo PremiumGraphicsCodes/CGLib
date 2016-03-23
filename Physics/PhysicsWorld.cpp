@@ -24,35 +24,21 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 
 
-	/*
-	ParticleFindAlgo<float> algo;
-	algo.createPairs(particles, effectLength);
-	const auto& pairs = algo.getPairs();
-	*/
-
 	NeighborFinder finder(effectLength, allParticles.size());
 	for (const auto& particle : allParticles) {
 		finder.add(particle);
 	}
 
-
-	/*
-	for (const auto& particle : particles) {
-		finder.create(particle);
-	}
-	*/
 	finder.create(allParticles);
 
 	const auto& pairs = finder.getPairs();
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		const float distance = pairs[i].getDistance();
-		pairs[i].getParticle1()->addDensity(kernel.getPoly6Kernel(distance, effectLength) * pairs[i].getParticle2()->getMass());
+		pairs[i].getParticle1()->addDensity(*pairs[i].getParticle2(), effectLength);
 	}
 
 	for (int i = 0; i < static_cast<int>(allParticles.size()); ++i) {
 		allParticles[i]->addSelfDensity(effectLength);
-		//allParticles[i]->addDensity(kernel.getPoly6Kernel(0.0, effectLength) * allParticles[i]->getMass());
 	}
 
 #pragma omp parallel for
@@ -62,10 +48,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		const auto viscosityCoe = pairs[i].getViscosityCoe();
-		const auto& velocityDiff = pairs[i].getVelocityDiff();
-		const auto distance = pairs[i].getDistance();
-		pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
+		pairs[i].getParticle1()->solveViscosityForce(*pairs[i].getParticle2(), effectLength);
 	}
 
 

@@ -65,7 +65,11 @@ public:
 
 	void solvePressureForce(const SPHParticle& rhs, const float effectLength);
 
+	void solveViscosityForce(const SPHParticle& rhs, const float effectLength);
+
 	void addSelfDensity(const float effectLength);
+
+	void addDensity(const SPHParticle& rhs, const float effectLength);
 
 private:
 

@@ -94,7 +94,21 @@ void SPHParticle::solvePressureForce(const SPHParticle& rhs, const float effectL
 	this->force += f;
 }
 
+void SPHParticle::solveViscosityForce(const SPHParticle& rhs, const float effectLength)
+{
+	const auto viscosityCoe = (this->viscosityCoe + rhs.viscosityCoe) * 0.5f;
+	const auto& velocityDiff = (rhs.velocity - this->velocity);
+	const auto distance = getPosition().getDistance(rhs.getPosition());
+	this->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * rhs.getVolume());
+}
+
 void SPHParticle::addSelfDensity(const float effectLength)
 {
 	this->addDensity(kernel.getPoly6Kernel(0.0, effectLength) * this->getMass());
+}
+
+void SPHParticle::addDensity(const SPHParticle& rhs, const float effectLength)
+{
+	const float distance = this->getPosition().getDistance( rhs.getPosition() );
+	this->addDensity(kernel.getPoly6Kernel(distance, effectLength) * rhs.getMass());
 }
