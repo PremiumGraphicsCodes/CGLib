@@ -45,11 +45,7 @@ public:
 
 	float getRestDensity() const { return restDensity; }
 
-	void init() {
-		density = 0.0;
-		force = Math::Vector3d<float>( 0.0f, 0.0f, 0.0f);
-	}
-
+	void init();
 
 	Math::Vector3d<float> getAccelaration() { return force / density; }
 
@@ -65,12 +61,19 @@ public:
 
 	void addExternalForce(const Math::Vector3d<float>& force);
 
+	void addColorField(const SPHParticle& rhs);
+
+	void solvePressureForce(const SPHParticle& rhs, const float effectLength);
+
+	void addSelfDensity(const float effectLength);
+
 private:
 
 	float restDensity;
 	float density;
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
+	float colorField;
 	float pressureCoe;
 	float viscosityCoe;
 };

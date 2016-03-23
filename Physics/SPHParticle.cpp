@@ -1,5 +1,7 @@
 #include "SPHParticle.h"
 
+#include "SPHKernel.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
@@ -26,6 +28,12 @@ SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float dens
 	this->density = restDensity;
 }
 
+void SPHParticle::init()
+{
+	density = 0.0;
+	colorField = 0.0f;
+	force = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
+}
 
 float SPHParticle::getDensityRatio() const
 {
@@ -63,4 +71,30 @@ void SPHParticle::forwardTime(const float timeStep)
 void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
 	this->force += externalForce;
+}
+
+void SPHParticle::addColorField(const SPHParticle& rhs)
+{
+	const auto tensionCoe = 1.0f;//pairs[i].getViscosityCoe();
+	const auto distanceVector = this->getPosition() - rhs.getPosition();
+	//pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
+}
+
+#include "SPHKernel.h"
+
+namespace{
+	SPHKernel<float> kernel;
+}
+
+void SPHParticle::solvePressureForce(const SPHParticle& rhs, const float effectLength)
+{
+	const auto pressure = (this->getPressure() + rhs.getPressure()) * 0.5f;
+	const auto& distanceVector = (this->getPosition() - rhs.getPosition());
+	const auto& f = kernel.getSpikyKernelGradient(distanceVector, effectLength) * pressure * rhs.getVolume();
+	this->force += f;
+}
+
+void SPHParticle::addSelfDensity(const float effectLength)
+{
+	this->addDensity(kernel.getPoly6Kernel(0.0, effectLength) * this->getMass());
 }

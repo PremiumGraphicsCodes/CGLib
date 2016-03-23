@@ -18,12 +18,6 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	const auto& particles = getParticles();
 	const auto& allParticles = getAllParticles();
 
-	/*
-	if (particles.empty()) {
-		return;
-	}
-	*/
-
 	for (const auto& particle : allParticles) {
 		particle->init();
 	}
@@ -57,15 +51,13 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	}
 
 	for (int i = 0; i < static_cast<int>(allParticles.size()); ++i) {
-		allParticles[i]->addDensity(kernel.getPoly6Kernel(0.0, effectLength) * allParticles[i]->getMass());
+		allParticles[i]->addSelfDensity(effectLength);
+		//allParticles[i]->addDensity(kernel.getPoly6Kernel(0.0, effectLength) * allParticles[i]->getMass());
 	}
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		const auto pressure = pairs[i].getPressure();
-		const auto& distanceVector = pairs[i].getDistanceVector();
-		const auto& force = kernel.getSpikyKernelGradient(distanceVector, effectLength) * pressure * pairs[i].getParticle2()->getVolume();
-		pairs[i].getParticle1()->addForce(force);
+		pairs[i].getParticle1()->solvePressureForce( *pairs[i].getParticle2(), effectLength );
 	}
 
 #pragma omp parallel for
@@ -75,6 +67,8 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		const auto distance = pairs[i].getDistance();
 		pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
 	}
+
+
 
 	/*
 	for (const auto rigid : bulletRigids) {
