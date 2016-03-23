@@ -61,7 +61,7 @@ public:
 
 	void addExternalForce(const Math::Vector3d<float>& force);
 
-	void addColorField(const SPHParticle& rhs);
+	void addNormal(const SPHParticle& rhs, const float effectLength);
 
 	void solvePressureForce(const SPHParticle& rhs, const float effectLength);
 
@@ -71,13 +71,15 @@ public:
 
 	void addDensity(const SPHParticle& rhs, const float effectLength);
 
+	Math::Vector3d<float> getNormal() const { return normal; }
+
 private:
 
 	float restDensity;
 	float density;
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
-	float colorField;
+	Math::Vector3d<float> normal;
 	float pressureCoe;
 	float viscosityCoe;
 };

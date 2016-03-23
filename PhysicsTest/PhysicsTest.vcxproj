@@ -24,7 +24,7 @@
     <ClCompile Include="BulletInteractionTest.cpp" />
     <ClCompile Include="BulletRigidTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
-    <ClCompile Include="ParticleTest.cpp" />
+    <ClCompile Include="SPHParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
     <ClCompile Include="SpringTest.cpp" />
     <ClCompile Include="SurfelsTest.cpp" />

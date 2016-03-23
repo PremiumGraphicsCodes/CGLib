@@ -31,7 +31,7 @@ SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float dens
 void SPHParticle::init()
 {
 	density = 0.0;
-	colorField = 0.0f;
+	normal = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
 	force = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
 }
 
@@ -72,19 +72,20 @@ void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
 	this->force += externalForce;
 }
+namespace {
+	SPHKernel<float> kernel;
+}
 
-void SPHParticle::addColorField(const SPHParticle& rhs)
+
+void SPHParticle::addNormal(const SPHParticle& rhs, const float effectLength)
 {
-	const auto tensionCoe = 1.0f;//pairs[i].getViscosityCoe();
 	const auto distanceVector = this->getPosition() - rhs.getPosition();
+	this->normal += kernel.getPoly6KernelGradient(distanceVector, effectLength) * rhs.getVolume();
 	//pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
 }
 
 #include "SPHKernel.h"
 
-namespace{
-	SPHKernel<float> kernel;
-}
 
 void SPHParticle::solvePressureForce(const SPHParticle& rhs, const float effectLength)
 {
