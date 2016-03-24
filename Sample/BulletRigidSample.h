@@ -11,6 +11,7 @@
 #include "../Polygon/PolygonObject.h"
 #include "ISample.h"
 #include <memory>
+#include <map>
 
 class BulletRigidSample : public ISample
 {
@@ -31,6 +32,8 @@ private:
 	Crystal::Polygon::PolygonObject shape1;
 	Crystal::Polygon::PolygonObject shape2;
 	Crystal::Polygon::PolygonObject shape3;
+
+	std::map< Crystal::Physics::BulletRigid*, Crystal::Polygon::PolygonObject* > rigidPolygonMap;
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;

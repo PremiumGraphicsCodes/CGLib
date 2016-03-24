@@ -21,25 +21,27 @@ using namespace Crystal::Shader;
 
 void BulletRigidSample::setup()
 {
+	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
 	{
 		Box<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
 		rigid1 = std::make_unique<BulletRigid>(box, 10.0f, &constant);
-		//rigid1->getBody()->applyForce(btVector3(2000.0f, 0.0f, 0.0f), btVector3(0.5f, 0.0f, 0.0f));
-		//rigid1->getBody()->setAngularVelocity(btVector3(1.0f, 0.0f, 0.0f));
 		shape1.add(box);
 		world.add(rigid1.get());
+		rigidPolygonMap[ rigid1.get() ] = &shape1;
 	}
 	{
 		Box<float> box(Vector3d<float>(-0.5, 0.5f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
 		shape2.add(box);
 		rigid2 = std::make_unique<BulletRigid>(box, 0.1f, &constant);
 		world.add(rigid2.get());
+		rigidPolygonMap[rigid2.get()] = &shape2;
 	}
 	{
 		Box<float> box(Vector3d<float>(-0.5, 1.0f, -0.5f), Vector3d<float>(0.5f, 2.0f, 0.5f));
 		shape3.add(box);
 		rigid3 = std::make_unique<BulletRigid>(box, 0.1f, &constant);
 		world.add(rigid3.get());
+		rigidPolygonMap[rigid3.get()] = &shape3;
 	}
 
 
@@ -54,7 +56,6 @@ void BulletRigidSample::setup()
 
 void BulletRigidSample::demonstrate()
 {
-
 	glEnable(GL_DEPTH_TEST);
 
 	world.simulate(1.0f/60.0f);
@@ -70,42 +71,13 @@ void BulletRigidSample::demonstrate()
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
-
-	{
+	for (auto m : rigidPolygonMap) {
 		LineBuffer lineBuffer;
-
-		auto p = shape1.clone();
-		p->transform(rigid1->getTransformMatrix());
+		const auto matrix = m.first->getTransformMatrix();
+		auto p = m.second->clone();
+		p->transform(matrix);
 		lineBuffer.add(*p);
 		renderer.render(camera, lineBuffer);
 		delete p;
 	}
-	{
-		LineBuffer lineBuffer;
-
-		auto p = shape2.clone();
-		p->transform(rigid2->getTransformMatrix());
-		lineBuffer.add(*p);
-		renderer.render(camera, lineBuffer);
-		delete p;
-	}
-	{
-		LineBuffer lineBuffer;
-
-		auto p = shape3.clone();
-		p->transform(rigid3->getTransformMatrix());
-		lineBuffer.add(*p);
-
-		renderer.render(camera, lineBuffer);
-		delete p;
-
-	}
-
-
-
-	/*
-	LineBuffer buffer;
-	buffer.add(*polygon);
-	renderer.render(camera, buffer);
-	*/
 }
