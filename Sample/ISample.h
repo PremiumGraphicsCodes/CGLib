@@ -10,9 +10,12 @@ public:
 	virtual void setup() = 0;
 
 	virtual ~ISample() {
+		cleanup();
 	};
 
 	virtual void demonstrate() = 0;
+
+	virtual void cleanup() {};
 
 private:
 };

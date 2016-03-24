@@ -25,7 +25,16 @@ public:
 
 private:
 
-	void cleanup() {};
+	void cleanup() override {
+		for (auto r : rigids) {
+			delete r;
+		}
+		rigids.clear();
+		for (auto s : shapes) {
+			delete s;
+		}
+		shapes.clear();
+	}
 
 	std::vector< Crystal::Physics::BulletRigid* > rigids;
 	std::vector< Crystal::Polygon::PolygonObject* > shapes;
