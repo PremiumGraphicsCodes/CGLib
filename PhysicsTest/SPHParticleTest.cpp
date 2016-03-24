@@ -5,7 +5,6 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-
 TEST(SPHParticleTest, TestConstruct)
 {
 	const SPHParticle particle;
@@ -47,4 +46,13 @@ TEST(SPHParticleTest, TestSolveNormal)
 	particle1.solveSurfaceTension(particle2, 1.25f);
 	const auto actual = particle1.getForce().getX();
 	EXPECT_TRUE(actual > 0.0f);
+}
+
+TEST(SPHParticleTest, TestFreeFall)
+{
+	SPHParticle particle(Vector3d<float>(0.0f, 0.0f, 0.0f), 0.5f, 1000.0f, 1.0f, 1.0f);
+	particle.addSelfDensity(1.25f);
+	particle.addExternalForce(Vector3d<float>(0.0, -10.0f, 0.0f));
+	particle.forwardTime(0.1f);
+	const auto position = particle.getPosition();
 }

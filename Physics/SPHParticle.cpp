@@ -72,7 +72,7 @@ void SPHParticle::forwardTime(const float timeStep)
 
 void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
-	this->force += externalForce;
+	this->force += externalForce * getDensity();
 }
 
 namespace {

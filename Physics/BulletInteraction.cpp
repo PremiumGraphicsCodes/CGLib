@@ -30,7 +30,9 @@ void BulletInteraction::simulate(const float timeStep)
 		r->transform();
 	}
 
-	particleWorld->simulate(1.25f, timeStep*10);
+	//for (int i = 0; i < 10; ++i) {
+	particleWorld->simulate(1.25f, timeStep);// / 10.0f);
+	//}
 	for (auto& r : rigids) {
 		r->solveBoundary();
 	}

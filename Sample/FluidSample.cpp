@@ -24,10 +24,10 @@ void FluidSample::setup()
 {
 	std::vector<SPHParticle*> particles;
 	for (int i = 0; i < 20; ++i) {
-		for (int j = 0; j < 200; ++j) {
+		for (int j = 0; j < 20; ++j) {
 			for (int k = 0; k < 10; ++k) {
 				Vector3d<float> pos(i * 1.0f, j * 1.0f, -k * 1.0f);
-				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
+				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000000.0f, 10000.0f);
 				particles.push_back(p);
 			}
 		}
@@ -44,12 +44,12 @@ void FluidSample::demonstrate()
 	glEnable(GL_DEPTH_TEST);
 	
 	const float effectLength = 1.25f;
-	world.simulate(effectLength, 0.5f);
+	world.simulate(effectLength, 0.01f);
 
 	//ParticleObject particleObject;
 	//particleObject.add()
 
-	std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(800.0f, effectLength) );
+	//std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(800.0f, effectLength) );
 
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));
@@ -61,15 +61,9 @@ void FluidSample::demonstrate()
 
 	//PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
-	//buffer.add(*fluid);
-	//renderer.render(camera, buffer, 10.0f);
-	PointLight<float> light;
-	light.setPos(Vector3d <float>(10.0, -10.0, 10.0));
-	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-	//light.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-	TriangleBuffer buffer;
-	buffer.add(*polygon);
-	renderer.render(camera, light, buffer);
+	PointBuffer buffer;
+	buffer.add(*fluid.get());
+	renderer.render(camera, buffer);
 
 	/*
 	LineBuffer buffer;

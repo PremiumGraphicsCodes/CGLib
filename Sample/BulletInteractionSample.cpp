@@ -45,7 +45,7 @@ void BulletInteractionSample::setup()
 			for (int j = 0; j < 20; ++j) {
 				for (int k = 0; k < 1; ++k) {
 					Vector3d<float> pos(i * 1.0f, j * 1.0f, -k * 1.0f);
-					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
+					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000000.0f, 10000.0f);
 					particles.push_back(p);
 				}
 			}
