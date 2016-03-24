@@ -21,15 +21,23 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
-	Box<float> box1(Vector3d<float>(-4.0f, 2.0f, -2.0f), Vector3d<float>(-2.0f, 4.0f, 2.0f));
-	rigid = std::make_unique<BulletRigid>(box1, 10.0f, &constant);
-	rigid->transform();
-	bulletWorld.add(rigid.get());
+	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
 
-	Box<float> box2(Vector3d<float>(-4.0f, 4.0f, -2.0f), Vector3d<float>(-2.0f, 6.0f, 2.0f));
-	rigid2 = std::make_unique<BulletRigid>(box2, 10.0f, &constant);
-	rigid2->transform();
-	bulletWorld.add(rigid2.get());
+	for (int i = 0; i < 10; ++i)
+	{
+		Box<float> box(Vector3d<float>(-4.0f, 2.0f*i, -2.0f), Vector3d<float>(-2.0f, 2.0f*(i+1), 2.0f));
+		auto rigid = new BulletRigid(box, 10.0f, &constant);
+		rigid->transform();
+		bulletWorld.add(rigid);
+		Box<float> localBox(Vector3d<float>(-1.0f, -1.0f, -1.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
+
+		auto shape = new PolygonObject();
+		shape->add(localBox);
+		shapes.push_back(shape);
+		rigidPolygonMap[rigid] = shape;
+		rigids.push_back(rigid);
+	}
+
 
 	{
 		Box<float> box3(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, 0.0f, 50.0f));
@@ -41,18 +49,19 @@ void BulletInteractionSample::setup()
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 1.0f));
+		Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(20.0f, 20.0f, 1.0f));
 		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, -20.0), Vector3d<float>(100.0, 1000.0, 0.0));
+		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, -20.0), Vector3d<float>(100.0, 1000.0, 20.0));
 		particleWorld.setBoundary(boundary);
 
 	}
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
-	interaction.add(rigid.get());
-	interaction.add(rigid2.get());
+	for (auto r : rigids) {
+		interaction.add(r);
+	}
 }
 
 void BulletInteractionSample::demonstrate()
@@ -72,20 +81,14 @@ void BulletInteractionSample::demonstrate()
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
-	{
-		const auto& surfels = rigid->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
-		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(1, 0, 0, 1), 100.0f);
-			buffer.add(pt);
-		}
-	}
-
-	{
-		const auto& surfels = rigid2->getSurfaceParticles();//rigid->toSurlfes(0.25f).toPositions();
-		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(1, 1, 0, 1), 100.0f);
-			buffer.add(pt);
-		}
+	for (auto m : rigidPolygonMap) {
+		LineBuffer lineBuffer;
+		const auto matrix = m.first->getTransformMatrix();
+		auto p = m.second->clone();
+		p->transform(matrix);
+		lineBuffer.add(*p);
+		renderer.render(camera, lineBuffer);
+		delete p;
 	}
 
 	{
@@ -97,10 +100,4 @@ void BulletInteractionSample::demonstrate()
 	}
 
 	renderer.render(camera, buffer, 100.0f);
-
-	/*
-	LineBuffer buffer;
-	buffer.add(*polygon);
-	renderer.render(camera, buffer);
-	*/
 }

@@ -9,8 +9,10 @@
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
+#include "../Polygon/PolygonObject.h"
 #include "ISample.h"
 #include <memory>
+#include <map>
 
 class BulletInteractionSample : public ISample
 {
@@ -25,8 +27,11 @@ private:
 
 	void cleanup() {};
 
-	std::unique_ptr< Crystal::Physics::BulletRigid > rigid;
-	std::unique_ptr< Crystal::Physics::BulletRigid > rigid2;
+	std::vector< Crystal::Physics::BulletRigid* > rigids;
+	std::vector< Crystal::Polygon::PolygonObject* > shapes;
+
+
+	std::map< Crystal::Physics::BulletRigid*, Crystal::Polygon::PolygonObject* > rigidPolygonMap;
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	std::unique_ptr< Crystal::Physics::Fluid > fluid;

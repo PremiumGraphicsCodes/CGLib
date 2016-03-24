@@ -22,18 +22,6 @@ using namespace Crystal::Shader;
 
 void FluidSample::setup()
 {
-	/*
-	std::vector<SPHParticle*> particles;
-	for (int i = 0; i < 20; ++i) {
-		for (int j = 0; j < 20; ++j) {
-			for (int k = 0; k < 10; ++k) {
-				Vector3d<float> pos(i * 1.0f, j * 1.0f, -k * 1.0f);
-				SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000000.0f, 10000.0f);
-				particles.push_back(p);
-			}
-		}
-	}
-	*/
 	SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
 	Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(20.0f, 20.0f, 0.0f));
 	fluid = std::make_unique<Fluid>(box, 1.0f, constant);
@@ -50,11 +38,6 @@ void FluidSample::demonstrate()
 	const float effectLength = 1.25f;
 	world.simulate(effectLength, 0.01f);
 
-	//ParticleObject particleObject;
-	//particleObject.add()
-
-	//std::unique_ptr<PolygonObject> polygon(fluid->toPolygonObject(800.0f, effectLength) );
-
 	PerspectiveCamera<float> camera;
 	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));
 	camera.setCameraXY();
@@ -63,15 +46,8 @@ void FluidSample::demonstrate()
 
 	LegacyRenderer renderer;
 
-	//PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	PointBuffer buffer;
 	buffer.add(*fluid.get());
 	renderer.render(camera, buffer);
-
-	/*
-	LineBuffer buffer;
-	buffer.add(*polygon);
-	renderer.render(camera, buffer);
-	*/
 }
