@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BulletBoundaryTest.cpp" />
     <ClCompile Include="BulletConverterTest.cpp" />
     <ClCompile Include="BulletInteractionTest.cpp" />
     <ClCompile Include="BulletRigidTest.cpp" />

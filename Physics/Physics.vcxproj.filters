@@ -13,9 +13,6 @@
     <ClCompile Include="BulletInteraction.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="BulletBoundary.cpp">
-      <Filter>Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="BulletConverter.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="BulletInteraction.h">
-      <Filter>Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="BulletBoundary.h">
       <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletConverter.h">

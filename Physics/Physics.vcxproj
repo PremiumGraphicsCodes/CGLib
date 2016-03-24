@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="BulletBoundary.h" />
     <ClInclude Include="BulletConverter.h" />
     <ClInclude Include="BulletInteraction.h" />
     <ClInclude Include="BulletParticle.h" />
@@ -41,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundarySolver.cpp" />
-    <ClCompile Include="BulletBoundary.cpp" />
     <ClCompile Include="BulletConverter.cpp" />
     <ClCompile Include="BulletInteraction.cpp" />
     <ClCompile Include="BulletParticle.cpp" />

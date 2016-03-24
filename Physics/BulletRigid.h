@@ -21,7 +21,7 @@ namespace Crystal {
 class BulletRigid
 {
 public:
-	BulletRigid(const Math::Vector3d<float>& halfLength, const Math::Vector3d<float>& origin, const float mass);
+	BulletRigid(const Math::Box<float>& box, const float mass);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 

@@ -21,16 +21,20 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
-	rigid = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 8.0f, 0.0f), 10.0f);
+	Box<float> box1(Vector3d<float>(-2.0f, 2.0f, -2.0f), Vector3d<float>(2.0f, 4.0f, 2.0f));
+	rigid = std::make_unique<BulletRigid>(box1, 10.0f);
 	rigid->transform();
 	bulletWorld.add(rigid.get());
 
-	rigid2 = std::make_unique<BulletRigid>(Vector3d<float>(2.0f, 2.0f, 2.0f), Vector3d<float>(-4.0f, 2.0f, 0.0f), 10.0f);
+	Box<float> box2(Vector3d<float>(-2.0f, 4.0f, -2.0f), Vector3d<float>(2.0f, 6.0f, 2.0f));
+	rigid2 = std::make_unique<BulletRigid>(box2, 10.0f);
 	rigid2->transform();
 	bulletWorld.add(rigid2.get());
 
 	{
-		ground = std::make_unique<BulletRigid>(Vector3d<float>(50.0f, 10.0f, 50.0f), Vector3d<float>(0.0f, -10.0f, 0.0f), 0.0f);
+		Box<float> box3(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, -5.0f, 50.0f));
+
+		ground = std::make_unique<BulletRigid>(box3, 0.0f);
 		bulletWorld.add(ground.get());
 	}
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));

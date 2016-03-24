@@ -7,8 +7,10 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Vector3d<float>& halfLength, const Vector3d<float>& origin, const float mass)
+BulletRigid::BulletRigid(const Box<float>& box, const float mass)
 {
+	const auto halfLength = box.getLength() * 0.5f;
+	const auto origin = box.getCenter();
 	auto shape = new btBoxShape(BulletConverter::convert(halfLength));
 	btTransform transform;
 	transform.setIdentity();
