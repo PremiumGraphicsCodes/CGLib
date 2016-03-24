@@ -40,9 +40,9 @@ void BulletInteractionSample::setup()
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));
 
 	{
-		SPHConstant constant(1000000.0f, 10000.0f, 0.0f, 1.25f);
+		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
 		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 1.0f));
-		fluid = std::make_unique<Fluid>(box, 1.0f, 1000.0f, constant);
+		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
 		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, -20.0), Vector3d<float>(100.0, 1000.0, 0.0));

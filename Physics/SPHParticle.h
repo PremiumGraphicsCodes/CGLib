@@ -23,7 +23,7 @@ public:
 
 	SPHParticle(const Particle& particle, SPHConstant* constant);
 
-	SPHParticle(const Math::Vector3d<float>& center, float radius, float density, SPHConstant* constant);
+	SPHParticle(const Math::Vector3d<float>& center, float radius, SPHConstant* constant);
 
 	float getDensityRatio() const;
 
@@ -44,8 +44,6 @@ public:
 	float getDensity() const { return density; }
 
 	void addDensity(const float density) { this->density += density; }
-
-	float getRestDensity() const { return restDensity; }
 
 	void init();
 
@@ -76,7 +74,6 @@ public:
 	Math::Vector3d<float> getNormal() const { return normal; }
 
 private:
-	float restDensity;
 	float density;
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;

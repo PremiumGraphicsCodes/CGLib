@@ -11,17 +11,21 @@ public:
 		pressureCoe(1.0f),
 		viscosityCoe(0.0f),
 		tensionCoe(0.0f),
-		effectLength(1.25f)
+		effectLength(1.25f),
+		density(1000.0f)
 	{
 	}
 
-	SPHConstant(const float pressureCoe, const float viscosityCoe, const float tensionCoe, const float effectLength) :
+	SPHConstant(const float density, const float pressureCoe, const float viscosityCoe, const float tensionCoe, const float effectLength) :
+		density(density),
 		pressureCoe(pressureCoe),
 		viscosityCoe(viscosityCoe),
 		tensionCoe(tensionCoe),
 		effectLength(effectLength)
 	{
 	}
+	
+	float getDensity() const { return density; }
 
 	float getPressureCoe() const { return pressureCoe; }
 
@@ -36,6 +40,7 @@ private:
 	float viscosityCoe;
 	float tensionCoe;
 	float effectLength;
+	float density;
 };
 
 	}

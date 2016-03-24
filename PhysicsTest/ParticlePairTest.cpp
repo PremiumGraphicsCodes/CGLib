@@ -34,8 +34,8 @@ TEST(ParticlePairTest, TestIsValid)
 TEST(SPHParticlePairTest, TestGetDistanceSquared)
 {
 	SPHConstant constant;
-	SPHParticle p1( Vector3d<float>( 0, 0, 0 ), 0.5f, 1.0f, &constant);
-	SPHParticle p2( Vector3d<float>( 1, 1, 1 ), 0.5f, 1.0f, &constant);
+	SPHParticle p1( Vector3d<float>( 0, 0, 0 ), 0.5f, &constant);
+	SPHParticle p2( Vector3d<float>( 1, 1, 1 ), 0.5f, &constant);
 
 	const SPHParticlePair pair(&p1, &p2);
 	EXPECT_FLOAT_EQ(3, pair.getDistanceSquared());
@@ -44,8 +44,8 @@ TEST(SPHParticlePairTest, TestGetDistanceSquared)
 TEST(SPHParticlePairTest, TestGetDistance)
 {
 	SPHConstant constant;
-	SPHParticle p1(Vector3d<float>(0, 0, 0), 0.5f, 1.0f, &constant);
-	SPHParticle p2(Vector3d<float>(1, 1, 1), 0.5f, 1.0f, &constant);
+	SPHParticle p1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
+	SPHParticle p2(Vector3d<float>(1, 1, 1), 0.5f, &constant);
 
 	const SPHParticlePair pair(&p1, &p2);
 	EXPECT_FLOAT_EQ(std::sqrt(3.0f), pair.getDistance());
@@ -54,8 +54,8 @@ TEST(SPHParticlePairTest, TestGetDistance)
 TEST(SPHParticlePairTest, TestGetDistanceVector)
 {
 	SPHConstant constant;
-	SPHParticle p1(Vector3d<float>(1, 2, 3), 0.5f, 1.0f, &constant);
-	SPHParticle p2(Vector3d<float>(0, 0, 0), 0.5f, 1.0f, &constant);
+	SPHParticle p1(Vector3d<float>(1, 2, 3), 0.5f, &constant);
+	SPHParticle p2(Vector3d<float>(0, 0, 0), 0.5f, &constant);
 
 	const SPHParticlePair pair(&p1, &p2);
 	const auto actual = pair.getDistanceVector();

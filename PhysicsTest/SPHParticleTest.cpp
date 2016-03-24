@@ -14,14 +14,14 @@ TEST(SPHParticleTest, TestConstruct)
 TEST(SPHParticleTest, TestConstructByPosition)
 {
 	SPHConstant constant;
-	const SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, 1.0f, &constant);
+	const SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, &constant);
 	EXPECT_EQ(Vector3d<float>(1.0f, 2.0f, 3.0f), particle.getPosition());
 }
 
 TEST(SPHParticleTest, TestAddSelfDensity)
 {
 	SPHConstant constant;
-	SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, 1000.0f, &constant);
+	SPHParticle particle(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, &constant);
 	particle.init();
 	particle.addSelfDensity();
 	const auto actual = particle.getDensity();
@@ -31,10 +31,10 @@ TEST(SPHParticleTest, TestAddSelfDensity)
 
 TEST(SPHParticleTest, TestSolveNormal)
 {
-	SPHConstant constant(1.0f, 0.0f, 1.0f, 1.25f);
+	SPHConstant constant(1000.0f,1.0f, 0.0f, 1.0f, 1.25f);
 
-	SPHParticle particle1(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, 1000.0f, &constant);
-	SPHParticle particle2(Vector3d<float>(2.0f, 2.0f, 3.0f), 0.5f, 1000.0f, &constant);
+	SPHParticle particle1(Vector3d<float>(1.0f, 2.0f, 3.0f), 0.5f, &constant);
+	SPHParticle particle2(Vector3d<float>(2.0f, 2.0f, 3.0f), 0.5f, &constant);
 	particle1.init();
 	particle2.init();
 	particle1.addSelfDensity();
@@ -53,7 +53,7 @@ TEST(SPHParticleTest, TestSolveNormal)
 TEST(SPHParticleTest, TestFreeFall)
 {
 	SPHConstant constant;
-	SPHParticle particle(Vector3d<float>(0.0f, 0.0f, 0.0f), 0.5f, 1000.0f, &constant);
+	SPHParticle particle(Vector3d<float>(0.0f, 0.0f, 0.0f), 0.5f, &constant);
 	particle.addSelfDensity();
 	particle.addExternalForce(Vector3d<float>(0.0, -10.0f, 0.0f));
 	particle.forwardTime(0.1f);

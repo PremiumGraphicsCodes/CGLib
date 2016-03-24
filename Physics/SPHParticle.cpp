@@ -7,11 +7,8 @@ using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
 SPHParticle::SPHParticle():
-	restDensity(1.0f),
 	constant(nullptr)
 {
-	density = restDensity;
-
 }
 
 SPHParticle::SPHParticle(const Particle& particle, SPHConstant* constant) :
@@ -19,12 +16,11 @@ SPHParticle::SPHParticle(const Particle& particle, SPHConstant* constant) :
 	constant(constant)
 {}
 
-SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float density, SPHConstant* constant) :
-	Particle(center, density, radius),
-	restDensity(density),
+SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, SPHConstant* constant) :
+	Particle(center, constant->getDensity(), radius),
 	constant(constant)
 {
-	this->density = restDensity;
+	this->density = constant->getDensity();
 }
 
 void SPHParticle::init()
@@ -36,7 +32,7 @@ void SPHParticle::init()
 
 float SPHParticle::getDensityRatio() const
 {
-	return density / restDensity;
+	return density / constant->getDensity();
 }
 
 float SPHParticle::getPressure() const
@@ -46,7 +42,7 @@ float SPHParticle::getPressure() const
 
 float SPHParticle::getMass() const
 {
-	return restDensity * std::pow(getDiameter(), 3);
+	return constant->getDensity() * std::pow(getDiameter(), 3);
 }
 
 float SPHParticle::getVolume() const
@@ -56,7 +52,7 @@ float SPHParticle::getVolume() const
 
 float SPHParticle::getRestVolume() const
 {
-	return getMass() / getRestDensity();
+	return getMass() / constant->getDensity();
 }
 
 

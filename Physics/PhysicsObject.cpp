@@ -12,12 +12,12 @@ PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 	particles(particles)
 {}
 
-PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, const float restDensity, const SPHConstant& constant):
+PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, const SPHConstant& constant):
 	constant(constant)
 {
 	const auto points = box.toPoints(divideLength);
 	for (const auto& pos : points) {
-		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, restDensity, &this->constant);
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant);
 		particles.push_back(p);
 	}
 }

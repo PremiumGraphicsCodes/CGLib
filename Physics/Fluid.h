@@ -15,7 +15,7 @@ class Fluid : public PhysicsObject
 public:
 	Fluid();
 
-	Fluid(const Math::Box<float>& box, const float divideLength, const float restDensity, const SPHConstant& constant);
+	Fluid(const Math::Box<float>& box, const float divideLength, const SPHConstant& constant);
 
 	Fluid(const std::vector<SPHParticle*>& particles);
 

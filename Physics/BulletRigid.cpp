@@ -28,7 +28,7 @@ BulletRigid::BulletRigid(const Box<float>& box, const float mass, SPHConstant* c
 		Surfels surfels(box, 1.0f);
 		localPositions = surfels.toPositions();
 		for (auto pos : localPositions) {
-			SPHParticle* particle = new SPHParticle(pos, 0.5f, 1000.0f, constant);
+			SPHParticle* particle = new SPHParticle(pos, 0.5f, constant);
 			sampleParticles.push_back(particle);
 		}
 

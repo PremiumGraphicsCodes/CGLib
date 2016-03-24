@@ -20,7 +20,7 @@ class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const Math::Box<float>& box, const float divideLength, const float restDensity, const SPHConstant& constant);
+	PhysicsObject(const Math::Box<float>& box, const float divideLength, const SPHConstant& constant);
 
 	PhysicsObject(const std::vector<SPHParticle*>& particles);
 
