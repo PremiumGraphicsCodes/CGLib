@@ -23,11 +23,11 @@ using namespace Crystal::Shader;
 void FluidSample::setup()
 {
 	SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-	Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(20.0f, 20.0f, 0.0f));
+	Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(10.0f, 10.0f, 0.0f));
 	fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 	world.add(fluid.get());
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-	Box<float> boundary( Vector3d<float>(-10.0, 0.0f, -10.0 ), Vector3d<float>(40.0, 1000.0, 0.0 ));
+	Box<float> boundary( Vector3d<float>(-10.0, 0.0f, -100.0 ), Vector3d<float>(1000.0, 1000.0, 0.0 ));
 	world.setBoundary(boundary);
 }
 
@@ -42,7 +42,7 @@ void FluidSample::demonstrate()
 	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));
 	camera.setCameraXY();
 
-	auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
+	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -57,9 +57,11 @@ void FluidSample::demonstrate()
 	light.setDiffuse(ColorRGBA<float>(1.0f, 1.0f, 1.0f, 0.0f));
 	light.setPos(Vector3d<float>(10.0f, 10.0f, 10.0f));
 
+	/*
 	TriangleBuffer lineBuffer;
 	lineBuffer.add(*polygon);
 	renderer.render(camera, light, lineBuffer);
 
 	delete polygon;
+	*/
 }
