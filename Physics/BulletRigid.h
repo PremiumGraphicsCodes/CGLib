@@ -45,8 +45,6 @@ public:
 
 	Math::Matrix4d<float> getTransformMatrix() const;
 
-	Surfels toSurlfes(const float divideLength) const;
-
 	btRigidBody* getBody() const { return body; }
 
 	void transform();

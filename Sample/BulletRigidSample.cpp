@@ -76,12 +76,6 @@ void BulletRigidSample::demonstrate()
 
 		auto p = shape1.clone();
 		p->transform(rigid1->getTransformMatrix());
-		const auto& surfels = rigid1->toSurlfes(0.25f).toPositions();
-		//rigid1->
-		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
-			buffer.add(pt);
-		}
 		lineBuffer.add(*p);
 		renderer.render(camera, lineBuffer);
 		delete p;
@@ -91,27 +85,15 @@ void BulletRigidSample::demonstrate()
 
 		auto p = shape2.clone();
 		p->transform(rigid2->getTransformMatrix());
-		const auto& surfels = rigid2->toSurlfes(0.25f).toPositions();
-		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
-			buffer.add(pt);
-		}
 		lineBuffer.add(*p);
-
 		renderer.render(camera, lineBuffer);
 		delete p;
 	}
 	{
 		LineBuffer lineBuffer;
 
-		const auto& surfels = rigid3->toSurlfes(0.25f).toPositions();
 		auto p = shape3.clone();
 		p->transform(rigid3->getTransformMatrix());
-
-		for (const auto& p : surfels) {
-			Crystal::Graphics::Point pt(p, ColorRGBA<float>(1, 0, 0, 1), 10.0f);
-			buffer.add(pt);
-		}
 		lineBuffer.add(*p);
 
 		renderer.render(camera, lineBuffer);
