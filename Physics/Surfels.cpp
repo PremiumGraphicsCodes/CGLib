@@ -8,6 +8,7 @@ Surfels::Surfels(const Box<float>& box, const float divideLength)
 	const auto minx = box.getMinX();
 	const auto miny = box.getMinY();
 	const auto minz = box.getMinZ();
+	/*
 	const auto maxx = box.getMaxX();
 	const auto maxy = box.getMaxY();
 	const auto maxz = box.getMaxZ();
@@ -18,7 +19,26 @@ Surfels::Surfels(const Box<float>& box, const float divideLength)
 			}
 		}
 	}
-
+	*/
+	const auto xsize = static_cast<int>( box.getLength().getX() / divideLength );
+	const auto ysize = static_cast<int>( box.getLength().getY() / divideLength );
+	const auto zsize = static_cast<int>( box.getLength().getZ() / divideLength );
+	for (auto i = 0; i <= xsize; ++i) {
+		for (auto j = 0; j <= ysize; ++j) {
+			for (auto k = 0; k <= zsize; ++k) {
+				bool xisIn = (0 < i && i < xsize);
+				bool yisIn = (0 < j && j < ysize);
+				bool zisIn = (0 < k && k < zsize);
+				if (xisIn && yisIn && zisIn) {
+					continue;
+				}
+				const auto x = minx + i * divideLength;
+				const auto y = miny + j * divideLength;
+				const auto z = minz + k * divideLength;
+				positions.push_back(Vector3d<float>(x, y, z));
+			}
+		}
+	}
 }
 
 void Surfels::transform(const Vector3d<float>& center, const Quaternion<float>& rotation)
