@@ -131,7 +131,10 @@ ParticleObject* PhysicsObject::toSurfaceParticleObject() const
 	std::vector<Particle*> ps;
 	for (int i = 0; i < particles.size(); ++i) {
 		const auto length = particles[i]->getNormal().getLength();
-		if ( length > 0.20f) {
+		const auto normal = particles[i]->getNormal().getNormalized();
+		const auto innerProd = normal.getInnerProduct(Vector3d<float>(0.0f, 0.0f, 1.0f));
+
+		if ( length > 0.20f && innerProd > 0.0f) {
 			ps.push_back(particles[i]->clone());
 		}
 	}

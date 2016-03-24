@@ -42,6 +42,8 @@ void FluidSample::demonstrate()
 	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));
 	camera.setCameraXY();
 
+	auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	LegacyRenderer renderer;
@@ -50,4 +52,14 @@ void FluidSample::demonstrate()
 	PointBuffer buffer;
 	buffer.add(*fluid.get());
 	renderer.render(camera, buffer);
+
+	PointLight<float> light;
+	light.setDiffuse(ColorRGBA<float>(1.0f, 1.0f, 1.0f, 0.0f));
+	light.setPos(Vector3d<float>(10.0f, 10.0f, 10.0f));
+
+	TriangleBuffer lineBuffer;
+	lineBuffer.add(*polygon);
+	renderer.render(camera, light, lineBuffer);
+
+	delete polygon;
 }

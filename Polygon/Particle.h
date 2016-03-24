@@ -61,10 +61,12 @@ public:
 		position.rotate(matrix);
 	}
 
+protected:
+	float density;
+
 
 private:
 	Math::Vector3d<float> position;
-	float density;
 	float radius;
 };
 

@@ -74,7 +74,6 @@ public:
 	Math::Vector3d<float> getNormal() const { return normal; }
 
 private:
-	float density;
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> normal;
