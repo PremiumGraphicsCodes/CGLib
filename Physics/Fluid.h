@@ -15,6 +15,8 @@ class Fluid : public PhysicsObject
 public:
 	Fluid();
 
+	Fluid(const Math::Box<float>& box, const float divideLength, const float restDensity, const SPHConstant& constant);
+
 	Fluid(const std::vector<SPHParticle*>& particles);
 
 	void addExternalForce(const Math::Vector3d<float>& force);

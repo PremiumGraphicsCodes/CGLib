@@ -7,7 +7,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box<float>& box, const float mass)
+BulletRigid::BulletRigid(const Box<float>& box, const float mass, SPHConstant* constant)
 {
 	const auto halfLength = box.getLength() * 0.5f;
 	const auto origin = box.getCenter();
@@ -28,7 +28,7 @@ BulletRigid::BulletRigid(const Box<float>& box, const float mass)
 		Surfels surfels(box, 1.0f);
 		localPositions = surfels.toPositions();
 		for (auto pos : localPositions) {
-			SPHParticle* particle = new SPHParticle(pos, 0.5f, 1000.0f, 1000.0f, 100.0f);
+			SPHParticle* particle = new SPHParticle(pos, 0.5f, 1000.0f, constant);
 			sampleParticles.push_back(particle);
 		}
 

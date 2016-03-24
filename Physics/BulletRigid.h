@@ -11,6 +11,7 @@
 #include "../Math/Quaternion.h"
 #include "../Math/Matrix4d.h"
 #include "Surfels.h"
+#include "SPHConstant.h"
 
 class btRigidBody;
 
@@ -21,7 +22,7 @@ namespace Crystal {
 class BulletRigid
 {
 public:
-	BulletRigid(const Math::Box<float>& box, const float mass);
+	BulletRigid(const Math::Box<float>& box, const float mass, SPHConstant* constant);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 

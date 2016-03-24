@@ -23,7 +23,7 @@ void BulletRigidSample::setup()
 {
 	{
 		Box<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
-		rigid1 = std::make_unique<BulletRigid>(box, 10.0f);
+		rigid1 = std::make_unique<BulletRigid>(box, 10.0f, &constant);
 		//rigid1->getBody()->applyForce(btVector3(2000.0f, 0.0f, 0.0f), btVector3(0.5f, 0.0f, 0.0f));
 		//rigid1->getBody()->setAngularVelocity(btVector3(1.0f, 0.0f, 0.0f));
 		shape1.add(box);
@@ -32,20 +32,20 @@ void BulletRigidSample::setup()
 	{
 		Box<float> box(Vector3d<float>(-0.5, 0.5f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
 		shape2.add(box);
-		rigid2 = std::make_unique<BulletRigid>(box, 0.1f);
+		rigid2 = std::make_unique<BulletRigid>(box, 0.1f, &constant);
 		world.add(rigid2.get());
 	}
 	{
 		Box<float> box(Vector3d<float>(-0.5, 1.0f, -0.5f), Vector3d<float>(0.5f, 2.0f, 0.5f));
 		shape3.add(box);
-		rigid3 = std::make_unique<BulletRigid>(box, 0.1f);
+		rigid3 = std::make_unique<BulletRigid>(box, 0.1f, &constant);
 		world.add(rigid3.get());
 	}
 
 
 	{
 		Box<float> box(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, -5.0f, 50.0f));
-		ground = std::make_unique<BulletRigid>(box, 0.0f);
+		ground = std::make_unique<BulletRigid>(box, 0.0f, &constant);
 		world.add(ground.get());
 	}
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));

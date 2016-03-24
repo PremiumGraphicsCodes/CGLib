@@ -2,12 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="BoundarySolver.cpp" />
-    <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="Fluid.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
-    <ClCompile Include="Rigid.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="BulletInteraction.cpp">
@@ -31,12 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
-    <ClInclude Include="Cloth.h" />
     <ClInclude Include="Fluid.h" />
     <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="Rigid.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="BulletInteraction.h">
@@ -60,6 +56,7 @@
     <ClInclude Include="BulletWorld.h">
       <Filter>Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="SPHConstant.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">

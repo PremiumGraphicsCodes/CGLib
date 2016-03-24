@@ -6,6 +6,7 @@
 #include "../Math/Vector3d.h"
 #include "../Math/Box.h"
 #include "../Math/Index3d.h"
+#include "SPHConstant.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -19,7 +20,7 @@ class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const Math::Box<float>& box, const float divideLength, const float restDensity, const float pressureCoe, const float viscosityCoe);
+	PhysicsObject(const Math::Box<float>& box, const float divideLength, const float restDensity, const SPHConstant& constant);
 
 	PhysicsObject(const std::vector<SPHParticle*>& particles);
 
@@ -64,6 +65,7 @@ public:
 
 private:
 	std::vector<SPHParticle*> particles;
+	SPHConstant constant;
 };
 
 

@@ -34,11 +34,6 @@ float SPHParticlePair::getPressure() const
 	return (particle1->getPressure() + particle2->getPressure()) * 0.5f;
 }
 
-float SPHParticlePair::getViscosityCoe() const
-{
-	return (particle1->getViscosityCoe() + particle2->getViscosityCoe()) * 0.5f;
-}
-
 Vector3d<float> SPHParticlePair::getVelocityDiff() const
 {
 	return Math::Vector3d<float>(particle1->getVelocity(), particle2->getVelocity());

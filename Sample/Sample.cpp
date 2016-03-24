@@ -6,8 +6,6 @@
 
 #include "RenderingSample.h"
 #include "FluidSample.h"
-#include "RigidSample.h"
-#include "CouplingSample.h"
 #include "BulletSample.h"
 #include "BulletRigidSample.h"
 #include "BulletInteractionSample.h"
@@ -26,18 +24,6 @@ std::unique_ptr< ISample > activeSample;
 void TW_CALL onFluid(void * /*clientData*/)
 {
 	activeSample = std::make_unique<FluidSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onRigid(void*)
-{
-	activeSample = std::make_unique<RigidSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onCoupling(void*)
-{
-	activeSample = std::make_unique<CouplingSample>();
 	activeSample->setup();
 }
 
@@ -97,8 +83,6 @@ int main(int argc, char* argv)
 
 	TwWindowSize(1024, 756);
 	TwAddButton(bar, "Fluid", onFluid, NULL, " label='Fluid' ");
-	TwAddButton(bar, "Rigid", onRigid, nullptr, " label='Rigid' ");
-	TwAddButton(bar, "Coupling", onCoupling, nullptr, " label='Coupling' ");
 	TwAddButton(bar, "Bullet", onBullet, nullptr, " label = 'Bullet' ");
 	TwAddButton(bar, "BulletRigid", onBulletRigid, nullptr, " label = 'BulletRigid' ");
 	TwAddButton(bar, "BulletInteraction", onBulletInteraction, nullptr, " label = 'BulletInteraction' ");

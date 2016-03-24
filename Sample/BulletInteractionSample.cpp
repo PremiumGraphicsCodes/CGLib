@@ -22,35 +22,27 @@ using namespace Crystal::Shader;
 void BulletInteractionSample::setup()
 {
 	Box<float> box1(Vector3d<float>(-4.0f, 2.0f, -2.0f), Vector3d<float>(-2.0f, 4.0f, 2.0f));
-	rigid = std::make_unique<BulletRigid>(box1, 10.0f);
+	rigid = std::make_unique<BulletRigid>(box1, 10.0f, &constant);
 	rigid->transform();
 	bulletWorld.add(rigid.get());
 
 	Box<float> box2(Vector3d<float>(-4.0f, 4.0f, -2.0f), Vector3d<float>(-2.0f, 6.0f, 2.0f));
-	rigid2 = std::make_unique<BulletRigid>(box2, 10.0f);
+	rigid2 = std::make_unique<BulletRigid>(box2, 10.0f, &constant);
 	rigid2->transform();
 	bulletWorld.add(rigid2.get());
 
 	{
 		Box<float> box3(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, 0.0f, 50.0f));
 
-		ground = std::make_unique<BulletRigid>(box3, 0.0f);
+		ground = std::make_unique<BulletRigid>(box3, 0.0f, &constant);
 		bulletWorld.add(ground.get());
 	}
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));
 
 	{
-		std::vector<SPHParticle*> particles;
-		for (int i = 0; i < 20; ++i) {
-			for (int j = 0; j < 20; ++j) {
-				for (int k = 0; k < 1; ++k) {
-					Vector3d<float> pos(i * 1.0f, j * 1.0f, -k * 1.0f);
-					SPHParticle* p = new SPHParticle(pos, 0.5f, 1000.0f, 1000000.0f, 10000.0f);
-					particles.push_back(p);
-				}
-			}
-		}
-		fluid = std::make_unique<Fluid>(particles);
+		SPHConstant constant(1000000.0f, 10000.0f, 0.0f, 1.25f);
+		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 1.0f));
+		fluid = std::make_unique<Fluid>(box, 1.0f, 1000.0f, constant);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
 		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, -20.0), Vector3d<float>(100.0, 1000.0, 0.0));

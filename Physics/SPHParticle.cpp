@@ -7,25 +7,22 @@ using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
 SPHParticle::SPHParticle():
-	restDensity(1.0f)
+	restDensity(1.0f),
+	constant(nullptr)
 {
 	density = restDensity;
 
 }
 
-SPHParticle::SPHParticle(const Particle& particle, float pressureCoe, float viscosityCoe) :
+SPHParticle::SPHParticle(const Particle& particle, SPHConstant* constant) :
 	Particle(particle),
-	pressureCoe(pressureCoe),
-	viscosityCoe(viscosityCoe),
-	tensionCoe(0.0f)
+	constant(constant)
 {}
 
-SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float density, float pressureCoe, float viscosityCoe) :
+SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, float density, SPHConstant* constant) :
 	Particle(center, density, radius),
-	pressureCoe(pressureCoe),
-	viscosityCoe(viscosityCoe),
 	restDensity(density),
-	tensionCoe(0.0f)
+	constant(constant)
 {
 	this->density = restDensity;
 }
@@ -44,7 +41,7 @@ float SPHParticle::getDensityRatio() const
 
 float SPHParticle::getPressure() const
 {
-	return pressureCoe * (std::pow(getDensityRatio(), 1) - 1.0f);
+	return constant->getPressureCoe() * (std::pow(getDensityRatio(), 1) - 1.0f);
 }
 
 float SPHParticle::getMass() const
@@ -80,48 +77,48 @@ namespace {
 }
 
 
-void SPHParticle::solveNormal(const SPHParticle& rhs, const float effectLength)
+void SPHParticle::solveNormal(const SPHParticle& rhs)
 {
 	const auto& distanceVector = this->getPosition() - rhs.getPosition();
-	this->normal += kernel.getPoly6KernelGradient(distanceVector, effectLength) * rhs.getVolume();
+	this->normal += kernel.getPoly6KernelGradient(distanceVector, constant->getEffectLength()) * rhs.getVolume();
 	//pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
 }
 
-void SPHParticle::solveSurfaceTension(const SPHParticle& rhs, const float effectLength)
+void SPHParticle::solveSurfaceTension(const SPHParticle& rhs)
 {
 	if (this->normal.getLengthSquared() < 0.1f) {
 		return;
 	}
 	const auto distance = this->getPosition().getDistance( rhs.getPosition() );
 	const auto n = this->normal.getNormalized();
-	const float tensionCoe = (this->tensionCoe + rhs.tensionCoe) * 0.5f;;
-	this->force -= tensionCoe * kernel.getPoly6KernelLaplacian(distance,effectLength) * n;
+	const float tensionCoe = (this->constant->getTensionCoe() + rhs.constant->getTensionCoe()) * 0.5f;;
+	this->force -= tensionCoe * kernel.getPoly6KernelLaplacian(distance, constant->getEffectLength()) * n;
 }
 
 
-void SPHParticle::solvePressureForce(const SPHParticle& rhs, const float effectLength)
+void SPHParticle::solvePressureForce(const SPHParticle& rhs)
 {
 	const auto pressure = (this->getPressure() + rhs.getPressure()) * 0.5f;
 	const auto& distanceVector = (this->getPosition() - rhs.getPosition());
-	const auto& f = kernel.getSpikyKernelGradient(distanceVector, effectLength) * pressure * rhs.getVolume();
+	const auto& f = kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength()) * pressure * rhs.getVolume();
 	this->force += f;
 }
 
-void SPHParticle::solveViscosityForce(const SPHParticle& rhs, const float effectLength)
+void SPHParticle::solveViscosityForce(const SPHParticle& rhs)
 {
-	const auto viscosityCoe = (this->viscosityCoe + rhs.viscosityCoe) * 0.5f;
+	const auto viscosityCoe = (this->constant->getViscosityCoe() + rhs.constant->getViscosityCoe()) * 0.5f;
 	const auto& velocityDiff = (rhs.velocity - this->velocity);
 	const auto distance = getPosition().getDistance(rhs.getPosition());
-	this->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * rhs.getVolume());
+	this->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, constant->getEffectLength()) * rhs.getVolume());
 }
 
-void SPHParticle::addSelfDensity(const float effectLength)
+void SPHParticle::addSelfDensity()
 {
-	this->addDensity(kernel.getPoly6Kernel(0.0, effectLength) * this->getMass());
+	this->addDensity(kernel.getPoly6Kernel(0.0, constant->getEffectLength()) * this->getMass());
 }
 
-void SPHParticle::addDensity(const SPHParticle& rhs, const float effectLength)
+void SPHParticle::addDensity(const SPHParticle& rhs)
 {
 	const float distance = this->getPosition().getDistance( rhs.getPosition() );
-	this->addDensity(kernel.getPoly6Kernel(distance, effectLength) * rhs.getMass());
+	this->addDensity(kernel.getPoly6Kernel(distance, constant->getEffectLength()) * rhs.getMass());
 }

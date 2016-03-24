@@ -6,7 +6,6 @@
 #include "../Physics/BulletWorld.h"
 #include "../Physics/BulletInteraction.h"
 
-#include "../Physics/Rigid.h"
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
@@ -34,6 +33,8 @@ private:
 	Crystal::Physics::ParticleWorld particleWorld;
 	Crystal::Physics::BulletWorld bulletWorld;
 	Crystal::Physics::BulletInteraction interaction;
+	Crystal::Physics::SPHConstant constant;
+
 };
 
 #endif

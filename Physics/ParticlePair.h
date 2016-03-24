@@ -21,7 +21,6 @@ public:
 
 	float getPressure() const;
 
-	float getViscosityCoe() const;
 
 	Math::Vector3d<float> getVelocityDiff() const;
 

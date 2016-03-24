@@ -5,7 +5,6 @@
 #include "../Physics/Bullet.h"
 #include "../Physics/BulletWorld.h"
 
-#include "../Physics/Rigid.h"
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
@@ -35,6 +34,8 @@ private:
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;
+	Crystal::Physics::SPHConstant constant;
+
 };
 
 #endif

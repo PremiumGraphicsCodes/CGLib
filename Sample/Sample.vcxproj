@@ -166,13 +166,11 @@
     <ClCompile Include="BulletInteractionSample.cpp" />
     <ClCompile Include="BulletRigidSample.cpp" />
     <ClCompile Include="BulletSample.cpp" />
-    <ClCompile Include="CouplingSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
     <ClCompile Include="IOSample.cpp" />
     <ClCompile Include="ParticleSample.cpp" />
     <ClCompile Include="RenderingSample.cpp" />
-    <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="VolumeSample.cpp" />
   </ItemGroup>
@@ -181,7 +179,6 @@
     <ClInclude Include="BulletInteractionSample.h" />
     <ClInclude Include="BulletRigidSample.h" />
     <ClInclude Include="BulletSample.h" />
-    <ClInclude Include="CouplingSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
     <ClInclude Include="IOSample.h" />
@@ -189,7 +186,6 @@
     <ClInclude Include="ParticleSample.h" />
     <ClInclude Include="VolumeSample.h" />
     <ClInclude Include="RenderingSample.h" />
-    <ClInclude Include="RigidSample.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -8,13 +8,7 @@
     <ClCompile Include="FluidSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="RigidSample.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="glfw.cpp" />
-    <ClCompile Include="CouplingSample.cpp">
-      <Filter>Physics</Filter>
-    </ClCompile>
     <ClCompile Include="IOSample.cpp">
       <Filter>IO</Filter>
     </ClCompile>
@@ -39,12 +33,6 @@
       <Filter>Shader</Filter>
     </ClInclude>
     <ClInclude Include="FluidSample.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidSample.h">
-      <Filter>Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="CouplingSample.h">
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="glfw.h" />
