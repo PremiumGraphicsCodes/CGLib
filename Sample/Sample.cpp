@@ -13,13 +13,32 @@
 #include "VolumeSample.h"
 #include "ParticleSample.h"
 
-inline void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods) { TwEventMouseButtonGLFW(button, action); }
-inline void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos) { TwMouseMotion(int(xpos), int(ypos)); }
-inline void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset) { TwEventMouseWheelGLFW(yoffset); }
+bool mousePressed = false;
+
+void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods)
+{
+	if (action == TW_MOUSE_PRESSED) {
+		mousePressed = true;
+	}
+	else if (action == TW_MOUSE_RELEASED) {
+		mousePressed = false;
+	}
+
+	TwEventMouseButtonGLFW(button, action);
+}
+void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
+{
+	TwMouseMotion(int(xpos), int(ypos));
+}
+void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset)
+{
+	TwEventMouseWheelGLFW(yoffset);
+}
 inline void TwEventKeyGLFW3(GLFWwindow* window, int key, int scancode, int action, int mods) { TwEventKeyGLFW(key, action); }
 inline void TwEventCharGLFW3(GLFWwindow* window, int codepoint) { TwEventCharGLFW(codepoint, GLFW_PRESS); }
 
 std::unique_ptr< ISample > activeSample;
+
 
 void TW_CALL onFluid(void * /*clientData*/)
 {
