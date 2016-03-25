@@ -54,15 +54,11 @@ void BulletRigidSample::setup()
 
 }
 
-void BulletRigidSample::demonstrate()
+void BulletRigidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 
 	world.simulate(1.0f/60.0f);
-
-	PerspectiveCamera<float> camera;
-	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
-	camera.setCameraXY();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

@@ -23,7 +23,7 @@ using namespace Crystal::Shader;
 void FluidSample::setup()
 {
 	SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-	Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(10.0f, 10.0f, 0.0f));
+	Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(100.0f, 10.0f, 0.0f));
 	fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 	world.add(fluid.get());
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
@@ -31,16 +31,13 @@ void FluidSample::setup()
 	world.setBoundary(boundary);
 }
 
-void FluidSample::demonstrate()
+void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 	
 	const float effectLength = 1.25f;
 	world.simulate(effectLength, 0.01f);
 
-	PerspectiveCamera<float> camera;
-	camera.moveTo(Vector3d<float>(-20.0, -5.0, -10.0));
-	camera.setCameraXY();
 
 	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
 

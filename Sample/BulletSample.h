@@ -12,7 +12,7 @@ public:
 
 	void setup() override;
 
-	void demonstrate() override;
+	void demonstrate(const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
 	btDefaultCollisionConfiguration collisionConfig;

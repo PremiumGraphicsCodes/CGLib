@@ -64,8 +64,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].getParticle1()->solveSurfaceTension(*pairs[i].getParticle2());
-		pairs[i].getParticle2()->solveSurfaceTension(*pairs[i].getParticle1());
+		pairs[i].solveSurfaceTension();
 	}
 
 	for (const auto& object : objects) {

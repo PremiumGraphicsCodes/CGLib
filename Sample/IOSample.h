@@ -12,7 +12,7 @@ public:
 
 	~IOSample() {};
 
-	void demonstrate() override;
+	void demonstrate(const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
 	void setup() override;

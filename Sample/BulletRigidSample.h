@@ -20,7 +20,7 @@ public:
 
 	void setup();
 
-	void demonstrate();
+	void demonstrate(const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
 

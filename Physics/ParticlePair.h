@@ -27,6 +27,8 @@ public:
 
 	void solveViscosityForce();
 
+	void solveSurfaceTension();
+
 	Math::Vector3d<float> getVelocityDiff() const;
 
 	bool isValid() const;

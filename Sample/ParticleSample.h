@@ -14,7 +14,7 @@ class ParticleSample : public ISample
 public:
 	void setup() override;
 
-	void demonstrate() override;
+	void demonstrate(const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
 	std::unique_ptr<Crystal::Polygon::ParticleObject> particle;

@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_SAMPLE_I_SAMPLE_H__
 #define __CRYSTAL_SAMPLE_I_SAMPLE_H__
 
+#include "../Graphics/ICamera.h"
+
 class ISample
 {
 public:
@@ -13,7 +15,7 @@ public:
 		cleanup();
 	};
 
-	virtual void demonstrate() = 0;
+	virtual void demonstrate(const Crystal::Graphics::ICamera<float>& camera) = 0;
 
 	virtual void cleanup() {};
 

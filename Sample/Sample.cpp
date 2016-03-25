@@ -13,7 +13,12 @@
 #include "VolumeSample.h"
 #include "ParticleSample.h"
 
-bool mousePressed = false;
+#include "../Graphics/PerspectiveCamera.h"
+
+namespace {
+	Crystal::Graphics::PerspectiveCamera<float> camera;
+	bool mousePressed = false;
+}
 
 void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods)
 {
@@ -96,6 +101,9 @@ int main(int argc, char* argv)
 	}
 	glfwMakeContextCurrent(window);
 
+	camera.moveTo(Crystal::Math::Vector3d<float>(-20.0, -5.0, -10.0));
+	camera.setCameraXY();
+
 
 	TwInit(TW_OPENGL, nullptr);
 	TwBar* bar = TwNewBar("Bar");
@@ -119,7 +127,7 @@ int main(int argc, char* argv)
 	activeSample = std::make_unique<RenderingSample>();
 
 	while (!glfwWindowShouldClose(window)) {
-		activeSample->demonstrate();
+		activeSample->demonstrate(camera);
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		TwDraw();

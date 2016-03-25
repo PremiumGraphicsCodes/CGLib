@@ -15,12 +15,8 @@ void RenderingSample::setup()
 {
 }
 
-void RenderingSample::demonstrate()
+void RenderingSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {
-	PerspectiveCamera<float> camera;
-	camera.moveTo(Vector3d<float>(0.0, 0.0, -5.0));
-	camera.setCameraXY();
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	LegacyRenderer renderer;

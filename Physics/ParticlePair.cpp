@@ -64,3 +64,9 @@ void SPHParticlePair::solveViscosityForce()
 	particle1->solveViscosityForce(*particle2);
 	particle2->solveViscosityForce(*particle1);
 }
+
+void SPHParticlePair::solveSurfaceTension()
+{
+	particle1->solveSurfaceTension(*particle2);
+	particle2->solveSurfaceTension(*particle1);
+}
