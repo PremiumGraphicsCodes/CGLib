@@ -17,7 +17,10 @@
 
 namespace {
 	Crystal::Graphics::PerspectiveCamera<float> camera;
+	double prevPosX = 0.0f;
+	double prevPosY = 0.0f;
 	bool mousePressed = false;
+	int pressedButton = 0;
 }
 
 void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods)
@@ -29,10 +32,30 @@ void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mod
 		mousePressed = false;
 	}
 
+	if (button == GLFW_MOUSE_BUTTON_LEFT) {
+		pressedButton = GLFW_MOUSE_BUTTON_LEFT;
+	}
+	else if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+		pressedButton = GLFW_MOUSE_BUTTON_RIGHT;
+	}
+
 	TwEventMouseButtonGLFW(button, action);
 }
 void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 {
+	if (mousePressed) {
+		const auto diffx = prevPosX - xpos;
+		const auto diffy = prevPosY - ypos;
+		prevPosX = xpos;
+		prevPosY = ypos;
+		if (pressedButton == GLFW_MOUSE_BUTTON_LEFT) {
+			camera.move(Crystal::Math::Vector3d<float>(diffx * 0.01, diffy * 0.01, 0.0f));
+		}
+		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
+			camera.addAngle(Crystal::Math::Vector3d<float>(diffx * 0.01, diffy * 0.01, 0.0f));
+		}
+
+	}
 	TwMouseMotion(int(xpos), int(ypos));
 }
 void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset)
@@ -101,7 +124,7 @@ int main(int argc, char* argv)
 	}
 	glfwMakeContextCurrent(window);
 
-	camera.moveTo(Crystal::Math::Vector3d<float>(-20.0, -5.0, -10.0));
+	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, -5.0, -10.0));
 	camera.setCameraXY();
 
 
