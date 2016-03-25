@@ -20,7 +20,7 @@ public:
 
 	std::vector<SPHParticlePair> getPairs() const { return pairs; }
 
-	std::list<SPHParticle*> find(const Math::Vector3d<float>& position);
+	//std::list<SPHParticle*> find(const Math::Vector3d<float>& position);
 
 private:
 	std::vector<SPHParticlePair> pairs;
