@@ -21,14 +21,15 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
-	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
-	rigidConstant = constant;
+	constant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
+	rigidConstant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
+
 	rigidConstant.isBoundary = true;
 
 	for (int i = 0; i < 10; ++i)
 	{
 		Box<float> box(Vector3d<float>(-4.0f, 2.0f*i, -2.0f), Vector3d<float>(-2.0f, 2.0f*(i+1), 2.0f));
-		auto rigid = new BulletRigid(box, 10.0f, &rigidConstant);
+		auto rigid = new BulletRigid(box, &rigidConstant);
 		rigid->transform();
 		bulletWorld.add(rigid);
 		Box<float> localBox(Vector3d<float>(-1.0f, -1.0f, -1.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
@@ -44,7 +45,7 @@ void BulletInteractionSample::setup()
 	{
 		Box<float> box3(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, 0.0f, 50.0f));
 
-		ground = std::make_unique<BulletRigid>(box3, 0.0f, &constant);
+		ground = std::make_unique<BulletRigid>(box3, &constant, true);
 		bulletWorld.add(ground.get());
 	}
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));

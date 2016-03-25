@@ -5,9 +5,9 @@ using namespace Crystal::Physics;
 
 Surfels::Surfels(const Box<float>& box, const float divideLength)
 {
-	const auto minx = box.getMinX();
-	const auto miny = box.getMinY();
-	const auto minz = box.getMinZ();
+	const auto minx = box.getMinX() + divideLength;
+	const auto miny = box.getMinY() + divideLength;
+	const auto minz = box.getMinZ() + divideLength;
 	/*
 	const auto maxx = box.getMaxX();
 	const auto maxy = box.getMaxY();
@@ -20,9 +20,9 @@ Surfels::Surfels(const Box<float>& box, const float divideLength)
 		}
 	}
 	*/
-	const auto xsize = static_cast<int>( box.getLength().getX() / divideLength );
-	const auto ysize = static_cast<int>( box.getLength().getY() / divideLength );
-	const auto zsize = static_cast<int>( box.getLength().getZ() / divideLength );
+	const auto xsize = static_cast<int>( box.getLength().getX() / divideLength ) - 2;
+	const auto ysize = static_cast<int>( box.getLength().getY() / divideLength ) - 2;
+	const auto zsize = static_cast<int>( box.getLength().getZ() / divideLength ) - 2;
 	for (auto i = 0; i <= xsize; ++i) {
 		for (auto j = 0; j <= ysize; ++j) {
 			for (auto k = 0; k <= zsize; ++k) {

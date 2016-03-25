@@ -22,7 +22,7 @@ namespace Crystal {
 class BulletRigid
 {
 public:
-	BulletRigid(const Math::Box<float>& box, const float mass, SPHConstant* constant);
+	BulletRigid(const Math::Box<float>& box, SPHConstant* constant, bool isStatic = false);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
