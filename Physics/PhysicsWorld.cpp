@@ -4,6 +4,7 @@
 #include "NeighborFinder.h"
 
 #include "BulletRigid.h"
+#include "IndexedFinder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
@@ -29,7 +30,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 	pairs.insert(pairs.end(), bpairs.begin(), bpairs.end());
 	*/
-	ParticleFindAlgo algo(effectLength);
+	IndexedFinder algo(effectLength);
 	algo.add(allParticles);
 	algo.createPairs(allParticles);
 	auto& pairs = algo.getPairs();
