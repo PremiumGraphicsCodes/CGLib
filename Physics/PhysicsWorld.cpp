@@ -42,8 +42,7 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 	pairs.insert(pairs.end(), bpairs.begin(), bpairs.end());
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].getParticle1()->addDensity(*pairs[i].getParticle2() );
-		pairs[i].getParticle2()->addDensity(*pairs[i].getParticle1());
+		pairs[i].solveDensity();
 	}
 
 	for (int i = 0; i < static_cast<int>(allParticles.size()); ++i) {
@@ -52,11 +51,8 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].getParticle1()->solvePressureForce(*pairs[i].getParticle2());
-		pairs[i].getParticle1()->solveViscosityForce(*pairs[i].getParticle2());
-		pairs[i].getParticle2()->solvePressureForce(*pairs[i].getParticle1());
-		pairs[i].getParticle2()->solveViscosityForce(*pairs[i].getParticle1());
-
+		pairs[i].solvePressureForce();
+		pairs[i].solveViscosityForce();
 	}
 
 #pragma omp parallel for
@@ -71,16 +67,6 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		pairs[i].getParticle1()->solveSurfaceTension(*pairs[i].getParticle2());
 		pairs[i].getParticle2()->solveSurfaceTension(*pairs[i].getParticle1());
 	}
-
-
-
-	/*
-	for (const auto rigid : bulletRigids) {
-		for (const auto& p : rigid->getSurfaceParticles()) {
-			p->setForce( p->getForce() * p->getDensity());
-		}
-	}
-	*/
 
 	for (const auto& object : objects) {
 		object->addExternalForce(externalForce);

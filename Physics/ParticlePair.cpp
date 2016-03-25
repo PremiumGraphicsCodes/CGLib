@@ -46,3 +46,21 @@ bool SPHParticlePair::isValid() const
 		particle2 != nullptr &&
 		particle1 != particle2;
 }
+
+void SPHParticlePair::solveDensity()
+{
+	particle1->addDensity(*particle2);
+	particle2->addDensity(*particle1);
+}
+
+void SPHParticlePair::solvePressureForce()
+{
+	particle1->solvePressureForce(*particle2);
+	particle2->solvePressureForce(*particle1);
+}
+
+void SPHParticlePair::solveViscosityForce()
+{
+	particle1->solveViscosityForce(*particle2);
+	particle2->solveViscosityForce(*particle1);
+}

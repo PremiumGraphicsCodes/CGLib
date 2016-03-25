@@ -21,6 +21,11 @@ public:
 
 	float getPressure() const;
 
+	void solveDensity();
+
+	void solvePressureForce();
+
+	void solveViscosityForce();
 
 	Math::Vector3d<float> getVelocityDiff() const;
 
