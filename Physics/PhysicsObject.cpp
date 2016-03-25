@@ -10,7 +10,8 @@ using namespace Crystal::Physics;
 
 PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 	particles(particles)
-{}
+{
+}
 
 PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, const SPHConstant& constant):
 	constant(constant)

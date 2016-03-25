@@ -48,6 +48,7 @@ private:
 	Crystal::Physics::BulletWorld bulletWorld;
 	Crystal::Physics::BulletInteraction interaction;
 	Crystal::Physics::SPHConstant constant;
+	Crystal::Physics::SPHConstant rigidConstant;
 
 };
 

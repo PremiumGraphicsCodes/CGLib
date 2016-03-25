@@ -23,23 +23,16 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		particle->init();
 	}
 
-	NeighborFinder fluidFinder(effectLength, fluidParticles.size());
-	for (const auto& particle : fluidParticles) {
-		fluidFinder.add(particle);
-	}
-	fluidFinder.create(fluidParticles);
-	fluidFinder.create(boundaryParticles);
 
-	NeighborFinder boundaryFinder(effectLength, boundaryParticles.size());
-	for (const auto& particle : boundaryParticles) {
-		boundaryFinder.add(particle);
-	}
-	boundaryFinder.create(fluidParticles);
-
+	/*
 	auto pairs = fluidFinder.getPairs();
-	const auto& bpairs = boundaryFinder.getPairs();
 
 	pairs.insert(pairs.end(), bpairs.begin(), bpairs.end());
+	*/
+	ParticleFindAlgo<float> algo;
+	algo.createPairs(allParticles, effectLength);
+	auto& pairs = algo.getPairs();
+
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
 		pairs[i].solveDensity();

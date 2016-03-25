@@ -12,7 +12,8 @@ public:
 		viscosityCoe(0.0f),
 		tensionCoe(0.0f),
 		effectLength(1.25f),
-		density(1000.0f)
+		density(1000.0f),
+		isBoundary(false)
 	{
 	}
 
@@ -21,7 +22,8 @@ public:
 		pressureCoe(pressureCoe),
 		viscosityCoe(viscosityCoe),
 		tensionCoe(tensionCoe),
-		effectLength(effectLength)
+		effectLength(effectLength),
+		isBoundary(false)
 	{
 	}
 	
@@ -34,6 +36,8 @@ public:
 	float getTensionCoe() const { return tensionCoe; }
 
 	float getEffectLength() const { return effectLength; }
+
+	bool isBoundary;
 
 private:
 	float pressureCoe;

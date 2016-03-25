@@ -34,7 +34,7 @@ void FluidSample::setup()
 void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {	
 	const float effectLength = 1.25f;
-	world.simulate(effectLength, 0.01f);
+	world.simulate(effectLength, 0.015f);
 
 	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
 
