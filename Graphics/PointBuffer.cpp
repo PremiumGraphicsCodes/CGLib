@@ -18,7 +18,7 @@ using namespace Crystal::Polygon;
 Point::Point(const Crystal::Polygon::Particle& particle)
 {
 	position = particle.getPosition();
-	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity());
+	color = ColorRGBA<float>(0, 0, 1.0, particle.getDensity());
 	//idColor = ColorRGBA<unsigned char>(particle.getId());
 	size = particle.getDiameter();
 }
@@ -26,7 +26,7 @@ Point::Point(const Crystal::Polygon::Particle& particle)
 Point::Point(const Crystal::Physics::SPHParticle& particle)
 {
 	position = particle.getPosition();
-	color = ColorRGBA<float>(1, 1, 0.0, particle.getDensity() / 1000.0f);
+	color = ColorRGBA<float>(0.0, 0.0, 1.0, particle.getDensityRatio() / 10.0f);
 	size = particle.getDiameter();
 }
 

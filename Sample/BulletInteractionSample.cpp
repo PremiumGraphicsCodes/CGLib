@@ -74,8 +74,6 @@ void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float
 
 	LegacyRenderer renderer;
 
-	PointBuffer buffer;
-	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
 	for (auto m : rigidPolygonMap) {
 		LineBuffer lineBuffer;
@@ -88,12 +86,10 @@ void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float
 	}
 
 	{
-		const auto& particles = fluid->getParticles();
-		for (const auto& p : particles) {
-			Crystal::Graphics::Point pt(p->getPosition(), ColorRGBA<float>(0, 0, 1, 1), 20.0f);
-			buffer.add(pt);
-		}
+		PointBuffer buffer;
+		buffer.add(*fluid);
+		renderer.renderAlphaBlend(camera, buffer);
+
 	}
 
-	renderer.render(camera, buffer, 100.0f);
 }

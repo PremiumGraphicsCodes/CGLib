@@ -25,10 +25,11 @@ namespace {
 
 void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods)
 {
-	if (action == TW_MOUSE_PRESSED) {
+	if (action == GLFW_PRESS) {
 		mousePressed = true;
+		glfwGetCursorPos(window, &prevPosX, &prevPosY);
 	}
-	else if (action == TW_MOUSE_RELEASED) {
+	else if (action == GLFW_RELEASE) {
 		mousePressed = false;
 	}
 

@@ -118,7 +118,6 @@ void LegacyRenderer::renderAlphaBlend(const ICamera<float>& camera, const PointB
 	glPointSize(10.0f);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
 	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
 
@@ -134,7 +133,7 @@ void LegacyRenderer::renderAlphaBlend(const ICamera<float>& camera, const PointB
 	glVertexPointer(3, GL_FLOAT, 0, positions.data());
 
 	glEnableClientState(GL_COLOR_ARRAY);
-	glColorPointer(4, GL_UNSIGNED_BYTE, 0, colors.data());
+	glColorPointer(4, GL_FLOAT, 0, colors.data());
 	assert(glGetError() == GL_NO_ERROR);
 
 	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(positions.size()) / 3);
@@ -145,7 +144,7 @@ void LegacyRenderer::renderAlphaBlend(const ICamera<float>& camera, const PointB
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 	glDisable(GL_BLEND);
-	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 
 }
 

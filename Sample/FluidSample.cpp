@@ -32,27 +32,20 @@ void FluidSample::setup()
 }
 
 void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
-{
-	glEnable(GL_DEPTH_TEST);
-	
+{	
 	const float effectLength = 1.25f;
 	world.simulate(effectLength, 0.01f);
 
-
 	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
 
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	LegacyRenderer renderer;
 
-	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	PointBuffer buffer;
 	buffer.add(*fluid.get());
-	renderer.render(camera, buffer);
-
-	PointLight<float> light;
-	light.setDiffuse(ColorRGBA<float>(1.0f, 1.0f, 1.0f, 0.0f));
-	light.setPos(Vector3d<float>(10.0f, 10.0f, 10.0f));
+	renderer.renderAlphaBlend(camera, buffer);
 
 	/*
 	TriangleBuffer lineBuffer;
