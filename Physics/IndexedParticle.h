@@ -7,11 +7,13 @@
 namespace Crystal {
 	namespace Physics {
 
-class SPHParticle;
-
 class IndexedParticle
 {
 public:
+	IndexedParticle() :
+		particle(nullptr)
+	{}
+
 	IndexedParticle(SPHParticle* particle) :
 		particle(particle)
 	{

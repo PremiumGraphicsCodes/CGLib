@@ -29,8 +29,9 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 
 	pairs.insert(pairs.end(), bpairs.begin(), bpairs.end());
 	*/
-	ParticleFindAlgo<float> algo;
-	algo.createPairs(allParticles, effectLength);
+	ParticleFindAlgo algo(effectLength);
+	algo.add(allParticles);
+	algo.createPairs(allParticles);
 	auto& pairs = algo.getPairs();
 
 #pragma omp parallel for

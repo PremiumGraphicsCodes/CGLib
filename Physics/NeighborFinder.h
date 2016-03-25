@@ -5,6 +5,10 @@
 #include "../Polygon/SpaceHash.h"
 #include <array>
 
+#include "IndexedParticle.h"
+#include <vector>
+
+
 namespace Crystal {
 	namespace Physics {
 
@@ -25,16 +29,16 @@ private:
 	std::vector<SPHParticlePair> pairs;
 };
 
-class IndexedParticle;
 
-template<typename GeomType>
 class ParticleFindAlgo final : private UnCopyable {
 public:
-	ParticleFindAlgo() = default;
+	ParticleFindAlgo(const float effectLength) :
+		effectLength(effectLength)
+	{}
 
-	~ParticleFindAlgo() = default;
+	void add(const std::vector<SPHParticle*>& particles);
 
-	void createPairs(std::vector<SPHParticle*> particles, const GeomType effectLength);
+	void createPairs(std::vector<SPHParticle*> particles);
 
 	std::vector<SPHParticlePair> getPairs() const { return pairs; }
 
@@ -45,6 +49,8 @@ private:
 
 	std::vector<SPHParticlePair> search2(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared);
 
+	std::vector<IndexedParticle> iparticles;
+	const float effectLength;
 };
 	}
 }

@@ -54,25 +54,24 @@ void NeighborFinder::create(const std::vector<SPHParticle*>& particles)
 
 #include "IndexedParticle.h"
 
-template<typename GeomType>
-void ParticleFindAlgo<GeomType>::createPairs(std::vector<SPHParticle*> particles, const GeomType effectLength)
+void ParticleFindAlgo::add(const std::vector<SPHParticle*>& particles)
 {
-	if (particles.empty()) {
-		return;
-	}
-
-	std::vector<IndexedParticle> iparticles;
-
 	for (const auto& particle : particles) {
-		iparticles.push_back( IndexedParticle( particle ) );
+		iparticles.push_back(IndexedParticle(particle));
 	}
 
 	for (auto& particle : iparticles) {
 		particle.setGridID(effectLength);
 	}
 
-
 	std::sort(iparticles.begin(), iparticles.end(), &IndexedParticle::compare);
+}
+
+void ParticleFindAlgo::createPairs(std::vector<SPHParticle*> particles)
+{
+	if (particles.empty()) {
+		return;
+	}
 
 	// optimization for quad core.
 	const int threads = 8;
@@ -104,8 +103,7 @@ void ParticleFindAlgo<GeomType>::createPairs(std::vector<SPHParticle*> particles
 	}
 }
 
-template<typename GeomType>
-std::vector<SPHParticlePair> ParticleFindAlgo<GeomType>::search1(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared)
+std::vector<SPHParticlePair> ParticleFindAlgo::search1(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared)
 {
 	std::vector<SPHParticlePair> pairs;
 	for (auto xIter = startIter; xIter != endIter; ++xIter) {
@@ -129,8 +127,7 @@ std::vector<SPHParticlePair> ParticleFindAlgo<GeomType>::search1(const std::vect
 	return pairs;
 }
 
-template<typename GeomType>
-std::vector<SPHParticlePair> ParticleFindAlgo<GeomType>::search2(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared)
+std::vector<SPHParticlePair> ParticleFindAlgo::search2(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared)
 {
 	std::vector<SPHParticlePair> pairs;
 
@@ -168,7 +165,3 @@ std::vector<SPHParticlePair> ParticleFindAlgo<GeomType>::search2(const std::vect
 	return pairs;
 
 }
-
-
-
-template class ParticleFindAlgo<float>;
