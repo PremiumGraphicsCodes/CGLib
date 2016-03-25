@@ -77,34 +77,11 @@ public:
 
 	bool isBoundary() const { return constant->isBoundary; }
 
-public:
-	void setGridID(const float effectLength) {
-		const Math::Vector3d<float>& point = getPosition();
-		int gridX = static_cast<int>(point.getX() / effectLength);
-		int gridY = static_cast<int>(point.getY() / effectLength);
-		int gridZ = static_cast<int>(point.getZ() / effectLength);
-		gridID = getID(gridX, gridY, gridZ);
-	}
-
-	int getGridID() const { return gridID; }
-
-	static bool compare(const SPHParticle* lhs, const SPHParticle* rhs) {
-		return lhs->getGridID() < rhs->getGridID();
-	}
-
-
-private:
-	int getID(int idX, int idY, int idZ) const {
-		return (idZ << 20) + (idY << 10) + idX;
-	}
-
-
 private:
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> normal;
 	SPHConstant* constant;
-	int gridID;
 };
 
 	}

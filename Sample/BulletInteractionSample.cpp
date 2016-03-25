@@ -22,40 +22,42 @@ using namespace Crystal::Shader;
 void BulletInteractionSample::setup()
 {
 	constant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-	rigidConstant = SPHConstant(10000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
+	rigidConstant = SPHConstant(1000.0f, 10000.0f, 0.0f, 0.0f, 1.25f);
 
 	rigidConstant.isBoundary = true;
 
 	for (int i = 0; i < 10; ++i) {
-		Box<float> box(Vector3d<float>(-4.0f, 2.0f*i, -2.0f), Vector3d<float>(-2.0f, 2.0f*(i+1), 2.0f));
-		auto rigid = new BulletRigid(box, &rigidConstant);
-		rigid->transform();
-		bulletWorld.add(rigid);
-		Box<float> localBox(Vector3d<float>(-1.0f, -1.0f, -1.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
+		for (int j = 0; j < 10; ++j) {
+			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
+			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(j+1));
+			Box<float> box(start, end);
+			auto rigid = new BulletRigid(box, &rigidConstant);
+			rigid->transform();
+			bulletWorld.add(rigid);
+			Box<float> localBox(Vector3d<float>(-1.0f, -1.0f, -1.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
 
-		auto shape = new PolygonObject();
-		shape->add(localBox);
-		shapes.push_back(shape);
-		rigidPolygonMap[rigid] = shape;
-		rigids.push_back(rigid);
+			auto shape = new PolygonObject();
+			shape->add(localBox);
+			shapes.push_back(shape);
+			rigidPolygonMap[rigid] = shape;
+			rigids.push_back(rigid);
+		}
 	}
 
-
 	{
-		Box<float> box3(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, 0.0f, 50.0f));
-
-		ground = std::make_unique<BulletRigid>(box3, &constant, true);
+		Box<float> box(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, 0.0f, 50.0f));
+		ground = std::make_unique<BulletRigid>(box, &constant, true);
 		bulletWorld.add(ground.get());
 	}
 	bulletWorld.setExternalForce(Vector3d<float>(0, -9.8, 0));
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-		Box<float> box(Vector3d<float>(0.0f, 0.0f, -10.0f), Vector3d<float>(20.0f, 20.0f, 1.0f));
+		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 20.0f));
 		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, -20.0), Vector3d<float>(100.0, 1000.0, 20.0));
+		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, 0.0), Vector3d<float>(100.0, 1000.0, 20.0));
 		particleWorld.setBoundary(boundary);
 
 	}

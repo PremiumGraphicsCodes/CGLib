@@ -27,6 +27,7 @@
     <ClInclude Include="BulletRigid.h" />
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Fluid.h" />
+    <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="NeighborFinder.h" />
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="SPHParticle.h" />
@@ -45,6 +46,7 @@
     <ClCompile Include="BulletRigid.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Fluid.cpp" />
+    <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="NeighborFinder.cpp" />
     <ClCompile Include="SPHParticle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />

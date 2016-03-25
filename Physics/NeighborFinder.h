@@ -25,6 +25,8 @@ private:
 	std::vector<SPHParticlePair> pairs;
 };
 
+class IndexedParticle;
+
 template<typename GeomType>
 class ParticleFindAlgo final : private UnCopyable {
 public:
@@ -39,9 +41,9 @@ public:
 private:
 	std::vector<SPHParticlePair> pairs;
 
-	std::vector<SPHParticlePair> search1(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
+	std::vector<SPHParticlePair> search1(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared);
 
-	std::vector<SPHParticlePair> search2(const std::vector<SPHParticle*>& particles, std::vector<SPHParticle*>::const_iterator startIter, std::vector<SPHParticle*>::const_iterator endIter, const float effectLengthSquared);
+	std::vector<SPHParticlePair> search2(const std::vector<IndexedParticle>& particles, std::vector<IndexedParticle>::const_iterator startIter, std::vector<IndexedParticle>::const_iterator endIter, const float effectLengthSquared);
 
 };
 	}

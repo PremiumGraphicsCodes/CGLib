@@ -26,6 +26,7 @@
     <ClCompile Include="BulletWorld.cpp">
       <Filter>Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="IndexedParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -57,6 +58,7 @@
       <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="SPHConstant.h" />
+    <ClInclude Include="IndexedParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
