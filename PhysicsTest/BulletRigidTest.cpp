@@ -8,6 +8,6 @@ TEST(BulletRigidTest, TestGetMass)
 {
 	SPHConstant constant;
 	Box<float> box( Vector3d<float>(-0.5f, -0.5f, -0.5f), Vector3d<float>(0.5f, 0.5f, 0.5f));
-	BulletRigid rigid(box, 1.0f, &constant);
-	EXPECT_EQ(1.0f, rigid.getMass());
+	BulletRigid rigid(box, &constant);
+	EXPECT_FLOAT_EQ(1000.0f, rigid.getMass());
 }
