@@ -44,6 +44,7 @@ void BulletInteractionSample::setup()
 		}
 	}
 
+
 	{
 		Box<float> box(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, 0.0f, 50.0f));
 		ground = std::make_unique<BulletRigid>(box, &constant, true);
@@ -53,11 +54,11 @@ void BulletInteractionSample::setup()
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 20.0f));
+		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(100.0f, 20.0f, 10.0f));
 		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, 0.0), Vector3d<float>(100.0, 1000.0, 20.0));
+		Box<float> boundary(Vector3d<float>(-100.0, 0.0f, 0.0), Vector3d<float>(100.0, 1000.0, 100.0));
 		particleWorld.setBoundary(boundary);
 
 	}

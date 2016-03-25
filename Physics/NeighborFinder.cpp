@@ -39,10 +39,8 @@ void NeighborFinder::create(const std::vector<SPHParticle*>& particles)
 				if (p1 == p2) {
 					continue;
 				}
-				if (p1 < p2) {
-					tpairs[i].push_back(SPHParticlePair(p1, p2));
+				tpairs[i].push_back(SPHParticlePair(p1, p2));
 					//tpairs[i].push_back(SPHParticlePair(p2, p1));
-				}
 			}
 		}
 	}
