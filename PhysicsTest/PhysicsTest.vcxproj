@@ -22,6 +22,8 @@
     <ClCompile Include="BulletConverterTest.cpp" />
     <ClCompile Include="BulletInteractionTest.cpp" />
     <ClCompile Include="BulletRigidTest.cpp" />
+    <ClCompile Include="IndexedFinderTest.cpp" />
+    <ClCompile Include="IndexedParticleTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="SPHParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />

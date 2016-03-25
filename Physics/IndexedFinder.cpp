@@ -8,13 +8,27 @@ void IndexedFinder::add(const std::vector<SPHParticle*>& particles)
 {
 	for (const auto& particle : particles) {
 		iparticles.push_back(IndexedParticle(particle));
+		//iparticlesy.push_back(IndexedParticle(particle));
+		//iparticlesz.push_back(IndexedParticle(particle));
 	}
 
 	for (auto& particle : iparticles) {
 		particle.setGridID(effectLength);
 	}
 
-	std::sort(iparticles.begin(), iparticles.end(), &IndexedParticle::compare);
+	/*
+	for (auto& particle : iparticlesy) {
+		particle.setGridID(effectLength);
+	}
+	for (auto& particle : iparticlesz) {
+		particle.setGridID(effectLength);
+	}
+	*/
+
+
+	std::sort(iparticles.begin(), iparticles.end());
+	//std::sort(iparticlesy.begin(), iparticlesy.end(), &IndexedParticle::comparebyy);
+	//std::sort(iparticlesz.begin(), iparticlesz.end(), &IndexedParticle::comparebyz);
 }
 
 void IndexedFinder::createPairs(std::vector<SPHParticle*> particles)
@@ -37,6 +51,7 @@ void IndexedFinder::createPairs(std::vector<SPHParticle*> particles)
 #pragma omp parallel for
 	for (int i = 0; i < threads; ++i) {
 		eachPairs[i] = search1(iparticles, iters[i], iters[i + 1], effectLength * effectLength);
+
 	}
 
 	for (size_t i = 0; i < eachPairs.size(); ++i) {
@@ -113,5 +128,57 @@ std::vector<SPHParticlePair> IndexedFinder::search2(const std::vector<IndexedPar
 	}
 
 	return pairs;
-
 }
+
+/*
+std::list<SPHParticle*> IndexedFinder::find(const Vector3d<float>& position)
+{
+	std::list<SPHParticle*> results;
+	{
+		const auto id = IndexedParticle::toGridIdX(position, effectLength);
+		auto iter = iparticles.begin();
+		while (iter != iparticles.end() && iter->getGridID() < id - 1) {
+			++iter;
+		}
+		while (iter != iparticles.end() && iter->getGridID() <= id + 1) {
+			const auto distSquared = iter->getPosition().getDistanceSquared(position);
+			if (distSquared < effectLength * effectLength) {
+				results.push_back(iter->getParticle());
+			}
+			++iter;
+		}
+	}
+	{
+		const auto id = IndexedParticle::toGridIdY(position, effectLength);
+		auto iter = iparticlesy.begin();
+		while (iter != iparticlesy.end() && iter->getGridIDY() < id - 1) {
+			++iter;
+		}
+		while (iter != iparticlesy.end() && iter->getGridIDY() <= id + 1) {
+			const auto distSquared = iter->getPosition().getDistanceSquared(position);
+			if (distSquared < effectLength * effectLength) {
+				results.push_back(iter->getParticle());
+			}
+			++iter;
+
+		}
+	}
+	{
+		const auto id = IndexedParticle::toGridIdZ(position, effectLength);
+		auto iter = iparticlesz.begin();
+		while (iter != iparticlesz.end() && iter->getGridIDZ() < id - 1) {
+			++iter;
+		}
+		while (iter != iparticlesz.end() && iter->getGridIDZ() <= id + 1) {
+			const auto distSquared = iter->getPosition().getDistanceSquared(position);
+			if (distSquared < effectLength * effectLength) {
+				results.push_back(iter->getParticle());
+			}
+			++iter;
+
+		}
+	}
+
+	return results;
+}
+*/

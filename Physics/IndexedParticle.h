@@ -2,6 +2,7 @@
 #define __CRYSTAL_PHYSICS_INDEXED_PARTICLE_H__
 
 #include "../Math/Vector3d.h"
+#include "../Math/Index3d.h"
 #include "SPHParticle.h"
 
 namespace Crystal {
@@ -24,18 +25,21 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return particle->getPosition(); }
 
+	static int toGridId(const Math::Vector3d<float> pos, const float effectLength);
+
+	static Math::Index3d toIndex(const Math::Vector3d<float> pos, const float effectLength);
+
 	int getGridID() const { return gridID; }
 
-	static bool compare(const IndexedParticle& lhs, const IndexedParticle& rhs) {
-		return lhs.getGridID() < rhs.getGridID();
+	bool operator<(const IndexedParticle& rhs) {
+		return this->getGridID() < rhs.getGridID();
 	}
 
 	SPHParticle* getParticle() const { return particle; }
 
 private:
-	int getID(int idX, int idY, int idZ) const {
-		return (idZ << 20) + (idY << 10) + idX;
-	}
+	static int toIdX(Math::Index3d index);
+
 
 
 private:
