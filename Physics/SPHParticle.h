@@ -41,6 +41,8 @@ public:
 
 	Math::Vector3d<float> getForce() const { return force; }
 
+	void setDefaultDensity() { this->density = constant->getDensity(); }
+
 	float getDensity() const { return density; }
 
 	void addDensity(const float density) { this->density += density; }

@@ -38,9 +38,14 @@ void ParticleWorld::simulate(const float effectLength, const float timeStep)
 		pairs[i].solveDensity();
 	}
 
-	for (int i = 0; i < static_cast<int>(allParticles.size()); ++i) {
-		allParticles[i]->addSelfDensity();
+	for (int i = 0; i < static_cast<int>(fluidParticles.size()); ++i) {
+		fluidParticles[i]->addSelfDensity();
 	}
+
+	for (int i = 0; i < static_cast<int>(boundaryParticles.size()); ++i) {
+		boundaryParticles[i]->setDefaultDensity();// addSelfDensity();
+	}
+
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {

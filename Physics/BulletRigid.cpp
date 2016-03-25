@@ -26,10 +26,10 @@ BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, bool isSt
 
 	if (mass != 0.0f) {
 		Box<float> box(-halfLength,halfLength);
-		Surfels surfels(box, 1.0f);
+		Surfels surfels(box, constant->getEffectLength() / 1.25f);
 		localPositions = surfels.toPositions();
 		for (auto pos : localPositions) {
-			SPHParticle* particle = new SPHParticle(pos, 0.5f, constant);
+			SPHParticle* particle = new SPHParticle(pos, constant->getEffectLength() / 1.25f * 0.5f, constant);
 			sampleParticles.push_back(particle);
 		}
 

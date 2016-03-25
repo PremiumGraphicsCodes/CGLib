@@ -22,12 +22,11 @@ using namespace Crystal::Shader;
 void BulletInteractionSample::setup()
 {
 	constant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-	rigidConstant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
+	rigidConstant = SPHConstant(10000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
 
 	rigidConstant.isBoundary = true;
 
-	for (int i = 0; i < 10; ++i)
-	{
+	for (int i = 0; i < 10; ++i) {
 		Box<float> box(Vector3d<float>(-4.0f, 2.0f*i, -2.0f), Vector3d<float>(-2.0f, 2.0f*(i+1), 2.0f));
 		auto rigid = new BulletRigid(box, &rigidConstant);
 		rigid->transform();
