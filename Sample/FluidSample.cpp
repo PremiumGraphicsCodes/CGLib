@@ -26,17 +26,37 @@ using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+namespace {
+	int timeStep = 0;
+}
+
 void FluidSample::setup()
 {
-	SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-	Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(100.0f, 50.0f, 10.0f));
-	fluid = std::make_unique<Fluid>(box, 1.0f, constant);
-	world.add(fluid.get());
+	SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.20f);
+
+	{
+		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(50.0f, 20.0f, 20.0f));
+		fluids.push_back( std::make_unique<Fluid>(box, 1.0f, constant) );
+		world.add(fluids.back().get());
+		std::cout << fluids.back()->getParticles().size() << std::endl;
+
+	}
+	{
+		Box<float> box(Vector3d<float>(-50.0f,0.0f, 30.0f), Vector3d<float>(0.0f, 20.0f, 50.0f));
+		fluids.push_back(std::make_unique<Fluid>(box, 1.0f, constant));
+		world.add(fluids.back().get());
+		std::cout << fluids.back()->getParticles().size() << std::endl;
+
+	}
+
+
+
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
-	Box<float> boundary( Vector3d<float>(-10.0, 0.0f, 0.0 ), Vector3d<float>(100.0, 1000.0, 20.0 ));
+	Box<float> boundary( Vector3d<float>(-50.0, 0.0f, 0.0 ), Vector3d<float>(50.0, 1000.0, 50.0 ));
+
 	world.setBoundary(boundary);
 	std::vector<ColorRGBA<float>> colors;
-	for (int i = 0; i < 180; ++i) {
+	for (int i = 0; i < 360; ++i) {
 		ColorHSV hsv(i, 1.0f, 1.0f);
 		colors.push_back( hsv.toColorRGBA());
 	}
@@ -52,7 +72,22 @@ void FluidSample::setup()
 
 void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {	
-	const float effectLength = 1.25f;
+	timeStep++;
+
+	/*
+	if (timeStep == 300 || timeStep == 500 || timeStep == 800)
+	{
+		SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.25f);
+
+		Box<float> box(Vector3d<float>(-10.0f, 50.0f, 20.0f), Vector3d<float>(10.0f, 100.0f, 40.0f));
+		fluids.push_back(std::make_unique<Fluid>(box, 1.0f, constant));
+		world.add(fluids.back().get());
+		std::cout << fluids.back()->getParticles().size() << std::endl;
+	}
+	*/
+
+
+	const float effectLength = 1.20f;
 	world.simulate(effectLength, 0.015f);
 
 	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
@@ -63,7 +98,13 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 	//LegacyRenderer renderer;
 
 	PointBuffer buffer;
-	const auto& particles = fluid->getParticles();
+	std::vector<Particle*> particles;
+
+	for (int i = 0; i < fluids.size(); ++i) {
+		auto particles2 = fluids[i]->getParticles();
+		particles.insert(particles.end(), particles2.begin(), particles2.end());
+	}
+
 	/*
 	float minPressure = +DBL_MAX;
 	float maxPressure = -DBL_MAX;
@@ -72,12 +113,13 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 		maxPressure = std::max<float>(maxPressure, p->getDensity());
 	}
 	*/
-	colorMap.setMinMax(800.0f, 2000.0f);
+	colorMap.setMinMax(800.0f, 1200.0f);
 	for (auto p : particles) {
 		const auto pos = p->getPosition();
+		const auto d = p->getDensity();
 		auto color = colorMap.getColor(p->getDensity());
 		//color.setAlpha(colorMap.getNormalized(p->getDensity()));
-		Crystal::Graphics::Point point(pos, color, 100.0f);
+		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}
 	renderer->render(camera, buffer);

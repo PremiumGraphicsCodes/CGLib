@@ -82,6 +82,13 @@ public:
 	}
 
 	Graphics::ColorRGBA<float> getColorFromIndex(const int i) const {
+		if (i >= reds.size()) {
+			const auto r = reds.back();
+			const auto g = greens.back();
+			const auto b = blues.back();
+			const auto a = alphas.back();
+			return Graphics::ColorRGBA<float>(r, g, b, a);
+		}
 		const auto r = reds[i];
 		const auto g = greens[i];
 		const auto b = blues[i];

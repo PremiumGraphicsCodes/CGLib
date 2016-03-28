@@ -18,7 +18,9 @@ public:
 	void setup() override;
 
 private:
-	std::unique_ptr<Crystal::Physics::Fluid> fluid;
+	std::vector< std::unique_ptr<Crystal::Physics::Fluid> > fluids;
+
+
 	Crystal::Physics::ParticleWorld world;
 	Crystal::Graphics::ColorMap colorMap;
 	Crystal::Shader::ShaderObject shader;
