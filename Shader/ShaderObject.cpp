@@ -111,6 +111,14 @@ ShaderObject::ShaderObject(void) :
 {
 }
 
+ShaderObject::ShaderObject(const Crystal::File& vFile, const Crystal::File& fFile) :
+	id(-1)
+{
+	assert(glGetError() == GL_NO_ERROR);
+	build(vFile, fFile);
+}
+
+
 ShaderObject::~ShaderObject(void)
 {
 	clear();
@@ -183,14 +191,21 @@ bool ShaderObject::build(const std::string& vSource, const std::string& fSource)
 {
 	ShaderUnit vShader;
 	ShaderUnit fShader;
+	
+	assert(glGetError() == GL_NO_ERROR);
+
 	if (!vShader.compile(vSource, ShaderUnit::Stage::VERTEX)) {
 		log += vShader.getLog();
 		return false;
 	}
+	assert(glGetError() == GL_NO_ERROR);
+
 	if (!fShader.compile(fSource, ShaderUnit::Stage::FRAGMENT)) {
 		log += fShader.getLog();
 		return false;
 	}
+	assert(glGetError() == GL_NO_ERROR);
+
 	if (!link(vShader, fShader)) {
 		return false;
 	}

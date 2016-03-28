@@ -24,6 +24,9 @@
     <ClCompile Include="BulletInteractionSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="PointRendererSample.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="BulletInteractionSample.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PointRendererSample.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -58,9 +58,7 @@ class ShaderObject
 public:
 	ShaderObject(void);
 
-	ShaderObject(const File& vFile, const File& fFile) {
-		build(vFile, fFile);
-	}
+	ShaderObject(const File& vFile, const File& fFile);
 
 	~ShaderObject(void);
 

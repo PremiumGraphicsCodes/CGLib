@@ -1,3 +1,8 @@
+#if _WIN64
+#include "windows.h"
+#endif
+#include "../Shader/ShaderObject.h"
+
 #include "glfw.h"
 #include "AntTweakBar.h"
 
@@ -5,6 +10,8 @@
 #include <cstdlib>
 
 #include "RenderingSample.h"
+#include "PointRendererSample.h"
+
 #include "FluidSample.h"
 #include "BulletRigidSample.h"
 #include "BulletInteractionSample.h"
@@ -66,6 +73,11 @@ inline void TwEventCharGLFW3(GLFWwindow* window, int codepoint) { TwEventCharGLF
 
 std::unique_ptr< ISample > activeSample;
 
+void TW_CALL onPointRender(void*)
+{
+	activeSample = std::make_unique<PointRendererSample>();
+	activeSample->setup();
+}
 
 void TW_CALL onFluid(void * /*clientData*/)
 {
@@ -105,6 +117,7 @@ void TW_CALL onParticle(void*)
 
 int main(int argc, char* argv)
 {
+
 	if (!glfwInit()) {
 		std::cerr << "glufw Init failed." << std::endl;
 		exit(EXIT_FAILURE);
@@ -124,7 +137,10 @@ int main(int argc, char* argv)
 	TwInit(TW_OPENGL, nullptr);
 	TwBar* bar = TwNewBar("Bar");
 
+	assert(glGetError() == GL_NO_ERROR);
 	TwWindowSize(1024, 756);
+	TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
+
 	TwAddButton(bar, "Fluid", onFluid, NULL, " label='Fluid' ");
 	TwAddButton(bar, "Rigid", onBulletRigid, nullptr, " label = 'Rigid' ");
 	TwAddButton(bar, "Coupling", onBulletInteraction, nullptr, " label = 'Coupling' ");
