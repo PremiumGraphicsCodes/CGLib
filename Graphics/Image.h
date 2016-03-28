@@ -7,7 +7,6 @@
 #include <memory>
 
 #include "ColorRGBA.h"
-#include "ColorConverter.h"
 
 namespace Crystal {
 	namespace Graphics {

@@ -5,6 +5,7 @@
 
 namespace Crystal {
 	namespace Graphics {
+		class ColorHSV;
 
 template< typename T >
 class ColorRGBA {
@@ -80,6 +81,7 @@ public:
 		return g / T{ 255 };
 	}
 
+	ColorHSV toHSV() const;
 
 public:
 	T red;

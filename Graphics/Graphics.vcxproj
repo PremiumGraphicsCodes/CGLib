@@ -39,7 +39,6 @@
     <ClInclude Include="Buffer4d.h" />
     <ClInclude Include="Buffer2d.h" />
     <ClInclude Include="ICamera.h" />
-    <ClInclude Include="ColorConverter.h" />
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGBA.h" />
     <ClInclude Include="Image.h" />

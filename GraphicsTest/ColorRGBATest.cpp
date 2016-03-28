@@ -82,3 +82,15 @@ TYPED_TEST( ColorRGBATest, TestToArray4 )
 	const std::vector<TypeParam> expected{ 255, 0, 0, 255 };
 	EXPECT_EQ( expected, actual );
 }
+
+#include "../Graphics/ColorHSV.h"
+
+TEST(ColorRGBATest, TestToHSV)
+{
+	using T = float;
+	EXPECT_EQ(ColorHSV(0, 1, 1), ColorRGBA<T>::Red().toHSV());
+	EXPECT_EQ(ColorHSV(120, 1, 1), ColorRGBA<T>::Green().toHSV());
+	EXPECT_EQ(ColorHSV(240, 1, 1), ColorRGBA<T>::Blue().toHSV());
+	EXPECT_EQ(ColorHSV(0, 0, 1), ColorRGBA<T>::White().toHSV());
+	EXPECT_EQ(ColorHSV(0, 0, 0), ColorRGBA<T>::Black().toHSV());
+}

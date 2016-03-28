@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="BufferTest.cpp" />
     <ClCompile Include="CameraTest.cpp" />
-    <ClCompile Include="ColorConverterTest.cpp" />
     <ClCompile Include="ColorHSVTest.cpp" />
     <ClCompile Include="ColorRGBAMapTest.cpp" />
     <ClCompile Include="ColorRGBATest.cpp" />
