@@ -27,7 +27,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buf
 	glPointParameterfv(GL_POINT_DISTANCE_ATTENUATION, distance);
 
 	glEnable(GL_POINT_SPRITE);
-	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	glPointSize(pointSize);
 
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();

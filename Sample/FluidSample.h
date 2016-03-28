@@ -5,6 +5,7 @@
 
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
+#include "../Graphics/ColorMap.h"
 #include "ISample.h"
 #include <memory>
 
@@ -18,7 +19,7 @@ public:
 private:
 	std::unique_ptr<Crystal::Physics::Fluid> fluid;
 	Crystal::Physics::ParticleWorld world;
-
+	Crystal::Graphics::ColorMap colorMap;
 };
 
 #endif

@@ -10,6 +10,7 @@
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
 #include "../Polygon/PolygonObject.h"
+#include "../Graphics/ColorMap.h"
 #include "ISample.h"
 #include <memory>
 #include <map>
@@ -49,6 +50,8 @@ private:
 	Crystal::Physics::BulletInteraction interaction;
 	Crystal::Physics::SPHConstant constant;
 	Crystal::Physics::SPHConstant rigidConstant;
+	Crystal::Graphics::ColorMap colorMap;
+
 
 };
 

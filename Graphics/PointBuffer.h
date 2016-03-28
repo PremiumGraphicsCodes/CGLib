@@ -5,6 +5,7 @@
 #include "Buffer1d.h"
 #include "Buffer4d.h"
 
+
 namespace Crystal {
 	namespace Physics {
 		class SPHParticle;

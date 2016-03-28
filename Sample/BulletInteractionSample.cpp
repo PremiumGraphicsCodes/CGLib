@@ -10,6 +10,7 @@
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/PolygonObject.h"
 #include "../Graphics/Light.h"
+#include "../Graphics/ColorHSV.h"
 
 #include <iostream>
 
@@ -26,6 +27,7 @@ void BulletInteractionSample::setup()
 
 	rigidConstant.isBoundary = true;
 
+	/*
 	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 10; ++j) {
 			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
@@ -43,6 +45,24 @@ void BulletInteractionSample::setup()
 			rigids.push_back(rigid);
 		}
 	}
+	*/
+
+	{
+		const Vector3d<float> start(-10.0f, 0.0f, -10.0f);
+		const Vector3d<float> end(-8.0f, 20.0f, 10.0f);
+		Box<float> box(start, end);
+		auto rigid = new BulletRigid(box, &rigidConstant);
+		rigid->transform();
+		bulletWorld.add(rigid);
+		Box<float> localBox(Vector3d<float>(-1.0f, -10.0f, -10.0f), Vector3d<float>(1.0f, 10.0f, 10.0f));
+
+		auto shape = new PolygonObject();
+		shape->add(localBox);
+		shapes.push_back(shape);
+		rigidPolygonMap[rigid] = shape;
+		rigids.push_back(rigid);
+
+	}
 
 
 	{
@@ -54,7 +74,7 @@ void BulletInteractionSample::setup()
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(100.0f, 20.0f, 10.0f));
+		Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(100.0f, 10.0f, 10.0f));
 		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 		particleWorld.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
@@ -67,6 +87,15 @@ void BulletInteractionSample::setup()
 	for (auto r : rigids) {
 		interaction.add(r);
 	}
+
+	std::vector<ColorRGBA<float>> colors;
+	for (int i = 0; i < 180; ++i) {
+		ColorHSV hsv(i, 1.0f, 1.0f);
+		colors.push_back(hsv.toColorRGBA());
+	}
+	std::reverse(colors.begin(), colors.end());
+	colorMap.setColors(colors);
+
 }
 
 void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
@@ -90,11 +119,24 @@ void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float
 		delete p;
 	}
 
+	/*
 	{
 		PointBuffer buffer;
 		buffer.add(*fluid);
 		renderer.renderAlphaBlend(camera, buffer);
 
 	}
+	*/
+	const auto& particles = fluid->getParticles();
+	colorMap.setMinMax(800.0f, 2000.0f);
+	PointBuffer buffer;
+	for (auto p : particles) {
+		const auto pos = p->getPosition();
+		auto color = colorMap.getColor(p->getDensity());
+		//color.setAlpha(colorMap.getNormalized(p->getDensity()));
+		Crystal::Graphics::Point point(pos, color, 10.0f);
+		buffer.add(point);
+	}
+	renderer.render(camera, buffer, 100.0f);
 
 }

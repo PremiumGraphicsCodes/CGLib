@@ -43,7 +43,7 @@ void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 		prevPosX = xpos;
 		prevPosY = ypos;
 		if (pressedButton == GLFW_MOUSE_BUTTON_LEFT) {
-			camera.move(Crystal::Math::Vector3d<float>(diffx * 0.01, diffy * 0.01, 0.0f));
+			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01, diffy * -0.01, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
 			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01, -diffy * 0.01, 0.0f));
