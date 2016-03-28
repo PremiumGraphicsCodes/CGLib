@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ColorHSV.cpp" />
+    <ClCompile Include="ColorMap.cpp" />
     <ClCompile Include="ColorRGBA.cpp" />
     <ClCompile Include="IBuffer.cpp" />
     <ClCompile Include="ICamera.cpp" />
@@ -33,7 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer1d.h" />
-    <ClInclude Include="ColorRGBAMap.h" />
+    <ClInclude Include="ColorMap.h" />
     <ClInclude Include="IBuffer.h" />
     <ClInclude Include="Buffer3d.h" />
     <ClInclude Include="Buffer4d.h" />

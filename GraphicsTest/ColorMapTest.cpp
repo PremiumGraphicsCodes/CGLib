@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Graphics/ColorRGBAMap.h"
+#include "../Graphics/ColorMap.h"
 
 using namespace Crystal::Graphics;
 
@@ -13,7 +13,7 @@ TEST( RangeTest, TestNormalized )
 
 TEST( ColorRGBAMapTest, TestConstruct )
 {
-	ColorRGBAMap<float> map( 0, 100, 10 );
+	ColorMap map( 0, 100, 10 );
 	EXPECT_EQ( 10, map.getReds().size() );
 	EXPECT_EQ( 10, map.getGreens().size() );
 	EXPECT_EQ( 10, map.getBlues().size() );
@@ -21,21 +21,21 @@ TEST( ColorRGBAMapTest, TestConstruct )
 
 TEST( ColorRGBAMapTest, TestNormalized )
 {
-	ColorRGBAMap<float> map( 0, 100, 10 );
+	ColorMap map( 0, 100, 10 );
 	EXPECT_EQ( 0.0f, map.getNormalized( 0.0 ) );
 	EXPECT_EQ( 1.0f, map.getNormalized( 100.0 ) );
 }
 
 TEST( ColorRGBAMapTest, TestIndex )
 {
-	ColorRGBAMap<float> map( 0, 100, 10 );
+	ColorMap map( 0, 100, 10 );
 	EXPECT_EQ( 0, map.getIndex( 0.0 ) );
 	EXPECT_EQ( 9, map.getIndex( 100.0 ) );
 }
 
 TEST( ColorRGBAMapTest, TestColor )
 {
-	ColorRGBAMap<float> map( 0, 100, 10 );
+	ColorMap map( 0, 100, 10 );
 	map.setColor( 0, ColorRGBA<float>::Black() );
 	map.setColor( 9, ColorRGBA<float>::White() );
 	{
@@ -50,7 +50,7 @@ TEST( ColorRGBAMapTest, TestColor )
 
 TEST( ColorRGBAMapTest, TestInterpolatedColor )
 {
-	ColorRGBAMap<float> map( 0, 100, 2 );
+	ColorMap map( 0, 100, 2 );
 	map.setColor( 0, ColorRGBA<float>::Black() );
 	map.setColor( 1, ColorRGBA<float>::White() );
 	
@@ -69,7 +69,7 @@ TEST( ColorRGBAMapTest, TestInterpolatedColor )
 
 TEST( ColorRGBAMapTest, TestValueFromIndex )
 {
-	ColorRGBAMap<float> map( 0, 100, 3 );
+	ColorMap map( 0, 100, 3 );
 	EXPECT_EQ( 0.0, map.getValueFromIndex( 0 ) );
 	EXPECT_EQ( 50.0, map.getValueFromIndex( 1  ) );
 	EXPECT_EQ( 100.0, map.getValueFromIndex( 2 ) );

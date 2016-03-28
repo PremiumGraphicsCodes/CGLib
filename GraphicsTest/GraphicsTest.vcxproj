@@ -22,7 +22,7 @@
     <ClCompile Include="BufferTest.cpp" />
     <ClCompile Include="CameraTest.cpp" />
     <ClCompile Include="ColorHSVTest.cpp" />
-    <ClCompile Include="ColorRGBAMapTest.cpp" />
+    <ClCompile Include="ColorMapTest.cpp" />
     <ClCompile Include="ColorRGBATest.cpp" />
     <ClCompile Include="ImageTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
