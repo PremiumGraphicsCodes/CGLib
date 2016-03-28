@@ -17,16 +17,14 @@ using namespace Crystal::Shader;
 
 PointRendererSample::PointRendererSample()
 {
-	assert(glGetError() == GL_NO_ERROR);
-
-	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
-	auto pr = new PointRenderer<float>( shader );
-	renderer.reset(pr);
 }
 
 
 void PointRendererSample::setup()
 {
+	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
+	auto pr = new PointRenderer<float>(shader);
+	renderer.reset(pr);
 	renderer->findLocation();
 }
 

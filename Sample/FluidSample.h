@@ -6,6 +6,7 @@
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Graphics/ColorMap.h"
+#include "../Shader/PointRenderer.h"
 #include "ISample.h"
 #include <memory>
 
@@ -20,6 +21,9 @@ private:
 	std::unique_ptr<Crystal::Physics::Fluid> fluid;
 	Crystal::Physics::ParticleWorld world;
 	Crystal::Graphics::ColorMap colorMap;
+	Crystal::Shader::ShaderObject shader;
+	std::unique_ptr< Crystal::Shader::PointRenderer<float> > renderer;
+
 };
 
 #endif

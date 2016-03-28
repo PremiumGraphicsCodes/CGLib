@@ -1,3 +1,8 @@
+#if _WIN64
+#include "windows.h"
+#endif
+#include "../Shader/ShaderObject.h"
+
 #include "FluidSample.h"
 #include "AntTweakBar.h"
 
@@ -37,6 +42,12 @@ void FluidSample::setup()
 	}
 	std::reverse(colors.begin(), colors.end());
 	colorMap.setColors(colors);
+
+	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
+	auto pr = new PointRenderer<float>(shader);
+	renderer.reset(pr);
+	renderer->findLocation();
+
 }
 
 void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
@@ -49,7 +60,7 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	LegacyRenderer renderer;
+	//LegacyRenderer renderer;
 
 	PointBuffer buffer;
 	const auto& particles = fluid->getParticles();
@@ -66,10 +77,10 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 		const auto pos = p->getPosition();
 		auto color = colorMap.getColor(p->getDensity());
 		//color.setAlpha(colorMap.getNormalized(p->getDensity()));
-		Crystal::Graphics::Point point(pos, color, 10.0f);
+		Crystal::Graphics::Point point(pos, color, 100.0f);
 		buffer.add(point);
 	}
-	renderer.render(camera, buffer, 100.0f);
+	renderer->render(camera, buffer);
 
 	/*
 	TriangleBuffer lineBuffer;
