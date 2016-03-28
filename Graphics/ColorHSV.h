@@ -6,53 +6,45 @@
 
 namespace Crystal {
 	namespace Graphics {
+		template<typename>
+		class ColorRGBA;
 
-template<typename T>
-class ColorHSV {
+class ColorHSV
+{
 public:
 
-	ColorHSV() :
-		h( 0.0 ),
-		s( 0.0 ),
-		v( 0.0 )
-	{}
+	ColorHSV();
 
-	ColorHSV( const T h, const T s, const T v ) :
-		h( h ),
-		s( s ),
-		v( v )
-	{}
+	ColorHSV(const float h, const float s, const float v);
 
+	float getH() const { return h; }
 
-	/*
-	ColorHSV( const ColorRGB<float>& rgb ) {
-	}
-	*/
+	float getS() const { return s; }
 
+	float getV() const { return v; }
 
-	T getH() const { return h; }
+	void setH( const float h ) { this->h = h; }
 
-	T getS() const { return s; }
+	void setS( const float s ) { this->s = s; }
 
-	T getV() const { return v; }
+	void setV( const float v ) { this->v = v; }
 
-	void setH( const T h ) { this->h = h; }
-
-	void setS( const T s ) { this->s = s; }
-
-	void setV( const T v ) { this->v = v; }
+	bool equals(const ColorHSV& rhs) const;
 
 	bool operator==( const ColorHSV& rhs ) const {
-		return
-			h == rhs.getH() &&
-			s == rhs.getS() &&
-			v == rhs.getV();
+		return equals(rhs);
 	}
+
+	bool operator!=(const ColorHSV& rhs) const {
+		return !equals(rhs);
+	}
+
+	ColorRGBA<float> toColorRGBA() const;
 	
 private:
-	T h;
-	T s;
-	T v;
+	float h;
+	float s;
+	float v;
 };
 	}
 }

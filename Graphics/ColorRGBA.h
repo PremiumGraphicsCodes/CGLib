@@ -75,6 +75,12 @@ public:
 
 	ColorRGBA<T> operator+( const ColorRGBA& rhs ) const { return getAdded( rhs ); }
 
+	T toGrayScale() const {
+		const auto g = 77 * red + 150 * green + 29 * blue;
+		return g / T{ 255 };
+	}
+
+
 public:
 	T red;
 	T green;
