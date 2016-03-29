@@ -44,14 +44,9 @@ void BulletRigidSample::setup()
 		rigidPolygonMap[rigid3.get()] = &shape3;
 	}
 
-
-	{
-		Box<float> box(Vector3d<float>(-50.0f, -50.0f, -50.0f), Vector3d<float>(50.0f, -5.0f, 50.0f));
-		ground = std::make_unique<BulletRigid>(box, &constant, true);
-		world.add(ground.get());
-	}
+	const Box<float> box(Vector3d<float>(-50.0f, -5.0f, -50.0f), Vector3d<float>(50.0f, 100.0f, 50.0f));
+	world.setBoundary(box);
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));
-
 }
 
 void BulletRigidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)

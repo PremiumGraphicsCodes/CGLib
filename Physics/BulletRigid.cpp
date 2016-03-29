@@ -7,9 +7,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, bool isStatic)
+BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant)
 {
-	const auto mass = isStatic ? 0.0f : box.getVolume() * constant->getDensity();
+	const auto mass = box.getVolume() * constant->getDensity();
 	const auto halfLength = box.getLength() * 0.5f;
 	const auto origin = box.getCenter();
 	auto shape = new btBoxShape(BulletConverter::convert(halfLength));
@@ -24,7 +24,7 @@ BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, bool isSt
 	btRigidBody::btRigidBodyConstructionInfo info(mass, motionState, shape, inertia);
 	body = new btRigidBody(info);
 
-	if (mass != 0.0f) {
+	{
 		Box<float> box(-halfLength,halfLength);
 		Surfels surfels(box, constant->getEffectLength() / 1.25f);
 		localPositions = surfels.toPositions();
@@ -54,16 +54,6 @@ void BulletRigid::clear()
 float BulletRigid::getMass() const
 {
 	return 1.0f / (body->getInvMass());
-}
-
-bool BulletRigid::isDynamic() const
-{
-	return getMass() != 0.0f;
-}
-
-bool BulletRigid::isStatic() const
-{
-	return getMass() == 0.0f;
 }
 
 Vector3d<float> BulletRigid::getOrigin() const
