@@ -26,6 +26,9 @@ public:
 
 	void demonstrate(const Crystal::Graphics::ICamera<float>& camera);
 
+	void onKeyDown(const unsigned char c);
+
+
 private:
 
 	void cleanup() override;
@@ -33,7 +36,7 @@ private:
 	std::vector< Crystal::Physics::BulletRigid* > rigids;
 	std::vector< Crystal::Polygon::PolygonObject* > shapes;
 
-	//Crystal::Physics::BulletRigid* selected;
+	Crystal::Physics::BulletRigid* selected;
 
 	std::map< Crystal::Physics::BulletRigid*, Crystal::Polygon::PolygonObject* > rigidPolygonMap;
 

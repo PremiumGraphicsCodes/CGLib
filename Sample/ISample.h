@@ -27,6 +27,8 @@ public:
 
 	virtual void onMouseMove(const float x, const float y) {};
 
+	virtual void onKeyDown(const unsigned char c) {};
+
 private:
 };
 

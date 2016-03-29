@@ -115,3 +115,13 @@ void BulletRigid::solveBoundary()
 		body->applyForce(BulletConverter::convert(f), BulletConverter::convert(diff));
 	}
 }
+
+void BulletRigid::move(const Vector3d<float>& v)
+{
+	body->translate(BulletConverter::convert(v) );// applyCentralForce(BulletConverter::convert(force));
+}
+
+void BulletRigid::addForce(const Vector3d<float>& f)
+{
+	body->applyCentralForce(BulletConverter::convert(f));
+}

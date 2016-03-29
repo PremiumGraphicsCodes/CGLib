@@ -67,6 +67,7 @@ void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 	}
 	TwMouseMotion(int(xpos), int(ypos));
 }
+
 void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, yoffset*0.1));
@@ -80,6 +81,8 @@ void TwEventKeyGLFW3(GLFWwindow* window, int key, int scancode, int action, int 
 
 void TwEventCharGLFW3(GLFWwindow* window, int codepoint)
 {
+	activeSample->onKeyDown(codepoint);
+
 	TwEventCharGLFW(codepoint, GLFW_PRESS);
 }
 

@@ -54,6 +54,10 @@ public:
 
 	std::vector<SPHParticle*> getSurfaceParticles();
 
+	void move(const Math::Vector3d<float>& v);
+
+	void addForce(const Math::Vector3d<float>& v);
+
 private:
 	btRigidBody* body;
 	Math::Box<float> localBox;

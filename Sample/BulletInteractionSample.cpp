@@ -62,7 +62,7 @@ void BulletInteractionSample::setup()
 		rigidPolygonMap[rigid] = shape;
 		rigids.push_back(rigid);
 
-		//selected = rigid;
+		selected = rigid;
 
 	}
 
@@ -114,9 +114,21 @@ void BulletInteractionSample::cleanup()
 
 void BulletInteractionSample::onMouseMove(const float x, const float y)
 {
-	;
 }
 
+void BulletInteractionSample::onKeyDown(const unsigned char c)
+{
+	if (c == 'x') {
+		//selected->addForce(Vector3d<float>(0.1f, 0.0f, 0.0f));
+		selected->move(Vector3d<float>(0.1f, 0.0f, 0.0f));
+	}
+	if (c == 'y') {
+		//selected->addForce(Vector3d<float>(0.0f, 0.1f, 0.0f));
+
+		selected->move(Vector3d<float>(0.0f, 0.1f, 0.0f));
+	}
+
+}
 
 void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {
