@@ -29,8 +29,26 @@ void BulletWorld::simulate(const float timeStep)
 
 void BulletWorld::setBoundary(const Box<float>& box)
 {
+	btBoxShape* worldBoxShape = new btBoxShape( BulletConverter::convert( box.getLength() * 0.5 ));
+
+	///create 6 planes/half spaces
+	for (int i = 0; i < 6; i++)
 	{
-		btStaticPlaneShape* shape = new btStaticPlaneShape(btVector3(0.0f, 1.0f, 0.0f), box.getMinY());
+		btTransform groundTransform;
+		groundTransform.setIdentity();
+		groundTransform.setOrigin(BulletConverter::convert( box.getCenter()) );
+		btVector4 planeEq;
+		worldBoxShape->getPlaneEquation(planeEq, i);
+
+		btCollisionShape* shape = new btStaticPlaneShape(-planeEq, planeEq[3]);
+		btDefaultMotionState* state = new btDefaultMotionState(groundTransform);
+		btRigidBody::btRigidBodyConstructionInfo plain_body_ci(0.0f, state, shape);
+		btRigidBody* body = new btRigidBody(plain_body_ci);
+		world->addRigidBody(body);
+	}
+	/*
+	{
+		btStaticPlaneShape* shape = new btBoxShape(BulletConverter::convert(box));
 		btDefaultMotionState* state = new btDefaultMotionState();
 		btRigidBody::btRigidBodyConstructionInfo plain_body_ci(0.0f, state, shape);
 		btRigidBody* body = new btRigidBody(plain_body_ci);
@@ -52,4 +70,5 @@ void BulletWorld::setBoundary(const Box<float>& box)
 		btRigidBody* body = new btRigidBody(plain_body_ci);
 		world->addRigidBody(body);
 	}
+	*/
 }

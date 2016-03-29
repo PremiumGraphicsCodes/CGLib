@@ -34,8 +34,8 @@ void BulletInteractionSample::setup()
 
 	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 5; ++j) {
-			const Vector3d<float> start(-4.0f+10, 2.0f*i+10, 2.0f *j);
-			const Vector3d<float> end(-2.0f+10, 2.0f*(i + 1)+10, 2.0f*(j+1));
+			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
+			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(j+1));
 			Box<float> box(start, end);
 			auto rigid = new BulletRigid(box, &rigidConstant);
 			rigid->transform();
@@ -77,7 +77,7 @@ void BulletInteractionSample::setup()
 		particleWorld.add(fluid.get());
 
 	}
-	Box<float> boundary(Vector3d<float>(0.0, 0.0f, 0.0), Vector3d<float>(20.0, 1000.0, 20.0));
+	Box<float> boundary(Vector3d<float>(-100.0, 0.0f, 0.0), Vector3d<float>(20.0, 1000.0, 20.0));
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
 	interaction.setExternalForce(Vector3d<float>(0, -9.8, 0));
