@@ -19,6 +19,14 @@ public:
 
 	virtual void cleanup() {};
 
+	virtual void onLeftDragging(const float dx, const float dy) {}
+
+	virtual void onLeftButtonDown(const float x, const float y) {};
+
+	virtual void onLeftButtonUp(const float x, const float y) {};
+
+	virtual void onMouseMove(const float x, const float y) {};
+
 private:
 };
 

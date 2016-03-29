@@ -22,24 +22,18 @@ public:
 
 	void setup();
 
+	virtual void onMouseMove(const float x, const float y) override;
+
 	void demonstrate(const Crystal::Graphics::ICamera<float>& camera);
 
 private:
 
-	void cleanup() override {
-		for (auto r : rigids) {
-			delete r;
-		}
-		rigids.clear();
-		for (auto s : shapes) {
-			delete s;
-		}
-		shapes.clear();
-	}
+	void cleanup() override;
 
 	std::vector< Crystal::Physics::BulletRigid* > rigids;
 	std::vector< Crystal::Polygon::PolygonObject* > shapes;
 
+	//Crystal::Physics::BulletRigid* selected;
 
 	std::map< Crystal::Physics::BulletRigid*, Crystal::Polygon::PolygonObject* > rigidPolygonMap;
 

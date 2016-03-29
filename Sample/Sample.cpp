@@ -27,6 +27,8 @@ namespace {
 	double prevPosY = 0.0f;
 	bool mousePressed = false;
 	int pressedButton = 0;
+
+	std::unique_ptr< ISample > activeSample;
 }
 
 void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods)
@@ -42,6 +44,7 @@ void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mod
 
 	TwEventMouseButtonGLFW(button, action);
 }
+
 void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 {
 	if (mousePressed) {
@@ -50,6 +53,7 @@ void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 		prevPosX = xpos;
 		prevPosY = ypos;
 		if (pressedButton == GLFW_MOUSE_BUTTON_LEFT) {
+			activeSample->onLeftDragging(diffx, diffy);
 			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01, diffy * -0.01, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
@@ -68,10 +72,17 @@ void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset)
 	camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, yoffset*0.1));
 	TwEventMouseWheelGLFW(yoffset);
 }
-inline void TwEventKeyGLFW3(GLFWwindow* window, int key, int scancode, int action, int mods) { TwEventKeyGLFW(key, action); }
-inline void TwEventCharGLFW3(GLFWwindow* window, int codepoint) { TwEventCharGLFW(codepoint, GLFW_PRESS); }
 
-std::unique_ptr< ISample > activeSample;
+void TwEventKeyGLFW3(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	TwEventKeyGLFW(key, action);
+}
+
+void TwEventCharGLFW3(GLFWwindow* window, int codepoint)
+{
+	TwEventCharGLFW(codepoint, GLFW_PRESS);
+}
+
 
 void TW_CALL onPointRender(void*)
 {

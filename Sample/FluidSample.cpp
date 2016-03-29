@@ -26,10 +26,6 @@ using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-namespace {
-	int timeStep = 0;
-}
-
 void FluidSample::setup()
 {
 	SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.20f);
@@ -71,8 +67,8 @@ void FluidSample::setup()
 }
 
 void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
-{	
-	timeStep++;
+{
+	//timeStep++;
 
 	/*
 	if (timeStep == 300 || timeStep == 500 || timeStep == 800)
@@ -98,13 +94,17 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 	//LegacyRenderer renderer;
 
 	PointBuffer buffer;
-	std::vector<Particle*> particles;
+	std::vector<SPHParticle*> particles = world.getFluidParticles();
 
-	for (int i = 0; i < fluids.size(); ++i) {
-		auto particles2 = fluids[i]->getParticles();
-		particles.insert(particles.end(), particles2.begin(), particles2.end());
-	}
-
+	/*
+	const auto eyePos = camera.getPos();
+	std::sort(particles.begin(), particles.end(),
+		[eyePos](Particle* p1, Particle* p2) {
+		const auto dist1 = p1->getPosition().getDistanceSquared(eyePos);
+		const auto dist2 = p2->getPosition().getDistanceSquared(eyePos);
+		return dist1 < dist2; }
+	);
+	*/
 	/*
 	float minPressure = +DBL_MAX;
 	float maxPressure = -DBL_MAX;
@@ -118,7 +118,7 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 		const auto pos = p->getPosition();
 		const auto d = p->getDensity();
 		auto color = colorMap.getColor(p->getDensity());
-		//color.setAlpha(colorMap.getNormalized(p->getDensity()));
+		color.setAlpha(0.1f);//colorMap.getNormalized(p->getDensity()));
 		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}

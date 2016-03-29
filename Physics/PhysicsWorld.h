@@ -26,6 +26,13 @@ public:
 
 	void setExternalForce(const Math::Vector3d<float>& force) { this->externalForce = force; }
 
+	std::vector< SPHParticle*> getAllParticles() const;
+
+	std::vector<SPHParticle*> getFluidParticles() const;
+
+	std::vector< SPHParticle*> getBoundaryParticles() const;
+
+
 private:
 	std::vector< PhysicsObject* > objects;
 	Math::Vector3d<float> externalForce;
@@ -33,13 +40,6 @@ private:
 	Math::Box<float> boundary;
 	std::vector<BulletRigid*> bulletRigids;
 
-	std::vector< SPHParticle*> getAllParticles() const;
-
-	//std::vector< SPHParticle* > externalParticles;
-
-	std::vector<SPHParticle*> getFluidParticles() const;
-
-	std::vector< SPHParticle*> getBoundaryParticles() const;
 
 };
 

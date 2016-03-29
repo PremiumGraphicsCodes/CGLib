@@ -62,6 +62,8 @@ void BulletInteractionSample::setup()
 		rigidPolygonMap[rigid] = shape;
 		rigids.push_back(rigid);
 
+		//selected = rigid;
+
 	}
 
 
@@ -97,6 +99,24 @@ void BulletInteractionSample::setup()
 	colorMap.setColors(colors);
 
 }
+
+void BulletInteractionSample::cleanup()
+{
+	for (auto r : rigids) {
+		delete r;
+	}
+	rigids.clear();
+	for (auto s : shapes) {
+		delete s;
+	}
+	shapes.clear();
+}
+
+void BulletInteractionSample::onMouseMove(const float x, const float y)
+{
+	;
+}
+
 
 void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {
