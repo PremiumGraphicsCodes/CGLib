@@ -14,6 +14,9 @@ Fluid::Fluid(const Box<float>& box, const float divideLength, const SPHConstant&
 {
 }
 
+Fluid::Fluid(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant) :
+	PhysicsObject(sphere, divideLength, constant)
+{}
 
 Fluid::Fluid(const std::vector<SPHParticle*>& particles) :
 	PhysicsObject(particles)

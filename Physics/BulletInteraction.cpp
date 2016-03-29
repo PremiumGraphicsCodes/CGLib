@@ -5,7 +5,7 @@
 #include "PhysicsWorld.h"
 #include "BulletRigid.h"
 
-//using namespace Crystal::Math;
+using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
 BulletInteraction::BulletInteraction(ParticleWorld* particleWorld, BulletWorld* bulletWorld) :
@@ -23,6 +23,13 @@ void BulletInteraction::add(BulletRigid* bulletRigid)
 	}
 }
 
+void BulletInteraction::setExternalForce(const Vector3d<float>& f)
+{
+	particleWorld->setExternalForce(f);
+	bulletWorld->setExternalForce(f);
+}
+
+
 void BulletInteraction::simulate(const float timeStep)
 {
 	const auto& rigids = bulletWorld->getRigids();
@@ -39,4 +46,10 @@ void BulletInteraction::simulate(const float timeStep)
 
 	bulletWorld->simulate(timeStep);
 
+}
+
+void BulletInteraction::setBoundary(const Box<float>& box)
+{
+	particleWorld->setBoundary(box);
+	bulletWorld->setBoundary(box);
 }

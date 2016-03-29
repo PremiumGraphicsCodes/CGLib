@@ -34,7 +34,7 @@ BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, bool isSt
 		}
 
 	}
-	localBox = box;
+	localBox = Box<float>(-halfLength, halfLength);
 	//box.getMin
 };
 

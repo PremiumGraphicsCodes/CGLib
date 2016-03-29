@@ -26,3 +26,30 @@ void BulletWorld::simulate(const float timeStep)
 {
 	world->stepSimulation(timeStep, 10);
 }
+
+void BulletWorld::setBoundary(const Box<float>& box)
+{
+	{
+		btStaticPlaneShape* shape = new btStaticPlaneShape(btVector3(0.0f, 1.0f, 0.0f), box.getMinY());
+		btDefaultMotionState* state = new btDefaultMotionState();
+		btRigidBody::btRigidBodyConstructionInfo plain_body_ci(0.0f, state, shape);
+		btRigidBody* body = new btRigidBody(plain_body_ci);
+		world->addRigidBody(body);
+	}
+
+	{
+		btStaticPlaneShape* shape = new btStaticPlaneShape(btVector3(1.0f, 0.0f, 0.0f), box.getMinX());
+		btDefaultMotionState* state = new btDefaultMotionState();
+		btRigidBody::btRigidBodyConstructionInfo plain_body_ci(0.0f, state, shape);
+		btRigidBody* body = new btRigidBody(plain_body_ci);
+		world->addRigidBody(body);
+	}
+
+	{
+		btCollisionShape* shape = new btStaticPlaneShape(btVector3(0.0f, 0.0f, 1.0f), box.getMinZ());
+		btDefaultMotionState* state = new btDefaultMotionState();
+		btRigidBody::btRigidBodyConstructionInfo plain_body_ci(0.0f, state, shape);
+		btRigidBody* body = new btRigidBody(plain_body_ci);
+		world->addRigidBody(body);
+	}
+}

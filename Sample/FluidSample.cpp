@@ -83,26 +83,20 @@ void FluidSample::onKeyDown(const unsigned char c)
 			fluids[i]->move(Vector3d<float>(0.0f, 0.0f, 0.25f));
 		}
 	}
-
-}
-
-void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
-{
-	//timeStep++;
-
 	/*
-	if (timeStep == 300 || timeStep == 500 || timeStep == 800)
-	{
+	if (c == 'a') {
 		SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.25f);
 
-		Box<float> box(Vector3d<float>(-10.0f, 50.0f, 20.0f), Vector3d<float>(10.0f, 100.0f, 40.0f));
-		fluids.push_back(std::make_unique<Fluid>(box, 1.0f, constant));
+		Sphere<float> sphere(Vector3d<float>(-10.0f, 20.0f, 20.0f), 10.0f);
+		fluids.push_back(std::make_unique<Fluid>(sphere, 1.0f, constant));
 		world.add(fluids.back().get());
 		std::cout << fluids.back()->getParticles().size() << std::endl;
 	}
 	*/
+}
 
-
+void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+{
 	const float effectLength = 1.20f;
 	world.simulate(effectLength, 0.015f);
 
@@ -125,8 +119,8 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 		return dist1 < dist2; }
 	);
 	*/
-	float minPressure = +DBL_MAX;
-	float maxPressure = -DBL_MAX;
+	float minPressure = +FLT_MAX;
+	float maxPressure = -FLT_MAX;
 	for (auto p : particles) {
 		minPressure = std::min<float>(minPressure, p->getDensity());
 		maxPressure = std::max<float>(maxPressure, p->getDensity());

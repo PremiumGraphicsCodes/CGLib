@@ -58,6 +58,8 @@ public:
 
 	void addForce(const Math::Vector3d<float>& v);
 
+	Math::Box<float> getLocalShape() const { return localBox; }
+
 private:
 	btRigidBody* body;
 	Math::Box<float> localBox;

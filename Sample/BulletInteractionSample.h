@@ -10,6 +10,8 @@
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
 #include "../Polygon/PolygonObject.h"
+#include "../Shader/ShaderObject.h"
+#include "../Shader/PointRenderer.h"
 #include "../Graphics/ColorMap.h"
 #include "ISample.h"
 #include <memory>
@@ -48,6 +50,9 @@ private:
 	Crystal::Physics::SPHConstant constant;
 	Crystal::Physics::SPHConstant rigidConstant;
 	Crystal::Graphics::ColorMap colorMap;
+
+	Crystal::Shader::ShaderObject shader;
+	std::unique_ptr< Crystal::Shader::PointRenderer<float> > pointRenderer;
 
 
 };

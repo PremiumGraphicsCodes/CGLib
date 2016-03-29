@@ -23,6 +23,17 @@ PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, co
 	}
 }
 
+PhysicsObject::PhysicsObject(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant)
+{
+	const auto points = sphere.toPoints(divideLength);
+	for (const auto& pos : points) {
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant);
+		particles.push_back(p);
+	}
+
+}
+
+
 PhysicsObject::~PhysicsObject()
 {
 	clear();

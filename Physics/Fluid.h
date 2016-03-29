@@ -17,6 +17,8 @@ public:
 
 	Fluid(const Math::Box<float>& box, const float divideLength, const SPHConstant& constant);
 
+	Fluid(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
+
 	Fluid(const std::vector<SPHParticle*>& particles);
 
 	void addExternalForce(const Math::Vector3d<float>& force);

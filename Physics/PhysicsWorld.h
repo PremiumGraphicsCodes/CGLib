@@ -14,7 +14,8 @@ namespace Crystal {
 class ParticleWorld
 {
 public:
-	ParticleWorld() {}
+	ParticleWorld() : timeStep(0)
+	{}
 
 	void add(PhysicsObject* object) { objects.push_back(object); }
 
@@ -32,8 +33,10 @@ public:
 
 	std::vector< SPHParticle*> getBoundaryParticles() const;
 
+	int getTimeStep() const { return timeStep; }
 
 private:
+	int timeStep;
 	std::vector< PhysicsObject* > objects;
 	Math::Vector3d<float> externalForce;
 	SPHKernel<float> kernel;

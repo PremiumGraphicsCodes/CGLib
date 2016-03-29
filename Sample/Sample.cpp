@@ -48,19 +48,19 @@ void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mod
 void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 {
 	if (mousePressed) {
-		const auto diffx = prevPosX - xpos;
-		const auto diffy = prevPosY - ypos;
+		const auto diffx = static_cast<float>( prevPosX - xpos );
+		const auto diffy = static_cast<float>( prevPosY - ypos );
 		prevPosX = xpos;
 		prevPosY = ypos;
 		if (pressedButton == GLFW_MOUSE_BUTTON_LEFT) {
 			activeSample->onLeftDragging(diffx, diffy);
-			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01, diffy * -0.01, 0.0f));
+			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
-			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01, -diffy * 0.01, 0.0f));
+			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01f, -diffy * 0.01f, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_MIDDLE) {
-			camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1));
+			camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1f));
 
 		}
 

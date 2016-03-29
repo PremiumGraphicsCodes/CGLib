@@ -5,6 +5,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Math/Box.h"
+#include "../Math/Sphere.h"
 #include "../Math/Index3d.h"
 #include "SPHConstant.h"
 
@@ -21,6 +22,8 @@ public:
 	PhysicsObject() {};
 
 	PhysicsObject(const Math::Box<float>& box, const float divideLength, const SPHConstant& constant);
+
+	PhysicsObject(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
 
 	PhysicsObject(const std::vector<SPHParticle*>& particles);
 

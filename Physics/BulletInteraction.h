@@ -29,6 +29,9 @@ public:
 
 	void simulate(const float timeStep);
 
+	void setExternalForce(const Math::Vector3d<float>& f);
+
+	void setBoundary(const Math::Box<float>& box);
 	//Particle
 
 private:

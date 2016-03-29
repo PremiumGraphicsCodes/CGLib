@@ -16,6 +16,8 @@ void ParticleWorld::add(BulletRigid* rigid)
 
 void ParticleWorld::simulate(const float effectLength, const float timeStep)
 {
+	this->timeStep++;
+
 	const auto& fluidParticles = getFluidParticles();
 	const auto& boundaryParticles = getBoundaryParticles();
 	const auto& allParticles = getAllParticles();

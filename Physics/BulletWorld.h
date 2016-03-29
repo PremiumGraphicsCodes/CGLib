@@ -3,6 +3,7 @@
 
 #include "Bullet.h"
 #include "../Math/Vector3d.h"
+#include "../Math/Box.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -24,6 +25,8 @@ public:
 	btDynamicsWorld* getWorld() { return world; }
 
 	std::vector<BulletRigid*> getRigids() const { return rigids; }
+
+	void setBoundary(const Math::Box<float>& box);
 
 private:
 	btDefaultCollisionConfiguration collisionConfig;
