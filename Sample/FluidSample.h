@@ -17,6 +17,8 @@ public:
 
 	void setup() override;
 
+	void onKeyDown(const unsigned char c) override;
+
 private:
 	std::vector< std::unique_ptr<Crystal::Physics::Fluid> > fluids;
 

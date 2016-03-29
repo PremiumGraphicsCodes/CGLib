@@ -66,6 +66,26 @@ void FluidSample::setup()
 
 }
 
+void FluidSample::onKeyDown(const unsigned char c)
+{
+	if (c == 'x') {
+		for (int i = 0; i < fluids.size(); ++i) {
+			fluids[i]->move(Vector3d<float>(0.25f, 0.0f, 0.0f));
+		}
+	}
+	if (c == 'y') {
+		for (int i = 0; i < fluids.size(); ++i) {
+			fluids[i]->move(Vector3d<float>(0.0f, 0.25f, 0.0f));
+		}
+	}
+	if (c == 'z') {
+		for (int i = 0; i < fluids.size(); ++i) {
+			fluids[i]->move(Vector3d<float>(0.0f, 0.0f, 0.25f));
+		}
+	}
+
+}
+
 void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 {
 	//timeStep++;
@@ -105,15 +125,14 @@ void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
 		return dist1 < dist2; }
 	);
 	*/
-	/*
 	float minPressure = +DBL_MAX;
 	float maxPressure = -DBL_MAX;
 	for (auto p : particles) {
 		minPressure = std::min<float>(minPressure, p->getDensity());
 		maxPressure = std::max<float>(maxPressure, p->getDensity());
 	}
-	*/
-	colorMap.setMinMax(800.0f, 1200.0f);
+	colorMap.setMinMax(minPressure, maxPressure);
+	//colorMap.setMinMax(800.0f, 1200.0f);
 	for (auto p : particles) {
 		const auto pos = p->getPosition();
 		const auto d = p->getDensity();
