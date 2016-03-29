@@ -3,6 +3,7 @@
 
 #include "../Util/UnCopyable.h"
 #include "../Math/Vector3d.h"
+#include "../Math/Box.h"
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
 #include "Vertex.h"

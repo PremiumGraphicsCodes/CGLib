@@ -36,3 +36,25 @@ TEST(PolygonObjectTest, TestClone)
 	auto actual = object1.clone();
 	delete actual;
 }
+
+TEST(PolygonObjectTest, TestAddBox)
+{
+	PolygonObject object;
+	Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
+	object.add(box);
+	const auto faces = object.getFaces();
+	EXPECT_EQ(12, faces.size());
+	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f, -1.0f), faces[0]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f, -1.0f), faces[1]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f,  1.0f), faces[2]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f,  1.0f), faces[3]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 1.0f,  0.0f, 0.0f), faces[4]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 1.0f,  0.0f, 0.0f), faces[5]->getNormal());
+	EXPECT_EQ(Vector3d<float>(-1.0f,  0.0f, 0.0f), faces[6]->getNormal());
+	EXPECT_EQ(Vector3d<float>(-1.0f,  0.0f, 0.0f), faces[7]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f,  1.0f, 0.0f), faces[8]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f,  1.0f, 0.0f), faces[9]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f, -1.0f, 0.0f), faces[10]->getNormal());
+	EXPECT_EQ(Vector3d<float>( 0.0f, -1.0f, 0.0f), faces[11]->getNormal());
+
+}
