@@ -3,7 +3,7 @@
 #include "../Graphics/ColorRGBA.h"
 
 using namespace Crystal::Graphics;
-
+/*
 TEST(DrawableIDTest, TestFromColor)
 {
 	{
@@ -26,7 +26,7 @@ TEST(DrawableIDTest, TestFromColor)
 
 }
 
-
+*/
 TEST(DrawableIDTest, TestToColor)
 {
 	{
