@@ -38,6 +38,8 @@ void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mod
 		mousePressed = true;
 		pressedButton = button;
 		glfwGetCursorPos(window, &prevPosX, &prevPosY);
+		activeSample->onLeftButtonDown(prevPosX, prevPosY);
+
 	}
 	else if (action == GLFW_RELEASE) {
 		mousePressed = false;

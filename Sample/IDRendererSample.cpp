@@ -28,6 +28,16 @@ void IDRendererSample::setup()
 	renderer.findLocation();
 }
 
+void IDRendererSample::onLeftButtonDown(float x, float y)
+{
+	const auto c = fb.getColor(x, 756-y);
+	std::cout << (float)c.getRed() << std::endl;
+	std::cout << (float)c.getGreen() << std::endl;
+	std::cout << (float)c.getBlue() << std::endl;
+	std::cout << (float)c.getAlpha() << std::endl;
+}
+
+
 void IDRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -40,8 +50,7 @@ void IDRendererSample::demonstrate(const int width, const int height, const Crys
 	buffer.add(polygon);
 
 	
-	FrameBuffer fb;
-	fb.build(512, 512);
+	fb.build(width, height);
 	fb.bind();
 	renderer.render(camera, buffer);
 	fb.unbind();

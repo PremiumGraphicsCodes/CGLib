@@ -3,6 +3,7 @@
 
 #include "../Shader/GLee.h"
 #include "../Shader/IDRenderer.h"
+#include "../Shader/FrameBuffer.h"
 
 #include "ISample.h"
 #include <memory>
@@ -16,8 +17,12 @@ public:
 
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
+	void onLeftButtonDown(float x, float y) override;
+
 private:
 	Crystal::Shader::IDRenderer renderer;
+	Crystal::Shader::FrameBuffer fb;
+
 };
 
 #endif
