@@ -18,6 +18,7 @@
 #include "IOSample.h"
 #include "VolumeSample.h"
 #include "ParticleSample.h"
+#include "IDRendererSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -129,6 +130,13 @@ void TW_CALL onParticle(void*)
 	activeSample->setup();
 }
 
+void TW_CALL onIDRendering(void*)
+{
+	activeSample = std::make_unique<IDRendererSample>();
+	activeSample->setup();
+
+}
+
 int main(int argc, char* argv)
 {
 
@@ -155,13 +163,13 @@ int main(int argc, char* argv)
 	TwWindowSize(1024, 756);
 	TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
 
-	TwAddButton(bar, "Fluid", onFluid, NULL, " label='Fluid' ");
+	TwAddButton(bar, "Fluid", onFluid, nullptr, " label='Fluid' ");
 	TwAddButton(bar, "Rigid", onBulletRigid, nullptr, " label = 'Rigid' ");
 	TwAddButton(bar, "Coupling", onBulletInteraction, nullptr, " label = 'Coupling' ");
 	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
 	TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");
-
+	TwAddButton(bar, "ID", onIDRendering, nullptr, " lable = ID");
 
 	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);

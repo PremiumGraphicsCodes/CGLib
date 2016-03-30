@@ -167,6 +167,7 @@
     <ClCompile Include="BulletRigidSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
+    <ClCompile Include="IDRendererSample.cpp" />
     <ClCompile Include="IOSample.cpp" />
     <ClCompile Include="ParticleSample.cpp" />
     <ClCompile Include="PointRendererSample.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="BulletRigidSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
+    <ClInclude Include="IDRendererSample.h" />
     <ClInclude Include="IOSample.h" />
     <ClInclude Include="ISample.h" />
     <ClInclude Include="ParticleSample.h" />

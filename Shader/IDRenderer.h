@@ -6,19 +6,27 @@
 namespace Crystal {
 	namespace Shader {
 
-template<typename GeomType, typename ValueType, typename ColorType>
-class IDRenderer : public IRenderer<GeomType>
+class IDRenderer : public IRenderer<float>
 {
 public:
 	IDRenderer() = default;
 
 	~IDRenderer() = default;
 
-	void render(const Graphics::ICamera<GeomType>& camera) override;
+	void findLocation() override;
+
+	void render(const Graphics::ICamera<float>& camera) override;
+
+	bool buildBuildInShader();
 
 private:
-	std::vector<GeomType> positions;
-	std::vector<ValueType> ids;
+	std::string getBuildinVertexShaderSource() const;
+
+	std::string getBuildinFragmentShaderSource() const;
+
+
+	std::vector<float> positions;
+	std::vector<float> ids;
 
 	struct Location {
 		GLuint projectionMatrix;
@@ -27,7 +35,7 @@ private:
 		GLuint id;
 	};
 
-	Location getLocations(const Crystal::Shader::ShaderObject& shader);
+	Location location;
 
 };
 	}
