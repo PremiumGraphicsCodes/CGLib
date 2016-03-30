@@ -8,7 +8,7 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType>
-class BillBoardRenderer final : public IRenderer<GeomType>
+class BillBoardRenderer final : public IRenderer
 {
 public:
 	BillBoardRenderer() :

@@ -13,7 +13,7 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType>
-class LineRenderer final : public IRenderer<GeomType>
+class LineRenderer final : public IRenderer
 {
 public:
 	struct {

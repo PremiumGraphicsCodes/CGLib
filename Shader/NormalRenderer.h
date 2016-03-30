@@ -16,7 +16,7 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType>
-class NormalRenderer : public IRenderer<GeomType>{
+class NormalRenderer : public IRenderer{
 public:
 
 	NormalRenderer() : scale(1)

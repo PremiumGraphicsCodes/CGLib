@@ -6,9 +6,7 @@
 namespace Crystal {
 	namespace Shader {
 
-
-
-class DepthRenderer : public IRenderer<float>
+class DepthRenderer : public IRenderer
 {
 public:
 	void render(const Graphics::ICamera<float>& camera);

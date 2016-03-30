@@ -16,7 +16,6 @@
 namespace Crystal {
 	namespace Shader {
 
-template<typename GeomType>
 class IRenderer : private UnCopyable
 {
 public:
@@ -29,7 +28,7 @@ public:
 
 	virtual ~IRenderer() {};
 
-	void setBuffers(const std::vector<Graphics::IBuffer<GeomType>>& buffers) {
+	void setBuffers(const std::vector<Graphics::IBuffer<float>>& buffers) {
 		this->buffers = buffers;
 	}
 
@@ -58,7 +57,7 @@ public:
 protected:
 	ShaderObject shader;
 	std::string log;
-	std::vector<Graphics::IBuffer<GeomType>> buffers;
+	std::vector<Graphics::IBuffer<float>> buffers;
 
 
 };

@@ -14,7 +14,7 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType>
-class SmoothRenderer final : public IRenderer<GeomType>
+class SmoothRenderer final : public IRenderer
 {
 public:
 

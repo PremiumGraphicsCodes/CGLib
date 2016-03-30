@@ -7,7 +7,7 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType, typename ValueType, typename ColorType>
-class NullRenderer : public IRenderer<GeomType>
+class NullRenderer : public IRenderer
 {
 public:
 	NullRenderer() = default;

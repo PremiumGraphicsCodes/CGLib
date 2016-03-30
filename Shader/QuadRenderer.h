@@ -7,7 +7,7 @@ namespace Crystal {
 	namespace Shader {
 
 template<typename GeomType>
-class QuadRenderer : public IRenderer<GeomType>
+class QuadRenderer : public IRenderer
 {
 public:
 	QuadRenderer() = default;

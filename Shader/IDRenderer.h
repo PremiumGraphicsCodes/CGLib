@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Shader {
 
-class IDRenderer : public IRenderer<float>
+class IDRenderer : public IRenderer
 {
 public:
 	IDRenderer() = default;
