@@ -3,9 +3,7 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-using GeomType = float;
-
-void LineRenderer<GeomType>::findLocation()
+void LineRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
@@ -13,7 +11,7 @@ void LineRenderer<GeomType>::findLocation()
 	shader.findAttribLocation("color");
 }
 
-void LineRenderer<GeomType>::render(const ICamera<GeomType>& camera)
+void LineRenderer::render(const ICamera<float>& camera)
 {
 	const auto positions = buffers[0].get();
 	const auto colors = buffers[1].get();

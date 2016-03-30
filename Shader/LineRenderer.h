@@ -12,7 +12,6 @@
 namespace Crystal {
 	namespace Shader {
 
-template<typename GeomType>
 class LineRenderer final : public IRenderer
 {
 public:
@@ -31,7 +30,7 @@ public:
 
 	void findLocation() override;
 
-	void render(const Graphics::ICamera<GeomType>& camera) override;
+	void render(const Graphics::ICamera<float>& camera) override;
 
 private:
 

@@ -4,7 +4,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 
-void BillBoardRenderer<float>::findLocation()
+void BillBoardRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
@@ -18,7 +18,7 @@ void BillBoardRenderer<float>::findLocation()
 }
 
 
-void BillBoardRenderer<float>::render(const ICamera<float>& camera)
+void BillBoardRenderer::render(const ICamera<float>& camera)
 {
 	const auto positions = buffers[0].get();
 	const auto densities = buffers[1].get();
@@ -69,5 +69,4 @@ void BillBoardRenderer<float>::render(const ICamera<float>& camera)
 
 
 	glUseProgram(0);
-
 }

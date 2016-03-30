@@ -44,7 +44,7 @@ TEST(BillBoardRendererTest, Test)
 	Crystal::File gsFile("../GLSL/billboard.gs");
 	Crystal::File fsFile("../GLSL/billboard.fs");
 	ShaderObject object;
-	BillBoardRenderer<float> renderer(object);
+	BillBoardRenderer renderer(object);
 	renderer.build(vsFile, gsFile, fsFile);
 	renderer.findLocation();
 	glViewport(0, 0, width, height);
