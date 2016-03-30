@@ -42,7 +42,7 @@ void LineBuffer::add(const PolygonObject& polygon)
 	for (const auto& v : vertices) {
 		this->position.add(v->getPosition());
 		this->color.add(ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
-		this->idColors.add(ColorRGBA<unsigned char>(v->getId()));
+		//this->idColors.add(ColorRGBA<unsigned char>(v->getId()));
 	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {

@@ -34,8 +34,8 @@ Point::Point(const Crystal::Physics::SPHParticle& particle)
 Point::Point(const Vertex& vertex)
 {
 	position = vertex.getPosition();
-	color = ColorRGBA<float>(vertex.getId());
-	idColor = ColorRGBA<unsigned char>(vertex.getId());
+	color = ColorRGBA<float>(0.0, 0.0, 1.0, 1.0f);//ColorRGBA<float>(vertex.getId());
+	//idColor = ColorRGBA<unsigned char>(vertex.getId());
 	size = 1.0f;
 }
 

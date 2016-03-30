@@ -22,6 +22,7 @@
     <ClCompile Include="ColorHSV.cpp" />
     <ClCompile Include="ColorMap.cpp" />
     <ClCompile Include="ColorRGBA.cpp" />
+    <ClCompile Include="DrawableID.cpp" />
     <ClCompile Include="IBuffer.cpp" />
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -35,6 +36,7 @@
   <ItemGroup>
     <ClInclude Include="Buffer1d.h" />
     <ClInclude Include="ColorMap.h" />
+    <ClInclude Include="DrawableID.h" />
     <ClInclude Include="IBuffer.h" />
     <ClInclude Include="Buffer3d.h" />
     <ClInclude Include="Buffer4d.h" />

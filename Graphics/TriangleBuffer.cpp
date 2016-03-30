@@ -10,7 +10,7 @@ void TriangleBuffer::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		add(*v, ColorRGBA<unsigned char>( v->getId()) );
+		add(*v, ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f) );
 	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {
@@ -20,7 +20,7 @@ void TriangleBuffer::add(const PolygonObject& polygon)
 	}
 }
 
-void TriangleBuffer::add(const Vertex& vertex, const ColorRGBA<unsigned char>& color)
+void TriangleBuffer::add(const Vertex& vertex, const ColorRGBA<float>& color)
 {
 	this->positions.add(vertex.getPosition());
 	this->normals.add(vertex.getNormal());

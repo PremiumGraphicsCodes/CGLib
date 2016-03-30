@@ -13,14 +13,6 @@ ColorRGBA<T>::ColorRGBA() :
 	alpha(0)
 {}
 
-template<typename T>
-ColorRGBA<T>::ColorRGBA(unsigned int id)
-{
-	red = 0;
-	green = id % 255;
-	blue = (id / 255) % 255;
-	alpha = 255;
-}
 
 
 template<typename T>
@@ -30,12 +22,6 @@ ColorRGBA<T>::ColorRGBA(const T red, const T green, const T blue, const T alpha 
 	blue(blue),
 	alpha(alpha)
 {
-}
-
-template<typename T>
-unsigned int ColorRGBA<T>::toUInt() const
-{
-	return green + blue * 255;
 }
 
 

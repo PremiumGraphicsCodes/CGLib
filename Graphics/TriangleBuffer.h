@@ -21,7 +21,7 @@ class TriangleBuffer
 public:
 	void add(const Polygon::PolygonObject& polygon);
 
-	void add(const Polygon::Vertex& vertex, const Graphics::ColorRGBA<unsigned char>& color);
+	void add(const Polygon::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
 
 	void add(const Math::Triangle<float>& triangle) {
 		positions.add(triangle.getv0());
@@ -45,7 +45,7 @@ public:
 
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
-	Buffer4d<unsigned char> colors;
+	Buffer4d<float> colors;
 	unsigned int nextIndex;
 	std::vector<unsigned int> indices;
 };

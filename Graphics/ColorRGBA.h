@@ -12,11 +12,7 @@ class ColorRGBA {
 public:
 	ColorRGBA();
 
-	ColorRGBA(unsigned int id);
-
 	ColorRGBA(const T red, const T green, const T blue, const T alpha = 255);
-
-	unsigned int toUInt() const;
 
 	void setRed( const T r ) { this->red = r; }
 
