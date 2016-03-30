@@ -19,7 +19,7 @@ void IOSample::setup()
 	polygon.reset(file.toPolygonObject());
 }
 
-void IOSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+void IOSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

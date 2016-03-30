@@ -9,6 +9,7 @@
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/LineBuffer.h"
 #include "../Shader/LegacyRenderer.h"
+#include "../Shader/FrameBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
 
 using namespace Crystal::Math;
@@ -27,18 +28,25 @@ void IDRendererSample::setup()
 	renderer.findLocation();
 }
 
-void IDRendererSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+void IDRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
-	PolygonObject polygon(254);
+	PolygonObject polygon(255);
 	polygon.add(box);
 
 	TriangleBuffer buffer;
 	buffer.add(polygon);
 
+	
+	FrameBuffer fb;
+	fb.build(512, 512);
+	fb.bind();
 	renderer.render(camera, buffer);
+	fb.unbind();
+	renderer.render(camera, buffer);
+
 	/*
 	PointBuffer buffer;
 	Point point(Vector3d<float>(0.0f, 0.0f, 0.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 100.0f);

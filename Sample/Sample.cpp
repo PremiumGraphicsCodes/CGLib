@@ -160,7 +160,9 @@ int main(int argc, char* argv)
 	TwBar* bar = TwNewBar("Bar");
 
 	assert(glGetError() == GL_NO_ERROR);
-	TwWindowSize(1024, 756);
+	const int width = 1024;
+	const int height = 756;
+	TwWindowSize(width, height);
 	TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
 
 	TwAddButton(bar, "Fluid", onFluid, nullptr, " label='Fluid' ");
@@ -180,7 +182,7 @@ int main(int argc, char* argv)
 	activeSample = std::make_unique<RenderingSample>();
 
 	while (!glfwWindowShouldClose(window)) {
-		activeSample->demonstrate(camera);
+		activeSample->demonstrate(width, height, camera);
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		TwDraw();

@@ -132,7 +132,7 @@ void BulletInteractionSample::onKeyDown(const unsigned char c)
 
 }
 
-void BulletInteractionSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+void BulletInteractionSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 

@@ -95,7 +95,7 @@ void FluidSample::onKeyDown(const unsigned char c)
 	*/
 }
 
-void FluidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+void FluidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	const float effectLength = 1.20f;
 	world.simulate(effectLength, 0.015f);

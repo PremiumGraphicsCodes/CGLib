@@ -13,7 +13,7 @@
 class FluidSample : public ISample
 {
 public:
-	void demonstrate(const Crystal::Graphics::ICamera<float>& camera) override;
+	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
 	void setup() override;
 

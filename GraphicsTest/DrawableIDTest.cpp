@@ -16,20 +16,20 @@ TEST(DrawableIDTest, TestToColor)
 	{
 		DrawableID id(30);
 		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(30.0f / 255.0f, 0.0f, 0.0f, 1.0f);
+		ColorRGBA<float> expected(30.0f / 256.0f, 0.0f, 0.0f, 1.0f);
 		EXPECT_EQ(expected, actual);
 	}
 
 	{
-		DrawableID id(255);
+		DrawableID id(256);
 		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(0.0f, 1.0f/255.0f, 0.0f, 1.0f);
+		ColorRGBA<float> expected(0.0f, 1.0f/256.0f, 0.0f, 1.0f);
 		EXPECT_EQ(expected, actual);
 	}
 	{
-		DrawableID id(255*255);
+		DrawableID id(256*256);
 		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(0.0f, 0.0f, 1.0f / 255.0f, 1.0f);
+		ColorRGBA<float> expected(0.0f, 0.0f, 1.0f / 256.0f, 1.0f);
 		EXPECT_EQ(expected, actual);
 	}
 

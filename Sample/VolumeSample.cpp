@@ -21,7 +21,7 @@ void VolumeSample::setup()
 	polygon.reset(volume->toPolygonObject(0.5f));
 }
 
-void VolumeSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+void VolumeSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 

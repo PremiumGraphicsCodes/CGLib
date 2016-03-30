@@ -10,7 +10,7 @@ class RenderingSample : public ISample
 public:
 	void setup() override;
 
-	void demonstrate(const Crystal::Graphics::ICamera<float>& camera) override;
+	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
 };

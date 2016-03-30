@@ -49,7 +49,7 @@ void BulletRigidSample::setup()
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));
 }
 
-void BulletRigidSample::demonstrate(const Crystal::Graphics::ICamera<float>& camera)
+void BulletRigidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 

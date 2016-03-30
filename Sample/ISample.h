@@ -15,7 +15,7 @@ public:
 		cleanup();
 	};
 
-	virtual void demonstrate(const Crystal::Graphics::ICamera<float>& camera) = 0;
+	virtual void demonstrate(const int width, const int height,const Crystal::Graphics::ICamera<float>& camera) = 0;
 
 	virtual void cleanup() {};
 
@@ -28,6 +28,8 @@ public:
 	virtual void onMouseMove(const float x, const float y) {};
 
 	virtual void onKeyDown(const unsigned char c) {};
+
+
 
 private:
 };

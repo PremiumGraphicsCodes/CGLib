@@ -26,7 +26,7 @@ public:
 
 	virtual void onMouseMove(const float x, const float y) override;
 
-	void demonstrate(const Crystal::Graphics::ICamera<float>& camera);
+	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera);
 
 	void onKeyDown(const unsigned char c);
 
