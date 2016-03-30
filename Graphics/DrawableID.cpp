@@ -4,6 +4,15 @@
 
 using namespace Crystal::Graphics;
 
+/*
+DrawableID::DrawableID(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a)
+{
+	id = r % 256;
+	id += (g * 255) % 256;
+	//id += b * 255 * 255;
+}
+*/
+
 ColorRGBA<float> DrawableID::toColor() const
 {
 	const float red = (id % 256) / 256.0f;

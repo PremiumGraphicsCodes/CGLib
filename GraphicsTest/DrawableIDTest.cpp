@@ -4,6 +4,29 @@
 
 using namespace Crystal::Graphics;
 
+TEST(DrawableIDTest, TestFromColor)
+{
+	{
+		DrawableID actual(255, 0, 0, 0);
+		DrawableID expected(255);
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		DrawableID actual(255, 255, 0, 0);
+		DrawableID expected(255*255);
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		DrawableID actual(255, 255, 255, 0);
+		DrawableID expected(255 * 255 * 255);
+		EXPECT_EQ(expected, actual);
+	}
+
+}
+
+
 TEST(DrawableIDTest, TestToColor)
 {
 	{

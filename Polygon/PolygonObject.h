@@ -60,7 +60,7 @@ public:
 
 	Face* createFace(const int v1, const int v2, const int v3);
 
-	PolygonObject* clone();
+	PolygonObject* clone(const unsigned int id = -1);
 
 	std::list< Face* > createFaces(const std::vector<int>& ids);
 

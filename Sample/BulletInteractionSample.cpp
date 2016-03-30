@@ -27,27 +27,33 @@ using namespace Crystal::Shader;
 
 void BulletInteractionSample::setup()
 {
+	idRenderer.buildBuildInShader();
+	idRenderer.findLocation();
+
 	constant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
 	rigidConstant = SPHConstant(1000.0f, 10000.0f, 0.0f, 0.0f, 1.25f);
 
 	rigidConstant.isBoundary = true;
 
+	int nextId = 0;
 	for (int i = 0; i < 10; ++i) {
 		for (int j = 0; j < 5; ++j) {
+			const int id = nextId++;
 			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
 			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(j+1));
 			Box<float> box(start, end);
-			auto rigid = new BulletRigid(box, &rigidConstant);
+			auto rigid = new BulletRigid(box, &rigidConstant, id);
 			rigid->transform();
 			bulletWorld.add(rigid);
 
-			auto shape = new PolygonObject();
+			auto shape = new PolygonObject(id);
 			shape->add(rigid->getLocalShape());
 			shapes.push_back(shape);
 			rigidPolygonMap[rigid] = shape;
 			rigids.push_back(rigid);
 		}
 	}
+	selected = nullptr;
 
 	/*
 	{
@@ -77,7 +83,7 @@ void BulletInteractionSample::setup()
 		particleWorld.add(fluid.get());
 
 	}
-	Box<float> boundary(Vector3d<float>(-100.0, 0.0f, 0.0), Vector3d<float>(20.0, 1000.0, 20.0));
+	Box<float> boundary(Vector3d<float>(-20.0, 0.0f, 0.0), Vector3d<float>(20.0, 1000.0, 20.0));
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
 	interaction.setExternalForce(Vector3d<float>(0, -9.8, 0));
@@ -116,21 +122,51 @@ void BulletInteractionSample::cleanup()
 
 void BulletInteractionSample::onMouseMove(const float x, const float y)
 {
+
 }
 
 void BulletInteractionSample::onKeyDown(const unsigned char c)
 {
-	if (c == 'x') {
-		//selected->addForce(Vector3d<float>(0.1f, 0.0f, 0.0f));
-		selected->move(Vector3d<float>(0.1f, 0.0f, 0.0f));
-	}
-	if (c == 'y') {
-		//selected->addForce(Vector3d<float>(0.0f, 0.1f, 0.0f));
-
-		selected->move(Vector3d<float>(0.0f, 0.1f, 0.0f));
-	}
-
 }
+
+void BulletInteractionSample::onLeftButtonDown(const float x, const float y)
+{
+}
+
+void BulletInteractionSample::onLeftDragging(const float dx, const float dy)
+{
+}
+
+void BulletInteractionSample::onMiddleButtonDown(const float x, const float y)
+{
+	const auto c = fb.getColor(x, 756 - y);
+	std::cout << (float)c.getRed() << std::endl;
+	std::cout << (float)c.getGreen() << std::endl;
+	std::cout << (float)c.getBlue() << std::endl;
+	std::cout << (float)c.getAlpha() << std::endl;
+
+	const int pickedColor = c.getRed();
+	for (auto r : rigids) {
+		const unsigned int id = r->getId();
+		if (id == pickedColor) {
+			selected = r;
+		}
+	}
+}
+
+void BulletInteractionSample::onMiddleButtonUp(const float x, const float y)
+{
+	selected = nullptr;
+}
+
+void BulletInteractionSample::onMiddleDragging(const float dx, const float dy)
+{
+	if (selected == nullptr) {
+		return;
+	}
+	selected->move(Vector3d<float>(-dx*0.1, dy*0.1, 0.0f));
+}
+
 
 void BulletInteractionSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
@@ -143,14 +179,23 @@ void BulletInteractionSample::demonstrate(const int width, const int height, con
 
 	LegacyRenderer renderer;
 
+	fb.build(width, height);
+
 
 	for (auto m : rigidPolygonMap) {
 		LineBuffer lineBuffer;
 		const auto matrix = m.first->getTransformMatrix();
-		auto p = m.second->clone();
+		auto p = m.second->clone(m.second->getId());
 		p->transform(matrix);
 		lineBuffer.add(*p);
+
+		TriangleBuffer triangleBuffer;
+		triangleBuffer.add(*p);
 		renderer.render(camera, lineBuffer);
+		fb.bind();
+		idRenderer.render(camera, triangleBuffer);
+		fb.unbind();
+
 		delete p;
 	}
 

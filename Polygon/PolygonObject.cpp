@@ -200,9 +200,9 @@ void PolygonObject::transform(const Matrix4d<float>& matrix)
 	}
 }
 
-PolygonObject* PolygonObject::clone()
+PolygonObject* PolygonObject::clone(const unsigned int id)
 {
-	PolygonObject* newPolygon = new PolygonObject();
+	PolygonObject* newPolygon = new PolygonObject(id);
 	for (auto v : vertices) {
 		newPolygon->createVertex( v->getPosition(), v->getNormal(), v->getTexCoord());
 	}

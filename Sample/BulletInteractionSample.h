@@ -12,6 +12,8 @@
 #include "../Polygon/PolygonObject.h"
 #include "../Shader/ShaderObject.h"
 #include "../Shader/PointRenderer.h"
+#include "../Shader/IDRenderer.h"
+#include "../Shader/FrameBuffer.h"
 #include "../Graphics/ColorMap.h"
 #include "ISample.h"
 #include <memory>
@@ -30,6 +32,15 @@ public:
 
 	void onKeyDown(const unsigned char c);
 
+	void onLeftButtonDown(const float x, const float y) override;
+
+	void onLeftDragging(const float dx, const float dy) override;
+
+	void onMiddleButtonDown(const float x, const float y) override;
+
+	void onMiddleButtonUp(const float x, const float y) override;
+
+	void onMiddleDragging(const float dx, const float dy) override;
 
 private:
 
@@ -54,6 +65,8 @@ private:
 	Crystal::Shader::ShaderObject shader;
 	std::unique_ptr< Crystal::Shader::PointRenderer<float> > pointRenderer;
 
+	Crystal::Shader::IDRenderer idRenderer;
+	Crystal::Shader::FrameBuffer fb;
 
 };
 

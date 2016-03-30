@@ -13,10 +13,13 @@ public:
 		id(id)
 	{}
 
+	//DrawableID(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a);
+
 	//DrawableID(const unsigned int groupId, const unsigned int elementId);
 
 	ColorRGBA<float> toColor() const;
 
+	
 	unsigned int toUInt() const { return id; }
 
 	bool equals(const DrawableID& rhs) const {
@@ -33,7 +36,7 @@ public:
 
 
 private:
-	const unsigned int id;
+	unsigned int id;
 };
 
 	}

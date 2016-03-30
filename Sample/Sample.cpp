@@ -38,7 +38,13 @@ void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mod
 		mousePressed = true;
 		pressedButton = button;
 		glfwGetCursorPos(window, &prevPosX, &prevPosY);
-		activeSample->onLeftButtonDown(prevPosX, prevPosY);
+		if (button == GLFW_MOUSE_BUTTON_LEFT) {
+			activeSample->onLeftButtonDown(prevPosX, prevPosY);
+		}
+		if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
+			activeSample->onMiddleButtonDown(prevPosX, prevPosY);
+
+		}
 
 	}
 	else if (action == GLFW_RELEASE) {
@@ -63,8 +69,8 @@ void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01f, -diffy * 0.01f, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_MIDDLE) {
-			camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1f));
-
+			//camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1f));
+			activeSample->onMiddleDragging(diffx, diffy);
 		}
 
 	}

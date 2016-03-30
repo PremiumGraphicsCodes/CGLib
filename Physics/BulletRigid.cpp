@@ -7,7 +7,8 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant)
+BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, const unsigned int id) :
+	id(id)
 {
 	const auto mass = box.getVolume() * constant->getDensity();
 	const auto halfLength = box.getLength() * 0.5f;

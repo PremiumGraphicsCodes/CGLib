@@ -29,6 +29,12 @@ public:
 
 	virtual void onKeyDown(const unsigned char c) {};
 
+	virtual void onMiddleButtonDown(const float x, const float y) {};
+
+	virtual void onMiddleButtonUp(const float x, const float y) {};
+
+
+	virtual void onMiddleDragging(const float dx, const float dy) {};
 
 
 private:
