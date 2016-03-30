@@ -17,6 +17,19 @@ public:
 
 	unsigned int toUInt() const { return id; }
 
+	bool equals(const DrawableID& rhs) const {
+		return this->id == rhs.id;
+	}
+
+	bool operator==(const DrawableID& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const DrawableID& rhs) const {
+		return !equals(rhs);
+	}
+
+
 private:
 	const unsigned int id;
 };
