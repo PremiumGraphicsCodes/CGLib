@@ -23,29 +23,14 @@ public:
 
 	void add(const Polygon::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
 
-	void add(const Math::Triangle<float>& triangle) {
-		positions.add(triangle.getv0());
-		positions.add(triangle.getv1());
-		positions.add(triangle.getv2());
-		normals.add(triangle.getNormal());
-		normals.add(triangle.getNormal());
-		normals.add(triangle.getNormal());
-		indices.push_back(nextIndex++);
-		indices.push_back(nextIndex++);
-		indices.push_back(nextIndex++);
-	}
+	void add(const Math::Triangle<float>& triangle);
 
-	void clear() {
-		nextIndex = 0;
-		indices.clear();
-		positions.clear();
-		normals.clear();
-		colors.clear();
-	}
+	void clear();
 
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
 	Buffer4d<float> colors;
+	Buffer4d<float> idColors;
 	unsigned int nextIndex;
 	std::vector<unsigned int> indices;
 };

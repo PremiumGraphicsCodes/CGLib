@@ -2,6 +2,9 @@
 
 #include "../Polygon/Vertex.h"
 
+#include "DrawableID.h"
+
+using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 
@@ -10,7 +13,12 @@ void TriangleBuffer::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		add(*v, ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f) );
+		this->positions.add(v->getPosition());
+		this->normals.add(v->getNormal());
+		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
+		
+		DrawableID id(polygon.getId());
+		this->idColors.add(id.toColor());
 	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {
@@ -25,6 +33,29 @@ void TriangleBuffer::add(const Vertex& vertex, const ColorRGBA<float>& color)
 	this->positions.add(vertex.getPosition());
 	this->normals.add(vertex.getNormal());
 	this->colors.add(color);
+	//this->idColors.add()
+}
 
+void TriangleBuffer::add(const Triangle<float>& triangle)
+{
+	positions.add(triangle.getv0());
+	positions.add(triangle.getv1());
+	positions.add(triangle.getv2());
+	normals.add(triangle.getNormal());
+	normals.add(triangle.getNormal());
+	normals.add(triangle.getNormal());
+	indices.push_back(nextIndex++);
+	indices.push_back(nextIndex++);
+	indices.push_back(nextIndex++);
+}
+
+void TriangleBuffer::clear()
+{
+	nextIndex = 0;
+	indices.clear();
+	positions.clear();
+	normals.clear();
+	colors.clear();
+	idColors.clear();
 }
 

@@ -29,12 +29,14 @@ class Face;
 class PolygonObject : private UnCopyable
 {
 public:
-	PolygonObject() :
+	PolygonObject(const unsigned int id = -1) :
+		id(id),
 		nextIndexId(0)
 	{}
 
 	~PolygonObject();
 
+	unsigned int getId() const { return id; }
 
 	void add(const Math::Triangle<float>& triangle);
 
@@ -92,6 +94,7 @@ public:
 
 private:
 	unsigned int nextIndexId;
+	const unsigned int id;
 	VertexCollection vertices;
 	FaceCollection faces;
 };

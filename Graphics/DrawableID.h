@@ -13,6 +13,8 @@ public:
 		id(id)
 	{}
 
+	//DrawableID(const unsigned int groupId, const unsigned int elementId);
+
 	ColorRGBA<float> toColor() const;
 
 	unsigned int toUInt() const { return id; }

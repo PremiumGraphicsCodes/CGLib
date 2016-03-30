@@ -169,7 +169,7 @@ int main(int argc, char* argv)
 	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
 	TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");
-	TwAddButton(bar, "ID", onIDRendering, nullptr, " lable = ID");
+	TwAddButton(bar, "ID", onIDRendering, nullptr, " label = 'ID' ");
 
 	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
 	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);

@@ -2,20 +2,21 @@
 #define __CRYSTAL_SHADER_ID_RENDERER_H__
 
 #include "IRenderer.h"
+#include "../Graphics/TriangleBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class IDRenderer : public IRenderer
+class IDRenderer
 {
 public:
 	IDRenderer() = default;
 
 	~IDRenderer() = default;
 
-	void findLocation() override;
+	void findLocation();
 
-	void render(const Graphics::ICamera<float>& camera) override;
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
 
 	bool buildBuildInShader();
 
@@ -23,10 +24,6 @@ private:
 	std::string getBuildinVertexShaderSource() const;
 
 	std::string getBuildinFragmentShaderSource() const;
-
-
-	std::vector<float> positions;
-	std::vector<float> ids;
 
 	struct Location {
 		GLuint projectionMatrix;
@@ -36,6 +33,7 @@ private:
 	};
 
 	Location location;
+	ShaderObject shader;
 
 };
 	}
