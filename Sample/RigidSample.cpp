@@ -1,4 +1,4 @@
-#include "BulletRigidSample.h"
+#include "RigidSample.h"
 
 #include "../Physics/Fluid.h"
 #include "../Physics/SPHParticle.h"
@@ -55,6 +55,7 @@ void BulletRigidSample::demonstrate(const int width, const int height, const Cry
 
 	world.simulate(1.0f/60.0f);
 
+	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	LegacyRenderer renderer;

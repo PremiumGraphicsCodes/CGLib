@@ -13,7 +13,7 @@
 #include "PointRendererSample.h"
 
 #include "FluidSample.h"
-#include "BulletRigidSample.h"
+#include "RigidSample.h"
 #include "BulletInteractionSample.h"
 #include "IOSample.h"
 #include "VolumeSample.h"
@@ -168,8 +168,8 @@ int main(int argc, char* argv)
 	TwBar* bar = TwNewBar("Bar");
 
 	assert(glGetError() == GL_NO_ERROR);
-	const int width = 1024;
-	const int height = 756;
+	int width = 1024;
+	int height = 756;
 	TwWindowSize(width, height);
 	TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
 
@@ -187,9 +187,12 @@ int main(int argc, char* argv)
 	glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW3);
 	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
 
+	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	activeSample = std::make_unique<RenderingSample>();
 
 	while (!glfwWindowShouldClose(window)) {
+		glfwGetWindowSize(window, &width, &height);
 		activeSample->demonstrate(width, height, camera);
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

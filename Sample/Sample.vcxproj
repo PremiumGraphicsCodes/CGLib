@@ -164,7 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BulletInteractionSample.cpp" />
-    <ClCompile Include="BulletRigidSample.cpp" />
+    <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
     <ClCompile Include="IDRendererSample.cpp" />
@@ -178,7 +178,7 @@
   <ItemGroup>
     <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="BulletInteractionSample.h" />
-    <ClInclude Include="BulletRigidSample.h" />
+    <ClInclude Include="RigidSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
     <ClInclude Include="IDRendererSample.h" />
