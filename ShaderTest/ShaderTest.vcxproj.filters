@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="ShaderTest.cpp" />
-    <ClCompile Include="SmoothRendererTest.cpp" />
     <ClCompile Include="FrameBufferTest.cpp" />
     <ClCompile Include="NormalRendererTest.cpp" />
     <ClCompile Include="ShaderObjectTest.cpp" />

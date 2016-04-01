@@ -49,6 +49,33 @@ void RigidSample::setup()
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));
 }
 
+void RigidSample::onMiddleButtonDown(const float x, const float y)
+{
+	//const auto xRatio = x / float(this->width);
+	//const auto yRatio = y / float(this->height);
+	////std::cout << xRatio << std::endl;
+	////std::cout << yRatio << std::endl;
+	//const auto screenx = fb.getWidth() * xRatio;
+	//const auto screeny = fb.getHeight() * yRatio;
+	//std::cout << screenx << std::endl;
+	//std::cout << screeny << std::endl;
+	//const auto c = fb.getColor(screenx, screeny);
+	///*
+	//std::cout << (float)c.getRed() << std::endl;
+	//std::cout << (float)c.getGreen() << std::endl;
+	//std::cout << (float)c.getBlue() << std::endl;
+	//std::cout << (float)c.getAlpha() << std::endl;
+	//*/
+	//const int pickedColor = c.getRed();
+	//for (auto r : rigids) {
+	//	const unsigned int id = r->getId();
+	//	if (id == pickedColor) {
+	//		selected = r;
+	//	}
+	//}
+}
+
+
 void RigidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
@@ -63,13 +90,20 @@ void RigidSample::demonstrate(const int width, const int height, const Crystal::
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
+	PointLight<float> light;
+	light.setPos(Vector3d<float>(10.0f, 10.0f, -10.0f));
+	light.setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
+
 	for (auto m : rigidPolygonMap) {
-		LineBuffer lineBuffer;
+		//LineBuffer lineBuffer;
+		TriangleBuffer triangleBuffer;
 		const auto matrix = m.first->getTransformMatrix();
 		auto p = m.second->clone();
 		p->transform(matrix);
-		lineBuffer.add(*p);
-		renderer.render(camera, lineBuffer);
+		//lineBuffer.add(*p);
+		triangleBuffer.add(*p);
+		//renderer.render(camera, lineBuffer);
+		renderer.render(camera, light, triangleBuffer);
 		delete p;
 	}
 }

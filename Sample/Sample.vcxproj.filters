@@ -30,6 +30,9 @@
     <ClCompile Include="CouplingSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="SmoothRendererSample.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -60,6 +63,9 @@
     </ClInclude>
     <ClInclude Include="CouplingSample.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SmoothRendererSample.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

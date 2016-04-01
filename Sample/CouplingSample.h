@@ -68,6 +68,9 @@ private:
 	Crystal::Shader::IDRenderer idRenderer;
 	Crystal::Shader::FrameBuffer fb;
 
+	int width;
+	int height;
+
 };
 
 #endif

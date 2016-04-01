@@ -106,6 +106,8 @@ void CouplingSample::setup()
 	pointRenderer.reset(pr);
 	pointRenderer->findLocation();
 
+	fb.build(512, 512);
+
 }
 
 void CouplingSample::cleanup()
@@ -139,12 +141,21 @@ void CouplingSample::onLeftDragging(const float dx, const float dy)
 
 void CouplingSample::onMiddleButtonDown(const float x, const float y)
 {
-	const auto c = fb.getColor(x, 756 - y);
+	const auto xRatio = x / float(this->width);
+	const auto yRatio = y / float(this->height);
+	//std::cout << xRatio << std::endl;
+	//std::cout << yRatio << std::endl;
+	const auto screenx = fb.getWidth() * xRatio;
+	const auto screeny = fb.getHeight() * yRatio;
+	std::cout << screenx << std::endl;
+	std::cout << screeny << std::endl;
+	const auto c = fb.getColor( screenx, screeny );
+	/*
 	std::cout << (float)c.getRed() << std::endl;
 	std::cout << (float)c.getGreen() << std::endl;
 	std::cout << (float)c.getBlue() << std::endl;
 	std::cout << (float)c.getAlpha() << std::endl;
-
+	*/
 	const int pickedColor = c.getRed();
 	for (auto r : rigids) {
 		const unsigned int id = r->getId();
@@ -170,6 +181,8 @@ void CouplingSample::onMiddleDragging(const float dx, const float dy)
 
 void CouplingSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
+	this->width = width;
+	this->height = height;
 	glEnable(GL_DEPTH_TEST);
 
 	interaction.simulate(1.0f / 60.0f);
@@ -179,9 +192,6 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 
 	LegacyRenderer renderer;
 
-	fb.build(width, height);
-
-
 	for (auto m : rigidPolygonMap) {
 		LineBuffer lineBuffer;
 		const auto matrix = m.first->getTransformMatrix();
@@ -189,9 +199,13 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		p->transform(matrix);
 		lineBuffer.add(*p);
 
+		glViewport(0, 0, width, height);
+
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
 		renderer.render(camera, lineBuffer);
+
+		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		fb.bind();
 		idRenderer.render(camera, triangleBuffer);
 		fb.unbind();
@@ -207,6 +221,8 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 
 	}
 	*/
+	glViewport(0, 0, width, height);
+
 	const auto& particles = fluid->getParticles();
 	float minPressure = +FLT_MAX;
 	float maxPressure = -FLT_MAX;

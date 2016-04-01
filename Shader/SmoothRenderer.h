@@ -13,8 +13,7 @@
 namespace Crystal {
 	namespace Shader {
 
-template<typename GeomType>
-class SmoothRenderer final : public IRenderer
+class SmoothRenderer
 {
 public:
 
@@ -22,14 +21,28 @@ public:
 
 	~SmoothRenderer() = default;
 
-	void findLocation() override;
+	void findLocation();
 
-	void setBuffer(const Graphics::TriangleBuffer& buffer) { this->buffer = buffer; }
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
 
-	void render(const Graphics::ICamera<float>& camera) override;
+	bool buildBuildInShader();
 
 private:
-	Graphics::TriangleBuffer buffer;
+
+	std::string getBuildinVertexShaderSource() const;
+
+	std::string getBuildinFragmentShaderSource() const;
+
+	struct Location {
+		GLuint projectionMatrix;
+		GLuint modelviewMatrix;
+		GLuint position;
+		GLuint id;
+	};
+
+	Location location;
+	ShaderObject shader;
+
 };
 
 

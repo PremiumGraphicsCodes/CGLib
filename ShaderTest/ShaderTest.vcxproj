@@ -169,7 +169,6 @@
     <ClCompile Include="QuadRendererTest.cpp" />
     <ClCompile Include="ShaderObjectTest.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
-    <ClCompile Include="SmoothRendererTest.cpp" />
     <ClCompile Include="TextureTest.cpp" />
   </ItemGroup>
   <ItemGroup>

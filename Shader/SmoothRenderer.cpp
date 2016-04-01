@@ -1,9 +1,56 @@
 #include "SmoothRenderer.h"
+#include <sstream>
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void SmoothRenderer<float>::findLocation()
+bool SmoothRenderer::buildBuildInShader()
+{
+	const auto& vShader = getBuildinVertexShaderSource();
+	const auto& fShader = getBuildinFragmentShaderSource();
+	return shader.build(vShader, fShader);
+}
+
+std::string SmoothRenderer::getBuildinVertexShaderSource() const
+{
+	std::ostringstream stream;
+	stream << "#version 150" << std::endl;
+	stream << "in vec3 position;" << std::endl;
+	stream << "in vec3 normal;" << std::endl;
+	stream << "out vec3 vColor;" << std::endl;
+	stream << "out vec3 vNormal;" << std::endl;
+	stream << "uniform mat4 projectionMatrix;" << std::endl;
+	stream << "uniform mat4 modelviewMatrix;" << std::endl;
+	stream << "void main(void) {" << std::endl;
+	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
+	stream << "vColor = vec3(0.0, 0.0, 0.0);" << std::endl;
+	stream << "vNormal = normalize(normal);" << std::endl;
+	stream << "}" << std::endl;
+	return stream.str();
+}
+
+std::string SmoothRenderer::getBuildinFragmentShaderSource() const
+{
+	std::ostringstream stream;
+	stream << "#version 150" << std::endl;
+	stream << "in vec3 vColor;" << std::endl;
+	stream << "in vec3 vNormal;" << std::endl;
+	stream << "out vec4 fragColor;" << std::endl;
+	stream << "uniform vec3 lightPosition;" << std::endl;
+	stream << "uniform vec3 eyePosition;" << std::endl;
+	stream << "void main(void) {" << std::endl;
+	stream << "vec3 s = normalize(lightPosition - eyePosition);" << std::endl;
+	stream << "vec3 n = vNormal;" << std::endl;
+	stream << "vec3 color = vColor;" << std::endl;
+	stream << "vec3 diffuseColor = max(dot(s, n), 0.0) * vec3(0.0, 0.0, 1.0);" << std::endl;
+	stream << "vec3 ambientColor = vec3(0.2, 0.2, 0.2);" << std::endl;
+	stream << "fragColor = vec4(color + diffuseColor + ambientColor, 1.0);" << std::endl;
+	stream << "}" << std::endl;
+	return stream.str();
+}
+
+
+void SmoothRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
@@ -14,8 +61,9 @@ void SmoothRenderer<float>::findLocation()
 }
 
 
-void SmoothRenderer<float>::render(const ICamera<float>& camera)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
+	const auto& indices = buffer.indices;
 	const auto& positions = buffer.positions.get();// buffers[0].get();
 	const auto& normals = buffer.normals.get();//buffers[1].get();
 	if (positions.empty()) {
@@ -58,7 +106,9 @@ void SmoothRenderer<float>::render(const ICamera<float>& camera)
 	assert(GL_NO_ERROR == glGetError());
 
 
-	glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
+	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

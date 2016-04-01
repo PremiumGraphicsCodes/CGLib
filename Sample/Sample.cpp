@@ -19,6 +19,7 @@
 #include "VolumeSample.h"
 #include "ParticleSample.h"
 #include "IDRendererSample.h"
+#include "SmoothRendererSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -97,6 +98,9 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 		case GLFW_KEY_4 :
 			activeSample = std::make_unique<IOSample>();
 			break;
+		case GLFW_KEY_9 :
+			activeSample = std::make_unique <SmoothRendererSample>();
+			break;
 	}
 	activeSample->setup();
 
@@ -146,6 +150,7 @@ int main(int argc, char* argv)
 	std::cout << "Press 3 : Coupling Simulation" << std::endl;
 	std::cout << "Press 4 : File IO" << std::endl;
 
+	std::cout << "Press 9 : Smooth Rendering" << std::endl;
 	std::cout << "Press 0 : Point Rendering" << std::endl;
 
 	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, -5.0, -10.0));
@@ -172,6 +177,7 @@ int main(int argc, char* argv)
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwGetWindowSize(window, &width, &height);
+		glViewport(0, 0, width, height);
 		activeSample->demonstrate(width, height, camera);
 
 

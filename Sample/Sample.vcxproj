@@ -173,6 +173,7 @@
     <ClCompile Include="PointRendererSample.cpp" />
     <ClCompile Include="RenderingSample.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SmoothRendererSample.cpp" />
     <ClCompile Include="VolumeSample.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +186,7 @@
     <ClInclude Include="ISample.h" />
     <ClInclude Include="ParticleSample.h" />
     <ClInclude Include="PointRendererSample.h" />
+    <ClInclude Include="SmoothRendererSample.h" />
     <ClInclude Include="VolumeSample.h" />
     <ClInclude Include="RenderingSample.h" />
   </ItemGroup>
