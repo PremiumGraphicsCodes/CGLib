@@ -39,7 +39,6 @@
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="glfw.h" />
-    <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="ISample.h" />
     <ClInclude Include="IOSample.h">
       <Filter>IO</Filter>

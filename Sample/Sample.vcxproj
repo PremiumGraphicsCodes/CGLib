@@ -176,7 +176,6 @@
     <ClCompile Include="VolumeSample.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AntTweakBar.h" />
     <ClInclude Include="BulletInteractionSample.h" />
     <ClInclude Include="RigidSample.h" />
     <ClInclude Include="FluidSample.h" />

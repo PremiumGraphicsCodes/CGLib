@@ -4,7 +4,7 @@
 #include "../Shader/ShaderObject.h"
 
 #include "glfw.h"
-#include "AntTweakBar.h"
+#include "ISample.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -32,7 +32,7 @@ namespace {
 	std::unique_ptr< ISample > activeSample;
 }
 
-void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mods)
+void onMouseButton(GLFWwindow* window, int button, int action, int mods)
 {
 	if (action == GLFW_PRESS) {
 		mousePressed = true;
@@ -50,11 +50,9 @@ void TwEventMouseButtonGLFW3(GLFWwindow* window, int button, int action, int mod
 	else if (action == GLFW_RELEASE) {
 		mousePressed = false;
 	}
-
-	TwEventMouseButtonGLFW(button, action);
 }
 
-void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
+void onMousePos(GLFWwindow* window, double xpos, double ypos)
 {
 	if (mousePressed) {
 		const auto diffx = static_cast<float>( prevPosX - xpos );
@@ -74,76 +72,74 @@ void TwEventMousePosGLFW3(GLFWwindow* window, double xpos, double ypos)
 		}
 
 	}
-	TwMouseMotion(int(xpos), int(ypos));
 }
 
-void TwEventMouseWheelGLFW3(GLFWwindow* window, double xoffset, double yoffset)
+void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, yoffset*0.1));
-	TwEventMouseWheelGLFW(yoffset);
 }
 
-void TwEventKeyGLFW3(GLFWwindow* window, int key, int scancode, int action, int mods)
+void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	TwEventKeyGLFW(key, action);
+	if (key == GLFW_KEY_0) {
+		activeSample = std::make_unique<PointRendererSample>();
+		activeSample->setup();
+	}
+	else if (key == GLFW_KEY_1) {
+		activeSample = std::make_unique<FluidSample>();
+		activeSample->setup();
+	}
 }
 
-void TwEventCharGLFW3(GLFWwindow* window, int codepoint)
+void onChar(GLFWwindow* window, unsigned int codepoint)
 {
 	activeSample->onKeyDown(codepoint);
-
-	TwEventCharGLFW(codepoint, GLFW_PRESS);
 }
 
+//void TW_CALL onPointRender(void*)
+//{
+//}
 
-void TW_CALL onPointRender(void*)
-{
-	activeSample = std::make_unique<PointRendererSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onFluid(void * /*clientData*/)
-{
-	activeSample = std::make_unique<FluidSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onBulletRigid(void*)
-{
-	activeSample = std::make_unique<BulletRigidSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onBulletInteraction(void*)
-{
-	activeSample = std::make_unique<BulletInteractionSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onIO(void*)
-{
-	activeSample = std::make_unique<IOSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onVolume(void*)
-{
-	activeSample = std::make_unique<VolumeSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onParticle(void*)
-{
-	activeSample = std::make_unique<ParticleSample>();
-	activeSample->setup();
-}
-
-void TW_CALL onIDRendering(void*)
-{
-	activeSample = std::make_unique<IDRendererSample>();
-	activeSample->setup();
-
-}
+//void TW_CALL onFluid(void * /*clientData*/)
+//{
+//}
+//
+//void TW_CALL onBulletRigid(void*)
+//{
+//	activeSample = std::make_unique<BulletRigidSample>();
+//	activeSample->setup();
+//}
+//
+//void TW_CALL onBulletInteraction(void*)
+//{
+//	activeSample = std::make_unique<BulletInteractionSample>();
+//	activeSample->setup();
+//}
+//
+//void TW_CALL onIO(void*)
+//{
+//	activeSample = std::make_unique<IOSample>();
+//	activeSample->setup();
+//}
+//
+//void TW_CALL onVolume(void*)
+//{
+//	activeSample = std::make_unique<VolumeSample>();
+//	activeSample->setup();
+//}
+//
+//void TW_CALL onParticle(void*)
+//{
+//	activeSample = std::make_unique<ParticleSample>();
+//	activeSample->setup();
+//}
+//
+//void TW_CALL onIDRendering(void*)
+//{
+//	activeSample = std::make_unique<IDRendererSample>();
+//	activeSample->setup();
+//
+//}
 
 int main(int argc, char* argv)
 {
@@ -164,28 +160,27 @@ int main(int argc, char* argv)
 	camera.setCameraXY();
 
 
-	TwInit(TW_OPENGL, nullptr);
-	TwBar* bar = TwNewBar("Bar");
+	//TwInit(TW_OPENGL, nullptr);
+	//TwBar* bar = TwNewBar("Bar");
 
 	assert(glGetError() == GL_NO_ERROR);
 	int width = 1024;
 	int height = 756;
-	TwWindowSize(width, height);
-	TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
+	//TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
 
-	TwAddButton(bar, "Fluid", onFluid, nullptr, " label='Fluid' ");
-	TwAddButton(bar, "Rigid", onBulletRigid, nullptr, " label = 'Rigid' ");
-	TwAddButton(bar, "Coupling", onBulletInteraction, nullptr, " label = 'Coupling' ");
-	TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
-	TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
-	TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");
-	TwAddButton(bar, "ID", onIDRendering, nullptr, " label = 'ID' ");
+	//TwAddButton(bar, "Fluid", onFluid, nullptr, " label='Fluid' ");
+	//TwAddButton(bar, "Rigid", onBulletRigid, nullptr, " label = 'Rigid' ");
+	//TwAddButton(bar, "Coupling", onBulletInteraction, nullptr, " label = 'Coupling' ");
+	//TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
+	//TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");
+	//TwAddButton(bar, "Particle", onParticle, nullptr, " label = 'Particle' ");
+	//TwAddButton(bar, "ID", onIDRendering, nullptr, " label = 'ID' ");
 
-	glfwSetMouseButtonCallback(window, (GLFWmousebuttonfun)TwEventMouseButtonGLFW3);
-	glfwSetCursorPosCallback(window, (GLFWcursorposfun)TwEventMousePosGLFW3);
-	glfwSetScrollCallback(window, (GLFWscrollfun)TwEventMouseWheelGLFW3);
-	glfwSetKeyCallback(window, (GLFWkeyfun)TwEventKeyGLFW3);
-	glfwSetCharCallback(window, (GLFWcharfun)TwEventCharGLFW3);
+	glfwSetMouseButtonCallback(window, onMouseButton);
+	glfwSetCursorPosCallback(window, onMousePos);
+	glfwSetScrollCallback(window, onMouseWheel);
+	glfwSetKeyCallback(window, onKey);
+	glfwSetCharCallback(window, onChar);
 
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -196,13 +191,11 @@ int main(int argc, char* argv)
 		activeSample->demonstrate(width, height, camera);
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		TwDraw();
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 
-	TwTerminate();
 	glfwTerminate();
 	return EXIT_SUCCESS;
 }

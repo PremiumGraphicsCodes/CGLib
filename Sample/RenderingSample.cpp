@@ -1,5 +1,4 @@
 #include "RenderingSample.h"
-#include "AntTweakBar.h"
 
 #include <iostream>
 

@@ -4,7 +4,6 @@
 #include "../Shader/ShaderObject.h"
 
 #include "FluidSample.h"
-#include "AntTweakBar.h"
 
 #include "../Physics/Fluid.h"
 #include "../Physics/SPHParticle.h"

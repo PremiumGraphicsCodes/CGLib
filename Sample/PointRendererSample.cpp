@@ -3,7 +3,6 @@
 #endif
 #include "../Shader/ShaderObject.h"
 #include "PointRendererSample.h"
-#include "AntTweakBar.h"
 
 #include <iostream>
 
