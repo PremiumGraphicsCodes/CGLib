@@ -52,7 +52,7 @@ void CouplingSample::setup()
 			rigids.push_back(rigid);
 		}
 	}
-	selected = nullptr;
+	selected = rigids.front();
 
 	/*
 	{
@@ -140,33 +140,33 @@ void CouplingSample::onLeftDragging(const float dx, const float dy)
 
 void CouplingSample::onMiddleButtonDown(const float x, const float y)
 {
-	const auto xRatio = x / float(this->width);
-	const auto yRatio = y / float(this->height);
-	//std::cout << xRatio << std::endl;
-	//std::cout << yRatio << std::endl;
-	const auto screenx = fb.getWidth() * xRatio;
-	const auto screeny = fb.getHeight() * yRatio;
-	std::cout << screenx << std::endl;
-	std::cout << screeny << std::endl;
-	const auto c = fb.getColor( screenx, screeny );
-	/*
-	std::cout << (float)c.getRed() << std::endl;
-	std::cout << (float)c.getGreen() << std::endl;
-	std::cout << (float)c.getBlue() << std::endl;
-	std::cout << (float)c.getAlpha() << std::endl;
-	*/
-	const int pickedColor = c.getRed();
-	for (auto r : rigids) {
-		const unsigned int id = r->getId();
-		if (id == pickedColor) {
-			selected = r;
-		}
-	}
+	//const auto xRatio = x / float(this->width);
+	//const auto yRatio = y / float(this->height);
+	////std::cout << xRatio << std::endl;
+	////std::cout << yRatio << std::endl;
+	//const auto screenx = fb.getWidth() * xRatio;
+	//const auto screeny = fb.getHeight() * yRatio;
+	//std::cout << screenx << std::endl;
+	//std::cout << screeny << std::endl;
+	//const auto c = fb.getColor( screenx, screeny );
+	///*
+	//std::cout << (float)c.getRed() << std::endl;
+	//std::cout << (float)c.getGreen() << std::endl;
+	//std::cout << (float)c.getBlue() << std::endl;
+	//std::cout << (float)c.getAlpha() << std::endl;
+	//*/
+	//const int pickedColor = c.getRed();
+	//for (auto r : rigids) {
+	//	const unsigned int id = r->getId();
+	//	if (id == pickedColor) {
+	//		selected = r;
+	//	}
+	//}
 }
 
 void CouplingSample::onMiddleButtonUp(const float x, const float y)
 {
-	selected = nullptr;
+	//selected = nullptr;
 }
 
 void CouplingSample::onMiddleDragging(const float dx, const float dy)
@@ -174,7 +174,10 @@ void CouplingSample::onMiddleDragging(const float dx, const float dy)
 	if (selected == nullptr) {
 		return;
 	}
-	selected->move(Vector3d<float>(-dx*0.1, dy*0.1, 0.0f));
+	const auto invMatrix = rotationMatrix.getInverse();
+	Vector3d<float> v(-dx * 0.1, dy * 0.1, 0.0);
+	v = v * invMatrix;
+	selected->move(v);
 }
 
 
@@ -182,6 +185,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 {
 	this->width = width;
 	this->height = height;
+	this->rotationMatrix = camera.getRotationMatrix();
 	glEnable(GL_DEPTH_TEST);
 
 	interaction.simulate(1.0f / 60.0f);

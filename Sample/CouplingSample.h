@@ -70,6 +70,8 @@ private:
 	Crystal::Shader::FrameBuffer fb;
 	Crystal::Shader::SmoothRenderer smoothRenderer;
 
+	Crystal::Math::Matrix3d<float> rotationMatrix;
+
 	int width;
 	int height;
 
