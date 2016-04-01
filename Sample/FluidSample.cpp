@@ -121,8 +121,8 @@ void FluidSample::onMiddleDragging(const float dx, const float dy)
 	//const auto invMatrix = rotationMatrix.getInverse();
 	//Vector3d<float> v(dx * 0.1, dy * 0.1, 0.0);
 	//v = v * invMatrix;
-	//selectedParticle->setVelocity(Vector3d<float>(dx*0.1, dy*0.1, 0.0f));
-	selectedParticle->move(Vector3d<float>(dx*0.01,dy*0.01, 0.0f));
+	selectedParticle->setVelocity(Vector3d<float>(dx*0.01/0.015, dy*0.01/0.015, 0.0f));
+	//selectedParticle->move(Vector3d<float>(dx*0.01,dy*0.01, 0.0f));
 }
 
 
