@@ -19,11 +19,11 @@ namespace Crystal{
 class SPHParticle final : public Polygon::Particle, private UnCopyable
 {
 public:
-	SPHParticle();
+	SPHParticle(const int id = -1);
 
 	SPHParticle(const Particle& particle, SPHConstant* constant);
 
-	SPHParticle(const Math::Vector3d<float>& center, float radius, SPHConstant* constant);
+	SPHParticle(const Math::Vector3d<float>& center, float radius, SPHConstant* constant, const int id = -1);
 
 	float getDensityRatio() const;
 

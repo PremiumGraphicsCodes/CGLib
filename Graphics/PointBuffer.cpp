@@ -9,6 +9,8 @@
 #include "../Polygon/VolumeObject.h"
 #include "../Polygon/Joint.h"
 
+#include "DrawableID.h"
+
 #include <memory>
 
 using namespace Crystal::Physics;
@@ -19,7 +21,7 @@ Point::Point(const Crystal::Polygon::Particle& particle)
 {
 	position = particle.getPosition();
 	color = ColorRGBA<float>(0, 0, 1.0, particle.getDensity());
-	//idColor = ColorRGBA<unsigned char>(particle.getId());
+	idColor = DrawableID(particle.getId()).toColor();
 	size = particle.getDiameter();
 }
 

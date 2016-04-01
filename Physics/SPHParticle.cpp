@@ -6,8 +6,9 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
-SPHParticle::SPHParticle():
-	constant(nullptr)
+SPHParticle::SPHParticle(const int id):
+	constant(nullptr),
+	Particle(id)
 {
 }
 
@@ -16,8 +17,8 @@ SPHParticle::SPHParticle(const Particle& particle, SPHConstant* constant) :
 	constant(constant)
 {}
 
-SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, SPHConstant* constant) :
-	Particle(center, constant->getDensity(), radius),
+SPHParticle::SPHParticle(const Vector3d<float>& center, float radius, SPHConstant* constant, const int id) :
+	Particle(center, constant->getDensity(), radius, id),
 	constant(constant)
 {
 	this->density = constant->getDensity();

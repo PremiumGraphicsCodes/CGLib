@@ -53,6 +53,57 @@ void IDRenderer::findLocation()
 	location.id = glGetAttribLocation(shader.getId(), "id");
 }
 
+void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
+{
+	const auto& positions = buffer.getPosition().get();
+	const auto& ids = buffer.getIdColor().get();
+	if (positions.empty()) {
+		return;
+	}
+
+	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
+	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
+
+	assert(GL_NO_ERROR == glGetError());
+
+	glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	glEnable(GL_POINT_SPRITE);
+
+
+	glUseProgram(shader.getId());
+
+	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, projectionMatrix.data());
+	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, modelviewMatrix.data());
+
+	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(location.id, 4, GL_FLOAT, GL_FALSE, 0, ids.data());
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+
+	//const auto positions = buffer.getPositions();
+
+	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>( positions.size() / 3));
+
+	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(0);
+
+	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+
+	glUseProgram(0);
+
+	glDisable(GL_DEPTH_TEST);
+
+
+	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	glDisable(GL_POINT_SPRITE);
+}
+
+
 void IDRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
 	const auto& indices = buffer.indices;

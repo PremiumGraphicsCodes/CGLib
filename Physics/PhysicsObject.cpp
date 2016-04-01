@@ -16,18 +16,20 @@ PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, const SPHConstant& constant):
 	constant(constant)
 {
+	int nextId = 0;
 	const auto points = box.toPoints(divideLength);
 	for (const auto& pos : points) {
-		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant);
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant, nextId++);
 		particles.push_back(p);
 	}
 }
 
 PhysicsObject::PhysicsObject(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant)
 {
+	int nextId = 0;
 	const auto points = sphere.toPoints(divideLength);
 	for (const auto& pos : points) {
-		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant);
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant, nextId++);
 		particles.push_back(p);
 	}
 

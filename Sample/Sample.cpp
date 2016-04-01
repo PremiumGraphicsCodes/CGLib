@@ -92,27 +92,41 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 	switch(key) {
 		case GLFW_KEY_0 :
 			activeSample = std::make_unique<PointRendererSample>();
+			activeSample->setup();
 			break;
 		case GLFW_KEY_1 :
 			activeSample = std::make_unique<FluidSample>();
+			activeSample->setup();
+
 			break;
 		case GLFW_KEY_2 :
 			activeSample = std::make_unique<RigidSample>();
+			activeSample->setup();
+
 			break;
 		case GLFW_KEY_3 :
 			activeSample = std::make_unique<CouplingSample>();
+			activeSample->setup();
+
 			break;
 		case GLFW_KEY_4 :
 			activeSample = std::make_unique<IOSample>();
+			activeSample->setup();
+
 			break;
 		case GLFW_KEY_8 :
 			activeSample = std::make_unique<IDRendererSample>();
+			activeSample->setup();
+
 			break;
 		case GLFW_KEY_9 :
 			activeSample = std::make_unique <SmoothRendererSample>();
+			activeSample->setup();
+
 			break;
+		default :
+			activeSample->onKeyDown(key);
 	}
-	activeSample->setup();
 
 }
 

@@ -130,7 +130,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		const auto pos = p->getPosition();
 		const auto d = p->getDensity();
 		auto color = colorMap.getColor(p->getDensity());
-		color.setAlpha(0.1f);//colorMap.getNormalized(p->getDensity()));
+		color.setAlpha(0.2f);//colorMap.getNormalized(p->getDensity()));
 		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}

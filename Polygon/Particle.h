@@ -14,13 +14,15 @@ class Particle
 {
 public:
 
-	Particle()
+	Particle(const int id = -1) :
+		id(id)
 	{}
 
-	Particle(const Math::Vector3d<float>& position, const float density, const float radius) :
+	Particle(const Math::Vector3d<float>& position, const float density, const float radius, const int id = -1) :
 		position(position),
 		radius(radius),
-		density(density)
+		density(density),
+		id(id)
 	{}
 
 	virtual ~Particle() {}
@@ -61,12 +63,15 @@ public:
 		position.rotate(matrix);
 	}
 
+	int getId() const { return id; }
+
 protected:
 	float density;
 
 
 private:
 	Math::Vector3d<float> position;
+	const int id;
 	float radius;
 };
 

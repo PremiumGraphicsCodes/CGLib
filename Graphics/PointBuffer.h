@@ -44,14 +44,14 @@ public:
 
 	ColorRGBA<float> getColor() const { return color; }
 
-	ColorRGBA<unsigned char> getIdColor() const { return idColor; }
+	ColorRGBA<float> getIdColor() const { return idColor; }
 
 	float getSize() const { return size; }
 
 private:
 	Math::Vector3d<float> position;
 	ColorRGBA<float> color;
-	ColorRGBA<unsigned char> idColor;
+	ColorRGBA<float> idColor;
 	float size;
 };
 
@@ -80,14 +80,14 @@ public:
 
 	Graphics::Buffer4d<float> getColor() const { return color; }
 
-	Graphics::Buffer4d<unsigned char> getIdColor() const { return idColor; }
+	Graphics::Buffer4d<float> getIdColor() const { return idColor; }
 
 	Graphics::Buffer1d<float> getSize() const { return sizes; }
 	
 private:
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer4d<float> color;
-	Graphics::Buffer4d<unsigned char> idColor;
+	Graphics::Buffer4d<float> idColor;
 	Graphics::Buffer1d<float> sizes;
 };
 
