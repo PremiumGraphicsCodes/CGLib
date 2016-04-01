@@ -49,6 +49,13 @@ void onMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 	}
 	else if (action == GLFW_RELEASE) {
+		if (button == GLFW_MOUSE_BUTTON_LEFT) {
+			activeSample->onLeftButtonUp(prevPosX, prevPosY);
+		}
+
+		if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
+			activeSample->onMiddleButtonUp(prevPosX, prevPosY);
+		}
 		mousePressed = false;
 	}
 }

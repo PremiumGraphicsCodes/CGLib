@@ -17,11 +17,13 @@ public:
 
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
-	void onLeftButtonDown(float x, float y) override;
+	void onMiddleButtonDown(float x, float y) override;
 
 private:
 	Crystal::Shader::IDRenderer renderer;
-	Crystal::Shader::FrameBuffer fb;
+	Crystal::Shader::FrameBuffer frameBuffer;
+	int width;
+	int height;
 
 };
 
