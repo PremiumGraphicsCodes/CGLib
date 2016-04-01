@@ -98,6 +98,9 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 		case GLFW_KEY_4 :
 			activeSample = std::make_unique<IOSample>();
 			break;
+		case GLFW_KEY_8 :
+			activeSample = std::make_unique<IDRendererSample>();
+			break;
 		case GLFW_KEY_9 :
 			activeSample = std::make_unique <SmoothRendererSample>();
 			break;
@@ -150,6 +153,7 @@ int main(int argc, char* argv)
 	std::cout << "Press 3 : Coupling Simulation" << std::endl;
 	std::cout << "Press 4 : File IO" << std::endl;
 
+	std::cout << "Press 8 : ID Rendering" << std::endl;
 	std::cout << "Press 9 : Smooth Rendering" << std::endl;
 	std::cout << "Press 0 : Point Rendering" << std::endl;
 

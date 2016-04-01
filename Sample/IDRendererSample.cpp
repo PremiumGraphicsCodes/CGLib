@@ -24,8 +24,7 @@ IDRendererSample::IDRendererSample()
 
 void IDRendererSample::setup()
 {
-	renderer.buildBuildInShader();
-	renderer.findLocation();
+	renderer.build();
 }
 
 void IDRendererSample::onLeftButtonDown(float x, float y)

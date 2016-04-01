@@ -27,8 +27,7 @@ using namespace Crystal::Shader;
 
 void CouplingSample::setup()
 {
-	idRenderer.buildBuildInShader();
-	idRenderer.findLocation();
+	idRenderer.build();
 
 	constant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
 	rigidConstant = SPHConstant(1000.0f, 10000.0f, 0.0f, 0.0f, 1.25f);

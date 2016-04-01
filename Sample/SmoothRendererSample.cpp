@@ -24,8 +24,7 @@ SmoothRendererSample::SmoothRendererSample()
 
 void SmoothRendererSample::setup()
 {
-	renderer.buildBuildInShader();
-	renderer.findLocation();
+	renderer.build();
 }
 
 void SmoothRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)

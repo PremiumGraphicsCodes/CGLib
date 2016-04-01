@@ -9,6 +9,7 @@
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
 #include "../Polygon/PolygonObject.h"
+#include "../Shader/SmoothRenderer.h"
 #include "ISample.h"
 #include <memory>
 #include <map>
@@ -40,6 +41,7 @@ private:
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;
 	Crystal::Physics::SPHConstant constant;
+	Crystal::Shader::SmoothRenderer smoothRenderer;
 
 };
 

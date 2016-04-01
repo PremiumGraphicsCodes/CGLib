@@ -25,7 +25,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
 
-	bool buildBuildInShader();
+	bool build();
 
 private:
 

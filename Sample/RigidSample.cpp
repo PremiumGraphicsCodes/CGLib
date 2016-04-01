@@ -1,3 +1,8 @@
+#if _WIN64
+#include "windows.h"
+#endif
+#include "../Shader/ShaderObject.h"
+
 #include "RigidSample.h"
 
 #include "../Physics/Fluid.h"
@@ -47,6 +52,8 @@ void RigidSample::setup()
 	const Box<float> box(Vector3d<float>(-50.0f, -5.0f, -50.0f), Vector3d<float>(50.0f, 100.0f, 50.0f));
 	world.setBoundary(box);
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));
+
+	smoothRenderer.build();
 }
 
 void RigidSample::onMiddleButtonDown(const float x, const float y)
@@ -103,7 +110,7 @@ void RigidSample::demonstrate(const int width, const int height, const Crystal::
 		//lineBuffer.add(*p);
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		renderer.render(camera, light, triangleBuffer);
+		smoothRenderer.render(camera, triangleBuffer);
 		delete p;
 	}
 }

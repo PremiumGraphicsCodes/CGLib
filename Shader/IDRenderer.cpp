@@ -5,11 +5,13 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool IDRenderer::buildBuildInShader()
+bool IDRenderer::build()
 {
 	const auto& vShader = getBuildinVertexShaderSource();
 	const auto& fShader = getBuildinFragmentShaderSource();
-	return shader.build(vShader, fShader);
+	bool b = shader.build(vShader, fShader);
+	findLocation();
+	return b;
 }
 
 std::string IDRenderer::getBuildinVertexShaderSource() const

@@ -4,11 +4,13 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool SmoothRenderer::buildBuildInShader()
+bool SmoothRenderer::build()
 {
 	const auto& vShader = getBuildinVertexShaderSource();
 	const auto& fShader = getBuildinFragmentShaderSource();
-	return shader.build(vShader, fShader);
+	bool b = shader.build(vShader, fShader);
+	findLocation();
+	return b;
 }
 
 std::string SmoothRenderer::getBuildinVertexShaderSource() const
