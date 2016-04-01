@@ -19,7 +19,7 @@ using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void BulletRigidSample::setup()
+void RigidSample::setup()
 {
 	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
 	{
@@ -49,7 +49,7 @@ void BulletRigidSample::setup()
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));
 }
 
-void BulletRigidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
+void RigidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 

@@ -13,10 +13,10 @@
 #include <memory>
 #include <map>
 
-class BulletRigidSample : public ISample
+class RigidSample : public ISample
 {
 public:
-	BulletRigidSample() {}
+	RigidSample() {}
 
 	void setup();
 

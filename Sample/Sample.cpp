@@ -81,14 +81,22 @@ void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 
 void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (key == GLFW_KEY_0) {
-		activeSample = std::make_unique<PointRendererSample>();
-		activeSample->setup();
+	switch(key) {
+		case GLFW_KEY_0 :
+			activeSample = std::make_unique<PointRendererSample>();
+			break;
+		case GLFW_KEY_1 :
+			activeSample = std::make_unique<FluidSample>();
+			break;
+		case GLFW_KEY_2 :
+			activeSample = std::make_unique < RigidSample>();
+			break;
+		case GLFW_KEY_3 :
+			activeSample = std::make_unique<BulletInteractionSample>();
+			break;
 	}
-	else if (key == GLFW_KEY_1) {
-		activeSample = std::make_unique<FluidSample>();
-		activeSample->setup();
-	}
+	activeSample->setup();
+
 }
 
 void onChar(GLFWwindow* window, unsigned int codepoint)
@@ -156,6 +164,12 @@ int main(int argc, char* argv)
 	}
 	glfwMakeContextCurrent(window);
 
+	std::cout << "Press 1 : Fluid Simulation" << std::endl;
+	std::cout << "Press 2 : Rigid Simulation" << std::endl;
+	std::cout << "Press 3 : Coupling Simulation" << std::endl;
+
+	std::cout << "Press 0 : Point Rendering" << std::endl;
+
 	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, -5.0, -10.0));
 	camera.setCameraXY();
 
@@ -189,7 +203,6 @@ int main(int argc, char* argv)
 	while (!glfwWindowShouldClose(window)) {
 		glfwGetWindowSize(window, &width, &height);
 		activeSample->demonstrate(width, height, camera);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 		glfwSwapBuffers(window);
