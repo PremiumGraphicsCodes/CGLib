@@ -38,6 +38,7 @@ void PointRenderer<float>::render(const ICamera<float>& camera, const PointBuffe
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glDepthMask(GL_FALSE);
+	//glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
 

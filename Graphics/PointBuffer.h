@@ -4,6 +4,7 @@
 #include "Buffer3d.h"
 #include "Buffer1d.h"
 #include "Buffer4d.h"
+#include "DrawableID.h"
 
 
 namespace Crystal {
@@ -26,11 +27,13 @@ namespace Crystal {
 class Point
 {
 public:
-	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size) :
+	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size, const int id = -1) :
 		position(position),
 		color(color),
 		size(size)
-	{}
+	{
+		idColor = DrawableID(id).toColor();
+	}
 
 	Point(const Polygon::Vertex& vertex);
 

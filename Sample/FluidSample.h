@@ -7,6 +7,8 @@
 #include "../Physics/PhysicsWorld.h"
 #include "../Graphics/ColorMap.h"
 #include "../Shader/PointRenderer.h"
+#include "../Shader/IDRenderer.h"
+#include "../Shader/FrameBuffer.h"
 #include "ISample.h"
 #include <memory>
 
@@ -19,15 +21,26 @@ public:
 
 	void onKeyDown(const unsigned char c) override;
 
+	void onMiddleButtonDown(const float x, const float y) override;
+
+	void onMiddleButtonUp(const float x, const float y) override {};
+
+	void onMiddleDragging(const float dx, const float dy) override;
+
 private:
 	std::vector< std::unique_ptr<Crystal::Physics::Fluid> > fluids;
-
+	int width;
+	int height;
 
 	Crystal::Physics::ParticleWorld world;
 	Crystal::Graphics::ColorMap colorMap;
 	Crystal::Shader::ShaderObject shader;
 	std::unique_ptr< Crystal::Shader::PointRenderer<float> > renderer;
 
+	Crystal::Shader::IDRenderer idRenderer;
+	Crystal::Shader::FrameBuffer fb;
+
+	Crystal::Physics::SPHParticle* selectedParticle;
 };
 
 #endif

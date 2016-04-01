@@ -104,6 +104,7 @@ void PointBuffer::clear()
 {
 	position.clear();
 	color.clear();
+	idColor.clear();
 	sizes.clear();
 }
 

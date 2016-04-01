@@ -44,7 +44,7 @@ void FluidSample::setup()
 
 	}
 
-
+	selectedParticle = fluids.front()->getParticles().front();
 
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
 	Box<float> boundary( Vector3d<float>(-50.0, 0.0f, 0.0 ), Vector3d<float>(50.0, 1000.0, 50.0 ));
@@ -62,6 +62,9 @@ void FluidSample::setup()
 	auto pr = new PointRenderer<float>(shader);
 	renderer.reset(pr);
 	renderer->findLocation();
+
+	idRenderer.build();
+	fb.build(512, 512);
 
 }
 
@@ -94,20 +97,81 @@ void FluidSample::onKeyDown(const unsigned char c)
 	*/
 }
 
+void FluidSample::onMiddleButtonDown(const float x, const float y)
+{
+	std::cout << "TEST" << std::endl;
+
+	const auto xRatio = x / float(this->width);
+	const auto yRatio = y / float(this->height);
+	//std::cout << xRatio << std::endl;
+	////std::cout << yRatio << std::endl;
+	const auto screenx = fb.getWidth() * xRatio;
+	const auto screeny = fb.getHeight() * yRatio;
+	//std::cout << screenx << std::endl;
+	//std::cout << screeny << std::endl;
+	const auto c = fb.getColor(screenx, fb.getHeight() - screeny);
+	std::cout << (float)c.getRed() << std::endl;
+}
+
+void FluidSample::onMiddleDragging(const float dx, const float dy)
+{
+	if (selectedParticle == nullptr) {
+		return;
+	}
+	//const auto invMatrix = rotationMatrix.getInverse();
+	//Vector3d<float> v(dx * 0.1, dy * 0.1, 0.0);
+	//v = v * invMatrix;
+	//selectedParticle->setVelocity(Vector3d<float>(dx*0.1, dy*0.1, 0.0f));
+	selectedParticle->move(Vector3d<float>(dx*0.01,dy*0.01, 0.0f));
+}
+
+
 void FluidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
+	this->width = width;
+	this->height = height;
+
 	const float effectLength = 1.20f;
 	world.simulate(effectLength, 0.015f);
 
 	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
 
-	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//LegacyRenderer renderer;
 
+
 	PointBuffer buffer;
 	std::vector<SPHParticle*> particles = world.getFluidParticles();
+
+	float minPressure = +FLT_MAX;
+	float maxPressure = -FLT_MAX;
+	for (auto p : particles) {
+		minPressure = std::min<float>(minPressure, p->getDensity());
+		maxPressure = std::max<float>(maxPressure, p->getDensity());
+	}
+	colorMap.setMinMax(minPressure, maxPressure);
+
+	for (auto p : particles) {
+		const auto pos = p->getPosition();
+		const auto d = p->getDensity();
+		auto color = colorMap.getColor(p->getDensity());
+		color.setAlpha(0.2f);//colorMap.getNormalized(p->getDensity()));
+		Crystal::Graphics::Point point(pos, color, 500.0f, p->getId());
+		buffer.add(point);
+	}
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glViewport(0, 0, fb.getWidth(), fb.getHeight());
+	fb.bind();
+	idRenderer.render(camera, buffer);
+	fb.unbind();
+
+	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glViewport(0, 0, width, height);
+	renderer->render(camera, buffer);
 
 	/*
 	const auto eyePos = camera.getPos();
@@ -118,23 +182,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		return dist1 < dist2; }
 	);
 	*/
-	float minPressure = +FLT_MAX;
-	float maxPressure = -FLT_MAX;
-	for (auto p : particles) {
-		minPressure = std::min<float>(minPressure, p->getDensity());
-		maxPressure = std::max<float>(maxPressure, p->getDensity());
-	}
-	colorMap.setMinMax(minPressure, maxPressure);
-	//colorMap.setMinMax(800.0f, 1200.0f);
-	for (auto p : particles) {
-		const auto pos = p->getPosition();
-		const auto d = p->getDensity();
-		auto color = colorMap.getColor(p->getDensity());
-		color.setAlpha(0.2f);//colorMap.getNormalized(p->getDensity()));
-		Crystal::Graphics::Point point(pos, color, 500.0f);
-		buffer.add(point);
-	}
-	renderer->render(camera, buffer);
+
 
 	/*
 	TriangleBuffer lineBuffer;
