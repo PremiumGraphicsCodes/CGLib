@@ -110,7 +110,7 @@ void RigidSample::demonstrate(const int width, const int height, const Crystal::
 		//lineBuffer.add(*p);
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		smoothRenderer.render(camera, triangleBuffer);
+		smoothRenderer.render(camera, triangleBuffer, light);
 		delete p;
 	}
 }

@@ -7,6 +7,7 @@
 #include "../Shader/ShaderObject.h"
 
 #include "../Graphics/TriangleBuffer.h"
+#include "../Graphics/Light.h"
 
 #include "IRenderer.h"
 
@@ -23,7 +24,7 @@ public:
 
 	void findLocation();
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light);
 
 	bool build();
 

@@ -42,11 +42,17 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 	stream << "uniform vec3 eyePosition;" << std::endl;
 	stream << "void main(void) {" << std::endl;
 	stream << "vec3 s = normalize(lightPosition - eyePosition);" << std::endl;
+	stream << "vec3 v = normalize(-eyePosition.xyz);" << std::endl;
 	stream << "vec3 n = vNormal;" << std::endl;
+	stream << "vec3 r = reflect(-s,n);" << std::endl;
 	stream << "vec3 color = vColor;" << std::endl;
 	stream << "vec3 diffuseColor = max(dot(s, n), 0.0) * vec3(0.0, 0.0, 1.0);" << std::endl;
+	stream << "float sDotN = max( dot(s, n), 0.0);" << std::endl;
+	stream << "vec3 specularColor = vec3(0.0, 0.0, 0.0);" << std::endl;
+	stream << "if( sDotN > 0.0)" << std::endl;
+	stream << " specularColor = vec3(1.0, 0.0, 0.0) * pow(max(dot(r,v), 0.0), 1.0);" << std::endl;
 	stream << "vec3 ambientColor = vec3(0.2, 0.2, 0.2);" << std::endl;
-	stream << "fragColor = vec4(color + diffuseColor + ambientColor, 1.0);" << std::endl;
+	stream << "fragColor = vec4(color + diffuseColor + + specularColor + ambientColor, 1.0);" << std::endl;
 	stream << "}" << std::endl;
 	return stream.str();
 }
@@ -63,7 +69,7 @@ void SmoothRenderer::findLocation()
 }
 
 
-void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light)
 {
 	const auto& indices = buffer.indices;
 	const auto& positions = buffer.positions.get();// buffers[0].get();
@@ -82,10 +88,10 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	glUseProgram(shader.getId());
 
-	const std::vector< float > lightPos = { -10.0f, 10.0f, 10.0f };
+	const auto& lightPos = light.getPos().toArray();//{ -10.0f, 10.0f, 10.0f };
 
-	const GLint lightLoc = glGetUniformLocation(shader.getId(), "lightPosition");
-	glUniform3fv(lightLoc, 1, &(lightPos.front()));
+	const auto lightLoc = glGetUniformLocation(shader.getId(), "lightPosition");
+	glUniform3fv(lightLoc, 1, lightPos.data());
 
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");

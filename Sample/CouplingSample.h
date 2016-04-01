@@ -14,6 +14,7 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/IDRenderer.h"
 #include "../Shader/FrameBuffer.h"
+#include "../Shader/SmoothRenderer.h"
 #include "../Graphics/ColorMap.h"
 #include "ISample.h"
 #include <memory>
@@ -67,6 +68,7 @@ private:
 
 	Crystal::Shader::IDRenderer idRenderer;
 	Crystal::Shader::FrameBuffer fb;
+	Crystal::Shader::SmoothRenderer smoothRenderer;
 
 	int width;
 	int height;

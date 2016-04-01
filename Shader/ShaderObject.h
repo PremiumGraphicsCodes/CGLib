@@ -39,6 +39,8 @@ public:
 
 	bool compile( const File& file, const ShaderUnit::Stage stage);
 
+	//bool dump(const std::string& filename);
+
 	void clear();
 
 	unsigned int getID() const { return id; }

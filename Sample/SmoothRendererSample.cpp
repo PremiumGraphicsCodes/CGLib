@@ -31,10 +31,15 @@ void SmoothRendererSample::demonstrate(const int width, const int height, const 
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	PointLight<float> light;
+	light.setPos(Vector3d<float>(10.0f, 10.0f, -10.0f));
+	light.setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
+
+
 	Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
 	PolygonObject polygon;
 	polygon.add(box);
 	TriangleBuffer buffer;
 	buffer.add(polygon);
-	renderer.render(camera, buffer);
+	renderer.render(camera, buffer, light);
 }

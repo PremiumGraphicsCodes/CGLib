@@ -106,7 +106,7 @@ void CouplingSample::setup()
 	pointRenderer->findLocation();
 
 	fb.build(512, 512);
-
+	smoothRenderer.build();
 }
 
 void CouplingSample::cleanup()
@@ -189,7 +189,10 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	LegacyRenderer renderer;
+	PointLight<float> light;
+	light.setPos(Vector3d<float>(10.0f, 10.0f, -10.0f));
+	light.setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
+
 
 	for (auto m : rigidPolygonMap) {
 		LineBuffer lineBuffer;
@@ -202,7 +205,8 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
-		renderer.render(camera, lineBuffer);
+		//renderer.render(camera, lineBuffer);
+		smoothRenderer.render(camera, triangleBuffer, light);
 
 		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		fb.bind();

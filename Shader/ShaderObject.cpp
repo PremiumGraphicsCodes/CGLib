@@ -105,6 +105,14 @@ bool ShaderUnit::compile(const Crystal::File& file, const ShaderUnit::Stage stag
 	return compile( Util::getStr(file), stage );
 }
 
+/*
+bool ShaderUnit::dump(const std::string& filename)
+{
+	std::ofstream stream(filename);
+	stream << 
+}
+*/
+
 
 ShaderObject::ShaderObject(void) :
 	id( -1 )
