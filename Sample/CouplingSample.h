@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SAMPLE_BULLET_INTERACTION_SAMPLE_H__
-#define __CRYSTAL_SAMPLE_BULLET_INTERACTION_SAMPLE_H__
+#ifndef __CRYSTAL_SAMPLE_COUPLING_SAMPLE_H__
+#define __CRYSTAL_SAMPLE_COUPLING_SAMPLE_H__
 
 #include "glfw.h"
 #include "../Physics/Bullet.h"
@@ -19,10 +19,10 @@
 #include <memory>
 #include <map>
 
-class BulletInteractionSample : public ISample
+class CouplingSample : public ISample
 {
 public:
-	BulletInteractionSample() {}
+	CouplingSample() {}
 
 	void setup();
 

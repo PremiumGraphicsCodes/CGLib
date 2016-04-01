@@ -3,7 +3,7 @@
 #endif
 #include "../Shader/ShaderObject.h"
 
-#include "BulletInteractionSample.h"
+#include "CouplingSample.h"
 
 #include "../Physics/Fluid.h"
 #include "../Physics/SPHParticle.h"
@@ -25,7 +25,7 @@ using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void BulletInteractionSample::setup()
+void CouplingSample::setup()
 {
 	idRenderer.buildBuildInShader();
 	idRenderer.findLocation();
@@ -108,7 +108,7 @@ void BulletInteractionSample::setup()
 
 }
 
-void BulletInteractionSample::cleanup()
+void CouplingSample::cleanup()
 {
 	for (auto r : rigids) {
 		delete r;
@@ -120,24 +120,24 @@ void BulletInteractionSample::cleanup()
 	shapes.clear();
 }
 
-void BulletInteractionSample::onMouseMove(const float x, const float y)
+void CouplingSample::onMouseMove(const float x, const float y)
 {
 
 }
 
-void BulletInteractionSample::onKeyDown(const unsigned char c)
+void CouplingSample::onKeyDown(const unsigned char c)
 {
 }
 
-void BulletInteractionSample::onLeftButtonDown(const float x, const float y)
+void CouplingSample::onLeftButtonDown(const float x, const float y)
 {
 }
 
-void BulletInteractionSample::onLeftDragging(const float dx, const float dy)
+void CouplingSample::onLeftDragging(const float dx, const float dy)
 {
 }
 
-void BulletInteractionSample::onMiddleButtonDown(const float x, const float y)
+void CouplingSample::onMiddleButtonDown(const float x, const float y)
 {
 	const auto c = fb.getColor(x, 756 - y);
 	std::cout << (float)c.getRed() << std::endl;
@@ -154,12 +154,12 @@ void BulletInteractionSample::onMiddleButtonDown(const float x, const float y)
 	}
 }
 
-void BulletInteractionSample::onMiddleButtonUp(const float x, const float y)
+void CouplingSample::onMiddleButtonUp(const float x, const float y)
 {
 	selected = nullptr;
 }
 
-void BulletInteractionSample::onMiddleDragging(const float dx, const float dy)
+void CouplingSample::onMiddleDragging(const float dx, const float dy)
 {
 	if (selected == nullptr) {
 		return;
@@ -168,7 +168,7 @@ void BulletInteractionSample::onMiddleDragging(const float dx, const float dy)
 }
 
 
-void BulletInteractionSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
+void CouplingSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
 	glEnable(GL_DEPTH_TEST);
 

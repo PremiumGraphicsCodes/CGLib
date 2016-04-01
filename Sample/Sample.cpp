@@ -14,7 +14,7 @@
 
 #include "FluidSample.h"
 #include "RigidSample.h"
-#include "BulletInteractionSample.h"
+#include "CouplingSample.h"
 #include "IOSample.h"
 #include "VolumeSample.h"
 #include "ParticleSample.h"
@@ -89,10 +89,13 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			activeSample = std::make_unique<FluidSample>();
 			break;
 		case GLFW_KEY_2 :
-			activeSample = std::make_unique < RigidSample>();
+			activeSample = std::make_unique<RigidSample>();
 			break;
 		case GLFW_KEY_3 :
-			activeSample = std::make_unique<BulletInteractionSample>();
+			activeSample = std::make_unique<CouplingSample>();
+			break;
+		case GLFW_KEY_4 :
+			activeSample = std::make_unique<IOSample>();
 			break;
 	}
 	activeSample->setup();
@@ -104,32 +107,6 @@ void onChar(GLFWwindow* window, unsigned int codepoint)
 	activeSample->onKeyDown(codepoint);
 }
 
-//void TW_CALL onPointRender(void*)
-//{
-//}
-
-//void TW_CALL onFluid(void * /*clientData*/)
-//{
-//}
-//
-//void TW_CALL onBulletRigid(void*)
-//{
-//	activeSample = std::make_unique<BulletRigidSample>();
-//	activeSample->setup();
-//}
-//
-//void TW_CALL onBulletInteraction(void*)
-//{
-//	activeSample = std::make_unique<BulletInteractionSample>();
-//	activeSample->setup();
-//}
-//
-//void TW_CALL onIO(void*)
-//{
-//	activeSample = std::make_unique<IOSample>();
-//	activeSample->setup();
-//}
-//
 //void TW_CALL onVolume(void*)
 //{
 //	activeSample = std::make_unique<VolumeSample>();
@@ -167,23 +144,16 @@ int main(int argc, char* argv)
 	std::cout << "Press 1 : Fluid Simulation" << std::endl;
 	std::cout << "Press 2 : Rigid Simulation" << std::endl;
 	std::cout << "Press 3 : Coupling Simulation" << std::endl;
+	std::cout << "Press 4 : File IO" << std::endl;
 
 	std::cout << "Press 0 : Point Rendering" << std::endl;
 
 	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, -5.0, -10.0));
 	camera.setCameraXY();
 
-
-	//TwInit(TW_OPENGL, nullptr);
-	//TwBar* bar = TwNewBar("Bar");
-
-	assert(glGetError() == GL_NO_ERROR);
 	int width = 1024;
 	int height = 756;
-	//TwAddButton(bar, "Point", onPointRender, nullptr, " label='Point' ");
 
-	//TwAddButton(bar, "Fluid", onFluid, nullptr, " label='Fluid' ");
-	//TwAddButton(bar, "Rigid", onBulletRigid, nullptr, " label = 'Rigid' ");
 	//TwAddButton(bar, "Coupling", onBulletInteraction, nullptr, " label = 'Coupling' ");
 	//TwAddButton(bar, "IO", onIO, nullptr, " label = 'IO' ");
 	//TwAddButton(bar, "Volume", onVolume, nullptr, " label = 'Volume' ");

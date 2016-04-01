@@ -163,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BulletInteractionSample.cpp" />
+    <ClCompile Include="CouplingSample.cpp" />
     <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
@@ -176,7 +176,7 @@
     <ClCompile Include="VolumeSample.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BulletInteractionSample.h" />
+    <ClInclude Include="CouplingSample.h" />
     <ClInclude Include="RigidSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />
