@@ -56,10 +56,7 @@ void FluidSample::setup()
 	std::reverse(colors.begin(), colors.end());
 	colorMap.setColors(colors);
 
-	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
-	auto pr = new PointRenderer(shader);
-	renderer.reset(pr);
-	renderer->findLocation();
+	renderer.build();
 
 	idRenderer.build();
 	fb.build(512, 512);
@@ -177,7 +174,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glViewport(0, 0, width, height);
-	renderer->render(camera, buffer);
+	renderer.render(camera, buffer);
 
 	/*
 	const auto eyePos = camera.getPos();

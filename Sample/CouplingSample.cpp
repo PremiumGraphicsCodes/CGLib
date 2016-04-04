@@ -100,10 +100,7 @@ void CouplingSample::setup()
 	colorMap.setColors(colors);
 
 
-	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
-	auto pr = new PointRenderer(shader);
-	pointRenderer.reset(pr);
-	pointRenderer->findLocation();
+	pointRenderer.build();
 
 	fb.build(512, 512);
 	smoothRenderer.build();
@@ -265,6 +262,6 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}
-	pointRenderer->render(camera, buffer);
+	pointRenderer.render(camera, buffer);
 
 }

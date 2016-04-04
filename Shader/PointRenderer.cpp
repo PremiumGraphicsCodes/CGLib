@@ -1,7 +1,55 @@
 #include "PointRenderer.h"
 
+#include <sstream>
+
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
+
+bool PointRenderer::build()
+{
+	const auto vsSource = getBuildinVertexShaderSource();
+	const auto fsSource = getBuildinFragmentShaderSource();
+	bool b = shader.build(vsSource, fsSource);
+	findLocation();
+	return b;
+}
+
+std::string PointRenderer::getBuildinVertexShaderSource() const
+{
+	std::ostringstream stream;
+	stream << "#version 150" << std::endl;
+	stream << "in vec3 position;" << std::endl;
+	stream << "in int id;" << std::endl;
+	stream << "in float pointSize;" << std::endl;
+	stream << "in vec4 color;" << std::endl;
+	stream << "out vec4 vColor;" << std::endl;
+	stream << "uniform mat4 projectionMatrix;" << std::endl;
+	stream << "uniform mat4 modelviewMatrix;" << std::endl;
+	stream << "void main(void) {" << std::endl;
+	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
+	stream << "gl_PointSize = pointSize / gl_Position.w;" << std::endl;
+	stream << "vColor = color;" << std::endl;
+	stream << "}" << std::endl;
+	return stream.str();
+}
+
+std::string PointRenderer::getBuildinFragmentShaderSource() const
+{
+	std::ostringstream stream;
+	stream << "#version 150" << std::endl;
+	stream << "	in vec4 vColor;" << std::endl;
+	stream << "out vec4 fragColor;" << std::endl;
+	stream << "void main(void) {" << std::endl;
+	stream << "vec2 coord = gl_PointCoord * 2.0 - 1.0;" << std::endl;
+	stream << "float distSquared = 1.0 - dot(coord, coord);" << std::endl;
+	stream << "if (distSquared < 0.0) {" << std::endl;
+	stream << "		discard;" << std::endl;
+	stream << "}" << std::endl;
+	stream << "fragColor.rgba = vColor;" << std::endl;
+	stream << "fragColor.a = sqrt(distSquared) * vColor.a;" << std::endl;
+	stream << "}" << std::endl;
+	return stream.str();
+}
 
 void PointRenderer::findLocation()
 {

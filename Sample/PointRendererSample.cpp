@@ -21,10 +21,7 @@ PointRendererSample::PointRendererSample()
 
 void PointRendererSample::setup()
 {
-	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
-	auto pr = new PointRenderer(shader);
-	renderer.reset(pr);
-	renderer->findLocation();
+	renderer.build();
 }
 
 void PointRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
@@ -34,5 +31,5 @@ void PointRendererSample::demonstrate(const int width, const int height, const C
 	PointBuffer buffer;
 	Point point( Vector3d<float>(0.0f, 0.0f, 0.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 100.0f);
 	buffer.add(point);
-	renderer->render(camera, buffer);
+	renderer.render(camera, buffer);
 }

@@ -63,8 +63,7 @@ private:
 	Crystal::Physics::SPHConstant rigidConstant;
 	Crystal::Graphics::ColorMap colorMap;
 
-	Crystal::Shader::ShaderObject shader;
-	std::unique_ptr< Crystal::Shader::PointRenderer > pointRenderer;
+	Crystal::Shader::PointRenderer pointRenderer;
 
 	Crystal::Shader::IDRenderer idRenderer;
 	Crystal::Shader::FrameBuffer fb;

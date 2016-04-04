@@ -11,20 +11,21 @@ namespace Crystal {
 class PointRenderer
 {
 public:
-	PointRenderer(ShaderObject& shader) :
-		shader(shader)
-	{}
-
-	~PointRenderer() = default;
-
 	void findLocation();
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
 	//void changeSize(const float size) { this->pointSize = size; }
+	bool build();
 
 private:
-	ShaderObject& shader;
+
+	std::string getBuildinVertexShaderSource() const;
+
+	std::string getBuildinFragmentShaderSource() const;
+
+private:
+	ShaderObject shader;
 };
 
 	}

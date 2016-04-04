@@ -17,8 +17,7 @@ public:
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
-	Crystal::Shader::ShaderObject shader;
-	std::unique_ptr< Crystal::Shader::PointRenderer > renderer;
+	Crystal::Shader::PointRenderer renderer;
 };
 
 #endif
