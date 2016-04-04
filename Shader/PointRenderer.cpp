@@ -3,7 +3,7 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void PointRenderer<float>::findLocation()
+void PointRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
@@ -14,7 +14,7 @@ void PointRenderer<float>::findLocation()
 }
 
 
-void PointRenderer<float>::render(const ICamera<float>& camera, const PointBuffer& buffer)
+void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 {
 	const auto positions = buffer.getPosition().get();
 	const auto colors = buffer.getColor().get();

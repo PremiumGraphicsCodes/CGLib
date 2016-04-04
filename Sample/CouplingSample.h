@@ -64,7 +64,7 @@ private:
 	Crystal::Graphics::ColorMap colorMap;
 
 	Crystal::Shader::ShaderObject shader;
-	std::unique_ptr< Crystal::Shader::PointRenderer<float> > pointRenderer;
+	std::unique_ptr< Crystal::Shader::PointRenderer > pointRenderer;
 
 	Crystal::Shader::IDRenderer idRenderer;
 	Crystal::Shader::FrameBuffer fb;

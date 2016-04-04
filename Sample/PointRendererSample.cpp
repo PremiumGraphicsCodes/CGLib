@@ -22,7 +22,7 @@ PointRendererSample::PointRendererSample()
 void PointRendererSample::setup()
 {
 	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
-	auto pr = new PointRenderer<float>(shader);
+	auto pr = new PointRenderer(shader);
 	renderer.reset(pr);
 	renderer->findLocation();
 }

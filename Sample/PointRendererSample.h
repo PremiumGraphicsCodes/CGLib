@@ -18,7 +18,7 @@ public:
 
 private:
 	Crystal::Shader::ShaderObject shader;
-	std::unique_ptr< Crystal::Shader::PointRenderer<float> > renderer;
+	std::unique_ptr< Crystal::Shader::PointRenderer > renderer;
 };
 
 #endif

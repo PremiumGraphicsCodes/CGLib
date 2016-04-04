@@ -35,7 +35,7 @@ private:
 	Crystal::Physics::ParticleWorld world;
 	Crystal::Graphics::ColorMap colorMap;
 	Crystal::Shader::ShaderObject shader;
-	std::unique_ptr< Crystal::Shader::PointRenderer<float> > renderer;
+	std::unique_ptr< Crystal::Shader::PointRenderer > renderer;
 
 	Crystal::Shader::IDRenderer idRenderer;
 	Crystal::Shader::FrameBuffer fb;

@@ -17,7 +17,7 @@ public:
 
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
-	void onMiddleButtonDown(float x, float y) override;
+	void onMiddleButtonDown(const float x, const float y) override;
 
 private:
 	Crystal::Shader::IDRenderer renderer;

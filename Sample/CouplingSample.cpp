@@ -85,7 +85,7 @@ void CouplingSample::setup()
 	Box3d<float> boundary(Vector3d<float>(-20.0, 0.0f, 0.0), Vector3d<float>(20.0, 1000.0, 20.0));
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
-	interaction.setExternalForce(Vector3d<float>(0, -9.8, 0));
+	interaction.setExternalForce(Vector3d<float>(0, -9.8f, 0));
 	interaction.setBoundary(boundary);
 	for (auto r : rigids) {
 		interaction.add(r);
@@ -101,7 +101,7 @@ void CouplingSample::setup()
 
 
 	shader.build(Crystal::File("../GLSL/point.vs"), Crystal::File("../GLSL/point.fs"));
-	auto pr = new PointRenderer<float>(shader);
+	auto pr = new PointRenderer(shader);
 	pointRenderer.reset(pr);
 	pointRenderer->findLocation();
 

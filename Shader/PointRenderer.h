@@ -8,7 +8,6 @@
 namespace Crystal {
 	namespace Shader {
 
-template<typename GeomType>
 class PointRenderer
 {
 public:

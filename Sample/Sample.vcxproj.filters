@@ -33,6 +33,9 @@
     <ClCompile Include="SmoothRendererSample.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
+    <ClCompile Include="Cursor3dSample.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -67,6 +70,9 @@
     <ClInclude Include="SmoothRendererSample.h">
       <Filter>Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Cursor3dSample.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
@@ -80,6 +86,9 @@
     </Filter>
     <Filter Include="Polygon">
       <UniqueIdentifier>{781110b5-86ee-4f97-a4e0-fbda037c63da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{5edab2b2-47e0-4892-ae56-bd9c348bae0b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
