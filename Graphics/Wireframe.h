@@ -22,7 +22,7 @@ public:
 		lines.emplace_back( Math::Line3d<T>( t.getv2(), t.getv0() ) );
 	}
 
-	void add(const Math::Box<T>& box) {
+	void add(const Math::Box3d<T>& box) {
 		const auto minx = box.getMinX();
 		const auto miny = box.getMinY();
 		const auto minz = box.getMinZ();

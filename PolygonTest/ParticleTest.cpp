@@ -10,7 +10,7 @@ using namespace Crystal::Polygon;
 TEST(ParticleTest, TestGetBoundingBox)
 {
 	Particle particle(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 0.5f);
-	Box<float> expected(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
+	Box3d<float> expected(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
 	EXPECT_EQ(expected, particle.getBoundingBox());
 }
 

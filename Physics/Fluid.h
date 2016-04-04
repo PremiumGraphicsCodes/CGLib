@@ -15,7 +15,7 @@ class Fluid : public PhysicsObject
 public:
 	Fluid();
 
-	Fluid(const Math::Box<float>& box, const float divideLength, const SPHConstant& constant);
+	Fluid(const Math::Box3d<float>& box, const float divideLength, const SPHConstant& constant);
 
 	Fluid(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
 

@@ -3,7 +3,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-Surfels::Surfels(const Box<float>& box, const float divideLength)
+Surfels::Surfels(const Box3d<float>& box, const float divideLength)
 {
 	const auto minx = box.getMinX() + divideLength * 0.5f;
 	const auto miny = box.getMinY() + divideLength * 0.5f;

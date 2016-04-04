@@ -120,7 +120,7 @@ void PolygonObject::add(const Quad<float>& quad)
 	auto f = createFaces({ v1, v2, v3, v4 });
 }
 
-void PolygonObject::add(const Box<float>& box)
+void PolygonObject::add(const Box3d<float>& box)
 {
 	const auto& center = box.getCenter();
 	const auto minx = box.getMinX();

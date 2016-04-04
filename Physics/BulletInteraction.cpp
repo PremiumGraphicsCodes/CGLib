@@ -48,7 +48,7 @@ void BulletInteraction::simulate(const float timeStep)
 
 }
 
-void BulletInteraction::setBoundary(const Box<float>& box)
+void BulletInteraction::setBoundary(const Box3d<float>& box)
 {
 	particleWorld->setBoundary(box);
 	bulletWorld->setBoundary(box);

@@ -28,28 +28,28 @@ void RigidSample::setup()
 {
 	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
 	{
-		Box<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
+		Box3d<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
 		rigid1 = std::make_unique<BulletRigid>(box, &constant);
 		shape1.add(box);
 		world.add(rigid1.get());
 		rigidPolygonMap[ rigid1.get() ] = &shape1;
 	}
 	{
-		Box<float> box(Vector3d<float>(-0.5, 0.5f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
+		Box3d<float> box(Vector3d<float>(-0.5, 0.5f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
 		shape2.add(box);
 		rigid2 = std::make_unique<BulletRigid>(box, &constant);
 		world.add(rigid2.get());
 		rigidPolygonMap[rigid2.get()] = &shape2;
 	}
 	{
-		Box<float> box(Vector3d<float>(-0.5, 1.0f, -0.5f), Vector3d<float>(0.5f, 2.0f, 0.5f));
+		Box3d<float> box(Vector3d<float>(-0.5, 1.0f, -0.5f), Vector3d<float>(0.5f, 2.0f, 0.5f));
 		shape3.add(box);
 		rigid3 = std::make_unique<BulletRigid>(box, &constant);
 		world.add(rigid3.get());
 		rigidPolygonMap[rigid3.get()] = &shape3;
 	}
 
-	const Box<float> box(Vector3d<float>(-50.0f, -5.0f, -50.0f), Vector3d<float>(50.0f, 100.0f, 50.0f));
+	const Box3d<float> box(Vector3d<float>(-50.0f, -5.0f, -50.0f), Vector3d<float>(50.0f, 100.0f, 50.0f));
 	world.setBoundary(box);
 	world.setExternalForce(Vector3d<float>(0, -9.8f, 0));
 

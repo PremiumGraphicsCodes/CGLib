@@ -21,7 +21,7 @@ class PhysicsObject {
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const Math::Box<float>& box, const float divideLength, const SPHConstant& constant);
+	PhysicsObject(const Math::Box3d<float>& box, const float divideLength, const SPHConstant& constant);
 
 	PhysicsObject(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
 

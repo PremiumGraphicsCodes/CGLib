@@ -13,7 +13,7 @@ PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 {
 }
 
-PhysicsObject::PhysicsObject(const Box<float>& box, const float divideLength, const SPHConstant& constant):
+PhysicsObject::PhysicsObject(const Box3d<float>& box, const float divideLength, const SPHConstant& constant):
 	constant(constant)
 {
 	int nextId = 0;

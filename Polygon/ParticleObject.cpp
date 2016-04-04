@@ -28,7 +28,7 @@ void ParticleObject::add(const Sphere<float>& sphere, const float diameter, cons
 	sort();
 }
 
-void ParticleObject::add(const Box<float>& box, const float diameter, const float charge)
+void ParticleObject::add(const Box3d<float>& box, const float diameter, const float charge)
 {
 	for (auto x = box.getMinX(); x < box.getMaxX(); x += diameter) {
 		for (auto y = box.getMinY(); y < box.getMaxY(); y += diameter) {
@@ -64,9 +64,9 @@ void ParticleObject::sort()
 }
 
 
-Box<float> ParticleObject::getBoundingBox() const
+Box3d<float> ParticleObject::getBoundingBox() const
 {
-	Box<float> b(particles.front()->getBoundingBox());
+	Box3d<float> b(particles.front()->getBoundingBox());
 	for (const auto& p : particles) {
 		b.add(p->getBoundingBox());
 	}

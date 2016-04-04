@@ -113,9 +113,9 @@ bool OctTree::operator!=(const OctTree& rhs) const
 	return !equals(rhs);
 }
 
-Box<float> OctTree::getBoundingBox() const
+Box3d<float> OctTree::getBoundingBox() const
 {
-	return Box<float>(space.getStart(), space.getEnd());
+	return Box3d<float>(space.getStart(), space.getEnd());
 }
 
 float OctTree::getVolume() const

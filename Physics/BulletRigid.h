@@ -22,7 +22,7 @@ namespace Crystal {
 class BulletRigid
 {
 public:
-	BulletRigid(const Math::Box<float>& box, SPHConstant* constant, const unsigned int id = -1);
+	BulletRigid(const Math::Box3d<float>& box, SPHConstant* constant, const unsigned int id = -1);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
@@ -57,13 +57,13 @@ public:
 
 	void addForce(const Math::Vector3d<float>& v);
 
-	Math::Box<float> getLocalShape() const { return localBox; }
+	Math::Box3d<float> getLocalShape() const { return localBox; }
 
 	unsigned int getId() const { return id; }
 
 private:
 	btRigidBody* body;
-	Math::Box<float> localBox;
+	Math::Box3d<float> localBox;
 	std::vector<Math::Vector3d<float>> localPositions;
 	std::vector<SPHParticle*> sampleParticles;
 	const unsigned int id;

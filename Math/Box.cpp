@@ -4,13 +4,13 @@
 using namespace Crystal::Math;
 
 template<typename T>
-Box<T>::Box()
-	: Box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1))
+Box3d<T>::Box3d()
+	: Box3d(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1))
 {
 }
 
 template<typename T>
-Box<T>::Box(const Vector3d<T>& point) :
+Box3d<T>::Box3d(const Vector3d<T>& point) :
 	start(point),
 	end(point)
 {
@@ -18,7 +18,7 @@ Box<T>::Box(const Vector3d<T>& point) :
 
 
 template<typename T>
-Box<T>::Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY)
+Box3d<T>::Box3d(const Vector3d<T>& pointX, const Vector3d<T>& pointY)
 {
 	const auto x = std::min<T>(pointX.getX(), pointY.getX());
 	const auto y = std::min<T>(pointX.getY(), pointY.getY());
@@ -33,7 +33,7 @@ Box<T>::Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY)
 
 
 template<typename T>
-void Box<T>::add(const Vector3d<T>& v) {
+void Box3d<T>::add(const Vector3d<T>& v) {
 	const auto x = std::min<T>(getMinX(), v.getX());
 	const auto y = std::min<T>(getMinY(), v.getY());
 	const auto z = std::min<T>(getMinZ(), v.getZ());
@@ -46,13 +46,13 @@ void Box<T>::add(const Vector3d<T>& v) {
 }
 
 template<typename T>
-T Box<T>::getVolume() const
+T Box3d<T>::getVolume() const
 {
 	return (end.getX() - getMinX()) * (end.getY() - getMinY()) * (end.getZ() - getMinZ());
 }
 
 template<typename T>
-bool Box<T>::isInterior(const Vector3d<T>& point) const
+bool Box3d<T>::isInterior(const Vector3d<T>& point) const
 {
 	const bool xIsInterior = (getMinX() < point.getX() && point.getX() < end.getX());
 	const bool yIsInterior = (getMinY() < point.getY() && point.getY() < end.getY());
@@ -61,14 +61,14 @@ bool Box<T>::isInterior(const Vector3d<T>& point) const
 }
 
 template<typename T>
-bool Box<T>::isExterior(const Vector3d<T>& point) const
+bool Box3d<T>::isExterior(const Vector3d<T>& point) const
 {
 	return !isInterior(point);
 }
 
 
 template<typename T>
-void Box<T>::add(const Box<T>& b)
+void Box3d<T>::add(const Box3d<T>& b)
 {
 	const auto sx = std::min<T>(getMinX(), b.getMinX());
 	const auto sy = std::min<T>(getMinY(), b.getMinY());
@@ -82,7 +82,7 @@ void Box<T>::add(const Box<T>& b)
 }
 
 template<typename T>
-Vector3d<T> Box<T>::getCenter() const
+Vector3d<T> Box3d<T>::getCenter() const
 {
 	return Vector3d<T>(
 		(getMinX() + end.getX()) / T{ 2 },
@@ -92,7 +92,7 @@ Vector3d<T> Box<T>::getCenter() const
 }
 
 template<typename T>
-Box<T> Box<T>::getOverlapped(const Box<T>& rhs) const
+Box3d<T> Box3d<T>::getOverlapped(const Box3d<T>& rhs) const
 {
 	assert(hasIntersection(rhs));
 	const auto minx = std::max<T>(this->getStart().getX(), rhs.getStart().getX());
@@ -105,11 +105,11 @@ Box<T> Box<T>::getOverlapped(const Box<T>& rhs) const
 
 	const Vector3d<T> min_(minx, miny, minz);
 	const Vector3d<T> max_(maxx, maxy, maxz);
-	return Box(min_, max_);
+	return Box3d(min_, max_);
 }
 
 template<typename T>
-bool Box<T>::equals(const Box<T>& rhs) const
+bool Box3d<T>::equals(const Box3d<T>& rhs) const
 {
 	return
 		start == rhs.getStart() &&
@@ -119,7 +119,7 @@ bool Box<T>::equals(const Box<T>& rhs) const
 }
 
 template<typename T>
-bool Box<T>::hasIntersection(const Box& rhs) const
+bool Box3d<T>::hasIntersection(const Box3d& rhs) const
 {
 	const auto distx = std::fabs(getCenter().getX() - rhs.getCenter().getX());
 	const auto lx = getLength().getX() / T{ 2 } +rhs.getLength().getX() / T{ 2 };
@@ -134,7 +134,7 @@ bool Box<T>::hasIntersection(const Box& rhs) const
 }
 
 template<typename T>
-void Box<T>::outerOffset(const T offsetLength)
+void Box3d<T>::outerOffset(const T offsetLength)
 {
 	const auto x = getMinX() - offsetLength;
 	const auto y = getMinY() - offsetLength;
@@ -145,7 +145,7 @@ void Box<T>::outerOffset(const T offsetLength)
 }
 
 template<typename T>
-Vector3dVector<T> Box<T>::toPoints(const T divideLength) const
+Vector3dVector<T> Box3d<T>::toPoints(const T divideLength) const
 {
 	Vector3dVector<T> points;
 	for (T x = getMinX(); x <= end.getX(); x += divideLength) {
@@ -159,7 +159,7 @@ Vector3dVector<T> Box<T>::toPoints(const T divideLength) const
 }
 
 template<typename T>
-bool Box<T>::isValid() const
+bool Box3d<T>::isValid() const
 {
 	return
 		(getMinX() <= end.getX()) && (getMinY() <= end.getY()) && (getMinZ() <= end.getZ());
@@ -167,20 +167,20 @@ bool Box<T>::isValid() const
 
 
 template<typename T>
-bool Box<T>::isShirinked() const
+bool Box3d<T>::isShirinked() const
 {
 	return
 		(getMinX() == end.getX()) && (getMinY() == end.getY()) && (getMinZ() == end.getZ());
 }
 
 template<typename T>
-Space3d<T> Box<T>::toSpace() const
+Space3d<T> Box3d<T>::toSpace() const
 {
 	return Space3d<T>(start, getLength());
 }
 
 template<typename T>
-std::vector<Vector3d<T>> Box<T>::toSurfacePositions(const T divideLength) const
+std::vector<Vector3d<T>> Box3d<T>::toSurfacePositions(const T divideLength) const
 {
 	std::vector<Vector3d<T>> results;
 	const auto minx = getMinX() + divideLength;
@@ -210,5 +210,5 @@ std::vector<Vector3d<T>> Box<T>::toSurfacePositions(const T divideLength) const
 	return results;
 }
 
-template class Box<float>;
-template class Box<double>;
+template class Box3d<float>;
+template class Box3d<double>;

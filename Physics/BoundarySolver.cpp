@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BoundarySolver::BoundarySolver(const float timeStep, const Box<float>& boundary) :
+BoundarySolver::BoundarySolver(const float timeStep, const Box3d<float>& boundary) :
 	timeStep( timeStep),
 	boundary( boundary)
 {

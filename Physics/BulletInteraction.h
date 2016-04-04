@@ -31,7 +31,7 @@ public:
 
 	void setExternalForce(const Math::Vector3d<float>& f);
 
-	void setBoundary(const Math::Box<float>& box);
+	void setBoundary(const Math::Box3d<float>& box);
 	//Particle
 
 private:

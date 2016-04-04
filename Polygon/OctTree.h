@@ -36,7 +36,7 @@ public:
 
 	bool operator!=(const OctTree& rhs) const;
 
-	Math::Box<float> getBoundingBox() const;
+	Math::Box3d<float> getBoundingBox() const;
 
 	std::vector<Particle*> getParticles() const { return particles; }
 

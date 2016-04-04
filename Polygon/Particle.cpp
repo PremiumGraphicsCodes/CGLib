@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-Box<float> Particle::getBoundingBox() const
+Box3d<float> Particle::getBoundingBox() const
 {
 	const auto minx = position.getX() - radius;
 	const auto miny = position.getY() - radius;
@@ -13,7 +13,7 @@ Box<float> Particle::getBoundingBox() const
 	const auto maxx = position.getX() + radius;
 	const auto maxy = position.getY() + radius;
 	const auto maxz = position.getZ() + radius;
-	return Box<float>(Vector3d<float>(minx, miny, minz), Vector3d<float>(maxx, maxy, maxz));
+	return Box3d<float>(Vector3d<float>(minx, miny, minz), Vector3d<float>(maxx, maxy, maxz));
 }
 
 Particle Particle::createBlended(const Particle& rhs, const float ratio) const

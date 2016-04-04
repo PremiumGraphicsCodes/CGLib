@@ -11,7 +11,7 @@ namespace Crystal {
 class Surfels
 {
 public:
-	Surfels(const Math::Box<float>& box, const float divideLength);
+	Surfels(const Math::Box3d<float>& box, const float divideLength);
 
 	Surfels(const std::vector<Math::Vector3d<float>>& positions) : positions(positions)
 	{}

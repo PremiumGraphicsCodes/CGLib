@@ -40,7 +40,7 @@ TEST(PolygonObjectTest, TestClone)
 TEST(PolygonObjectTest, TestAddBox)
 {
 	PolygonObject object;
-	Box<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
+	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
 	object.add(box);
 	const auto faces = object.getFaces();
 	EXPECT_EQ(12, faces.size());

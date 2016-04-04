@@ -7,7 +7,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, const unsigned int id) :
+BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const unsigned int id) :
 	id(id)
 {
 	const auto mass = box.getVolume() * constant->getDensity();
@@ -26,7 +26,7 @@ BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, const uns
 	body = new btRigidBody(info);
 
 	{
-		Box<float> box(-halfLength,halfLength);
+		Box3d<float> box(-halfLength,halfLength);
 		Surfels surfels(box, constant->getEffectLength() / 1.25f);
 		localPositions = surfels.toPositions();
 		for (auto pos : localPositions) {
@@ -35,7 +35,7 @@ BulletRigid::BulletRigid(const Box<float>& box, SPHConstant* constant, const uns
 		}
 
 	}
-	localBox = Box<float>(-halfLength, halfLength);
+	localBox = Box3d<float>(-halfLength, halfLength);
 	//box.getMin
 };
 

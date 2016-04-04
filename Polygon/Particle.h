@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Math {
 		template<typename>
-		class Box;
+		class Box3d;
 	}
 	namespace Polygon {
 
@@ -35,7 +35,7 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
-	Math::Box<float> getBoundingBox() const;
+	Math::Box3d<float> getBoundingBox() const;
 
 	float getDensity() const { return density; }
 

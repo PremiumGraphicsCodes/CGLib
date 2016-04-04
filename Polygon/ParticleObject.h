@@ -32,13 +32,13 @@ public:
 
 	void add(const Math::Sphere<float>& sphere, const float particleDiameter, const float charge = 1.0f);
 
-	void add(const Math::Box<float>& box, const float particleDiameter, const float charge = 1.0f);
+	void add(const Math::Box3d<float>& box, const float particleDiameter, const float charge = 1.0f);
 
 	~ParticleObject();
 
 	void sort();
 
-	Math::Box<float> getBoundingBox() const;
+	Math::Box3d<float> getBoundingBox() const;
 
 	std::vector<Particle*> getParticles() const { return particles; }
 

@@ -13,7 +13,7 @@ public:
 	BoundarySolver():
 	timeStep(1.0f){};
 
-	BoundarySolver(const float timeStep, const Math::Box<float>& boundary);
+	BoundarySolver(const float timeStep, const Math::Box3d<float>& boundary);
 
 	void solve(const std::vector<SPHParticle*>& particles);
 
@@ -27,7 +27,7 @@ private:
 	float getForce(const float over);
 
 	const float timeStep;
-	const Math::Box<float> boundary;
+	const Math::Box3d<float> boundary;
 };
 	}
 }

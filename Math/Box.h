@@ -8,27 +8,27 @@ namespace Crystal{
 		template<typename>
 		class Space3d;
 template<typename T>
-class Box final
+class Box3d final
 {
 public:
 	
-	Box();
+	Box3d();
 
-	Box(const Vector3d<T>& point);
+	Box3d(const Vector3d<T>& point);
 
-	Box(const Vector3d<T>& pointX, const Vector3d<T>& pointY);
+	Box3d(const Vector3d<T>& pointX, const Vector3d<T>& pointY);
 
-	~Box() = default;
+	~Box3d() = default;
 
-	static Box Unit() {
-		return Box();
+	static Box3d Unit() {
+		return Box3d();
 	}
 
-	Box getBoundingBox() const { return *this; }
+	Box3d getBoundingBox() const { return *this; }
 
 	void add(const Vector3d<T>& v);
 
-	void add(const Box& b);
+	void add(const Box3d& b);
 
 	T getVolume() const;
 
@@ -48,8 +48,8 @@ public:
 
 	void outerOffset(const T offsetLength);
 
-	Box getOuterOffset(const T offsetLength) const {
-		Box box = *this;
+	Box3d getOuterOffset(const T offsetLength) const {
+		Box3d box = *this;
 		box.outerOffset(offsetLength);
 		return box;
 	}
@@ -59,7 +59,7 @@ public:
 		assert(isValid());
 	}
 
-	Box getInnerOffset(const T offsetLength) const {
+	Box3d getInnerOffset(const T offsetLength) const {
 		return getOuterOffset(-offsetLength);
 	}
 
@@ -85,15 +85,15 @@ public:
 
 	bool isShirinked() const;
 
-	bool equals(const Box& rhs) const;
+	bool equals(const Box3d& rhs) const;
 
-	bool operator==( const Box& rhs ) const { return equals( rhs ); }
+	bool operator==( const Box3d& rhs ) const { return equals( rhs ); }
 
-	bool operator!=( const Box& rhs ) const { return !equals( rhs ); }
+	bool operator!=( const Box3d& rhs ) const { return !equals( rhs ); }
 
-	bool hasIntersection(const Box& rhs) const;
+	bool hasIntersection(const Box3d& rhs) const;
 
-	Box getOverlapped(const Box& rhs) const;
+	Box3d getOverlapped(const Box3d& rhs) const;
 
 	Space3d<T> toSpace() const;
 

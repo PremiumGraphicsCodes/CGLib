@@ -17,7 +17,7 @@ Sphere<T>::Sphere(const Vector3d<T>& center, const float radius) :
 {}
 
 template<typename T>
-Sphere<T>::Sphere(const Box<T>& boundingBox)
+Sphere<T>::Sphere(const Box3d<T>& boundingBox)
 {
 	center = Vector3d<T>(boundingBox.getCenter().getX(), boundingBox.getCenter().getY(), boundingBox.getCenter().getZ());
 	const Vector3d<T>& length = boundingBox.getLength();
@@ -25,8 +25,8 @@ Sphere<T>::Sphere(const Box<T>& boundingBox)
 }
 
 template<typename T>
-Box<T> Sphere<T>::getBoundingBox() const {
-	Math::Box<T> box(center, center);
+Box3d<T> Sphere<T>::getBoundingBox() const {
+	Math::Box3d<T> box(center, center);
 	return box.getOuterOffset(radius);
 }
 
@@ -35,7 +35,7 @@ Vector3dVector<T> Sphere<T>::toPoints(const float divideLength) const
 {
 	Vector3dVector<T> points;
 
-	Math::Box<T> box(center, center);
+	Math::Box3d<T> box(center, center);
 	box.outerOffset(radius);
 
 	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {

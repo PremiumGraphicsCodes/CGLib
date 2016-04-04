@@ -24,8 +24,8 @@ TEST( SphereTest, ShrinkTest )
 TEST( SphereTest, BoundingBoxTest )
 {
 	Sphere<float> s;
-	const Box<T>& bb = s.getBoundingBox();
-	const Box<T> expected( Vector3d<float>( -1.0, -1.0, -1.0 ), Vector3d<float>( 1.0, 1.0, 1.0 ) );
+	const Box3d<T>& bb = s.getBoundingBox();
+	const Box3d<T> expected( Vector3d<float>( -1.0, -1.0, -1.0 ), Vector3d<float>( 1.0, 1.0, 1.0 ) );
 	EXPECT_EQ( expected, bb );
 }
 

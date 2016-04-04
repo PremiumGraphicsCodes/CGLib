@@ -11,7 +11,7 @@
 namespace Crystal {
 	namespace Math {
 		template<typename T>
-		class Box;
+		class Box3d;
 
 template<typename T>
 class Sphere final
@@ -21,13 +21,13 @@ public:
 
 	Sphere(const Vector3d<T>& center, const float radius);
 
-	Sphere(const Math::Box<T>& boundingBox);
+	Sphere(const Math::Box3d<T>& boundingBox);
 
 	static Sphere UnitSphere() {
 		return Sphere( Vector3d<T>::Zero(), 1.0f );
 	}
 
-	Math::Box<T> getBoundingBox() const;
+	Math::Box3d<T> getBoundingBox() const;
 
 	Vector3dVector<T> toPoints(const float divideLength) const;
 

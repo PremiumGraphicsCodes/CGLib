@@ -27,7 +27,7 @@ void BulletWorld::simulate(const float timeStep)
 	world->stepSimulation(timeStep, 10);
 }
 
-void BulletWorld::setBoundary(const Box<float>& box)
+void BulletWorld::setBoundary(const Box3d<float>& box)
 {
 	btBoxShape* worldBoxShape = new btBoxShape( BulletConverter::convert( box.getLength() * 0.5 ));
 

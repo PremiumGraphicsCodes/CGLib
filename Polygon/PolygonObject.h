@@ -16,7 +16,7 @@ namespace Crystal {
 		template<typename>
 		class Sphere;
 		template<typename>
-		class Box;
+		class Box3d;
 		template<typename>
 		class Matrix4d;
 	}
@@ -42,7 +42,7 @@ public:
 
 	void add(const Math::Quad<float>& quad);
 
-	void add(const Math::Box<float>& box);
+	void add(const Math::Box3d<float>& box);
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
 

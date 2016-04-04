@@ -12,6 +12,6 @@ TEST(ParticleObjectTest, TestGetBoundingBox)
 	ParticleObject object;
 	object.add( Particle( Vector3d<float>(-1.0, -1.0, -1.0), 1.0f, 0.5f) );
 	object.add(Particle(Vector3d<float>(1.0, 1.0, 1.0), 1.0f, 0.5f));
-	Box<float> expected(Vector3d<float>(-1.5, -1.5, -1.5), Vector3d<float>(1.5, 1.5, 1.5));
+	Box3d<float> expected(Vector3d<float>(-1.5, -1.5, -1.5), Vector3d<float>(1.5, 1.5, 1.5));
 	EXPECT_EQ(expected, object.getBoundingBox());
 }

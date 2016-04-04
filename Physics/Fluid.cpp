@@ -9,7 +9,7 @@ Fluid::Fluid()
 {
 }
 
-Fluid::Fluid(const Box<float>& box, const float divideLength, const SPHConstant& constant) :
+Fluid::Fluid(const Box3d<float>& box, const float divideLength, const SPHConstant& constant) :
 	PhysicsObject(box, divideLength, constant)
 {
 }

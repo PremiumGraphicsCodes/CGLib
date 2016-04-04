@@ -15,7 +15,7 @@ TEST(WireframeTest, TestTriangle)
 
 TEST(WireframeTest, TestAddBox)
 {
-	Box<float> b;
+	Box3d<float> b;
 	Wireframe<float> frame;
 	frame.add(b);
 	EXPECT_EQ(12, frame.getLines().size());

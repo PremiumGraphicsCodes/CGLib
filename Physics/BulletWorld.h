@@ -26,7 +26,7 @@ public:
 
 	std::vector<BulletRigid*> getRigids() const { return rigids; }
 
-	void setBoundary(const Math::Box<float>& box);
+	void setBoundary(const Math::Box3d<float>& box);
 
 private:
 	btDefaultCollisionConfiguration collisionConfig;
