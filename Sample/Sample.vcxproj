@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="CouplingSample.cpp" />
     <ClCompile Include="Cursor3dSample.cpp" />
+    <ClCompile Include="DamBreakSample.cpp" />
     <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
@@ -180,6 +181,7 @@
   <ItemGroup>
     <ClInclude Include="CouplingSample.h" />
     <ClInclude Include="Cursor3dSample.h" />
+    <ClInclude Include="DamBreakSample.h" />
     <ClInclude Include="RigidSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />

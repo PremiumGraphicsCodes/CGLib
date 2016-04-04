@@ -21,6 +21,7 @@
 #include "IDRendererSample.h"
 #include "SmoothRendererSample.h"
 #include "Cursor3dSample.h"
+#include "DamBreakSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -101,15 +102,16 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 			break;
 		case GLFW_KEY_F2 :
-			activeSample = std::make_unique<RigidSample>();
-			activeSample->setup();
-
-			break;
-		case GLFW_KEY_F3 :
 			activeSample = std::make_unique<CouplingSample>();
 			activeSample->setup();
+			break;
+
+		case GLFW_KEY_F3:
+			activeSample = std::make_unique<DamBreakSample>();
+			activeSample->setup();
 
 			break;
+
 		case GLFW_KEY_F4 :
 			activeSample = std::make_unique<IOSample>();
 			activeSample->setup();
@@ -177,8 +179,8 @@ int main(int argc, char* argv)
 	glfwMakeContextCurrent(window);
 
 	std::cout << "Press F1 : Fluid Simulation" << std::endl;
-	std::cout << "Press F2 : Rigid Simulation" << std::endl;
-	std::cout << "Press F3 : Coupling Simulation" << std::endl;
+	std::cout << "Press F2 : Coupling Simulation" << std::endl;
+	std::cout << "Press F3 : Dam Break Simulation" << std::endl;
 	std::cout << "Press F4 : File IO" << std::endl;
 
 	std::cout << "Press F8 : ID Rendering" << std::endl;

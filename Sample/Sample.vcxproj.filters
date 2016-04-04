@@ -36,6 +36,9 @@
     <ClCompile Include="Cursor3dSample.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="DamBreakSample.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -72,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="Cursor3dSample.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DamBreakSample.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
