@@ -32,14 +32,11 @@ private:
 	int width;
 	int height;
 
+	Crystal::Math::Matrix3d<float> rotationMatrix;
+	Crystal::Math::Vector3d<float> cursor;
 	Crystal::Physics::ParticleWorld world;
 	Crystal::Graphics::ColorMap colorMap;
 	Crystal::Shader::PointRenderer renderer;
-
-	Crystal::Shader::IDRenderer idRenderer;
-	Crystal::Shader::FrameBuffer fb;
-
-	std::vector<Crystal::Physics::SPHParticle*> selectedParticles;
 };
 
 #endif

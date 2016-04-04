@@ -35,8 +35,8 @@ void CouplingSample::setup()
 	rigidConstant.isBoundary = true;
 
 	int nextId = 0;
-	for (int i = 0; i < 10; ++i) {
-		for (int j = 0; j < 5; ++j) {
+	for (int i = 0; i < 5; ++i) {
+		for (int j = 0; j < 10; ++j) {
 			const int id = nextId++;
 			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
 			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(j+1));
@@ -77,7 +77,7 @@ void CouplingSample::setup()
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-		Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 10.0f, 10.0f));
+		Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 10.0f));
 		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 

@@ -58,26 +58,30 @@ void FluidSample::setup()
 
 	renderer.build();
 
-	idRenderer.build();
-	fb.build(512, 512);
+	cursor = Vector3d<float>(0.0f, 20.0f, 25.0f);
 
 }
 
 void FluidSample::onKeyDown(const unsigned char c)
 {
 	if (c == 'x') {
-		for (int i = 0; i < fluids.size(); ++i) {
-			fluids[i]->move(Vector3d<float>(0.25f, 0.0f, 0.0f));
+		for (int i = 0; i < 10; ++i) {
+			//fluids[i]->move(Vector3d<float>(0.25f, 0.0f, 0.0f));
+			const auto pos = cursor + Vector3d<float>(i, 0.0f, i);
+			fluids.front()->createParticle(pos, Vector3d<float>(-50.0f, -20.0f, 0.0f));
 		}
 	}
 	if (c == 'y') {
-		for (int i = 0; i < fluids.size(); ++i) {
-			fluids[i]->move(Vector3d<float>(0.0f, 0.25f, 0.0f));
+		for (int i = 0; i < 10; ++i) {
+			const auto pos = cursor + Vector3d<float>(i, 0.0f, i);
+			fluids.front()->createParticle(pos, Vector3d<float>(0.0f, -20.0f, 0.0f));
+
 		}
 	}
 	if (c == 'z') {
-		for (int i = 0; i < fluids.size(); ++i) {
-			fluids[i]->move(Vector3d<float>(0.0f, 0.0f, -0.25f));
+		for (int i = 0; i < 10; ++i) {
+			const auto pos = cursor + Vector3d<float>(i, 0.0f, i);
+			fluids.front()->createParticle(pos, Vector3d<float>(50.0f, -20.0f, 0.0f));
 		}
 	}
 	/*
@@ -94,63 +98,51 @@ void FluidSample::onKeyDown(const unsigned char c)
 
 void FluidSample::onMiddleButtonDown(const float x, const float y)
 {
-
-	std::cout << "TEST" << std::endl;
-	//selectedParticles.clear();
-
-
-	const auto xRatio = x / float(this->width);
-	const auto yRatio = y / float(this->height);
-	//std::cout << xRatio << std::endl;
-	////std::cout << yRatio << std::endl;
-	const auto screenx = fb.getWidth() * xRatio;
-	const auto screeny = fb.getHeight() * yRatio;
-	//std::cout << screenx << std::endl;
-	//std::cout << screeny << std::endl;
-	const auto c = fb.getColor(screenx, fb.getHeight() - screeny);
-	std::cout << (float)c.getRed() << std::endl;
 }
 
 void FluidSample::onMiddleDragging(const float dx, const float dy)
 {
-	for (int i = 0; i < 10; ++i) {
-		//if (dx > 0.0) {
-			fluids.front()->createParticle(Vector3d<float>(i, 20.0f, 25.0f + i), Vector3d<float>(50.0f, -20.0f, 0.0f));
-		//}
-		//else {
-		//	fluids.front()->createParticle(Vector3d<float>(i, 20.0f, 25.0f + i), Vector3d<float>(-50.0f, -20.0f, 0.0f));
-
-		//}
-	}
-
-	//const auto invMatrix = rotationMatrix.getInverse();
-	//Vector3d<float> v(dx * 0.1, dy * 0.1, 0.0);
-	//v = v * invMatrix;
-	/*
-	for (auto p : selectedParticles) {
-		p->setVelocity(Vector3d<float>(dx*0.01 / 0.015, dy*0.01 / 0.015, 0.0f));
-		p->move(Vector3d<float>(dx*0.01, dy*0.01, 0.0f));
-	}
-	*/
+	Vector3d<float> v(-dx*0.1f, dy*0.1f, 0.0f);
+	v = v.getMult(rotationMatrix);
+	cursor += v;
 }
 
 
 void FluidSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
+	this->rotationMatrix = camera.getRotationMatrix();
+
 	this->width = width;
 	this->height = height;
 
 	const float effectLength = 1.20f;
-	world.simulate(effectLength, 0.015f);
+	world.simulate(effectLength, 0.02f);
 
 	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
 
+	{
+		glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, width, height);
 
-	//LegacyRenderer renderer;
-
+		PointBuffer buffer;
+		Point point(cursor, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 500.0f);
+		buffer.add(point);
+		renderer.render(camera, buffer);
+	}
 
 	PointBuffer buffer;
 	std::vector<SPHParticle*> particles = world.getFluidParticles();
+
+	/*
+	const auto eyePos = camera.getPos();
+	std::sort(particles.begin(), particles.end(),
+	[eyePos](Particle* p1, Particle* p2) {
+		const auto dist1 = p1->getPosition().getDistanceSquared(eyePos);
+		const auto dist2 = p2->getPosition().getDistanceSquared(eyePos);
+		return dist1 < dist2; }
+	);
+	*/
 
 	/*
 	float minPressure = +FLT_MAX;
@@ -172,36 +164,13 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		Crystal::Graphics::Point point(pos, color, 500.0f, p->getId());
 		buffer.add(point);
 	}
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glViewport(0, 0, fb.getWidth(), fb.getHeight());
-	fb.bind();
-	idRenderer.render(camera, buffer);
-	fb.unbind();
 
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glViewport(0, 0, width, height);
+
+
 	renderer.render(camera, buffer);
 
-	/*
-	const auto eyePos = camera.getPos();
-	std::sort(particles.begin(), particles.end(),
-		[eyePos](Particle* p1, Particle* p2) {
-		const auto dist1 = p1->getPosition().getDistanceSquared(eyePos);
-		const auto dist2 = p2->getPosition().getDistanceSquared(eyePos);
-		return dist1 < dist2; }
-	);
-	*/
 
-
-	/*
-	TriangleBuffer lineBuffer;
-	lineBuffer.add(*polygon);
-	renderer.render(camera, light, lineBuffer);
-
-	delete polygon;
-	*/
 }
