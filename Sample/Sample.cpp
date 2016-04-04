@@ -20,6 +20,7 @@
 #include "ParticleSample.h"
 #include "IDRendererSample.h"
 #include "SmoothRendererSample.h"
+#include "Cursor3dSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -124,6 +125,12 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			activeSample->setup();
 
 			break;
+		case GLFW_KEY_F7:
+			activeSample = std::make_unique <Cursor3dSample>();
+			activeSample->setup();
+
+			break;
+
 		default :
 			activeSample->onKeyDown(key);
 	}
@@ -175,6 +182,8 @@ int main(int argc, char* argv)
 	std::cout << "Press F4 : File IO" << std::endl;
 
 	std::cout << "Press F8 : ID Rendering" << std::endl;
+	std::cout << "Press F7 : Cursor UI" << std::endl;
+
 	std::cout << "Press F9 : Smooth Rendering" << std::endl;
 	std::cout << "Press F10 : Point Rendering" << std::endl;
 

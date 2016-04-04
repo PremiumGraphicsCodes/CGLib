@@ -114,7 +114,13 @@ void FluidSample::onMiddleButtonDown(const float x, const float y)
 void FluidSample::onMiddleDragging(const float dx, const float dy)
 {
 	for (int i = 0; i < 10; ++i) {
-		fluids.front()->createParticle(Vector3d<float>(i, 20.0f, 25.0f + i), Vector3d<float>(50.0f, -20.0f, 0.0f));
+		//if (dx > 0.0) {
+			fluids.front()->createParticle(Vector3d<float>(i, 20.0f, 25.0f + i), Vector3d<float>(50.0f, -20.0f, 0.0f));
+		//}
+		//else {
+		//	fluids.front()->createParticle(Vector3d<float>(i, 20.0f, 25.0f + i), Vector3d<float>(-50.0f, -20.0f, 0.0f));
+
+		//}
 	}
 
 	//const auto invMatrix = rotationMatrix.getInverse();
@@ -146,6 +152,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	PointBuffer buffer;
 	std::vector<SPHParticle*> particles = world.getFluidParticles();
 
+	/*
 	float minPressure = +FLT_MAX;
 	float maxPressure = -FLT_MAX;
 	for (auto p : particles) {
@@ -153,6 +160,9 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		maxPressure = std::max<float>(maxPressure, p->getDensity());
 	}
 	colorMap.setMinMax(minPressure, maxPressure);
+	*/
+	colorMap.setMinMax(900, 1400);
+
 
 	for (auto p : particles) {
 		const auto pos = p->getPosition();

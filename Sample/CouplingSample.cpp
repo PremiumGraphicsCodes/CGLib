@@ -170,9 +170,13 @@ void CouplingSample::onMiddleDragging(const float dx, const float dy)
 	if (selected == nullptr) {
 		return;
 	}
-	const auto invMatrix = rotationMatrix.getInverse();
-	Vector3d<float> v(-dx * 0.1, dy * 0.1, 0.0);
-	v = v * invMatrix;
+	//const auto invMatrix = rotationMatrix.getInverse();
+//	Vector3d<float> v(-dx * 0.1, dy * 0.1, 0.0);
+//	v = v * invMatrix;
+	Vector3d<float> v(-dx*0.1f, dy*0.1f, 0.0f);
+	v = v.getMult(rotationMatrix);
+	//cursor += v;
+
 	selected->move(v);
 }
 
