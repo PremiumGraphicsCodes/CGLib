@@ -53,6 +53,11 @@ void BulletRigid::clear()
 	sampleParticles.clear();
 }
 
+void BulletRigid::setVelocity(const Vector3d<float>& velocity)
+{
+	body->setLinearVelocity( BulletConverter::convert( velocity) );
+}
+
 float BulletRigid::getMass() const
 {
 	return 1.0f / (body->getInvMass());

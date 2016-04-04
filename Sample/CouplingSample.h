@@ -52,8 +52,6 @@ private:
 
 	Crystal::Physics::BulletRigid* selected;
 
-	std::map< Crystal::Physics::BulletRigid*, Crystal::Polygon::PolygonObject* > rigidPolygonMap;
-
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	std::unique_ptr< Crystal::Physics::Fluid > fluid;
 	Crystal::Physics::ParticleWorld particleWorld;

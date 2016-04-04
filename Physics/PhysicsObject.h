@@ -32,6 +32,8 @@ public:
 
 	std::vector<SPHParticle*> createParticles(const Math::Box3d<float>& box, const float divideLength);
 
+	std::vector<SPHParticle*> createParticles(const Math::Sphere<float>& sphere, const float divideLength);
+
 	virtual ~PhysicsObject();
 
 	virtual void coordinate(const float timeStep) {};

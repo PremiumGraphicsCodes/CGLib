@@ -63,6 +63,19 @@ std::vector<SPHParticle*> PhysicsObject::createParticles(const Box3d<float>& box
 	return newParticles;
 }
 
+std::vector<SPHParticle*> PhysicsObject::createParticles(const Sphere<float>& sphere, const float divideLength)
+{
+	std::vector<SPHParticle*> newParticles;
+
+	const auto points = sphere.toPoints(divideLength);
+	for (const auto& pos : points) {
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant, nextId++);
+		particles.push_back(p);
+		newParticles.push_back(p);
+	}
+	return newParticles;
+}
+
 
 float PhysicsObject::getMass() const
 {

@@ -39,6 +39,8 @@ namespace Crystal {
 
 	float getMass() const;
 
+	void setVelocity(const Math::Vector3d<float>& v);
+
 	Math::Vector3d<float> getOrigin() const;
 
 	Math::Quaternion<float> getOrientation() const;

@@ -40,14 +40,12 @@ void CouplingSample::setup()
 		const Vector3d<float> start(-4.0f, 10.0f*i, 2.0f);
 		const Vector3d<float> end(-2.0f, 10.0f*(i + 1), 4.0f);
 		Box3d<float> box(start, end);
-		auto rigid = new BulletRigid(box, &rigidConstant, id);
-		rigid->transform();
-		bulletWorld.add(rigid);
-
 		auto shape = new PolygonObject(id);
+		auto rigid = new BulletRigid(box, &rigidConstant, id, shape);
+		bulletWorld.add(rigid);
 		shape->add(rigid->getLocalShape());
+
 		shapes.push_back(shape);
-		rigidPolygonMap[rigid] = shape;
 		rigids.push_back(rigid);
 	}
 
@@ -56,14 +54,13 @@ void CouplingSample::setup()
 		const Vector3d<float> start(-4.0f, 10.0f*i, 6.0f);
 		const Vector3d<float> end(-2.0f, 10.0f*(i + 1), 8.0f);
 		Box3d<float> box(start, end);
-		auto rigid = new BulletRigid(box, &rigidConstant, id);
-		rigid->transform();
-		bulletWorld.add(rigid);
 
 		auto shape = new PolygonObject(id);
+		auto rigid = new BulletRigid(box, &rigidConstant, id, shape);
+		bulletWorld.add(rigid);
 		shape->add(rigid->getLocalShape());
+
 		shapes.push_back(shape);
-		rigidPolygonMap[rigid] = shape;
 		rigids.push_back(rigid);
 	}
 
@@ -120,31 +117,33 @@ void CouplingSample::onMouseMove(const float x, const float y)
 }
 
 void CouplingSample::onKeyDown(const unsigned char c)
-{/*
-	if (c == 'r') {
-		//fluid->createParticle()
-		const Vector3d<float> start(4.0f, 10.0, 4.0);
-		const Vector3d<float> end(10.0, 12.0, 10.0);
-		Box3d<float> box(start, end);
-		auto rigid = new BulletRigid(box, &rigidConstant, -1);
-		rigid->transform();
-		bulletWorld.add(rigid);
-
-		auto shape = new PolygonObject(-1);
-		shape->add(rigid->getLocalShape());
-		shapes.push_back(shape);
-		rigidPolygonMap[rigid] = shape;
-		rigids.push_back(rigid);
-		interaction.add(rigid);
-	}
-	*/
-	if (c == 'f') {
+{
+	if (c == 'b') {
 		const Vector3d<float> start(0.0f, 20.0, 0.0);
 		const Vector3d<float> end(10.0, 30.0, 10.0);
 		Box3d<float> box(start, end);
 		fluid->createParticles(box, 1.0f);
-
 	}
+	if (c == 's') {
+		Sphere<float> sphere( Vector3d<float>(5.0f, 25.0f, 5.0f), 5.0f);
+		fluid->createParticles(sphere, 1.0f);
+	}
+	if (c == 'r') {
+		const Vector3d<float> start(0.0f, 20.0, 0.0);
+		const Vector3d<float> end(2.0, 30.0, 10.0);
+		Box3d<float> box(start, end);
+
+		auto shape = new PolygonObject(-1);
+		auto rigid = new BulletRigid(box, &rigidConstant, -1, shape);
+		bulletWorld.add(rigid);
+		shape->add(rigid->getLocalShape());
+
+		shapes.push_back(shape);
+		rigids.push_back(rigid);
+		interaction.add(rigid);
+	}
+
+	std::cout << fluid->getParticles().size() << std::endl;
 }
 
 void CouplingSample::onLeftButtonDown(const float x, const float y)
@@ -159,12 +158,8 @@ void CouplingSample::onMiddleButtonDown(const float x, const float y)
 {
 	const auto xRatio = x / float(this->width);
 	const auto yRatio = y / float(this->height);
-	////std::cout << xRatio << std::endl;
-	////std::cout << yRatio << std::endl;
 	const auto screenx = fb.getWidth() * xRatio;
 	const auto screeny = fb.getHeight() * yRatio;
-	//std::cout << screenx << std::endl;
-	//std::cout << screeny << std::endl;
 	const auto c = fb.getColor(screenx, fb.getHeight() - screeny);
 	///*
 	std::cout << (float)c.getRed() << std::endl;
@@ -194,6 +189,7 @@ void CouplingSample::onMiddleDragging(const float dx, const float dy)
 	v = v.getMult(rotationMatrix);
 	//cursor += v;
 
+	selected->setVelocity(v / (1.0f / 60.0f));
 	selected->move(v);
 }
 
@@ -215,9 +211,9 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto m : rigidPolygonMap) {
-		const auto matrix = m.first->getTransformMatrix();
-		auto p = m.second->clone(m.second->getId());
+	for (auto r : rigids) {
+		const auto matrix = r->getTransformMatrix();
+		auto p = r->getShape()->clone(r->getShape()->getId());
 		p->transform(matrix);
 
 		glViewport(0, 0, width, height);
@@ -238,9 +234,9 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	for (auto m : rigidPolygonMap) {
-		const auto matrix = m.first->getTransformMatrix();
-		auto p = m.second->clone(m.second->getId());
+	for (auto r : rigids) {
+		const auto matrix = r->getTransformMatrix();
+		auto p = r->getShape()->clone(r->getShape()->getId());
 		p->transform(matrix);
 
 		glViewport(0, 0, width, height);
@@ -255,14 +251,6 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		delete p;
 	}
 
-	/*
-	{
-		PointBuffer buffer;
-		buffer.add(*fluid);
-		renderer.renderAlphaBlend(camera, buffer);
-
-	}
-	*/
 	glViewport(0, 0, width, height);
 
 	const auto& particles = fluid->getParticles();
