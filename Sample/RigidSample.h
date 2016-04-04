@@ -19,7 +19,9 @@ class RigidSample : public ISample
 public:
 	RigidSample() {}
 
-	void setup();
+	void setup() override;
+
+	void cleanup() override;
 
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
@@ -27,16 +29,8 @@ public:
 
 private:
 
-	void cleanup() {};
-
-	std::unique_ptr< Crystal::Physics::BulletRigid > rigid1;
-	std::unique_ptr< Crystal::Physics::BulletRigid > rigid2;
-	std::unique_ptr< Crystal::Physics::BulletRigid > rigid3;
-	Crystal::Polygon::PolygonObject shape1;
-	Crystal::Polygon::PolygonObject shape2;
-	Crystal::Polygon::PolygonObject shape3;
-
-	std::map< Crystal::Physics::BulletRigid*, Crystal::Polygon::PolygonObject* > rigidPolygonMap;
+	std::vector< Crystal::Physics::BulletRigid* > rigids;
+	std::vector<  Crystal::Polygon::PolygonObject*> shapes;
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;

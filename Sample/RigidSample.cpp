@@ -29,24 +29,26 @@ void RigidSample::setup()
 	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
 	{
 		Box3d<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
-		rigid1 = std::make_unique<BulletRigid>(box, &constant);
-		shape1.add(box);
-		world.add(rigid1.get());
-		rigidPolygonMap[ rigid1.get() ] = &shape1;
+		auto s = new PolygonObject();
+		s->add(box);
+		auto r = new BulletRigid(box, &constant, -1, s);
+		rigids.push_back(r);
+		world.add(r);
 	}
 	{
 		Box3d<float> box(Vector3d<float>(-0.5, 0.5f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
-		shape2.add(box);
-		rigid2 = std::make_unique<BulletRigid>(box, &constant);
-		world.add(rigid2.get());
-		rigidPolygonMap[rigid2.get()] = &shape2;
+		auto s = new PolygonObject();
+		s->add(box);
+		auto r  = new BulletRigid(box, &constant, -1, s);
+		rigids.push_back(r);
+		world.add(r);
 	}
 	{
 		Box3d<float> box(Vector3d<float>(-0.5, 1.0f, -0.5f), Vector3d<float>(0.5f, 2.0f, 0.5f));
-		shape3.add(box);
-		rigid3 = std::make_unique<BulletRigid>(box, &constant);
-		world.add(rigid3.get());
-		rigidPolygonMap[rigid3.get()] = &shape3;
+		auto s = new PolygonObject();
+		s->add(box);
+		auto r = new BulletRigid(box, &constant, -1, s);
+		world.add(r);
 	}
 
 	const Box3d<float> box(Vector3d<float>(-50.0f, -5.0f, -50.0f), Vector3d<float>(50.0f, 100.0f, 50.0f));
@@ -56,30 +58,20 @@ void RigidSample::setup()
 	smoothRenderer.build();
 }
 
+void RigidSample::cleanup()
+{
+	for (auto r : rigids) {
+		delete r;
+	}
+	rigids.clear();
+	for (auto s : shapes) {
+		delete s;
+	}
+	shapes.clear();
+}
+
 void RigidSample::onMiddleButtonDown(const float x, const float y)
 {
-	//const auto xRatio = x / float(this->width);
-	//const auto yRatio = y / float(this->height);
-	////std::cout << xRatio << std::endl;
-	////std::cout << yRatio << std::endl;
-	//const auto screenx = fb.getWidth() * xRatio;
-	//const auto screeny = fb.getHeight() * yRatio;
-	//std::cout << screenx << std::endl;
-	//std::cout << screeny << std::endl;
-	//const auto c = fb.getColor(screenx, screeny);
-	///*
-	//std::cout << (float)c.getRed() << std::endl;
-	//std::cout << (float)c.getGreen() << std::endl;
-	//std::cout << (float)c.getBlue() << std::endl;
-	//std::cout << (float)c.getAlpha() << std::endl;
-	//*/
-	//const int pickedColor = c.getRed();
-	//for (auto r : rigids) {
-	//	const unsigned int id = r->getId();
-	//	if (id == pickedColor) {
-	//		selected = r;
-	//	}
-	//}
 }
 
 
@@ -92,8 +84,6 @@ void RigidSample::demonstrate(const int width, const int height, const Crystal::
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	LegacyRenderer renderer;
-
 	PointBuffer buffer;
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 
@@ -101,15 +91,12 @@ void RigidSample::demonstrate(const int width, const int height, const Crystal::
 	light.setPos(Vector3d<float>(10.0f, 10.0f, -10.0f));
 	light.setDiffuse(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
 
-	for (auto m : rigidPolygonMap) {
-		//LineBuffer lineBuffer;
+	for (auto r : rigids) {
 		TriangleBuffer triangleBuffer;
-		const auto matrix = m.first->getTransformMatrix();
-		auto p = m.second->clone();
+		const auto matrix = r->getTransformMatrix();
+		auto p = r->getShape()->clone();
 		p->transform(matrix);
-		//lineBuffer.add(*p);
 		triangleBuffer.add(*p);
-		//renderer.render(camera, lineBuffer);
 		smoothRenderer.render(camera, triangleBuffer, light);
 		delete p;
 	}

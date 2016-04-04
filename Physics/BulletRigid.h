@@ -12,6 +12,7 @@
 #include "../Math/Matrix4d.h"
 #include "Surfels.h"
 #include "SPHConstant.h"
+#include "../Polygon/PolygonObject.h"
 
 class btRigidBody;
 
@@ -19,16 +20,17 @@ namespace Crystal {
 	namespace Physics {
 		class SPHParticle;
 
-class BulletRigid
-{
-public:
-	BulletRigid(const Math::Box3d<float>& box, SPHConstant* constant, const unsigned int id = -1);
+		class BulletRigid
+		{
+		public:
+			BulletRigid(const Math::Box3d<float>& box, SPHConstant* constant, const unsigned int id = -1, Polygon::PolygonObject* shape = nullptr);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
 	BulletRigid(btRigidBody* body, const unsigned int id = -1) :
 		id(id),
-		body(body)
+		body(body),
+		shape(nullptr)
 	{}
 
 	~BulletRigid();
@@ -61,11 +63,16 @@ public:
 
 	unsigned int getId() const { return id; }
 
+	void setShape(Polygon::PolygonObject* shape) { this->shape = shape; }
+
+	Polygon::PolygonObject* getShape() const { return this->shape; }
+
 private:
 	btRigidBody* body;
 	Math::Box3d<float> localBox;
 	std::vector<Math::Vector3d<float>> localPositions;
 	std::vector<SPHParticle*> sampleParticles;
+	Polygon::PolygonObject* shape;
 	const unsigned int id;
 };
 

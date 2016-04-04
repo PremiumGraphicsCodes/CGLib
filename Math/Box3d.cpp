@@ -183,12 +183,12 @@ template<typename T>
 std::vector<Vector3d<T>> Box3d<T>::toSurfacePositions(const T divideLength) const
 {
 	std::vector<Vector3d<T>> results;
-	const auto minx = getMinX() + divideLength * 0.5;
-	const auto maxx = getMaxX() - divideLength * 0.5;
-	const auto miny = getMinY() + divideLength * 0.5;
-	const auto maxy = getMaxY() - divideLength * 0.5;
-	const auto minz = getMinZ() + divideLength * 0.5;
-	const auto maxz = getMaxZ() - divideLength * 0.5;
+	const auto minx = getMinX() + divideLength * T{ 0.5 };
+	const auto maxx = getMaxX() - divideLength * T{ 0.5 };
+	const auto miny = getMinY() + divideLength * T{ 0.5 };
+	const auto maxy = getMaxY() - divideLength * T{ 0.5 };
+	const auto minz = getMinZ() + divideLength * T{ 0.5 };
+	const auto maxz = getMaxZ() - divideLength * T{ 0.5 };
 	for (auto x = minx; x <= maxx; x += divideLength) {
 		for (auto y = miny; y <= maxy; y += divideLength) {
 			results.push_back( Vector3d<T>(x, y, minz) );

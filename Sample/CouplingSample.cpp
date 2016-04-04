@@ -36,44 +36,40 @@ void CouplingSample::setup()
 
 	int nextId = 0;
 	for (int i = 0; i < 5; ++i) {
-		for (int j = 0; j < 10; ++j) {
-			const int id = nextId++;
-			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
-			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(j+1));
-			Box3d<float> box(start, end);
-			auto rigid = new BulletRigid(box, &rigidConstant, id);
-			rigid->transform();
-			bulletWorld.add(rigid);
-
-			auto shape = new PolygonObject(id);
-			shape->add(rigid->getLocalShape());
-			shapes.push_back(shape);
-			rigidPolygonMap[rigid] = shape;
-			rigids.push_back(rigid);
-		}
-	}
-	selected = nullptr;
-
-	/*
-	{
-		const Vector3d<float> start(-10.0f, 0.0f, -10.0f);
-		const Vector3d<float> end(-8.0f, 20.0f, 10.0f);
-		Box<float> box(start, end);
-		auto rigid = new BulletRigid(box, &rigidConstant);
+		const int id = nextId++;
+		const Vector3d<float> start(-4.0f, 10.0f*i, 2.0f);
+		const Vector3d<float> end(-2.0f, 10.0f*(i + 1), 4.0f);
+		Box3d<float> box(start, end);
+		auto rigid = new BulletRigid(box, &rigidConstant, id);
 		rigid->transform();
 		bulletWorld.add(rigid);
-		const auto& localShape = rigid->getLocalShape();//Box<float> localBox(Vector3d<float>(-1.0f, -10.0f, -10.0f), Vector3d<float>(1.0f, 10.0f, 10.0f));
 
-		auto shape = new PolygonObject();
-		shape->add(localShape);
+		auto shape = new PolygonObject(id);
+		shape->add(rigid->getLocalShape());
 		shapes.push_back(shape);
 		rigidPolygonMap[rigid] = shape;
 		rigids.push_back(rigid);
-
-		selected = rigid;
-
 	}
-	*/
+
+	for (int i = 0; i < 5; ++i) {
+		const int id = nextId++;
+		const Vector3d<float> start(-4.0f, 10.0f*i, 6.0f);
+		const Vector3d<float> end(-2.0f, 10.0f*(i + 1), 8.0f);
+		Box3d<float> box(start, end);
+		auto rigid = new BulletRigid(box, &rigidConstant, id);
+		rigid->transform();
+		bulletWorld.add(rigid);
+
+		auto shape = new PolygonObject(id);
+		shape->add(rigid->getLocalShape());
+		shapes.push_back(shape);
+		rigidPolygonMap[rigid] = shape;
+		rigids.push_back(rigid);
+	}
+
+	
+	selected = nullptr;
+
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
@@ -82,7 +78,7 @@ void CouplingSample::setup()
 		particleWorld.add(fluid.get());
 
 	}
-	Box3d<float> boundary(Vector3d<float>(-20.0, 0.0f, 0.0), Vector3d<float>(20.0, 1000.0, 20.0));
+	Box3d<float> boundary(Vector3d<float>(-100.0, 0.0f, 0.0), Vector3d<float>(100.0, 1000.0, 20.0));
 
 	interaction = BulletInteraction(&particleWorld, &bulletWorld);
 	interaction.setExternalForce(Vector3d<float>(0, -9.8f, 0));
@@ -124,7 +120,7 @@ void CouplingSample::onMouseMove(const float x, const float y)
 }
 
 void CouplingSample::onKeyDown(const unsigned char c)
-{
+{/*
 	if (c == 'r') {
 		//fluid->createParticle()
 		const Vector3d<float> start(4.0f, 10.0, 4.0);
@@ -141,6 +137,7 @@ void CouplingSample::onKeyDown(const unsigned char c)
 		rigids.push_back(rigid);
 		interaction.add(rigid);
 	}
+	*/
 	if (c == 'f') {
 		const Vector3d<float> start(0.0f, 20.0, 0.0);
 		const Vector3d<float> end(10.0, 30.0, 10.0);
@@ -193,9 +190,6 @@ void CouplingSample::onMiddleDragging(const float dx, const float dy)
 	if (selected == nullptr) {
 		return;
 	}
-	//const auto invMatrix = rotationMatrix.getInverse();
-//	Vector3d<float> v(-dx * 0.1, dy * 0.1, 0.0);
-//	v = v * invMatrix;
 	Vector3d<float> v(-dx*0.1f, dy*0.1f, 0.0f);
 	v = v.getMult(rotationMatrix);
 	//cursor += v;

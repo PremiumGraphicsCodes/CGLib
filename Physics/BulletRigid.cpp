@@ -5,24 +5,26 @@
 #include "SPHParticle.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const unsigned int id) :
-	id(id)
+BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const unsigned int id, PolygonObject* shape) :
+	id(id),
+	shape(shape)
 {
 	const auto mass = box.getVolume() * constant->getDensity();
 	const auto halfLength = box.getLength() * 0.5f;
 	const auto origin = box.getCenter();
-	auto shape = new btBoxShape(BulletConverter::convert(halfLength));
+	auto s = new btBoxShape(BulletConverter::convert(halfLength));
 	btTransform transform;
 	transform.setIdentity();
 	transform.setOrigin( BulletConverter::convert(origin) );
 
 	btVector3 inertia;
-	shape->calculateLocalInertia(mass, inertia);
+	s->calculateLocalInertia(mass, inertia);
 
 	btDefaultMotionState* motionState = new btDefaultMotionState(transform);
-	btRigidBody::btRigidBodyConstructionInfo info(mass, motionState, shape, inertia);
+	btRigidBody::btRigidBodyConstructionInfo info(mass, motionState, s, inertia);
 	body = new btRigidBody(info);
 
 	{
