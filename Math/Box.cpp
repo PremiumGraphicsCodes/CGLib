@@ -179,6 +179,36 @@ Space3d<T> Box<T>::toSpace() const
 	return Space3d<T>(start, getLength());
 }
 
+template<typename T>
+std::vector<Vector3d<T>> Box<T>::toSurfacePositions(const T divideLength) const
+{
+	std::vector<Vector3d<T>> results;
+	const auto minx = getMinX() + divideLength;
+	const auto maxx = getMaxX() - divideLength;
+	const auto miny = getMinY() + divideLength;
+	const auto maxy = getMaxY() - divideLength;
+	const auto minz = getMinZ() + divideLength;
+	const auto maxz = getMaxZ() - divideLength;
+	for (auto x = minx; x <= maxx; x += divideLength) {
+		for (auto y = miny; y <= maxy; y += divideLength) {
+			results.push_back( Vector3d<T>(x, y, minz) );
+			results.push_back( Vector3d<T>(x, y, maxz) );
+		}
+	}
+	for (auto y = miny; y <= maxy; y += divideLength) {
+		for (auto z = minz; z <= maxz; z += divideLength) {
+			results.push_back(Vector3d<T>(minx, y, z));
+			results.push_back(Vector3d<T>(maxx, y, z));
+		}
+	}
+	for (auto z = minz; z <= maxz; z += divideLength) {
+		for (auto x = minz; x <= maxz; x += divideLength) {
+			results.push_back(Vector3d<T>(x, minz, z));
+			results.push_back(Vector3d<T>(x, maxz, z));
+		}
+	}
+	return results;
+}
 
 template class Box<float>;
 template class Box<double>;

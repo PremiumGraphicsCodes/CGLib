@@ -97,6 +97,8 @@ public:
 
 	Space3d<T> toSpace() const;
 
+	std::vector<Math::Vector3d<T>> toSurfacePositions(const T divideLength) const;
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> end;
