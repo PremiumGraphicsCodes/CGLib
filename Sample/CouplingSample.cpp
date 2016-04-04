@@ -36,7 +36,7 @@ void CouplingSample::setup()
 
 	int nextId = 0;
 	for (int i = 0; i < 10; ++i) {
-		for (int j = 0; j < 10; ++j) {
+		for (int j = 0; j < 5; ++j) {
 			const int id = nextId++;
 			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *j);
 			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(j+1));

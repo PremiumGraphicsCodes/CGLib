@@ -40,7 +40,7 @@ private:
 	Crystal::Shader::IDRenderer idRenderer;
 	Crystal::Shader::FrameBuffer fb;
 
-	Crystal::Physics::SPHParticle* selectedParticle;
+	std::vector<Crystal::Physics::SPHParticle*> selectedParticles;
 };
 
 #endif

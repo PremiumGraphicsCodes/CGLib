@@ -27,8 +27,7 @@ BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const u
 
 	{
 		Box3d<float> box(-halfLength,halfLength);
-		Surfels surfels(box, constant->getEffectLength() / 1.25f);
-		localPositions = surfels.toPositions();
+		localPositions = box.toSurfacePositions(constant->getEffectLength() / 1.25f);
 		for (auto pos : localPositions) {
 			SPHParticle* particle = new SPHParticle(pos, constant->getEffectLength() / 1.25f * 0.5f, constant);
 			sampleParticles.push_back(particle);

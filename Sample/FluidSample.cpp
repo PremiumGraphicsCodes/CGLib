@@ -44,8 +44,6 @@ void FluidSample::setup()
 
 	}
 
-	selectedParticle = fluids.front()->getParticles().front();
-
 	world.setExternalForce(Vector3d<float>(0.0, -9.8f, 0.0));
 	Box3d<float> boundary( Vector3d<float>(-50.0, 0.0f, 0.0 ), Vector3d<float>(50.0, 1000.0, 50.0 ));
 
@@ -100,6 +98,7 @@ void FluidSample::onKeyDown(const unsigned char c)
 void FluidSample::onMiddleButtonDown(const float x, const float y)
 {
 	std::cout << "TEST" << std::endl;
+	selectedParticles.clear();
 
 	const auto xRatio = x / float(this->width);
 	const auto yRatio = y / float(this->height);
@@ -115,14 +114,13 @@ void FluidSample::onMiddleButtonDown(const float x, const float y)
 
 void FluidSample::onMiddleDragging(const float dx, const float dy)
 {
-	if (selectedParticle == nullptr) {
-		return;
-	}
 	//const auto invMatrix = rotationMatrix.getInverse();
 	//Vector3d<float> v(dx * 0.1, dy * 0.1, 0.0);
 	//v = v * invMatrix;
-	selectedParticle->setVelocity(Vector3d<float>(dx*0.01/0.015, dy*0.01/0.015, 0.0f));
-	//selectedParticle->move(Vector3d<float>(dx*0.01,dy*0.01, 0.0f));
+	for (auto p : selectedParticles) {
+		p->setVelocity(Vector3d<float>(dx*0.01 / 0.015, dy*0.01 / 0.015, 0.0f));
+		p->move(Vector3d<float>(dx*0.01, dy*0.01, 0.0f));
+	}
 }
 
 

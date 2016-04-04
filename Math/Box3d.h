@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_BOX_H__
-#define __CRYSTAL_MATH_BOX_H__
+#ifndef __CRYSTAL_MATH_BOX_3D_H__
+#define __CRYSTAL_MATH_BOX_3D_H__
 
 #include "Vector3d.h"
 
