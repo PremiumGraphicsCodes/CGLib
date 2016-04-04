@@ -80,7 +80,7 @@ void FluidSample::onKeyDown(const unsigned char c)
 	}
 	if (c == 'z') {
 		for (int i = 0; i < fluids.size(); ++i) {
-			fluids[i]->move(Vector3d<float>(0.0f, 0.0f, 0.25f));
+			fluids[i]->move(Vector3d<float>(0.0f, 0.0f, -0.25f));
 		}
 	}
 	/*
@@ -97,8 +97,10 @@ void FluidSample::onKeyDown(const unsigned char c)
 
 void FluidSample::onMiddleButtonDown(const float x, const float y)
 {
+
 	std::cout << "TEST" << std::endl;
-	selectedParticles.clear();
+	//selectedParticles.clear();
+
 
 	const auto xRatio = x / float(this->width);
 	const auto yRatio = y / float(this->height);
@@ -114,13 +116,19 @@ void FluidSample::onMiddleButtonDown(const float x, const float y)
 
 void FluidSample::onMiddleDragging(const float dx, const float dy)
 {
+	for (int i = 0; i < 10; ++i) {
+		fluids.front()->createParticle(Vector3d<float>(i, 20.0f, 25.0f + i), Vector3d<float>(50.0f, -20.0f, 0.0f));
+	}
+
 	//const auto invMatrix = rotationMatrix.getInverse();
 	//Vector3d<float> v(dx * 0.1, dy * 0.1, 0.0);
 	//v = v * invMatrix;
+	/*
 	for (auto p : selectedParticles) {
 		p->setVelocity(Vector3d<float>(dx*0.01 / 0.015, dy*0.01 / 0.015, 0.0f));
 		p->move(Vector3d<float>(dx*0.01, dy*0.01, 0.0f));
 	}
+	*/
 }
 
 

@@ -41,6 +41,15 @@ PhysicsObject::~PhysicsObject()
 	clear();
 }
 
+SPHParticle* PhysicsObject::createParticle(const Vector3d<float>& position, const Vector3d<float>& velocity)
+{
+	auto p = new SPHParticle(position, constant.getEffectLength() / 1.25 / 2.0, &constant);
+	p->setVelocity(velocity);
+	particles.push_back(p);
+	return p;
+}
+
+
 float PhysicsObject::getMass() const
 {
 	auto weight = 0.0f;

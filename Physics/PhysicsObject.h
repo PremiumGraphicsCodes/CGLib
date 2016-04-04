@@ -17,7 +17,8 @@ namespace Crystal {
 	namespace Physics {
 		class SPHParticle;
 
-class PhysicsObject {
+class PhysicsObject
+{
 public:
 	PhysicsObject() {};
 
@@ -26,6 +27,8 @@ public:
 	PhysicsObject(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
 
 	PhysicsObject(const std::vector<SPHParticle*>& particles);
+
+	SPHParticle* createParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
 
 	virtual ~PhysicsObject();
 
