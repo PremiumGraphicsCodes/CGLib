@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../Math/Space3d.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 
 namespace Crystal {
 	namespace Polygon {

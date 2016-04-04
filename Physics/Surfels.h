@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_SURFELS_H__
 #define __CRYSTAL_PHYSICS_SURFELS_H__
 
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 #include "../Math/Sphere.h"
 #include "../Math/Quaternion.h"
 

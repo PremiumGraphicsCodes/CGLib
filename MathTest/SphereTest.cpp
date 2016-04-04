@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
  
 #include "../Math/Sphere.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 
 using namespace Crystal::Math;
 

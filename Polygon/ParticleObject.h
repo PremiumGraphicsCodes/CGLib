@@ -3,7 +3,7 @@
 
 #include "Vertex.h"
 #include "../Math/Sphere.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 #include "../Math/Index3d.h"
 #include "Particle.h"
 

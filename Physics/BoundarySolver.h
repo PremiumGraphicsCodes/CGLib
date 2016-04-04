@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_PHYSICS_BOUNDARY_SOLVER_H__
 #define __CRYSTAL_PHYSICS_BOUNDARY_SOLVER_H__
 
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 
 namespace Crystal {
 	namespace Physics {

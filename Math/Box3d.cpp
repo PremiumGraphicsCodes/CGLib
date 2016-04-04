@@ -1,4 +1,4 @@
-#include "Box.h"
+#include "Box3d.h"
 #include "Space3d.h"
 
 using namespace Crystal::Math;

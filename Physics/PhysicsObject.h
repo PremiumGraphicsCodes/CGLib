@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "../Math/Vector3d.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 #include "../Math/Sphere.h"
 #include "../Math/Index3d.h"
 #include "SPHConstant.h"

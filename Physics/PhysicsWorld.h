@@ -3,7 +3,7 @@
 
 #include "PhysicsObject.h"
 #include "SPHKernel.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 #include <vector>
 
 namespace Crystal {

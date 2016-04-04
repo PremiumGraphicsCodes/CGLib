@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Box.h" />
+    <ClInclude Include="Box3d.h" />
     <ClInclude Include="Box2d.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
@@ -43,7 +43,7 @@
     <ClInclude Include="Vector4d.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Box3d.cpp" />
     <ClCompile Include="Box2d.cpp" />
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />

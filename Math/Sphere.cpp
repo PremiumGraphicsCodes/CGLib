@@ -1,6 +1,6 @@
 #include "Sphere.h"
 
-#include "Box.h"
+#include "Box3d.h"
 
 using namespace Crystal::Math;
 

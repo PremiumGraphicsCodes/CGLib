@@ -3,7 +3,7 @@
 
 #include "../Math/Line3d.h"
 #include "../Math/Triangle.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 
 namespace Crystal {
 	namespace Graphics {

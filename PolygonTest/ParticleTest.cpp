@@ -2,7 +2,7 @@
 
 #include "../Polygon/Particle.h"
 
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;

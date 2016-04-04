@@ -6,7 +6,7 @@
 #include "Bullet.h"
 
 #include "../Math/Vector3d.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 #include "../Math/Sphere.h"
 #include "../Math/Quaternion.h"
 #include "../Math/Matrix4d.h"

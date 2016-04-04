@@ -3,7 +3,7 @@
 
 #include "Bullet.h"
 #include "../Math/Vector3d.h"
-#include "../Math/Box.h"
+#include "../Math/Box3d.h"
 
 namespace Crystal {
 	namespace Physics {
