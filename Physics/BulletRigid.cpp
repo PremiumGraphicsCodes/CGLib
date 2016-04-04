@@ -106,6 +106,7 @@ std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
 
 void BulletRigid::solveBoundary()
 {
+	body->activate(true);
 	const auto& center = BulletConverter::convert( body->getCenterOfMassPosition() );
 	for (const auto p : sampleParticles) {
 		const auto& f = p->getForce(); // / p->getDensity(); /// p->getDensity();// / p->getDensity();

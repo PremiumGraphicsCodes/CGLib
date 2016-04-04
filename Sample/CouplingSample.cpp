@@ -30,7 +30,7 @@ void CouplingSample::setup()
 	idRenderer.build();
 
 	constant = SPHConstant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-	rigidConstant = SPHConstant(1000.0f, 10000.0f, 0.0f, 0.0f, 1.25f);
+	rigidConstant = SPHConstant(10000.0f, 10000.0f, 0.0f, 0.0f, 1.25f);
 
 	rigidConstant.isBoundary = true;
 
@@ -77,7 +77,7 @@ void CouplingSample::setup()
 
 	{
 		SPHConstant constant(1000.0f, 1000000.0f, 10000.0f, 0.0f, 1.25f);
-		Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 20.0f, 10.0f));
+		Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(20.0f, 10.0f, 10.0f));
 		fluid = std::make_unique<Fluid>(box, 1.0f, constant);
 		particleWorld.add(fluid.get());
 
@@ -125,6 +125,29 @@ void CouplingSample::onMouseMove(const float x, const float y)
 
 void CouplingSample::onKeyDown(const unsigned char c)
 {
+	if (c == 'r') {
+		//fluid->createParticle()
+		const Vector3d<float> start(4.0f, 10.0, 4.0);
+		const Vector3d<float> end(10.0, 12.0, 10.0);
+		Box3d<float> box(start, end);
+		auto rigid = new BulletRigid(box, &rigidConstant, -1);
+		rigid->transform();
+		bulletWorld.add(rigid);
+
+		auto shape = new PolygonObject(-1);
+		shape->add(rigid->getLocalShape());
+		shapes.push_back(shape);
+		rigidPolygonMap[rigid] = shape;
+		rigids.push_back(rigid);
+		interaction.add(rigid);
+	}
+	if (c == 'f') {
+		const Vector3d<float> start(0.0f, 20.0, 0.0);
+		const Vector3d<float> end(10.0, 30.0, 10.0);
+		Box3d<float> box(start, end);
+		fluid->createParticles(box, 1.0f);
+
+	}
 }
 
 void CouplingSample::onLeftButtonDown(const float x, const float y)
@@ -255,14 +278,14 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		minPressure = std::min<float>(minPressure, p->getDensity());
 		maxPressure = std::max<float>(maxPressure, p->getDensity());
 	}
-	colorMap.setMinMax(minPressure, maxPressure);
+	colorMap.setMinMax(900.0f, 1400.0f);
 
 	//colorMap.setMinMax(800.0f, 2000.0f);
 	PointBuffer buffer;
 	for (auto p : particles) {
 		const auto pos = p->getPosition();
 		auto color = colorMap.getColor(p->getDensity());
-		color.setAlpha(0.1f);
+		color.setAlpha(0.5f);
 		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}

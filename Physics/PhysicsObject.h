@@ -30,6 +30,8 @@ public:
 
 	SPHParticle* createParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
 
+	std::vector<SPHParticle*> createParticles(const Math::Box3d<float>& box, const float divideLength);
+
 	virtual ~PhysicsObject();
 
 	virtual void coordinate(const float timeStep) {};
@@ -70,6 +72,7 @@ public:
 
 
 private:
+	int nextId;
 	std::vector<SPHParticle*> particles;
 	SPHConstant constant;
 };

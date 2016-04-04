@@ -9,14 +9,15 @@ using namespace Crystal::Physics;
 
 
 PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
-	particles(particles)
+	particles(particles),
+	nextId(0)
 {
 }
 
 PhysicsObject::PhysicsObject(const Box3d<float>& box, const float divideLength, const SPHConstant& constant):
-	constant(constant)
+	constant(constant),
+	nextId(0)
 {
-	int nextId = 0;
 	const auto points = box.toPoints(divideLength);
 	for (const auto& pos : points) {
 		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant, nextId++);
@@ -24,9 +25,9 @@ PhysicsObject::PhysicsObject(const Box3d<float>& box, const float divideLength, 
 	}
 }
 
-PhysicsObject::PhysicsObject(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant)
+PhysicsObject::PhysicsObject(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant) :
+	nextId(0)
 {
-	int nextId = 0;
 	const auto points = sphere.toPoints(divideLength);
 	for (const auto& pos : points) {
 		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant, nextId++);
@@ -43,10 +44,23 @@ PhysicsObject::~PhysicsObject()
 
 SPHParticle* PhysicsObject::createParticle(const Vector3d<float>& position, const Vector3d<float>& velocity)
 {
-	auto p = new SPHParticle(position, constant.getEffectLength() / 1.25 / 2.0, &constant);
+	auto p = new SPHParticle(position, constant.getEffectLength() / 1.25 / 2.0, &constant, nextId++);
 	p->setVelocity(velocity);
 	particles.push_back(p);
 	return p;
+}
+
+
+std::vector<SPHParticle*> PhysicsObject::createParticles(const Box3d<float>& box, const float divideLength)
+{
+	std::vector<SPHParticle*> newParticles;
+	const auto points = box.toPoints(divideLength);
+	for (const auto& pos : points) {
+		SPHParticle* p = new SPHParticle(pos, divideLength*0.5f, &this->constant, nextId++);
+		particles.push_back(p);
+		newParticles.push_back(p);
+	}
+	return newParticles;
 }
 
 
