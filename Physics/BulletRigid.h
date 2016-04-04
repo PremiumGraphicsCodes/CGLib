@@ -49,6 +49,8 @@ public:
 
 	void solveBoundary();
 
+	Math::Vector3d<float> getAngleVelocity() const;
+
 	std::vector<SPHParticle*> getSurfaceParticles();
 
 	void move(const Math::Vector3d<float>& v);

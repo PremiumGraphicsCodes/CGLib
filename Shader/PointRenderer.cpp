@@ -27,7 +27,7 @@ void PointRenderer<float>::render(const ICamera<float>& camera, const PointBuffe
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
-	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 
 
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
@@ -70,7 +70,7 @@ void PointRenderer<float>::render(const ICamera<float>& camera, const PointBuffe
 	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glDisable(GL_POINT_SPRITE);
 
-	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);
 }

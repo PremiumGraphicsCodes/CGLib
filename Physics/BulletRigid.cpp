@@ -88,9 +88,17 @@ void BulletRigid::transform()
 		sampleParticles[i]->moveTo(localPositions[i]);
 		sampleParticles[i]->rotate(matrix);
 		sampleParticles[i]->move(translate);
+	//	const auto velocity = localPositions[i].getOuterProduct(getAngleVelocity());
+
+//		body->getVe
+		sampleParticles[i]->setVelocity( BulletConverter::convert( body->getVelocityInLocalPoint( BulletConverter::convert( localPositions[i] ))) );
 	}
 }
 
+Vector3d<float> BulletRigid::getAngleVelocity() const
+{
+	return BulletConverter::convert(body->getAngularVelocity());
+}
 
 std::vector<SPHParticle*> BulletRigid::getSurfaceParticles()
 {

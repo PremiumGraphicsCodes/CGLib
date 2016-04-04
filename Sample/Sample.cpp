@@ -90,36 +90,36 @@ void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	switch(key) {
-		case GLFW_KEY_0 :
+		case GLFW_KEY_F10 :
 			activeSample = std::make_unique<PointRendererSample>();
 			activeSample->setup();
 			break;
-		case GLFW_KEY_1 :
+		case GLFW_KEY_F1 :
 			activeSample = std::make_unique<FluidSample>();
 			activeSample->setup();
 
 			break;
-		case GLFW_KEY_2 :
+		case GLFW_KEY_F2 :
 			activeSample = std::make_unique<RigidSample>();
 			activeSample->setup();
 
 			break;
-		case GLFW_KEY_3 :
+		case GLFW_KEY_F3 :
 			activeSample = std::make_unique<CouplingSample>();
 			activeSample->setup();
 
 			break;
-		case GLFW_KEY_4 :
+		case GLFW_KEY_F4 :
 			activeSample = std::make_unique<IOSample>();
 			activeSample->setup();
 
 			break;
-		case GLFW_KEY_8 :
+		case GLFW_KEY_F8 :
 			activeSample = std::make_unique<IDRendererSample>();
 			activeSample->setup();
 
 			break;
-		case GLFW_KEY_9 :
+		case GLFW_KEY_F9 :
 			activeSample = std::make_unique <SmoothRendererSample>();
 			activeSample->setup();
 
@@ -169,14 +169,14 @@ int main(int argc, char* argv)
 	}
 	glfwMakeContextCurrent(window);
 
-	std::cout << "Press 1 : Fluid Simulation" << std::endl;
-	std::cout << "Press 2 : Rigid Simulation" << std::endl;
-	std::cout << "Press 3 : Coupling Simulation" << std::endl;
-	std::cout << "Press 4 : File IO" << std::endl;
+	std::cout << "Press F1 : Fluid Simulation" << std::endl;
+	std::cout << "Press F2 : Rigid Simulation" << std::endl;
+	std::cout << "Press F3 : Coupling Simulation" << std::endl;
+	std::cout << "Press F4 : File IO" << std::endl;
 
-	std::cout << "Press 8 : ID Rendering" << std::endl;
-	std::cout << "Press 9 : Smooth Rendering" << std::endl;
-	std::cout << "Press 0 : Point Rendering" << std::endl;
+	std::cout << "Press F8 : ID Rendering" << std::endl;
+	std::cout << "Press F9 : Smooth Rendering" << std::endl;
+	std::cout << "Press F10 : Point Rendering" << std::endl;
 
 	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, -5.0, -10.0));
 	camera.setCameraXY();
