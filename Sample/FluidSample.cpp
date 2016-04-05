@@ -60,40 +60,30 @@ void FluidSample::setup()
 
 	cursor = Vector3d<float>(0.0f, 20.0f, 25.0f);
 
+	std::cout << "middle button dragg : cursor move" << std::endl;
+	std::cout << "press X : add fluid to x+" << std::endl;
+	std::cout << "press Z : add fluid to x-" << std::endl;
 }
 
 void FluidSample::onKeyDown(const unsigned char c)
 {
 	if (c == 'x') {
 		for (int i = 0; i < 10; ++i) {
-			//fluids[i]->move(Vector3d<float>(0.25f, 0.0f, 0.0f));
-			const auto pos = cursor + Vector3d<float>(i, 0.0f, i);
-			fluids.front()->createParticle(pos, Vector3d<float>(-50.0f, -20.0f, 0.0f));
-		}
-	}
-	if (c == 'y') {
-		for (int i = 0; i < 10; ++i) {
-			const auto pos = cursor + Vector3d<float>(i, 0.0f, i);
-			fluids.front()->createParticle(pos, Vector3d<float>(0.0f, -20.0f, 0.0f));
-
+			for (int j = 0; j < 5; ++j) {
+				//fluids[i]->move(Vector3d<float>(0.25f, 0.0f, 0.0f));
+				const auto pos = cursor + Vector3d<float>(i, j, i);
+				fluids.front()->createParticle(pos, Vector3d<float>(-50.0f, -20.0f, 0.0f));
+			}
 		}
 	}
 	if (c == 'z') {
 		for (int i = 0; i < 10; ++i) {
-			const auto pos = cursor + Vector3d<float>(i, 0.0f, i);
-			fluids.front()->createParticle(pos, Vector3d<float>(50.0f, -20.0f, 0.0f));
+			for (int j = 0; j < 5; ++j) {
+				const auto pos = cursor + Vector3d<float>(i, j, i);
+				fluids.front()->createParticle(pos, Vector3d<float>(50.0f, -20.0f, 0.0f));
+			}
 		}
 	}
-	/*
-	if (c == 'a') {
-		SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.25f);
-
-		Sphere<float> sphere(Vector3d<float>(-10.0f, 20.0f, 20.0f), 10.0f);
-		fluids.push_back(std::make_unique<Fluid>(sphere, 1.0f, constant));
-		world.add(fluids.back().get());
-		std::cout << fluids.back()->getParticles().size() << std::endl;
-	}
-	*/
 }
 
 void FluidSample::onMiddleButtonDown(const float x, const float y)
