@@ -20,13 +20,17 @@ std::string ParticleDepthRenderer::getBuildinVertexShaderSource()
 	stream << "#version 150" << std::endl;
 	stream << "in vec3 position;" << std::endl;
 	stream << "in float pointSize;" << std::endl;
-	stream << "out float fDepth;" << std::endl;
+	stream << "out float vDepth;" << std::endl;
+	stream << "out float vSize;" << std::endl;
+	stream << "out vec4 vPosition;" << std::endl;
 	stream << "uniform mat4 projectionMatrix;" << std::endl;
 	stream << "uniform mat4 modelviewMatrix;" << std::endl;
 	stream << "void main(void) {" << std::endl;
 	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
 	stream << "gl_PointSize = pointSize / gl_Position.w;" << std::endl;
-	stream << "fDepth = gl_Position.z / gl_Position.w;" << std::endl;
+	stream << "vDepth = gl_Position.z; // / gl_Position.w;" << std::endl;
+	stream << "vSize = gl_PointSize;" << std::endl;
+	stream << "vPosition = gl_Position;" << std::endl;
 	stream << "}" << std::endl;
 	bool b = vertexShader.compile(stream.str(), ShaderUnit::Stage::VERTEX);
 	return stream.str();
@@ -37,15 +41,24 @@ std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 	std::ostringstream stream;
 	stream << "#version 150" << std::endl;
 	stream << "out vec4 fragColor;" << std::endl;
-	stream << "in float fDepth;" << std::endl;
+	stream << "in float vDepth;" << std::endl;
+	stream << "in float vSize;" << std::endl;
+	stream << "in vec4 vPosition;" << std::endl;
+	stream << "uniform float near;" << std::endl;
+	stream << "uniform float far;" << std::endl;
 	stream << "void main(void) {" << std::endl;
-	stream << "vec2 coord = gl_PointCoord * 2.0 - 1.0;" << std::endl;
-	stream << "float distSquared = 1.0 - dot(coord, coord);" << std::endl;
-	stream << "if (distSquared < 0.0) {" << std::endl;
+	stream << "vec3 coord;" << std::endl;
+	stream << "coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl;
+	stream << "float distSquared = dot(coord.xy, coord.xy);" << std::endl;
+	stream << "if (distSquared > 1.0) {" << std::endl;
 	stream << "		discard;" << std::endl;
 	stream << "}" << std::endl;
-	stream << "vec4 depth = vec4(fDepth);//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
-	stream << "fragColor.rgba = depth;" << std::endl;
+	stream << "coord.z = -sqrt(1.0 - distSquared);" << std::endl;
+	stream << "float thickness = coord.z / (far - near) + vDepth / (far - near);" << std::endl;
+	stream << "vec3 depth = vec3(thickness);" << std::endl;// vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
+	//stream << "depth = vec3(vDepth);" << std::endl;// / vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
+
+	stream << "fragColor.rgb = depth;" << std::endl;
 	stream << "fragColor.a = 1.0;" << std::endl;
 	stream << "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -56,6 +69,9 @@ void ParticleDepthRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
+
+	shader.findUniformLocation("near");
+	shader.findUniformLocation("far");
 
 	shader.findAttribLocation("position");
 	shader.findAttribLocation("pointSize");
@@ -92,9 +108,10 @@ void ParticleDepthRenderer::render(const ICamera<float>& camera, const PointBuff
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
 	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
+	glUniform1f(shader.getUniformLocation("near"), camera.getNear());
+	glUniform1f(shader.getUniformLocation("far"), camera.getFar());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
-	glVertexAttribPointer(shader.getAttribLocation("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
 	glVertexAttribPointer(shader.getAttribLocation("pointSize"), 1, GL_FLOAT, GL_FALSE, 0, sizes.data());
 
 
