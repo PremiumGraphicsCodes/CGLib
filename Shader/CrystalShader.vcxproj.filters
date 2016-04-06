@@ -41,6 +41,9 @@
     </ClCompile>
     <ClCompile Include="VisualObject.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ParticleDepthRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="VisualObject.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ParticleDepthRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

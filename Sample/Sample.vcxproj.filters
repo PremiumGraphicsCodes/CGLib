@@ -39,6 +39,9 @@
     <ClCompile Include="DamBreakSample.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
+    <ClCompile Include="FluidRenderingSample.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -78,6 +81,9 @@
     </ClInclude>
     <ClInclude Include="DamBreakSample.h">
       <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="FluidRenderingSample.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

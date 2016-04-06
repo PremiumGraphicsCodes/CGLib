@@ -22,6 +22,7 @@
 #include "SmoothRendererSample.h"
 #include "Cursor3dSample.h"
 #include "DamBreakSample.h"
+#include "FluidRenderingSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -105,17 +106,21 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			activeSample = std::make_unique<CouplingSample>();
 			activeSample->setup();
 			break;
-
 		case GLFW_KEY_F3:
 			activeSample = std::make_unique<DamBreakSample>();
 			activeSample->setup();
-
 			break;
-
 		case GLFW_KEY_F4 :
 			activeSample = std::make_unique<IOSample>();
 			activeSample->setup();
-
+			break;
+		case GLFW_KEY_F5 :
+			activeSample = std::make_unique<FluidRendererSample>();
+			activeSample->setup();
+			break;
+		case GLFW_KEY_F7:
+			activeSample = std::make_unique <Cursor3dSample>();
+			activeSample->setup();
 			break;
 		case GLFW_KEY_F8 :
 			activeSample = std::make_unique<IDRendererSample>();
@@ -125,12 +130,6 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 		case GLFW_KEY_F9 :
 			activeSample = std::make_unique <SmoothRendererSample>();
 			activeSample->setup();
-
-			break;
-		case GLFW_KEY_F7:
-			activeSample = std::make_unique <Cursor3dSample>();
-			activeSample->setup();
-
 			break;
 
 		default :
@@ -182,6 +181,7 @@ int main(int argc, char* argv)
 	std::cout << "Press F2 : Coupling Simulation" << std::endl;
 	std::cout << "Press F3 : Dam Break Simulation" << std::endl;
 	std::cout << "Press F4 : File IO" << std::endl;
+	std::cout << "Press F5 : Fluid Rendering" << std::endl;
 
 	std::cout << "Press F8 : ID Rendering" << std::endl;
 	std::cout << "Press F7 : Cursor UI" << std::endl;
