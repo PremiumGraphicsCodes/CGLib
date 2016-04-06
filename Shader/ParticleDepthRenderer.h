@@ -16,15 +16,17 @@ public:
 	bool build();
 
 private:
-	std::string getBuildinVertexShaderSource() const;
+	std::string getBuildinVertexShaderSource();
 	
-	std::string getBuildinFragmentShaderSource() const;
+	std::string getBuildinFragmentShaderSource();
 
 	void findLocation();
 
 
 private:
 	ShaderObject shader;
+	ShaderUnit vertexShader;
+	ShaderUnit fragmentShader;
 };
 
 	}

@@ -54,7 +54,6 @@ private:
 	std::string log;
 };
 
-
 class ShaderObject
 {
 public:

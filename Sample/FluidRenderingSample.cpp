@@ -29,7 +29,7 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	PointBuffer buffer;
-	Point point(Vector3d<float>(0.0f, 0.0f, 0.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 100.0f);
+	Point point(Vector3d<float>(0.0f, 0.0f, 0.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 500.0f);
 	buffer.add(point);
 	renderer.render(camera, buffer);
 }
