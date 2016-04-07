@@ -11,7 +11,7 @@ template< typename T >
 class ICamera
 {
 public:
-	ICamera() = default;
+	ICamera();
 
 	virtual ~ICamera() = default;
 
@@ -50,9 +50,17 @@ public:
 
 	virtual Math::Matrix4d<T> getProjectionMatrix() const = 0;
 
+	Math::Vector3d<T> getForwardVector() const;
+
+	Math::Vector3d<T> getUpVector() const;
+
+	Math::Vector3d<T> getRightVector() const;
+
 protected:
 	Math::Vector3d<T> pos;
 	Math::Vector3d<T> angle;
+	Math::Vector3d<T> up;
+	Math::Vector3d<T> lookat;
 	T near_;
 	T far_;
 

@@ -34,3 +34,22 @@ TEST( ICameraTest, TestGetRotationMatrix)
 }
 
 
+TEST(ICameraTest, TestGetUpVector)
+{
+	ConcreteCamera<T> c;
+	EXPECT_EQ( Vector3d<T>(0,1,0), c.getUpVector() );
+}
+
+TEST(ICameraTest, TestGetForwardVector)
+{
+	ConcreteCamera<T> c;
+	c.moveTo(Vector3d<float>(0, 0, -1));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), c.getForwardVector());
+}
+
+TEST(ICameraTest, TestGetRightVector)
+{
+	ConcreteCamera<T> c;
+	c.moveTo(Vector3d<float>(-1, 0, 0));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), c.getRightVector());
+}
