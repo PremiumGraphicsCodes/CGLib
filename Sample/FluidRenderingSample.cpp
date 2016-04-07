@@ -30,13 +30,13 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	PointBuffer buffer;
-	Point point1(Vector3d<float>(0.0f, 0.0f, 0.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 1000.0f);
-	Point point2(Vector3d<float>(1.0f, 0.0f, -1.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 1000.0f);
+	Point point1(Vector3d<float>(0.0f, 0.0f, 50.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 1000.0f);
+	Point point2(Vector3d<float>(1.0f, 0.0f, -51.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 1000.0f);
 
-	Point point3(Vector3d<float>(-1.0f, 0.0f, -1000.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 100000.0f);
+	//Point point3(Vector3d<float>(-1.0f, 0.0f, -1000.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 100000.0f);
 
 	buffer.add(point1);
 	buffer.add(point2);
-	buffer.add(point3);
+	//buffer.add(point3);
 	renderer.render(camera, buffer);
 }

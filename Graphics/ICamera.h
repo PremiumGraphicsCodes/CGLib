@@ -15,19 +15,18 @@ public:
 
 	virtual ~ICamera() = default;
 
-	Math::Vector3d<T> getAngle() const { return angle; }
+	void setCameraXY() { pos = Math::Vector3d<T>(0.0, 0.0, 1.0); }
 
-	void addAngle(const Math::Vector3d<T>& a) { this->angle += a; }
+	void setCameraYZ() { pos = Math::Vector3d<T>(1.0, 0.0, 0.0); }
 
-	void setAngle(const Math::Vector3d<T>& a) { this->angle = a; }
+	void setCameraZX() { pos = Math::Vector3d<T>(0.0, 1.0, 0.0); }
 
-	void setCameraXY() { setAngle(Math::Vector3d<T>(0.0, 0.0, 0.0)); }
+	void moveLookatTo(const Math::Vector3d<T>& p) { this->lookat = p; }
 
-	void setCameraYZ() { setAngle(Math::Vector3d<T>(Math::Tolerance<T>::getHalfPI(), 0.0, 0.0)); }
-
-	void setCameraZX() { setAngle(Math::Vector3d<T>(0.0, Math::Tolerance<T>::getHalfPI(), 0.0)); }
-
-	void move(const Math::Vector3d<T>& move) { this->pos += move; }
+	void move(const Math::Vector3d<T>& move) {
+		this->pos += move;
+		//this->lookat += move;
+	}
 
 	void moveTo(const Math::Vector3d<T>& p) { this->pos = p; }
 
@@ -58,11 +57,14 @@ public:
 
 protected:
 	Math::Vector3d<T> pos;
-	Math::Vector3d<T> angle;
 	Math::Vector3d<T> up;
 	Math::Vector3d<T> lookat;
 	T near_;
 	T far_;
+	T left;
+	T right;
+	T bottom;
+	T top;
 
 };
 

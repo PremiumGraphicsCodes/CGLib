@@ -26,10 +26,6 @@ public:
 	}
 
 private:
-	T left;
-	T right;
-	T bottom;
-	T top;
 
 };
 

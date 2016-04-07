@@ -8,28 +8,31 @@ ICamera<T>::ICamera() :
 	up(Vector3d<T>(0,1,0)),
 	lookat(Vector3d<T>(0,0,0))
 {
+	near_ = 1.0f;
+	far_ = 100.0f;
+	left = T{ -0.5 };
+	right = T{ 0.5 };
+	bottom = T{ -0.5 };
+	top = T{ 0.5 };
 }
 
 
 template<typename T>
 Matrix3d<T> ICamera<T>::getRotationMatrix() const
 {
-	Matrix3d<T> matrix = Math::Matrix3d<T>::Identity();
-//	Vector3d<T> y = 
-	matrix *= Math::Matrix3d<T>::RotateX(angle.getX());
-	matrix *= Math::Matrix3d<T>::RotateY(angle.getY());
-	matrix *= Math::Matrix3d<T>::RotateZ(angle.getZ());
-	return matrix;
-
+	const auto z = Vector3d<T>(pos - lookat).getNormalized();
+	const auto x = getUpVector().getOuterProduct(z).getNormalized();
+	const auto y = z.getOuterProduct(x);
+	return Matrix3d<T>(
+		x.getX(), x.getY(), x.getZ(),
+		y.getX(), y.getY(), y.getZ(),
+		z.getX(), z.getY(), z.getZ());
 }
 
 template<typename T>
 Matrix4d<T> ICamera<T>::getModelviewMatrix() const {
-	Matrix4d<T> matrix;
-	matrix.translate(pos.getX(), pos.getY(), pos.getZ());
-	matrix *= Math::Matrix4d<T>::RotateX(angle.getX());
-	matrix *= Math::Matrix4d<T>::RotateY(angle.getY());
-	matrix *= Math::Matrix4d<T>::RotateZ(angle.getZ());
+	Matrix4d<T> matrix( getRotationMatrix() );
+	matrix.translate(-pos.getX(), -pos.getY(), -pos.getZ());
 	return matrix;
 }
 

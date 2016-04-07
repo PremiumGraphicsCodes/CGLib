@@ -25,14 +25,11 @@ public:
 
 	void init();
 
-	void setFovy(const T fovy) { this->fovy = fovy; }
 
 	Math::Matrix4d<T> getProjectionMatrix() const override;
 
 
 private:
-	T fovy;
-	T aspect;
 };
 
 	}

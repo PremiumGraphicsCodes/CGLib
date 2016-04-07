@@ -10,6 +10,8 @@ namespace Crystal {
 	namespace Math {
 		template<typename>
 		class Vector3d;
+		template<typename>
+		class Matrix3d;
 
 template< typename T >
 class Matrix4d
@@ -23,6 +25,8 @@ public:
 		const T x20, const T x21, const T x22, const T x23,
 		const T x30, const T x31, const T x32, const T x33
 		);
+
+	Matrix4d(const Matrix3d<T>& m);
 
 	~Matrix4d(void) = default;
 

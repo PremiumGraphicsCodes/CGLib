@@ -27,6 +27,16 @@ Matrix4d<T>::Matrix4d(
 }
 
 template<typename T>
+Matrix4d<T>::Matrix4d(const Matrix3d<T>& m)
+{
+	x[0] = m.getX00();	x[1] = m.getX01();	x[2] = m.getX02();	x[3] = 0;
+	x[4] = m.getX10();	x[5] = m.getX11();	x[6] = m.getX12();	x[7] = 0;
+	x[8] = m.getX20();	x[9] = m.getX21();	x[10] = m.getX22();	x[11] = 0;
+	x[12] = 0;	x[13] = 0;			x[14] = 0;			x[15] = 1;
+}
+
+
+template<typename T>
 void Matrix4d<T>::multiple(const Matrix4d<T>& rhs)
 {
 	T y[16];

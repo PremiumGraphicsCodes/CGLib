@@ -42,7 +42,13 @@
     <ClCompile Include="VisualObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
+    <ClCompile Include="BilateralFilter.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalFilter.cpp">
+      <Filter>Renderer\Fluid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,8 +95,14 @@
     </ClInclude>
     <ClInclude Include="VisualObject.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="BilateralFilter.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
     <ClInclude Include="ParticleDepthRenderer.h">
-      <Filter>Renderer</Filter>
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalFilter.h">
+      <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +117,9 @@
     </Filter>
     <Filter Include="Legacy">
       <UniqueIdentifier>{ed00d851-f143-4e9e-afe0-5643e01c6eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Fluid">
+      <UniqueIdentifier>{9c8d7b1f-e503-4c72-9f11-57f44fa2075e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

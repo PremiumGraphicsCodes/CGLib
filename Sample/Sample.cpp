@@ -75,10 +75,10 @@ void onMousePos(GLFWwindow* window, double xpos, double ypos)
 			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
-			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01f, -diffy * 0.01f, 0.0f));
+//			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01f, -diffy * 0.01f, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_MIDDLE) {
-			//camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1f));
+	//		camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1f));
 			activeSample->onMiddleDragging(diffx, diffy);
 		}
 
@@ -161,6 +161,7 @@ void onChar(GLFWwindow* window, unsigned int codepoint)
 //	activeSample->setup();
 //
 //}
+#include "../Math/Vector4d.h"
 
 int main(int argc, char* argv)
 {
@@ -189,8 +190,11 @@ int main(int argc, char* argv)
 	std::cout << "Press F9 : Smooth Rendering" << std::endl;
 	std::cout << "Press F10 : Point Rendering" << std::endl;
 
-	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, -5.0, -10.0));
-	camera.setCameraXY();
+	camera.moveLookatTo(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0));
+	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, 0.0, -2.0));
+	//Crystal::Math::Vector4d<float> v(0.0, 0.0, 0.0, 1.0);Crystal::Math::Vector4d<float>(0.0, 0.0, 0.0, 1.0);
+	//v.multiple(camera.getModelviewMatrix());
+	//camera.setCameraXY();
 
 	int width = 1024;
 	int height = 756;

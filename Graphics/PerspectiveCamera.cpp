@@ -10,25 +10,25 @@ void PerspectiveCamera<T>::init()
 {
 	near_ = 1;
 	far_ = 10.0;
-	aspect = 1.0;
-	angle = Math::Vector3d<T>::Zero();
 	pos = Math::Vector3d<T>::Zero();
-	fovy = Tolerance<T>::getHalfPI();
 }
 
 template<typename T>
 Matrix4d<T> PerspectiveCamera<T>::getProjectionMatrix() const
 {
-	const auto tanHalfFovy = std::tan(fovy / T{ 2 });
-
-	Matrix4d<T> matrix;
-	matrix.setX00(1 / (aspect * tanHalfFovy));
-	matrix.setX11(1 / tanHalfFovy);
-	matrix.setX22(-(far_ + near_) / (far_ - near_));
-	matrix.setX23((-2 * far_ * near_) / (far_ - near_));
-	matrix.setX32(-1);
-	matrix.setX33(0);
-	return matrix;
+	const auto x00 = 2 * near_ / (right - left);
+	const auto x02 = (right + left) / (right - left);
+	const auto x11 = 2 * near_ / (top - bottom);
+	const auto x12 = (top + bottom) / (top - bottom);
+	const auto x22 = -(far_ + near_) / (far_ - near_);
+	const auto x23 = -2 * far_ * near_ / (far_ - near_);
+	return Matrix4d<T>
+		(
+			x00, 0, x02, 0,
+			0, x11, x12, 0,
+			0, 0, x22, x23,
+			0, 0, -1, 0
+			);
 }
 
 template class PerspectiveCamera<float>;
