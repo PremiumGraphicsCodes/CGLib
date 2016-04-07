@@ -165,8 +165,6 @@
     <ClCompile Include="FrameBufferTest.cpp" />
     <ClCompile Include="glfw3.cpp" />
     <ClCompile Include="NormalRendererTest.cpp" />
-    <ClCompile Include="BillBoardRendererTest.cpp" />
-    <ClCompile Include="QuadRendererTest.cpp" />
     <ClCompile Include="ShaderObjectTest.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
     <ClCompile Include="TextureTest.cpp" />

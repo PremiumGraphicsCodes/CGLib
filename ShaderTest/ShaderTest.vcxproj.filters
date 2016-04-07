@@ -7,8 +7,6 @@
     <ClCompile Include="ShaderObjectTest.cpp" />
     <ClCompile Include="TextureTest.cpp" />
     <ClCompile Include="DepthRendererTest.cpp" />
-    <ClCompile Include="QuadRendererTest.cpp" />
-    <ClCompile Include="BillBoardRendererTest.cpp" />
     <ClCompile Include="glfw3.cpp" />
   </ItemGroup>
   <ItemGroup>
