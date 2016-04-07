@@ -28,6 +28,11 @@ public:
 		//this->lookat += move;
 	}
 
+	void translate(const Math::Vector3d<T>& v) {
+		this->pos += v;
+		this->lookat += v;
+	}
+
 	void moveTo(const Math::Vector3d<T>& p) { this->pos = p; }
 
 	Math::Vector3d<T> getPos() const { return pos; }

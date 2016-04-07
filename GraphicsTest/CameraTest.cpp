@@ -28,7 +28,7 @@ TEST( ICameraTest, TestMove )
 TEST( ICameraTest, TestGetRotationMatrix)
 {
 	ConcreteCamera<T> c;
-	c.move(Vector3d<T>(0.0, 0.0, -1.0));
+	c.move(Vector3d<T>(0.0, 0.0, 1.0));
 	const auto& expected = Matrix3d<T>::Identity();
 	const auto& actual = c.getRotationMatrix();
 	EXPECT_EQ(expected, actual);

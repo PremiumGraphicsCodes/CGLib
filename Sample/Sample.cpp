@@ -72,10 +72,12 @@ void onMousePos(GLFWwindow* window, double xpos, double ypos)
 		prevPosY = ypos;
 		if (pressedButton == GLFW_MOUSE_BUTTON_LEFT) {
 			activeSample->onLeftDragging(diffx, diffy);
-			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
+			camera.translate(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
 //			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01f, -diffy * 0.01f, 0.0f));
+			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
+
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_MIDDLE) {
 	//		camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, diffy*0.1f));
@@ -87,7 +89,7 @@ void onMousePos(GLFWwindow* window, double xpos, double ypos)
 
 void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 {
-	camera.move(Crystal::Math::Vector3d<float>(0.0f, 0.0f, yoffset*0.1));
+	camera.translate(Crystal::Math::Vector3d<float>(0.0f, 0.0f, yoffset*0.1));
 }
 
 void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
