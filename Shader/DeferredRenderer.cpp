@@ -43,16 +43,21 @@ std::string DeferredRenderer::getBuildinFragmentShaderSource()
 		<< "float getDepth(vec2 tCoord){" << std::endl
 		<< "	return texture2D(depthTex, tCoord).r;" << std::endl
 		<< "}" << std::endl
+//		<< "vec3 getPhongShaded( vec3 position, vec3 normal) {"
+//		<< "	vec3 s = normalize(vec3(light.position - position);" << std::endl
+//		<< "	vec3 v = normalize(-position.xyz);" << std::endl
+//		<< "}"
 		<< "void main(void) {" << std::endl
 		<< "	float depth = getDepth(texCoord);" << std::endl
 		<< "	if(depth < 0.1) {" << std::endl
-		//<< "		fragColor.rgba = vec4(0.0, 0.0, 0.0, 1.0);" << std::endl
-		//<< "		return;" << std::endl
+		<< "		fragColor.rgba = vec4(0.0, 0.0, 0.0, 1.0);" << std::endl
+		<< "		return;" << std::endl
 		<< "	}" << std::endl
 		<< "    vec3 light = vec3(1.0, 0.0, 0.0);" << std::endl
+		<< "	vec3 materialColor = vec3(0.0, 0.0, 1.0);" << std::endl
 		<< "	vec3 normal = texture2D(normalTex, texCoord).rgb;" << std::endl
 		//<< "	vec3 lightPosition = get" << std::endl
-		<< "	fragColor.rgb = vec3(dot(normal, light));" << std::endl
+		<< "	fragColor.rgb = materialColor * (dot(normal, light)*0.5 + 0.5);" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "	}" << std::endl;
 	ShaderUnit fragmentShader;

@@ -26,7 +26,7 @@ public:
 		const T x30, const T x31, const T x32, const T x33
 		);
 
-	Matrix4d(const Matrix3d<T>& m);
+	explicit Matrix4d(const Matrix3d<T>& m);
 
 	~Matrix4d(void) = default;
 
