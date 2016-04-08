@@ -11,11 +11,13 @@ template<typename ColorType>
 class Texture
 {
 public:
-	Texture() = default;
+	Texture(const int id = 0) :
+		id(id)
+	{}
 
-	Texture(const Graphics::Image<ColorType>& image);
+	Texture(const Graphics::Image<ColorType>& image, const int id = 0);
 
-	bool create(const Graphics::Image<ColorType>& image);
+	bool create(const Graphics::Image<ColorType>& image, const int id = 0);
 
 	~Texture() { unbind(); }
 
@@ -30,6 +32,7 @@ public:
 	int getHeight() const { return height; }
 
 private:
+	int id;
 	GLuint texHandle;
 	int width;
 	int height;

@@ -3,14 +3,14 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool FrameBuffer::build(int width, int height)
+bool FrameBuffer::build(int width, int height, const int textureId)
 {
 	this->width = width;
 	this->height = height;
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
-	texture.create(Image<unsigned char>(width,height));
+	texture.create(Image<unsigned char>(width,height),textureId);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getId(), 0);
 
 	//glBindRenderbuffer(GL_RENDERBUFFER, 0);

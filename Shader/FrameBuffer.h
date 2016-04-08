@@ -17,7 +17,7 @@ public:
 		unbind();
 	}
 
-	bool build(int width, int height);
+	bool build(int width, int height, const int textureId = 0);
 
 	bool bind();
 

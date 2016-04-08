@@ -12,7 +12,7 @@ namespace Crystal {
 class DeferredRenderer
 {
 public:
-	void render(const Texture<unsigned char>& depthTexture);
+	void render(const Texture<unsigned char>& depthTexture, const Texture<unsigned char>& normalTexture);
 
 	bool build();
 

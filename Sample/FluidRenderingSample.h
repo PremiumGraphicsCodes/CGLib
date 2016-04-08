@@ -26,7 +26,7 @@ private:
 	Crystal::Shader::FrameBuffer depthBuffer;
 
 	Crystal::Shader::NormalFilter normalFilter;
-	//Crystal::Shader::FrameBuffer normalBuffer;
+	Crystal::Shader::FrameBuffer normalBuffer;
 
 	Crystal::Shader::DeferredRenderer deferredRenderer;
 	int width;
