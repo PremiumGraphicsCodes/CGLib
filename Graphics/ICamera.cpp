@@ -9,7 +9,7 @@ ICamera<T>::ICamera() :
 	lookat(Vector3d<T>(0,0,0))
 {
 	near_ = 1.0f;
-	far_ = 100.0f;
+	far_ = 10.0f;
 	left = T{ -0.5 };
 	right = T{ 0.5 };
 	bottom = T{ -0.5 };

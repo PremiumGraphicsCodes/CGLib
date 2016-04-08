@@ -22,7 +22,7 @@ FluidRendererSample::FluidRendererSample()
 void FluidRendererSample::setup()
 {
 	depthBuffer.build(512, 512);
-	renderer.build();
+	depthRenderer.build();
 	normalFilter.build();
 }
 
@@ -43,13 +43,16 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 
 	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
 	depthBuffer.bind();
-	renderer.render(camera, buffer);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	depthRenderer.render(camera, buffer);
 	depthBuffer.unbind();
 
+
+	glViewport(0, 0, width, height);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glViewport(0, 0, width, height);
 	normalFilter.render(*depthBuffer.getTexture(), camera);
 
 	//glViewport(0, 0, width, height);

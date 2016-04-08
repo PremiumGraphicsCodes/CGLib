@@ -25,9 +25,14 @@ public:
 
 	GLuint getId() const { return texHandle; }
 
+	int getWidth() const { return width; }
+
+	int getHeight() const { return height; }
+
 private:
 	GLuint texHandle;
-
+	int width;
+	int height;
 };
 	}
 }

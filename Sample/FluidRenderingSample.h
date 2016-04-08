@@ -21,7 +21,7 @@ public:
 	//void onMiddleButtonDown(const float x, const float y) override;
 
 private:
-	Crystal::Shader::ParticleDepthRenderer renderer;
+	Crystal::Shader::ParticleDepthRenderer depthRenderer;
 	Crystal::Shader::NormalFilter normalFilter;
 	Crystal::Shader::FrameBuffer depthBuffer;
 	int width;

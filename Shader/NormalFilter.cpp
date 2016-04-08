@@ -23,8 +23,8 @@ std::string NormalFilter::getBuildinVertexShaderSource()
 		<< "in vec2 position;" << std::endl
 		<< "out vec2 texCoord;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	texCoord = position;" << std::endl
-		<< "	gl_Position = vec4(texCoord, 0.0, 1.0);" << std::endl
+		<< "	texCoord = (position + vec2(1.0,1.0))/2.0;" << std::endl
+		<< "	gl_Position = vec4(position, 0.0, 1.0);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit vertexShader;
 	bool b = vertexShader.compile(stream.str(), ShaderUnit::Stage::VERTEX);
@@ -38,12 +38,12 @@ std::string NormalFilter::getBuildinFragmentShaderSource()
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D depthTex;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
-		<< "uniform float texelSize;" << std::endl
+		<< "uniform float texelSizeW;" << std::endl
+		<< "uniform float texelSizeH;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "vec3 uvToEye(vec2 tCoord, float depth) {" << std::endl
-		<< "	vec2 xy = tCoord*2.0 - vec2(1.0,1.0);" << std::endl
-		<< "	vec4 clippingPosition = vec4(xy, depth, 1.0);" << std::endl
+		<< "	vec4 clippingPosition = vec4(tCoord, depth, 1.0);" << std::endl
 		<< "	vec4 viewPosition = inverse(projectionMatrix) * clippingPosition;" << std::endl
 		<< "    return viewPosition.xyz / viewPosition.w;" << std::endl
 		<< "}" << std::endl
@@ -55,20 +55,26 @@ std::string NormalFilter::getBuildinFragmentShaderSource()
 		<< "	return uvToEye(texCoord, depth);" << std::endl
 		<< "}" << std::endl
 		<< "void main(void) {" << std::endl
+		<< "	float depth = getDepth(texCoord);" << std::endl
+		<< "	if(depth < 0.1) {" << std::endl
+		<< "		fragColor.rgba = vec4(0.0, 0.0, 0.0, 1.0);" << std::endl
+		<< "		return;" << std::endl
+		<< "	}" << std::endl
 		<< "    vec3 eyePosition = getEyePosition(texCoord);" << std::endl
-		<< "	vec3 ddx1 = getEyePosition(texCoord + vec2(texelSize, 0)) - eyePosition;" << std::endl
-		<< "	vec3 ddx2 = eyePosition - getEyePosition(texCoord-vec2(texelSize, 0));" << std::endl
+		<< "	vec3 ddx1 = getEyePosition(texCoord + vec2(texelSizeW, 0)) - eyePosition;" << std::endl
+		<< "	vec3 ddx2 = eyePosition - getEyePosition(texCoord-vec2(texelSizeW, 0));" << std::endl
 		<< "	if(abs(ddx1.z) > abs(ddx2.z)) {" << std::endl
 		<< "		ddx1 = ddx2;" << std::endl
 		<< "	}" << std::endl
-		<< "	vec3 ddy1 = getEyePosition(texCoord + vec2(0, texelSize)) - eyePosition;" << std::endl
-		<< "	vec3 ddy2 = texCoord - getEyePosition(texCoord - vec2(0, texelSize));" << std::endl
+		<< "	vec3 ddy1 = getEyePosition(texCoord + vec2(0, texelSizeH)) - eyePosition;" << std::endl
+		<< "	vec3 ddy2 = texCoord - getEyePosition(texCoord - vec2(0, texelSizeH));" << std::endl
 		<< "	if(abs(ddy1.z) > abs(ddy2.z)) {" << std::endl
 		<< "		ddy1 = ddy2;" << std::endl
 		<< "	}" << std::endl
 		<< "	vec3 normal = normalize( cross(ddx1, ddy1) );" << std::endl
 		<< "	fragColor.rgb = normal;" << std::endl
-		<< "	fragColor.rg = texCoord;" << std::endl
+		//<< "	fragColor.rgb = texture2D(depthTex, texCoord).rgb;" << std::endl
+		//<< "	fragColor.rg = texCoord.xy;" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "	}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -80,7 +86,9 @@ void NormalFilter::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("depthTex");
-	shader.findUniformLocation("texelSize");
+	shader.findUniformLocation("texelSizeW");
+	shader.findUniformLocation("texelSizeH");
+
 	shader.findAttribLocation("position");
 }
 
@@ -104,14 +112,18 @@ void NormalFilter::render(const Texture<unsigned char>& texture, const ICamera<f
 	positions.push_back(1.0f);
 	positions.push_back(1.0f);
 
-	//glEnable(GL_DEPTH_TEST);
-	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
+
+	texture.bind();
 	
 	//glGetUniformLocation( texture.getId()
 	glUniform1i(shader.getUniformLocation("depthTex"), 0);
-	glUniform1f(shader.getUniformLocation("texelSize"), 1.0f / 512.0f);
+	glUniform1f(shader.getUniformLocation("texelSizeW"), 1.0f / texture.getWidth());
+	glUniform1f(shader.getUniformLocation("texelSizeH"), 1.0f / texture.getHeight());
+
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
@@ -121,6 +133,7 @@ void NormalFilter::render(const Texture<unsigned char>& texture, const ICamera<f
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
+	texture.unbind();
 	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);

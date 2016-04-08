@@ -12,6 +12,8 @@ Texture<ColorType>::Texture(const Image<ColorType>& image)
 template<typename ColorType>
 bool Texture<ColorType>::create(const Image<ColorType>& image)
 {
+	this->width = image.getWidth();
+	this->height = image.getHeight();
 	//glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &texHandle);
 	glBindTexture(GL_TEXTURE_2D, texHandle);
