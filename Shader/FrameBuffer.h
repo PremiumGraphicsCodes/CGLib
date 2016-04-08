@@ -31,6 +31,8 @@ public:
 
 	int getHeight() const { return height; }
 
+	Texture<unsigned char>* getTexture() { return &texture; }
+
 private:
 	GLuint frameBuffer;
 	Texture<unsigned char> texture;

@@ -48,6 +48,8 @@ https://opensource.org/licenses/Zlib
 
 * AKINCI N., IHMSEN M., SOLENTHALER B., AKINCI G., TESCHNER M.: Versatile rigid-fluid coupling for incompressible SPH. ACM Transactions on Graphics (Proceedings SIGGRAPH) 30, 4 (2012), 72:1–72:8.
 
+* http://developer.download.nvidia.com/presentations/2010/gdc/Direct3D_Effects.pdf
+
 # Applications
 
 Applications are now on sale.

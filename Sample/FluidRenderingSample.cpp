@@ -21,7 +21,9 @@ FluidRendererSample::FluidRendererSample()
 
 void FluidRendererSample::setup()
 {
+	depthBuffer.build(512, 512);
 	renderer.build();
+	normalFilter.build();
 }
 
 void FluidRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
@@ -38,5 +40,12 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	buffer.add(point1);
 	buffer.add(point2);
 	//buffer.add(point3);
+
+	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
+	depthBuffer.bind();
+	renderer.render(camera, buffer);
+	depthBuffer.unbind();
+
+	glViewport(0, 0, width, height);
 	renderer.render(camera, buffer);
 }

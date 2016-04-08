@@ -3,6 +3,7 @@
 
 #include "../Shader/GLee.h"
 #include "../Shader/ParticleDepthRenderer.h"
+#include "../Shader/NormalFilter.h"
 #include "../Shader/FrameBuffer.h"
 
 #include "ISample.h"
@@ -21,7 +22,8 @@ public:
 
 private:
 	Crystal::Shader::ParticleDepthRenderer renderer;
-	Crystal::Shader::FrameBuffer frameBuffer;
+	Crystal::Shader::NormalFilter normalFilter;
+	Crystal::Shader::FrameBuffer depthBuffer;
 	int width;
 	int height;
 

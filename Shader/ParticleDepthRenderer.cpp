@@ -17,21 +17,22 @@ bool ParticleDepthRenderer::build()
 std::string ParticleDepthRenderer::getBuildinVertexShaderSource()
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec3 position;" << std::endl;
-	stream << "in float pointSize;" << std::endl;
-	stream << "out float vDepth;" << std::endl;
-	stream << "out float vSize;" << std::endl;
-	stream << "out vec4 vPosition;" << std::endl;
-	stream << "uniform mat4 projectionMatrix;" << std::endl;
-	stream << "uniform mat4 modelviewMatrix;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
-	stream << "gl_PointSize = pointSize / gl_Position.w;" << std::endl;
-	stream << "vDepth = gl_Position.z; // / gl_Position.w;" << std::endl;
-	stream << "vSize = gl_PointSize;" << std::endl;
-	stream << "vPosition = gl_Position;" << std::endl;
-	stream << "}" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "in float pointSize;" << std::endl
+		<< "out float vDepth;" << std::endl
+		<< "out float vSize;" << std::endl
+		<< "out vec4 vPosition;" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
+		<< "	vDepth = gl_Position.z; // / gl_Position.w;" << std::endl
+		<< "	vSize = gl_PointSize;" << std::endl
+		<< "	vPosition = gl_Position;" << std::endl
+		<< "}" << std::endl;
 	bool b = vertexShader.compile(stream.str(), ShaderUnit::Stage::VERTEX);
 	return stream.str();
 }
@@ -39,23 +40,24 @@ std::string ParticleDepthRenderer::getBuildinVertexShaderSource()
 std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "out vec4 fragColor;" << std::endl;
-	stream << "in float vDepth;" << std::endl;
-	stream << "in float vSize;" << std::endl;
-	stream << "in vec4 vPosition;" << std::endl;
-	stream << "uniform float near;" << std::endl;
-	stream << "uniform float far;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "vec3 coord;" << std::endl;
-	stream << "coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl;
-	stream << "float distSquared = dot(coord.xy, coord.xy);" << std::endl;
-	stream << "if (distSquared > 1.0) {" << std::endl;
-	stream << "		discard;" << std::endl;
-	stream << "}" << std::endl;
-	stream << "coord.z = -sqrt(1.0 - distSquared);" << std::endl;
-	stream << "float thickness = coord.z / (far - near) + vDepth / (far - near);" << std::endl;
-	stream << "vec3 depth = vec3(thickness);" << std::endl;// vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "in float vDepth;" << std::endl
+		<< "in float vSize;" << std::endl
+		<< "in vec4 vPosition;" << std::endl
+		<< "uniform float near;" << std::endl
+		<< "uniform float far;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "vec3 coord;" << std::endl
+		<< "coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
+		<< "float distSquared = dot(coord.xy, coord.xy);" << std::endl
+		<< "if (distSquared > 1.0) {"
+		<< "		discard;"
+		<< "}" << std::endl
+		<< "coord.z = -sqrt(1.0 - distSquared);" << std::endl
+		<< "float thickness = coord.z / (far - near) + vDepth / (far - near);" << std::endl
+		<< "vec3 depth = vec3(thickness);" << std::endl;// vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
 	//stream << "depth = vec3(vDepth);" << std::endl;// / vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
 
 	stream << "fragColor.rgb = depth;" << std::endl;
