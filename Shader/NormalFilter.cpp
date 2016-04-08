@@ -104,7 +104,7 @@ void NormalFilter::render(const Texture<unsigned char>& texture, const ICamera<f
 	*/
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
-	positions.push_back(1.5f);
+	positions.push_back(1.0f);
 	positions.push_back(-1.0f);
 	positions.push_back(-1.0f);
 	positions.push_back(1.0f);

@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BilateralFilter.cpp" />
+    <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GLee.cpp" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BilateralFilter.h" />
+    <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthRenderer.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GLee.h" />

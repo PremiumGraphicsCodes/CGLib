@@ -5,6 +5,7 @@
 #include "../Shader/ParticleDepthRenderer.h"
 #include "../Shader/NormalFilter.h"
 #include "../Shader/FrameBuffer.h"
+#include "../Shader/DeferredRenderer.h"
 
 #include "ISample.h"
 #include <memory>
@@ -22,8 +23,12 @@ public:
 
 private:
 	Crystal::Shader::ParticleDepthRenderer depthRenderer;
-	Crystal::Shader::NormalFilter normalFilter;
 	Crystal::Shader::FrameBuffer depthBuffer;
+
+	Crystal::Shader::NormalFilter normalFilter;
+	//Crystal::Shader::FrameBuffer normalBuffer;
+
+	Crystal::Shader::DeferredRenderer deferredRenderer;
 	int width;
 	int height;
 
