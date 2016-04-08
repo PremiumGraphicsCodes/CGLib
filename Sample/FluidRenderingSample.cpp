@@ -46,6 +46,12 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	renderer.render(camera, buffer);
 	depthBuffer.unbind();
 
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	glViewport(0, 0, width, height);
-	renderer.render(camera, buffer);
+	normalFilter.render(*depthBuffer.getTexture(), camera);
+
+	//glViewport(0, 0, width, height);
+	//renderer.render(camera, buffer);
 }

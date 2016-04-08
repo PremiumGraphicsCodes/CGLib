@@ -23,7 +23,7 @@ std::string NormalFilter::getBuildinVertexShaderSource()
 		<< "in vec2 position;" << std::endl
 		<< "out vec2 texCoord;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	texCoord = position * 0.5 + 0.5;" << std::endl
+		<< "	texCoord = position;" << std::endl
 		<< "	gl_Position = vec4(texCoord, 0.0, 1.0);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit vertexShader;
@@ -41,14 +41,14 @@ std::string NormalFilter::getBuildinFragmentShaderSource()
 		<< "uniform float texelSize;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
-		<< "vec3 uvToEye(vec2 texCoord, float depth) {" << std::endl
-		<< "	vec2 xy = texCoord*2.0 - vec2(1.0,1.0);" << std::endl
+		<< "vec3 uvToEye(vec2 tCoord, float depth) {" << std::endl
+		<< "	vec2 xy = tCoord*2.0 - vec2(1.0,1.0);" << std::endl
 		<< "	vec4 clippingPosition = vec4(xy, depth, 1.0);" << std::endl
 		<< "	vec4 viewPosition = inverse(projectionMatrix) * clippingPosition;" << std::endl
 		<< "    return viewPosition.xyz / viewPosition.w;" << std::endl
 		<< "}" << std::endl
-		<< "float getDepth(vec2 texCoord){" << std::endl
-		<< "	return texture2D(depthTex, texCoord).r;" << std::endl
+		<< "float getDepth(vec2 tCoord){" << std::endl
+		<< "	return texture2D(depthTex, tCoord).r;" << std::endl
 		<< "}" << std::endl
 		<< "vec3 getEyePosition(vec2 texCoord){"
 		<< "	float depth = getDepth(texCoord);" << std::endl
@@ -68,6 +68,7 @@ std::string NormalFilter::getBuildinFragmentShaderSource()
 		<< "	}" << std::endl
 		<< "	vec3 normal = normalize( cross(ddx1, ddy1) );" << std::endl
 		<< "	fragColor.rgb = normal;" << std::endl
+		<< "	fragColor.rg = texCoord;" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "	}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -83,24 +84,28 @@ void NormalFilter::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void NormalFilter::render(const Texture<float>& texture, const ICamera<float>& renderedCamera)
+void NormalFilter::render(const Texture<unsigned char>& texture, const ICamera<float>& renderedCamera)
 {
-//OrthogonalCamera<float> camera;
-//camera.moveTo(Vector3d<float>(0.0f, 0.0f, -1.0f));
-//camera.setNear(0.5f);
-//camera.setFar(1.0f);
-//
-//const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
-//const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
-//
-	const std::array<Vector3d<float>, 4> positions = {
-		Vector3d<float>(-0.5f, 0.5f, 0.0f),
-		Vector3d<float>(-0.5f, -0.5f, 0.0f),
-		Vector3d<float>(0.5f, -0.5f, 0.0f),
-		Vector3d<float>(0.5f, 0.5f, 0.0f),
+	/*
+	const std::array<Vector2d<float>, 3> positions = {
+		Vector2d<float>(-0.5f, 0.5f),
+		Vector2d<float>(-0.5f, -0.5f),
+		Vector2d<float>(0.5f, -0.5f)//,
+		//Vector3d<float>(0.5f, 0.5f, 0.0f),
 	};
+	*/
+	std::vector<float> positions;
+	positions.push_back(-1.0f);
+	positions.push_back(1.5f);
+	positions.push_back(-1.0f);
+	positions.push_back(-1.0f);
+	positions.push_back(1.0f);
+	positions.push_back(-1.0f);
+	positions.push_back(1.0f);
+	positions.push_back(1.0f);
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
 	
@@ -108,10 +113,10 @@ void NormalFilter::render(const Texture<float>& texture, const ICamera<float>& r
 	glUniform1i(shader.getUniformLocation("depthTex"), 0);
 	glUniform1f(shader.getUniformLocation("texelSize"), 1.0f / 512.0f);
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
-	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
 	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_QUADS, 0, positions.size() / 3);
+	glDrawArrays(GL_QUADS, 0, positions.size() / 2);
 	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
