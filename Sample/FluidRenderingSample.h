@@ -13,6 +13,31 @@
 #include "ISample.h"
 #include <memory>
 
+class FluidRenderer
+{
+public:
+	void build();
+
+	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer);
+private:
+	Crystal::Shader::ParticleDepthRenderer depthRenderer;
+	Crystal::Shader::FrameBufferf depthBuffer;
+
+	Crystal::Shader::NormalFilter normalFilter;
+	Crystal::Shader::FrameBufferf normalBuffer;
+
+	Crystal::Shader::PointRenderer pointRenderer;
+	Crystal::Shader::FrameBufferf volumeBuffer;
+
+	Crystal::Shader::BilateralFilter bilateralFilter;
+	Crystal::Shader::FrameBufferf bluredBuffer1;
+	Crystal::Shader::FrameBufferf bluredBuffer2;
+
+	Crystal::Shader::AbsorptionRenderer absorptionRenderer;
+	Crystal::Shader::DeferredRenderer deferredRenderer;
+};
+
+
 class FluidRendererSample : public ISample
 {
 public:
@@ -25,26 +50,9 @@ public:
 	//void onMiddleButtonDown(const float x, const float y) override;
 
 private:
-	Crystal::Shader::ParticleDepthRenderer depthRenderer;
-	Crystal::Shader::FrameBufferf depthBuffer;
-
-	Crystal::Shader::NormalFilter normalFilter;
-	Crystal::Shader::FrameBufferf normalBuffer;
-
-	//Crystal::Shader::
-	Crystal::Shader::PointRenderer pointRenderer;
-	Crystal::Shader::FrameBufferf volumeBuffer;
-
-	Crystal::Shader::BilateralFilter bilateralFilter;
-	Crystal::Shader::FrameBufferf bluredBuffer;
-
-
-	Crystal::Shader::AbsorptionRenderer absorptionRenderer;
-
-	Crystal::Shader::DeferredRenderer deferredRenderer;
 	int width;
 	int height;
-
+	FluidRenderer renderer;
 };
 
 #endif

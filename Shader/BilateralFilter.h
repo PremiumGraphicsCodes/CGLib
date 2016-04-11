@@ -12,7 +12,7 @@ namespace Crystal {
 class BilateralFilter
 {
 public:
-	void render(const Texturef& texture);
+	void render(const Texturef& texture, bool isX);
 
 	bool build();
 
