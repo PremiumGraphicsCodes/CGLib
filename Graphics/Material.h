@@ -34,7 +34,7 @@ public:
 	*/
 
 
-	Material(const unsigned int id) :
+	Material(const unsigned int id = 0) :
 		diffuse( Graphics::ColorRGBA<float>::Black() ),
 		specular( Graphics::ColorRGBA<float>::Black() ),
 		ambient( Graphics::ColorRGBA<float>::Black() ),

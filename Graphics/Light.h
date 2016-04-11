@@ -33,11 +33,16 @@ public:
 
 	void setPos(const Math::Vector3d<float>& pos) { this->pos = pos; }
 
+	Graphics::ColorRGBA<float> getAmbient() const { return ambient; }
+
+	void setAmbient(const Graphics::ColorRGBA<float>& ambient) { this->ambient = ambient; }
+
 private:
 	Math::Vector3d<T> pos;
 
 	Graphics::ColorRGBA<float> diffuse;
 	Graphics::ColorRGBA<float> specular;
+	Graphics::ColorRGBA<float> ambient;
 };
 
 template<typename T>

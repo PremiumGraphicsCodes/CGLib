@@ -60,11 +60,10 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	glViewport(0, 0, width, height);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//bluredBuffer.bind();
+	bluredBuffer.bind();
 	bilateralFilter.render(*depthBuffer.getTexture());
-	//bluredBuffer.unbind();
+	bluredBuffer.unbind();
 
-	return;
 	glViewport(0, 0, normalBuffer.getWidth(), normalBuffer.getHeight());
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -72,12 +71,25 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	normalFilter.render(*depthBuffer.getTexture(), camera);
 	normalBuffer.unbind();
 
-	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
+	PointLight<float> light;
+	light.setPos(Vector3d<float>(0.0, 0.0, 0.0));
+	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
+	light.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0));
+	light.setAmbient(ColorRGBA<float>(0.0, 0.0, 0.0));
+
+	Material material;
+	material.setDiffuse(ColorRGBA<float>(1.0, 0.0, 0.0));
+	material.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0));
+	material.setAmbient(ColorRGBA<float>(0.0, 0.0, 0.0));
+	material.setShininess(1.0f);
+
+	glViewport(0, 0, width, height);//depthBuffer.getWidth(), depthBuffer.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	deferredRenderer.render(*depthBuffer.getTexture(), *normalBuffer.getTexture());
+	deferredRenderer.render(*depthBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	//glViewport(0, 0, width, height);
 	//renderer.render(camera, buffer);
+	return;
 
 	glViewport(0, 0, width, height);
 	volumeBuffer.bind();

@@ -3,6 +3,8 @@
 
 #include "../Graphics/ICamera.h"
 #include "../Graphics/PointBuffer.h"
+#include "../Graphics/Light.h"
+#include "../Graphics/Material.h"
 #include "Texture.h"
 #include "IRenderer.h"
 
@@ -12,7 +14,7 @@ namespace Crystal {
 class DeferredRenderer
 {
 public:
-	void render(const Texture<unsigned char>& depthTexture, const Texture<unsigned char>& normalTexture);
+	void render(const Texture<unsigned char>& depthTexture, const Texture<unsigned char>& normalTexture, const Graphics::ICamera<float>& renderedCamera, const Graphics::PointLight<float>& light, const Graphics::Material& material);
 
 	bool build();
 
