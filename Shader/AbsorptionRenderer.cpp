@@ -61,7 +61,7 @@ void AbsorptionRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void AbsorptionRenderer::render(const Texture<unsigned char>& volumeTexture)
+void AbsorptionRenderer::render(const Texturef& volumeTexture)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);

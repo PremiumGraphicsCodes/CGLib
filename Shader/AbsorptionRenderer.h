@@ -12,7 +12,7 @@ namespace Crystal {
 class AbsorptionRenderer
 {
 public:
-	void render(const Texture<unsigned char>& volumeTexture);
+	void render(const Texturef& volumeTexture);
 
 	bool build();
 

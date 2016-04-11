@@ -120,7 +120,7 @@ void DeferredRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void DeferredRenderer::render(const Crystal::Shader::Texture<unsigned char>& depthTexture, const Crystal::Shader::Texture<unsigned char>& normalTexture, const ICamera<float>& renderedCamera, const PointLight<float>& light, const Material& material)
+void DeferredRenderer::render(const Crystal::Shader::Texturef& depthTexture, const Crystal::Shader::Texturef& normalTexture, const ICamera<float>& renderedCamera, const PointLight<float>& light, const Material& material)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);

@@ -73,7 +73,6 @@ std::string NormalFilter::getBuildinFragmentShaderSource()
 		<< "	}" << std::endl
 		<< "	vec3 normal = normalize( cross(ddx1, ddy1) );" << std::endl
 		<< "	fragColor.rgb = normal;" << std::endl
-		//<< "	fragColor.rgb = texture2D(depthTex, texCoord).rgb;" << std::endl
 		//<< "	fragColor.rg = texCoord.xy;" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "	}" << std::endl;
@@ -92,7 +91,7 @@ void NormalFilter::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void NormalFilter::render(const Texture<unsigned char>& texture, const ICamera<float>& renderedCamera)
+void NormalFilter::render(const Texturef& texture, const ICamera<float>& renderedCamera)
 {
 	/*
 	const std::array<Vector2d<float>, 3> positions = {
@@ -120,9 +119,9 @@ void NormalFilter::render(const Texture<unsigned char>& texture, const ICamera<f
 	texture.bind();
 	
 	//glGetUniformLocation( texture.getId()
-	glUniform1i(shader.getUniformLocation("depthTex"), 0);
-	glUniform1f(shader.getUniformLocation("texelSizeW"), 1.0f / texture.getWidth());
-	glUniform1f(shader.getUniformLocation("texelSizeH"), 1.0f / texture.getHeight());
+	glUniform1i(shader.getUniformLocation("depthTex"), texture.getId());
+	glUniform1f(shader.getUniformLocation("texelSizeW"), 1.0f / static_cast<float>(texture.getWidth()));
+	glUniform1f(shader.getUniformLocation("texelSizeH"), 1.0f / static_cast<float>(texture.getHeight()));
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());

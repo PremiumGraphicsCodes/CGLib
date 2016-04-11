@@ -189,6 +189,9 @@ int main(int argc, char* argv)
 
 	camera.moveLookatTo(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0));
 	camera.moveTo(Crystal::Math::Vector3d<float>(0.0, 0.0, -2.0));
+
+	camera.setNear(1.0f);
+	camera.setFar(10.0f);
 	//Crystal::Math::Vector4d<float> v(0.0, 0.0, 0.0, 1.0);Crystal::Math::Vector4d<float>(0.0, 0.0, 0.0, 1.0);
 	//v.multiple(camera.getModelviewMatrix());
 	//camera.setCameraXY();

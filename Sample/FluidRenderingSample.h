@@ -26,17 +26,17 @@ public:
 
 private:
 	Crystal::Shader::ParticleDepthRenderer depthRenderer;
-	Crystal::Shader::FrameBuffer depthBuffer;
+	Crystal::Shader::FrameBufferf depthBuffer;
 
 	Crystal::Shader::NormalFilter normalFilter;
-	Crystal::Shader::FrameBuffer normalBuffer;
+	Crystal::Shader::FrameBufferf normalBuffer;
 
 	//Crystal::Shader::
 	Crystal::Shader::PointRenderer pointRenderer;
-	Crystal::Shader::FrameBuffer volumeBuffer;
+	Crystal::Shader::FrameBufferf volumeBuffer;
 
 	Crystal::Shader::BilateralFilter bilateralFilter;
-	Crystal::Shader::FrameBuffer bluredBuffer;
+	Crystal::Shader::FrameBufferf bluredBuffer;
 
 
 	Crystal::Shader::AbsorptionRenderer absorptionRenderer;

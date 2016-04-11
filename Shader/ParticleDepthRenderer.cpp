@@ -29,7 +29,7 @@ std::string ParticleDepthRenderer::getBuildinVertexShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
-		<< "	vDepth = gl_Position.z; // / gl_Position.w;" << std::endl
+		<< "	vDepth = gl_Position.z; /// gl_Position.w;" << std::endl
 		<< "	vSize = gl_PointSize;" << std::endl
 		<< "	vPosition = gl_Position;" << std::endl
 		<< "}" << std::endl;
@@ -56,11 +56,13 @@ std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 		<< "		discard;"
 		<< "}" << std::endl
 		<< "coord.z = -sqrt(1.0 - distSquared);" << std::endl
-		<< "float thickness = coord.z / (far - near) + vDepth / (far - near);" << std::endl
+		<< "float thickness = -coord.z / (far - near)  + vDepth / (far - near);" << std::endl
 		<< "vec3 depth = vec3(thickness);" << std::endl;// vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
 	//stream << "depth = vec3(vDepth);" << std::endl;// / vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
 
 	stream << "fragColor.rgb = depth;" << std::endl;
+//	stream << "fragColor.rgb = vec3(vDepth / (far - near));" << std::endl;
+//	stream << "fragColor.rgb = vec3(-coord.z / (far - near));" << std::endl;
 	stream << "fragColor.a = 1.0;" << std::endl;
 	stream << "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);

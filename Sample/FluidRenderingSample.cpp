@@ -21,10 +21,10 @@ FluidRendererSample::FluidRendererSample()
 
 void FluidRendererSample::setup()
 {
-	depthBuffer.build(512, 512, 0);
-	normalBuffer.build(512, 512, 1);
-	volumeBuffer.build(512, 512, 2);
-	bluredBuffer.build(512, 512, 3);
+	depthBuffer.build(1024, 756, 0);
+	normalBuffer.build(1024, 756, 1);
+	volumeBuffer.build(1024, 756, 2);
+	bluredBuffer.build(1024, 756, 3);
 
 	depthRenderer.build();
 	normalFilter.build();
@@ -57,7 +57,7 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	depthRenderer.render(camera, buffer);
 	depthBuffer.unbind();
 
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, bluredBuffer.getWidth(), bluredBuffer.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bluredBuffer.bind();
@@ -68,17 +68,17 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	normalFilter.render(*depthBuffer.getTexture(), camera);
+	normalFilter.render(*bluredBuffer.getTexture(), camera);
 	normalBuffer.unbind();
 
 	PointLight<float> light;
-	light.setPos(Vector3d<float>(0.0, 0.0, 0.0));
+	light.setPos(Vector3d<float>(10.0, 10.0, 0.0));
 	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
 	light.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0));
 	light.setAmbient(ColorRGBA<float>(0.0, 0.0, 0.0));
 
 	Material material;
-	material.setDiffuse(ColorRGBA<float>(1.0, 0.0, 0.0));
+	material.setDiffuse(ColorRGBA<float>(0.0, 0.0, 1.0));
 	material.setSpecular(ColorRGBA<float>(1.0, 1.0, 1.0));
 	material.setAmbient(ColorRGBA<float>(0.0, 0.0, 0.0));
 	material.setShininess(1.0f);
@@ -86,9 +86,7 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	glViewport(0, 0, width, height);//depthBuffer.getWidth(), depthBuffer.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	deferredRenderer.render(*depthBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
-	//glViewport(0, 0, width, height);
-	//renderer.render(camera, buffer);
+	deferredRenderer.render(*bluredBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	return;
 
 	glViewport(0, 0, width, height);

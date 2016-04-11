@@ -39,6 +39,39 @@ private:
 	int width;
 	int height;
 };
+
+class Texturef
+{
+public:
+	Texturef(const int id = 0) :
+		id(id)
+	{}
+
+	Texturef(const Graphics::Image<float>& image, const int id = 0);
+
+	bool create(const Graphics::Image<float>& image, const int id = 0);
+
+	~Texturef() { unbind(); }
+
+	void bind() const;
+
+	void unbind() const;
+
+	int getId() const { return id; }
+
+	GLuint getTexHandle() const { return texHandle; }
+
+	int getWidth() const { return width; }
+
+	int getHeight() const { return height; }
+
+private:
+	int id;
+	GLuint texHandle;
+	int width;
+	int height;
+};
+
 	}
 }
 

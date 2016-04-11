@@ -12,7 +12,7 @@ namespace Crystal {
 class NormalFilter
 {
 public:
-	void render(const Texture<unsigned char>& texture, const Graphics::ICamera<float>& renderedCamera);
+	void render(const Texturef& texture, const Graphics::ICamera<float>& renderedCamera);
 
 	bool build();
 

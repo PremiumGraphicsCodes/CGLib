@@ -36,18 +36,19 @@ std::string BilateralFilter::getBuildinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D tex;" << std::endl
+		<< "uniform float width;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	float sum = 0;" << std::endl
 		<< "	float wsum = 0;" << std::endl
-		<< "	float filterRadius = 20;" << std::endl
-		<< "	float blurScale = 30;" << std::endl
-		<< "	float blurDepthFalloff = 0.1;" << std::endl
+		<< "	float filterRadius = 10;" << std::endl
+		<< "	float blurScale = 10;" << std::endl
+		<< "	float blurDepthFalloff = 1.0;" << std::endl
 		<< "	float depth = texture2D(tex, texCoord).r;" << std::endl
 		<< "	for(float x = -filterRadius; x <= filterRadius; x+= 1.0){" << std::endl
-		<< "		float sample = texture2D(tex, texCoord + x/512.0 ).r;" << std::endl
-		<< "		float r = x/512.0 * blurScale;" << std::endl
+		<< "		float sample = texture2D(tex, texCoord + vec2(x/width,0) ).r;" << std::endl
+		<< "		float r = x/width * blurScale;" << std::endl
 		<< "		float w = exp(-r*r);" << std::endl
 		<< "		float r2 = (sample-depth) * blurDepthFalloff;" << std::endl
 		<< "		float g = exp(-r2*r2);" << std::endl
@@ -58,7 +59,6 @@ std::string BilateralFilter::getBuildinFragmentShaderSource()
 		<< "		sum /= wsum;" << std::endl
 		<< "	}" << std::endl
 		<< "	fragColor.rgb = vec3(sum);" << std::endl
-	//	<< "	fragColor.rg = texCoord.rg;" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -68,11 +68,13 @@ std::string BilateralFilter::getBuildinFragmentShaderSource()
 void BilateralFilter::findLocation()
 {
 	shader.findAttribLocation("position");
+	shader.findUniformLocation("tex");
+	shader.findUniformLocation("width");
 }
 
 #include "../Graphics/OrthogonalCamera.h"
 
-void BilateralFilter::render(const Texture<unsigned char>& texture)
+void BilateralFilter::render(const Texturef& texture)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
@@ -88,10 +90,11 @@ void BilateralFilter::render(const Texture<unsigned char>& texture)
 
 	glUseProgram(shader.getId());
 
-	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("position"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
 	texture.bind();
 	glUniform1i(shader.getUniformLocation("tex"), texture.getId());
+	glUniform1f(shader.getUniformLocation("width"), texture.getWidth());
 
 	glEnableVertexAttribArray(0);
 
