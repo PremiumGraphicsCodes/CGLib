@@ -8,6 +8,7 @@
 #include "../Shader/DeferredRenderer.h"
 #include "../Shader/PointRenderer.h"
 #include "../Shader/AbsorptionRenderer.h"
+#include "../Shader/BilateralFilter.h"
 
 #include "ISample.h"
 #include <memory>
@@ -33,6 +34,9 @@ private:
 	//Crystal::Shader::
 	Crystal::Shader::PointRenderer pointRenderer;
 	Crystal::Shader::FrameBuffer volumeBuffer;
+
+	Crystal::Shader::BilateralFilter bilateralFilter;
+	Crystal::Shader::FrameBuffer bluredBuffer;
 
 
 	Crystal::Shader::AbsorptionRenderer absorptionRenderer;

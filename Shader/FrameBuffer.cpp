@@ -11,7 +11,7 @@ bool FrameBuffer::build(int width, int height, const int textureId)
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
 	texture.create(Image<unsigned char>(width,height),textureId);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getId(), 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getTexHandle(), 0);
 
 	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

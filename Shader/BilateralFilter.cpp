@@ -6,7 +6,6 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-/*
 bool BilateralFilter::build()
 {
 	const auto vsSource = getBuildinVertexShaderSource();
@@ -19,13 +18,14 @@ bool BilateralFilter::build()
 std::string BilateralFilter::getBuildinVertexShaderSource()
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec3 position;" << std::endl;
-	stream << "uniform mat4 projectionMatrix;" << std::endl;
-	stream << "uniform mat4 modelviewMatrix;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
-	stream << "}" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec2 position;" << std::endl
+		<< "out vec2 texCoord;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	texCoord = (position + vec2(1.0,1.0))/2.0;" << std::endl
+		<< "	gl_Position = vec4(position, 0.0, 1.0);" << std::endl
+		<< "}" << std::endl;
 	bool b = vertexShader.compile(stream.str(), ShaderUnit::Stage::VERTEX);
 	return stream.str();
 }
@@ -33,97 +33,77 @@ std::string BilateralFilter::getBuildinVertexShaderSource()
 std::string BilateralFilter::getBuildinFragmentShaderSource()
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "uniform sampler2D tex" << std::endl;
-	stream << "out vec4 fragColor;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "	float sum = 0;" << std::endl;
-	stream << " float wsum = 0;" << std::endl;
-	stream << "	for(float x = -filterRadius; x <= filterRadius; x+= 1.0){" << std::endl;
-	stream << "		float sample = texture(tex, texCoord + x );" << std::endl;
-	stream << "		float r = x * blurScale;" << std::endl;
-	stream << "		float w = exp(-r*r);" << std::endl;
-	stream << "		float r2 = (sample-depth) * blurDepthFalloff;" << std::endl;
-	stream << "		float g = exp(-r2*r2);" << std::endl;
-	stream << "		sum += sample * w * g;" << std::endl;
-	stream << "		wsum += w * g;" << std::endl;
-	stream << " }" << std::endl;
-	stream << "if(wsum > 0.0) {" << std::endl;
-	stream << " sum / = wsum;" << std::endl;
-	stream << "}" << std::endl;
-	stream << "vColor.rgb = vec3(sum);" << std::endl;
-	stream << "vColor.a = 1.0;" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "uniform sampler2D tex;" << std::endl
+		<< "in vec2 texCoord;" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	float sum = 0;" << std::endl
+		<< "	float wsum = 0;" << std::endl
+		<< "	float filterRadius = 20;" << std::endl
+		<< "	float blurScale = 30;" << std::endl
+		<< "	float blurDepthFalloff = 0.1;" << std::endl
+		<< "	float depth = texture2D(tex, texCoord).r;" << std::endl
+		<< "	for(float x = -filterRadius; x <= filterRadius; x+= 1.0){" << std::endl
+		<< "		float sample = texture2D(tex, texCoord + x/512.0 ).r;" << std::endl
+		<< "		float r = x/512.0 * blurScale;" << std::endl
+		<< "		float w = exp(-r*r);" << std::endl
+		<< "		float r2 = (sample-depth) * blurDepthFalloff;" << std::endl
+		<< "		float g = exp(-r2*r2);" << std::endl
+		<< "		sum += sample * w * g;" << std::endl
+		<< "		wsum += w * g;" << std::endl
+		<< "	}" << std::endl
+		<< "	if(wsum > 0.0) {" << std::endl
+		<< "		sum /= wsum;" << std::endl
+		<< "	}" << std::endl
+		<< "	fragColor.rgb = vec3(sum);" << std::endl
+	//	<< "	fragColor.rg = texCoord.rg;" << std::endl
+		<< "	fragColor.a = 1.0;" << std::endl
+		<< "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
 	return stream.str();
 }
 
 void BilateralFilter::findLocation()
 {
-	shader.findUniformLocation("projectionMatrix");
-	shader.findUniformLocation("modelviewMatrix");
-
 	shader.findAttribLocation("position");
-	shader.findAttribLocation("pointSize");
 }
 
 #include "../Graphics/OrthogonalCamera.h"
 
-void BilateralFilter::render(const Texture<float>& texture)
+void BilateralFilter::render(const Texture<unsigned char>& texture)
 {
-	OrthogonalCamera<float> camera;
-	camera.moveTo(Vector3d<float>(0.0f, 0.0f, -1.0f));
-	camera.setNear(0.5f);
-	camera.setFar(1.0f);
-
-	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
-	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
-
-	std::array<Vector3d<float>, 4> positions = {
-		Vector3d<float>(-0.5f, 0.5f, 0.0f),
-		Vector3d<float>(-0.5f, -0.5f, 0.0f),
-		Vector3d<float>(0.5f, -0.5f, 0.0f),
-		Vector3d<float>(0.5f, 0.5f, 0.0f),
-	};
+	std::vector<float> positions;
+	positions.push_back(-1.0f);
+	positions.push_back(1.0f);
+	positions.push_back(-1.0f);
+	positions.push_back(-1.0f);
+	positions.push_back(1.0f);
+	positions.push_back(-1.0f);
+	positions.push_back(1.0f);
+	positions.push_back(1.0f);
 
 	glEnable(GL_DEPTH_TEST);
 
-
-	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-	glEnable(GL_POINT_SPRITE);
-
-
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//glDepthMask(GL_FALSE);
-	//glEnable(GL_DEPTH_TEST);
-
 	glUseProgram(shader.getId());
 
-	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
-	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
+	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
-	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	texture.bind();
+	glUniform1i(shader.getUniformLocation("tex"), texture.getId());
 
-
-	//const auto positions = buffer.getPositions();
 	glEnableVertexAttribArray(0);
 
-	glDrawArrays(GL_QUADS, 0, positions.size() / 3);
+	glDrawArrays(GL_QUADS, 0, positions.size() / 2);
 
 	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	//glDisable(GL_BLEND);
-	//glDepthMask(GL_TRUE);
-
-
-	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
-	glDisable(GL_POINT_SPRITE);
+	texture.unbind();
 
 	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);
 }
-*/

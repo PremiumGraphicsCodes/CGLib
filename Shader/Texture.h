@@ -25,7 +25,9 @@ public:
 
 	void unbind() const;
 
-	GLuint getId() const { return texHandle; }
+	int getId() const { return id; }
+
+	GLuint getTexHandle() const { return texHandle; }
 
 	int getWidth() const { return width; }
 

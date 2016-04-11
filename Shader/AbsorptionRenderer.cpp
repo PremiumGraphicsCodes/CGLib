@@ -79,7 +79,7 @@ void AbsorptionRenderer::render(const Texture<unsigned char>& volumeTexture)
 
 	volumeTexture.bind();
 
-	glUniform1i(shader.getUniformLocation("volumeTex"), 2);
+	glUniform1i(shader.getUniformLocation("volumeTex"), 2);// volumeTexture.getId());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 

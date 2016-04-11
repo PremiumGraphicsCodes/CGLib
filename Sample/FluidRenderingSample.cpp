@@ -24,12 +24,15 @@ void FluidRendererSample::setup()
 	depthBuffer.build(512, 512, 0);
 	normalBuffer.build(512, 512, 1);
 	volumeBuffer.build(512, 512, 2);
+	bluredBuffer.build(512, 512, 3);
 
 	depthRenderer.build();
 	normalFilter.build();
 	deferredRenderer.build();
 	pointRenderer.build();
 	absorptionRenderer.build();
+
+	bilateralFilter.build();
 }
 
 void FluidRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
@@ -54,6 +57,14 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	depthRenderer.render(camera, buffer);
 	depthBuffer.unbind();
 
+	glViewport(0, 0, width, height);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//bluredBuffer.bind();
+	bilateralFilter.render(*depthBuffer.getTexture());
+	//bluredBuffer.unbind();
+
+	return;
 	glViewport(0, 0, normalBuffer.getWidth(), normalBuffer.getHeight());
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -61,7 +72,7 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	normalFilter.render(*depthBuffer.getTexture(), camera);
 	normalBuffer.unbind();
 
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	deferredRenderer.render(*depthBuffer.getTexture(), *normalBuffer.getTexture());
@@ -81,4 +92,6 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	absorptionRenderer.render(*volumeBuffer.getTexture());
+
+
 }
