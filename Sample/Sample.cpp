@@ -47,9 +47,7 @@ void onMouseButton(GLFWwindow* window, int button, int action, int mods)
 		}
 		if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
 			activeSample->onMiddleButtonDown(prevPosX, prevPosY);
-
 		}
-
 	}
 	else if (action == GLFW_RELEASE) {
 		if (button == GLFW_MOUSE_BUTTON_LEFT) {
@@ -95,14 +93,9 @@ void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	switch(key) {
-		case GLFW_KEY_F10 :
-			activeSample = std::make_unique<PointRendererSample>();
-			activeSample->setup();
-			break;
 		case GLFW_KEY_F1 :
 			activeSample = std::make_unique<FluidSample>();
 			activeSample->setup();
-
 			break;
 		case GLFW_KEY_F2 :
 			activeSample = std::make_unique<CouplingSample>();
@@ -127,13 +120,15 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 		case GLFW_KEY_F8 :
 			activeSample = std::make_unique<IDRendererSample>();
 			activeSample->setup();
-
 			break;
 		case GLFW_KEY_F9 :
 			activeSample = std::make_unique <SmoothRendererSample>();
 			activeSample->setup();
 			break;
-
+		case GLFW_KEY_F10:
+			activeSample = std::make_unique<PointRendererSample>();
+			activeSample->setup();
+			break;
 		default :
 			activeSample->onKeyDown(key);
 	}
@@ -186,8 +181,8 @@ int main(int argc, char* argv)
 	std::cout << "Press F4 : File IO" << std::endl;
 	std::cout << "Press F5 : Fluid Rendering" << std::endl;
 
-	std::cout << "Press F8 : ID Rendering" << std::endl;
 	std::cout << "Press F7 : Cursor UI" << std::endl;
+	std::cout << "Press F8 : ID Rendering" << std::endl;
 
 	std::cout << "Press F9 : Smooth Rendering" << std::endl;
 	std::cout << "Press F10 : Point Rendering" << std::endl;
@@ -221,7 +216,6 @@ int main(int argc, char* argv)
 		glfwGetWindowSize(window, &width, &height);
 		glViewport(0, 0, width, height);
 		activeSample->demonstrate(width, height, camera);
-
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

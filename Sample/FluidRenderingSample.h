@@ -6,6 +6,8 @@
 #include "../Shader/NormalFilter.h"
 #include "../Shader/FrameBuffer.h"
 #include "../Shader/DeferredRenderer.h"
+#include "../Shader/PointRenderer.h"
+#include "../Shader/AbsorptionRenderer.h"
 
 #include "ISample.h"
 #include <memory>
@@ -27,6 +29,13 @@ private:
 
 	Crystal::Shader::NormalFilter normalFilter;
 	Crystal::Shader::FrameBuffer normalBuffer;
+
+	//Crystal::Shader::
+	Crystal::Shader::PointRenderer pointRenderer;
+	Crystal::Shader::FrameBuffer volumeBuffer;
+
+
+	Crystal::Shader::AbsorptionRenderer absorptionRenderer;
 
 	Crystal::Shader::DeferredRenderer deferredRenderer;
 	int width;

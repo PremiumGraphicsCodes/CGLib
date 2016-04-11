@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AbsorptionRenderer.cpp" />
     <ClCompile Include="BilateralFilter.cpp" />
     <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbsorptionRenderer.h" />
     <ClInclude Include="BilateralFilter.h" />
     <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthRenderer.h" />

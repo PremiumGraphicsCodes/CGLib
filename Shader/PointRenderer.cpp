@@ -17,37 +17,39 @@ bool PointRenderer::build()
 std::string PointRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec3 position;" << std::endl;
-	stream << "in int id;" << std::endl;
-	stream << "in float pointSize;" << std::endl;
-	stream << "in vec4 color;" << std::endl;
-	stream << "out vec4 vColor;" << std::endl;
-	stream << "uniform mat4 projectionMatrix;" << std::endl;
-	stream << "uniform mat4 modelviewMatrix;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
-	stream << "gl_PointSize = pointSize / gl_Position.w;" << std::endl;
-	stream << "vColor = color;" << std::endl;
-	stream << "}" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "in int id;" << std::endl
+		<< "in float pointSize;" << std::endl
+		<< "in vec4 color;" << std::endl
+		<< "out vec4 vColor;" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
+		<< "	vColor = color;" << std::endl
+		<< "}" << std::endl;
 	return stream.str();
 }
 
 std::string PointRenderer::getBuildinFragmentShaderSource() const
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "	in vec4 vColor;" << std::endl;
-	stream << "out vec4 fragColor;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "vec2 coord = gl_PointCoord * 2.0 - 1.0;" << std::endl;
-	stream << "float distSquared = 1.0 - dot(coord, coord);" << std::endl;
-	stream << "if (distSquared < 0.0) {" << std::endl;
-	stream << "		discard;" << std::endl;
-	stream << "}" << std::endl;
-	stream << "fragColor.rgba = vColor;" << std::endl;
-	stream << "fragColor.a = sqrt(distSquared) * vColor.a;" << std::endl;
-	stream << "}" << std::endl;
+	stream 
+		<< "#version 150" << std::endl
+		<< "in vec4 vColor;" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	vec2 coord = gl_PointCoord * 2.0 - 1.0;" << std::endl
+		<< "	float distSquared = 1.0 - dot(coord, coord);" << std::endl
+		<< "	if (distSquared < 0.0) {" << std::endl
+		<< "		discard;" << std::endl
+		<< "	}" << std::endl
+		<< "	fragColor.rgba = vColor;" << std::endl
+		<< "	fragColor.a = sqrt(distSquared) * vColor.a;" << std::endl
+		<< "}" << std::endl;
 	return stream.str();
 }
 
@@ -77,10 +79,8 @@ void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buff
 
 	glEnable(GL_DEPTH_TEST);
 
-
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(GL_POINT_SPRITE);
-
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
