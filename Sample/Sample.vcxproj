@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CouplingSample.cpp" />
+    <ClCompile Include="CubeMapSample.cpp" />
     <ClCompile Include="Cursor3dSample.cpp" />
     <ClCompile Include="DamBreakSample.cpp" />
     <ClCompile Include="FluidRenderingSample.cpp" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CouplingSample.h" />
+    <ClInclude Include="CubeMapSample.h" />
     <ClInclude Include="Cursor3dSample.h" />
     <ClInclude Include="DamBreakSample.h" />
     <ClInclude Include="FluidRenderingSample.h" />

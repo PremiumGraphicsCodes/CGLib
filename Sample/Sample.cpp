@@ -23,6 +23,7 @@
 #include "Cursor3dSample.h"
 #include "DamBreakSample.h"
 #include "FluidRenderingSample.h"
+#include "CubeMapSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -111,6 +112,10 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			break;
 		case GLFW_KEY_F5 :
 			activeSample = std::make_unique<FluidRendererSample>();
+			activeSample->setup();
+			break;
+		case GLFW_KEY_F6 :
+			activeSample = std::make_unique<CubeMapSample>();
 			activeSample->setup();
 			break;
 		case GLFW_KEY_F7:
