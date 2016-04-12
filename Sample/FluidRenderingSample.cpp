@@ -22,7 +22,7 @@ FluidRendererSample::FluidRendererSample()
 
 void FluidRendererSample::setup()
 {
-	renderer.build();
+	renderer.build(512, 512);
 }
 
 void FluidRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)

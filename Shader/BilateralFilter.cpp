@@ -44,8 +44,8 @@ std::string BilateralFilter::getBuildinFragmentShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	float sum = 0;" << std::endl
 		<< "	float wsum = 0;" << std::endl
-		<< "	float filterRadius = 5;" << std::endl
-		<< "	float blurScale = 10;" << std::endl
+		<< "	float filterRadius = 2;" << std::endl
+		<< "	float blurScale = 1;" << std::endl
 		<< "	float blurDepthFalloff = 1.0;" << std::endl
 		<< "	float depth = texture2D(tex, texCoord).r;" << std::endl
 		<< "	for(float x = -filterRadius; x <= filterRadius; x+= 1.0){" << std::endl

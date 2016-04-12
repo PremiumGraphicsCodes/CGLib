@@ -16,7 +16,7 @@ namespace Crystal {
 class FluidRenderer
 {
 public:
-	void build();
+	void build(const int width, const int height);
 
 	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer);
 
@@ -30,6 +30,8 @@ private:
 	PointRenderer pointRenderer;
 	FrameBufferf volumeBuffer;
 
+	FrameBufferf shadedBuffer;
+	
 	BilateralFilter bilateralFilter;
 	FrameBufferf bluredBuffer1;
 	FrameBufferf bluredBuffer2;

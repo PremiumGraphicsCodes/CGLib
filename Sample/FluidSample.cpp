@@ -60,7 +60,7 @@ void FluidSample::setup()
 
 	cursor = Vector3d<float>(0.0f, 20.0f, 25.0f);
 
-	fluidRenderer.build();
+	fluidRenderer.build(512, 512);
 
 	std::cout << "middle button dragg : cursor move" << std::endl;
 	std::cout << "press X : add fluid to x+" << std::endl;

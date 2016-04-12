@@ -4,13 +4,14 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void FluidRenderer::build()
+void FluidRenderer::build(const int width, const int height)
 {
-	depthBuffer.build(1024, 756, 0);
-	normalBuffer.build(1024, 756, 1);
-	volumeBuffer.build(1024, 756, 2);
-	bluredBuffer1.build(1024, 756, 3);
-	bluredBuffer2.build(1024, 756, 4);
+	depthBuffer.build(width, height, 0);
+	normalBuffer.build(width, height, 1);
+	volumeBuffer.build(width, height, 2);
+	bluredBuffer1.build(width, height, 3);
+	bluredBuffer2.build(width, height, 4);
+	shadedBuffer.build(width, height, 5);
 
 	depthRenderer.build();
 	normalFilter.build();
@@ -54,22 +55,24 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	PointLight<float> light;
 	light.setPos(Vector3d<float>(10.0, 10.0, -10.0));
-	light.setDiffuse(ColorRGBA<float>(10.0, 0.0, 0.0, 0.0));
+	light.setDiffuse(ColorRGBA<float>(1.0, 0.0, 0.0, 0.0));
 	light.setSpecular(ColorRGBA<float>(0.0, 0.0, 1.0));
 	light.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 
 	Material material;
-	material.setDiffuse(ColorRGBA<float>(10.0, 0.0, 0.0));
+	material.setDiffuse(ColorRGBA<float>(1.0, 0.0, 0.0));
 	material.setSpecular(ColorRGBA<float>(0.0, 0.0, 1.0));
 	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
-	material.setShininess(100.0f);
+	material.setShininess(1.0f);
 
-	/*
-	glViewport(0, 0, width, height);//depthBuffer.getWidth(), depthBuffer.getHeight());
+	glViewport(0, 0, bluredBuffer2.getWidth(), bluredBuffer2.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
+	shadedBuffer.bind();
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	deferredRenderer.render(*bluredBuffer2.getTexture(), *normalBuffer.getTexture(), camera, light, material);
+	shadedBuffer.unbind();
 
+	/*
 	glViewport(0, 0, width, height);
 	volumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -91,5 +94,5 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	onScreenRenderer.render(*depthBuffer.getTexture());
+	onScreenRenderer.render(*shadedBuffer.getTexture());
 }
