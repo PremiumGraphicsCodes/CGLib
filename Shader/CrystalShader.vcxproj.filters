@@ -56,6 +56,12 @@
     <ClCompile Include="AbsorptionRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="FluidRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
+    <ClCompile Include="OnScreenRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -114,6 +120,12 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="AbsorptionRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="FluidRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="OnScreenRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>

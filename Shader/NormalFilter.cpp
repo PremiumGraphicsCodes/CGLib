@@ -56,7 +56,7 @@ std::string NormalFilter::getBuildinFragmentShaderSource()
 		<< "}" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	float depth = getDepth(texCoord);" << std::endl
-		<< "	if(depth < 0.1) {" << std::endl
+		<< "	if(depth < 0.01) {" << std::endl
 		<< "		fragColor.rgba = vec4(0.0, 0.0, 0.0, 1.0);" << std::endl
 		<< "		return;" << std::endl
 		<< "	}" << std::endl

@@ -37,6 +37,7 @@ std::string DeferredRenderer::getBuildinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform vec3 eyePosition;" << std::endl
 		<< "uniform sampler2D depthTex;" << std::endl
 		<< "uniform sampler2D normalTex;" << std::endl
 		<< "struct LightInfo {" << std::endl
@@ -69,7 +70,7 @@ std::string DeferredRenderer::getBuildinFragmentShaderSource()
 		<< "}" << std::endl
 		<< "vec3 getPhongShadedColor( vec3 position, vec3 normal) {"
 		<< "	vec3 s = normalize(light.position - position);" << std::endl
-		<< "	vec3 v = normalize(-position.xyz);" << std::endl
+		<< "	vec3 v = normalize(position - eyePosition);" << std::endl
 		<< "	vec3 r = reflect( -s, normal );" << std::endl
 		<< "	vec3 ambient = light.La * material.Ka;" << std::endl
 		<< "	float innerProduct = max( dot(s,normal), 0.0);" << std::endl
@@ -82,17 +83,13 @@ std::string DeferredRenderer::getBuildinFragmentShaderSource()
 		<< "}"
 		<< "void main(void) {" << std::endl
 		<< "	float depth = getDepth(texCoord);" << std::endl
-		<< "	if(depth < 0.1) {" << std::endl
-		<< "		fragColor.rgba = vec4(0.0, 0.0, 0.0, 1.0);" << std::endl
+		<< "	if(depth < 0.01) {" << std::endl
+		<< "		discard;" << std::endl
 		<< "		return;" << std::endl
 		<< "	}" << std::endl
-		<< "    vec3 light = vec3(1.0, 0.0, 0.0);" << std::endl
-		<< "	vec3 materialColor = vec3(0.0, 0.0, 1.0);" << std::endl
 		<< "	vec3 normal = texture2D(normalTex, texCoord).rgb;" << std::endl
 		<< "    vec3 eyePosition = getEyePosition(texCoord);" << std::endl
-		//<< "	vec3 lightPosition = get" << std::endl
 		<< "	fragColor.rgb = getPhongShadedColor( eyePosition, normal);" << std::endl
-		//<< "	fragColor.rgb = materialColor * (dot(normal, light)*0.5 + 0.5);" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "	}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -116,6 +113,8 @@ void DeferredRenderer::findLocation()
 	shader.findUniformLocation("material.Kd");
 	shader.findUniformLocation("material.Ks");
 	shader.findUniformLocation("material.shininess");
+
+	shader.findUniformLocation("eyePosition");
 
 	shader.findAttribLocation("position");
 }
@@ -141,6 +140,7 @@ void DeferredRenderer::render(const Crystal::Shader::Texturef& depthTexture, con
 	normalTexture.bind();
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
+	glUniform3fv(shader.getUniformLocation("eyePosition"),1, renderedCamera.getPos().toArray3().data());
 
 	glUniform1i(shader.getUniformLocation("depthTex"), depthTexture.getId());
 	glUniform1i(shader.getUniformLocation("normalTex"), normalTexture.getId());

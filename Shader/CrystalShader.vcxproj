@@ -145,6 +145,7 @@
     <ClCompile Include="BilateralFilter.cpp" />
     <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
+    <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="IDRenderer.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="NormalFilter.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="BillBoardRenderer.cpp" />
+    <ClCompile Include="OnScreenRenderer.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="QuadRenderer.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="BilateralFilter.h" />
     <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthRenderer.h" />
+    <ClInclude Include="FluidRenderer.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="IDRenderer.h" />
@@ -177,6 +180,7 @@
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="NullRenderer.h" />
     <ClInclude Include="BillBoardRenderer.h" />
+    <ClInclude Include="OnScreenRenderer.h" />
     <ClInclude Include="ParticleDepthRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="QuadRenderer.h" />

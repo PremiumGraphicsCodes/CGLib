@@ -1,4 +1,4 @@
-#include "AbsorptionRenderer.h"
+#include "OnScreenRenderer.h"
 
 #include <sstream>
 
@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool AbsorptionRenderer::build()
+bool OnScreenRenderer::build()
 {
 	const auto vsSource = getBuildinVertexShaderSource();
 	const auto fsSource = getBuildinFragmentShaderSource();
@@ -15,7 +15,7 @@ bool AbsorptionRenderer::build()
 	return b;
 }
 
-std::string AbsorptionRenderer::getBuildinVertexShaderSource()
+std::string OnScreenRenderer::getBuildinVertexShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -31,37 +31,29 @@ std::string AbsorptionRenderer::getBuildinVertexShaderSource()
 	return stream.str();
 }
 
-std::string AbsorptionRenderer::getBuildinFragmentShaderSource()
+std::string OnScreenRenderer::getBuildinFragmentShaderSource()
 {
 	std::ostringstream stream;
 	stream
 		<< "#version 150" << std::endl
-		<< "uniform sampler2D volumeTex;" << std::endl
+		<< "uniform sampler2D texture;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	float volume = texture2D(volumeTex, texCoord).r;" << std::endl
-		<< "	if(volume < 0.10 ) {" << std::endl
-		<< "		fragColor.rgb = vec3(0.0, 0.0, 0.0);" << std::endl
-		<< "		fragColor.a = 1.0;" << std::endl
-		<< "		return;" << std::endl
-		<< "	}" << std::endl
-		<< "	float k = 1.0;" << std::endl
-		<< "	fragColor.rgb = exp(-k*volume) * vec3(0.0, 0.0, 1.0);" << std::endl
-		<< "	fragColor.a = 1.0;" << std::endl
+		<< "	fragColor = texture2D(texture, texCoord);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
 	return stream.str();
 }
 
-void AbsorptionRenderer::findLocation()
+void OnScreenRenderer::findLocation()
 {
-	shader.findUniformLocation("volumeTex");
+	shader.findUniformLocation("texture");
 	shader.findAttribLocation("position");
 }
 
-void AbsorptionRenderer::render(const Texturef& volumeTexture)
+void OnScreenRenderer::render(const Texturef& texture)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
@@ -77,9 +69,9 @@ void AbsorptionRenderer::render(const Texturef& volumeTexture)
 
 	glUseProgram(shader.getId());
 
-	volumeTexture.bind();
+	texture.bind();
 
-	glUniform1i(shader.getUniformLocation("volumeTex"), volumeTexture.getId());// volumeTexture.getId());
+	glUniform1i(shader.getUniformLocation("texture"), texture.getId());// volumeTexture.getId());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
@@ -89,7 +81,7 @@ void AbsorptionRenderer::render(const Texturef& volumeTexture)
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	volumeTexture.unbind();
+	texture.unbind();
 	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);

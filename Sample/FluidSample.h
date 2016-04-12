@@ -9,6 +9,7 @@
 #include "../Shader/PointRenderer.h"
 #include "../Shader/IDRenderer.h"
 #include "../Shader/FrameBuffer.h"
+#include "../Shader/FluidRenderer.h"
 #include "ISample.h"
 #include <memory>
 
@@ -37,6 +38,7 @@ private:
 	Crystal::Physics::ParticleWorld world;
 	Crystal::Graphics::ColorMap colorMap;
 	Crystal::Shader::PointRenderer renderer;
+	Crystal::Shader::FluidRenderer fluidRenderer;
 };
 
 #endif

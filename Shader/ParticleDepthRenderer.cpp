@@ -21,7 +21,6 @@ std::string ParticleDepthRenderer::getBuildinVertexShaderSource()
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
 		<< "in float pointSize;" << std::endl
-		<< "out float vDepth;" << std::endl
 		<< "out float vSize;" << std::endl
 		<< "out vec4 vPosition;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
@@ -29,9 +28,8 @@ std::string ParticleDepthRenderer::getBuildinVertexShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
-		<< "	vDepth = gl_Position.z; /// gl_Position.w;" << std::endl
 		<< "	vSize = gl_PointSize;" << std::endl
-		<< "	vPosition = gl_Position;" << std::endl
+		<< "	vPosition = modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "}" << std::endl;
 	bool b = vertexShader.compile(stream.str(), ShaderUnit::Stage::VERTEX);
 	return stream.str();
@@ -43,28 +41,23 @@ std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "out vec4 fragColor;" << std::endl
-		<< "in float vDepth;" << std::endl
 		<< "in float vSize;" << std::endl
 		<< "in vec4 vPosition;" << std::endl
-		<< "uniform float near;" << std::endl
-		<< "uniform float far;" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "vec3 coord;" << std::endl
-		<< "coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
-		<< "float distSquared = dot(coord.xy, coord.xy);" << std::endl
-		<< "if (distSquared > 1.0) {"
+		<< "	vec3 coord;" << std::endl
+		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
+		<< "	float distSquared = dot(coord.xy, coord.xy);" << std::endl
+		<< "	if (distSquared > 1.0) {"
 		<< "		discard;"
-		<< "}" << std::endl
-		<< "coord.z = -sqrt(1.0 - distSquared);" << std::endl
-		<< "float thickness = -coord.z / (far - near)  + vDepth / (far - near);" << std::endl
-		<< "vec3 depth = vec3(thickness);" << std::endl;// vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
-	//stream << "depth = vec3(vDepth);" << std::endl;// / vPosition.w;//gl_FragDepth);// + sqrt(distSquared);" << std::endl;
-
-	stream << "fragColor.rgb = depth;" << std::endl;
-//	stream << "fragColor.rgb = vec3(vDepth / (far - near));" << std::endl;
-//	stream << "fragColor.rgb = vec3(-coord.z / (far - near));" << std::endl;
-	stream << "fragColor.a = 1.0;" << std::endl;
-	stream << "}" << std::endl;
+		<< "	}" << std::endl
+		<< "	coord.z = -sqrt(1.0 - distSquared);" << std::endl
+		<< "	vec4 pixelPos = vPosition + vSize * vec4(coord.xyz, 1.0);" << std::endl
+		<< "	vec4 clipSpacePos = projectionMatrix * pixelPos;" << std::endl
+		<< "	float depth = clipSpacePos.z / clipSpacePos.w;" << std::endl
+		<< "	fragColor.rgb = vec3(depth);" << std::endl
+		<< "	fragColor.a = 1.0;" << std::endl
+		<< "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
 	return stream.str();
 }
@@ -73,9 +66,6 @@ void ParticleDepthRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
-
-	shader.findUniformLocation("near");
-	shader.findUniformLocation("far");
 
 	shader.findAttribLocation("position");
 	shader.findAttribLocation("pointSize");
@@ -112,8 +102,6 @@ void ParticleDepthRenderer::render(const ICamera<float>& camera, const PointBuff
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
 	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
-	glUniform1f(shader.getUniformLocation("near"), camera.getNear());
-	glUniform1f(shader.getUniformLocation("far"), camera.getFar());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glVertexAttribPointer(shader.getAttribLocation("pointSize"), 1, GL_FLOAT, GL_FALSE, 0, sizes.data());

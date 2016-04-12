@@ -60,6 +60,8 @@ void FluidSample::setup()
 
 	cursor = Vector3d<float>(0.0f, 20.0f, 25.0f);
 
+	fluidRenderer.build();
+
 	std::cout << "middle button dragg : cursor move" << std::endl;
 	std::cout << "press X : add fluid to x+" << std::endl;
 	std::cout << "press Z : add fluid to x-" << std::endl;
@@ -160,7 +162,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	glViewport(0, 0, width, height);
 
 
-	renderer.render(camera, buffer);
+	//renderer.render(camera, buffer);
 
-
+	fluidRenderer.render(width, height, camera, buffer);
 }
