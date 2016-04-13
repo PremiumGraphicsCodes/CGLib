@@ -25,9 +25,14 @@ std::string CubeMapRenderer::getBuiltinVertexShaderSource()
 		<< "uniform vec3 eyePosition;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform bool drawSkyBox;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	vec3 worldView = normalize( eyePosition - position );" << std::endl
-		<< "	reflectDir = reflect(-position, normal);" << std::endl
+		<< "	if(drawSkyBox) {" << std::endl
+		<< "		reflectDir = position;" << std::endl
+		<< "	} else {" << std::endl
+		<< "		vec3 worldView = normalize( eyePosition - position );" << std::endl
+		<< "		reflectDir = reflect(-position, normal);" << std::endl
+		<< "	}" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit vertexShader;
@@ -44,10 +49,15 @@ std::string CubeMapRenderer::getBuiltinFragmentShaderSource()
 		<< "uniform samplerCube cubeMapTex;" << std::endl
 		<< "uniform float reflectFactor;" << std::endl
 		<< "uniform vec4 materialColor;" << std::endl
+		<< "uniform bool drawSkyBox;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main() {" << std::endl
 		<< "	vec4 cubeMapColor = texture(cubeMapTex, reflectDir);" << std::endl
-		<< "	fragColor = mix(materialColor, cubeMapColor, reflectFactor);" << std::endl
+		<< "	if(drawSkyBox) {" << std::endl
+		<< "		fragColor = cubeMapColor;" << std::endl
+		<< "	}else {" << std::endl
+		<< "		fragColor = mix(materialColor, cubeMapColor, reflectFactor);" << std::endl
+		<< "	}" << std::endl
 		//		<< "	fragColor.rgb = vec3(1.0);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -59,6 +69,7 @@ void CubeMapRenderer::findLocation()
 {
 	shader.findAttribLocation("position");
 	shader.findAttribLocation("normal");
+	shader.findUniformLocation("drawSkyBox");
 	shader.findUniformLocation("eyePosition");
 	shader.findUniformLocation("modelviewMatrix");
 	shader.findUniformLocation("projectionMatrix");
@@ -90,6 +101,7 @@ void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera
 	glUniform1f(shader.getUniformLocation("reflectFactor"), 0.8f);
 	assert(GL_NO_ERROR == glGetError());
 
+	glUniform1i(shader.getUniformLocation("drawSkyBox"), 1);
 	glUniform1i(shader.getUniformLocation("cubeMapTex"), 10);// volumeTexture.getId());
 	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, camera.getPosition().toArray().data());
 	assert(GL_NO_ERROR == glGetError());

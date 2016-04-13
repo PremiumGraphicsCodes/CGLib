@@ -28,14 +28,22 @@ void CubeMapSample::setup()
 {
 	Crystal::Graphics::Image<float> image(2, 2);
 	image.setColor(0, 0, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
+	image.setColor(0, 1, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
+	image.setColor(1, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
+
 	image.setColor(1, 1, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
 	cubeMapTexture.create(image, 10);
 
 	renderer.build();
 	//renderer.build(512, 512);
 
-	polygon.add(Crystal::Math::Box3d<float>(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0), Crystal::Math::Vector3d<float>(1.0, 1.0, 1.0)));
-	//buffer.add(Triangle<float>(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 0.0, 0.0), Vector3d<float>(1.0f, 1.0f, 0.0)));
+	Triangle<float> triangle1(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(10.0, 0.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
+	Triangle<float> triangle2(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(0.0, 10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
+
+	//polygon.add(triangle1); 
+	//polygon.add(triangle2);
+	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-10.0, -10.0, -10.0), Crystal::Math::Vector3d<float>(10.0, 10.0, 10.0));
+	polygon.add(box);
 }
 
 void CubeMapSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
