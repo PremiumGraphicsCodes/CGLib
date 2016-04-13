@@ -11,9 +11,9 @@ class CubeMapTexture
 public:
 	void create(const Crystal::Graphics::Image<float>& image, const unsigned int id);
 
-	void bind();
+	void bind() const;
 
-	void unbind();
+	void unbind() const;
 private:
 	unsigned int texHandle;
 	unsigned int id;

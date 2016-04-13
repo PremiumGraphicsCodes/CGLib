@@ -26,14 +26,14 @@ void CubeMapTexture::create(const Crystal::Graphics::Image<float>& image, const 
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::bind()
+void CubeMapTexture::bind() const
 {
 	glEnable(GL_TEXTURE_CUBE_MAP);
 	glActiveTexture(GL_TEXTURE0 + id);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 }
 
-void CubeMapTexture::unbind()
+void CubeMapTexture::unbind() const
 {
 	glDisable(GL_TEXTURE_CUBE_MAP);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);

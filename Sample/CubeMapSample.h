@@ -8,6 +8,7 @@
 #include "../Graphics/TriangleBuffer.h"
 
 #include "../Shader/CubeMapTexture.h"
+#include "../Shader/CubeMapRenderer.h"
 
 #include "ISample.h"
 #include <memory>
@@ -25,21 +26,10 @@ public:
 	//void onMiddleButtonDown(const float x, const float y) override;
 
 private:
-	int width;
-	int height;
-	//Crystal::Shader::CubeMapRenderer renderer;
-	Crystal::Shader::ShaderUnit vertexShader;
-	Crystal::Shader::ShaderUnit fragmentShader;
-
-	Crystal::Shader::ShaderObject shader;
-
+	Crystal::Shader::CubeMapRenderer renderer;
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
+	Crystal::Polygon::PolygonObject polygon;
 
-	Crystal::Graphics::TriangleBuffer buffer;
-
-	std::string getVertexShaderSource();
-
-	std::string getFragmentShaderSource();
 };
 
 #endif
