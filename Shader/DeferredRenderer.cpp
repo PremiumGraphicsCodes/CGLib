@@ -84,7 +84,7 @@ std::string DeferredRenderer::getBuildinFragmentShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	float depth = getDepth(texCoord);" << std::endl
 		<< "	if(depth < 0.01) {" << std::endl
-		<< "		discard;" << std::endl
+		<< "		fragColor = vec4(0.0, 0.0, 0.0, 0.0);" << std::endl
 		<< "		return;" << std::endl
 		<< "	}" << std::endl
 		<< "	vec3 normal = texture2D(normalTex, texCoord).rgb;" << std::endl

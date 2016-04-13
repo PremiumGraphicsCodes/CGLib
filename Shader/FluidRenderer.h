@@ -11,6 +11,7 @@
 #include "OnScreenRenderer.h"
 #include "CubeMapTexture.h"
 #include "SSCubeMapRenderer.h"
+#include "SkyBoxRenderer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -39,10 +40,15 @@ private:
 	FrameBufferf bluredBuffer2;
 
 	AbsorptionRenderer absorptionRenderer;
+	FrameBufferf absorptionBuffer;
+
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;
 	CubeMapTexture cubeMapTexture;
 	SSCubeMapRenderer cubeMapRenderer;
+	FrameBufferf cubeMapBuffer;
+
+	SkyBoxRenderer skyBoxRenderer;
 };
 
 	}

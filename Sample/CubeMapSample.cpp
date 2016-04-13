@@ -23,7 +23,8 @@ CubeMapSample::CubeMapSample()
 
 void CubeMapSample::setup()
 {
-	Crystal::Graphics::Image<float> image(32, 32);
+	Crystal::Graphics::Image<unsigned char> image1;//(32, 32);
+	/*
 	for (int i = 0; i < image.getWidth(); ++i) {
 		for (int j = 0; j < image.getHeight(); ++j) {
 			if (i % 2 == 0 && j % 2 == 0) {
@@ -34,12 +35,23 @@ void CubeMapSample::setup()
 			}
 		}
 	}
+	*/
+	image1.read("../Shader/cube_PX.png");
+	Crystal::Graphics::Image<float> image2(image1.getWidth(), image1.getHeight());
+	for (int i = 0; i < image1.getWidth(); ++i) {
+		for (int j = 0; j < image1.getHeight(); ++j) {
+			const auto r = image1.getColor(i, j).getRed() / 255.0f;
+			const auto g = image1.getColor(i, j).getGreen() / 255.0f;
+			const auto b = image1.getColor(i, j).getBlue() / 255.0f;
+			image2.setColor(i, j, ColorRGBA<float>(r,g,b, 1.0f) );
+		}
+	}
 	//image.setColor(0, 0, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
 	//image.setColor(0, 1, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
 	//image.setColor(1, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
 
 	//image.setColor(1, 1, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
-	cubeMapTexture.create(image, 10);
+	cubeMapTexture.create(image2, 10);
 
 	renderer.build();
 	skyBoxRenderer.build();

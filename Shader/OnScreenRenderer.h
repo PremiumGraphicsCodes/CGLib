@@ -12,7 +12,7 @@ namespace Crystal {
 class OnScreenRenderer
 {
 public:
-	void render(const Texturef& texture);
+	void render(const Texturef& texture, const float alpha);
 
 	bool build();
 

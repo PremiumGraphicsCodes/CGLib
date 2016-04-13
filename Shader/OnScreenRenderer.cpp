@@ -37,10 +37,12 @@ std::string OnScreenRenderer::getBuildinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D texture;" << std::endl
+		<< "uniform float alpha;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	fragColor = texture2D(texture, texCoord);" << std::endl
+		<< "	fragColor.a *= alpha; " << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -50,10 +52,11 @@ std::string OnScreenRenderer::getBuildinFragmentShaderSource()
 void OnScreenRenderer::findLocation()
 {
 	shader.findUniformLocation("texture");
+	shader.findUniformLocation("alpha");
 	shader.findAttribLocation("position");
 }
 
-void OnScreenRenderer::render(const Texturef& texture)
+void OnScreenRenderer::render(const Texturef& texture, const float alpha)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
@@ -65,13 +68,15 @@ void OnScreenRenderer::render(const Texturef& texture)
 	positions.push_back(1.0f);
 	positions.push_back(1.0f);
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
 
 	texture.bind();
 
-	glUniform1i(shader.getUniformLocation("texture"), texture.getId());// volumeTexture.getId());
+	glUniform1i(shader.getUniformLocation("texture"), texture.getId());
+	glUniform1f(shader.getUniformLocation("alpha"), alpha);
+
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
@@ -82,7 +87,7 @@ void OnScreenRenderer::render(const Texturef& texture)
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 	texture.unbind();
-	glDisable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);
 }

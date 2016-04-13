@@ -58,7 +58,7 @@ std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	float depth = getDepth(texCoord);" << std::endl
 		<< "	if(depth < 0.01) {" << std::endl
-		<< "		discard;" << std::endl
+		<< "		fragColor = vec4(0.0, 0.0, 0.0, 0.0);" << std::endl
 		<< "		return;" << std::endl
 		<< "	}" << std::endl
 		<< "	vec3 normal = texture2D(normalTex, texCoord).rgb;" << std::endl
@@ -68,7 +68,8 @@ std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
 		<< "	vec3 refractDir = refract(-worldView, normal, 1.33);" << std::endl
 		<< "	vec4 reflectColor = texture(cubeMapTex, reflectDir);" << std::endl
 		<< "	vec4 refractColor = texture(cubeMapTex, refractDir);" << std::endl
-		<< "	fragColor = mix(refractColor, reflectColor, 1.0);" << std::endl
+		<< "	fragColor = mix(refractColor, reflectColor, 0.9);" << std::endl
+		<< "	fragColor.a = 1.0f;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
