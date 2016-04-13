@@ -22,16 +22,19 @@ std::string CubeMapRenderer::getBuiltinVertexShaderSource()
 		<< "in vec3 position;" << std::endl
 		<< "in vec3 normal;" << std::endl
 		<< "out vec3 reflectDir;" << std::endl
+		<< "out vec3 refractDir;" << std::endl
 		<< "uniform vec3 eyePosition;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform bool drawSkyBox;" << std::endl
+		//<< "uniform float refractFactor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	if(drawSkyBox) {" << std::endl
 		<< "		reflectDir = position;" << std::endl
 		<< "	} else {" << std::endl
 		<< "		vec3 worldView = normalize( eyePosition - position );" << std::endl
-		<< "		reflectDir = reflect(-position, normal);" << std::endl
+		<< "		reflectDir = reflect(-worldView, normal);" << std::endl
+		<< "		refractDir = refract(-worldView, normal, 1.33);" << std::endl
 		<< "	}" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "}" << std::endl;
@@ -46,19 +49,21 @@ std::string CubeMapRenderer::getBuiltinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 reflectDir;" << std::endl
+		<< "in vec3 refractDir;" << std::endl
 		<< "uniform samplerCube cubeMapTex;" << std::endl
-		<< "uniform float reflectFactor;" << std::endl
+		//<< "uniform float reflectFactor;" << std::endl
+		//<< "uniform float refractFactor;" << std::endl
 		<< "uniform vec4 materialColor;" << std::endl
 		<< "uniform bool drawSkyBox;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main() {" << std::endl
-		<< "	vec4 cubeMapColor = texture(cubeMapTex, reflectDir);" << std::endl
+		<< "	vec4 reflectColor = texture(cubeMapTex, reflectDir);" << std::endl
+		<< "	vec4 refractColor = texture(cubeMapTex, refractDir);" << std::endl
 		<< "	if(drawSkyBox) {" << std::endl
-		<< "		fragColor = cubeMapColor;" << std::endl
+		<< "		fragColor = reflectColor;" << std::endl
 		<< "	}else {" << std::endl
-		<< "		fragColor = mix(materialColor, cubeMapColor, reflectFactor);" << std::endl
+		<< "		fragColor = mix(refractColor, reflectColor, 0.8);" << std::endl
 		<< "	}" << std::endl
-		//		<< "	fragColor.rgb = vec3(1.0);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	fragmentShader.compile(stream.str(), Crystal::Shader::ShaderUnit::Stage::FRAGMENT);
@@ -73,12 +78,12 @@ void CubeMapRenderer::findLocation()
 	shader.findUniformLocation("eyePosition");
 	shader.findUniformLocation("modelviewMatrix");
 	shader.findUniformLocation("projectionMatrix");
-	shader.findUniformLocation("materialColor");
 	shader.findUniformLocation("cubeMapTex");
-	shader.findUniformLocation("reflectFactor");
+//	shader.findUniformLocation("reflectFactor");
+//	shader.findUniformLocation("refractFactor");
 }
 
-void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<float>& camera, const TriangleBuffer& buffer)
+void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<float>& camera, const TriangleBuffer& buffer, bool drawSky)
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
@@ -89,8 +94,6 @@ void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera
 
 	cubeMapTexture.bind();
 
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -98,10 +101,12 @@ void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera
 
 	//cubeMapTexture.bind();
 
-	glUniform1f(shader.getUniformLocation("reflectFactor"), 0.8f);
+//	glUniform1f(shader.getUniformLocation("reflectFactor"), 0.8f);
+//	glUniform1f(shader.getUniformLocation("refractFactor"), 1.2f);
+
 	assert(GL_NO_ERROR == glGetError());
 
-	glUniform1i(shader.getUniformLocation("drawSkyBox"), 1);
+	glUniform1i(shader.getUniformLocation("drawSkyBox"), drawSky);
 	glUniform1i(shader.getUniformLocation("cubeMapTex"), 10);// volumeTexture.getId());
 	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, camera.getPosition().toArray().data());
 	assert(GL_NO_ERROR == glGetError());
@@ -118,8 +123,8 @@ void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera
 
 	assert(GL_NO_ERROR == glGetError());
 
-	ColorRGBA<float> color(1.0, 0.0, 1.0, 1.0);
-	glUniform4fv(shader.getUniformLocation("materialColor"), 1, color.toArray4().data());
+	//ColorRGBA<float> color(1.0, 0.0, 1.0, 1.0);
+	//glUniform4fv(shader.getUniformLocation("materialColor"), 1, color.toArray4().data());
 
 	assert(GL_NO_ERROR == glGetError());
 

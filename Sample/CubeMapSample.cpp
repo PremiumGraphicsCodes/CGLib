@@ -37,19 +37,32 @@ void CubeMapSample::setup()
 	renderer.build();
 	//renderer.build(512, 512);
 
-	Triangle<float> triangle1(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(10.0, 0.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
-	Triangle<float> triangle2(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(0.0, 10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
+	Triangle<float> triangle1(Vector3d<float>(-10.0, -10.0, 0.0), Vector3d<float>(10.0, -10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
+	Triangle<float> triangle2(Vector3d<float>(-10.0, -10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0), Vector3d<float>(-10.0, 10.0, 0.0));
 
-	//polygon.add(triangle1); 
-	//polygon.add(triangle2);
+	polygon.add(triangle1); 
+	polygon.add(triangle2);
+
 	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-10.0, -10.0, -10.0), Crystal::Math::Vector3d<float>(10.0, 10.0, 10.0));
-	polygon.add(box);
+	skyPolygon.add(box);
+	//polygon.add(box);
 }
 
 void CubeMapSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
-	Crystal::Graphics::TriangleBuffer buffer;
-	buffer.add(polygon);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	renderer.render(cubeMapTexture, camera, buffer);
+	{
+		Crystal::Graphics::TriangleBuffer buffer;
+		buffer.add(skyPolygon);
+		renderer.render(cubeMapTexture, camera, buffer, true);
+
+	}
+	{
+		Crystal::Graphics::TriangleBuffer buffer;
+		buffer.add(polygon);
+
+		renderer.render(cubeMapTexture, camera, buffer, false);
+	}
 }
