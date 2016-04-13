@@ -7,6 +7,8 @@
 #include "../Shader/ShaderObject.h"
 #include "../Graphics/TriangleBuffer.h"
 
+#include "../Shader/CubeMapTexture.h"
+
 #include "ISample.h"
 #include <memory>
 
@@ -31,14 +33,13 @@ private:
 
 	Crystal::Shader::ShaderObject shader;
 
-	Crystal::Shader::Texturef cubeMapTexture;
+	Crystal::Shader::CubeMapTexture cubeMapTexture;
 
 	Crystal::Graphics::TriangleBuffer buffer;
 
 	std::string getVertexShaderSource();
 
 	std::string getFragmentShaderSource();
-	GLuint texId;
 };
 
 #endif

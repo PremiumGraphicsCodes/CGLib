@@ -62,6 +62,9 @@
     <ClCompile Include="OnScreenRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="CubeMapTexture.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="OnScreenRenderer.h">
       <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMapTexture.h">
+      <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

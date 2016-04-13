@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="AbsorptionRenderer.cpp" />
     <ClCompile Include="BilateralFilter.cpp" />
+    <ClCompile Include="CubeMapTexture.cpp" />
     <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
     <ClCompile Include="FluidRenderer.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="AbsorptionRenderer.h" />
     <ClInclude Include="BilateralFilter.h" />
+    <ClInclude Include="CubeMapTexture.h" />
     <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthRenderer.h" />
     <ClInclude Include="FluidRenderer.h" />

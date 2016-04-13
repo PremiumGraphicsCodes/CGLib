@@ -67,9 +67,6 @@ void CubeMapSample::setup()
 	const auto& fsSource = getFragmentShaderSource();
 	shader.build(vsSource, fsSource);
 
-	glActiveTexture(GL_TEXTURE10);
-	glGenTextures(1, &texId);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texId);
 
 	Crystal::Graphics::Image<float> image(2, 2);
 	image.setColor(0, 0, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
@@ -87,22 +84,6 @@ void CubeMapSample::setup()
 
 	//renderer.build(512, 512);
 
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
-
-	glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-
-
 	Crystal::Polygon::PolygonObject polygon;
 	polygon.add(Crystal::Math::Box3d<float>(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0), Crystal::Math::Vector3d<float>(1.0, 1.0, 1.0)));
 	buffer.clear();
@@ -119,10 +100,7 @@ void CubeMapSample::demonstrate(const int width, const int height, const Crystal
 		return;
 	}
 
-	glEnable(GL_TEXTURE_CUBE_MAP);
-	glActiveTexture(GL_TEXTURE10);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, texId);
-
+	cubeMapTexture.bind();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -167,12 +145,9 @@ void CubeMapSample::demonstrate(const int width, const int height, const Crystal
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	//cubeMapTexture.unbind();
+	cubeMapTexture.unbind();
 	glDisable(GL_DEPTH_TEST);
 
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-
-	glDisable(GL_TEXTURE_CUBE_MAP);
 
 	glUseProgram(0);
 }
