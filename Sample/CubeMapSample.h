@@ -9,6 +9,7 @@
 
 #include "../Shader/CubeMapTexture.h"
 #include "../Shader/CubeMapRenderer.h"
+#include "../Shader/SkyBoxRenderer.h"
 
 #include "ISample.h"
 #include <memory>
@@ -30,6 +31,7 @@ private:
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
 	Crystal::Polygon::PolygonObject polygon;
 	Crystal::Polygon::PolygonObject skyPolygon;
+	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 
 };
 

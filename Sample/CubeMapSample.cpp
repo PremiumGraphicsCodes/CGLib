@@ -21,27 +21,39 @@ CubeMapSample::CubeMapSample()
 {
 }
 
-
-
-
 void CubeMapSample::setup()
 {
-	Crystal::Graphics::Image<float> image(2, 2);
-	image.setColor(0, 0, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
-	image.setColor(0, 1, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
-	image.setColor(1, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
+	Crystal::Graphics::Image<float> image(32, 32);
+	for (int i = 0; i < image.getWidth(); ++i) {
+		for (int j = 0; j < image.getHeight(); ++j) {
+			if (i % 2 == 0 && j % 2 == 0) {
+				image.setColor(i, j, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+			}
+			else {
+				image.setColor(i, j, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
+			}
+		}
+	}
+	//image.setColor(0, 0, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
+	//image.setColor(0, 1, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
+	//image.setColor(1, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
 
-	image.setColor(1, 1, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
+	//image.setColor(1, 1, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
 	cubeMapTexture.create(image, 10);
 
 	renderer.build();
+	skyBoxRenderer.build();
 	//renderer.build(512, 512);
 
-	Triangle<float> triangle1(Vector3d<float>(-10.0, -10.0, 0.0), Vector3d<float>(10.0, -10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
-	Triangle<float> triangle2(Vector3d<float>(-10.0, -10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0), Vector3d<float>(-10.0, 10.0, 0.0));
+	{
+		//Triangle<float> triangle1(Vector3d<float>(-10.0, -10.0, 0.0), Vector3d<float>(10.0, -10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0));
+		//Triangle<float> triangle2(Vector3d<float>(-10.0, -10.0, 0.0), Vector3d<float>(10.0, 10.0, 0.0), Vector3d<float>(-10.0, 10.0, 0.0));
 
-	polygon.add(triangle1); 
-	polygon.add(triangle2);
+		//polygon.add(triangle1);
+		//polygon.add(triangle2);
+		Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-1.0, -1.0, -1.0), Crystal::Math::Vector3d<float>(1.0, 1.0, 1.0));
+		polygon.add(box);
+	}
 
 	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-10.0, -10.0, -10.0), Crystal::Math::Vector3d<float>(10.0, 10.0, 10.0));
 	skyPolygon.add(box);
@@ -56,13 +68,13 @@ void CubeMapSample::demonstrate(const int width, const int height, const Crystal
 	{
 		Crystal::Graphics::TriangleBuffer buffer;
 		buffer.add(skyPolygon);
-		renderer.render(cubeMapTexture, camera, buffer, true);
+		skyBoxRenderer.render(cubeMapTexture, camera, buffer);
 
 	}
 	{
 		Crystal::Graphics::TriangleBuffer buffer;
 		buffer.add(polygon);
 
-		renderer.render(cubeMapTexture, camera, buffer, false);
+		renderer.render(cubeMapTexture, camera, buffer);
 	}
 }

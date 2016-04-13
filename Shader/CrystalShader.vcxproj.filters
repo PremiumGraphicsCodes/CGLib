@@ -68,6 +68,9 @@
     <ClCompile Include="CubeMapRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBoxRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -138,6 +141,9 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="CubeMapRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBoxRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>

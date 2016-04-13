@@ -14,6 +14,8 @@ public:
 	void bind() const;
 
 	void unbind() const;
+
+	unsigned int getId() const { return id; }
 private:
 	unsigned int texHandle;
 	unsigned int id;
