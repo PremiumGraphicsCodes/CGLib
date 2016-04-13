@@ -22,7 +22,7 @@ TEST( ICameraTest, TestMove )
 	ConcreteCamera<T> c;
 	c.move(Vector3d<T>(1.0f, 0.0f, 0.0f));
 
-	EXPECT_EQ(Vector3d<T>(1.0f, 0.0f, 0.0f), c.getPos() );
+	EXPECT_EQ(Vector3d<T>(1.0f, 0.0f, 0.0f), c.getPosition() );
 }
 
 TEST( ICameraTest, TestGetRotationMatrix)

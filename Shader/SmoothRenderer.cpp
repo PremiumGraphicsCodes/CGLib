@@ -71,9 +71,9 @@ void SmoothRenderer::findLocation()
 
 void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light)
 {
-	const auto& indices = buffer.indices;
-	const auto& positions = buffer.positions.get();// buffers[0].get();
-	const auto& normals = buffer.normals.get();//buffers[1].get();
+	const auto& indices = buffer.getIndices();
+	const auto& positions = buffer.getPositions().get();// buffers[0].get();
+	const auto& normals = buffer.getNormals().get();//buffers[1].get();
 	if (positions.empty()) {
 		return;
 	}
@@ -82,7 +82,7 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
-	const auto& eyePos = camera.getPos().toArray();
+	const auto& eyePos = camera.getPosition().toArray();
 
 	assert(GL_NO_ERROR == glGetError());
 

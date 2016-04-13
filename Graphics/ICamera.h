@@ -35,7 +35,7 @@ public:
 
 	void moveTo(const Math::Vector3d<T>& p) { this->pos = p; }
 
-	Math::Vector3d<T> getPos() const { return pos; }
+	Math::Vector3d<T> getPosition() const { return pos; }
 
 	Math::Matrix3d<T> getRotationMatrix() const;
 

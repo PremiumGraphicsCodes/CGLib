@@ -106,8 +106,8 @@ void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 
 void IDRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
-	const auto& indices = buffer.indices;
-	const auto& positions = buffer.positions.get();
+	const auto& indices = buffer.getIndices();
+	const auto& positions = buffer.getPositions().get();
 	const auto& ids = buffer.idColors.get();
 	if (positions.empty()) {
 		return;

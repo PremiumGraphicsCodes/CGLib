@@ -112,9 +112,9 @@ void CubeMapSample::setup()
 
 void CubeMapSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
-	const auto& indices = buffer.indices;
-	const auto& positions = buffer.positions.get();// buffers[0].get();
-	const auto& normals = buffer.normals.get();//buffers[1].get();
+	const auto& indices = buffer.getIndices();
+	const auto& positions = buffer.getPositions().get();// buffers[0].get();
+	const auto& normals = buffer.getNormals().get();//buffers[1].get();
 	if (positions.empty()) {
 		return;
 	}
@@ -137,7 +137,7 @@ void CubeMapSample::demonstrate(const int width, const int height, const Crystal
 	assert(GL_NO_ERROR == glGetError());
 
 	glUniform1i(shader.getUniformLocation("cubeMapTex"), 10);// volumeTexture.getId());
-	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, camera.getPos().toArray().data());
+	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, camera.getPosition().toArray().data());
 	assert(GL_NO_ERROR == glGetError());
 
 

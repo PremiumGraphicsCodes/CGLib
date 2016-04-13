@@ -237,9 +237,9 @@ namespace {
 
 void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float>& light, const TriangleBuffer& buffer)
 {
-	const auto& positions = buffer.positions.get();// buffers[0].get();
-	const auto& normals = buffer.normals.get();//buffers[1].get();
-	const auto& indices = buffer.indices;
+	const auto& positions = buffer.getPositions().get();// buffers[0].get();
+	const auto& normals = buffer.getNormals().get();//buffers[1].get();
+	const auto& indices = buffer.getIndices();
 
 	if (positions.empty()) {
 		return;
@@ -290,10 +290,9 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 
 void LegacyRenderer::renderId(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
-	const auto& positions = buffer.positions.get();// buffers[0].get();
-	const auto& indices = buffer.indices;
-	const auto& colors = buffer.colors.get();
-
+	const auto& positions = buffer.getPositions().get();// buffers[0].get();
+	const auto& indices = buffer.getIndices();
+	const auto& colors = buffer.getColors().get();
 
 	if (positions.empty()) {
 		return;

@@ -140,7 +140,7 @@ void DeferredRenderer::render(const Crystal::Shader::Texturef& depthTexture, con
 	normalTexture.bind();
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
-	glUniform3fv(shader.getUniformLocation("eyePosition"),1, renderedCamera.getPos().toArray3().data());
+	glUniform3fv(shader.getUniformLocation("eyePosition"),1, renderedCamera.getPosition().toArray3().data());
 
 	glUniform1i(shader.getUniformLocation("depthTex"), depthTexture.getId());
 	glUniform1i(shader.getUniformLocation("normalTex"), normalTexture.getId());

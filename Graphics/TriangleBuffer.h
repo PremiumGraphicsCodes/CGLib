@@ -27,12 +27,19 @@ public:
 
 	void clear();
 
+	Buffer3d<float> getPositions() const { return positions; }
+	Buffer3d<float> getNormals() const { return normals; }
+	Buffer4d<float> getColors() const { return colors; }
+	Buffer4d<float> idColors;
+	std::vector<unsigned int> getIndices() const { return indices; }
+
+private:
+	std::vector<unsigned int> indices;
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
 	Buffer4d<float> colors;
-	Buffer4d<float> idColors;
 	unsigned int nextIndex;
-	std::vector<unsigned int> indices;
+
 };
 
 	}
