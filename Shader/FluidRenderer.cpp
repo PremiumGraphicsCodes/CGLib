@@ -13,6 +13,13 @@ void FluidRenderer::build(const int width, const int height)
 	bluredBuffer2.build(width, height, 4);
 	shadedBuffer.build(width, height, 5);
 
+	Image<float> image(2, 2);
+	image.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
+	image.setColor(0, 1, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
+	image.setColor(1, 0, ColorRGBA<float>(1.0, 1.0, 0.0, 1.0));
+	image.setColor(1, 0, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+	cubeMapTexture.create(image, 6);
+
 	depthRenderer.build();
 	normalFilter.build();
 	deferredRenderer.build();
@@ -20,6 +27,8 @@ void FluidRenderer::build(const int width, const int height)
 	absorptionRenderer.build();
 
 	bilateralFilter.build();
+
+	cubeMapRenderer.build();
 
 	onScreenRenderer.build();
 }
@@ -72,6 +81,11 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	deferredRenderer.render(*bluredBuffer2.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	shadedBuffer.unbind();
 
+	glViewport(0, 0, width, height);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	cubeMapRenderer.render(*bluredBuffer2.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
+
 	/*
 	glViewport(0, 0, width, height);
 	volumeBuffer.bind();
@@ -90,9 +104,9 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	absorptionRenderer.render(*volumeBuffer.getTexture());
 	*/
 
-	glViewport(0, 0, width, height);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glViewport(0, 0, width, height);
+	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	onScreenRenderer.render(*shadedBuffer.getTexture());
+	//onScreenRenderer.render(*shadedBuffer.getTexture());
 }

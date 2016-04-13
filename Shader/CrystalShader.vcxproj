@@ -164,6 +164,7 @@
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
+    <ClCompile Include="SSCubeMapRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="VisualObject.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SkyBoxRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
+    <ClInclude Include="SSCubeMapRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="VisualObject.h" />

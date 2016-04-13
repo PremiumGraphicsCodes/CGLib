@@ -9,6 +9,8 @@
 #include "AbsorptionRenderer.h"
 #include "DeferredRenderer.h"
 #include "OnScreenRenderer.h"
+#include "CubeMapTexture.h"
+#include "SSCubeMapRenderer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -39,6 +41,8 @@ private:
 	AbsorptionRenderer absorptionRenderer;
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;
+	CubeMapTexture cubeMapTexture;
+	SSCubeMapRenderer cubeMapRenderer;
 };
 
 	}

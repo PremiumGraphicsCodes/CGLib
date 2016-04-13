@@ -55,6 +55,7 @@ std::string CubeMapRenderer::getBuiltinFragmentShaderSource()
 		<< "	vec4 reflectColor = texture(cubeMapTex, reflectDir);" << std::endl
 		<< "	vec4 refractColor = texture(cubeMapTex, refractDir);" << std::endl
 		<< "	fragColor = mix(refractColor, reflectColor, 1.0);" << std::endl
+		//<< "	fragColor.rgb = refractDir;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	fragmentShader.compile(stream.str(), Crystal::Shader::ShaderUnit::Stage::FRAGMENT);
