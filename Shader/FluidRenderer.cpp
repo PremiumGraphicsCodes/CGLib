@@ -29,6 +29,23 @@ void FluidRenderer::build(const int width, const int height)
 	image5.read("../Shader/cube_PZ.png");
 	Crystal::Graphics::Imagef image6;
 	image6.read("../Shader/cube_NZ.png");
+	/*
+	Crystal::Graphics::Imagef image1(1,1);
+	image1.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
+	Crystal::Graphics::Imagef image2(1, 1);
+	image2.setColor(0, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
+	Crystal::Graphics::Imagef image3(1, 1);
+	image3.setColor(0, 0, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+
+	Crystal::Graphics::Imagef image4(1, 1);
+	image4.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
+	Crystal::Graphics::Imagef image5(1, 1);
+	image5.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
+	Crystal::Graphics::Imagef image6(1, 1);
+	image6.setColor(0, 0, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
+	*/
+	//Crystal::Graphics::Imagef image4 = Imagef::White(image1.getWidth(), image1.getHeight());
+	//image4.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
 
 	cubeMapTexture.create(image1, 10);
 	cubeMapTexture.setNegativeX(image2);
@@ -60,6 +77,7 @@ void FluidRenderer::build(const int width, const int height)
 void FluidRenderer::findLocation()
 {
 	shader.findUniformLocation("surfaceTexture");
+	shader.findUniformLocation("cubeMapTexture");
 	shader.findUniformLocation("absorptionTexture");
 	shader.findAttribLocation("position");
 
@@ -87,14 +105,15 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D surfaceTexture;" << std::endl
+		<< "uniform sampler2D cubeMapTexture;" << std::endl
 		<< "uniform sampler2D absorptionTexture;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
+		<< "	vec4 cubeMapColor = texture2D(cubeMapTexture, texCoord);" << std::endl
 		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
-		<< "	float alpha = 1.0 - absorptionColor.a;" << std::endl
-		<< "	fragColor = surfaceColor + absorptionColor; " << std::endl
+		<< "	fragColor = surfaceColor * 0.5 + cubeMapColor + absorptionColor; " << std::endl
 		<< "	fragColor.a = absorptionColor.a * 1.0; " << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -133,16 +152,16 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	normalBuffer.unbind();
 
 	PointLight<float> light;
-	light.setPos(Vector3d<float>(10.0, 10.0, 10.0));
+	light.setPos(Vector3d<float>(10.0, 0.0, 0.0));
 	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
-	light.setSpecular(ColorRGBA<float>(0.0, 0.0, 1.0));
+	light.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
 	light.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 
 	Material material;
 	material.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0));
-	material.setSpecular(ColorRGBA<float>(0.0, 0.0, 1.0));
+	material.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
 	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
-	material.setShininess(10.0f);
+	material.setShininess(1.0f);
 
 	glViewport(0, 0, bluredBuffer2.getWidth(), bluredBuffer2.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
@@ -213,10 +232,12 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 		glUseProgram(shader.getId());
 
+		shadedBuffer.getTexture()->bind();
 		cubeMapBuffer.getTexture()->bind();
 		absorptionBuffer.getTexture()->bind();
 
-		glUniform1i(shader.getUniformLocation("surfaceTexture"), cubeMapBuffer.getTexture()->getId());
+		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
+		glUniform1i(shader.getUniformLocation("cubeMapTexture"), cubeMapBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
 
 
@@ -228,6 +249,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 		glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
+		shadedBuffer.getTexture()->unbind();
 		cubeMapBuffer.getTexture()->unbind();
 		absorptionBuffer.getTexture()->unbind();
 
