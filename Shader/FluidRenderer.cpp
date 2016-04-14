@@ -1,5 +1,7 @@
 #include "FluidRenderer.h"
 
+#include <sstream>
+
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
@@ -47,7 +49,59 @@ void FluidRenderer::build(const int width, const int height)
 	cubeMapRenderer.build();
 
 	onScreenRenderer.build();
+
+	const auto vsSource = getBuiltinVertexShaderSource();
+	const auto fsSource = getBuiltinFragmentShaderSource();
+	bool b = shader.build(vsSource, fsSource);
+	findLocation();
+
 }
+
+void FluidRenderer::findLocation()
+{
+	shader.findUniformLocation("surfaceTexture");
+	shader.findUniformLocation("absorptionTexture");
+	shader.findAttribLocation("position");
+
+}
+
+std::string FluidRenderer::getBuiltinVertexShaderSource()
+{
+	std::ostringstream stream;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec2 position;" << std::endl
+		<< "out vec2 texCoord;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	texCoord = (position + vec2(1.0,1.0))/2.0;" << std::endl
+		<< "	gl_Position = vec4(position, 0.0, 1.0);" << std::endl
+		<< "}" << std::endl;
+	ShaderUnit vertexShader;
+	bool b = vertexShader.compile(stream.str(), ShaderUnit::Stage::VERTEX);
+	return stream.str();
+}
+
+std::string FluidRenderer::getBuiltinFragmentShaderSource()
+{
+	std::ostringstream stream;
+	stream
+		<< "#version 150" << std::endl
+		<< "uniform sampler2D surfaceTexture;" << std::endl
+		<< "uniform sampler2D absorptionTexture;" << std::endl
+		<< "in vec2 texCoord;" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
+		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
+		<< "	float alpha = 1.0 - absorptionColor.a;" << std::endl
+		<< "	fragColor = surfaceColor + absorptionColor; " << std::endl
+		<< "	fragColor.a = absorptionColor.a * 1.0; " << std::endl
+		<< "}" << std::endl;
+	ShaderUnit fragmentShader;
+	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
+	return stream.str();
+}
+
 
 void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer)
 {
@@ -124,7 +178,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/*
 	{
 		Crystal::Polygon::PolygonObject polygon;
 		//const Box3d<float> box(Vector3d<float>(-100.0, 0.0, -20.0), Vector3d<float>(100.0, 20.0, 20.0));
@@ -135,7 +188,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		triBuffer.add(polygon);
 		skyBoxRenderer.render(cubeMapTexture, camera, triBuffer);
 	}
-	*/
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -143,8 +195,43 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//onScreenRenderer.render(*absorptionBuffer.getTexture(), 0.75f);
-	onScreenRenderer.render(*cubeMapBuffer.getTexture(), 1.0f);
+	//onScreenRenderer.render(*cubeMapBuffer.getTexture(), 1.0f);
 	//onScreenRenderer.render(*shadedBuffer.getTexture(), 0.25f);
+
+	{
+		std::vector<float> positions;
+		positions.push_back(-1.0f);
+		positions.push_back(1.0f);
+		positions.push_back(-1.0f);
+		positions.push_back(-1.0f);
+		positions.push_back(1.0f);
+		positions.push_back(-1.0f);
+		positions.push_back(1.0f);
+		positions.push_back(1.0f);
+
+		//glEnable(GL_DEPTH_TEST);
+
+		glUseProgram(shader.getId());
+
+		cubeMapBuffer.getTexture()->bind();
+		absorptionBuffer.getTexture()->bind();
+
+		glUniform1i(shader.getUniformLocation("surfaceTexture"), cubeMapBuffer.getTexture()->getId());
+		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
+
+
+		glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
+
+		glEnableVertexAttribArray(0);
+		glDrawArrays(GL_QUADS, 0, positions.size() / 2);
+		glDisableVertexAttribArray(0);
+
+		glBindFragDataLocation(shader.getId(), 0, "fragColor");
+
+		cubeMapBuffer.getTexture()->unbind();
+		absorptionBuffer.getTexture()->unbind();
+
+	}
 
 	glDisable(GL_BLEND);
 

@@ -49,6 +49,15 @@ private:
 	FrameBufferf cubeMapBuffer;
 
 	SkyBoxRenderer skyBoxRenderer;
+
+private:
+	std::string getBuiltinVertexShaderSource();
+
+	std::string getBuiltinFragmentShaderSource();
+
+	void findLocation();
+
+	ShaderObject shader;
 };
 
 	}
