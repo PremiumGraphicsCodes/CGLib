@@ -23,35 +23,25 @@ CubeMapSample::CubeMapSample()
 
 void CubeMapSample::setup()
 {
-	Crystal::Graphics::Image<unsigned char> image1;//(32, 32);
-	/*
-	for (int i = 0; i < image.getWidth(); ++i) {
-		for (int j = 0; j < image.getHeight(); ++j) {
-			if (i % 2 == 0 && j % 2 == 0) {
-				image.setColor(i, j, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-			}
-			else {
-				image.setColor(i, j, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
-			}
-		}
-	}
-	*/
+	Crystal::Graphics::Imagef image1;
 	image1.read("../Shader/cube_PX.png");
-	Crystal::Graphics::Image<float> image2(image1.getWidth(), image1.getHeight());
-	for (int i = 0; i < image1.getWidth(); ++i) {
-		for (int j = 0; j < image1.getHeight(); ++j) {
-			const auto r = image1.getColor(i, j).getRed() / 255.0f;
-			const auto g = image1.getColor(i, j).getGreen() / 255.0f;
-			const auto b = image1.getColor(i, j).getBlue() / 255.0f;
-			image2.setColor(i, j, ColorRGBA<float>(r,g,b, 1.0f) );
-		}
-	}
-	//image.setColor(0, 0, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
-	//image.setColor(0, 1, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
-	//image.setColor(1, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
+	Crystal::Graphics::Imagef image2;
+	image2.read("../Shader/cube_NX.png");
+	Crystal::Graphics::Imagef image3;
+	image3.read("../Shader/cube_PY.png");
+	Crystal::Graphics::Imagef image4;
+	image4.read("../Shader/cube_NY.png");
+	Crystal::Graphics::Imagef image5;
+	image5.read("../Shader/cube_PZ.png");
+	Crystal::Graphics::Imagef image6;
+	image6.read("../Shader/cube_NZ.png");
 
-	//image.setColor(1, 1, ColorRGBA<float>(0.0, 0.0, 1.0, 1.0));
-	cubeMapTexture.create(image2, 10);
+	cubeMapTexture.create(image1, 10);
+	cubeMapTexture.setNegativeX(image2);
+	cubeMapTexture.setPositiveY(image3);
+	cubeMapTexture.setNegativeY(image4);
+	cubeMapTexture.setPositiveZ(image5);
+	cubeMapTexture.setNegativeZ(image6);
 
 	renderer.build();
 	skyBoxRenderer.build();

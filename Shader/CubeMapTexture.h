@@ -9,7 +9,20 @@ namespace Crystal {
 class CubeMapTexture
 {
 public:
-	void create(const Crystal::Graphics::Image<float>& image, const unsigned int id);
+	void create(const Crystal::Graphics::Imagef& image, const unsigned int id);
+
+	void setPositiveX(const Graphics::Imagef& image);
+
+	void setNegativeX(const Graphics::Imagef& image);
+
+	void setPositiveY(const Graphics::Imagef& image);
+
+	void setNegativeY(const Graphics::Imagef& image);
+
+	void setPositiveZ(const Graphics::Imagef& image);
+
+	void setNegativeZ(const Graphics::Imagef& image);
+
 
 	void bind() const;
 
