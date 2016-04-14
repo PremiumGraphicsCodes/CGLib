@@ -37,7 +37,7 @@ std::string PointRenderer::getBuildinVertexShaderSource() const
 std::string PointRenderer::getBuildinFragmentShaderSource() const
 {
 	std::ostringstream stream;
-	stream 
+	stream
 		<< "#version 150" << std::endl
 		<< "in vec4 vColor;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
@@ -49,6 +49,7 @@ std::string PointRenderer::getBuildinFragmentShaderSource() const
 		<< "	}" << std::endl
 		<< "	fragColor.rgba = vColor;" << std::endl
 		<< "	fragColor.a = sqrt(distSquared) * vColor.a;" << std::endl
+		<< "	fragColor.a = 0.1;//sqrt(distSquared);" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -64,7 +65,7 @@ void PointRenderer::findLocation()
 }
 
 
-void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
+void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer, bool doBlend)
 {
 	const auto positions = buffer.getPosition().get();
 	const auto colors = buffer.getColor().get();
@@ -77,15 +78,20 @@ void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buff
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
-	glEnable(GL_DEPTH_TEST);
+	if (doBlend) {
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		//glDepthMask(GL_FALSE);
+		glDisable(GL_DEPTH_TEST);
+	}
+	else {
+		glEnable(GL_DEPTH_TEST);
+	}
 
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(GL_POINT_SPRITE);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glDepthMask(GL_FALSE);
 	//glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
@@ -111,14 +117,19 @@ void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buff
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	glDisable(GL_BLEND);
-	glDepthMask(GL_TRUE);
+	if (doBlend) {
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_BLEND);
+		glDepthMask(GL_TRUE);
+	}
+	else {
+		glDisable(GL_DEPTH_TEST);
+	}
 
 
 	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glDisable(GL_POINT_SPRITE);
 
-	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);
 }

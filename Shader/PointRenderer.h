@@ -13,7 +13,7 @@ class PointRenderer
 public:
 	void findLocation();
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer, bool doBlend);
 
 	//void changeSize(const float size) { this->pointSize = size; }
 	bool build();

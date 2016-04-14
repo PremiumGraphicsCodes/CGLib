@@ -120,7 +120,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		PointBuffer buffer;
 		Point point(cursor, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 500.0f);
 		buffer.add(point);
-		renderer.render(camera, buffer);
+		renderer.render(camera, buffer, false);
 	}
 
 	PointBuffer buffer;

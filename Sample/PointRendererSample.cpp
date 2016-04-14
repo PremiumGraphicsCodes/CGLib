@@ -31,5 +31,5 @@ void PointRendererSample::demonstrate(const int width, const int height, const C
 	PointBuffer buffer;
 	Point point( Vector3d<float>(0.0f, 0.0f, 0.0f), ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f), 100.0f);
 	buffer.add(point);
-	renderer.render(camera, buffer);
+	renderer.render(camera, buffer, false);
 }

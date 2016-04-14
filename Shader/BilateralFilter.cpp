@@ -62,8 +62,7 @@ std::string BilateralFilter::getBuildinFragmentShaderSource()
 		<< "	if(wsum > 0.0) {" << std::endl
 		<< "		sum /= wsum;" << std::endl
 		<< "	}" << std::endl
-		<< "	fragColor.rgb = vec3(sum);" << std::endl
-		<< "	fragColor.a = 1.0;" << std::endl
+		<< "	fragColor = vec4(sum);" << std::endl
 		<< "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
 	return stream.str();

@@ -115,8 +115,8 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
 		<< "	vec4 cubeMapColor = texture2D(cubeMapTexture, texCoord);" << std::endl
 		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
-		<< "	fragColor = surfaceColor + cubeMapColor + absorptionColor; " << std::endl
-		<< "	fragColor.a = absorptionColor.a * 1.0; " << std::endl
+		<< "	fragColor = mix(surfaceColor + cubeMapColor, absorptionColor, absorptionColor.a); " << std::endl
+		<< "	fragColor.a = absorptionColor.a; " << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -183,24 +183,22 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	volumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	pointRenderer.render(camera, buffer);
+	pointRenderer.render(camera, buffer, true);
 	volumeBuffer.unbind();
 
-
+	/*
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	bluredVolumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bilateralFilter.render(*volumeBuffer.getTexture(), true);
 	bluredVolumeBuffer.unbind();
-
-	//absorptionRenderer.render(*volumeBuffer.getTexture());
-
+	*/
 	glViewport(0, 0, absorptionBuffer.getWidth(), absorptionBuffer.getHeight());
 	absorptionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	absorptionRenderer.render(*bluredVolumeBuffer.getTexture());
+	absorptionRenderer.render(*volumeBuffer.getTexture());
 	absorptionBuffer.unbind();
 
 	fluidBuffer.bind();
