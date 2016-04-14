@@ -17,6 +17,7 @@ void FluidRenderer::build(const int width, const int height)
 	cubeMapBuffer.build(width, height, 6);
 	absorptionBuffer.build(width, height, 7);
 	fluidBuffer.build(width, height, 8);
+	bluredVolumeBuffer.build(width, height, 9);
 
 	Crystal::Graphics::Imagef image1;
 	image1.read("../Shader/cube_PX.png");
@@ -185,13 +186,21 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	pointRenderer.render(camera, buffer);
 	volumeBuffer.unbind();
 
+
+	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
+	bluredVolumeBuffer.bind();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	bilateralFilter.render(*volumeBuffer.getTexture(), true);
+	bluredVolumeBuffer.unbind();
+
 	//absorptionRenderer.render(*volumeBuffer.getTexture());
 
 	glViewport(0, 0, absorptionBuffer.getWidth(), absorptionBuffer.getHeight());
 	absorptionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	absorptionRenderer.render(*volumeBuffer.getTexture());
+	absorptionRenderer.render(*bluredVolumeBuffer.getTexture());
 	absorptionBuffer.unbind();
 
 	fluidBuffer.bind();

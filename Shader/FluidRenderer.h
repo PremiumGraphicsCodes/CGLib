@@ -32,6 +32,7 @@ private:
 
 	PointRenderer pointRenderer;
 	FrameBufferf volumeBuffer;
+	FrameBufferf bluredVolumeBuffer;
 
 	FrameBufferf shadedBuffer;
 	
