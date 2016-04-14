@@ -64,11 +64,14 @@ std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
 		<< "	vec3 normal = texture2D(normalTex, texCoord).rgb;" << std::endl
 		<< "    vec3 position = getEyePosition(texCoord);" << std::endl
 		<< "	vec3 worldView = normalize( eyePosition - position );" << std::endl
+		<< "	float innerProduct = dot(-worldView, normal);" << std::endl
+		<< "	float fresnelBias = 0.5;" << std::endl
+		<< "	float fresnel = fresnelBias + ( 1.0 - fresnelBias ) * pow(1.0 - innerProduct, 5); " << std::endl
 		<< "	vec3 reflectDir = reflect(-worldView, normal);" << std::endl
 		<< "	vec3 refractDir = refract(-worldView, normal, 1.33);" << std::endl
 		<< "	vec4 reflectColor = texture(cubeMapTex, reflectDir);" << std::endl
 		<< "	vec4 refractColor = texture(cubeMapTex, refractDir);" << std::endl
-		<< "	fragColor = mix(refractColor, reflectColor, 0.9);" << std::endl
+		<< "	fragColor = mix(refractColor, reflectColor, fresnel);" << std::endl
 		<< "	fragColor.a = 1.0f;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;

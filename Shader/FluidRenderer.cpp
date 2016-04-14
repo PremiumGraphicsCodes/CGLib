@@ -16,6 +16,7 @@ void FluidRenderer::build(const int width, const int height)
 	shadedBuffer.build(width, height, 5);
 	cubeMapBuffer.build(width, height, 6);
 	absorptionBuffer.build(width, height, 7);
+	fluidBuffer.build(width, height, 8);
 
 	Crystal::Graphics::Imagef image1;
 	image1.read("../Shader/cube_PX.png");
@@ -113,7 +114,7 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
 		<< "	vec4 cubeMapColor = texture2D(cubeMapTexture, texCoord);" << std::endl
 		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
-		<< "	fragColor = surfaceColor * 0.5 + cubeMapColor + absorptionColor; " << std::endl
+		<< "	fragColor = surfaceColor + cubeMapColor + absorptionColor; " << std::endl
 		<< "	fragColor.a = absorptionColor.a * 1.0; " << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -193,7 +194,9 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	absorptionRenderer.render(*volumeBuffer.getTexture());
 	absorptionBuffer.unbind();
 
-	glViewport(0, 0, width, height);
+	fluidBuffer.bind();
+
+	glViewport(0, 0, fluidBuffer.getWidth(), fluidBuffer.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -257,4 +260,10 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	glDisable(GL_BLEND);
 
+	fluidBuffer.unbind();
+	glViewport(0, 0, width, height);
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	onScreenRenderer.render(*fluidBuffer.getTexture(), 1.0f);
 }

@@ -50,6 +50,8 @@ private:
 
 	SkyBoxRenderer skyBoxRenderer;
 
+	FrameBufferf fluidBuffer;
+
 private:
 	std::string getBuiltinVertexShaderSource();
 
