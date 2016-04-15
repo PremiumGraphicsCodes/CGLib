@@ -25,7 +25,7 @@ TEST( ICameraTest, TestMove )
 	EXPECT_EQ(Vector3d<T>(1.0f, 0.0f, 0.0f), c.getPosition() );
 }
 
-TEST( ICameraTest, TestGetRotationMatrix)
+TEST( ICameraTest, TestGetRotationMatrixXY)
 {
 	ConcreteCamera<T> c;
 	c.move(Vector3d<T>(0.0, 0.0, 1.0));
@@ -34,6 +34,21 @@ TEST( ICameraTest, TestGetRotationMatrix)
 	EXPECT_EQ(expected, actual);
 }
 
+TEST(ICameraTest, TestGetRotationMatrixYZ)
+{
+	ConcreteCamera<T> c;
+	c.move(Vector3d<T>(1.0, 0.0, 0.0));
+	const auto& expected = Matrix3d<T>::Identity();
+	const auto& actual = c.getRotationMatrix();
+	//EXPECT_EQ(expected, actual);
+}
+
+/*
+TEST(ICameraTest, TestGetModelViewMatrix)
+{
+	getModelviewMatrix()
+}
+*/
 
 TEST(ICameraTest, TestGetUpVector)
 {

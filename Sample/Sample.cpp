@@ -88,7 +88,7 @@ void onMousePos(GLFWwindow* window, double xpos, double ypos)
 
 void onMouseWheel(GLFWwindow* window, double xoffset, double yoffset)
 {
-	camera.translate(Crystal::Math::Vector3d<float>(0.0f, 0.0f, yoffset*0.1));
+	camera.translate(yoffset*0.1*camera.getForwardVector());
 }
 
 void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -134,6 +134,15 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			activeSample = std::make_unique<PointRendererSample>();
 			activeSample->setup();
 			break;
+		case GLFW_KEY_RIGHT:
+			camera.moveLookatTo(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0));
+			camera.moveTo(Crystal::Math::Vector3d<float>(-2.0, 0.0, 0.0));
+			break;
+		case GLFW_KEY_UP:
+			camera.moveLookatTo(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0));
+			camera.moveTo(Crystal::Math::Vector3d<float>(0.0, 0.0, -2.0));
+			break;
+
 		default :
 			activeSample->onKeyDown(key);
 	}

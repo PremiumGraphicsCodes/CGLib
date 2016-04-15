@@ -23,10 +23,14 @@ Matrix3d<T> ICamera<T>::getRotationMatrix() const
 	const auto z = Vector3d<T>(pos - lookat).getNormalized();
 	const auto x = getUpVector().getOuterProduct(z).getNormalized();
 	const auto y = z.getOuterProduct(x);
-	return Matrix3d<T>(
+/*	return Matrix3d<T>(
 		x.getX(), x.getY(), x.getZ(),
 		y.getX(), y.getY(), y.getZ(),
-		z.getX(), z.getY(), z.getZ());
+		z.getX(), z.getY(), z.getZ());*/
+	return Matrix3d<T>(
+		x.getX(), y.getX(), z.getX(),
+		x.getY(), y.getY(), z.getY(),
+		x.getZ(), y.getZ(), z.getZ());
 }
 
 template<typename T>
