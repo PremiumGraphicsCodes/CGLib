@@ -48,7 +48,7 @@ std::string AbsorptionRenderer::getBuildinFragmentShaderSource()
 		<< "	}" << std::endl
 		<< "	float k = 1.0;" << std::endl
 		<< "	volume += 0.1;"
-		<< "	fragColor.rgb = exp(-k*volume) * vec3(0.25, 0.5, 1.0);" << std::endl
+		<< "	fragColor.rgb = exp(-k*volume) * vec3(5/255.0, 102/255.0, 184/255.0);" << std::endl
 		//<< "	fragColor.rgb += vec3(0.0, 0.0, 0.0);" << std::endl
 		<< "	fragColor.a = volume;" << std::endl
 		<< "}" << std::endl;

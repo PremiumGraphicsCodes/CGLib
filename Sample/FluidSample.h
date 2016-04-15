@@ -32,6 +32,7 @@ private:
 	std::vector< std::unique_ptr<Crystal::Physics::Fluid> > fluids;
 	int width;
 	int height;
+	bool isParticleView;
 
 	Crystal::Math::Matrix3d<float> rotationMatrix;
 	Crystal::Math::Vector3d<float> cursor;

@@ -71,11 +71,14 @@ void onMousePos(GLFWwindow* window, double xpos, double ypos)
 		prevPosY = ypos;
 		if (pressedButton == GLFW_MOUSE_BUTTON_LEFT) {
 			activeSample->onLeftDragging(diffx, diffy);
-			camera.translate(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
+			const auto dx = camera.getRightVector() * diffx * 0.01f;
+			const auto dy = camera.getUpVector() * diffy * 0.01f;
+			camera.translate( dx + dy );
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_RIGHT) {
-//			camera.addAngle(Crystal::Math::Vector3d<float>(-diffx * 0.01f, -diffy * 0.01f, 0.0f));
-			camera.move(Crystal::Math::Vector3d<float>(diffx * -0.01f, diffy * -0.01f, 0.0f));
+			const auto dx = camera.getRightVector() * diffx * 0.01f;
+			const auto dy = camera.getUpVector() * diffy * 0.01f;
+			camera.move( dx + dy);
 
 		}
 		else if (pressedButton == GLFW_MOUSE_BUTTON_MIDDLE) {

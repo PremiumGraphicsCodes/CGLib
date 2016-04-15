@@ -65,6 +65,8 @@ void FluidSample::setup()
 	std::cout << "middle button dragg : cursor move" << std::endl;
 	std::cout << "press X : add fluid to x+" << std::endl;
 	std::cout << "press Z : add fluid to x-" << std::endl;
+
+	isParticleView = false;
 }
 
 void FluidSample::onKeyDown(const unsigned char c)
@@ -85,6 +87,9 @@ void FluidSample::onKeyDown(const unsigned char c)
 				fluids.front()->createParticle(pos, Vector3d<float>(50.0f, -20.0f, 0.0f));
 			}
 		}
+	}
+	if (c == 'p') {
+		isParticleView = !isParticleView;
 	}
 }
 
@@ -157,12 +162,11 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		buffer.add(point);
 	}
 
-	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glViewport(0, 0, width, height);
 
-
-	//renderer.render(camera, buffer);
-
-	fluidRenderer.render(width, height, camera, buffer);
+	if (isParticleView) {
+		renderer.render(camera, buffer);
+	}
+	else{
+		fluidRenderer.render(width, height, camera, buffer);
+	}
 }
