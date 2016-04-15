@@ -74,6 +74,9 @@
     <ClCompile Include="SSCubeMapRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="ThicknessRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -150,6 +153,9 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="SSCubeMapRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="ThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>

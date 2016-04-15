@@ -59,7 +59,7 @@ void FluidRenderer::build(const int width, const int height)
 	depthRenderer.build();
 	normalFilter.build();
 	deferredRenderer.build();
-	pointRenderer.build();
+	thicknessRenderer.build();
 	absorptionRenderer.build();
 	skyBoxRenderer.build();
 
@@ -183,7 +183,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	volumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	pointRenderer.render(camera, buffer, true);
+	thicknessRenderer.render(camera, buffer);
 	volumeBuffer.unbind();
 
 	/*

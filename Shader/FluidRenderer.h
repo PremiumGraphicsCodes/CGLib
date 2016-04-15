@@ -12,6 +12,7 @@
 #include "CubeMapTexture.h"
 #include "SSCubeMapRenderer.h"
 #include "SkyBoxRenderer.h"
+#include "ThicknessRenderer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -30,7 +31,7 @@ private:
 	NormalFilter normalFilter;
 	FrameBufferf normalBuffer;
 
-	PointRenderer pointRenderer;
+	ThicknessRenderer thicknessRenderer;
 	FrameBufferf volumeBuffer;
 	FrameBufferf bluredVolumeBuffer;
 

@@ -60,6 +60,8 @@ public:
 
 	Math::Vector3d<T> getRightVector() const;
 
+	void setUpVector(const Math::Vector3d<T>& v) { this->up = v; }
+
 protected:
 	Math::Vector3d<T> pos;
 	Math::Vector3d<T> up;
