@@ -23,7 +23,7 @@ public:
 
 	bool unbind();
 
-	Graphics::Image<unsigned char> toImage() const;
+	Graphics::Image toImage() const;
 
 	Graphics::ColorRGBA<unsigned char> getColor(const int x, const int y) const;
 
@@ -53,7 +53,7 @@ public:
 
 	bool unbind();
 
-	Graphics::Image<float> toImage() const;
+	Graphics::Imagef toImage() const;
 
 	Graphics::ColorRGBA<float> getColor(const int x, const int y) const;
 

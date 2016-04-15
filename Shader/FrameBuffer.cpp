@@ -10,7 +10,7 @@ bool FrameBuffer::build(int width, int height, const int textureId)
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
-	texture.create(Image<unsigned char>(width,height),textureId);
+	texture.create(Image(width,height),textureId);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getTexHandle(), 0);
 
 	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
@@ -36,7 +36,7 @@ bool FrameBuffer::unbind(){
 
 #include <iostream>
 
-Image<unsigned char> FrameBuffer::toImage() const
+Image FrameBuffer::toImage() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	texture.bind();
@@ -49,7 +49,7 @@ Image<unsigned char> FrameBuffer::toImage() const
 	texture.unbind();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	return Image<unsigned char>(width, height, values);
+	return Image(width, height, values);
 }
 
 ColorRGBA<unsigned char> FrameBuffer::getColor(const int x, const int y) const
@@ -77,7 +77,7 @@ bool FrameBufferf::build(int width, int height, const int textureId)
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
-	texture.create(Image<float>(width, height), textureId);
+	texture.create(Imagef(width, height), textureId);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getTexHandle(), 0);
 
 	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
@@ -101,7 +101,7 @@ bool FrameBufferf::unbind() {
 	return (GL_NO_ERROR == glGetError());
 }
 
-Image<float> FrameBufferf::toImage() const
+Imagef FrameBufferf::toImage() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	texture.bind();
@@ -114,7 +114,7 @@ Image<float> FrameBufferf::toImage() const
 	texture.unbind();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	return Image<float>(width, height, values);
+	return Imagef(width, height, values);
 }
 
 ColorRGBA<float> FrameBufferf::getColor(const int x, const int y) const

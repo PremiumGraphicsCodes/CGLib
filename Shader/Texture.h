@@ -15,9 +15,9 @@ public:
 		id(id)
 	{}
 
-	Texture(const Graphics::Image<ColorType>& image, const int id = 0);
+	Texture(const Graphics::Image& image, const int id = 0);
 
-	bool create(const Graphics::Image<ColorType>& image, const int id = 0);
+	bool create(const Graphics::Image& image, const int id = 0);
 
 	~Texture() { unbind(); }
 
@@ -47,9 +47,9 @@ public:
 		id(id)
 	{}
 
-	Texturef(const Graphics::Image<float>& image, const int id = 0);
+	Texturef(const Graphics::Imagef& image, const int id = 0);
 
-	bool create(const Graphics::Image<float>& image, const int id = 0);
+	bool create(const Graphics::Imagef& image, const int id = 0);
 
 	~Texturef() { unbind(); }
 

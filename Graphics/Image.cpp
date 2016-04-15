@@ -5,8 +5,7 @@
 
 using namespace Crystal::Graphics;
 
-template<typename T>
-void Image<T>::read(const std::string& filename)
+void Image::read(const std::string& filename)
 {
 	int width = 0;
 	int height = 0;
@@ -37,9 +36,8 @@ void Image<T>::read(const std::string& filename)
 	this->values =values;
 }
 
-template<typename T>
-void Image<T>::save(const std::string& filename, const ImageFileFormat format) const {
-	std::vector<T> data = values;
+void Image::save(const std::string& filename, const ImageFileFormat format) const {
+	std::vector<unsigned char> data = values;
 	int comp = 4;
 	if (format == ImageFileFormat::PNG) {
 		stb::stbi_write_png(filename.c_str(), width, height, comp, data.data(), width * comp);
@@ -52,10 +50,9 @@ void Image<T>::save(const std::string& filename, const ImageFileFormat format) c
 	}
 }
 
-template<typename T>
-void Image<T>::changeSize(const int sizeX, const int sizeY)
+void Image::changeSize(const int sizeX, const int sizeY)
 {
-	std::vector<T> dest(sizeX * sizeY * 4);
+	std::vector<unsigned char> dest(sizeX * sizeY * 4);
 	stb::stbir_resize_uint8(values.data(), width, height, 0, dest.data(), sizeX, sizeY, 0, 4);
 
 	this->width = sizeX;
@@ -63,9 +60,6 @@ void Image<T>::changeSize(const int sizeX, const int sizeY)
 	this->values = dest;
 }
 
-//template class ImageRGBA<float>;
-//template class ImageRGBA<double>;
-template class Image<unsigned char>;
 
 void Imagef::read(const std::string& filename)
 {

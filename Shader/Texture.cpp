@@ -4,13 +4,13 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 template<typename ColorType>
-Texture<ColorType>::Texture(const Image<ColorType>& image, const int id)
+Texture<ColorType>::Texture(const Image& image, const int id)
 {
 	create(image, id);
 }
 
 template<typename ColorType>
-bool Texture<ColorType>::create(const Image<ColorType>& image, const int id)
+bool Texture<ColorType>::create(const Image& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -50,12 +50,12 @@ void Texture<ColorType>::unbind() const
 template class Texture<unsigned char>;
 
 
-Texturef::Texturef(const Image<float>& image, const int id)
+Texturef::Texturef(const Imagef& image, const int id)
 {
 	create(image, id);
 }
 
-bool Texturef::create(const Image<float>& image, const int id)
+bool Texturef::create(const Imagef& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();

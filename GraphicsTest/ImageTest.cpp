@@ -6,7 +6,7 @@ using namespace Crystal::Graphics;
 
 TEST( ImageRGBATest, ContructTest )
 {
-	Image<float> image;
+	Image image;
 	EXPECT_EQ( 0, image.getWidth() );
 	EXPECT_EQ( 0, image.getHeight() );
 	EXPECT_TRUE( image.getValues().empty() );
@@ -15,10 +15,10 @@ TEST( ImageRGBATest, ContructTest )
 TEST( ImageRGBATest, TestGetColor )
 {
 	{
-		Image<float> color(2, 1);
-		color.setColor(0, 0, ColorRGBA<float>::Red());
-		EXPECT_EQ(ColorRGBA<float>::Red(), color.getColor(0, 0));
-		EXPECT_EQ(ColorRGBA<float>(0, 0, 0, 0), color.getColor(1, 0));
+		Image color(2, 1);
+		color.setColor(0, 0, ColorRGBA<unsigned char>::Red());
+		EXPECT_EQ(ColorRGBA<unsigned char>::Red(), color.getColor(0, 0));
+		EXPECT_EQ(ColorRGBA<unsigned char>(0, 0, 0, 0), color.getColor(1, 0));
 	}
 
 	{
@@ -28,7 +28,7 @@ TEST( ImageRGBATest, TestGetColor )
 			0, 0, 255, 255,
 			255, 255, 255, 255
 		};
-		Image<unsigned char> image(2, 2, colors);
+		Image image(2, 2, colors);
 		EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), image.getColor(0, 0));
 		EXPECT_EQ(ColorRGBA<unsigned char>(0, 255, 0, 255), image.getColor(1, 0));
 		EXPECT_EQ(ColorRGBA<unsigned char>(0, 0, 255, 255), image.getColor(0, 1));
@@ -40,17 +40,17 @@ TEST( ImageRGBATest, TestGetColor )
 
 TEST(ImageRGBATest, TestColors)
 {
-	EXPECT_EQ(ColorRGBA<float>::Black(), Image<float>::Black(1, 1).getColor(0, 0));
-	EXPECT_EQ(ColorRGBA<float>::White(), Image<float>::White(1, 1).getColor(0, 0));
+	EXPECT_EQ(ColorRGBA<unsigned char>::Black(), Image::Black(1, 1).getColor(0, 0));
+	EXPECT_EQ(ColorRGBA<unsigned char>::White(), Image::White(1, 1).getColor(0, 0));
 
 }
 
 TEST(ImageRGBATest, TestWritePNG)
 {
-	auto image = Image<unsigned char>::Red(32, 32);
+	auto image = Image::Red(32, 32);
 	//buffer.setColor(1, 0, ColorRGBA<unsigned char>(255, 0, 0, 0));
 	image.save("../TestFile/IO/Image/testWrite.png", ImageFileFormat::PNG );
-	const Image<unsigned char> actual("../TestFile/IO/Image/testExpected.png");
+	const Image actual("../TestFile/IO/Image/testExpected.png");
 	EXPECT_EQ(ColorRGBA<unsigned char>(255,0,0,255), actual.getColor(0, 0));
 	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(31, 31));
 
@@ -63,10 +63,10 @@ TEST(ImageRGBATest, TestWritePNG)
 
 TEST(ImageRGBATest, TestWriteBMP)
 {
-	auto image = Image<unsigned char>::Red(32, 32);
+	auto image = Image::Red(32, 32);
 	//buffer.setColor(1, 0, ColorRGBA<unsigned char>(255, 0, 0, 0));
 	image.save("../TestFile/IO/Image/actual.bmp", ImageFileFormat::BMP);
-	auto actual = Image<unsigned char>::Red(32, 32);
+	auto actual = Image::Red(32, 32);
 	actual.read("../TestFile/IO/Image/expected.bmp");
 	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(0, 0));
 	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(31, 31));
@@ -81,14 +81,14 @@ TEST(ImageRGBATest, TestWriteBMP)
 
 TEST(ImageRGBATest, TestChangeSize)
 {
-	auto image = Image<unsigned char>::Red(12, 12);
+	auto image = Image::Red(12, 12);
 	image.changeSize(24, 24);
 	image.save("../TestFile/Graphics/ChangeSize.png", ImageFileFormat::PNG );
 }
 
 TEST(ImageRGBATest, TestReversed)
 {
-	auto image = Image<unsigned char>::Red(2, 4);
+	auto image = Image::Red(2, 4);
 	image.setColor(0, 0, ColorRGBA<unsigned char>(255, 0, 0, 255));
 	const auto& actual = image.reversed();
 	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(0, 3) );
