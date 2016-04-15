@@ -33,5 +33,5 @@ void Cursor3dSample::demonstrate(const int width, const int height, const Crysta
 	PointBuffer buffer;
 	Point point( cursor, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 100.0f);
 	buffer.add(point);
-	renderer.render(camera, buffer, false);
+	renderer.render(camera, buffer);
 }

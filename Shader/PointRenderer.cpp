@@ -65,7 +65,7 @@ void PointRenderer::findLocation()
 }
 
 
-void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer, bool doBlend)
+void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 {
 	const auto positions = buffer.getPosition().get();
 	const auto colors = buffer.getColor().get();
@@ -78,16 +78,7 @@ void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buff
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
-	if (doBlend) {
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		//glDepthMask(GL_FALSE);
-		glDisable(GL_DEPTH_TEST);
-	}
-	else {
-		glEnable(GL_DEPTH_TEST);
-	}
+	glEnable(GL_DEPTH_TEST);
 
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(GL_POINT_SPRITE);
@@ -117,14 +108,7 @@ void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buff
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	if (doBlend) {
-		glEnable(GL_DEPTH_TEST);
-		glDisable(GL_BLEND);
-		glDepthMask(GL_TRUE);
-	}
-	else {
-		glDisable(GL_DEPTH_TEST);
-	}
+	glDisable(GL_DEPTH_TEST);
 
 
 	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);

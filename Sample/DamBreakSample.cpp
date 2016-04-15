@@ -275,6 +275,6 @@ void DamBreakSample::demonstrate(const int width, const int height, const Crysta
 		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}
-	pointRenderer.render(camera, buffer,false);
+	pointRenderer.render(camera, buffer);
 
 }
