@@ -173,10 +173,10 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 
 	/*
 	glViewport(0, 0, width, height);
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	auto thicknessTexture = fluidRenderer.getDepthTexture();
+	auto thicknessTexture = fluidRenderer.getNormalTexture();
 	onRenderer.render(*thicknessTexture, 1.0f);
 	*/
 }

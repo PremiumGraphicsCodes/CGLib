@@ -26,6 +26,12 @@ public:
 
 	Texturef* getDepthTexture() { return depthBuffer.getTexture(); }
 
+	Texturef* getBluredTexture1() { return bluredBuffer1.getTexture(); }
+
+	Texturef* getBluredTexture2() { return bluredBuffer2.getTexture(); }
+
+	Texturef* getVolumeTexture() { return volumeBuffer.getTexture(); }
+
 	Texturef* getCubeMapTexture() { return cubeMapBuffer.getTexture(); }
 
 	Texturef* getThicknessTexture() { return volumeBuffer.getTexture(); }

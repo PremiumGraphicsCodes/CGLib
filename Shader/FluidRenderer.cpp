@@ -174,7 +174,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	material.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0));
 	material.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
 	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
-	material.setShininess(1.0f);
+	material.setShininess(100.0f);
 
 	glViewport(0, 0, bluredBuffer2.getWidth(), bluredBuffer2.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
