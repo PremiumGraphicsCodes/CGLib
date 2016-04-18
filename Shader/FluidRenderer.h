@@ -24,6 +24,14 @@ public:
 
 	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer);
 
+	Texturef* getDepthTexture() { return depthBuffer.getTexture(); }
+
+	Texturef* getCubeMapTexture() { return cubeMapBuffer.getTexture(); }
+
+	Texturef* getThicknessTexture() { return volumeBuffer.getTexture(); }
+
+	Texturef* getNormalTexture() { return normalBuffer.getTexture(); }
+
 private:
 	ParticleDepthRenderer depthRenderer;
 	FrameBufferf depthBuffer;
@@ -51,6 +59,8 @@ private:
 	FrameBufferf cubeMapBuffer;
 
 	SkyBoxRenderer skyBoxRenderer;
+
+	FrameBufferf backgroundBuffer;
 
 	FrameBufferf fluidBuffer;
 

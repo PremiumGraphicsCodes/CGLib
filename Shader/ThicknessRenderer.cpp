@@ -22,14 +22,14 @@ std::string ThicknessRenderer::getBuildinVertexShaderSource() const
 		<< "in vec3 position;" << std::endl
 		<< "in int id;" << std::endl
 		<< "in float pointSize;" << std::endl
-		<< "in vec4 color;" << std::endl
-		<< "out vec4 vColor;" << std::endl
+//		<< "in vec4 color;" << std::endl
+//		<< "out vec4 vColor;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
-		<< "	vColor = color;" << std::endl
+//		<< "	vColor = color;" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -39,7 +39,7 @@ std::string ThicknessRenderer::getBuildinFragmentShaderSource() const
 	std::ostringstream stream;
 	stream
 		<< "#version 150" << std::endl
-		<< "in vec4 vColor;" << std::endl
+//		<< "in vec4 vColor;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	vec2 coord = gl_PointCoord * 2.0 - 1.0;" << std::endl
@@ -47,9 +47,9 @@ std::string ThicknessRenderer::getBuildinFragmentShaderSource() const
 		<< "	if (distSquared > 1.0) {"
 		<< "		discard;"
 		<< "	}" << std::endl
-		<< "	fragColor.rgba = vColor;" << std::endl
+//		<< "	fragColor.rgba = vec4(sqrt(distSquared) * 0.1);" << std::endl
 	//	<< "	fragColor.a = sqrt(distSquared) * vColor.a;" << std::endl
-		<< "	fragColor.a = 0.1;" << std::endl
+		<< "	fragColor = vec4(0.05);" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -60,7 +60,7 @@ void ThicknessRenderer::findLocation()
 	shader.findUniformLocation("modelviewMatrix");
 
 	shader.findAttribLocation("position");
-	shader.findAttribLocation("color");
+	//shader.findAttribLocation("color");
 	shader.findAttribLocation("pointSize");
 }
 
@@ -79,8 +79,8 @@ void ThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& 
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	//glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
+	glBlendFunc(GL_ONE, GL_ONE);
 		//glDepthMask(GL_FALSE);
 	glDisable(GL_DEPTH_TEST);
 
@@ -95,18 +95,18 @@ void ThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& 
 	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
-	glVertexAttribPointer(shader.getAttribLocation("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
+//	glVertexAttribPointer(shader.getAttribLocation("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
 	glVertexAttribPointer(shader.getAttribLocation("pointSize"), 1, GL_FLOAT, GL_FALSE, 0, sizes.data());
 
 
 	//const auto positions = buffer.getPositions();
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
+//	glEnableVertexAttribArray(2);
 
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
 
-	glDisableVertexAttribArray(2);
+//	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 

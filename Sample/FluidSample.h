@@ -40,6 +40,7 @@ private:
 	Crystal::Graphics::ColorMap colorMap;
 	Crystal::Shader::PointRenderer renderer;
 	Crystal::Shader::FluidRenderer fluidRenderer;
+	Crystal::Shader::OnScreenRenderer onRenderer;
 };
 
 #endif

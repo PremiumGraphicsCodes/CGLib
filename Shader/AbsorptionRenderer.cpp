@@ -40,15 +40,15 @@ std::string AbsorptionRenderer::getBuildinFragmentShaderSource()
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	float volume = texture2D(volumeTex, texCoord).r;" << std::endl
+		<< "	float volume = texture2D(volumeTex, texCoord).a;" << std::endl
 		<< "	if(volume < 0.01 ) {" << std::endl
 		<< "		fragColor.rgb = vec3(0.0, 0.0, 0.0);" << std::endl
 		<< "		fragColor.a = 0.0;" << std::endl
 		<< "		return;" << std::endl
 		<< "	}" << std::endl
-		<< "	float k = 1.0;" << std::endl
-		<< "	volume += 0.1;"
-		<< "	fragColor.rgb = exp(-k*volume) * vec3(5/255.0, 102/255.0, 184/255.0);" << std::endl
+		<< "	float k = 0.1;" << std::endl
+//		<< "	volume += 0.1;"
+		<< "	fragColor.rgb = exp(-k*volume) * vec3(5/255.0, 102/255.0, 255/255.0);" << std::endl
 		//<< "	fragColor.rgb += vec3(0.0, 0.0, 0.0);" << std::endl
 		<< "	fragColor.a = volume;" << std::endl
 		<< "}" << std::endl;

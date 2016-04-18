@@ -18,6 +18,7 @@ void FluidRenderer::build(const int width, const int height)
 	absorptionBuffer.build(width, height, 7);
 	fluidBuffer.build(width, height, 8);
 	bluredVolumeBuffer.build(width, height, 9);
+	backgroundBuffer.build(width, height, 10);
 
 	Crystal::Graphics::Imagef image1;
 	image1.read("../Shader/cube_PX.png");
@@ -81,6 +82,7 @@ void FluidRenderer::findLocation()
 	shader.findUniformLocation("surfaceTexture");
 	shader.findUniformLocation("cubeMapTexture");
 	shader.findUniformLocation("absorptionTexture");
+	shader.findUniformLocation("backgroundTexture");
 	shader.findAttribLocation("position");
 
 }
@@ -109,14 +111,23 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "uniform sampler2D surfaceTexture;" << std::endl
 		<< "uniform sampler2D cubeMapTexture;" << std::endl
 		<< "uniform sampler2D absorptionTexture;" << std::endl
+		<< "uniform sampler2D backgroundTexture;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
 		<< "	vec4 cubeMapColor = texture2D(cubeMapTexture, texCoord);" << std::endl
 		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
-		<< "	fragColor = mix(surfaceColor + cubeMapColor, absorptionColor, absorptionColor.a); " << std::endl
-		<< "	fragColor.a = absorptionColor.a; " << std::endl
+		<< "	vec4 bgColor = texture2D(backgroundTexture, texCoord); " << std::endl
+		<< "	if(absorptionColor.a < 0.01) { " << std::endl
+		<< "		vec4 bgColor = texture2D(backgroundTexture, texCoord); " << std::endl
+		<< "		fragColor = bgColor; " << std::endl
+		<< "	}else {" << std::endl
+		<< "		fragColor = mix(surfaceColor + cubeMapColor,absorptionColor ,absorptionColor.a); " << std::endl
+//		<< "		fragColor = surfaceColor*0.5 + cubeMapColor*0.5 + absorptionColor;" << std::endl
+//		<< "		fragColor = mix(bgColor, fragColor, absorptionColor.a); "<< std::endl
+//		<< "		fragColor.a = absorptionColor.a; " << std::endl
+		<< "	}" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -167,7 +178,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	glViewport(0, 0, bluredBuffer2.getWidth(), bluredBuffer2.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
-	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	deferredRenderer.render(*bluredBuffer2.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	shadedBuffer.unbind();
@@ -181,31 +192,26 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	volumeBuffer.bind();
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	thicknessRenderer.render(camera, buffer);
 	volumeBuffer.unbind();
 
-	/*
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	bluredVolumeBuffer.bind();
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bilateralFilter.render(*volumeBuffer.getTexture(), true);
 	bluredVolumeBuffer.unbind();
-	*/
+
 	glViewport(0, 0, absorptionBuffer.getWidth(), absorptionBuffer.getHeight());
 	absorptionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	absorptionRenderer.render(*volumeBuffer.getTexture());
+	absorptionRenderer.render(*bluredVolumeBuffer.getTexture());
 	absorptionBuffer.unbind();
 
-	fluidBuffer.bind();
 
-	glViewport(0, 0, fluidBuffer.getWidth(), fluidBuffer.getHeight());
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	{
 		Crystal::Polygon::PolygonObject polygon;
@@ -215,17 +221,30 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		polygon.add(box);
 		TriangleBuffer triBuffer;
 		triBuffer.add(polygon);
+
+		glViewport(0, 0, fluidBuffer.getWidth(), fluidBuffer.getHeight());
+		backgroundBuffer.bind();
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		skyBoxRenderer.render(cubeMapTexture, camera, triBuffer);
+		backgroundBuffer.unbind();
 	}
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//onScreenRenderer.render(*absorptionBuffer.getTexture(), 0.75f);
 	//onScreenRenderer.render(*cubeMapBuffer.getTexture(), 1.0f);
 	//onScreenRenderer.render(*shadedBuffer.getTexture(), 0.25f);
+	glViewport(0, 0, fluidBuffer.getWidth(), fluidBuffer.getHeight());
+	fluidBuffer.bind();
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 
 	{
 		std::vector<float> positions;
@@ -245,11 +264,12 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		shadedBuffer.getTexture()->bind();
 		cubeMapBuffer.getTexture()->bind();
 		absorptionBuffer.getTexture()->bind();
+		backgroundBuffer.getTexture()->bind();
 
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("cubeMapTexture"), cubeMapBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
-
+		glUniform1i(shader.getUniformLocation("backgroundTexture"), backgroundBuffer.getTexture()->getId());
 
 		glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
@@ -262,9 +282,8 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		shadedBuffer.getTexture()->unbind();
 		cubeMapBuffer.getTexture()->unbind();
 		absorptionBuffer.getTexture()->unbind();
-
+		backgroundBuffer.getTexture()->unbind();
 	}
-
 	glDisable(GL_BLEND);
 
 	fluidBuffer.unbind();

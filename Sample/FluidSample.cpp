@@ -57,6 +57,7 @@ void FluidSample::setup()
 	colorMap.setColors(colors);
 
 	renderer.build();
+	onRenderer.build();
 
 	cursor = Vector3d<float>(0.0f, 20.0f, 25.0f);
 
@@ -166,7 +167,16 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	if (isParticleView) {
 		renderer.render(camera, buffer);
 	}
-	else{
+	else {
 		fluidRenderer.render(width, height, camera, buffer);
 	}
+
+	/*
+	glViewport(0, 0, width, height);
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	auto thicknessTexture = fluidRenderer.getDepthTexture();
+	onRenderer.render(*thicknessTexture, 1.0f);
+	*/
 }
