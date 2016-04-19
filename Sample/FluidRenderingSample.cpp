@@ -42,5 +42,18 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	buffer.add(point1);
 	buffer.add(point2);
 	//buffer.add(point3);
-	renderer.render(width, height, camera, buffer);
+
+	PointLight<float> light;
+	light.setPos(Vector3d<float>(10.0, 0.0, 0.0));
+	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
+	light.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
+	light.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
+
+	Material material;
+	material.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0));
+	material.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
+	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
+	material.setShininess(1.0f);
+
+	renderer.render(width, height, camera, buffer, light, material);
 }

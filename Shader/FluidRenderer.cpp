@@ -50,7 +50,7 @@ void FluidRenderer::build(const int width, const int height)
 	//Crystal::Graphics::Imagef image4 = Imagef::White(image1.getWidth(), image1.getHeight());
 	//image4.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
 
-	cubeMapTexture.create(image1, 10);
+	cubeMapTexture.create(image1, 11);
 	cubeMapTexture.setNegativeX(image2);
 	cubeMapTexture.setPositiveY(image3);
 	cubeMapTexture.setNegativeY(image4);
@@ -135,7 +135,7 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 }
 
 
-void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer)
+void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material)
 {
 	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
 	depthBuffer.bind();
@@ -165,18 +165,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	normalFilter.render(*bluredBuffer2.getTexture(), camera);
 	normalBuffer.unbind();
-
-	PointLight<float> light;
-	light.setPos(Vector3d<float>(10.0, 0.0, 0.0));
-	light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
-	light.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
-	light.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
-
-	Material material;
-	material.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0));
-	material.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
-	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
-	material.setShininess(100.0f);
 
 	glViewport(0, 0, bluredBuffer1.getWidth(), bluredBuffer1.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
