@@ -147,6 +147,7 @@
     <ClCompile Include="CubeMapTexture.cpp" />
     <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
+    <ClCompile Include="DepthTexture.cpp" />
     <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GLee.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="CubeMapTexture.h" />
     <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthRenderer.h" />
+    <ClInclude Include="DepthTexture.h" />
     <ClInclude Include="FluidRenderer.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GLee.h" />

@@ -77,6 +77,9 @@
     <ClCompile Include="ThicknessRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="DepthTexture.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="ThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthTexture.h">
+      <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

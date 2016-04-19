@@ -1,0 +1,14 @@
+﻿################################################################################
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+################################################################################
+
+/Debug
+/.vs/CGLib/v14
+/GraphicsTest/Debug/GraphicsTest
+/Graphics/Debug
+/Graphics/Release
+/Graphics/x64
+/GraphicsTest/Release
+/GraphicsTest/x64/Debug
+/Debug_x64
+/GraphicsTest/x64/Release
