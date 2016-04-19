@@ -65,7 +65,7 @@ std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
 		<< "    vec3 position = getEyePosition(texCoord);" << std::endl
 		<< "	vec3 worldView = normalize( eyePosition - position );" << std::endl
 		<< "	float innerProduct = dot(-worldView, normal);" << std::endl
-		<< "	float fresnelBias = 0.5;" << std::endl
+		<< "	float fresnelBias = pow( (1.0-1.33) /(1.0+1.33), 2);" << std::endl
 		<< "	float fresnel = fresnelBias + ( 1.0 - fresnelBias ) * pow(1.0 - innerProduct, 5); " << std::endl
 		<< "	vec3 reflectDir = reflect(-worldView, normal);" << std::endl
 		<< "	vec3 refractDir = refract(-worldView, normal, 1.33);" << std::endl
