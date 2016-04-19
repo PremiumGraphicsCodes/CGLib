@@ -45,6 +45,9 @@
     <ClCompile Include="CubeMapSample.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
+    <ClCompile Include="DepthRenderingSample.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -89,6 +92,9 @@
       <Filter>Shader</Filter>
     </ClInclude>
     <ClInclude Include="CubeMapSample.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthRenderingSample.h">
       <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>

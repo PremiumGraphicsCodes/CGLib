@@ -24,6 +24,7 @@
 #include "DamBreakSample.h"
 #include "FluidRenderingSample.h"
 #include "CubeMapSample.h"
+#include "DepthRenderingSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -137,6 +138,11 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			activeSample = std::make_unique<PointRendererSample>();
 			activeSample->setup();
 			break;
+		case GLFW_KEY_F12:
+			activeSample = std::make_unique<DepthRenderingSample>();
+			activeSample->setup();
+			break;
+
 		case GLFW_KEY_RIGHT:
 			camera.moveLookatTo(Crystal::Math::Vector3d<float>(0.0, 0.0, 0.0));
 			camera.moveTo(Crystal::Math::Vector3d<float>(-2.0, 0.0, 0.0));

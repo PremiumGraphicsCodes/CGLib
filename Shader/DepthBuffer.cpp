@@ -7,23 +7,23 @@ bool DepthBuffer::build(int width, int height, const int textureId)
 {
 	this->width = width;
 	this->height = height;
-	glGenFramebuffers(1, &frameBuffer);
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	glGenFramebuffersEXT(1, &frameBuffer);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffer);
 
 	texture.create(Imagef(width, height), textureId);
-	glFramebufferTexture2D(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, texture.getTexHandle(), 0);
+	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, texture.getTexHandle(), 0);
 
 	glDrawBuffer(GL_NONE);
 	glReadBuffer(GL_NONE);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	return (GL_NO_ERROR == glGetError());
 }
 
 bool DepthBuffer::bind()
 {
-	glBindFramebuffer(GL_FRAMEBUFFER_EXT, frameBuffer);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffer);
 	texture.bind();
 	return (GL_NO_ERROR == glGetError());
 }
@@ -31,7 +31,7 @@ bool DepthBuffer::bind()
 bool DepthBuffer::unbind()
 {
 	texture.unbind();
-	glBindFramebuffer(GL_FRAMEBUFFER_EXT, 0);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	return (GL_NO_ERROR == glGetError());
 }
 

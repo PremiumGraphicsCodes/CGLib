@@ -27,6 +27,7 @@ void FluidRendererSample::setup()
 
 void FluidRendererSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
 {
+
 	glViewport(0, 0, width, height);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

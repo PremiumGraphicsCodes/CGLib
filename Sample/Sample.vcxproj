@@ -167,6 +167,7 @@
     <ClCompile Include="CubeMapSample.cpp" />
     <ClCompile Include="Cursor3dSample.cpp" />
     <ClCompile Include="DamBreakSample.cpp" />
+    <ClCompile Include="DepthRenderingSample.cpp" />
     <ClCompile Include="FluidRenderingSample.cpp" />
     <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="CubeMapSample.h" />
     <ClInclude Include="Cursor3dSample.h" />
     <ClInclude Include="DamBreakSample.h" />
+    <ClInclude Include="DepthRenderingSample.h" />
     <ClInclude Include="FluidRenderingSample.h" />
     <ClInclude Include="RigidSample.h" />
     <ClInclude Include="FluidSample.h" />
