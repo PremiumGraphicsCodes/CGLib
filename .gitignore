@@ -12,3 +12,8 @@
 /GraphicsTest/x64/Debug
 /Debug_x64
 /GraphicsTest/x64/Release
+/IO/Debug
+/IO/Release
+/IO/Win32
+/IOTest/Debug
+/IOTest/Release

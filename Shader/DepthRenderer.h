@@ -6,12 +6,21 @@
 namespace Crystal {
 	namespace Shader {
 
-class DepthRenderer : public IRenderer
+class DepthRenderer
 {
 public:
-	void render(const Graphics::ICamera<float>& camera);
+	void render(const Graphics::ICamera<float>& camera,const Graphics::TriangleBuffer& buffer);
 
-	void findLocation() override {};
+	bool build();
+private:
+	ShaderObject shader;
+
+	std::string getBuiltinVertexShaderSource();
+
+	std::string getBuiltinFragmentShaderSource();
+
+	void findLocation();
+
 };
 	}
 }

@@ -1,55 +1,75 @@
 #include "DepthRenderer.h"
 
+#include <sstream>
+
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-namespace {
-	struct Location {
-		GLuint projectionMatrix;
-		GLuint modelviewMatrix;
-		GLuint position;
-		Location(GLuint id) {
-			projectionMatrix = glGetUniformLocation(id, "projectionMatrix");
-			modelviewMatrix = glGetUniformLocation(id, "modelviewMatrix");
-			assert(projectionMatrix != -1);
-			assert(modelviewMatrix != -1);
-			position = glGetAttribLocation(id, "position");
-			assert(position != -1);
-		}
-	};
+bool DepthRenderer::build()
+{
+	const auto vsSource = getBuiltinVertexShaderSource();
+	const auto fsSource = getBuiltinFragmentShaderSource();
+	shader.build(vsSource, fsSource);
+	findLocation();
 }
 
-
-void DepthRenderer::render(const ICamera<float>& camera)
+std::string DepthRenderer::getBuiltinVertexShaderSource()
 {
-	const auto positions = buffers[0].get();
+	std::ostringstream stream;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "}" << std::endl;
+	return stream.str();
+}
+
+std::string DepthRenderer::getBuiltinFragmentShaderSource()
+{
+	std::ostringstream stream;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	gl_FragDepth = gl_FragCoord.z;" << std::endl
+		<< "}" << std::endl;
+	return stream.str();
+}
+
+void DepthRenderer::findLocation()
+{
+	shader.findUniformLocation("projectionMatrix");
+	shader.findUniformLocation("modelviewMatrix");
+	shader.findAttribLocation("position");
+}
+
+void DepthRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
+{
+	const auto indices = buffer.getIndices();
+	const auto positions = buffer.getPositions().get();
 	if (positions.empty()) {
 		return;
 	}
 
-	const auto& projectionMatrix = camera.getProjectionMatrix();
+	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
 	glUseProgram(shader.getId());
 
-	Location location(shader.getId());
 
-	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(projectionMatrix.toArray().front()));
-	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.front()));
+	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
+	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
 
-	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, positions.data());
-	//glVertexAttribIPointer(location.id, 1, GL_INT, 0, &(ids.front()));
+	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 
-
-	//const auto positions = buffer.getPositions();
 	glEnableVertexAttribArray(0);
 
-	glDrawArrays(GL_TRIANGLES, 0, static_cast<int>(positions.size()) / 3);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
 	glDisableVertexAttribArray(0);
-
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
-
 
 	glUseProgram(0);
 
