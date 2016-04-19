@@ -12,9 +12,6 @@
     <ClCompile Include="NormalRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Buffer</Filter>
-    </ClCompile>
     <ClCompile Include="SmoothRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -62,9 +59,6 @@
     <ClCompile Include="OnScreenRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="CubeMapTexture.cpp">
-      <Filter>Buffer</Filter>
-    </ClCompile>
     <ClCompile Include="CubeMapRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -77,7 +71,16 @@
     <ClCompile Include="ThicknessRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="CubeMapTexture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
     <ClCompile Include="DepthTexture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="NormalRenderer.h">
       <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="SmoothRenderer.h">
       <Filter>Renderer</Filter>
@@ -146,9 +146,6 @@
     <ClInclude Include="OnScreenRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
-    <ClInclude Include="CubeMapTexture.h">
-      <Filter>Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="CubeMapRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
@@ -161,7 +158,16 @@
     <ClInclude Include="ThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
+    <ClInclude Include="CubeMapTexture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
     <ClInclude Include="DepthTexture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -180,6 +186,9 @@
     </Filter>
     <Filter Include="Renderer\Fluid">
       <UniqueIdentifier>{9c8d7b1f-e503-4c72-9f11-57f44fa2075e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{7c2c28ba-3e23-47b2-b336-a04ba7496990}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
