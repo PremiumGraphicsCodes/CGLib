@@ -199,20 +199,18 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	thicknessRenderer.render(camera, buffer);
 	volumeBuffer.unbind();
 
-	/*
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	bluredVolumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bilateralFilter.render(*volumeBuffer.getTexture(), true);
 	bluredVolumeBuffer.unbind();
-	*/
 
 	glViewport(0, 0, absorptionBuffer.getWidth(), absorptionBuffer.getHeight());
 	absorptionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	absorptionRenderer.render(*volumeBuffer.getTexture());
+	absorptionRenderer.render(*bluredVolumeBuffer.getTexture());
 	absorptionBuffer.unbind();
 
 

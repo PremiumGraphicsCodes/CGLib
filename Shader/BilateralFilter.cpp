@@ -63,7 +63,6 @@ std::string BilateralFilter::getBuildinFragmentShaderSource()
 		<< "		sum /= wsum;" << std::endl
 		<< "	}" << std::endl
 		<< "	fragColor = vec4(sum);" << std::endl
-		<< "	gl_FragDepth = 1.0;" << std::endl
 		<< "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
 	return stream.str();
@@ -80,7 +79,7 @@ void BilateralFilter::findLocation()
 
 #include "../Graphics/OrthogonalCamera.h"
 
-void BilateralFilter::render(const DepthTexture& texture, bool isX)
+void BilateralFilter::render(const ITexture& texture, bool isX)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
