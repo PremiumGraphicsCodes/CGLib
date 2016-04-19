@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_SAMPLE_DEPTH_RENDERERING_SAMPLE_H__
 #define __CRYSTAL_SAMPLE_DEPTH_RENDERERING_SAMPLE_H__
 
-#include "../Shader/GLee.h"
 #include "../Shader/DepthRenderer.h"
 #include "../Shader/OnScreenRenderer.h"
 #include "../Shader/DepthBuffer.h"

@@ -1,3 +1,9 @@
+#if _WIN64
+#include "windows.h"
+#endif
+
+#include "../Shader/GLee.h"
+
 #include "DepthRenderingSample.h"
 #include "../Graphics/Light.h"
 
