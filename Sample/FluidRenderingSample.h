@@ -23,6 +23,8 @@ private:
 	int width;
 	int height;
 	Crystal::Shader::FluidRenderer renderer;
+	Crystal::Shader::CubeMapTexture cubeMapTexture;
+
 };
 
 #endif

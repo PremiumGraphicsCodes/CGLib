@@ -20,42 +20,6 @@ void FluidRenderer::build(const int width, const int height)
 	bluredVolumeBuffer.build(width, height, 9);
 	backgroundBuffer.build(width, height, 10);
 
-	Crystal::Graphics::Imagef image1;
-	image1.read("../Shader/cube_PX.png");
-	Crystal::Graphics::Imagef image2;
-	image2.read("../Shader/cube_NX.png");
-	Crystal::Graphics::Imagef image3;
-	image3.read("../Shader/cube_PY.png");
-	Crystal::Graphics::Imagef image4;
-	image4.read("../Shader/cube_NY.png");
-	Crystal::Graphics::Imagef image5;
-	image5.read("../Shader/cube_PZ.png");
-	Crystal::Graphics::Imagef image6;
-	image6.read("../Shader/cube_NZ.png");
-	/*
-	Crystal::Graphics::Imagef image1(1,1);
-	image1.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
-	Crystal::Graphics::Imagef image2(1, 1);
-	image2.setColor(0, 0, ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
-	Crystal::Graphics::Imagef image3(1, 1);
-	image3.setColor(0, 0, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-
-	Crystal::Graphics::Imagef image4(1, 1);
-	image4.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
-	Crystal::Graphics::Imagef image5(1, 1);
-	image5.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
-	Crystal::Graphics::Imagef image6(1, 1);
-	image6.setColor(0, 0, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-	*/
-	//Crystal::Graphics::Imagef image4 = Imagef::White(image1.getWidth(), image1.getHeight());
-	//image4.setColor(0, 0, ColorRGBA<float>(1.0, 0.0, 1.0, 1.0));
-
-	cubeMapTexture.create(image1, 11);
-	cubeMapTexture.setNegativeX(image2);
-	cubeMapTexture.setPositiveY(image3);
-	cubeMapTexture.setNegativeY(image4);
-	cubeMapTexture.setPositiveZ(image5);
-	cubeMapTexture.setNegativeZ(image6);
 
 	depthRenderer.build();
 	normalFilter.build();
@@ -135,7 +99,7 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 }
 
 
-void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material)
+void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material, const CubeMapTexture& cubeMapTexture)
 {
 	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
 	depthBuffer.bind();
@@ -221,12 +185,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		backgroundBuffer.unbind();
 	}
 
-
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//onScreenRenderer.render(*absorptionBuffer.getTexture(), 0.75f);
-	//onScreenRenderer.render(*cubeMapBuffer.getTexture(), 1.0f);
-	//onScreenRenderer.render(*shadedBuffer.getTexture(), 0.25f);
 	glViewport(0, 0, fluidBuffer.getWidth(), fluidBuffer.getHeight());
 	fluidBuffer.bind();
 
@@ -281,5 +239,5 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	onScreenRenderer.render(*fluidBuffer.getTexture(), 1.0f);
+	onScreenRenderer.render(*fluidBuffer.getTexture());
 }

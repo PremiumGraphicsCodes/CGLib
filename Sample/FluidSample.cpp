@@ -69,6 +69,27 @@ void FluidSample::setup()
 	std::cout << "press Z : add fluid to x-" << std::endl;
 
 	isParticleView = false;
+
+	Crystal::Graphics::Imagef image1;
+	image1.read("../Shader/cube_PX.png");
+	Crystal::Graphics::Imagef image2;
+	image2.read("../Shader/cube_NX.png");
+	Crystal::Graphics::Imagef image3;
+	image3.read("../Shader/cube_PY.png");
+	Crystal::Graphics::Imagef image4;
+	image4.read("../Shader/cube_NY.png");
+	Crystal::Graphics::Imagef image5;
+	image5.read("../Shader/cube_PZ.png");
+	Crystal::Graphics::Imagef image6;
+	image6.read("../Shader/cube_NZ.png");
+
+	cubeMapTexture.create(image1, 11);
+	cubeMapTexture.setNegativeX(image2);
+	cubeMapTexture.setPositiveY(image3);
+	cubeMapTexture.setNegativeY(image4);
+	cubeMapTexture.setPositiveZ(image5);
+	cubeMapTexture.setNegativeZ(image6);
+
 }
 
 void FluidSample::onKeyDown(const unsigned char c)
@@ -181,7 +202,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 		material.setShininess(1.0f);
 
-		fluidRenderer.render(width, height, camera, buffer, light, material);
+		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
 
 	/*
