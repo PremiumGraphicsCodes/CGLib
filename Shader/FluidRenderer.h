@@ -13,6 +13,7 @@
 #include "SSCubeMapRenderer.h"
 #include "SkyBoxRenderer.h"
 #include "ThicknessRenderer.h"
+#include "DepthBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -24,7 +25,7 @@ public:
 
 	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer);
 
-	Texturef* getDepthTexture() { return depthBuffer.getTexture(); }
+	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
 	Texturef* getBluredTexture1() { return bluredBuffer1.getTexture(); }
 
@@ -40,7 +41,7 @@ public:
 
 private:
 	ParticleDepthRenderer depthRenderer;
-	FrameBufferf depthBuffer;
+	DepthBuffer depthBuffer;
 
 	NormalFilter normalFilter;
 	FrameBufferf normalBuffer;

@@ -58,6 +58,7 @@ void FluidSample::setup()
 
 	renderer.build();
 	onRenderer.build();
+	depthRenderer.build();
 
 	cursor = Vector3d<float>(0.0f, 20.0f, 25.0f);
 
@@ -176,7 +177,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	auto thicknessTexture = fluidRenderer.getNormalTexture();
-	onRenderer.render(*thicknessTexture, 1.0f);
+	auto depthTexture = fluidRenderer.getBluredTexture1();
+	onRenderer.render(*depthTexture, 1.0f);
 	*/
 }

@@ -4,6 +4,7 @@
 #include "../Graphics/ICamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "Texture.h"
+#include "DepthTexture.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -12,7 +13,7 @@ namespace Crystal {
 class BilateralFilter
 {
 public:
-	void render(const Texturef& texture, bool isX);
+	void render(const DepthTexture& texture, bool isX);
 
 	bool build();
 

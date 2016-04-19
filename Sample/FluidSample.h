@@ -10,6 +10,7 @@
 #include "../Shader/IDRenderer.h"
 #include "../Shader/FrameBuffer.h"
 #include "../Shader/FluidRenderer.h"
+#include "../Shader/DepthRenderer.h"
 #include "ISample.h"
 #include <memory>
 
@@ -41,6 +42,7 @@ private:
 	Crystal::Shader::PointRenderer renderer;
 	Crystal::Shader::FluidRenderer fluidRenderer;
 	Crystal::Shader::OnScreenRenderer onRenderer;
+	Crystal::Shader::DepthRenderer depthRenderer;
 };
 
 #endif
