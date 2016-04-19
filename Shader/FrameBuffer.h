@@ -32,11 +32,11 @@ public:
 
 	int getHeight() const { return height; }
 
-	Texture<unsigned char>* getTexture() { return &texture; }
+	Texture* getTexture() { return &texture; }
 
 private:
 	GLuint frameBuffer;
-	Texture<unsigned char> texture;
+	Texture texture;
 	int width;
 	int height;
 };

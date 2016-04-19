@@ -3,14 +3,12 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-template<typename ColorType>
-Texture<ColorType>::Texture(const Image& image, const int id)
+Texture::Texture(const Image& image, const int id)
 {
 	create(image, id);
 }
 
-template<typename ColorType>
-bool Texture<ColorType>::create(const Image& image, const int id)
+bool Texture::create(const Image& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -32,22 +30,17 @@ bool Texture<ColorType>::create(const Image& image, const int id)
 	return (GL_NO_ERROR == glGetError());
 }
 
-template<typename ColorType>
-void Texture<ColorType>::bind() const
+void Texture::bind() const
 {
 	glActiveTexture(GL_TEXTURE0 + id);
 	glBindTexture(GL_TEXTURE_2D, texHandle);
 }
 
-template<typename ColorType>
-void Texture<ColorType>::unbind() const
+void Texture::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glActiveTexture(GL_TEXTURE0);
 }
-
-
-template class Texture<unsigned char>;
 
 
 Texturef::Texturef(const Imagef& image, const int id)
@@ -88,7 +81,3 @@ void Texturef::unbind() const
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glActiveTexture(GL_TEXTURE0);
 }
-
-
-
-template class Texture<unsigned char>;

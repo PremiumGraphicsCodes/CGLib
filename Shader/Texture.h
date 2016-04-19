@@ -7,7 +7,6 @@
 namespace Crystal {
 	namespace Shader {
 
-template<typename ColorType>
 class Texture
 {
 public:
