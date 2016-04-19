@@ -97,6 +97,25 @@ void CouplingSample::setup()
 
 	fb.build(512, 512);
 	smoothRenderer.build();
+
+	std::array< Crystal::Graphics::Imagef, 6> images;
+	images[0].read("../Shader/cube_PX.png");
+	images[1].read("../Shader/cube_NX.png");
+	images[2].read("../Shader/cube_PY.png");
+	images[3].read("../Shader/cube_NY.png");
+	images[4].read("../Shader/cube_PZ.png");
+	images[5].read("../Shader/cube_NZ.png");
+
+
+	cubeMapTexture.create(images, 11);
+
+	fluidRenderer.build(512, 512);
+
+	backgroundBuffer.build(512, 512);
+
+	onScreenRenderer.build();
+
+	isParticleView = false;
 }
 
 void CouplingSample::cleanup()
@@ -141,6 +160,9 @@ void CouplingSample::onKeyDown(const unsigned char c)
 		shapes.push_back(shape);
 		rigids.push_back(rigid);
 		interaction.add(rigid);
+	}
+	if (c == 'p') {
+		isParticleView = !isParticleView;
 	}
 
 	std::cout << fluid->getParticles().size() << std::endl;
@@ -231,6 +253,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		delete p;
 	}
 
+	backgroundBuffer.bind();
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -239,7 +262,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		auto p = r->getShape()->clone(r->getShape()->getId());
 		p->transform(matrix);
 
-		glViewport(0, 0, width, height);
+		glViewport(0, 0, backgroundBuffer.getWidth(), backgroundBuffer.getHeight());
 
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
@@ -247,9 +270,9 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		smoothRenderer.render(camera, triangleBuffer, light);
 
 		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
-
 		delete p;
 	}
+	backgroundBuffer.unbind();
 
 	glViewport(0, 0, width, height);
 
@@ -271,6 +294,13 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		Crystal::Graphics::Point point(pos, color, 500.0f);
 		buffer.add(point);
 	}
-	pointRenderer.render(camera, buffer);
 
+	if (isParticleView) {
+		pointRenderer.render(camera, buffer);
+	}
+	else {
+		Material material;
+		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+	}
+	//onScreenRenderer.render(*backgroundBuffer.getTexture());
 }

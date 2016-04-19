@@ -53,7 +53,7 @@ void OnScreenRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void OnScreenRenderer::render(const Texturef& texture)
+void OnScreenRenderer::render(const ITexture& texture)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
