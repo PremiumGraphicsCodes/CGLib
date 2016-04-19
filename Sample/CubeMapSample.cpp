@@ -23,25 +23,15 @@ CubeMapSample::CubeMapSample()
 
 void CubeMapSample::setup()
 {
-	Crystal::Graphics::Imagef image1;
-	image1.read("../Shader/cube_PX.png");
-	Crystal::Graphics::Imagef image2;
-	image2.read("../Shader/cube_NX.png");
-	Crystal::Graphics::Imagef image3;
-	image3.read("../Shader/cube_PY.png");
-	Crystal::Graphics::Imagef image4;
-	image4.read("../Shader/cube_NY.png");
-	Crystal::Graphics::Imagef image5;
-	image5.read("../Shader/cube_PZ.png");
-	Crystal::Graphics::Imagef image6;
-	image6.read("../Shader/cube_NZ.png");
+	std::array< Crystal::Graphics::Imagef, 6> images;
+	images[0].read("../Shader/cube_PX.png");
+	images[1].read("../Shader/cube_NX.png");
+	images[2].read("../Shader/cube_PY.png");
+	images[3].read("../Shader/cube_NY.png");
+	images[4].read("../Shader/cube_PZ.png");
+	images[5].read("../Shader/cube_NZ.png");
 
-	cubeMapTexture.create(image1, 10);
-	cubeMapTexture.setNegativeX(image2);
-	cubeMapTexture.setPositiveY(image3);
-	cubeMapTexture.setNegativeY(image4);
-	cubeMapTexture.setPositiveZ(image5);
-	cubeMapTexture.setNegativeZ(image6);
+	cubeMapTexture.create(images, 10);
 
 	renderer.build();
 	skyBoxRenderer.build();
