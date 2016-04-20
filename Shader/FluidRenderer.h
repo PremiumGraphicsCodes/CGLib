@@ -31,17 +31,17 @@ public:
 
 	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
-	Texturef* getBluredTexture1() { return bluredBuffer1.getTexture(); }
+	ITexture* getBluredTexture1() { return bluredBuffer1.getTexture(); }
 
-	Texturef* getBluredTexture2() { return bluredBuffer2.getTexture(); }
+	ITexture* getBluredTexture2() { return bluredBuffer2.getTexture(); }
 
-	Texturef* getVolumeTexture() { return volumeBuffer.getTexture(); }
+	ITexture* getVolumeTexture() { return volumeBuffer.getTexture(); }
 
-	Texturef* getCubeMapTexture() { return cubeMapBuffer.getTexture(); }
+	ITexture* getCubeMapTexture() { return cubeMapBuffer.getTexture(); }
 
-	Texturef* getThicknessTexture() { return volumeBuffer.getTexture(); }
+	ITexture* getThicknessTexture() { return volumeBuffer.getTexture(); }
 
-	Texturef* getNormalTexture() { return normalBuffer.getTexture(); }
+	ITexture* getNormalTexture() { return normalBuffer.getTexture(); }
 
 private:
 	ParticleDepthRenderer depthRenderer;
@@ -51,20 +51,20 @@ private:
 	DepthTexture backgroundDepthTexture;
 
 	NormalFilter normalFilter;
-	FrameBufferf normalBuffer;
+	FrameBuffer normalBuffer;
 
 	ThicknessRenderer thicknessRenderer;
-	FrameBufferf volumeBuffer;
-	FrameBufferf bluredVolumeBuffer;
+	FrameBuffer volumeBuffer;
+	FrameBuffer bluredVolumeBuffer;
 
-	FrameBufferf shadedBuffer;
+	FrameBuffer shadedBuffer;
 	
 	BilateralFilter bilateralFilter;
-	FrameBufferf bluredBuffer1;
-	FrameBufferf bluredBuffer2;
+	FrameBuffer bluredBuffer1;
+	FrameBuffer bluredBuffer2;
 
 	AbsorptionRenderer absorptionRenderer;
-	FrameBufferf absorptionBuffer;
+	FrameBuffer absorptionBuffer;
 
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;

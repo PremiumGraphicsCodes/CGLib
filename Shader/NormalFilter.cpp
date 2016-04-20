@@ -91,7 +91,7 @@ void NormalFilter::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void NormalFilter::render(const Texturef& texture, const ICamera<float>& renderedCamera)
+void NormalFilter::render(const ITexture& texture, const ICamera<float>& renderedCamera)
 {
 	/*
 	const std::array<Vector2d<float>, 3> positions = {

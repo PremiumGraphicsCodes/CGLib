@@ -16,7 +16,7 @@ namespace Crystal {
 class SSCubeMapRenderer
 {
 public:
-	void render(const Texturef& depthTexture, const Texturef& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture);
+	void render(const ITexture& depthTexture, const ITexture& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture);
 
 	bool build();
 

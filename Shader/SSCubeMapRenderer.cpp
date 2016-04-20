@@ -91,7 +91,7 @@ void SSCubeMapRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void SSCubeMapRenderer::render(const Texturef& depthTexture, const Crystal::Shader::Texturef& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture)
+void SSCubeMapRenderer::render(const ITexture& depthTexture, const ITexture& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);
