@@ -8,7 +8,8 @@ using namespace Crystal::Shader;
 
 void FluidRenderer::build(const int width, const int height)
 {
-	depthBuffer.build(width, height, 0);
+	depthTexture.create(Imagef(width, height), 0);
+	depthBuffer.build(depthTexture);
 	normalBuffer.build(width, height, 1);
 	volumeBuffer.build(width, height, 2);
 	bluredBuffer1.build(width, height, 3);

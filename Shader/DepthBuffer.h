@@ -14,11 +14,13 @@ public:
 		unbind();
 	}
 
-	bool build(int width, int height, const int textureId = 0);
+	void setTexture(const DepthTexture& texture);
 
-	bool bind();
+	bool build(const DepthTexture& depthTexture);
 
-	bool unbind();
+	bool bind() const;
+
+	bool unbind() const;
 
 	Graphics::Imagef toImage() const;
 

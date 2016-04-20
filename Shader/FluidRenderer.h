@@ -64,6 +64,7 @@ private:
 	SSCubeMapRenderer cubeMapRenderer;
 	FrameBufferf cubeMapBuffer;
 
+	DepthTexture depthTexture;
 
 	FrameBufferf fluidBuffer;
 

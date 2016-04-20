@@ -14,7 +14,10 @@ using namespace Crystal::Shader;
 
 void DepthRenderingSample::setup()
 {
-	depthBuffer.build(512, 512, 0);
+	Imagef image(512, 512);
+	depthTexture2.create(image, 0);
+	depthBuffer.build(depthTexture2);
+	depthBuffer.setTexture(depthTexture2);
 	depthRenderer.build();
 }
 
@@ -45,7 +48,7 @@ void DepthRenderingSample::demonstrate(const int width, const int height, const 
 	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	depthRenderer.render(*depthBuffer.getTexture());
+	depthRenderer.render(depthTexture2);
 
 	//onScreenRenderer.render(*depthBuffer.getTexture(), 1.0);
 }

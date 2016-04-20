@@ -21,6 +21,7 @@ public:
 private:
 	Crystal::Shader::DepthBuffer depthBuffer;
 	Crystal::Shader::DepthRenderer depthRenderer;
+	Crystal::Shader::DepthTexture depthTexture2;
 };
 
 #endif

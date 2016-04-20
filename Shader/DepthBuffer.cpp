@@ -3,14 +3,14 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool DepthBuffer::build(int width, int height, const int textureId)
+bool DepthBuffer::build(const DepthTexture& depthTexture)
 {
-	this->width = width;
-	this->height = height;
+	this->texture = depthTexture;
+	this->width = depthTexture.getWidth();
+	this->height = depthTexture.getHeight();
 	glGenFramebuffersEXT(1, &frameBuffer);
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffer);
 
-	texture.create(Imagef(width, height), textureId);
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, texture.getTexHandle(), 0);
 
 	glDrawBuffer(GL_NONE);
@@ -21,14 +21,22 @@ bool DepthBuffer::build(int width, int height, const int textureId)
 	return (GL_NO_ERROR == glGetError());
 }
 
-bool DepthBuffer::bind()
+void DepthBuffer::setTexture(const DepthTexture& texture)
+{
+	this->texture = texture;
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffer);
+	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_TEXTURE_2D, texture.getTexHandle(), 0);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+}
+
+bool DepthBuffer::bind() const
 {
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffer);
 	texture.bind();
 	return (GL_NO_ERROR == glGetError());
 }
 
-bool DepthBuffer::unbind()
+bool DepthBuffer::unbind() const
 {
 	texture.unbind();
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
