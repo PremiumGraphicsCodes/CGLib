@@ -110,8 +110,8 @@ void CouplingSample::setup()
 	cubeMapTexture.create(images, 11);
 
 	fluidRenderer.build(512, 512);
-
-	backgroundBuffer.build(512, 512);
+	skyBoxRenderer.build();
+	backgroundBuffer.build(512, 512, 12);
 
 	onScreenRenderer.build();
 
@@ -254,8 +254,11 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	}
 
 	backgroundBuffer.bind();
-	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	skyBoxRenderer.render(cubeMapTexture, camera);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
 
 	for (auto r : rigids) {
 		const auto matrix = r->getTransformMatrix();
@@ -300,7 +303,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	}
 	else {
 		Material material;
-		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture, *backgroundBuffer.getTexture());
 	}
 	//onScreenRenderer.render(*backgroundBuffer.getTexture());
 }

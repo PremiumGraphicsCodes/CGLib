@@ -22,6 +22,7 @@ FluidRendererSample::FluidRendererSample()
 
 void FluidRendererSample::setup()
 {
+	backgroundBuffer.build(512, 512);
 	renderer.build(512, 512);
 }
 
@@ -55,5 +56,5 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 	material.setShininess(1.0f);
 
-	renderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+	renderer.render(width, height, camera, buffer, light, material, cubeMapTexture, *backgroundBuffer.getTexture());
 }

@@ -72,8 +72,9 @@ private:
 	Crystal::Math::Matrix3d<float> rotationMatrix;
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
 	Crystal::Shader::FluidRenderer fluidRenderer;
-	Crystal::Shader::FrameBuffer backgroundBuffer;
+	Crystal::Shader::FrameBufferf backgroundBuffer;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
+	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 
 	bool isParticleView;
 

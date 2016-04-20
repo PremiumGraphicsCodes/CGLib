@@ -24,7 +24,7 @@ private:
 	int height;
 	Crystal::Shader::FluidRenderer renderer;
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
-
+	Crystal::Shader::FrameBufferf backgroundBuffer;
 };
 
 #endif

@@ -23,7 +23,7 @@ class FluidRenderer
 public:
 	void build(const int width, const int height);
 
-	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture);
+	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture, const Texturef& backgroundTexture);
 
 	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
@@ -64,9 +64,6 @@ private:
 	SSCubeMapRenderer cubeMapRenderer;
 	FrameBufferf cubeMapBuffer;
 
-	SkyBoxRenderer skyBoxRenderer;
-
-	FrameBufferf backgroundBuffer;
 
 	FrameBufferf fluidBuffer;
 

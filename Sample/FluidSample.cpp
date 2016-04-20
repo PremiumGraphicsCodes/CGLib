@@ -80,6 +80,10 @@ void FluidSample::setup()
 
 
 	cubeMapTexture.create(images, 11);
+
+	backgroundBuffer.build(512, 512, 10);
+	skyBoxRenderer.build();
+
 }
 
 void FluidSample::onKeyDown(const unsigned char c)
@@ -180,6 +184,15 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		renderer.render(camera, buffer);
 	}
 	else {
+		glViewport(0, 0, backgroundBuffer.getWidth(), backgroundBuffer.getHeight());
+		backgroundBuffer.bind();
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		skyBoxRenderer.render(cubeMapTexture, camera);
+		backgroundBuffer.unbind();
+
+
 		PointLight<float> light;
 		light.setPos(Vector3d<float>(10.0, 0.0, 0.0));
 		light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
@@ -192,7 +205,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 		material.setShininess(1.0f);
 
-		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture, *backgroundBuffer.getTexture());
 	}
 
 	/*
