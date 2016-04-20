@@ -168,20 +168,13 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 
 	{
-		Crystal::Polygon::PolygonObject polygon;
-		//const Box3d<float> box(Vector3d<float>(-100.0, 0.0, -20.0), Vector3d<float>(100.0, 20.0, 20.0));
-		//polygon.add(box);
-		Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-100.0, -100.0, -100.0), Crystal::Math::Vector3d<float>(100.0, 100.0, 100.0));
-		polygon.add(box);
-		TriangleBuffer triBuffer;
-		triBuffer.add(polygon);
 
 		glViewport(0, 0, fluidBuffer.getWidth(), fluidBuffer.getHeight());
 		backgroundBuffer.bind();
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		skyBoxRenderer.render(cubeMapTexture, camera, triBuffer);
+		skyBoxRenderer.render(cubeMapTexture, camera);
 		backgroundBuffer.unbind();
 	}
 

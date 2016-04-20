@@ -46,9 +46,6 @@ void CubeMapSample::setup()
 		Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-1.0, -1.0, -1.0), Crystal::Math::Vector3d<float>(1.0, 1.0, 1.0));
 		polygon.add(box);
 	}
-
-	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-10.0, -10.0, -10.0), Crystal::Math::Vector3d<float>(10.0, 10.0, 10.0));
-	skyPolygon.add(box);
 	//polygon.add(box);
 }
 
@@ -58,9 +55,7 @@ void CubeMapSample::demonstrate(const int width, const int height, const Crystal
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	{
-		Crystal::Graphics::TriangleBuffer buffer;
-		buffer.add(skyPolygon);
-		skyBoxRenderer.render(cubeMapTexture, camera, buffer);
+		skyBoxRenderer.render(cubeMapTexture, camera);
 
 	}
 	{

@@ -30,7 +30,6 @@ private:
 	Crystal::Shader::CubeMapRenderer renderer;
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
 	Crystal::Polygon::PolygonObject polygon;
-	Crystal::Polygon::PolygonObject skyPolygon;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 
 };

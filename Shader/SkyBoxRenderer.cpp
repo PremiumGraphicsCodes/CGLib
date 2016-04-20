@@ -57,8 +57,16 @@ void SkyBoxRenderer::findLocation()
 	shader.findUniformLocation("cubeMapTex");
 }
 
-void SkyBoxRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<float>& camera, const TriangleBuffer& buffer)
+void SkyBoxRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<float>& camera)
 {
+	TriangleBuffer buffer;
+	Crystal::Polygon::PolygonObject polygon;
+	//const Box3d<float> box(Vector3d<float>(-100.0, 0.0, -20.0), Vector3d<float>(100.0, 20.0, 20.0));
+	//polygon.add(box);
+	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-100.0, -100.0, -100.0), Crystal::Math::Vector3d<float>(100.0, 100.0, 100.0));
+	polygon.add(box);
+	buffer.add(polygon);
+
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();

@@ -14,7 +14,7 @@ namespace Crystal {
 class SkyBoxRenderer
 {
 public:
-	void render(const CubeMapTexture& cubeMapTexture, const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
+	void render(const CubeMapTexture& cubeMapTexture, const Graphics::ICamera<float>& camera);
 
 	bool build();
 
