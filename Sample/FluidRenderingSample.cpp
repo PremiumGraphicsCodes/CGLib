@@ -56,5 +56,6 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 	material.setShininess(1.0f);
 
-	renderer.render(width, height, camera, buffer, light, material, cubeMapTexture, *backgroundBuffer.getTexture());
+	renderer.setBackgroundTexture(*backgroundBuffer.getTexture());
+	renderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 }

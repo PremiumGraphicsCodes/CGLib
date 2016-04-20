@@ -23,7 +23,9 @@ class FluidRenderer
 public:
 	void build(const int width, const int height);
 
-	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture, const Texturef& backgroundTexture);
+	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture);
+
+	void setBackgroundTexture(const Texturef& texture) { this->backgroundTexture = texture; }
 
 	void setBackgroundDepthTexture(const DepthTexture& texture) { this->backgroundDepthTexture = texture; }
 
@@ -44,6 +46,7 @@ public:
 private:
 	ParticleDepthRenderer depthRenderer;
 	DepthBuffer depthBuffer;
+	Texturef backgroundTexture;
 
 	DepthTexture backgroundDepthTexture;
 
