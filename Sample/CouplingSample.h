@@ -72,7 +72,7 @@ private:
 	Crystal::Math::Matrix3d<float> rotationMatrix;
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
 	Crystal::Shader::FluidRenderer fluidRenderer;
-	Crystal::Shader::FrameBufferf backgroundBuffer;
+	Crystal::Shader::FrameBuffer backgroundBuffer;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 	Crystal::Shader::DepthBuffer depthBuffer;

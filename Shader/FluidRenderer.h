@@ -25,7 +25,7 @@ public:
 
 	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture);
 
-	void setBackgroundTexture(const Texturef& texture) { this->backgroundTexture = texture; }
+	void setBackgroundTexture(const Texture& texture) { this->backgroundTexture = texture; }
 
 	void setBackgroundDepthTexture(const DepthTexture& texture) { this->backgroundDepthTexture = texture; }
 
@@ -46,7 +46,7 @@ public:
 private:
 	ParticleDepthRenderer depthRenderer;
 	DepthBuffer depthBuffer;
-	Texturef backgroundTexture;
+	Texture backgroundTexture;
 
 	DepthTexture backgroundDepthTexture;
 
@@ -69,11 +69,11 @@ private:
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;
 	SSCubeMapRenderer cubeMapRenderer;
-	FrameBufferf cubeMapBuffer;
+	FrameBuffer cubeMapBuffer;
 
 	DepthTexture depthTexture;
 
-	FrameBufferf fluidBuffer;
+	FrameBuffer fluidBuffer;
 
 private:
 	std::string getBuiltinVertexShaderSource();
