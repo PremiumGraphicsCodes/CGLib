@@ -81,13 +81,12 @@ void ThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& 
 	glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_DST_ALPHA);
 	glBlendFunc(GL_ONE, GL_ONE);
-		//glDepthMask(GL_FALSE);
-	glDisable(GL_DEPTH_TEST);
 
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(GL_POINT_SPRITE);
 
-	//glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
 
 	glUseProgram(shader.getId());
 
@@ -114,11 +113,12 @@ void ThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& 
 
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_BLEND);
-	glDepthMask(GL_TRUE);
 
 
 	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glDisable(GL_POINT_SPRITE);
+
+	glDepthMask(GL_TRUE);
 
 
 	glUseProgram(0);

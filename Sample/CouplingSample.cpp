@@ -115,6 +115,9 @@ void CouplingSample::setup()
 
 	onScreenRenderer.build();
 
+	depthTexture.create(Imagef(512, 512), 13);
+	depthBuffer.build(depthTexture);
+
 	isParticleView = false;
 }
 
@@ -277,6 +280,30 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	}
 	backgroundBuffer.unbind();
 
+	depthBuffer.bind();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	skyBoxRenderer.render(cubeMapTexture, camera);
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	for (auto r : rigids) {
+		const auto matrix = r->getTransformMatrix();
+		auto p = r->getShape()->clone(r->getShape()->getId());
+		p->transform(matrix);
+
+		glViewport(0, 0, backgroundBuffer.getWidth(), backgroundBuffer.getHeight());
+
+		TriangleBuffer triangleBuffer;
+		triangleBuffer.add(*p);
+		//renderer.render(camera, lineBuffer);
+		smoothRenderer.render(camera, triangleBuffer, light);
+
+		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
+		delete p;
+	}
+	depthBuffer.unbind();
+
+
 	glViewport(0, 0, width, height);
 
 	const auto& particles = fluid->getParticles();
@@ -303,6 +330,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	}
 	else {
 		Material material;
+		fluidRenderer.setBackgroundDepthTexture(depthTexture);
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture, *backgroundBuffer.getTexture());
 	}
 	//onScreenRenderer.render(*backgroundBuffer.getTexture());

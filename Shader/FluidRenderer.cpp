@@ -100,6 +100,8 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 
 void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material, const CubeMapTexture& cubeMapTexture, const Texturef& backgroundTexture)
 {
+	depthBuffer.setTexture(depthTexture);
+
 	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
 	depthBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -143,6 +145,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	cubeMapRenderer.render(*bluredBuffer1.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
 	cubeMapBuffer.unbind();
 
+	depthBuffer.setTexture(backgroundDepthTexture);
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	volumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

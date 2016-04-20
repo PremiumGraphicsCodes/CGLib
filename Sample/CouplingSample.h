@@ -75,6 +75,8 @@ private:
 	Crystal::Shader::FrameBufferf backgroundBuffer;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
+	Crystal::Shader::DepthBuffer depthBuffer;
+	Crystal::Shader::DepthTexture depthTexture;
 
 	bool isParticleView;
 
