@@ -169,6 +169,7 @@
     <ClCompile Include="DamBreakSample.cpp" />
     <ClCompile Include="DepthRenderingSample.cpp" />
     <ClCompile Include="FluidRenderingSample.cpp" />
+    <ClCompile Include="GeometryRenderingSample.cpp" />
     <ClCompile Include="RigidSample.cpp" />
     <ClCompile Include="FluidSample.cpp" />
     <ClCompile Include="glfw.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="DamBreakSample.h" />
     <ClInclude Include="DepthRenderingSample.h" />
     <ClInclude Include="FluidRenderingSample.h" />
+    <ClInclude Include="GeometryRenderingSample.h" />
     <ClInclude Include="RigidSample.h" />
     <ClInclude Include="FluidSample.h" />
     <ClInclude Include="glfw.h" />

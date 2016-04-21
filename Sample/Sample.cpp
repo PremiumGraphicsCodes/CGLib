@@ -25,6 +25,7 @@
 #include "FluidRenderingSample.h"
 #include "CubeMapSample.h"
 #include "DepthRenderingSample.h"
+#include "GeometryRenderingSample.h"
 
 #include "../Graphics/PerspectiveCamera.h"
 
@@ -136,6 +137,10 @@ void onKey(GLFWwindow* window, int key, int scancode, int action, int mods)
 			break;
 		case GLFW_KEY_F10:
 			activeSample = std::make_unique<PointRendererSample>();
+			activeSample->setup();
+			break;
+		case GLFW_KEY_F11:
+			activeSample = std::make_unique<GeometryRenderingSample>();
 			activeSample->setup();
 			break;
 		case GLFW_KEY_F12:

@@ -86,6 +86,9 @@
     <ClCompile Include="SSCompositeRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -177,6 +180,9 @@
       <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="SSCompositeRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>

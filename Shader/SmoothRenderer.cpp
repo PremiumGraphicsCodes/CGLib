@@ -93,7 +93,6 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	const auto lightLoc = glGetUniformLocation(shader.getId(), "lightPosition");
 	glUniform3fv(lightLoc, 1, lightPos.data());
 
-
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 	assert(GL_NO_ERROR == glGetError());
 

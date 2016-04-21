@@ -48,6 +48,9 @@
     <ClCompile Include="DepthRenderingSample.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
+    <ClCompile Include="GeometryRenderingSample.cpp">
+      <Filter>Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderingSample.h">
@@ -95,6 +98,9 @@
       <Filter>Shader</Filter>
     </ClInclude>
     <ClInclude Include="DepthRenderingSample.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryRenderingSample.h">
       <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>

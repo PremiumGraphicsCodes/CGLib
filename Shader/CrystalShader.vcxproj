@@ -151,6 +151,7 @@
     <ClCompile Include="DepthTexture.cpp" />
     <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="GeometryRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
     <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="IRenderer.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="DepthTexture.h" />
     <ClInclude Include="FluidRenderer.h" />
     <ClInclude Include="FrameBuffer.h" />
+    <ClInclude Include="GeometryRenderer.h" />
     <ClInclude Include="GLee.h" />
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="IRenderer.h" />
