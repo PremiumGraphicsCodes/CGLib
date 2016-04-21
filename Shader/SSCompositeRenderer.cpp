@@ -38,18 +38,23 @@ std::string SSCompositeRenderer::getBuildinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D texture1;" << std::endl
-		<< "uniform sampler2D depthTexture1;" << std::endl
 		<< "uniform sampler2D texture2;" << std::endl
+		<< "uniform sampler2D depthTexture1;" << std::endl
 		<< "uniform sampler2D depthTexture2;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	float depth1 = texture2D(depthTexture1, texCoord);" << std::endl
-		<< "	float depth2 = texture2D(depthTexture2, texCoord);" << std::endl
-		<< "	if( depth1 < depth2 )" << std::endl
+		<< "	float depth1 = texture2D(depthTexture1, texCoord).r;" << std::endl
+		<< "	float depth2 = texture2D(depthTexture2, texCoord).r;" << std::endl
+		<< "	if( depth1 < depth2 ) {" << std::endl
 		<< "		fragColor = texture2D(texture1, texCoord);" << std::endl
+//		<< "	fragColor.rgba = vec4(1.0, 0.0, 0.0, 1.0);" << std::endl
+		<< "	} else {" << std::endl
+		<< "		fragColor = texture2D(texture2, texCoord);" << std::endl
+//		<< "	fragColor.rgba = vec4(0.0, 0.0, 1.0, 1.0);" << std::endl
 		<< "	}" << std::endl
-		<< "	fragColor = texture2D(texture2, texCoord);" << std::endl
+//		<< "	fragColor.rgb = vec3(depth1);" << std::endl
+		//<< "	fragColor.r = 1.0;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -58,7 +63,11 @@ std::string SSCompositeRenderer::getBuildinFragmentShaderSource()
 
 void SSCompositeRenderer::findLocation()
 {
-	shader.findUniformLocation("texture");
+	shader.findUniformLocation("texture1");
+	shader.findUniformLocation("texture2");
+	shader.findUniformLocation("depthTexture1");
+	shader.findUniformLocation("depthTexture2");
+
 	shader.findAttribLocation("position");
 }
 

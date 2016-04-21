@@ -209,12 +209,11 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
 
-	/*
 	glViewport(0, 0, width, height);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	auto depthTexture = fluidRenderer.getBluredTexture1();
-	onRenderer.render(*depthTexture, 1.0f);
-	*/
+	const auto fluidTexture = fluidRenderer.getFluidTexture();
+	//const auto fluidDepthTexture = fluidRenderer.getDepthTexture();
+	onRenderer.render(*fluidTexture);
 }

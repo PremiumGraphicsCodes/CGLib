@@ -17,6 +17,7 @@
 #include "../Shader/SmoothRenderer.h"
 #include "../Shader/CubeMapTexture.h"
 #include "../Shader/FluidRenderer.h"
+#include "../Shader/SSCompositeRenderer.h"
 #include "../Graphics/ColorMap.h"
 #include "ISample.h"
 #include <memory>
@@ -77,6 +78,7 @@ private:
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 	Crystal::Shader::DepthBuffer depthBuffer;
 	Crystal::Shader::DepthTexture depthTexture;
+	Crystal::Shader::SSCompositeRenderer compositeRenderer;
 
 	bool isParticleView;
 

@@ -43,6 +43,8 @@ public:
 
 	ITexture* getNormalTexture() { return normalBuffer.getTexture(); }
 
+	ITexture* getFluidTexture() { return fluidBuffer.getTexture(); }
+
 private:
 	ParticleDepthRenderer depthRenderer;
 	DepthBuffer depthBuffer;

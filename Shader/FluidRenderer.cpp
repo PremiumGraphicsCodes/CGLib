@@ -137,7 +137,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	cubeMapRenderer.render(*bluredBuffer1.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
 	cubeMapBuffer.unbind();
 
-	depthBuffer.setTexture(sceneDepthTexture);
+	//depthBuffer.setTexture(sceneDepthTexture);
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	volumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
