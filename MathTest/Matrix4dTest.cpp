@@ -58,3 +58,22 @@ TYPED_TEST(Matrix4dTest, TestMultipleVector3d)
 		1, 1, 1, 1);
 	const auto actual = m.multiple(Vector3d<T>(1, 2, 3));
 }
+
+TYPED_TEST(Matrix4dTest, TestTransposed)
+{
+	using T = TypeParam;
+
+	const Matrix4d<T> m(
+		0, 1, 2, 3,
+		10, 11, 12, 13,
+		20, 21, 22, 23,
+		30, 31, 32, 33);
+	const auto actual = m.transposed();
+	const Matrix4d<T> expected(
+		0, 10, 20, 30,
+		1, 11, 21, 31,
+		2, 12, 22, 32,
+		3, 13, 23, 33
+	);
+	EXPECT_EQ(expected, actual);
+}

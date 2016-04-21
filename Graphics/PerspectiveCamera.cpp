@@ -28,7 +28,7 @@ Matrix4d<T> PerspectiveCamera<T>::getProjectionMatrix() const
 			0, x11, x12, 0,
 			0, 0, x22, x23,
 			0, 0, -1, 0
-			);
+			).transposed();
 }
 
 template class PerspectiveCamera<float>;

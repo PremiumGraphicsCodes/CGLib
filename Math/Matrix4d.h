@@ -173,6 +173,8 @@ public:
 
 	T getX33() const { return x[15]; }
 
+	Matrix4d<T> transposed() const;
+
 private:
 	std::array< T, 16 > x;
 };

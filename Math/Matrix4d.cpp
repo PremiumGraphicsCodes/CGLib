@@ -71,6 +71,17 @@ Vector3d<T> Matrix4d<T>::multiple(const Vector3d<T>& v)
 	return Vector3d<T>(x/w, y/w, z/w);
 }
 
+template<typename T>
+Matrix4d<T> Matrix4d<T>::transposed() const
+{
+	return Matrix4d<T>(
+		getX00(), getX10(), getX20(), getX30(),
+		getX01(), getX11(), getX21(), getX31(),
+		getX02(), getX12(), getX22(), getX32(),
+		getX03(), getX13(), getX23(), getX33()
+		);
+}
+
 
 template class Matrix4d<float>;
 template class Matrix4d<double>;
