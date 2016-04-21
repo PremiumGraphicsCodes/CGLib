@@ -39,6 +39,7 @@ std::string DepthRenderer::getBuiltinFragmentShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	fragColor = texture2D(depthTexture, texCoord);" << std::endl
 		<< "	fragColor.a = 1.0; " << std::endl
+		<< "	gl_FragDepth = fragColor.a; " << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }

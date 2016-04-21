@@ -1,4 +1,5 @@
 #include "SSCubeMapRenderer.h"
+#include "../Math/Box2d.h"
 
 #include <sstream>
 
@@ -93,15 +94,8 @@ void SSCubeMapRenderer::findLocation()
 
 void SSCubeMapRenderer::render(const ITexture& depthTexture, const ITexture& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture)
 {
-	std::vector<float> positions;
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(1.0f);
+	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
+	const auto& positions = box.toArray();
 
 	glEnable(GL_DEPTH_TEST);
 	//glDisable(GL_DEPTH_TEST);

@@ -1,4 +1,5 @@
 #include "OnScreenRenderer.h"
+#include "../Math/Box2d.h"
 
 #include <sstream>
 
@@ -55,15 +56,8 @@ void OnScreenRenderer::findLocation()
 
 void OnScreenRenderer::render(const ITexture& texture)
 {
-	std::vector<float> positions;
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(1.0f);
+	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
+	const auto& positions = box.toArray();
 
 	//glEnable(GL_DEPTH_TEST);
 

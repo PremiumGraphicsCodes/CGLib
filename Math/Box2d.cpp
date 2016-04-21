@@ -160,5 +160,17 @@ Space3d<T> Box2d<T>::toSpace() const
 }
 */
 
+template<typename T>
+std::array< T, 8 > Box2d<T>::toArray() const
+{
+	return{
+		getMinX(), getMaxY(),
+		getMinX(), getMinY(),
+		getMaxX(), getMinY(),
+		getMaxX(), getMaxY()
+	};
+}
+
+
 template class Box2d<float>;
 template class Box2d<double>;

@@ -83,6 +83,9 @@
     <ClCompile Include="DepthBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="SSCompositeRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="ITexture.h">
       <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SSCompositeRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

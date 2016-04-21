@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_BOX_2D_H__
 
 #include "Vector2d.h"
+#include <array>
 
 namespace Crystal {
 	namespace Math {
@@ -59,6 +60,8 @@ public:
 	Box2d getOverlapped(const Box2d& rhs) const;
 
 	//Space3d<T> toSpace() const;
+
+	std::array< T, 8 > toArray() const;
 
 private:
 	Vector2d<T> start;

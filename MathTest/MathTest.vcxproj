@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Box2dTest.cpp" />
     <ClCompile Include="Box3dTest.cpp" />
     <ClCompile Include="Grid1dTest.cpp" />
     <ClCompile Include="Grid2dTest.cpp" />
