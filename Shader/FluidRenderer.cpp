@@ -145,7 +145,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	cubeMapRenderer.render(*bluredBuffer1.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
 	cubeMapBuffer.unbind();
 
-	depthBuffer.setTexture(backgroundDepthTexture);
+	depthBuffer.setTexture(sceneDepthTexture);
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	volumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -195,12 +195,12 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		shadedBuffer.getTexture()->bind();
 		cubeMapBuffer.getTexture()->bind();
 		absorptionBuffer.getTexture()->bind();
-		backgroundTexture.bind();
+		sceneTexture.bind();
 
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("cubeMapTexture"), cubeMapBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
-		glUniform1i(shader.getUniformLocation("backgroundTexture"), backgroundTexture.getId());
+		glUniform1i(shader.getUniformLocation("backgroundTexture"), sceneTexture.getId());
 
 		glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
@@ -213,7 +213,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		shadedBuffer.getTexture()->unbind();
 		cubeMapBuffer.getTexture()->unbind();
 		absorptionBuffer.getTexture()->unbind();
-		backgroundTexture.unbind();
+		sceneTexture.unbind();
 	}
 	glDisable(GL_BLEND);
 

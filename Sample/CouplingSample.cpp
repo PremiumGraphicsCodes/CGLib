@@ -330,8 +330,8 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	}
 	else {
 		Material material;
-		fluidRenderer.setBackgroundDepthTexture(depthTexture);
-		fluidRenderer.setBackgroundTexture(*backgroundBuffer.getTexture());
+		fluidRenderer.setSceneDepthTexture(depthTexture);
+		fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
 	//onScreenRenderer.render(*backgroundBuffer.getTexture());

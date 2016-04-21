@@ -205,7 +205,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 		material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 		material.setShininess(1.0f);
 
-		fluidRenderer.setBackgroundTexture(*backgroundBuffer.getTexture());
+		fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
 

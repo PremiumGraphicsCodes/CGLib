@@ -25,9 +25,9 @@ public:
 
 	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture);
 
-	void setBackgroundTexture(const Texture& texture) { this->backgroundTexture = texture; }
+	void setSceneTexture(const Texture& texture) { this->sceneTexture = texture; }
 
-	void setBackgroundDepthTexture(const DepthTexture& texture) { this->backgroundDepthTexture = texture; }
+	void setSceneDepthTexture(const DepthTexture& texture) { this->sceneDepthTexture = texture; }
 
 	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
@@ -46,9 +46,9 @@ public:
 private:
 	ParticleDepthRenderer depthRenderer;
 	DepthBuffer depthBuffer;
-	Texture backgroundTexture;
 
-	DepthTexture backgroundDepthTexture;
+	Texture sceneTexture;
+	DepthTexture sceneDepthTexture;
 
 	NormalFilter normalFilter;
 	FrameBuffer normalBuffer;
