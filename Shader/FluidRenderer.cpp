@@ -1,5 +1,5 @@
 #include "FluidRenderer.h"
-
+#include "../Math/Box2d.h"
 #include <sstream>
 
 using namespace Crystal::Math;
@@ -116,14 +116,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	bilateralFilter.render(*depthBuffer.getTexture(), true);
 	bluredBuffer1.unbind();
 
-	/*
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	bluredBuffer2.bind();
-	bilateralFilter.render(*bluredBuffer1.getTexture(), false);
-	bluredBuffer2.unbind();
-	*/
-
 	glViewport(0, 0, normalBuffer.getWidth(), normalBuffer.getHeight());
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -178,15 +170,8 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 
 	{
-		std::vector<float> positions;
-		positions.push_back(-1.0f);
-		positions.push_back(1.0f);
-		positions.push_back(-1.0f);
-		positions.push_back(-1.0f);
-		positions.push_back(1.0f);
-		positions.push_back(-1.0f);
-		positions.push_back(1.0f);
-		positions.push_back(1.0f);
+		const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
+		const auto& positions = box.toArray();
 
 		//glEnable(GL_DEPTH_TEST);
 

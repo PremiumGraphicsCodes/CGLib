@@ -1,4 +1,5 @@
 #include "SSCompositeRenderer.h"
+#include "../Math/Box2d.h"
 
 #include <sstream>
 
@@ -36,11 +37,19 @@ std::string SSCompositeRenderer::getBuildinFragmentShaderSource()
 	std::ostringstream stream;
 	stream
 		<< "#version 150" << std::endl
-		<< "uniform sampler2D texture;" << std::endl
+		<< "uniform sampler2D texture1;" << std::endl
+		<< "uniform sampler2D depthTexture1;" << std::endl
+		<< "uniform sampler2D texture2;" << std::endl
+		<< "uniform sampler2D depthTexture2;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	fragColor = texture2D(texture, texCoord);" << std::endl
+		<< "	float depth1 = texture2D(depthTexture1, texCoord);" << std::endl
+		<< "	float depth2 = texture2D(depthTexture2, texCoord);" << std::endl
+		<< "	if( depth1 < depth2 )" << std::endl
+		<< "		fragColor = texture2D(texture1, texCoord);" << std::endl
+		<< "	}" << std::endl
+		<< "	fragColor = texture2D(texture2, texCoord);" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -53,25 +62,24 @@ void SSCompositeRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void SSCompositeRenderer::render(const ITexture& texture)
+void SSCompositeRenderer::render(const ITexture& texture1, const ITexture& texture2, const DepthTexture& depthTexture1, const DepthTexture& depthTexture2)
 {
-	std::vector<float> positions;
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(1.0f);
+	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
+	const auto& positions = box.toArray();
 
 	//glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
 
-	texture.bind();
+	texture1.bind();
+	texture2.bind();
+	depthTexture1.bind();
+	depthTexture2.bind();
 
-	glUniform1i(shader.getUniformLocation("texture"), texture.getId());
+	glUniform1i(shader.getUniformLocation("texture1"), texture1.getId());
+	glUniform1i(shader.getUniformLocation("texture2"), texture2.getId());
+	glUniform1i(shader.getUniformLocation("depthTexture1"), depthTexture1.getId());
+	glUniform1i(shader.getUniformLocation("depthTexture2"), depthTexture2.getId());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
@@ -81,7 +89,11 @@ void SSCompositeRenderer::render(const ITexture& texture)
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	texture.unbind();
+	depthTexture2.unbind();
+	depthTexture1.unbind();
+
+	texture2.unbind();
+	texture1.unbind();
 	//glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);

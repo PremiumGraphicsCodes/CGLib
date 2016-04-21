@@ -4,6 +4,7 @@
 #include "../Graphics/ICamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "Texture.h"
+#include "DepthTexture.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -12,7 +13,7 @@ namespace Crystal {
 class SSCompositeRenderer
 {
 public:
-	void render(const ITexture& texture);
+	void render(const ITexture& texture, const ITexture& texture2, const DepthTexture& depthTexture1, const DepthTexture& depthTexture2);
 
 	bool build();
 
