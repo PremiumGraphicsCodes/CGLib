@@ -323,7 +323,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		const auto pos = p->getPosition();
 		auto color = colorMap.getColor(p->getDensity());
 		color.setAlpha(0.5f);
-		Crystal::Graphics::Point point(pos, color, 500.0f);
+		Crystal::Graphics::Point point(pos, color, 1000.0f);
 		buffer.add(point);
 	}
 
