@@ -3,6 +3,9 @@
 
 #include "../Shader/GLee.h"
 #include "../Shader/GeometryRenderer.h"
+#include "../Shader/OnScreenRenderer.h"
+#include "../Shader/SSNormalRenderer.h"
+#include "../Shader/DeferredRenderer.h"
 
 #include "ISample.h"
 #include <memory>
@@ -18,6 +21,11 @@ public:
 
 private:
 	Crystal::Shader::GeometryRenderer renderer;
+	Crystal::Shader::SSNormalRenderer normalRenderer;
+	Crystal::Shader::FrameBuffer depthBuffer;
+	Crystal::Shader::FrameBuffer normalBuffer;
+	Crystal::Shader::OnScreenRenderer onScreenRenderer;
+	Crystal::Shader::DeferredRenderer deferredRenderer;
 };
 
 #endif

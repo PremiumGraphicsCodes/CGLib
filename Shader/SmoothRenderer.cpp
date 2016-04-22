@@ -16,18 +16,19 @@ bool SmoothRenderer::build()
 std::string SmoothRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec3 position;" << std::endl;
-	stream << "in vec3 normal;" << std::endl;
-	stream << "out vec3 vColor;" << std::endl;
-	stream << "out vec3 vNormal;" << std::endl;
-	stream << "uniform mat4 projectionMatrix;" << std::endl;
-	stream << "uniform mat4 modelviewMatrix;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
-	stream << "vColor = vec3(0.0, 0.0, 0.0);" << std::endl;
-	stream << "vNormal = normalize(normal);" << std::endl;
-	stream << "}" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "in vec3 normal;" << std::endl
+		<< "out vec3 vColor;" << std::endl
+		<< "out vec3 vNormal;" << std::endl
+		<< "uniform mat4 projectionMatrix;"
+		<< "uniform mat4 modelviewMatrix;"
+		<< "void main(void) {" << std::endl
+		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "	vColor = vec3(0.0, 0.0, 0.0);" << std::endl
+		<< "	vNormal = normalize(normal);" << std::endl
+		<< "}" << std::endl;
 	return stream.str();
 }
 
@@ -101,12 +102,10 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, eyePos.data());
 	assert(GL_NO_ERROR == glGetError());
 
-
 	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glVertexAttribPointer(shader.getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
 	//glVertexAttribPointer(location.)
 	assert(GL_NO_ERROR == glGetError());
-
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

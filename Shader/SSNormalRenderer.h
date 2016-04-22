@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_GEOMETRY_RENDERER_H__
-#define __CRYSTAL_SHADER_GEOMETRY_RENDERER_H__
+#ifndef __CRYSTAL_SHADER_SS_NORMAL_RENDERER_H__
+#define __CRYSTAL_SHADER_SS_NORMAL_RENDERER_H__
 
 #include "FrameBuffer.h"
 #include "DepthBuffer.h"
@@ -10,7 +10,7 @@
 namespace Crystal {
 	namespace Shader {
 
-class GeometryRenderer
+class SSNormalRenderer
 {
 public:
 	void build(const int width, const int height);
