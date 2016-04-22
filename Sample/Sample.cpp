@@ -196,6 +196,7 @@ int main(int argc, char* argv)
 		exit(EXIT_FAILURE);
 	}
 
+
 	auto window = glfwCreateWindow(1024, 756, "Crystal Sample", nullptr, nullptr);
 	if (!window) {
 		//std::cerr << "glufw CreateWindow failed." << std::endl;

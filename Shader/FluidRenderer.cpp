@@ -91,8 +91,8 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "		fragColor = bgColor;" << std::endl
 		<< "		return; " << std::endl
 		<< "	}else {" << std::endl
-		//		<< "		fragColor = mix(surfaceColor,absorptionColor ,absorptionColor.a); " << std::endl
-		<< "		fragColor = mix(surfaceColor *0.5 + reflectionColor * 0.5 + absorptionColor, refractionColor * 0.5,1.0-absorptionColor.a);" << std::endl
+		<< "		fragColor = mix(surfaceColor *0.25 + reflectionColor * 0.5 + refractionColor * 0.5, absorptionColor, absorptionColor.a);" << std::endl
+//		fragColor = mix(surfaceColor *0.2 + reflectionColor * 0.2 + absorptionColor, refractionColor * 0.2,1.0-absorptionColor.a);" << std::endl
 //		<< "		fragColor = reflectionColor + refractionColor;" << std::endl
 //		<< "		fragColor = surfaceColor*0.5 + cubeMapColor*0.5 + absorptionColor;" << std::endl
 //		<< "		fragColor = mix(bgColor, fragColor, absorptionColor.a); "<< std::endl
@@ -181,6 +181,8 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	{
 		const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
@@ -199,6 +201,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("reflectionTexture"), reflectionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("refractionTexture"), refractionBuffer.getTexture()->getId());
+
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("backgroundTexture"), sceneTexture.getId());
 
@@ -218,6 +221,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		sceneTexture.unbind();
 	}
 
+	glDisable(GL_BLEND);
 	fluidBuffer.unbind();
 	glViewport(0, 0, width, height);
 

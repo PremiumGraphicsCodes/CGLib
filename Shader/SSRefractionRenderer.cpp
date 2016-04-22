@@ -70,7 +70,7 @@ std::string SSRefractionRenderer::getBuildinFragmentShaderSource()
 		<< "	float fresnel = fresnelBias + ( 1.0 - fresnelBias ) * pow(1.0 - innerProduct, 5); " << std::endl
 		<< "	vec3 refractDir = refract(-worldView, normal, 1.33);" << std::endl
 		<< "	vec4 refractColor = texture(cubeMapTex, refractDir);" << std::endl
-		<< "	fragColor = refractColor;" << std::endl
+		<< "	fragColor = refractColor * (1.0-fresnel);" << std::endl
 		<< "	fragColor.a = 1.0f;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
