@@ -13,9 +13,9 @@ namespace Crystal {
 class SSNormalRenderer
 {
 public:
-	void build(const int width, const int height);
+	void build();
 
-	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::TriangleBuffer& buffer);
+	void render(const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::TriangleBuffer& buffer);
 
 private:
 	std::string getBuiltinVertexShaderSource();

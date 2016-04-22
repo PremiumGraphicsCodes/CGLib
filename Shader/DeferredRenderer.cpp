@@ -125,8 +125,8 @@ void DeferredRenderer::render(const ITexture& depthTexture, const ITexture& norm
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();
 
-	glEnable(GL_DEPTH_TEST);
-	//glDisable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
 

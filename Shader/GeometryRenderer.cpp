@@ -50,7 +50,7 @@ std::string GeometryRenderer::getBuiltinFragmentShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	float depth = (vPosition.z / vPosition.w);" << std::endl
 		<< "	fragColor.rgb = vec3(depth); "<< std::endl
-		<< "	gl_FragDepth = depth;" << std::endl
+		//<< "	gl_FragDepth = depth;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);

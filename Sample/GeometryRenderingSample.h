@@ -22,7 +22,8 @@ public:
 private:
 	Crystal::Shader::GeometryRenderer renderer;
 	Crystal::Shader::SSNormalRenderer normalRenderer;
-	Crystal::Shader::FrameBuffer depthBuffer;
+	Crystal::Shader::DepthTexture depthTexture;
+	Crystal::Shader::DepthBuffer depthBuffer;
 	Crystal::Shader::FrameBuffer normalBuffer;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
 	Crystal::Shader::DeferredRenderer deferredRenderer;

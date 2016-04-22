@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void SSNormalRenderer::build(const int width, const int height)
+void SSNormalRenderer::build()
 {
 	const auto vsSource = getBuiltinVertexShaderSource();
 	const auto fsSource = getBuiltinFragmentShaderSource();
@@ -32,11 +32,9 @@ std::string SSNormalRenderer::getBuiltinVertexShaderSource()
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "in vec3 position;" << std::endl
 		<< "in vec3 normal;" << std::endl
-		<< "out vec4 vPosition;" << std::endl
 		<< "out vec3 vNormal;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
-		<< "	vPosition = gl_Position;" << std::endl
 		<< "	vNormal = normal;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit vertexShader;
@@ -49,18 +47,18 @@ std::string SSNormalRenderer::getBuiltinFragmentShaderSource()
 	std::ostringstream stream;
 	stream
 		<< "#version 150" << std::endl
-		<< "in vec4 vPosition;" << std::endl
 		<< "in vec3 vNormal;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	fragColor.rgb = vNormal;" << std::endl
+		<< "	fragColor.a = 1.0;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
 	return stream.str();
 }
 
-void SSNormalRenderer::render(const int width, const int height, const ICamera<float>& camera, const TriangleBuffer& buffer)
+void SSNormalRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
@@ -68,9 +66,6 @@ void SSNormalRenderer::render(const int width, const int height, const ICamera<f
 	const auto& positions = buffer.getPositions().get();
 	const auto& normals = buffer.getNormals().get();
 
-	glViewport(0, 0, width, height);
-
-	glEnable(GL_DEPTH_TEST);
 	glUseProgram(shader.getId());
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
@@ -82,7 +77,7 @@ void SSNormalRenderer::render(const int width, const int height, const ICamera<f
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
-	glEnableVertexAttribArray(1);
+	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
