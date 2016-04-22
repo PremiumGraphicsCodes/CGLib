@@ -45,6 +45,8 @@ void FluidRenderer::findLocation()
 {
 	shader.findUniformLocation("surfaceTexture");
 	shader.findUniformLocation("reflectionTexture");
+	shader.findUniformLocation("refractionTexture");
+
 	shader.findUniformLocation("absorptionTexture");
 	shader.findUniformLocation("backgroundTexture");
 
@@ -89,9 +91,9 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "		fragColor = bgColor;" << std::endl
 		<< "		return; " << std::endl
 		<< "	}else {" << std::endl
-//		<< "		fragColor = mix(surfaceColor,absorptionColor ,absorptionColor.a); " << std::endl
+		//		<< "		fragColor = mix(surfaceColor,absorptionColor ,absorptionColor.a); " << std::endl
 		<< "		fragColor = mix(surfaceColor *0.5 + reflectionColor * 0.5 + absorptionColor, refractionColor * 0.5,1.0-absorptionColor.a);" << std::endl
-
+//		<< "		fragColor = reflectionColor + refractionColor;" << std::endl
 //		<< "		fragColor = surfaceColor*0.5 + cubeMapColor*0.5 + absorptionColor;" << std::endl
 //		<< "		fragColor = mix(bgColor, fragColor, absorptionColor.a); "<< std::endl
 //		<< "		fragColor.a = absorptionColor.a; " << std::endl
@@ -190,12 +192,13 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 		shadedBuffer.getTexture()->bind();
 		reflectionBuffer.getTexture()->bind();
+		refractionBuffer.getTexture()->bind();
 		absorptionBuffer.getTexture()->bind();
 		sceneTexture.bind();
 
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("reflectionTexture"), reflectionBuffer.getTexture()->getId());
-		//glUniform1i(shader.getUniformLocation("refractionTexture"), refractionBuffer.getTexture()->getId());
+		glUniform1i(shader.getUniformLocation("refractionTexture"), refractionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("backgroundTexture"), sceneTexture.getId());
 
@@ -208,6 +211,8 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 		shadedBuffer.getTexture()->unbind();
+		refractionBuffer.getTexture()->unbind();
+
 		reflectionBuffer.getTexture()->unbind();
 		absorptionBuffer.getTexture()->unbind();
 		sceneTexture.unbind();

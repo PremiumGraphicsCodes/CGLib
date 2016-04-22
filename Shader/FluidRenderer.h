@@ -52,7 +52,7 @@ private:
 	DepthTexture sceneDepthTexture;
 
 	NormalFilter normalFilter;
-	FrameBuffer normalBuffer;
+	FrameBufferf normalBuffer;
 
 	ThicknessRenderer thicknessRenderer;
 	FrameBuffer volumeBuffer;
@@ -61,8 +61,7 @@ private:
 	FrameBuffer shadedBuffer;
 	
 	BilateralFilter bilateralFilter;
-	FrameBuffer bluredDepthBuffer;
-	FrameBuffer bluredDepthBuffer2;
+	FrameBufferf bluredDepthBuffer;
 
 	AbsorptionRenderer absorptionRenderer;
 	FrameBuffer absorptionBuffer;
