@@ -168,8 +168,9 @@
     <ClCompile Include="SkyBoxRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="SSCompositeRenderer.cpp" />
-    <ClCompile Include="SSCubeMapRenderer.cpp" />
+    <ClCompile Include="SSReflectionRenderer.cpp" />
     <ClCompile Include="SSNormalRenderer.cpp" />
+    <ClCompile Include="SSRefractionRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="ThicknessRenderer.cpp" />
@@ -205,8 +206,9 @@
     <ClInclude Include="SkyBoxRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="SSCompositeRenderer.h" />
-    <ClInclude Include="SSCubeMapRenderer.h" />
+    <ClInclude Include="SSReflectionRenderer.h" />
     <ClInclude Include="SSNormalRenderer.h" />
+    <ClInclude Include="SSRefractionRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="ThicknessRenderer.h" />

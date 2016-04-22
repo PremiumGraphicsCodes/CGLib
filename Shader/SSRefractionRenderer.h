@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SS_CUBE_MAP_RENDERER_H__
-#define __CRYSTAL_SS_CUBE_MAP_RENDERER_H__
+#ifndef __CRYSTAL_SS_REFRACTION_RENDERER_H__
+#define __CRYSTAL_SS_REFRACTION_RENDERER_H__
 
 #include "../Graphics/ICamera.h"
 #include "../Graphics/PointBuffer.h"
@@ -13,7 +13,7 @@
 namespace Crystal {
 	namespace Shader {
 
-class SSCubeMapRenderer
+class SSRefractionRenderer
 {
 public:
 	void render(const ITexture& depthTexture, const ITexture& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture);

@@ -10,7 +10,7 @@
 #include "DeferredRenderer.h"
 #include "OnScreenRenderer.h"
 #include "CubeMapTexture.h"
-#include "SSCubeMapRenderer.h"
+#include "SSReflectionRenderer.h"
 #include "SkyBoxRenderer.h"
 #include "ThicknessRenderer.h"
 #include "DepthBuffer.h"
@@ -70,7 +70,7 @@ private:
 
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;
-	SSCubeMapRenderer cubeMapRenderer;
+	SSReflectionRenderer cubeMapRenderer;
 	FrameBuffer cubeMapBuffer;
 
 	DepthTexture depthTexture;

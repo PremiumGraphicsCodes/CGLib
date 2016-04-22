@@ -1,4 +1,4 @@
-#include "SSCubeMapRenderer.h"
+#include "SSRefractionRenderer.h"
 #include "../Math/Box2d.h"
 
 #include <sstream>
@@ -7,7 +7,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool SSCubeMapRenderer::build()
+bool SSRefractionRenderer::build()
 {
 	const auto vsSource = getBuildinVertexShaderSource();
 	const auto fsSource = getBuildinFragmentShaderSource();
@@ -16,7 +16,7 @@ bool SSCubeMapRenderer::build()
 	return b;
 }
 
-std::string SSCubeMapRenderer::getBuildinVertexShaderSource()
+std::string SSRefractionRenderer::getBuildinVertexShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -32,7 +32,7 @@ std::string SSCubeMapRenderer::getBuildinVertexShaderSource()
 	return stream.str();
 }
 
-std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
+std::string SSRefractionRenderer::getBuildinFragmentShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -68,11 +68,9 @@ std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
 		<< "	float innerProduct = dot(-worldView, normal);" << std::endl
 		<< "	float fresnelBias = pow( (1.0-1.33) /(1.0+1.33), 2);" << std::endl
 		<< "	float fresnel = fresnelBias + ( 1.0 - fresnelBias ) * pow(1.0 - innerProduct, 5); " << std::endl
-		<< "	vec3 reflectDir = reflect(-worldView, normal);" << std::endl
 		<< "	vec3 refractDir = refract(-worldView, normal, 1.33);" << std::endl
-		<< "	vec4 reflectColor = texture(cubeMapTex, reflectDir);" << std::endl
 		<< "	vec4 refractColor = texture(cubeMapTex, refractDir);" << std::endl
-		<< "	fragColor = mix(refractColor, reflectColor, fresnel);" << std::endl
+		<< "	fragColor = refractColor;" << std::endl
 		<< "	fragColor.a = 1.0f;" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -80,7 +78,7 @@ std::string SSCubeMapRenderer::getBuildinFragmentShaderSource()
 	return stream.str();
 }
 
-void SSCubeMapRenderer::findLocation()
+void SSRefractionRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 
@@ -92,7 +90,7 @@ void SSCubeMapRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void SSCubeMapRenderer::render(const ITexture& depthTexture, const ITexture& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture)
+void SSRefractionRenderer::render(const ITexture& depthTexture, const ITexture& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

@@ -65,9 +65,6 @@
     <ClCompile Include="SkyBoxRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="SSCubeMapRenderer.cpp">
-      <Filter>Renderer\Fluid</Filter>
-    </ClCompile>
     <ClCompile Include="ThicknessRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -90,6 +87,12 @@
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
     <ClCompile Include="SSNormalRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
+    <ClCompile Include="SSReflectionRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
+    <ClCompile Include="SSRefractionRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,9 +164,6 @@
     <ClInclude Include="SkyBoxRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
-    <ClInclude Include="SSCubeMapRenderer.h">
-      <Filter>Renderer\Fluid</Filter>
-    </ClInclude>
     <ClInclude Include="ThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
@@ -189,6 +189,12 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="SSNormalRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="SSReflectionRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="SSRefractionRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>
