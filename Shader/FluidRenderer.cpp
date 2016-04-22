@@ -12,10 +12,10 @@ void FluidRenderer::build(const int width, const int height)
 	depthBuffer.build(depthTexture);
 	normalBuffer.build(width, height, 1);
 	volumeBuffer.build(width, height, 2);
-	bluredBuffer1.build(width, height, 3);
-	bluredBuffer2.build(width, height, 4);
-	shadedBuffer.build(width, height, 5);
-	cubeMapBuffer.build(width, height, 6);
+	bluredDepthBuffer.build(width, height, 3);
+	shadedBuffer.build(width, height, 4);
+	refractionBuffer.build(width, height, 5);
+	reflectionBuffer.build(width, height, 6);
 	absorptionBuffer.build(width, height, 7);
 	fluidBuffer.build(width, height, 8);
 	bluredVolumeBuffer.build(width, height, 9);
@@ -29,7 +29,8 @@ void FluidRenderer::build(const int width, const int height)
 
 	bilateralFilter.build();
 
-	cubeMapRenderer.build();
+	reflectionRenderer.build();
+	refractionRenderer.build();
 
 	onScreenRenderer.build();
 
@@ -87,6 +88,8 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "		fragColor = bgColor; " << std::endl
 		<< "	}else {" << std::endl
 		<< "		fragColor = mix(surfaceColor + cubeMapColor,absorptionColor ,absorptionColor.a); " << std::endl
+		<< "		fragColor = mix(surfaceColor,absorptionColor ,absorptionColor.a); " << std::endl
+
 //		<< "		fragColor = surfaceColor*0.5 + cubeMapColor*0.5 + absorptionColor;" << std::endl
 //		<< "		fragColor = mix(bgColor, fragColor, absorptionColor.a); "<< std::endl
 //		<< "		fragColor.a = absorptionColor.a; " << std::endl
@@ -109,33 +112,41 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	depthRenderer.render(camera, buffer);
 	depthBuffer.unbind();
 
-	glViewport(0, 0, bluredBuffer1.getWidth(), bluredBuffer1.getHeight());
+	glViewport(0, 0, bluredDepthBuffer.getWidth(), bluredDepthBuffer.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	bluredBuffer1.bind();
+	bluredDepthBuffer.bind();
 	bilateralFilter.render(*depthBuffer.getTexture(), true);
-	bluredBuffer1.unbind();
+	bluredDepthBuffer.unbind();
 
 	glViewport(0, 0, normalBuffer.getWidth(), normalBuffer.getHeight());
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	normalFilter.render(*bluredBuffer2.getTexture(), camera);
+	normalFilter.render(*bluredDepthBuffer.getTexture(), camera);
 	normalBuffer.unbind();
 
-	glViewport(0, 0, bluredBuffer1.getWidth(), bluredBuffer1.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
+	glViewport(0, 0, bluredDepthBuffer.getWidth(), bluredDepthBuffer.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	deferredRenderer.render(*bluredBuffer1.getTexture(), *normalBuffer.getTexture(), camera, light, material);
+	deferredRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	shadedBuffer.unbind();
 
-	glViewport(0, 0, cubeMapBuffer.getWidth(), cubeMapBuffer.getHeight());
-	cubeMapBuffer.bind();
+	glViewport(0, 0, reflectionBuffer.getWidth(), reflectionBuffer.getHeight());
+	reflectionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	cubeMapRenderer.render(*bluredBuffer1.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
-	cubeMapBuffer.unbind();
+	reflectionRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
+	reflectionBuffer.unbind();
+
+
+	glViewport(0, 0, refractionBuffer.getWidth(), refractionBuffer.getHeight());
+	refractionBuffer.bind();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	refractionRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
+	refractionBuffer.unbind();
 
 	//depthBuffer.setTexture(sceneDepthTexture);
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
@@ -178,12 +189,12 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		glUseProgram(shader.getId());
 
 		shadedBuffer.getTexture()->bind();
-		cubeMapBuffer.getTexture()->bind();
+		reflectionBuffer.getTexture()->bind();
 		absorptionBuffer.getTexture()->bind();
 		sceneTexture.bind();
 
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
-		glUniform1i(shader.getUniformLocation("cubeMapTexture"), cubeMapBuffer.getTexture()->getId());
+		glUniform1i(shader.getUniformLocation("cubeMapTexture"), reflectionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("backgroundTexture"), sceneTexture.getId());
 
@@ -196,7 +207,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
 		shadedBuffer.getTexture()->unbind();
-		cubeMapBuffer.getTexture()->unbind();
+		reflectionBuffer.getTexture()->unbind();
 		absorptionBuffer.getTexture()->unbind();
 		sceneTexture.unbind();
 	}

@@ -11,6 +11,7 @@
 #include "OnScreenRenderer.h"
 #include "CubeMapTexture.h"
 #include "SSReflectionRenderer.h"
+#include "SSRefractionRenderer.h"
 #include "SkyBoxRenderer.h"
 #include "ThicknessRenderer.h"
 #include "DepthBuffer.h"
@@ -31,13 +32,11 @@ public:
 
 	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
-	ITexture* getBluredTexture1() { return bluredBuffer1.getTexture(); }
-
-	ITexture* getBluredTexture2() { return bluredBuffer2.getTexture(); }
+	ITexture* getBluredDepthTexture() { return bluredDepthBuffer.getTexture(); }
 
 	ITexture* getVolumeTexture() { return volumeBuffer.getTexture(); }
 
-	ITexture* getCubeMapTexture() { return cubeMapBuffer.getTexture(); }
+	ITexture* getCubeMapTexture() { return reflectionBuffer.getTexture(); }
 
 	ITexture* getThicknessTexture() { return volumeBuffer.getTexture(); }
 
@@ -62,16 +61,18 @@ private:
 	FrameBuffer shadedBuffer;
 	
 	BilateralFilter bilateralFilter;
-	FrameBuffer bluredBuffer1;
-	FrameBuffer bluredBuffer2;
+	FrameBuffer bluredDepthBuffer;
 
 	AbsorptionRenderer absorptionRenderer;
 	FrameBuffer absorptionBuffer;
 
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;
-	SSReflectionRenderer cubeMapRenderer;
-	FrameBuffer cubeMapBuffer;
+	SSReflectionRenderer reflectionRenderer;
+	SSRefractionRenderer refractionRenderer;
+	
+	FrameBuffer reflectionBuffer;
+	FrameBuffer refractionBuffer;
 
 	DepthTexture depthTexture;
 
