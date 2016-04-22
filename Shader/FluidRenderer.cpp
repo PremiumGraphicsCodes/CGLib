@@ -44,11 +44,11 @@ void FluidRenderer::build(const int width, const int height)
 void FluidRenderer::findLocation()
 {
 	shader.findUniformLocation("surfaceTexture");
-	shader.findUniformLocation("cubeMapTexture");
+	shader.findUniformLocation("reflectionTexture");
 	shader.findUniformLocation("absorptionTexture");
 	shader.findUniformLocation("backgroundTexture");
-	shader.findAttribLocation("position");
 
+	shader.findAttribLocation("position");
 }
 
 std::string FluidRenderer::getBuiltinVertexShaderSource()
@@ -73,22 +73,24 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D surfaceTexture;" << std::endl
-		<< "uniform sampler2D cubeMapTexture;" << std::endl
+		<< "uniform sampler2D reflectionTexture;" << std::endl
+		<< "uniform sampler2D refractionTexture;" << std::endl
 		<< "uniform sampler2D absorptionTexture;" << std::endl
 		<< "uniform sampler2D backgroundTexture;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
-		<< "	vec4 cubeMapColor = texture2D(cubeMapTexture, texCoord);" << std::endl
+		<< "	vec4 reflectionColor = texture2D(reflectionTexture, texCoord);" << std::endl
+		<< "	vec4 refractionColor = texture2D(refractionTexture, texCoord);" << std::endl
 		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
-		<< "	vec4 bgColor = texture2D(backgroundTexture, texCoord); " << std::endl
+		<< "	vec4 bgColor = texture2D(backgroundTexture, texCoord);" << std::endl
 		<< "	if(absorptionColor.a < 0.01) { " << std::endl
-		<< "		vec4 bgColor = texture2D(backgroundTexture, texCoord); " << std::endl
-		<< "		fragColor = bgColor; " << std::endl
+		<< "		fragColor = bgColor;" << std::endl
+		<< "		return; " << std::endl
 		<< "	}else {" << std::endl
-		<< "		fragColor = mix(surfaceColor + cubeMapColor,absorptionColor ,absorptionColor.a); " << std::endl
-		<< "		fragColor = mix(surfaceColor,absorptionColor ,absorptionColor.a); " << std::endl
+//		<< "		fragColor = mix(surfaceColor,absorptionColor ,absorptionColor.a); " << std::endl
+		<< "		fragColor = mix(surfaceColor *0.5 + reflectionColor * 0.5 + absorptionColor, refractionColor * 0.5,1.0-absorptionColor.a);" << std::endl
 
 //		<< "		fragColor = surfaceColor*0.5 + cubeMapColor*0.5 + absorptionColor;" << std::endl
 //		<< "		fragColor = mix(bgColor, fragColor, absorptionColor.a); "<< std::endl
@@ -176,8 +178,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 	{
@@ -194,7 +194,8 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		sceneTexture.bind();
 
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
-		glUniform1i(shader.getUniformLocation("cubeMapTexture"), reflectionBuffer.getTexture()->getId());
+		glUniform1i(shader.getUniformLocation("reflectionTexture"), reflectionBuffer.getTexture()->getId());
+		//glUniform1i(shader.getUniformLocation("refractionTexture"), refractionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("backgroundTexture"), sceneTexture.getId());
 
@@ -211,7 +212,6 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		absorptionBuffer.getTexture()->unbind();
 		sceneTexture.unbind();
 	}
-	glDisable(GL_BLEND);
 
 	fluidBuffer.unbind();
 	glViewport(0, 0, width, height);

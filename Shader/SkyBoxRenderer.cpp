@@ -63,7 +63,7 @@ void SkyBoxRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<
 	Crystal::Polygon::PolygonObject polygon;
 	//const Box3d<float> box(Vector3d<float>(-100.0, 0.0, -20.0), Vector3d<float>(100.0, 20.0, 20.0));
 	//polygon.add(box);
-	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-50.0, -50.0, -50.0), Crystal::Math::Vector3d<float>(50.0, 50.0, 50.0));
+	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-100.0, -100.0, -100.0), Crystal::Math::Vector3d<float>(100.0, 100.0, 100.0));
 	polygon.add(box);
 	buffer.add(polygon);
 

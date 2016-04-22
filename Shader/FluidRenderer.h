@@ -62,6 +62,7 @@ private:
 	
 	BilateralFilter bilateralFilter;
 	FrameBuffer bluredDepthBuffer;
+	FrameBuffer bluredDepthBuffer2;
 
 	AbsorptionRenderer absorptionRenderer;
 	FrameBuffer absorptionBuffer;
