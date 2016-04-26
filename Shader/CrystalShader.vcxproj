@@ -148,6 +148,7 @@
     <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthBuffer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
+    <ClCompile Include="DepthSmoothingRenderer.cpp" />
     <ClCompile Include="DepthTexture.cpp" />
     <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthBuffer.h" />
     <ClInclude Include="DepthRenderer.h" />
+    <ClInclude Include="DepthSmoothingRenderer.h" />
     <ClInclude Include="DepthTexture.h" />
     <ClInclude Include="FluidRenderer.h" />
     <ClInclude Include="FrameBuffer.h" />

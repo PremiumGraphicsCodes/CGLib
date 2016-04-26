@@ -95,6 +95,9 @@
     <ClCompile Include="SSRefractionRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="DepthSmoothingRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -195,6 +198,9 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="SSRefractionRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthSmoothingRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>
