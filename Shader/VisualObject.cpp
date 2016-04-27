@@ -49,7 +49,7 @@ VisualObject::VisualObject(const VolumeObject& volume)
 void VisualObject::renderTriangles(const ICamera<float>& camera)
 {
 	Graphics::PointLight<float> light;
-	light.setPos(Math::Vector3d<float>(-10.0, 10.0, 10.0));
+	light.setPos(Math::Vector3d<float>(-10.0, 10.0, -10.0));
 	light.setDiffuse(Graphics::ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
 
 	renderer.render(camera, light, triangleBuffer);
