@@ -243,6 +243,7 @@ int main(int argc, char* argv)
 	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	activeSample = std::make_unique<RenderingSample>();
+	activeSample->setup();
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwGetWindowSize(window, &width, &height);

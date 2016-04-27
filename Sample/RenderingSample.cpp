@@ -1,3 +1,8 @@
+#if _WIN64
+#include "windows.h"
+#endif
+#include "../Shader/ShaderObject.h"
+
 #include "RenderingSample.h"
 
 #include <iostream>
@@ -12,6 +17,14 @@ using namespace Crystal::Shader;
 
 void RenderingSample::setup()
 {
+	colorTexture.create(Image(512, 512), 0);
+	depthTexture.create(Imagef(512, 512), 1);
+	fbo.build(512, 512);
+	fbo.setColorTexture(colorTexture);
+	fbo.setDepthTexture(depthTexture);
+	auto errro = glGetError();
+
+	onScreenRenderer.build();
 }
 
 void RenderingSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
@@ -23,5 +36,14 @@ void RenderingSample::demonstrate(const int width, const int height, const Cryst
 	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
 	ColorRGBA<float> color(1.0, 1.0, 1.0, 1.0);
 	buffer.add(line, color);
+
+	fbo.bindDepth();
+	auto errro = glGetError();
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	errro = glGetError();
+
 	renderer.render(camera, buffer);
+	fbo.unbindDepth();
+	onScreenRenderer.render(depthTexture);
 }

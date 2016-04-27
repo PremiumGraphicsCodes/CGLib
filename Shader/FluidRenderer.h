@@ -32,6 +32,8 @@ public:
 
 	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
+	ITexture* getShadedTexture() { return shadedBuffer.getTexture(); }
+
 	ITexture* getBluredDepthTexture() { return bluredDepthBuffer.getTexture(); }
 
 	ITexture* getVolumeTexture() { return volumeBuffer.getTexture(); }
@@ -52,7 +54,7 @@ private:
 	DepthTexture sceneDepthTexture;
 
 	NormalFilter normalFilter;
-	FrameBufferf normalBuffer;
+	FrameBuffer normalBuffer;
 
 	ThicknessRenderer thicknessRenderer;
 	FrameBuffer volumeBuffer;

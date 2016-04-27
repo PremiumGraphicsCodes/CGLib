@@ -25,7 +25,7 @@ bool DepthTexture::create(const Imagef& image, const int id)
 
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
+	auto error = glGetError();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return (GL_NO_ERROR == glGetError());

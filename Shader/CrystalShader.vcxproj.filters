@@ -98,6 +98,9 @@
     <ClCompile Include="DepthSmoothingRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
+    <ClCompile Include="FrameBufferObject.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="DepthSmoothingRenderer.h">
       <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBufferObject.h">
+      <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

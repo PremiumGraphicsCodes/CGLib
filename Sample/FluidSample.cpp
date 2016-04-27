@@ -194,16 +194,16 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 
 
 		PointLight<float> light;
-		light.setPos(Vector3d<float>(10.0, 0.0, 0.0));
-		light.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0, 0.0));
-		light.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
+		light.setPos(Vector3d<float>(100.0, 100.0, -100.0));
+		light.setDiffuse(ColorRGBA<float>(0.1, 0.1, 0.1));
+		light.setSpecular(ColorRGBA<float>(0.1, 0.1, 0.1));
 		light.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
 
 		Material material;
-		material.setDiffuse(ColorRGBA<float>(1.0, 1.0, 1.0));
-		material.setSpecular(ColorRGBA<float>(1.0, 0.0, 0.0));
+		material.setDiffuse(ColorRGBA<float>(0.1, 0.1, 0.1));
+		material.setSpecular(ColorRGBA<float>(0.1, 0.1, 0.1));
 		material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
-		material.setShininess(1.0f);
+		material.setShininess(0.25f);
 
 		fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
