@@ -116,36 +116,28 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bluredDepthBuffer.bind();
-	bilateralFilter.render(*depthBuffer.getTexture(), true);
+	bilateralFilter.render(*depthBuffer.getTexture());
 	bluredDepthBuffer.unbind();
-
-	glViewport(0, 0, bluredDepthBuffer2.getWidth(), bluredDepthBuffer2.getHeight());
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	bluredDepthBuffer2.bind();
-	bilateralFilter.render(*bluredDepthBuffer.getTexture(), false);
-	bluredDepthBuffer2.unbind();
-
 
 	glViewport(0, 0, normalBuffer.getWidth(), normalBuffer.getHeight());
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	normalFilter.render(*bluredDepthBuffer2.getTexture(), camera);
+	normalFilter.render(*bluredDepthBuffer.getTexture(), camera);
 	normalBuffer.unbind();
 
 	glViewport(0, 0, bluredDepthBuffer.getWidth(), bluredDepthBuffer.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	deferredRenderer.render(*bluredDepthBuffer2.getTexture(), *normalBuffer.getTexture(), camera, light, material);
+	deferredRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	shadedBuffer.unbind();
 
 	glViewport(0, 0, reflectionBuffer.getWidth(), reflectionBuffer.getHeight());
 	reflectionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	reflectionRenderer.render(*bluredDepthBuffer2.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
+	reflectionRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
 	reflectionBuffer.unbind();
 
 	/*
@@ -168,7 +160,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	bluredVolumeBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	bilateralFilter.render(*volumeBuffer.getTexture(), true);
+	bilateralFilter.render(*volumeBuffer.getTexture());
 	bluredVolumeBuffer.unbind();
 
 	glViewport(0, 0, absorptionBuffer.getWidth(), absorptionBuffer.getHeight());
