@@ -19,6 +19,7 @@ void FluidRenderer::build(const int width, const int height)
 	absorptionBuffer.build(width, height, 7);
 	fluidBuffer.build(width, height, 8);
 	bluredVolumeBuffer.build(width, height, 9);
+	bluredDepthBuffer2.build(width, height, 10);
 
 
 	depthRenderer.build();
@@ -45,7 +46,7 @@ void FluidRenderer::findLocation()
 {
 	shader.findUniformLocation("surfaceTexture");
 	shader.findUniformLocation("reflectionTexture");
-	shader.findUniformLocation("refractionTexture");
+	//shader.findUniformLocation("refractionTexture");
 
 	shader.findUniformLocation("absorptionTexture");
 	shader.findUniformLocation("backgroundTexture");
@@ -76,7 +77,7 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "#version 150" << std::endl
 		<< "uniform sampler2D surfaceTexture;" << std::endl
 		<< "uniform sampler2D reflectionTexture;" << std::endl
-		<< "uniform sampler2D refractionTexture;" << std::endl
+		//<< "uniform sampler2D refractionTexture;" << std::endl
 		<< "uniform sampler2D absorptionTexture;" << std::endl
 		<< "uniform sampler2D backgroundTexture;" << std::endl
 		<< "in vec2 texCoord;" << std::endl
@@ -84,14 +85,14 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "void main(void) {" << std::endl
 		<< "	vec4 surfaceColor = texture2D(surfaceTexture, texCoord);" << std::endl
 		<< "	vec4 reflectionColor = texture2D(reflectionTexture, texCoord);" << std::endl
-		<< "	vec4 refractionColor = texture2D(refractionTexture, texCoord);" << std::endl
+		//<< "	vec4 refractionColor = texture2D(refractionTexture, texCoord);" << std::endl
 		<< "	vec4 absorptionColor = texture2D(absorptionTexture, texCoord);" << std::endl
 		<< "	vec4 bgColor = texture2D(backgroundTexture, texCoord);" << std::endl
 		<< "	if(absorptionColor.a < 0.01) { " << std::endl
 		<< "		fragColor = bgColor;" << std::endl
 		<< "		return; " << std::endl
 		<< "	}else {" << std::endl
-		<< "		fragColor = mix(surfaceColor *0.25 + reflectionColor * 0.25, absorptionColor + refractionColor, 1.0-absorptionColor.a);" << std::endl
+		<< "		fragColor = mix( absorptionColor, surfaceColor + reflectionColor, 1.0-absorptionColor.a);" << std::endl
 		<< "	}" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
@@ -118,35 +119,43 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	bilateralFilter.render(*depthBuffer.getTexture(), true);
 	bluredDepthBuffer.unbind();
 
+	glViewport(0, 0, bluredDepthBuffer2.getWidth(), bluredDepthBuffer2.getHeight());
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	bluredDepthBuffer2.bind();
+	bilateralFilter.render(*bluredDepthBuffer.getTexture(), false);
+	bluredDepthBuffer2.unbind();
+
+
 	glViewport(0, 0, normalBuffer.getWidth(), normalBuffer.getHeight());
 	normalBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	normalFilter.render(*bluredDepthBuffer.getTexture(), camera);
+	normalFilter.render(*bluredDepthBuffer2.getTexture(), camera);
 	normalBuffer.unbind();
 
 	glViewport(0, 0, bluredDepthBuffer.getWidth(), bluredDepthBuffer.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
 	shadedBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	deferredRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
+	deferredRenderer.render(*bluredDepthBuffer2.getTexture(), *normalBuffer.getTexture(), camera, light, material);
 	shadedBuffer.unbind();
 
 	glViewport(0, 0, reflectionBuffer.getWidth(), reflectionBuffer.getHeight());
 	reflectionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	reflectionRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
+	reflectionRenderer.render(*bluredDepthBuffer2.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
 	reflectionBuffer.unbind();
 
-
+	/*
 	glViewport(0, 0, refractionBuffer.getWidth(), refractionBuffer.getHeight());
 	refractionBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	refractionRenderer.render(*bluredDepthBuffer.getTexture(), *normalBuffer.getTexture(), camera, cubeMapTexture);
 	refractionBuffer.unbind();
-
+	*/
 	//depthBuffer.setTexture(sceneDepthTexture);
 	glViewport(0, 0, volumeBuffer.getWidth(), volumeBuffer.getHeight());
 	volumeBuffer.bind();
@@ -192,7 +201,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 		glUniform1i(shader.getUniformLocation("surfaceTexture"), shadedBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("reflectionTexture"), reflectionBuffer.getTexture()->getId());
-		glUniform1i(shader.getUniformLocation("refractionTexture"), refractionBuffer.getTexture()->getId());
+		//glUniform1i(shader.getUniformLocation("refractionTexture"), refractionBuffer.getTexture()->getId());
 
 		glUniform1i(shader.getUniformLocation("absorptionTexture"), absorptionBuffer.getTexture()->getId());
 		glUniform1i(shader.getUniformLocation("backgroundTexture"), sceneTexture.getId());

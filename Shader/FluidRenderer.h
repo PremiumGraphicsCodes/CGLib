@@ -36,6 +36,9 @@ public:
 
 	ITexture* getBluredDepthTexture() { return bluredDepthBuffer.getTexture(); }
 
+	ITexture* getBluredDepthTexture2() { return bluredDepthBuffer2.getTexture(); }
+
+
 	ITexture* getVolumeTexture() { return volumeBuffer.getTexture(); }
 
 	ITexture* getCubeMapTexture() { return reflectionBuffer.getTexture(); }
@@ -45,6 +48,8 @@ public:
 	ITexture* getNormalTexture() { return normalBuffer.getTexture(); }
 
 	ITexture* getFluidTexture() { return fluidBuffer.getTexture(); }
+
+	ITexture* getReflectionTexture() { return reflectionBuffer.getTexture(); }
 
 private:
 	ParticleDepthRenderer depthRenderer;
@@ -64,6 +69,8 @@ private:
 	
 	BilateralFilter bilateralFilter;
 	FrameBufferf bluredDepthBuffer;
+	FrameBufferf bluredDepthBuffer2;
+
 
 	AbsorptionRenderer absorptionRenderer;
 	FrameBuffer absorptionBuffer;
