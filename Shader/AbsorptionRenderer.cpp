@@ -48,7 +48,6 @@ std::string AbsorptionRenderer::getBuildinFragmentShaderSource()
 		<< "		return;" << std::endl
 		<< "	}" << std::endl
 		<< "	float k = 0.1;" << std::endl
-//		<< "	volume += 0.1;"
 		<< "	fragColor.rgb = exp(-k*volume) * vec3(5/255.0, 102/255.0, 255/255.0);" << std::endl
 		//<< "	fragColor.rgb += vec3(0.0, 0.0, 0.0);" << std::endl
 		<< "	fragColor.a = volume;" << std::endl
@@ -72,6 +71,8 @@ void AbsorptionRenderer::render(const ITexture& volumeTexture)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -91,6 +92,9 @@ void AbsorptionRenderer::render(const ITexture& volumeTexture)
 
 	volumeTexture.unbind();
 	glDisable(GL_DEPTH_TEST);
+
+	//glDisable(GL_BLEND);
+
 
 	glUseProgram(0);
 }

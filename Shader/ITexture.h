@@ -3,6 +3,9 @@
 
 #include "GLee.h"
 
+namespace Crystal {
+	namespace Shader {
+
 class ITexture
 {
 public:
@@ -34,5 +37,7 @@ protected:
 
 };
 
+	}
+}
 
 #endif

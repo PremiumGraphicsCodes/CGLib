@@ -71,7 +71,7 @@ void SSCompositeRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void SSCompositeRenderer::render(const ITexture& texture1, const ITexture& texture2, const DepthTexture& depthTexture1, const DepthTexture& depthTexture2)
+void SSCompositeRenderer::render(const ITexture& texture1, const ITexture& texture2, const DepthTexture& depthTexture1, const ITexture& depthTexture2)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

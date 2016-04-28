@@ -11,6 +11,7 @@
 #include "../Shader/FrameBuffer.h"
 #include "../Shader/FluidRenderer.h"
 #include "../Shader/DepthRenderer.h"
+#include "../Shader/ITexture.h"
 #include "ISample.h"
 #include <memory>
 
@@ -33,13 +34,10 @@ private:
 	std::vector< std::unique_ptr<Crystal::Physics::Fluid> > fluids;
 	int width;
 	int height;
-	bool isParticleView;
-
+	bool isStop;
 	Crystal::Math::Matrix3d<float> rotationMatrix;
 	Crystal::Math::Vector3d<float> cursor;
 	Crystal::Physics::ParticleWorld world;
-	Crystal::Graphics::ColorMap colorMap;
-	Crystal::Shader::PointRenderer renderer;
 	Crystal::Shader::FluidRenderer fluidRenderer;
 	Crystal::Shader::OnScreenRenderer onRenderer;
 	Crystal::Shader::DepthRenderer depthRenderer;
@@ -47,6 +45,7 @@ private:
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 	Crystal::Shader::Texture backgroundTexture;
 	Crystal::Shader::FrameBuffer backgroundBuffer;
+	Crystal::Shader::ITexture* activeTexture;
 
 };
 

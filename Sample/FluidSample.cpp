@@ -25,17 +25,20 @@ using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+namespace {
+	SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.20f);
+}
+
 void FluidSample::setup()
 {
-	SPHConstant constant(1000.0f, 1000000.0f, 1000.0f, 0.0f, 1.20f);
-
+	isStop = false;
 	{
 		Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(50.0f, 20.0f, 20.0f));
 		fluids.push_back( std::make_unique<Fluid>(box, 1.0f, constant) );
 		world.add(fluids.back().get());
 		std::cout << fluids.back()->getParticles().size() << std::endl;
-
 	}
+
 	{
 		Box3d<float> box(Vector3d<float>(-50.0f,0.0f, 30.0f), Vector3d<float>(0.0f, 20.0f, 50.0f));
 		fluids.push_back(std::make_unique<Fluid>(box, 1.0f, constant));
@@ -48,15 +51,7 @@ void FluidSample::setup()
 	Box3d<float> boundary( Vector3d<float>(-50.0, 0.0f, 0.0 ), Vector3d<float>(50.0, 1000.0, 50.0 ));
 
 	world.setBoundary(boundary);
-	std::vector<ColorRGBA<float>> colors;
-	for (int i = 0; i < 360; ++i) {
-		ColorHSV hsv(i, 1.0f, 1.0f);
-		colors.push_back( hsv.toColorRGBA());
-	}
-	std::reverse(colors.begin(), colors.end());
-	colorMap.setColors(colors);
 
-	renderer.build();
 	onRenderer.build();
 	depthRenderer.build();
 
@@ -67,8 +62,6 @@ void FluidSample::setup()
 	std::cout << "middle button dragg : cursor move" << std::endl;
 	std::cout << "press X : add fluid to x+" << std::endl;
 	std::cout << "press Z : add fluid to x-" << std::endl;
-
-	isParticleView = false;
 
 	std::array< Crystal::Graphics::Imagef, 6> images;
 	images[0].read("../Shader/cube_PX.png");
@@ -86,6 +79,7 @@ void FluidSample::setup()
 	//backgroundBuffer.setTexture(backgroundTexture);
 	skyBoxRenderer.build();
 
+	activeTexture = fluidRenderer.getFluidTexture();
 }
 
 void FluidSample::onKeyDown(const unsigned char c)
@@ -107,9 +101,45 @@ void FluidSample::onKeyDown(const unsigned char c)
 			}
 		}
 	}
-	if (c == 'p') {
-		isParticleView = !isParticleView;
+	if (c == 'b') {
+		const Vector3d<float> start(0.0f, 20.0, 0.0);
+		const Vector3d<float> end(10.0, 30.0, 20.0);
+		Box3d<float> box(start, end);
+		fluids.back()->createParticles(box, 1.0f);
 	}
+	if (c == 's') {
+		Sphere<float> sphere(Vector3d<float>(5.0f, 25.0f, 20.0f), 10.0f);
+		fluids.back()->createParticles(sphere, 1.0f);
+	}
+	if (c == 'p') {
+		isStop = !isStop;
+	}
+	else if (c == 'q') {
+		activeTexture = fluidRenderer.getDepthTexture();
+	}
+	else if (c == 'w') {
+		activeTexture = fluidRenderer.getBluredDepthTexture();
+	}
+	else if (c == 'e') {
+		activeTexture = fluidRenderer.getNormalTexture();
+	}
+	else if (c == 'r') {
+		activeTexture = fluidRenderer.getThicknessTexture();
+	}
+	else if (c == 't') {
+		activeTexture = fluidRenderer.getBluredThicknessTexture();
+	}
+	else if (c == 'y') {
+		activeTexture = fluidRenderer.getVolumeTexture();
+	}
+	else if (c == 'u') {
+		activeTexture = fluidRenderer.getReflectionTexture();
+	}
+	else if (c == 'i') {
+		activeTexture = fluidRenderer.getFluidTexture();
+	}
+
+
 }
 
 void FluidSample::onMiddleButtonDown(const float x, const float y)
@@ -132,61 +162,24 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	this->height = height;
 
 	const float effectLength = 1.20f;
-	world.simulate(effectLength, 0.02f);
-
-	//auto polygon = fluid->toSurfacePolygonObject(500.0f, 1.25f);
-
-	{
-		glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, width, height);
-
-		PointBuffer buffer;
-		Point point(cursor, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0), 500.0f);
-		buffer.add(point);
-		renderer.render(camera, buffer);
+	if (!isStop) {
+		world.simulate(effectLength, 0.02f);
 	}
+
 
 	PointBuffer buffer;
 	std::vector<SPHParticle*> particles = world.getFluidParticles();
-
-	/*
-	const auto eyePos = camera.getPos();
-	std::sort(particles.begin(), particles.end(),
-	[eyePos](Particle* p1, Particle* p2) {
-		const auto dist1 = p1->getPosition().getDistanceSquared(eyePos);
-		const auto dist2 = p2->getPosition().getDistanceSquared(eyePos);
-		return dist1 < dist2; }
-	);
-	*/
-
-	/*
-	float minPressure = +FLT_MAX;
-	float maxPressure = -FLT_MAX;
-	for (auto p : particles) {
-		minPressure = std::min<float>(minPressure, p->getDensity());
-		maxPressure = std::max<float>(maxPressure, p->getDensity());
-	}
-	colorMap.setMinMax(minPressure, maxPressure);
-	*/
-	colorMap.setMinMax(900, 1400);
 
 
 	for (auto p : particles) {
 		const auto pos = p->getPosition();
 		const auto d = p->getDensity();
-		auto color = colorMap.getColor(p->getDensity());
-		color.setAlpha(0.2f);//colorMap.getNormalized(p->getDensity()));
-		Crystal::Graphics::Point point(pos, color, 500.0f, p->getId());
+		Crystal::Graphics::Point point(pos, ColorRGBA<float>(), 500.0f, p->getId());
 		buffer.add(point);
 	}
 
 
-	if (isParticleView) {
-		renderer.render(camera, buffer);
-	}
-	else {
-		glViewport(0, 0, backgroundBuffer.getWidth(), backgroundBuffer.getHeight());
+	glViewport(0, 0, backgroundBuffer.getWidth(), backgroundBuffer.getHeight());
 		backgroundBuffer.setTexture(backgroundTexture);
 		backgroundBuffer.bind();
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -198,26 +191,26 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 
 		PointLight<float> light;
 		light.setPos(Vector3d<float>(100.0, 100.0, -100.0));
-		light.setDiffuse(ColorRGBA<float>(0.1, 0.1, 0.1));
-		light.setSpecular(ColorRGBA<float>(0.1, 0.1, 0.1));
-		light.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
+		light.setDiffuse(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
+		light.setSpecular(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
+		light.setAmbient(ColorRGBA<float>(0.5f, 0.5f, 0.5f));
 
 		Material material;
-		material.setDiffuse(ColorRGBA<float>(0.1, 0.1, 0.1));
-		material.setSpecular(ColorRGBA<float>(0.1, 0.1, 0.1));
-		material.setAmbient(ColorRGBA<float>(0.5, 0.5, 0.5));
+		material.setDiffuse(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
+		material.setSpecular(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
+		material.setAmbient(ColorRGBA<float>(0.5f, 0.5f, 0.5f));
 		material.setShininess(0.25f);
 
 		//fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
 		fluidRenderer.setSceneTexture(backgroundTexture);
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
-	}
 
-	glViewport(0, 0, width, height);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glViewport(0, 0, width, height);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	const auto fluidTexture = fluidRenderer.getFluidTexture();
-	//const auto fluidDepthTexture = fluidRenderer.getDepthTexture();
-	onRenderer.render(*fluidTexture);
+		//const auto fluidTexture = fluidRenderer.getFluidTexture();
+		//const auto fluidDepthTexture = fluidRenderer.getDepthTexture();
+		onRenderer.render(*activeTexture);
+
 }

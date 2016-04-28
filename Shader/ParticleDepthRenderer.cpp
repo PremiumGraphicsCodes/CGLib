@@ -56,7 +56,7 @@ std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 		<< "	vec4 clipSpacePos = projectionMatrix * pixelPos;" << std::endl
 		<< "	float depth = clipSpacePos.z / clipSpacePos.w;" << std::endl
 		<< "	gl_FragDepth = depth;" << std::endl
-		<< "	fragColor.rgb = vec3(depth);" << std::endl
+		<< "	fragColor.rgb = vec3(depth*0.5 + 0.5);" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "}" << std::endl;
 	bool b = fragmentShader.compile(stream.str(), ShaderUnit::Stage::FRAGMENT);
@@ -75,6 +75,9 @@ void ParticleDepthRenderer::findLocation()
 
 void ParticleDepthRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	const auto positions = buffer.getPosition().get();
 	const auto colors = buffer.getColor().get();
 	const auto sizes = buffer.getSize().get();

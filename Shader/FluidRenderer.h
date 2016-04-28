@@ -28,20 +28,18 @@ public:
 
 	void setSceneTexture(const Texture& texture) { this->sceneTexture = texture; }
 
-	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
+	ITexture* getDepthTexture() { return &depthTexture; }
 
 	ITexture* getShadedTexture() { return &shadedTexture; }
 
 	ITexture* getBluredDepthTexture() { return &bluredDepthTexture; }
 
-	ITexture* getVolumeTexture() { return &volumeTexture; }
-
-	ITexture* getBluredVolumeTexture() { return &bluredThicknessTexture; }
 
 	ITexture* getThicknessTexture() { return &thicknessTexture; }
 
 	ITexture* getBluredThicknessTexture() { return &bluredThicknessTexture; }
 
+	ITexture* getVolumeTexture() { return &volumeTexture; }
 
 	ITexture* getNormalTexture() { return &normalTexture; }
 
