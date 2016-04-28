@@ -18,7 +18,9 @@ public:
 		unbind();
 	}
 
-	bool build(int width, int height, const int textureId = 0);
+	bool build(int width, int height);
+
+	void setTexture(const Texture& texture);
 
 	bool bind();
 
@@ -49,6 +51,8 @@ public:
 	}
 
 	bool build(int width, int height, const int textureId = 0);
+
+	void setTexture(const Texturef& texture);
 
 	bool bind();
 

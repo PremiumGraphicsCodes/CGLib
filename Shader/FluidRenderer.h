@@ -28,64 +28,60 @@ public:
 
 	void setSceneTexture(const Texture& texture) { this->sceneTexture = texture; }
 
-	void setSceneDepthTexture(const DepthTexture& texture) { this->sceneDepthTexture = texture; }
-
 	DepthTexture* getDepthTexture() { return depthBuffer.getTexture(); }
 
-	ITexture* getShadedTexture() { return shadedBuffer.getTexture(); }
+	ITexture* getShadedTexture() { return &shadedTexture; }
 
-	ITexture* getBluredDepthTexture() { return bluredDepthBuffer.getTexture(); }
+	ITexture* getBluredDepthTexture() { return &bluredDepthTexture; }
 
-	ITexture* getBluredDepthTexture2() { return bluredDepthBuffer2.getTexture(); }
+	ITexture* getVolumeTexture() { return &volumeTexture; }
+
+	ITexture* getBluredVolumeTexture() { return &bluredThicknessTexture; }
+
+	ITexture* getThicknessTexture() { return &thicknessTexture; }
+
+	ITexture* getBluredThicknessTexture() { return &bluredThicknessTexture; }
 
 
-	ITexture* getVolumeTexture() { return volumeBuffer.getTexture(); }
+	ITexture* getNormalTexture() { return &normalTexture; }
 
-	ITexture* getCubeMapTexture() { return reflectionBuffer.getTexture(); }
+	ITexture* getFluidTexture() { return &fluidTexture; }
 
-	ITexture* getThicknessTexture() { return volumeBuffer.getTexture(); }
+	ITexture* getReflectionTexture() { return &reflectionTexture; }
 
-	ITexture* getNormalTexture() { return normalBuffer.getTexture(); }
+	ITexture* getSceneTexture() { return &sceneTexture; }
 
-	ITexture* getFluidTexture() { return fluidBuffer.getTexture(); }
-
-	ITexture* getReflectionTexture() { return reflectionBuffer.getTexture(); }
 
 private:
 	ParticleDepthRenderer depthRenderer;
 	DepthBuffer depthBuffer;
 
-	Texture sceneTexture;
-	DepthTexture sceneDepthTexture;
-
+	FrameBuffer frameBuffer;
 	NormalFilter normalFilter;
-	FrameBuffer normalBuffer;
 
 	ThicknessRenderer thicknessRenderer;
-	FrameBuffer volumeBuffer;
-	FrameBuffer bluredVolumeBuffer;
-
-	FrameBuffer shadedBuffer;
 	
 	BilateralFilter bilateralFilter;
-	FrameBufferf bluredDepthBuffer;
-	FrameBufferf bluredDepthBuffer2;
-
+	FrameBufferf frameBufferf;
 
 	AbsorptionRenderer absorptionRenderer;
-	FrameBuffer absorptionBuffer;
 
 	DeferredRenderer deferredRenderer;
 	OnScreenRenderer onScreenRenderer;
 	SSReflectionRenderer reflectionRenderer;
 	SSRefractionRenderer refractionRenderer;
 	
-	FrameBuffer reflectionBuffer;
-	FrameBuffer refractionBuffer;
-
 	DepthTexture depthTexture;
+	Texture sceneTexture;
+	Texture shadedTexture;
+	Texture bluredDepthTexture;
+	Texture normalTexture;
+	Texture thicknessTexture;
+	Texture bluredThicknessTexture;
 
-	FrameBuffer fluidBuffer;
+	Texture volumeTexture;
+	Texture reflectionTexture;
+	Texture fluidTexture;
 
 private:
 	std::string getBuiltinVertexShaderSource();

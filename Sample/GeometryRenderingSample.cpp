@@ -23,7 +23,7 @@ void GeometryRenderingSample::setup()
 {
 	depthTexture.create(Imagef(512, 512), 0);
 	depthBuffer.build(depthTexture);
-	normalBuffer.build(512, 512, 1);
+	normalBuffer.build(512, 512);
 
 	renderer.build(512, 512);
 	normalRenderer.build();

@@ -3,21 +3,27 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool FrameBuffer::build(int width, int height, const int textureId)
+bool FrameBuffer::build(int width, int height)
 {
 	this->width = width;
 	this->height = height;
 	glGenFramebuffers(1, &frameBuffer);
+
+	return (GL_NO_ERROR == glGetError());
+}
+
+void FrameBuffer::setTexture(const Texture& texture)
+{
+	this->texture = texture;
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
-	texture.create(Image(width,height),textureId);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getTexHandle(), 0);
 
 	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	return (GL_NO_ERROR == glGetError());
 }
+
 
 bool FrameBuffer::bind()
 {
@@ -77,14 +83,24 @@ bool FrameBufferf::build(int width, int height, const int textureId)
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
-	texture.create(Imagef(width, height), textureId);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getTexHandle(), 0);
-
 	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	return (GL_NO_ERROR == glGetError());
 }
+
+void FrameBufferf::setTexture(const Texturef& texture)
+{
+	this->texture = texture;
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.getTexHandle(), 0);
+
+	//glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+}
+
 
 bool FrameBufferf::bind()
 {

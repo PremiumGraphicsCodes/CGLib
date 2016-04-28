@@ -111,7 +111,7 @@ void CouplingSample::setup()
 
 	fluidRenderer.build(512, 512);
 	skyBoxRenderer.build();
-	backgroundBuffer.build(512, 512, 12);
+	backgroundBuffer.build(512, 512);
 
 	onScreenRenderer.build();
 
@@ -332,7 +332,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	}
 	else {
 		Material material;
-		fluidRenderer.setSceneDepthTexture(depthTexture);
+		//fluidRenderer.setSceneDepthTexture(depthTexture);
 		fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
