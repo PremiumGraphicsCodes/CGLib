@@ -71,6 +71,10 @@ void ThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& 
 	const auto colors = buffer.getColor().get();
 	const auto sizes = buffer.getSize().get();
 
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
 	if (positions.empty()) {
 		return;
 	}

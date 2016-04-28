@@ -66,7 +66,6 @@ private:
 	AbsorptionRenderer absorptionRenderer;
 
 	DeferredRenderer deferredRenderer;
-	OnScreenRenderer onScreenRenderer;
 	SSReflectionRenderer reflectionRenderer;
 	SSRefractionRenderer refractionRenderer;
 	

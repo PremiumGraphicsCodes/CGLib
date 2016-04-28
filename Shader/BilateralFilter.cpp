@@ -79,18 +79,17 @@ void BilateralFilter::findLocation()
 }
 
 #include "../Graphics/OrthogonalCamera.h"
+#include "../Math/Box2d.h"
 
 void BilateralFilter::render(const ITexture& texture)
 {
-	std::vector<float> positions;
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(-1.0f);
-	positions.push_back(1.0f);
-	positions.push_back(1.0f);
+	const Box2d<float> box(Vector2d<float>(-1.0f, -1.0f), Vector2d<float>(1.0f, 1.0f));
+	const auto& positions = box.toArray();
+
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
 	glEnable(GL_DEPTH_TEST);
 
