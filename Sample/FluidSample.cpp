@@ -85,6 +85,8 @@ void FluidSample::setup()
 void FluidSample::onKeyDown(const unsigned char c)
 {
 	if (c == 'x') {
+		fluids.back()->move(Vector3d<float>(0.2f, 0.0, 0.0));
+		/*
 		for (int i = 0; i < 10; ++i) {
 			for (int j = 0; j < 5; ++j) {
 				//fluids[i]->move(Vector3d<float>(0.25f, 0.0f, 0.0f));
@@ -92,14 +94,18 @@ void FluidSample::onKeyDown(const unsigned char c)
 				fluids.front()->createParticle(pos, Vector3d<float>(-50.0f, -20.0f, 0.0f));
 			}
 		}
+		*/
 	}
 	if (c == 'z') {
+		fluids.back()->move(Vector3d<float>(0.0f, 0.0f, 0.2f));
+		/*
 		for (int i = 0; i < 10; ++i) {
 			for (int j = 0; j < 5; ++j) {
 				const auto pos = cursor + Vector3d<float>(i, j, i);
 				fluids.front()->createParticle(pos, Vector3d<float>(50.0f, -20.0f, 0.0f));
 			}
 		}
+		*/
 	}
 	if (c == 'b') {
 		const Vector3d<float> start(0.0f, 20.0, 0.0);
@@ -136,6 +142,9 @@ void FluidSample::onKeyDown(const unsigned char c)
 		activeTexture = fluidRenderer.getReflectionTexture();
 	}
 	else if (c == 'i') {
+		activeTexture = fluidRenderer.getShadedTexture();
+	}
+	else if (c == 'o') {
 		activeTexture = fluidRenderer.getFluidTexture();
 	}
 
@@ -168,7 +177,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 
 
 	PointBuffer buffer;
-	std::vector<SPHParticle*> particles = world.getFluidParticles();
+	const auto& particles = world.getFluidParticles();
 
 
 	for (auto p : particles) {
@@ -180,37 +189,34 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 
 
 	glViewport(0, 0, backgroundBuffer.getWidth(), backgroundBuffer.getHeight());
-		backgroundBuffer.setTexture(backgroundTexture);
-		backgroundBuffer.bind();
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	backgroundBuffer.setTexture(backgroundTexture);
+	backgroundBuffer.bind();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	skyBoxRenderer.render(cubeMapTexture, camera);
+	backgroundBuffer.unbind();
 
-		skyBoxRenderer.render(cubeMapTexture, camera);
-		backgroundBuffer.unbind();
 
+	PointLight<float> light;
+	light.setPos(Vector3d<float>(100.0, 100.0, -100.0));
+	light.setDiffuse(ColorRGBA<float>(1.0f, 1.0f, 1.0f));
+	light.setSpecular(ColorRGBA<float>(1.0f, 0.1f, 0.1f));
+	light.setAmbient(ColorRGBA<float>(0.5f, 0.5f, 0.5f));
 
-		PointLight<float> light;
-		light.setPos(Vector3d<float>(100.0, 100.0, -100.0));
-		light.setDiffuse(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
-		light.setSpecular(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
-		light.setAmbient(ColorRGBA<float>(0.5f, 0.5f, 0.5f));
+	Material material;
+	material.setDiffuse(ColorRGBA<float>(1.0f, 1.0f, 1.0f));
+	material.setSpecular(ColorRGBA<float>(1.0f, 0.1f, 0.1f));
+	material.setAmbient(ColorRGBA<float>(0.5f, 0.5f, 0.5f));
+	material.setShininess(0.25f);
 
-		Material material;
-		material.setDiffuse(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
-		material.setSpecular(ColorRGBA<float>(0.1f, 0.1f, 0.1f));
-		material.setAmbient(ColorRGBA<float>(0.5f, 0.5f, 0.5f));
-		material.setShininess(0.25f);
+	fluidRenderer.setSceneTexture(backgroundTexture);
+	fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 
-		//fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
-		fluidRenderer.setSceneTexture(backgroundTexture);
-		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+	glViewport(0, 0, width, height);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glViewport(0, 0, width, height);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		//const auto fluidTexture = fluidRenderer.getFluidTexture();
-		//const auto fluidDepthTexture = fluidRenderer.getDepthTexture();
-		onRenderer.render(*activeTexture);
-
+	//const auto fluidTexture = fluidRenderer.getFluidTexture();
+	//const auto fluidDepthTexture = fluidRenderer.getDepthTexture();
+	onRenderer.render(*activeTexture);
 }

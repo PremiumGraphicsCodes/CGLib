@@ -91,7 +91,7 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 		<< "		fragColor = bgColor;" << std::endl
 		<< "		return; " << std::endl
 		<< "	}else {" << std::endl
-		<< "		fragColor = mix( absorptionColor, surfaceColor + reflectionColor, 1.0-absorptionColor.a);" << std::endl
+		<< "		fragColor = mix( absorptionColor, surfaceColor *0.5 + reflectionColor * 0.5, 1.0-absorptionColor.a);" << std::endl
 		<< "	}" << std::endl
 		<< "}" << std::endl;
 	ShaderUnit fragmentShader;
