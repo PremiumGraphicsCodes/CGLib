@@ -13,7 +13,7 @@
 #include "SSReflectionRenderer.h"
 #include "SSRefractionRenderer.h"
 #include "SkyBoxRenderer.h"
-#include "ThicknessRenderer.h"
+#include "SSThicknessRenderer.h"
 #include "DepthBuffer.h"
 
 namespace Crystal {
@@ -57,7 +57,7 @@ private:
 	FrameBuffer frameBuffer;
 	NormalFilter normalFilter;
 
-	ThicknessRenderer thicknessRenderer;
+	SSThicknessRenderer thicknessRenderer;
 	
 	BilateralFilter bilateralFilter;
 

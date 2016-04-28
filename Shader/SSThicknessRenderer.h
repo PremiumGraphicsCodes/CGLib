@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_THICKNESS_RENDERER_H__
-#define __CRYSTAL_SHADER_THICKNESS_RENDERER_H__
+#ifndef __CRYSTAL_SHADER_SS_THICKNESS_RENDERER_H__
+#define __CRYSTAL_SHADER_SS_THICKNESS_RENDERER_H__
 
 #include "../Graphics/ICamera.h"
 #include "../Graphics/PointBuffer.h"
@@ -8,7 +8,7 @@
 namespace Crystal {
 	namespace Shader {
 
-class ThicknessRenderer
+class SSThicknessRenderer
 {
 public:
 	void findLocation();

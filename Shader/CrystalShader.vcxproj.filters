@@ -62,9 +62,6 @@
     <ClCompile Include="SkyBoxRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="ThicknessRenderer.cpp">
-      <Filter>Renderer\Fluid</Filter>
-    </ClCompile>
     <ClCompile Include="CubeMapTexture.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
@@ -99,6 +96,9 @@
       <Filter>Buffer</Filter>
     </ClCompile>
     <ClCompile Include="SSAbsorptionRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
+    </ClCompile>
+    <ClCompile Include="SSThicknessRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,9 +167,6 @@
     <ClInclude Include="SkyBoxRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
-    <ClInclude Include="ThicknessRenderer.h">
-      <Filter>Renderer\Fluid</Filter>
-    </ClInclude>
     <ClInclude Include="CubeMapTexture.h">
       <Filter>Texture</Filter>
     </ClInclude>
@@ -207,6 +204,9 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="SSAbsorptionRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
+    </ClInclude>
+    <ClInclude Include="SSThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>

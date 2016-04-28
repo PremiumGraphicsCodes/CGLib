@@ -1,11 +1,11 @@
-#include "ThicknessRenderer.h"
+#include "SSThicknessRenderer.h"
 
 #include <sstream>
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool ThicknessRenderer::build()
+bool SSThicknessRenderer::build()
 {
 	const auto vsSource = getBuildinVertexShaderSource();
 	const auto fsSource = getBuildinFragmentShaderSource();
@@ -14,7 +14,7 @@ bool ThicknessRenderer::build()
 	return b;
 }
 
-std::string ThicknessRenderer::getBuildinVertexShaderSource() const
+std::string SSThicknessRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
 	stream
@@ -34,7 +34,7 @@ std::string ThicknessRenderer::getBuildinVertexShaderSource() const
 	return stream.str();
 }
 
-std::string ThicknessRenderer::getBuildinFragmentShaderSource() const
+std::string SSThicknessRenderer::getBuildinFragmentShaderSource() const
 {
 	std::ostringstream stream;
 	stream
@@ -54,7 +54,7 @@ std::string ThicknessRenderer::getBuildinFragmentShaderSource() const
 	return stream.str();
 }
 
-void ThicknessRenderer::findLocation()
+void SSThicknessRenderer::findLocation()
 {
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
@@ -65,7 +65,7 @@ void ThicknessRenderer::findLocation()
 }
 
 
-void ThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
+void SSThicknessRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 {
 	const auto positions = buffer.getPosition().get();
 	const auto colors = buffer.getColor().get();

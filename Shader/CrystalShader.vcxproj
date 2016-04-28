@@ -173,9 +173,9 @@
     <ClCompile Include="SSReflectionRenderer.cpp" />
     <ClCompile Include="SSNormalRenderer.cpp" />
     <ClCompile Include="SSRefractionRenderer.cpp" />
+    <ClCompile Include="SSThicknessRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
-    <ClCompile Include="ThicknessRenderer.cpp" />
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +213,9 @@
     <ClInclude Include="SSReflectionRenderer.h" />
     <ClInclude Include="SSNormalRenderer.h" />
     <ClInclude Include="SSRefractionRenderer.h" />
+    <ClInclude Include="SSThicknessRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="LineRenderer.h" />
-    <ClInclude Include="ThicknessRenderer.h" />
     <ClInclude Include="VisualObject.h" />
   </ItemGroup>
   <ItemGroup>
