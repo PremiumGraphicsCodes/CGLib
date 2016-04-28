@@ -333,7 +333,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 	else {
 		Material material;
 		//fluidRenderer.setSceneDepthTexture(depthTexture);
-		fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
+		//fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
 		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
 	const auto fluidTex = fluidRenderer.getFluidTexture();
@@ -341,6 +341,6 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 
 	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	compositeRenderer.render(*backgroundBuffer.getTexture(), *fluidTex, depthTexture, *fluidDepthTex);
+	compositeRenderer.render(backgroundTexture, *fluidTex, depthTexture, *fluidDepthTex);
 	//onScreenRenderer.render(*backgroundBuffer.getTexture());
 }

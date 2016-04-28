@@ -74,6 +74,6 @@ void GeometryRenderingSample::demonstrate(const int width, const int height, con
 	material.setSpecular(ColorRGBA<float>(0.0, 1.0, 0.0, 1.0));
 	material.setShininess(1.0f);
 
-	deferredRenderer.render(*depthBuffer.getTexture(), *normalBuffer.getTexture(), camera, light, material);
+	deferredRenderer.render(*depthBuffer.getTexture(), normalTexture, camera, light, material);
 	//onScreenRenderer.render(*normalBuffer.getTexture());
 }

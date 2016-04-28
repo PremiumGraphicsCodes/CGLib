@@ -22,6 +22,8 @@ public:
 
 	void setTexture(const Texture& texture);
 
+	void setTexture(const Texturef& texture);
+
 	bool bind();
 
 	bool unbind();
@@ -34,49 +36,11 @@ public:
 
 	int getHeight() const { return height; }
 
-	Texture* getTexture() { return &texture; }
-
 private:
 	GLuint frameBuffer;
-	Texture texture;
 	int width;
 	int height;
 };
-
-class FrameBufferf
-{
-public:
-	~FrameBufferf() {
-		unbind();
-	}
-
-	bool build(int width, int height, const int textureId = 0);
-
-	void setTexture(const Texturef& texture);
-
-	bool bind();
-
-	bool unbind();
-
-	Graphics::Imagef toImage() const;
-
-	Graphics::ColorRGBA<float> getColor(const int x, const int y) const;
-
-	int getWidth() const { return width; }
-
-	int getHeight() const { return height; }
-
-	Texturef* getTexture() { return &texture; }
-
-private:
-	GLuint frameBuffer;
-	Texturef texture;
-	int width;
-	int height;
-};
-
-
-
 	}
 }
 

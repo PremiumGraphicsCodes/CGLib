@@ -12,7 +12,7 @@ void FluidRenderer::build(const int width, const int height)
 	depthBuffer.build(depthTexture);
 
 	shadedTexture.create(Image(width, height), 1);
-	bluredDepthTexture.create(Image(width, height), 2);
+	bluredDepthTexture.create(Imagef(width, height), 2);
 	normalTexture.create(Image(width, height), 3);
 	thicknessTexture.create(Image(width, height), 4);
 	bluredThicknessTexture.create(Image(width, height), 5);
@@ -112,66 +112,70 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 	depthRenderer.render(camera, buffer);
 	depthBuffer.unbind();
 
+	frameBuffer.bind();
+
 	frameBuffer.setTexture(bluredDepthTexture);
+	depthTexture.bind();
 	glViewport(0, 0, bluredDepthTexture.getWidth(), bluredDepthTexture.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	frameBuffer.bind();
 	bilateralFilter.render(depthTexture);
-	frameBuffer.unbind();
+	depthTexture.unbind();
 
 	frameBuffer.setTexture(normalTexture);
+	normalTexture.bind();
 	glViewport(0, 0, normalTexture.getWidth(), normalTexture.getHeight());
-	frameBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	normalFilter.render(bluredDepthTexture, camera);
-	frameBuffer.unbind();
+	normalTexture.unbind();
 
 	frameBuffer.setTexture(shadedTexture);
+	shadedTexture.bind();
 	glViewport(0, 0, bluredDepthTexture.getWidth(), bluredDepthTexture.getHeight());//depthBuffer.getWidth(), depthBuffer.getHeight());
-	frameBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	deferredRenderer.render(bluredDepthTexture, normalTexture, camera, light, material);
-	frameBuffer.unbind();
+	shadedTexture.unbind();
 
 	frameBuffer.setTexture(reflectionTexture);
-	glViewport(0, 0, reflectionTexture.getWidth(), reflectionTexture.getHeight());
+	reflectionTexture.bind();
 	frameBuffer.bind();
+
+	glViewport(0, 0, reflectionTexture.getWidth(), reflectionTexture.getHeight());
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	reflectionRenderer.render(bluredDepthTexture, normalTexture, camera, cubeMapTexture);
-	frameBuffer.unbind();
+	reflectionTexture.unbind();
 
 	frameBuffer.setTexture(thicknessTexture);
 	glViewport(0, 0, thicknessTexture.getWidth(), thicknessTexture.getHeight());
-	frameBuffer.bind();
+	thicknessTexture.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	thicknessRenderer.render(camera, buffer);
-	frameBuffer.unbind();
+	thicknessTexture.unbind();
 
 	frameBuffer.setTexture(bluredThicknessTexture);
 	glViewport(0, 0, bluredThicknessTexture.getWidth(), bluredThicknessTexture.getHeight());
-	frameBuffer.bind();
+	bluredThicknessTexture.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bilateralFilter.render(thicknessTexture);
-	frameBuffer.unbind();
+	bluredThicknessTexture.unbind();
 
 	frameBuffer.setTexture(volumeTexture);
 	glViewport(0, 0, volumeTexture.getWidth(), volumeTexture.getHeight());
-	frameBuffer.bind();
+	volumeTexture.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	absorptionRenderer.render(bluredThicknessTexture);
-	frameBuffer.unbind();
+	volumeTexture.unbind();
 
 
 	frameBuffer.setTexture(fluidTexture);
+	fluidTexture.bind();
 	glViewport(0, 0, fluidTexture.getWidth(), fluidTexture.getHeight());
-	frameBuffer.bind();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -209,6 +213,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 		volumeTexture.unbind();
 		sceneTexture.unbind();
 	}
+	fluidTexture.unbind();
 
 	frameBuffer.unbind();
 

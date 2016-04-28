@@ -62,7 +62,6 @@ private:
 	ThicknessRenderer thicknessRenderer;
 	
 	BilateralFilter bilateralFilter;
-	FrameBufferf frameBufferf;
 
 	AbsorptionRenderer absorptionRenderer;
 
@@ -74,7 +73,7 @@ private:
 	DepthTexture depthTexture;
 	Texture sceneTexture;
 	Texture shadedTexture;
-	Texture bluredDepthTexture;
+	Texturef bluredDepthTexture;
 	Texture normalTexture;
 	Texture thicknessTexture;
 	Texture bluredThicknessTexture;
