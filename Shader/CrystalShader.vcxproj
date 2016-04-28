@@ -141,7 +141,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AbsorptionRenderer.cpp" />
     <ClCompile Include="BilateralFilter.cpp" />
     <ClCompile Include="CubeMapRenderer.cpp" />
     <ClCompile Include="CubeMapTexture.cpp" />
@@ -169,6 +168,7 @@
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
+    <ClCompile Include="SSAbsorptionRenderer.cpp" />
     <ClCompile Include="SSCompositeRenderer.cpp" />
     <ClCompile Include="SSReflectionRenderer.cpp" />
     <ClCompile Include="SSNormalRenderer.cpp" />
@@ -179,7 +179,6 @@
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbsorptionRenderer.h" />
     <ClInclude Include="BilateralFilter.h" />
     <ClInclude Include="CubeMapRenderer.h" />
     <ClInclude Include="CubeMapTexture.h" />
@@ -209,6 +208,7 @@
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="SkyBoxRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
+    <ClInclude Include="SSAbsorptionRenderer.h" />
     <ClInclude Include="SSCompositeRenderer.h" />
     <ClInclude Include="SSReflectionRenderer.h" />
     <ClInclude Include="SSNormalRenderer.h" />

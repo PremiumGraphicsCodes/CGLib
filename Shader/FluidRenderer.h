@@ -6,7 +6,7 @@
 #include "NormalFilter.h"
 #include "PointRenderer.h"
 #include "BilateralFilter.h"
-#include "AbsorptionRenderer.h"
+#include "SSAbsorptionRenderer.h"
 #include "DeferredRenderer.h"
 #include "OnScreenRenderer.h"
 #include "CubeMapTexture.h"
@@ -61,7 +61,7 @@ private:
 	
 	BilateralFilter bilateralFilter;
 
-	AbsorptionRenderer absorptionRenderer;
+	SSAbsorptionRenderer absorptionRenderer;
 
 	DeferredRenderer deferredRenderer;
 	SSReflectionRenderer reflectionRenderer;

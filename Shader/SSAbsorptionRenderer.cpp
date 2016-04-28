@@ -1,4 +1,4 @@
-#include "AbsorptionRenderer.h"
+#include "SSAbsorptionRenderer.h"
 #include "../Math/Box2d.h"
 
 #include <sstream>
@@ -7,7 +7,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool AbsorptionRenderer::build()
+bool SSAbsorptionRenderer::build()
 {
 	const auto vsSource = getBuildinVertexShaderSource();
 	const auto fsSource = getBuildinFragmentShaderSource();
@@ -16,7 +16,7 @@ bool AbsorptionRenderer::build()
 	return b;
 }
 
-std::string AbsorptionRenderer::getBuildinVertexShaderSource()
+std::string SSAbsorptionRenderer::getBuildinVertexShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -32,7 +32,7 @@ std::string AbsorptionRenderer::getBuildinVertexShaderSource()
 	return stream.str();
 }
 
-std::string AbsorptionRenderer::getBuildinFragmentShaderSource()
+std::string SSAbsorptionRenderer::getBuildinFragmentShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -57,13 +57,13 @@ std::string AbsorptionRenderer::getBuildinFragmentShaderSource()
 	return stream.str();
 }
 
-void AbsorptionRenderer::findLocation()
+void SSAbsorptionRenderer::findLocation()
 {
 	shader.findUniformLocation("volumeTex");
 	shader.findAttribLocation("position");
 }
 
-void AbsorptionRenderer::render(const ITexture& volumeTexture)
+void SSAbsorptionRenderer::render(const ITexture& volumeTexture)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

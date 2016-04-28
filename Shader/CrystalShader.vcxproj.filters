@@ -50,9 +50,6 @@
     <ClCompile Include="DeferredRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="AbsorptionRenderer.cpp">
-      <Filter>Renderer\Fluid</Filter>
-    </ClCompile>
     <ClCompile Include="FluidRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -100,6 +97,9 @@
     </ClCompile>
     <ClCompile Include="FrameBufferObject.cpp">
       <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SSAbsorptionRenderer.cpp">
+      <Filter>Renderer\Fluid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +155,6 @@
     <ClInclude Include="DeferredRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
-    <ClInclude Include="AbsorptionRenderer.h">
-      <Filter>Renderer\Fluid</Filter>
-    </ClInclude>
     <ClInclude Include="FluidRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
@@ -208,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="FrameBufferObject.h">
       <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SSAbsorptionRenderer.h">
+      <Filter>Renderer\Fluid</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
