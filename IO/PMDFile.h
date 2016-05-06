@@ -8,6 +8,7 @@
 namespace Crystal {
 	namespace Polygon {
 		class Vertex;
+		class VertexCollection;
 		class PolygonObject;
 		class ActorObject;
 		class Bone;
@@ -59,6 +60,22 @@ public:
 
 };
 
+class PMDVertexCollection
+{
+public:
+	PMDVertexCollection() = default;
+
+	PMDVertexCollection(const Polygon::VertexCollection& vs);
+
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
+	std::vector<PMDVertex> get() const { return vertices; }
+
+private:
+	std::vector<PMDVertex> vertices;
+};
 
 class PMDMaterial
 {
@@ -97,11 +114,13 @@ class PMDBone
 public:
 	bool read(std::istream& stream);
 
+	bool write(std::ostream& stream) const;
+
 	Polygon::Bone toBone() const;
 
 	Polygon::Joint toJoint() const;
 
-	std::string name;
+	char name[20];
 	unsigned short parentBoneIndex;
 	unsigned short tailBoneIndex;
 	char type;
@@ -121,6 +140,8 @@ public:
 
 	bool read(std::istream& stream);
 
+	bool write(std::ostream& stream) const;
+
 	bool readEnglishNames(std::istream& stream);
 
 	Polygon::ActorObject* toActorObject() const;
@@ -137,7 +158,7 @@ class PMDIK
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	WORD boneIndex;
@@ -153,8 +174,7 @@ class PMDIKCollection
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ofstream& stream);
-
+	bool write(std::ostream& stream) const;
 
 private:
 	std::vector<PMDIK> iks;
@@ -165,7 +185,7 @@ class PMDSkinVertex
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	DWORD vertexIndex;
@@ -190,6 +210,18 @@ private:
 	DWORD vertexCount;
 	char type;
 	std::vector<PMDSkinVertex> skinVertices;
+};
+
+class PMDSkinCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	size_t size() const { return skins.size(); }
+
+
+private:
+	std::vector<PMDSkin> skins;
 };
 
 class PMDDisplayBone
@@ -260,12 +292,6 @@ class PMDFile
 public:
 	PMDFile() {};
 
-	//PMDFile(const std::vector<PMDVertex>& vertices, const std::vector<unsigned int>& faces) :
-	//	header(header),
-	//	vertices(vertices),
-	//	faces(faces)
-	//{}
-
 	PMDFile(const Polygon::PolygonObject& object);
 
 	//void add(const Polygon::PolygonObject& object);
@@ -273,6 +299,8 @@ public:
 	void add(const Polygon::ActorObject& actor);
 
 	bool read(const std::string& filename);
+
+	bool write(const std::string& filename) const;
 
 	Polygon::PolygonObject* toPolygonObject() const;
 
@@ -282,12 +310,12 @@ public:
 
 private:
 	PMDHeader header;
-	std::vector<PMDVertex> vertices;
+	PMDVertexCollection vertices;
 	std::vector<unsigned short> faces;
 	std::vector<PMDMaterial> materials;
 	PMDBoneCollection bones;
 	PMDIKCollection iks;
-	std::vector<PMDSkin> skins;
+	PMDSkinCollection skins;
 	std::vector<WORD> displaySkinIndices;
 	std::vector<std::string> displayBoneNames;
 	std::vector<PMDDisplayBone> displayBones;

@@ -23,7 +23,7 @@ TEST(PMDFileTest, TestFromPolygonObject)
 TEST(PMDFileTest, TestToActorObject)
 {
 	PMDBone root;
-	root.name = "root";
+	//root.name = "root";
 	root.parentBoneIndex = 0xffff;
 	root.tailBoneIndex = 1;
 	root.type = 0;
@@ -31,7 +31,7 @@ TEST(PMDFileTest, TestToActorObject)
 	root.boneHeadPos = Vector3d<float>(1, 2, 3);
 
 	PMDBone child;
-	child.name = "child";
+	//child.name = "child";
 	child.parentBoneIndex = 0;
 	child.tailBoneIndex = 0;
 	child.type = 0;

@@ -67,6 +67,13 @@ Vertex PMDVertex::toVertex(const unsigned int id)
 	return Vertex(id, this->pos, this->normal, t);
 }
 
+PMDVertexCollection::PMDVertexCollection(const VertexCollection& vs)
+{
+	for (auto v : vs) {
+		PMDVertex pmdv(*v);
+		vertices.push_back(pmdv);
+	}
+}
 
 bool PMDVertex::read(std::istream& stream)
 {
@@ -118,6 +125,28 @@ bool PMDVertex::write(std::ostream& stream) const
 	stream.write((char*)&boneWeight, sizeof(boneWeight));
 	stream.write((char*)&isEdge, sizeof(isEdge));
 
+	return stream.good();
+}
+
+bool PMDVertexCollection::read(std::istream& stream)
+{
+	DWORD vertexCount = 0;
+	stream.read((char*)&vertexCount, sizeof(vertexCount));
+	for (DWORD i = 0; i < vertexCount; ++i) {
+		PMDVertex vertex;
+		vertex.read(stream);
+		vertices.emplace_back(vertex);
+	}
+	return stream.good();
+}
+
+bool PMDVertexCollection::write(std::ostream& stream) const
+{
+	const auto vertexCount = static_cast<DWORD>(vertices.size());
+	stream.write((char*)&vertexCount, sizeof(vertexCount));
+	for (DWORD i = 0; i < vertexCount; ++i) {
+		vertices[i].write(stream);
+	}
 	return stream.good();
 }
 
@@ -191,9 +220,7 @@ bool PMDMaterial::write(std::ostream& stream) const
 
 bool PMDBone::read(std::istream& stream)
 {
-	char name[20];
-	stream.read(name, 20);
-	this->name = name;
+	stream.read(name, sizeof(name));
 	stream.read((char*)&parentBoneIndex, sizeof(parentBoneIndex));
 	stream.read((char*)&tailBoneIndex, sizeof(tailBoneIndex));
 	stream.read((char*)&type, sizeof(type));
@@ -208,6 +235,24 @@ bool PMDBone::read(std::istream& stream)
 	this->boneHeadPos = Vector3d<float>(posx, posy, posz);
 	return stream.good();
 }
+
+bool PMDBone::write(std::ostream& stream) const
+{
+	stream.write(name, sizeof(name));
+	stream.write((char*)&parentBoneIndex, sizeof(parentBoneIndex));
+	stream.write((char*)&tailBoneIndex, sizeof(tailBoneIndex));
+	stream.write((char*)&type, sizeof(type));
+	stream.write((char*)&ikParentBoneIndex, sizeof(ikParentBoneIndex));
+
+	float posx = boneHeadPos.getX();
+	stream.write((char*)&posx, sizeof(float));
+	float posy = boneHeadPos.getY();
+	stream.write((char*)&posy, sizeof(float));
+	float posz = boneHeadPos.getZ();
+	stream.write((char*)&posz, sizeof(float));
+	return stream.good();
+}
+
 
 /*
 Bone PMDBone::toActorBone() const
@@ -232,6 +277,17 @@ bool PMDBoneCollection::read(std::istream& stream)
 	}
 	return stream.good();
 }
+
+bool PMDBoneCollection::write(std::ostream& stream) const
+{
+	short int boneCount = static_cast<short int>( bones.size() );
+	stream.write((char*)&boneCount, sizeof(boneCount));
+	for (auto i = 0; i < boneCount; ++i) {
+		bones[i].write(stream);
+	}
+	return stream.good();
+}
+
 
 bool PMDBoneCollection::readEnglishNames(std::istream& stream)
 {
@@ -288,9 +344,19 @@ bool PMDIK::read(std::istream& stream)
 	return stream.good();
 }
 
-bool PMDIK::write(std::ostream& stream)
+bool PMDIK::write(std::ostream& stream) const
 {
-	return false;
+	stream.write((char*)&boneIndex, sizeof(boneIndex));
+	stream.write((char*)&targetBoneIndex, sizeof(targetBoneIndex));
+	stream.write((char*)&childrenNumber, sizeof(childrenNumber));
+	stream.write((char*)&iterationNumber, sizeof(iterationNumber));
+	stream.write((char*)&limitAngle, sizeof(limitAngle));
+	for (int i = 0; i < childBoneIndices.size(); ++i) {
+		unsigned short childBoneIndex = childBoneIndices[i];
+		stream.write((char*)&childBoneIndex, sizeof(childBoneIndex));
+	}
+
+	return stream.good();
 }
 
 bool PMDIKCollection::read(std::istream& stream)
@@ -306,6 +372,16 @@ bool PMDIKCollection::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDIKCollection::write(std::ostream& stream) const
+{
+	unsigned short ikCount = 0;
+	stream.write((char*)&ikCount, sizeof(ikCount));
+	for (auto i = 0; i < ikCount; ++i) {
+		iks[i].write(stream);
+	}
+	return stream.good();
+}
+
 bool PMDSkinVertex::read(std::istream& stream)
 {
 	stream.read((char*)&vertexIndex, sizeof(vertexIndex));
@@ -313,9 +389,11 @@ bool PMDSkinVertex::read(std::istream& stream)
 	return stream.good();
 }
 
-bool PMDSkinVertex::write(std::ostream& stream)
+bool PMDSkinVertex::write(std::ostream& stream) const
 {
-	return false;
+	stream.write((char*)&vertexIndex, sizeof(vertexIndex));
+	stream.write((char*)&position, sizeof(position));
+	return stream.good();
 }
 
 
@@ -332,6 +410,18 @@ bool PMDSkin::read(std::istream& stream)
 		//if (type == 0) {
 
 		//}
+	}
+	return stream.good();
+}
+
+bool PMDSkinCollection::read(std::istream& stream)
+{
+	WORD skinCount = 0;
+	stream.read((char*)&skinCount, sizeof(skinCount));
+	for (unsigned int i = 0; i < skinCount; ++i) {
+		PMDSkin skin;
+		skin.read(stream);
+		skins.emplace_back(skin);
 	}
 	return stream.good();
 }
@@ -423,11 +513,7 @@ bool PMDRigidJoint::read(std::istream& stream)
 
 PMDFile::PMDFile(const PolygonObject& polygon)
 {
-	const auto& vs = polygon.getVertices();
-	for (auto v : vs) {
-		PMDVertex pmdv(*v);
-		vertices.push_back(pmdv);
-	}
+	vertices = PMDVertexCollection( polygon.getVertices() );
 	const auto& fs = polygon.getFaces();
 	for (auto f : fs) {
 		 faces.push_back( f->getV1()->getId() );
@@ -440,14 +526,12 @@ PMDFile::PMDFile(const PolygonObject& polygon)
 bool PMDFile::read(const std::string& filename)
 {
 	std::ifstream stream(filename, std::ios::binary);
-	header.read(stream);
-	DWORD vertexCount = 0;
-	stream.read((char*)&vertexCount, sizeof(vertexCount));
-	for (DWORD i = 0; i < vertexCount; ++i) {
-		PMDVertex vertex;
-		vertex.read(stream);
-		vertices.emplace_back(vertex);
+	if (!stream.is_open()) {
+		return false;
 	}
+	header.read(stream);
+	vertices.read(stream);
+	DWORD vertexCount = 0;
 
 	stream.read((char*)&vertexCount, sizeof(vertexCount));
 	for (DWORD i = 0; i < vertexCount; ++i) {
@@ -468,13 +552,8 @@ bool PMDFile::read(const std::string& filename)
 
 	iks.read(stream);
 
-	WORD skinCount = 0;
-	stream.read((char*)&skinCount, sizeof(skinCount));
-	for (unsigned int i = 0; i < skinCount; ++i) {
-		PMDSkin skin;
-		skin.read(stream);
-		skins.emplace_back(skin);
-	}
+	skins.read(stream);
+
 	//bones.read(stream);
 
 	BYTE displaySkinCount = 0;
@@ -505,7 +584,7 @@ bool PMDFile::read(const std::string& filename)
 	bones.readEnglishNames(stream);
 
 	std::vector<std::string> skinNamesInEnglish;
-	for (int i = 0; i < skinCount - 1; ++i) {
+	for (int i = 0; i < skins.size() - 1; ++i) {
 		char skinName[20];
 		stream.read(skinName, sizeof(skinName));
 		skinNamesInEnglish.emplace_back(skinName);
@@ -543,6 +622,20 @@ bool PMDFile::read(const std::string& filename)
 	return stream.good();
 }
 
+bool PMDFile::write(const std::string& filename) const
+{
+	std::ofstream stream(filename, std::ios::binary);
+	if (!stream.is_open()) {
+		return false;
+	}
+	header.write(stream);
+	vertices.write(stream);
+	bones.write(stream);
+
+	iks.write(stream);
+	return false;
+}
+
 
 /*
 void PMDFile::add(const ActorObject& actor)
@@ -554,7 +647,7 @@ void PMDFile::add(const ActorObject& actor)
 PolygonObject* PMDFile::toPolygonObject() const
 {
 	PolygonObject* object = new PolygonObject();
-	auto vs = this->vertices;
+	auto vs = this->vertices.get();
 	for (size_t i = 0; i < vs.size(); ++i ) {
 		object->createVertex(vs[i].pos, vs[i].normal);
 	}
