@@ -18,6 +18,9 @@
     <ClCompile Include="VMDFile.cpp">
       <Filter>PMD</Filter>
     </ClCompile>
+    <ClCompile Include="PMMFile.cpp">
+      <Filter>PMD</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />

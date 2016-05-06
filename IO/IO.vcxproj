@@ -25,6 +25,7 @@
     <ClCompile Include="OBJFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
     <ClCompile Include="PMDFile.cpp" />
+    <ClCompile Include="PMMFile.cpp" />
     <ClCompile Include="POVFile.cpp" />
     <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="VMDFile.cpp" />
