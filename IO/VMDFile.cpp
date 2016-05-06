@@ -75,7 +75,14 @@ bool VMDCamera::read(std::istream& stream)
 
 bool VMDCamera::write(std::ostream& stream) const
 {
-	return false;
+	stream.write((char*)&flameNumber, sizeof(flameNumber));
+	stream.write((char*)&length, sizeof(length));
+	stream.write((char*)&location, sizeof(location));
+	stream.write((char*)&rotation, sizeof(rotation));
+	stream.write((char*)&interpolation, sizeof(interpolation));
+	stream.write((char*)&viewAngle, sizeof(viewAngle));
+	stream.write((char*)&perspective, sizeof(perspective));
+	return stream.good();
 }
 
 bool VMDLight::read(std::istream& stream)
@@ -88,7 +95,10 @@ bool VMDLight::read(std::istream& stream)
 
 bool VMDLight::write(std::ostream& stream) const
 {
-	return false;
+	stream.write((char*)&flameNumber, sizeof(flameNumber));
+	stream.write((char*)&rgb, sizeof(rgb));
+	stream.write((char*)&location, sizeof(location));
+	return stream.good();
 }
 
 bool VMDSelfShadow::read(std::istream& stream)
@@ -160,31 +170,30 @@ bool VMDFile::write(const std::string& filename) const
 		return false;
 	}
 	header.write(stream);
-	const DWORD motionNumber = static_cast<DWORD>( motions.size() );
+	const auto motionNumber = static_cast<DWORD>( motions.size() );
 	stream.write((char*)&motionNumber, sizeof(motionNumber));
-	for (unsigned int i = 0; i < motionNumber; ++i) {
-		motions[i].write(stream);
+	for (const auto& m : motions) {
+		m.write(stream);
 	}
-	const DWORD skinNumber = static_cast<DWORD>(skins.size());
+	const auto skinNumber = static_cast<DWORD>(skins.size());
 	stream.write((char*)&skinNumber, sizeof(skinNumber));
-	for (unsigned int i = 0; i < skinNumber; ++i) {
-		skins[i].write(stream);
+	for (const auto& s : skins) {
+		s.write(stream);
 	}
-	const DWORD cameraNumber = static_cast<DWORD>(cameras.size());
+	const auto cameraNumber = static_cast<DWORD>(cameras.size());
 	stream.write((char*)&cameraNumber, sizeof(cameraNumber));
-	for (unsigned int i = 0; i < cameraNumber; ++i) {
-		cameras[i].write(stream);
+	for (const auto& c : cameras) {
+		c.write(stream);
 	}
-	const DWORD lightNumber = static_cast<DWORD>(lights.size());
+	const auto lightNumber = static_cast<DWORD>(lights.size());
 	stream.write((char*)&lightNumber, sizeof(lightNumber));
-	for (unsigned int i = 0; i < lightNumber; ++i) {
-		lights[i].write(stream);
+	for (const auto& l : lights) {
+		l.write(stream);
 	}
-	const DWORD selfShadowNumber = static_cast<DWORD>(selfShadows.size());
+	const auto selfShadowNumber = static_cast<DWORD>(selfShadows.size());
 	stream.write((char*)&selfShadowNumber, sizeof(selfShadowNumber));
-	for (unsigned int i = 0; i < selfShadowNumber; ++i) {
-		selfShadows[i].write(stream);
+	for (const auto& s : selfShadows) {
+		s.write(stream);
 	}
 	return stream.good();
-
 }

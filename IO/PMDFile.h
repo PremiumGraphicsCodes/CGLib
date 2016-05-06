@@ -27,7 +27,7 @@ struct PMDHeader
 
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	float version;
@@ -47,7 +47,7 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 public:
 	Math::Vector3d<float> pos;
@@ -65,6 +65,8 @@ class PMDMaterial
 public:
 	bool read(std::istream& stream);
 
+	bool write(std::ostream& stream) const;
+
 private:
 	Graphics::ColorRGBA<float> diffuse;
 	float specularity;
@@ -73,7 +75,7 @@ private:
 	unsigned char toonIndex;
 	unsigned char isEdge;
 	unsigned int faceVertexCount;
-	std::string textureFileName;
+	char textureFileName[20];
 };
 
 enum class PMDBoneType

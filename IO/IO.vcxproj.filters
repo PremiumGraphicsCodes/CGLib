@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DXFFile.cpp" />
+    <ClCompile Include="PLYFile.cpp" />
+    <ClCompile Include="POVFile.cpp" />
+    <ClCompile Include="STLFile.cpp" />
+    <ClCompile Include="OBJFile.cpp">
+      <Filter>OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="MTLFile.cpp">
+      <Filter>OBJ</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp" />
+    <ClCompile Include="PMDFile.cpp">
+      <Filter>PMD</Filter>
+    </ClCompile>
+    <ClCompile Include="VMDFile.cpp">
+      <Filter>PMD</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DXFFile.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="PLYFile.h" />
+    <ClInclude Include="POVFile.h" />
+    <ClInclude Include="STLFile.h" />
+    <ClInclude Include="OBJFace.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJVertex.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="OBJFile.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="MTLFile.h">
+      <Filter>OBJ</Filter>
+    </ClInclude>
+    <ClInclude Include="File.h" />
+    <ClInclude Include="PMDFile.h">
+      <Filter>PMD</Filter>
+    </ClInclude>
+    <ClInclude Include="PMMFile.h">
+      <Filter>PMD</Filter>
+    </ClInclude>
+    <ClInclude Include="VMDFile.h">
+      <Filter>PMD</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="OBJ">
+      <UniqueIdentifier>{373cd79a-5a11-480b-804c-8986aeaa8151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PMD">
+      <UniqueIdentifier>{aa486025-c212-4916-846d-6e997c62db30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

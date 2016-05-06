@@ -45,7 +45,7 @@ bool PMDHeader::read(std::istream& stream)
 }
 
 
-bool PMDHeader::write(std::ostream& stream)
+bool PMDHeader::write(std::ostream& stream) const
 {
 	stream.write("Pmd", 3);
 	stream.write((char *)&version, sizeof(version));
@@ -92,20 +92,33 @@ bool PMDVertex::read(std::istream& stream)
 	stream.read((char*)&v, sizeof(v));
 	texCoord = Vector2d<float>(u, v);
 
-	stream.read((char*)& boneNumers[0], sizeof(boneNumers[0]));
-	stream.read((char*)& boneNumers[1], sizeof(boneNumers[1]));
+	stream.read((char*)&boneNumers[0], sizeof(boneNumers[0]));
+	stream.read((char*)&boneNumers[1], sizeof(boneNumers[1]));
 	stream.read((char*)&boneWeight, sizeof(boneWeight));
 	stream.read((char*)&isEdge, sizeof(isEdge));
 
 	return stream.good();
 }
 
-bool PMDVertex::write(std::ostream& stream)
+bool PMDVertex::write(std::ostream& stream) const
 {
-	const auto poss = pos.toArray3();
+	const auto& poss = pos.toArray3();
 	stream.write((char *)poss.data(), sizeof(poss));
 
-	return false;
+	const auto& norms = normal.toArray3();
+	stream.write((char *)norms.data(), sizeof(norms));
+
+	float u = texCoord.getX();
+	float v = texCoord.getY();
+	stream.write((char*)&u, sizeof(u));
+	stream.write((char*)&v, sizeof(v));
+
+	stream.write((char*)&boneNumers[0], sizeof(boneNumers[0]));
+	stream.write((char*)&boneNumers[1], sizeof(boneNumers[1]));
+	stream.write((char*)&boneWeight, sizeof(boneWeight));
+	stream.write((char*)&isEdge, sizeof(isEdge));
+
+	return stream.good();
 }
 
 bool PMDMaterial::read(std::istream& stream)
@@ -134,11 +147,46 @@ bool PMDMaterial::read(std::istream& stream)
 	stream.read((char*)&toonIndex, sizeof(toonIndex));
 	stream.read((char*)&isEdge, sizeof(isEdge));
 	stream.read((char*)&faceVertexCount, sizeof(faceVertexCount));
-	char textureFileName[20];
+	
 	stream.read(textureFileName, sizeof(textureFileName));
 
 	return stream.good();
 }
+
+bool PMDMaterial::write(std::ostream& stream) const
+{
+	float red = diffuse.getRed();
+	float green = diffuse.getGreen();
+	float blue = diffuse.getBlue();
+	float alpha = diffuse.getAlpha();
+	stream.write((char*)&red, sizeof(red));
+	stream.write((char*)&green, sizeof(green));
+	stream.write((char*)&blue, sizeof(blue));
+	stream.write((char*)&alpha, sizeof(alpha));
+
+	red = specular.getRed();
+	green = specular.getGreen();
+	blue = specular.getBlue();
+	stream.write((char*)&red, sizeof(red));
+	stream.write((char*)&green, sizeof(green));
+	stream.write((char*)&blue, sizeof(blue));
+
+	red = ambient.getRed();
+	green = ambient.getGreen();
+	blue = ambient.getBlue();
+	stream.write((char*)&red, sizeof(red));
+	stream.write((char*)&green, sizeof(green));
+	stream.write((char*)&blue, sizeof(blue));
+
+	stream.write((char*)&toonIndex, sizeof(toonIndex));
+	stream.write((char*)&isEdge, sizeof(isEdge));
+	stream.write((char*)&faceVertexCount, sizeof(faceVertexCount));
+
+	stream.write(textureFileName, sizeof(textureFileName));
+
+	return stream.good();
+}
+
 
 
 bool PMDBone::read(std::istream& stream)
