@@ -500,6 +500,17 @@ bool PMDSkinCollection::write(std::ostream& stream) const
 	return stream.good();
 }
 
+bool PMDDisplaySkinCollection::read(std::istream& stream)
+{
+	BYTE displaySkinCount = 0;
+	stream.read((char*)&displaySkinCount, sizeof(displaySkinCount));
+	for (unsigned int i = 0; i < displaySkinCount; ++i) {
+		WORD skinIndex;
+		stream.read((char*)&skinIndex, sizeof(skinIndex));
+		displaySkinIndices.push_back(skinIndex);
+	}
+	return stream.good();
+}
 
 bool PMDDisplayBone::read(std::istream& stream)
 {
@@ -507,6 +518,29 @@ bool PMDDisplayBone::read(std::istream& stream)
 	stream.read((char*)&dispFrameIndex, sizeof(dispFrameIndex));
 	return stream.good();
 }
+
+bool PMDDisplayBoneNameCollection::read(std::istream& stream)
+{
+	BYTE displayBoneCount = 0;
+	stream.read((char*)&displayBoneCount, sizeof(displayBoneCount));
+	for (unsigned int i = 0; i < displayBoneCount; ++i) {
+		char dispName[50];
+		stream.read((char*)&dispName, sizeof(dispName));
+		names.push_back(dispName);
+	}
+	return stream.good();
+}
+
+bool PMDDisplayBoneNameCollection::readEnglishNames(std::istream& stream)
+{
+	for (int i = 0; i < names.size(); ++i) {
+		char englishName[50];
+		stream.read(englishName, sizeof(englishName));
+		englishNames.emplace_back(englishName);
+	}
+	return stream.good();
+}
+
 
 bool PMDNamesInEnglish::read(std::istream& stream)
 {
@@ -517,35 +551,20 @@ bool PMDNamesInEnglish::read(std::istream& stream)
 	char commentInEnglish[256];
 	stream.read(commentInEnglish, sizeof(commentInEnglish));
 
-	/*
-	unsigned char boneCount;
-	stream.read((char*)&boneCount, sizeof(boneCount));
-	for (int i = 0; i < boneCount; ++i) {
-		char boneName[20];
-		stream.read(boneName, sizeof(boneName));
-		boneNamesInEnglish.emplace_back(boneName);
-	}
-
-	unsigned char skinCount = 16;
-	//stream.read((char*)&skinCount, sizeof(skinCount));
-	for (int i = 0; i < skinCount - 1; ++i) {
-		char skinName[20];
-		stream.read(skinName, sizeof(skinName));
-		skinNamesInEnglish.emplace_back(skinName);
-	}
-
-	unsigned char boneDispCount = 0;
-	stream.read((char*)boneDispCount, sizeof(boneDispCount));
-	for (int i = 0; i < boneDispCount; ++i) {
-		char name[50];
-		stream.read(name, sizeof(name));
-		boneDispNames.emplace_back(name);
-	}
-	*/
 	return stream.good();
 }
 
 #include <fstream>
+
+bool PMDToonTextures::read(std::istream& stream)
+{
+	for (int i = 0; i < 10; ++i) {
+		char toonTextureFileName[100];
+		stream.read(toonTextureFileName, sizeof(toonTextureFileName));
+		toonTextureFileNames.emplace_back(toonTextureFileName);
+	}
+	return stream.good();
+}
 
 bool PMDRigidBody::read(std::istream& stream)
 {
@@ -568,6 +587,50 @@ bool PMDRigidBody::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDRigidBody::write(std::ostream& stream) const
+{
+	stream.write(name, sizeof(name));
+	stream.write((char*)&relatedBoneIndex, sizeof(relatedBoneIndex));
+	stream.write((char*)&groupIndex, sizeof(groupIndex));
+	stream.write((char*)&groupTarget, sizeof(groupTarget));
+	stream.write((char*)&shapeType, sizeof(shapeType));
+	stream.write((char*)&width, sizeof(width));
+	stream.write((char*)&height, sizeof(height));
+	stream.write((char*)&depth, sizeof(depth));
+	stream.write((char*)&position, sizeof(position));
+	stream.write((char*)&rotation, sizeof(rotation));
+	stream.write((char*)&weight, sizeof(weight));
+	stream.write((char*)&translateDumpingCoe, sizeof(translateDumpingCoe));
+	stream.write((char*)&rotationDumpingCoe, sizeof(rotationDumpingCoe));
+	stream.write((char*)&repulse, sizeof(repulse));
+	stream.write((char*)&friction, sizeof(friction));
+	stream.write((char*)&rigidType, sizeof(rigidType));
+	return stream.good();
+}
+
+bool PMDRigidBodyCollection::read(std::istream& stream)
+{
+	DWORD rigidBodyCount = 0;
+	stream.read((char*)&rigidBodyCount, sizeof(rigidBodyCount));
+	for (unsigned int i = 0; i < rigidBodyCount; ++i) {
+		PMDRigidBody rigidBody;
+		rigidBody.read(stream);
+		rigidBodies.emplace_back(rigidBody);
+	}
+	return stream.good();
+}
+
+bool PMDRigidBodyCollection::write(std::ostream& stream) const
+{
+	DWORD rigidBodyCount = static_cast<DWORD>(rigidBodies.size());
+	stream.write((char*)&rigidBodyCount, sizeof(rigidBodyCount));
+	for (const auto& b : rigidBodies) {
+		b.write(stream);
+	}
+	return stream.good();
+}
+
+
 bool PMDRigidJoint::read(std::istream& stream)
 {
 	stream.read(name,sizeof(name));
@@ -584,20 +647,51 @@ bool PMDRigidJoint::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDRigidJoint::write(std::ostream& stream) const
+{
+	stream.write(name, sizeof(name));
+	stream.write((char*)&rigidIndex1, sizeof(rigidIndex1));
+	stream.write((char*)&rigidIndex2, sizeof(rigidIndex2));
+	stream.write((char*)&position, sizeof(position));
+	stream.write((char*)&rotation, sizeof(rotation));
+	stream.write((char*)&constrainPosition1, sizeof(constrainPosition1));
+	stream.write((char*)&constrainPosition2, sizeof(constrainPosition2));
+	stream.write((char*)&constrainAngle1, sizeof(constrainAngle1));
+	stream.write((char*)&constrainAngle2, sizeof(constrainAngle2));
+	stream.write((char*)&springPosition, sizeof(springPosition));
+	stream.write((char*)&springRotation, sizeof(springRotation));
+	return stream.good();
+}
+
+
+bool PMDRigidJointCollection::read(std::istream& stream)
+{
+	DWORD rigidJointCount = 0;
+	stream.read((char*)&rigidJointCount, sizeof(rigidJointCount));
+	for (unsigned int i = 0; i < rigidJointCount; ++i) {
+		PMDRigidJoint joint;
+		joint.read(stream);
+		joints.emplace_back(joint);
+	}
+	return stream.good();
+}
+
+bool PMDRigidJointCollection::write(std::ostream& stream) const
+{
+	DWORD rigidJointCount = static_cast<DWORD>(joints.size());
+	stream.write((char*)&rigidJointCount, sizeof(rigidJointCount));
+	for (const auto& j : joints) {
+		j.write(stream);
+	}
+	return stream.good();
+
+}
 
 
 PMDFile::PMDFile(const PolygonObject& polygon)
 {
 	vertices = PMDVertexCollection( polygon.getVertices() );
 	faces = PMDFaceCollection(polygon.getFaces());
-	/*
-	const auto& fs = polygon.getFaces();
-	for (auto f : fs) {
-		 faces.push_back( f->getV1()->getId() );
-		 faces.push_back( f->getV2()->getId() );
-		 faces.push_back( f->getV3()->getId() );
-	}
-	*/
 }
 
 
@@ -616,21 +710,9 @@ bool PMDFile::read(const std::string& filename)
 	iks.read(stream);
 	skins.read(stream);
 
-	BYTE displaySkinCount = 0;
-	stream.read((char*)&displaySkinCount, sizeof(displaySkinCount));
-	for (unsigned int i = 0; i < displaySkinCount; ++i) {
-		WORD skinIndex;
-		stream.read((char*)&skinIndex, sizeof(skinIndex));
-		displaySkinIndices.push_back(skinIndex);
-	}
+	displaySkins.read(stream);
 
-	BYTE displayBoneCount = 0;
-	stream.read((char*)&displayBoneCount, sizeof(displayBoneCount));
-	for (unsigned int i = 0; i < displayBoneCount; ++i) {
-		char dispName[50];
-		stream.read((char*)&dispName, sizeof(dispName));
-		displayBoneNames.push_back(dispName);
-	}
+	displayBoneNames.read(stream);
 
 	DWORD displayBonesCount = 0;
 	stream.read((char*)&displayBonesCount, sizeof(displayBonesCount));
@@ -650,34 +732,12 @@ bool PMDFile::read(const std::string& filename)
 		skinNamesInEnglish.emplace_back(skinName);
 	}
 
-	std::vector<std::string> displayBoneNamesInEnglish;
-	for (int i = 0; i < displayBoneCount; ++i) {
-		char skinName[50];
-		stream.read(skinName, sizeof(skinName));
-		displayBoneNamesInEnglish.emplace_back(skinName);
-	}
+	displayBoneNames.readEnglishNames(stream);
 
-	for (int i = 0; i < 10; ++i) {
-		char toonTextureFileName[100];
-		stream.read(toonTextureFileName, sizeof(toonTextureFileName));
-		toonTextureFileNames.emplace_back(toonTextureFileName);
-	}
+	toonTextures.read(stream);
 
-	DWORD rigidBodyCount = 0;
-	stream.read((char*)&rigidBodyCount, sizeof(rigidBodyCount));
-	for (unsigned int i = 0; i < rigidBodyCount; ++i) {
-		PMDRigidBody rigidBody;
-		rigidBody.read(stream);
-		rigidBodies.emplace_back(rigidBody);
-	}
-
-	DWORD rigidJointCount = 0;
-	stream.read((char*)&rigidJointCount, sizeof(rigidJointCount));
-	for (unsigned int i = 0; i < rigidJointCount; ++i) {
-		PMDRigidJoint joint;
-		joint.read(stream);
-		rigidJoints.emplace_back(joint);
-	}
+	rigidBodies.read(stream);
+	rigidJoints.read(stream);
 
 	return stream.good();
 }
@@ -696,6 +756,9 @@ bool PMDFile::write(const std::string& filename) const
 	bones.write(stream);
 	iks.write(stream);
 	skins.write(stream);
+
+	rigidBodies.write(stream);
+	rigidJoints.write(stream);
 	return false;
 }
 

@@ -258,6 +258,29 @@ private:
 	std::vector<PMDSkin> skins;
 };
 
+class PMDDisplayBoneNameCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	bool readEnglishNames(std::istream& stream);
+
+	size_t size() const { return names.size(); }
+
+private:
+	std::vector<std::string> names;
+	std::vector<std::string> englishNames;
+};
+
+class PMDDisplaySkinCollection
+{
+public:
+	bool read(std::istream& stream);
+
+private:
+	std::vector<WORD> displaySkinIndices;
+};
+
 class PMDDisplayBone
 {
 public:
@@ -279,10 +302,21 @@ private:
 	std::vector<std::string> boneDispNames;
 };
 
+class PMDToonTextures
+{
+public:
+	bool read(std::istream& stream);
+private:
+	std::vector<std::string> toonTextureFileNames;
+
+};
+
 class PMDRigidBody
 {
 public:
 	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
 
 private:
 	char name[20];
@@ -303,10 +337,24 @@ private:
 	BYTE rigidType;
 };
 
+class PMDRigidBodyCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
+private:
+	std::vector<PMDRigidBody> rigidBodies;
+};
+
 class PMDRigidJoint
 {
 public:
 	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
 private:
 	char name[20];
 	DWORD rigidIndex1;
@@ -319,6 +367,17 @@ private:
 	float constrainAngle2[3];
 	float springPosition[3];
 	float springRotation[3];
+};
+
+class PMDRigidJointCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
+private:
+	std::vector<PMDRigidJoint> joints;
 };
 
 class PMDFile
@@ -350,13 +409,13 @@ private:
 	PMDBoneCollection bones;
 	PMDIKCollection iks;
 	PMDSkinCollection skins;
-	std::vector<WORD> displaySkinIndices;
-	std::vector<std::string> displayBoneNames;
+	PMDDisplaySkinCollection displaySkins;
+	PMDDisplayBoneNameCollection displayBoneNames;
 	std::vector<PMDDisplayBone> displayBones;
 	PMDNamesInEnglish namesInEnglish;
-	std::vector<std::string> toonTextureFileNames;
-	std::vector<PMDRigidBody> rigidBodies;
-	std::vector<PMDRigidJoint> rigidJoints;
+	PMDToonTextures toonTextures;
+	PMDRigidBodyCollection rigidBodies;
+	PMDRigidJointCollection rigidJoints;
 };
 	}
 }
