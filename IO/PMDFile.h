@@ -215,6 +215,7 @@ class PMDRigidBody
 {
 public:
 	bool read(std::istream& stream);
+
 private:
 	char name[20];
 	WORD relatedBoneIndex;

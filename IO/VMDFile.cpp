@@ -18,7 +18,7 @@ bool VMDHeader::read(std::istream& stream)
 	return stream.good();
 }
 
-bool VMDHeader::write(std::ostream& stream)
+bool VMDHeader::write(std::ostream& stream) const
 {
 	stream.write(header, sizeof(header));
 	stream.write(modelName, sizeof(modelName));
@@ -35,11 +35,29 @@ bool VMDMotion::read(std::istream& stream)
 	return stream.good();
 }
 
+bool VMDMotion::write(std::ostream& stream) const
+{
+	stream.write(boneName, sizeof(boneName));
+	stream.write((char*)&frameNumber, sizeof(frameNumber));
+	stream.write((char*)&location, sizeof(location));
+	stream.write((char*)&rotation, sizeof(rotation));
+	stream.write((char*)&interpolation, sizeof(interpolation));
+	return stream.good();
+}
+
 bool VMDSkin::read(std::istream& stream)
 {
 	stream.read(name, sizeof(name));
 	stream.read((char*)&frameNumber, sizeof(frameNumber));
 	stream.read((char*)&weight, sizeof(weight));
+	return stream.good();
+}
+
+bool VMDSkin::write(std::ostream& stream) const
+{
+	stream.write(name, sizeof(name));
+	stream.write((char*)&frameNumber, sizeof(frameNumber));
+	stream.write((char*)&weight, sizeof(weight));
 	return stream.good();
 }
 
@@ -55,6 +73,11 @@ bool VMDCamera::read(std::istream& stream)
 	return stream.good();
 }
 
+bool VMDCamera::write(std::ostream& stream) const
+{
+	return false;
+}
+
 bool VMDLight::read(std::istream& stream)
 {
 	stream.read((char*)&flameNumber, sizeof(flameNumber));
@@ -63,11 +86,24 @@ bool VMDLight::read(std::istream& stream)
 	return stream.good();
 }
 
+bool VMDLight::write(std::ostream& stream) const
+{
+	return false;
+}
+
 bool VMDSelfShadow::read(std::istream& stream)
 {
 	stream.read((char*)&frameNumber, sizeof(frameNumber));
 	stream.read((char*)&mode, sizeof(mode));
 	stream.read((char*)&distance, sizeof(distance));
+	return stream.good();
+}
+
+bool VMDSelfShadow::write(std::ostream& stream) const
+{
+	stream.write((char*)&frameNumber, sizeof(frameNumber));
+	stream.write((char*)&mode, sizeof(mode));
+	stream.write((char*)&distance, sizeof(distance));
 	return stream.good();
 }
 
@@ -114,11 +150,41 @@ bool VMDFile::read(const std::string& filename)
 		shadow.read(stream);
 		selfShadows.emplace_back(shadow);
 	}
-
 	return stream.good();
 }
 
-bool VMDFile::write(const std::string& filename)
+bool VMDFile::write(const std::string& filename) const
 {
-	return false;
+	std::ofstream stream(filename, std::ios::out | std::ios::binary | std::ios::trunc);
+	if (!stream.is_open()) {
+		return false;
+	}
+	header.write(stream);
+	const DWORD motionNumber = static_cast<DWORD>( motions.size() );
+	stream.write((char*)&motionNumber, sizeof(motionNumber));
+	for (unsigned int i = 0; i < motionNumber; ++i) {
+		motions[i].write(stream);
+	}
+	const DWORD skinNumber = static_cast<DWORD>(skins.size());
+	stream.write((char*)&skinNumber, sizeof(skinNumber));
+	for (unsigned int i = 0; i < skinNumber; ++i) {
+		skins[i].write(stream);
+	}
+	const DWORD cameraNumber = static_cast<DWORD>(cameras.size());
+	stream.write((char*)&cameraNumber, sizeof(cameraNumber));
+	for (unsigned int i = 0; i < cameraNumber; ++i) {
+		cameras[i].write(stream);
+	}
+	const DWORD lightNumber = static_cast<DWORD>(lights.size());
+	stream.write((char*)&lightNumber, sizeof(lightNumber));
+	for (unsigned int i = 0; i < lightNumber; ++i) {
+		lights[i].write(stream);
+	}
+	const DWORD selfShadowNumber = static_cast<DWORD>(selfShadows.size());
+	stream.write((char*)&selfShadowNumber, sizeof(selfShadowNumber));
+	for (unsigned int i = 0; i < selfShadowNumber; ++i) {
+		selfShadows[i].write(stream);
+	}
+	return stream.good();
+
 }

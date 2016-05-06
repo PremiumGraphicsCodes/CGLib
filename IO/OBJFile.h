@@ -50,7 +50,9 @@ private:
 };
 
 
-struct OBJGroup {
+class OBJGroup
+{
+public:
 	OBJGroup(){}
 
 	OBJGroup(const std::string& name) :
@@ -87,22 +89,21 @@ struct OBJGroup {
 
 	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
-			void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
+	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
 
-			std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoords; }
+	std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoords; }
 
-			void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
+	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
 
-			Math::Vector3d<float> readVertices(const std::string& str);
+	Math::Vector3d<float> readVertices(const std::string& str);
 
-			Math::Vector3d<float> readVector3d(const std::string& str);
+	Math::Vector3d<float> readVector3d(const std::string& str);
 
-			//Math::Vector2d<float> readVector2d(const std::string& str);
+	//Math::Vector2d<float> readVector2d(const std::string& str);
 
-			OBJFace readFaces(const std::string& str);
+	OBJFace readFaces(const std::string& str);
 
-			Polygon::PolygonObject* toPolygonObject();
-
+	Polygon::PolygonObject* toPolygonObject();
 
 private:
 	std::string name;
@@ -114,8 +115,9 @@ private:
 	std::vector< Math::Vector3d<float> > texCoords;
 };
 
-struct OBJFile
+class OBJFile
 {
+public:
 	OBJFile()
 	{}
 

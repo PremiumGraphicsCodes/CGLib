@@ -19,7 +19,7 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	char header[30];
@@ -31,7 +31,7 @@ class VMDMotion
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	char boneName[15];
@@ -46,7 +46,7 @@ class VMDSkin
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	char name[15];
@@ -59,7 +59,7 @@ class VMDCamera
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	DWORD flameNumber;
@@ -76,7 +76,7 @@ class VMDLight
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	DWORD flameNumber;
@@ -89,7 +89,7 @@ class VMDSelfShadow
 public:
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream);
+	bool write(std::ostream& stream) const;
 
 private:
 	DWORD frameNumber;
@@ -102,7 +102,7 @@ class VMDFile
 public:
 	bool read(const std::string& filename);
 
-	bool write(const std::string& filename);
+	bool write(const std::string& filename) const;
 
 private:
 	VMDHeader header;
