@@ -8,6 +8,7 @@
 #include "../Polygon/CGModel.h"
 
 #include <ostream>
+#include <fstream>
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -24,15 +25,6 @@ version(1.0f)
 }
 
 
-/*
-namespace {
-	std::string readChar(std::istream& stream, int howMany)
-	{
-		std::vector<char> str(howMany);
-		stream.read(str.data(), howMany);
-	}
-}*/
-
 bool PMDHeader::read(std::istream& stream)
 {
 	char magic[3];
@@ -44,6 +36,21 @@ bool PMDHeader::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDHeader::readEnglishPart(std::istream& stream)
+{
+	stream.read((char*)&englishNameCompatibility, sizeof(englishNameCompatibility));
+	stream.read(modelNameInEnglish, sizeof(modelNameInEnglish));
+	stream.read(commentInEnglish, sizeof(commentInEnglish));
+	return stream.good();
+}
+
+bool PMDHeader::writeEnglishPart(std::ostream& stream) const
+{
+	stream.write((char*)&englishNameCompatibility, sizeof(englishNameCompatibility));
+	stream.write(modelNameInEnglish, sizeof(modelNameInEnglish));
+	stream.write(commentInEnglish, sizeof(commentInEnglish));
+	return stream.good();
+}
 
 bool PMDHeader::write(std::ostream& stream) const
 {
@@ -491,6 +498,16 @@ bool PMDSkinCollection::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDSkinCollection::readEnglishNames(std::istream& stream)
+{
+	for (int i = 0; i < skins.size() - 1; ++i) {
+		char skinName[20];
+		stream.read(skinName, sizeof(skinName));
+		englishNames.emplace_back(skinName);
+	}
+	return stream.good();
+}
+
 bool PMDSkinCollection::write(std::ostream& stream) const
 {
 	WORD skinCount = static_cast<WORD>(skins.size());
@@ -512,10 +529,29 @@ bool PMDDisplaySkinCollection::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDDisplaySkinCollection::write(std::ostream& stream) const
+{
+	BYTE displaySkinCount = static_cast<BYTE>( displaySkinIndices.size() );
+	stream.write((char*)&displaySkinCount, sizeof(displaySkinCount));
+	for (unsigned int i = 0; i < displaySkinCount; ++i) {
+		WORD skinIndex = displaySkinIndices[i];
+		stream.write((char*)&skinIndex, sizeof(skinIndex));
+	}
+	return stream.good();
+
+}
+
 bool PMDDisplayBone::read(std::istream& stream)
 {
 	stream.read((char*)&boneIndex, sizeof(boneIndex));
 	stream.read((char*)&dispFrameIndex, sizeof(dispFrameIndex));
+	return stream.good();
+}
+
+bool PMDDisplayBone::write(std::ostream& stream) const
+{
+	stream.write((char*)&boneIndex, sizeof(boneIndex));
+	stream.write((char*)&dispFrameIndex, sizeof(dispFrameIndex));
 	return stream.good();
 }
 
@@ -531,6 +567,15 @@ bool PMDDisplayBoneNameCollection::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDDisplayBoneNameCollection::write(std::ostream& stream) const
+{
+	BYTE displayBoneCount = static_cast<BYTE>(names.size());
+	for (unsigned int i = 0; i < displayBoneCount; ++i) {
+		stream.write(names[i].c_str(), sizeof(names[i]));
+	}
+	return stream.good();
+}
+
 bool PMDDisplayBoneNameCollection::readEnglishNames(std::istream& stream)
 {
 	for (int i = 0; i < names.size(); ++i) {
@@ -542,20 +587,6 @@ bool PMDDisplayBoneNameCollection::readEnglishNames(std::istream& stream)
 }
 
 
-bool PMDNamesInEnglish::read(std::istream& stream)
-{
-	BYTE englishNameCompatibility;
-	stream.read((char*)&englishNameCompatibility, sizeof(englishNameCompatibility));
-	char modelNameInEnglish[20];
-	stream.read(modelNameInEnglish, sizeof(modelNameInEnglish));
-	char commentInEnglish[256];
-	stream.read(commentInEnglish, sizeof(commentInEnglish));
-
-	return stream.good();
-}
-
-#include <fstream>
-
 bool PMDToonTextures::read(std::istream& stream)
 {
 	for (int i = 0; i < 10; ++i) {
@@ -565,6 +596,15 @@ bool PMDToonTextures::read(std::istream& stream)
 	}
 	return stream.good();
 }
+
+bool PMDToonTextures::write(std::ostream& stream) const
+{
+	for (int i = 0; i < 10; ++i) {
+		stream.write(toonTextureFileNames[i].c_str(), sizeof(toonTextureFileNames[i].size()));
+	}
+	return stream.good();
+}
+
 
 bool PMDRigidBody::read(std::istream& stream)
 {
@@ -688,6 +728,28 @@ bool PMDRigidJointCollection::write(std::ostream& stream) const
 }
 
 
+bool PMDDisplayBoneCollection::read(std::istream& stream)
+{
+	DWORD displayBonesCount = 0;
+	stream.read((char*)&displayBonesCount, sizeof(displayBonesCount));
+	for (unsigned int i = 0; i < displayBonesCount; ++i) {
+		PMDDisplayBone dispBone;
+		dispBone.read(stream);
+		displayBones.emplace_back(dispBone);
+	}
+	return stream.good();
+}
+
+bool PMDDisplayBoneCollection::write(std::ostream& stream) const
+{
+	DWORD count = static_cast<DWORD>(displayBones.size());
+	stream.write((char*)&count, sizeof(count));
+	for (const auto& b : displayBones) {
+		b.write(stream);
+	}
+	return stream.good();
+}
+
 PMDFile::PMDFile(const PolygonObject& polygon)
 {
 	vertices = PMDVertexCollection( polygon.getVertices() );
@@ -713,24 +775,13 @@ bool PMDFile::read(const std::string& filename)
 	displaySkins.read(stream);
 
 	displayBoneNames.read(stream);
+	displayBones.read(stream);
 
-	DWORD displayBonesCount = 0;
-	stream.read((char*)&displayBonesCount, sizeof(displayBonesCount));
-	for (unsigned int i = 0; i < displayBonesCount; ++i) {
-		PMDDisplayBone dispBone;
-		dispBone.read(stream);
-		displayBones.emplace_back(dispBone);
-	}
 
-	namesInEnglish.read(stream);
+	header.readEnglishPart(stream);
 	bones.readEnglishNames(stream);
 
-	std::vector<std::string> skinNamesInEnglish;
-	for (int i = 0; i < skins.size() - 1; ++i) {
-		char skinName[20];
-		stream.read(skinName, sizeof(skinName));
-		skinNamesInEnglish.emplace_back(skinName);
-	}
+	skins.readEnglishNames(stream);
 
 	displayBoneNames.readEnglishNames(stream);
 
@@ -756,6 +807,14 @@ bool PMDFile::write(const std::string& filename) const
 	bones.write(stream);
 	iks.write(stream);
 	skins.write(stream);
+	displaySkins.write(stream);
+
+	displayBoneNames.write(stream);
+	displayBones.write(stream);
+
+	header.writeEnglishPart(stream);
+
+	toonTextures.write(stream);
 
 	rigidBodies.write(stream);
 	rigidJoints.write(stream);

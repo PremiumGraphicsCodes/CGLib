@@ -31,10 +31,19 @@ struct PMDHeader
 
 	bool write(std::ostream& stream) const;
 
+	bool readEnglishPart(std::istream& stream);
+
+	bool writeEnglishPart(std::ostream& stream) const;
+
 private:
 	float version;
 	char modelName[20];
 	char comment[256];
+
+	BYTE englishNameCompatibility;
+	char modelNameInEnglish[20];
+	char commentInEnglish[256];
+
 
 };
 
@@ -251,17 +260,23 @@ public:
 
 	bool write(std::ostream& stream) const;
 
+	bool readEnglishNames(std::istream& stream);
+
+
 	size_t size() const { return skins.size(); }
 
 
 private:
 	std::vector<PMDSkin> skins;
+	std::vector<std::string> englishNames;
 };
 
 class PMDDisplayBoneNameCollection
 {
 public:
 	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
 
 	bool readEnglishNames(std::istream& stream);
 
@@ -277,6 +292,8 @@ class PMDDisplaySkinCollection
 public:
 	bool read(std::istream& stream);
 
+	bool write(std::ostream& stream) const;
+
 private:
 	std::vector<WORD> displaySkinIndices;
 };
@@ -286,26 +303,20 @@ class PMDDisplayBone
 public:
 	bool read(std::istream& stream);
 
+	bool write(std::ostream& stream) const;
+
 private:
 	WORD boneIndex;
 	BYTE dispFrameIndex;
 };
 
-class PMDNamesInEnglish
-{
-public:
-	bool read(std::istream& stream);
-
-private:
-	std::vector<std::string> boneNamesInEnglish;
-	std::vector<std::string> skinNamesInEnglish;
-	std::vector<std::string> boneDispNames;
-};
 
 class PMDToonTextures
 {
 public:
 	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
 private:
 	std::vector<std::string> toonTextureFileNames;
 
@@ -380,6 +391,19 @@ private:
 	std::vector<PMDRigidJoint> joints;
 };
 
+class PMDDisplayBoneCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
+private:
+	std::vector<PMDDisplayBone> displayBones;
+
+};
+
+
 class PMDFile
 {
 public:
@@ -411,8 +435,7 @@ private:
 	PMDSkinCollection skins;
 	PMDDisplaySkinCollection displaySkins;
 	PMDDisplayBoneNameCollection displayBoneNames;
-	std::vector<PMDDisplayBone> displayBones;
-	PMDNamesInEnglish namesInEnglish;
+	PMDDisplayBoneCollection displayBones;
 	PMDToonTextures toonTextures;
 	PMDRigidBodyCollection rigidBodies;
 	PMDRigidJointCollection rigidJoints;
