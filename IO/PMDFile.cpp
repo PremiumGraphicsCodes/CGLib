@@ -15,10 +15,6 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-namespace {
-	//void read( stream, )
-}
-
 PMDHeader::PMDHeader() :
 version(1.0f)
 {
@@ -178,9 +174,8 @@ bool PMDFaceCollection::read(std::istream& stream)
 	return stream.good();
 }
 
-bool PMDFaceCollection::write(std::ostream& stream) const
+bool PMDFaceCollection::write(std::ostream& stream, DWORD vertexCount) const
 {
-	DWORD vertexCount = 0;
 	stream.write((char*)&vertexCount, sizeof(vertexCount));
 	for (DWORD i = 0; i < vertexCount; ++i) {
 		unsigned short vindex = faces[i];
@@ -359,6 +354,14 @@ bool PMDBoneCollection::readEnglishNames(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDBoneCollection::writeEnglishNames(std::ostream& stream) const
+{
+	for (int i = 0; i < bones.size(); ++i) {
+		stream.write(englishNames[i].c_str(), sizeof(englishNames[i]));
+	}
+	return stream.good();
+}
+
 
 ActorObject* PMDBoneCollection::toActorObject() const
 {
@@ -500,6 +503,9 @@ bool PMDSkinCollection::read(std::istream& stream)
 
 bool PMDSkinCollection::readEnglishNames(std::istream& stream)
 {
+	if (skins.size() <= 1) {
+		return stream.good();
+	}
 	for (int i = 0; i < skins.size() - 1; ++i) {
 		char skinName[20];
 		stream.read(skinName, sizeof(skinName));
@@ -507,6 +513,15 @@ bool PMDSkinCollection::readEnglishNames(std::istream& stream)
 	}
 	return stream.good();
 }
+
+bool PMDSkinCollection::writeEnglishNames(std::ostream& stream) const
+{
+	for (const auto& name : englishNames) {
+		stream.write(name.c_str(), sizeof(name.c_str()));
+	}
+	return stream.good();
+}
+
 
 bool PMDSkinCollection::write(std::ostream& stream) const
 {
@@ -570,6 +585,7 @@ bool PMDDisplayBoneNameCollection::read(std::istream& stream)
 bool PMDDisplayBoneNameCollection::write(std::ostream& stream) const
 {
 	BYTE displayBoneCount = static_cast<BYTE>(names.size());
+	stream.write((char*)&displayBoneCount, sizeof(displayBoneCount));
 	for (unsigned int i = 0; i < displayBoneCount; ++i) {
 		stream.write(names[i].c_str(), sizeof(names[i]));
 	}
@@ -586,13 +602,21 @@ bool PMDDisplayBoneNameCollection::readEnglishNames(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDDisplayBoneNameCollection::writeEnglishNames(std::ostream& stream) const
+{
+	for (int i = 0; i < names.size(); ++i) {
+		stream.write(englishNames[i].c_str(), sizeof(englishNames[i].c_str()));
+	}
+	return stream.good();
+}
+
 
 bool PMDToonTextures::read(std::istream& stream)
 {
 	for (int i = 0; i < 10; ++i) {
 		char toonTextureFileName[100];
 		stream.read(toonTextureFileName, sizeof(toonTextureFileName));
-		toonTextureFileNames.emplace_back(toonTextureFileName);
+		toonTextureFileNames[i] = toonTextureFileName;
 	}
 	return stream.good();
 }
@@ -727,12 +751,11 @@ bool PMDRigidJointCollection::write(std::ostream& stream) const
 
 }
 
-
 bool PMDDisplayBoneCollection::read(std::istream& stream)
 {
-	DWORD displayBonesCount = 0;
-	stream.read((char*)&displayBonesCount, sizeof(displayBonesCount));
-	for (unsigned int i = 0; i < displayBonesCount; ++i) {
+	DWORD count = 0;
+	stream.read((char*)&count, sizeof(count));
+	for (unsigned int i = 0; i < count; ++i) {
 		PMDDisplayBone dispBone;
 		dispBone.read(stream);
 		displayBones.emplace_back(dispBone);
@@ -771,18 +794,13 @@ bool PMDFile::read(const std::string& filename)
 	bones.read(stream);
 	iks.read(stream);
 	skins.read(stream);
-
 	displaySkins.read(stream);
-
 	displayBoneNames.read(stream);
 	displayBones.read(stream);
 
-
 	header.readEnglishPart(stream);
 	bones.readEnglishNames(stream);
-
 	skins.readEnglishNames(stream);
-
 	displayBoneNames.readEnglishNames(stream);
 
 	toonTextures.read(stream);
@@ -801,24 +819,27 @@ bool PMDFile::write(const std::string& filename) const
 	}
 	header.write(stream);
 	vertices.write(stream);
-	faces.write(stream);
+	faces.write(stream, vertices.get().size());
 	materials.write(stream);
 
 	bones.write(stream);
 	iks.write(stream);
 	skins.write(stream);
 	displaySkins.write(stream);
-
 	displayBoneNames.write(stream);
 	displayBones.write(stream);
 
 	header.writeEnglishPart(stream);
+	bones.writeEnglishNames(stream);
+	skins.writeEnglishNames(stream);
+	displayBoneNames.writeEnglishNames(stream);
 
 	toonTextures.write(stream);
 
 	rigidBodies.write(stream);
 	rigidJoints.write(stream);
-	return false;
+
+	return stream.good();
 }
 
 

@@ -97,7 +97,7 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(std::ostream& stream) const;
+	bool write(std::ostream& stream, DWORD vertexCount) const;
 
 	std::vector<WORD> get() const { return faces; }
 
@@ -183,6 +183,8 @@ public:
 
 	bool readEnglishNames(std::istream& stream);
 
+	bool writeEnglishNames(std::ostream& stream) const;
+
 	Polygon::ActorObject* toActorObject() const;
 
 	//size_t getSize() const { return bones.size(); }
@@ -262,6 +264,7 @@ public:
 
 	bool readEnglishNames(std::istream& stream);
 
+	bool writeEnglishNames(std::ostream& stream) const;
 
 	size_t size() const { return skins.size(); }
 
@@ -279,6 +282,8 @@ public:
 	bool write(std::ostream& stream) const;
 
 	bool readEnglishNames(std::istream& stream);
+
+	bool writeEnglishNames(std::ostream& stream) const;
 
 	size_t size() const { return names.size(); }
 
@@ -318,7 +323,7 @@ public:
 
 	bool write(std::ostream& stream) const;
 private:
-	std::vector<std::string> toonTextureFileNames;
+	std::array<std::string,10> toonTextureFileNames;
 
 };
 
@@ -402,7 +407,6 @@ private:
 	std::vector<PMDDisplayBone> displayBones;
 
 };
-
 
 class PMDFile
 {
