@@ -9,6 +9,7 @@ namespace Crystal {
 	namespace Polygon {
 		class Vertex;
 		class VertexCollection;
+		class FaceCollection;
 		class PolygonObject;
 		class ActorObject;
 		class Bone;
@@ -77,6 +78,25 @@ private:
 	std::vector<PMDVertex> vertices;
 };
 
+
+class PMDFaceCollection
+{
+public:
+	PMDFaceCollection() = default;
+
+	PMDFaceCollection(const Polygon::FaceCollection& faces);
+
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
+	std::vector<WORD> get() const { return faces; }
+
+private:
+	std::vector<WORD> faces;
+};
+
+
 class PMDMaterial
 {
 public:
@@ -93,6 +113,16 @@ private:
 	unsigned char isEdge;
 	unsigned int faceVertexCount;
 	char textureFileName[20];
+};
+class PMDMaterialCollection
+{
+public:
+	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
+
+private:
+	std::vector<PMDMaterial> materials;
 };
 
 enum class PMDBoneType
@@ -197,6 +227,8 @@ class PMDSkin
 public:
 	bool read(std::istream& stream);
 
+	bool write(std::ostream& stream) const;
+
 	enum class Type {
 		Base = 0,
 		EyeBrow = 1,
@@ -216,6 +248,8 @@ class PMDSkinCollection
 {
 public:
 	bool read(std::istream& stream);
+
+	bool write(std::ostream& stream) const;
 
 	size_t size() const { return skins.size(); }
 
@@ -311,8 +345,8 @@ public:
 private:
 	PMDHeader header;
 	PMDVertexCollection vertices;
-	std::vector<unsigned short> faces;
-	std::vector<PMDMaterial> materials;
+	PMDFaceCollection faces;
+	PMDMaterialCollection materials;
 	PMDBoneCollection bones;
 	PMDIKCollection iks;
 	PMDSkinCollection skins;

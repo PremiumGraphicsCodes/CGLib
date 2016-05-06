@@ -150,6 +150,39 @@ bool PMDVertexCollection::write(std::ostream& stream) const
 	return stream.good();
 }
 
+PMDFaceCollection::PMDFaceCollection(const FaceCollection& fs)
+{
+	for (auto f : fs) {
+		faces.push_back(f->getV1()->getId());
+		faces.push_back(f->getV2()->getId());
+		faces.push_back(f->getV3()->getId());
+	}
+}
+
+bool PMDFaceCollection::read(std::istream& stream)
+{
+	DWORD vertexCount = 0;
+	stream.read((char*)&vertexCount, sizeof(vertexCount));
+	for (DWORD i = 0; i < vertexCount; ++i) {
+		unsigned short vindex = 0;
+		stream.read((char*)&vindex, sizeof(vindex));
+		faces.push_back(vindex);
+	}
+	return stream.good();
+}
+
+bool PMDFaceCollection::write(std::ostream& stream) const
+{
+	DWORD vertexCount = 0;
+	stream.write((char*)&vertexCount, sizeof(vertexCount));
+	for (DWORD i = 0; i < vertexCount; ++i) {
+		unsigned short vindex = faces[i];
+		stream.write((char*)&vindex, sizeof(vindex));
+	}
+	return stream.good();
+}
+
+
 bool PMDMaterial::read(std::istream& stream)
 {
 	float red = 0.0f;
@@ -216,7 +249,27 @@ bool PMDMaterial::write(std::ostream& stream) const
 	return stream.good();
 }
 
+bool PMDMaterialCollection::read(std::istream& stream)
+{
+	int materialCount = 0;
+	stream.read((char*)&materialCount, sizeof(materialCount));
+	for (auto i = 0; i < materialCount; ++i) {
+		PMDMaterial material;
+		material.read(stream);
+		materials.emplace_back(material);
+	}
+	return stream.good();
+}
 
+bool PMDMaterialCollection::write(std::ostream& stream) const
+{
+	int materialCount = static_cast<int>(materials.size());
+	stream.write((char*)&materialCount, sizeof(materialCount));
+	for (auto& m : materials) {
+		m.write(stream);
+	}
+	return stream.good();
+}
 
 bool PMDBone::read(std::istream& stream)
 {
@@ -414,6 +467,18 @@ bool PMDSkin::read(std::istream& stream)
 	return stream.good();
 }
 
+bool PMDSkin::write(std::ostream& stream) const
+{
+	stream.write(name, sizeof(name));
+	stream.write((char*)&vertexCount, sizeof(vertexCount));
+	stream.write(&type, sizeof(type));
+	for (unsigned int i = 0; i < vertexCount; ++i) {
+		skinVertices[i].write(stream);
+	}
+	return stream.good();
+
+}
+
 bool PMDSkinCollection::read(std::istream& stream)
 {
 	WORD skinCount = 0;
@@ -425,6 +490,16 @@ bool PMDSkinCollection::read(std::istream& stream)
 	}
 	return stream.good();
 }
+
+bool PMDSkinCollection::write(std::ostream& stream) const
+{
+	WORD skinCount = static_cast<WORD>(skins.size());
+	for (unsigned int i = 0; i < skinCount; ++i) {
+		skins[i].write(stream);
+	}
+	return stream.good();
+}
+
 
 bool PMDDisplayBone::read(std::istream& stream)
 {
@@ -514,12 +589,15 @@ bool PMDRigidJoint::read(std::istream& stream)
 PMDFile::PMDFile(const PolygonObject& polygon)
 {
 	vertices = PMDVertexCollection( polygon.getVertices() );
+	faces = PMDFaceCollection(polygon.getFaces());
+	/*
 	const auto& fs = polygon.getFaces();
 	for (auto f : fs) {
 		 faces.push_back( f->getV1()->getId() );
 		 faces.push_back( f->getV2()->getId() );
 		 faces.push_back( f->getV3()->getId() );
 	}
+	*/
 }
 
 
@@ -531,30 +609,12 @@ bool PMDFile::read(const std::string& filename)
 	}
 	header.read(stream);
 	vertices.read(stream);
-	DWORD vertexCount = 0;
-
-	stream.read((char*)&vertexCount, sizeof(vertexCount));
-	for (DWORD i = 0; i < vertexCount; ++i) {
-		unsigned short vindex = 0;
-		stream.read((char*)&vindex, sizeof(vindex));
-		faces.push_back(vindex);
-	}
-
-	int materialCount = 0;
-	stream.read((char*)&materialCount, sizeof(materialCount));
-	for (auto i = 0; i < materialCount; ++i) {
-		PMDMaterial material;
-		material.read(stream);
-		materials.emplace_back(material);
-	}
+	faces.read(stream);
+	materials.read(stream);
 
 	bones.read(stream);
-
 	iks.read(stream);
-
 	skins.read(stream);
-
-	//bones.read(stream);
 
 	BYTE displaySkinCount = 0;
 	stream.read((char*)&displaySkinCount, sizeof(displaySkinCount));
@@ -630,9 +690,12 @@ bool PMDFile::write(const std::string& filename) const
 	}
 	header.write(stream);
 	vertices.write(stream);
-	bones.write(stream);
+	faces.write(stream);
+	materials.write(stream);
 
+	bones.write(stream);
 	iks.write(stream);
+	skins.write(stream);
 	return false;
 }
 
@@ -651,7 +714,7 @@ PolygonObject* PMDFile::toPolygonObject() const
 	for (size_t i = 0; i < vs.size(); ++i ) {
 		object->createVertex(vs[i].pos, vs[i].normal);
 	}
-	auto is = this->faces;
+	auto is = this->faces.get();
 	for (size_t i = 0; i < is.size(); i+=3 ) {
 		object->createFace(is[i], is[i + 1], is[i + 2]);
 	}
