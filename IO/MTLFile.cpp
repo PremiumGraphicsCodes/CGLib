@@ -17,6 +17,97 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
+
+bool OBJMaterial::read(std::istream& stream)
+{
+	std::string header;
+	this->name = Helper::read< std::string >(stream);
+	stream >> header;
+
+	while (!stream.eof()) {
+		if (header.front() == '#') {
+			std::getline(stream, header);
+			//comment += header;
+		}
+		else if (header == "newmtl") {
+			return true;
+		}
+		else if (header == "Ka") {
+			this->ambient = Helper::readColorRGB(stream);
+		}
+		else if (header == "Kd") {
+			this->diffuse = Helper::readColorRGB(stream);
+		}
+		else if (header == "Ks") {
+			this->specular = Helper::readColorRGB(stream);
+		}
+		else if (header == "Ns") {
+			this->specularExponent = Helper::read< float >(stream);
+		}
+		else if (header == "d" || header == "Tr") {
+			this->transparent = Helper::read<float>(stream);
+		}
+		else if (header == "map_Ka") {
+			this->ambientTexture = Helper::read< std::string >(stream);
+		}
+		else if (header == "map_Kd") {
+			std::string str = Helper::read< std::string >(stream);
+			if (str == "-o") {
+				Helper::readVector(stream);
+				str = Helper::read< std::string >(stream);
+			}
+			if (str == "-s") {
+				Helper::readVector(stream);
+				str = Helper::read< std::string >(stream);
+			}
+			this->diffuseTexture = str;
+		}
+		else if (header == "map_Ks") {
+			this->shininessTexture = Helper::read< std::string >(stream);
+		}
+		else if (header == "map_Ns") {
+			const std::string& filename = Helper::read< std::string >(stream);
+		}
+		else if (header == "map_d") {
+			const std::string& filename = Helper::read< std::string >(stream);
+		}
+		else if (header == "map_bump" || header == "bump") {
+			this->bumpTexture = Helper::read< std::string >(stream);
+		}
+		else if (header == "illum") {
+			this->illumination = OBJMaterial::Illumination( Helper::read< int >(stream) );
+		}
+		else if (header == "Ni") {
+			this->opticalDensity = Helper::read<float>(stream);
+		}
+
+		stream >> header;
+	}
+	return true;
+}
+
+
+bool OBJMaterial::write(std::ostream& stream) const
+{
+	const ColorRGBA<float>& ambient = this->ambient;
+	char s[256];
+	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
+
+	const ColorRGBA<float>& diffuse = this->getDiffuse();
+	sprintf(s, "Kd %.4lf %.4lf %.4lf", diffuse.getRed(), diffuse.getGreen(), diffuse.getBlue());
+
+	const ColorRGBA<float>& specular = this->getSpecular();
+	sprintf(s, "Ks %.4lf %.4lf %.4lf", specular.getRed(), specular.getGreen(), specular.getBlue());
+
+	const float shininess = this->getSpecularExponent();
+	sprintf(s, "Ns %.4lf", shininess);
+
+	const float tr = this->getTransparent();
+	sprintf(s, "Tr %.4lf", tr);
+
+	return true;
+}
+
 void MTLTextureOption::setDefault()
 {
 	blendu = true;
@@ -47,78 +138,20 @@ bool MTLFile::read(std::istream& stream)
 	
 	std::string comment;
 
-	//Material* material = nullptr;
-
 	std::string header= Helper::read< std::string >(stream);
 
 	while( !stream.eof() ) {
 		if( header.front() == '#' ) {
 			std::getline( stream, header );
-			//comment += header;
 		}
 		else if( header == "newmtl" ) {
-			const std::string& materialName = Helper::read< std::string >(stream);
-			
-			MTL mtl;
-			mtl.setName( materialName );
+			OBJMaterial mtl;
+			mtl.read(stream);
 			materials.push_back( mtl );
 		}
-		else if( header == "Ka" ) {
-			materials.back().setAmbient( Helper::readColorRGB(stream) );
-
+		else {
+			stream >> header;
 		}
-		else if( header == "Kd" ) {
-			materials.back().setDiffuse( Helper::readColorRGB(stream) );
-		}
-		else if( header == "Ks" ) {
-			materials.back().setSpecular( Helper::readColorRGB(stream) );
-		}
-		else if( header == "Ns") {
-			const float ns = Helper::read< float >( stream );
-			materials.back().setSpecularExponent(ns);
-		}
-		else if (header == "d" || header == "Tr") {
-			const float d = Helper::read<float>(stream);
-			materials.back().setTransparent(d);
-		}
-		else if( header == "map_Ka" ) {
-			materials.back().setAmbientTextureName( Helper::read< std::string >(stream) );
-		}
-		else if( header == "map_Kd" ) {
-			str = Helper::read< std::string >(stream);
-			if( str == "-o" ) {
-				Helper::readVector(stream);
-				str = Helper::read< std::string >(stream);
-			}
-			if( str == "-s" ) {
-				Helper::readVector(stream);
-				str = Helper::read< std::string >(stream);
-			}
-			materials.back().setDiffuseTextureName( str );
-		}
-		else if( header == "map_Ks" ) {
-			const std::string& filename = Helper::read< std::string >(stream);
-			materials.back().setShininessTextureName( filename );
-		}
-		else if( header == "map_Ns" ) {
-			const std::string& filename = Helper::read< std::string >(stream);
-		}
-		else if( header == "map_d" ) {
-			const std::string& filename = Helper::read< std::string >(stream);
-		}
-		else if ( header == "map_bump" || header == "bump" ) {
-			materials.back().setBumpTextureName( Helper::read< std::string >(stream) );
-		}
-		else if (header == "illum") {
-			const int i = Helper::read< int >(stream);
-			materials.back().setIllumination( MTL::Illumination(i));
-		}
-		else if (header == "Ni") {
-			const float d = Helper::read<float>(stream);
-			materials.back().setOpticalDensity( d );
-		}
-
-		stream >> header;
 	}
 
 	return true;
@@ -206,7 +239,7 @@ std::vector< std::string > MTLFile::writeTextureOptions(std::ostream& stream, MT
 }
 
 
-Material MTL::toMaterial() const
+Material OBJMaterial::toMaterial() const
 {
 	Material m;
 	m.setAmbient(this->ambient);
@@ -232,61 +265,5 @@ bool MTLFile::write(std::ostream& stream)
 	for (const auto& m : materials) {
 		m.write(stream);
 	}
-	return true;
-}
-
-bool MTL::write(std::ostream& stream) const
-{
-
-	//stream << "# Exported from CGStudio" << std::endl;
-
-	//strs.push_back( "newmtl " + m->getName());
-
-	const ColorRGBA<float>& ambient = this->ambient;
-	char s[256];
-	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
-
-	const ColorRGBA<float>& diffuse = this->getDiffuse();
-	sprintf(s, "Kd %.4lf %.4lf %.4lf", diffuse.getRed(), diffuse.getGreen(), diffuse.getBlue());
-
-	const ColorRGBA<float>& specular = this->getSpecular();
-	sprintf(s, "Ks %.4lf %.4lf %.4lf", specular.getRed(), specular.getGreen(), specular.getBlue());
-
-	const float shininess = this->getSpecularExponent();
-	sprintf(s, "Ns %.4lf", shininess);
-
-	const float tr = this->getTransparent();
-	sprintf(s, "Tr %.4lf", tr);
-
-	//for (const Material* m : file.getMaterials()) {
-		//	stream << std::endl;
-
-		//	stream << "newmtl " << m->name << std::endl;
-
-		//	const ColorRGBA<float>& ambient = m->getAmbient();
-		//	stream << "Ka " << ambient.getRed() << " " << ambient.getGreen() << " " << ambient.getBlue() << std::endl;
-
-		//	const ColorRGBA<float>& diffuse = m->getDiffuse();
-		//	stream << "Kd " << diffuse.getRed() << " " << diffuse.getGreen() << " " << diffuse.getBlue() << std::endl;
-
-		//	const ColorRGBA<float>& specular = m->getSpecular();
-		//	stream << "Ks " << specular.getRed() << " " << specular.getGreen() << " " << specular.getBlue() << std::endl;
-
-		//	//stream << "Ns " << m->shininess << std::endl;
-
-		//	/*
-		//	const Texture& texture = m->texture;
-		//	if( !texture.getAmbientFileName().empty() ) {
-		//		stream << "map_Ka " << texture.getAmbientFileName() << std::endl;
-		//	}
-		//	if( !texture.getDiffuseFileName().empty() ) {
-		//		stream << "map_Kd " << texture.getDiffuseFileName() << std::endl;
-		//	}
-		//	if( !texture.getSpecularFileName().empty() ) {
-		//		stream << "map_Ks " << texture.getSpecularFileName() << std::endl;
-		//	}
-		//	*/
-		//}
-
 	return true;
 }

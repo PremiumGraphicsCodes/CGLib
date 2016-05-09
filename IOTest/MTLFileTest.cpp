@@ -70,7 +70,7 @@ TEST(MTLFileTest, TestReadTextureOptions)
 }
 
 
-::std::ostream& operator<<(::std::ostream& os, const MTL& mtl) {
+::std::ostream& operator<<(::std::ostream& os, const OBJMaterial& mtl) {
 	return os << mtl.getAmbient() << mtl.getDiffuse() << mtl.getSpecular() << std::endl;
 }
 
@@ -87,13 +87,13 @@ TEST(MTLFileReaderTest, TestRead)
 	MTLFile file;
 	EXPECT_TRUE( file.read(stream) );
 	
-	MTL expected;
+	OBJMaterial expected;
 	expected.setName( "FrontColor" );
 	expected.setAmbient( ColorRGBA<float>(0.0f, 0.0f, 0.0f) );
 	expected.setDiffuse( ColorRGBA<float>(1.0f, 1.0f, 1.0f) );
 	expected.setSpecular( ColorRGBA<float>(0.1f, 0.1f, 0.1f) );
 
-	const std::vector<MTL> expecteds = { expected };
+	const std::vector<OBJMaterial> expecteds = { expected };
 	EXPECT_EQ( expecteds, file.materials);
 }
 
@@ -110,14 +110,14 @@ TEST(MTLFileReaderTest, TestReadTexture)
 	MTLFile file;
 	EXPECT_TRUE( file.read(stream) );
 
-	MTL expected;
+	OBJMaterial expected;
 	expected.setName( "name" );
 	expected.setAmbientTextureName( "ambient.png" );
 	expected.setDiffuseTextureName( "diffuse.png" );
 	expected.setShininessTextureName( "shininess.png" );
 	expected.setBumpTextureName( "bump.png" );
 
-	const std::vector<MTL> expecteds = { expected };
+	const std::vector<OBJMaterial> expecteds = { expected };
 	EXPECT_EQ(expecteds, file.materials);
 }
 
@@ -172,7 +172,7 @@ TEST(MTLFileReaderTest, TestExample3)
 	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.materials.size());
 
-	const MTL& mtl = file.materials.front();
+	const OBJMaterial& mtl = file.materials.front();
 	EXPECT_EQ("diss_green", mtl.getName());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), mtl.getAmbient());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), mtl.getDiffuse());
@@ -195,7 +195,7 @@ TEST(MTLFileReaderTest, TestExample4)
 	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.materials.size());
 
-	const MTL& mtl = file.materials.front();
+	const OBJMaterial& mtl = file.materials.front();
 	EXPECT_EQ("shiny_green", mtl.getName());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), mtl.getAmbient());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), mtl.getDiffuse());
@@ -219,7 +219,7 @@ TEST(MTLFileReaderTest, TestExample5)
 	EXPECT_TRUE(file.read(stream));
 
 	EXPECT_EQ(1, file.materials.size());
-	const MTL& mtl = file.materials.front();
+	const OBJMaterial& mtl = file.materials.front();
 	EXPECT_EQ("green_mirror", mtl.getName());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), mtl.getAmbient());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), mtl.getDiffuse());
@@ -243,7 +243,7 @@ TEST(MTLFileReaderTest, TestExample6)
 	MTLFile file;
 	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.materials.size());
-	const MTL& mtl = file.materials.front();
+	const OBJMaterial& mtl = file.materials.front();
 	EXPECT_EQ("fake_windsh", mtl.getName());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 0.0, 0.0), mtl.getAmbient());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 0.0, 0.0), mtl.getDiffuse());
@@ -266,7 +266,7 @@ TEST(MTLFileReaderTest, TestExample7)
 	MTLFile file;
 	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.materials.size());
-	const MTL& mtl = file.materials.front();
+	const OBJMaterial& mtl = file.materials.front();
 	EXPECT_EQ("fresnel_blue", mtl.getName());
 	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 0.0f), mtl.getAmbient());
 	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 0.0f), mtl.getDiffuse());
@@ -291,7 +291,39 @@ TEST(MTLFileReaderTest, TestExample8)
 	MTLFile file;
 	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.materials.size());
-	const MTL& mtl = file.materials.front();
+	const OBJMaterial& mtl = file.materials.front();
 	EXPECT_EQ("real_windsh", mtl.getName());
 	EXPECT_FLOAT_EQ(1.2f, mtl.getOpticalDensity());
+}
+
+TEST(MTLFileReaderTest, TestReadMaterials)
+{
+	std::stringstream stream;
+	stream
+		<< "newmtl mat1" << std::endl
+		<< "Ka 0.0000 0.0000 0.0000" << std::endl
+		<< "Kd 0.0000 0.0000 0.0000" << std::endl
+		<< "Ks 0.0000 0.0000 0.0000" << std::endl
+		<< "Tf 1.0000 1.0000 1.0000" << std::endl
+		<< "Ns 200" << std::endl
+		<< "Ni 1.2000" << std::endl
+		<< "illum 6" << std::endl
+		<< "newmtl mat2" << std::endl
+		<< "Ka 0.0000 0.0000 0.0000" << std::endl
+		<< "Kd 0.0000 0.0000 0.0000" << std::endl
+		<< "Ks 0.0000 0.0000 0.0000" << std::endl
+		<< "Tf 1.0000 1.0000 1.0000" << std::endl
+		<< "Ns 200" << std::endl
+		<< "Ni 1.2000" << std::endl
+		<< "illum 6" << std::endl;
+
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
+	EXPECT_EQ(2, file.materials.size());
+	const OBJMaterial& mtl = file.materials.front();
+	EXPECT_EQ("mat1", mtl.getName());
+	EXPECT_FLOAT_EQ(1.2f, mtl.getOpticalDensity());
+	const OBJMaterial& mtl2 = file.materials.back();
+	EXPECT_EQ("mat2", mtl2.getName());
+
 }

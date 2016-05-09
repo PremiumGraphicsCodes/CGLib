@@ -95,7 +95,7 @@ private:
 };
 
 
-struct MTL {
+struct OBJMaterial {
 	enum Illumination {
 		COLOR_ON_AND_AMBIENT_OFF = 0,
 		COLOR_ON_AND_AMBIENT_ON = 1,
@@ -107,10 +107,12 @@ struct MTL {
 		CAST_SHADOWS_ONTO_INVISIBLE_SURFACES = 10,
 	};
 
-	MTL()
+	OBJMaterial()
 	{
 		illumination = Illumination::COLOR_ON_AND_AMBIENT_OFF;
 	}
+
+	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream) const;
 
@@ -165,7 +167,7 @@ struct MTL {
 
 	float getOpticalDensity() const { return opticalDensity; }
 
-	bool operator==(const MTL& rhs) const {
+	bool operator==(const OBJMaterial& rhs) const {
 		return
 			name == rhs.name &&
 			ambient == rhs.ambient &&
@@ -225,7 +227,7 @@ public:
 		}
 	}
 
-	std::vector<MTL> materials;
+	std::vector<OBJMaterial> materials;
 	MTLTextureOption option;
 };
 
