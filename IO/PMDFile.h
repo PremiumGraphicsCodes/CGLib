@@ -16,6 +16,10 @@ namespace Crystal {
 		class Joint;
 		class CGModel;
 	}
+	namespace Graphics {
+		class VisualPolygon;
+		class Material;
+	}
 	namespace IO {
 
 		using DWORD = unsigned long;
@@ -112,6 +116,8 @@ public:
 	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream) const;
+
+	Graphics::Material toMaterial() const;
 
 private:
 	Graphics::ColorRGBA<float> diffuse;
@@ -424,6 +430,8 @@ public:
 	bool write(const std::string& filename) const;
 
 	Polygon::PolygonObject* toPolygonObject() const;
+
+	Graphics::VisualPolygon toVisualPolygon() const;
 
 	Polygon::ActorObject* toActorObject() const;
 

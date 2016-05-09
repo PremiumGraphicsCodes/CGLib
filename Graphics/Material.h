@@ -73,9 +73,9 @@ public:
 
 	float getTransparent() const { return transparent; }
 
-	Texture getTexture() const { return texture; }
+	std::string getTextureFileName() const { return textureFileName; }
 
-	void setTexture(const Texture& texture) { this->texture = texture; }
+	void setTextureFileName(const std::string& name) { this->textureFileName = name; }
 
 	unsigned int getId() const { return id; }
 
@@ -90,42 +90,9 @@ private:
 
 	const unsigned int id;
 
-	Texture texture;
+	std::string textureFileName;
 
 };
-
-class MaterialBuilder
-{
-public:
-	MaterialBuilder() :
-		nextId(0)
-	{}
-
-	~MaterialBuilder()
-	{
-		clear();
-	}
-
-	Material* build(){
-		Material* m(new Material(nextId++));
-		materials.push_back(m);
-		return m;
-	};
-
-	std::list< Material* > getMaterials() const { return materials; }
-
-	void clear() {
-		for (Material* m : materials) {
-			delete m;
-		}
-		materials.clear();
-	}
-
-private:
-	unsigned int nextId;
-	std::list< Material* > materials;
-};
-
 	}
 }
 

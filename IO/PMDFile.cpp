@@ -7,6 +7,9 @@
 #include "../Polygon/Joint.h"
 #include "../Polygon/CGModel.h"
 
+#include "../Graphics/Material.h"
+#include "../Graphics/VisualPolygon.h"
+
 #include <ostream>
 #include <fstream>
 
@@ -249,6 +252,18 @@ bool PMDMaterial::write(std::ostream& stream) const
 	stream.write(textureFileName, sizeof(textureFileName));
 
 	return stream.good();
+}
+
+
+Material PMDMaterial::toMaterial() const
+{
+	Material material;
+	material.setAmbient(this->ambient);
+	material.setDiffuse(this->diffuse);
+	material.setSpecular(this->specular);
+	material.setShininess(this->specularity);
+	material.setTextureFileName(std::string(this->textureFileName));
+	return material;
 }
 
 bool PMDMaterialCollection::read(std::istream& stream)
@@ -863,6 +878,15 @@ PolygonObject* PMDFile::toPolygonObject() const
 	}
 	return object;
 }
+
+VisualPolygon PMDFile::toVisualPolygon() const
+{
+	auto p = toPolygonObject();
+	VisualPolygon visualPolygon(p);
+	//visualPolygon.setMaterial()
+	return visualPolygon;
+}
+
 
 ActorObject* PMDFile::toActorObject() const
 {
