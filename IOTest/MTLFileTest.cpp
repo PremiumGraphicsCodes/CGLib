@@ -84,8 +84,8 @@ TEST(MTLFileReaderTest, TestRead)
 		<< "Ks 0.1 0.1 0.1" << std::endl
 		<< "illum 0" << std::endl;
 
-	MTLFileReader reader;
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE( file.read(stream) );
 	
 	MTL expected;
 	expected.setName( "FrontColor" );
@@ -107,8 +107,8 @@ TEST(MTLFileReaderTest, TestReadTexture)
 		<< "map_Ks shininess.png" << std::endl
 		<< "bump bump.png" << std::endl;
 
-	MTLFileReader reader;
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE( file.read(stream) );
 
 	MTL expected;
 	expected.setName( "name" );
@@ -146,14 +146,14 @@ TEST(MTLFileWriterTest, TestWrite)
 // from http://paulbourke.net/dataformats/mtl/
 TEST(MTLFileReaderTest, TestExample1)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl neon_green" << std::endl
 		<< "Kd 0.0000 1.0000 0.0000" << std::endl
 		<< "illum 0" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ( 1, file.mtls.size() );
 	EXPECT_EQ("neon_green", file.mtls.front().getName());
 	EXPECT_EQ( ColorRGBA<float>(0.0, 1.0, 0.0), file.mtls.front().getDiffuse() );
@@ -162,14 +162,15 @@ TEST(MTLFileReaderTest, TestExample1)
 
 TEST(MTLFileReaderTest, TestExample2)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl flat_green" << std::endl
 		<< "Ka 0.0000 1.0000 0.0000" << std::endl
 		<< "Kd 0.0000 1.0000 0.0000" << std::endl
 		<< "illum 1" << std::endl;
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
+
 	EXPECT_EQ(1, file.mtls.size());
 	EXPECT_EQ("flat_green", file.mtls.front().getName());
 	EXPECT_EQ(ColorRGBA<float>(0.0, 1.0, 0.0), file.mtls.front().getAmbient());
@@ -180,7 +181,6 @@ TEST(MTLFileReaderTest, TestExample2)
 
 TEST(MTLFileReaderTest, TestExample3)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl diss_green" << std::endl
@@ -189,7 +189,8 @@ TEST(MTLFileReaderTest, TestExample3)
 		<< "d 0.8000" << std::endl
 		<< "illum 1" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.mtls.size());
 
 	const MTL& mtl = file.mtls.front();
@@ -202,7 +203,6 @@ TEST(MTLFileReaderTest, TestExample3)
 
 TEST(MTLFileReaderTest, TestExample4)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl shiny_green" << std::endl
@@ -212,7 +212,8 @@ TEST(MTLFileReaderTest, TestExample4)
 		<< "Ns 200.0000" << std::endl
 		<< "illum 1" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.mtls.size());
 
 	const MTL& mtl = file.mtls.front();
@@ -226,7 +227,6 @@ TEST(MTLFileReaderTest, TestExample4)
 
 TEST(MTLFileReaderTest, TestExample5)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl green_mirror" << std::endl
@@ -236,7 +236,8 @@ TEST(MTLFileReaderTest, TestExample5)
 		<< "Ns 200.0000" << std::endl
 		<< "illum 3" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 
 	EXPECT_EQ(1, file.mtls.size());
 	const MTL& mtl = file.mtls.front();
@@ -250,7 +251,6 @@ TEST(MTLFileReaderTest, TestExample5)
 
 TEST(MTLFileReaderTest, TestExample6)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl fake_windsh" << std::endl
@@ -261,7 +261,8 @@ TEST(MTLFileReaderTest, TestExample6)
 		<< "Ns 200" << std::endl
 		<< "illum 4" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.mtls.size());
 	const MTL& mtl = file.mtls.front();
 	EXPECT_EQ("fake_windsh", mtl.getName());
@@ -274,7 +275,6 @@ TEST(MTLFileReaderTest, TestExample6)
 
 TEST(MTLFileReaderTest, TestExample7)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl fresnel_blue" << std::endl
@@ -284,7 +284,8 @@ TEST(MTLFileReaderTest, TestExample7)
 		<< "Ns 200" << std::endl
 		<< "illum 5" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.mtls.size());
 	const MTL& mtl = file.mtls.front();
 	EXPECT_EQ("fresnel_blue", mtl.getName());
@@ -297,7 +298,6 @@ TEST(MTLFileReaderTest, TestExample7)
 
 TEST(MTLFileReaderTest, TestExample8)
 {
-	MTLFileReader reader;
 	std::stringstream stream;
 	stream
 		<< "newmtl real_windsh" << std::endl
@@ -309,7 +309,8 @@ TEST(MTLFileReaderTest, TestExample8)
 		<< "Ni 1.2000" << std::endl
 		<< "illum 6" << std::endl;
 
-	const MTLFile& file = reader.read(stream);
+	MTLFile file;
+	EXPECT_TRUE(file.read(stream));
 	EXPECT_EQ(1, file.mtls.size());
 	const MTL& mtl = file.mtls.front();
 	EXPECT_EQ("real_windsh", mtl.getName());

@@ -176,6 +176,9 @@ struct MTL {
 			illumination == rhs.illumination;
 	}
 
+	Graphics::Material toMaterial() const;
+
+
 private:
 	std::string name;
 	Graphics::ColorRGBA<float> ambient;
@@ -193,6 +196,10 @@ private:
 
 class MTLFile {
 public:
+
+	bool read(const std::string& filename);
+
+	bool read(std::istream& stream);
 
 
 	static MTLTextureOption getTextureOptions(const std::string& str);
@@ -217,14 +224,6 @@ public:
 	MTLTextureOption option;
 };
 
-class MTLFileReader
-{
-public:
-
-	MTLFile read(const std::string& filename);
-
-	MTLFile read(std::istream& stream);
-};
 
 class MTLFileWriter
 {

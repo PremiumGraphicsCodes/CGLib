@@ -3,12 +3,14 @@
 #include "../Polygon/PolygonObject.h"
 #include "../Polygon/ActorObject.h"
 #include "../Polygon/Bone.h"
+#include "../Graphics/VisualPolygon.h"
 #include "../IO/PMDFile.h"
 #include <fstream>
 #include <memory>
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
+using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
 
@@ -17,7 +19,8 @@ TEST(PMDFileTest, TestFromPolygonObject)
 	PolygonObject object;
 	Triangle<float> triangle(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0));
 	object.add(triangle);
-	PMDFile file(object);
+	VisualPolygon vp(&object);
+	PMDFile file(vp);
 }
 
 TEST(PMDFileTest, TestToActorObject)

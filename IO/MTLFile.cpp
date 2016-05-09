@@ -30,7 +30,7 @@ void MTLTextureOption::setDefault()
 	imfchan = "l";
 }
 
-MTLFile MTLFileReader::read(const std::string& filename)
+bool MTLFile::read(const std::string& filename)
 {
 	std::ifstream stream;
 
@@ -41,9 +41,8 @@ MTLFile MTLFileReader::read(const std::string& filename)
 	return read(stream);
 }
 
-MTLFile MTLFileReader::read(std::istream& stream)
+bool MTLFile::read(std::istream& stream)
 {
-	std::vector<MTL> mtls;
 	std::string str;
 	
 	std::string comment;
@@ -122,9 +121,7 @@ MTLFile MTLFileReader::read(std::istream& stream)
 		stream >> header;
 	}
 
-	MTLFile file;
-	file.mtls = mtls;
-	return file;
+	return true;
 }
 
 
@@ -208,6 +205,16 @@ std::vector< std::string > MTLFile::writeTextureOptions(std::ostream& stream, MT
 	return strs;
 }
 
+
+Material MTL::toMaterial() const
+{
+	Material m;
+	m.setAmbient(this->ambient);
+	m.setDiffuse(this->diffuse);
+	m.setSpecular(this->specular);
+	m.setShininess(this->specularExponent);
+	return m;
+}
 
 bool MTLFileWriter::save(const std::string& filename, const Material& m)
 {
