@@ -14,6 +14,7 @@
 #include "../Shader/LegacyRenderer.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/PolygonObject.h"
+#include "../Graphics/Material.h"
 #include "../Graphics/Light.h"
 
 #include <iostream>
@@ -97,7 +98,9 @@ void RigidSample::demonstrate(const int width, const int height, const Crystal::
 		auto p = r->getShape()->clone();
 		p->transform(matrix);
 		triangleBuffer.add(*p);
-		smoothRenderer.render(camera, triangleBuffer, light);
+		Material material;
+		material.setAmbient(ColorRGBA<float>(0.2, 0.2, 0.2, 0.0));
+		smoothRenderer.render(camera, triangleBuffer, light, material);
 		delete p;
 	}
 }

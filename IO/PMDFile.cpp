@@ -288,6 +288,20 @@ bool PMDMaterialCollection::write(std::ostream& stream) const
 	return stream.good();
 }
 
+std::vector<MaterialMap> PMDMaterialCollection::toMaterialMap() const
+{
+	std::vector<MaterialMap> results;
+	auto startIndex = 0;
+	for (auto& m : materials) {
+		auto endIndex = startIndex + m.getFaceVertexCount();
+		MaterialMap mm( m.toMaterial(), startIndex, endIndex);
+		startIndex = endIndex;
+		results.emplace_back(mm);
+	}
+	return results;
+}
+
+
 bool PMDBone::read(std::istream& stream)
 {
 	stream.read(name, sizeof(name));
@@ -361,7 +375,7 @@ bool PMDBoneCollection::write(std::ostream& stream) const
 
 bool PMDBoneCollection::readEnglishNames(std::istream& stream)
 {
-	for (int i = 0; i < bones.size(); ++i) {
+	for (size_t i = 0; i < bones.size(); ++i) {
 		char boneName[20];
 		stream.read(boneName, sizeof(boneName));
 		englishNames.emplace_back(boneName);
@@ -371,7 +385,7 @@ bool PMDBoneCollection::readEnglishNames(std::istream& stream)
 
 bool PMDBoneCollection::writeEnglishNames(std::ostream& stream) const
 {
-	for (int i = 0; i < bones.size(); ++i) {
+	for (size_t i = 0; i < bones.size(); ++i) {
 		stream.write(englishNames[i].c_str(), sizeof(englishNames[i]));
 	}
 	return stream.good();
@@ -429,7 +443,7 @@ bool PMDIK::write(std::ostream& stream) const
 	stream.write((char*)&childrenNumber, sizeof(childrenNumber));
 	stream.write((char*)&iterationNumber, sizeof(iterationNumber));
 	stream.write((char*)&limitAngle, sizeof(limitAngle));
-	for (int i = 0; i < childBoneIndices.size(); ++i) {
+	for (size_t i = 0; i < childBoneIndices.size(); ++i) {
 		unsigned short childBoneIndex = childBoneIndices[i];
 		stream.write((char*)&childBoneIndex, sizeof(childBoneIndex));
 	}
@@ -521,7 +535,7 @@ bool PMDSkinCollection::readEnglishNames(std::istream& stream)
 	if (skins.size() <= 1) {
 		return stream.good();
 	}
-	for (int i = 0; i < skins.size() - 1; ++i) {
+	for (size_t i = 0; i < skins.size() - 1; ++i) {
 		char skinName[20];
 		stream.read(skinName, sizeof(skinName));
 		englishNames.emplace_back(skinName);
@@ -609,7 +623,7 @@ bool PMDDisplayBoneNameCollection::write(std::ostream& stream) const
 
 bool PMDDisplayBoneNameCollection::readEnglishNames(std::istream& stream)
 {
-	for (int i = 0; i < names.size(); ++i) {
+	for (size_t i = 0; i < names.size(); ++i) {
 		char englishName[50];
 		stream.read(englishName, sizeof(englishName));
 		englishNames.emplace_back(englishName);
@@ -619,7 +633,7 @@ bool PMDDisplayBoneNameCollection::readEnglishNames(std::istream& stream)
 
 bool PMDDisplayBoneNameCollection::writeEnglishNames(std::ostream& stream) const
 {
-	for (int i = 0; i < names.size(); ++i) {
+	for (size_t i = 0; i < names.size(); ++i) {
 		stream.write(englishNames[i].c_str(), sizeof(englishNames[i].c_str()));
 	}
 	return stream.good();
@@ -788,10 +802,10 @@ bool PMDDisplayBoneCollection::write(std::ostream& stream) const
 	return stream.good();
 }
 
-PMDFile::PMDFile(const PolygonObject& polygon)
+PMDFile::PMDFile(const VisualPolygon& polygon)
 {
-	vertices = PMDVertexCollection( polygon.getVertices() );
-	faces = PMDFaceCollection(polygon.getFaces());
+	vertices = PMDVertexCollection( polygon.getPolygon()->getVertices() );
+	faces = PMDFaceCollection(polygon.getPolygon()->getFaces());
 }
 
 
@@ -883,7 +897,10 @@ VisualPolygon PMDFile::toVisualPolygon() const
 {
 	auto p = toPolygonObject();
 	VisualPolygon visualPolygon(p);
-	//visualPolygon.setMaterial()
+	auto mm = materials.toMaterialMap();
+	for (const auto& m : mm) {
+		visualPolygon.setMaterial(m);
+	}
 	return visualPolygon;
 }
 

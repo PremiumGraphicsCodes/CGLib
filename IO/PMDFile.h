@@ -19,6 +19,7 @@ namespace Crystal {
 	namespace Graphics {
 		class VisualPolygon;
 		class Material;
+		class MaterialMap;
 	}
 	namespace IO {
 
@@ -119,6 +120,8 @@ public:
 
 	Graphics::Material toMaterial() const;
 
+	unsigned int getFaceVertexCount() const { return faceVertexCount; }
+
 private:
 	Graphics::ColorRGBA<float> diffuse;
 	float specularity;
@@ -129,12 +132,15 @@ private:
 	unsigned int faceVertexCount;
 	char textureFileName[20];
 };
+
 class PMDMaterialCollection
 {
 public:
 	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream) const;
+
+	std::vector<Graphics::MaterialMap> toMaterialMap() const;
 
 private:
 	std::vector<PMDMaterial> materials;
@@ -417,9 +423,9 @@ private:
 class PMDFile
 {
 public:
-	PMDFile() {};
+	PMDFile() = default;
 
-	PMDFile(const Polygon::PolygonObject& object);
+	PMDFile(const Graphics::VisualPolygon& object);
 
 	//void add(const Polygon::PolygonObject& object);
 

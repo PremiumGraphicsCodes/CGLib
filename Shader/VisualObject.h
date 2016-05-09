@@ -20,7 +20,6 @@ namespace Crystal {
 	}
 	namespace Shader {
 
-
 class VisualObject
 {
 public:

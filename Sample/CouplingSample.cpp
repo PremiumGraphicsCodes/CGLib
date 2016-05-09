@@ -248,7 +248,10 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		smoothRenderer.render(camera, triangleBuffer, light);
+		Material material;
+		material.setAmbient(ColorRGBA<float>(0.2, 0.2, 0.2, 0.0));
+
+		smoothRenderer.render(camera, triangleBuffer, light, material);
 
 		glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		fb.bind();
@@ -275,7 +278,10 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		smoothRenderer.render(camera, triangleBuffer, light);
+		Material material;
+		material.setAmbient(ColorRGBA<float>(0.2, 0.2, 0.2, 0.0));
+
+		smoothRenderer.render(camera, triangleBuffer, light, material);
 
 		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		delete p;
@@ -298,7 +304,9 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		smoothRenderer.render(camera, triangleBuffer, light);
+		Material material;
+		material.setAmbient(ColorRGBA<float>(0.2, 0.2, 0.2, 0.0));
+		smoothRenderer.render(camera, triangleBuffer, light, material);
 
 		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		delete p;

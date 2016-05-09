@@ -9,6 +9,7 @@
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/LineBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
+#include "../Graphics/Material.h"
 
 #include "../Polygon/PolygonObject.h"
 
@@ -41,5 +42,7 @@ void SmoothRendererSample::demonstrate(const int width, const int height, const 
 	polygon.add(box);
 	TriangleBuffer buffer;
 	buffer.add(polygon);
-	renderer.render(camera, buffer, light);
+	Material material;
+	material.setAmbient(ColorRGBA<float>(0.2, 0.2, 0.2, 0.0));
+	renderer.render(camera, buffer, light, material);
 }

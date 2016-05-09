@@ -14,6 +14,7 @@
 #include "../Shader/LegacyRenderer.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/PolygonObject.h"
+#include "../Graphics/Material.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/ColorHSV.h"
 
@@ -225,7 +226,9 @@ void DamBreakSample::demonstrate(const int width, const int height, const Crysta
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		smoothRenderer.render(camera, triangleBuffer, light);
+		Material material;
+		material.setAmbient(ColorRGBA<float>(0.2, 0.2, 0.2, 0.0));
+		smoothRenderer.render(camera, triangleBuffer, light, material);
 
 		glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		fb.bind();
@@ -248,7 +251,8 @@ void DamBreakSample::demonstrate(const int width, const int height, const Crysta
 		TriangleBuffer triangleBuffer;
 		triangleBuffer.add(*p);
 		//renderer.render(camera, lineBuffer);
-		smoothRenderer.render(camera, triangleBuffer, light);
+		Material material;
+		smoothRenderer.render(camera, triangleBuffer, light, material);
 
 		//glViewport(0, 0, fb.getWidth(), fb.getHeight());
 

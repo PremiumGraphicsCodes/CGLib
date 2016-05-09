@@ -2,18 +2,18 @@
 #define __CRYSTAL_GRAPHICS_VISUAL_POLYGON_H__
 
 #include <vector>
+#include "Material.h"
 
 namespace Crystal{
 	namespace Polygon {
 		class PolygonObject;
 	}
 	namespace Graphics {
-		class Material;
 
 class MaterialMap
 {
 public:
-	MaterialMap(Material* material, unsigned int startFaceIndex, unsigned int endFaceIndex) :
+	MaterialMap(Material material, unsigned int startFaceIndex, unsigned int endFaceIndex) :
 		material(material),
 		startFaceIndex(startFaceIndex),
 		endFaceIndex(endFaceIndex)
@@ -21,7 +21,7 @@ public:
 	}
 
 private:
-	Material* material;
+	Material material;
 	unsigned int startFaceIndex;
 	unsigned int endFaceIndex;
 };
@@ -35,6 +35,10 @@ public:
 	VisualPolygon(Polygon::PolygonObject* polygon);
 
 	void setMaterial(const MaterialMap& map) { this->materialMaps.push_back(map); }
+
+	Polygon::PolygonObject* getPolygon() const { return polygon; }
+
+	std::vector<MaterialMap> getMaterialMaps() const { return materialMaps; }
 
 private:
 	Polygon::PolygonObject* polygon;

@@ -12,6 +12,9 @@
 #include "IRenderer.h"
 
 namespace Crystal {
+	namespace Graphics {
+		class Material;
+	}
 	namespace Shader {
 
 class SmoothRenderer
@@ -24,7 +27,7 @@ public:
 
 	void findLocation();
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material);
 
 	bool build();
 

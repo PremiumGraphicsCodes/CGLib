@@ -1,4 +1,5 @@
 #include "SmoothRenderer.h"
+#include "../Graphics/Material.h"
 #include <sstream>
 
 using namespace Crystal::Graphics;
@@ -35,26 +36,27 @@ std::string SmoothRenderer::getBuildinVertexShaderSource() const
 std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec3 vColor;" << std::endl;
-	stream << "in vec3 vNormal;" << std::endl;
-	stream << "out vec4 fragColor;" << std::endl;
-	stream << "uniform vec3 lightPosition;" << std::endl;
-	stream << "uniform vec3 eyePosition;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "vec3 s = normalize(lightPosition - eyePosition);" << std::endl;
-	stream << "vec3 v = normalize(-eyePosition.xyz);" << std::endl;
-	stream << "vec3 n = vNormal;" << std::endl;
-	stream << "vec3 r = reflect(-s,n);" << std::endl;
-	stream << "vec3 color = vColor;" << std::endl;
-	stream << "vec3 diffuseColor = max(dot(s, n), 0.0) * vec3(0.0, 0.0, 1.0);" << std::endl;
-	stream << "float sDotN = max( dot(s, n), 0.0);" << std::endl;
-	stream << "vec3 specularColor = vec3(0.0, 0.0, 0.0);" << std::endl;
-	stream << "if( sDotN > 0.0)" << std::endl;
-	stream << " specularColor = vec3(1.0, 0.0, 0.0) * pow(max(dot(r,v), 0.0), 1.0);" << std::endl;
-	stream << "vec3 ambientColor = vec3(0.2, 0.2, 0.2);" << std::endl;
-	stream << "fragColor = vec4(color + diffuseColor + + specularColor + ambientColor, 1.0);" << std::endl;
-	stream << "}" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 vColor;" << std::endl
+		<< "in vec3 vNormal;" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "uniform vec3 lightPosition;" << std::endl
+		<< "uniform vec3 eyePosition;" << std::endl
+		<< "uniform vec3 ambientColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	vec3 s = normalize(lightPosition - eyePosition);" << std::endl
+		<< "	vec3 v = normalize(-eyePosition.xyz);" << std::endl
+		<< "	vec3 n = vNormal;" << std::endl
+		<< "	vec3 r = reflect(-s,n);" << std::endl
+		<< "	vec3 color = vColor;" << std::endl
+		<< "	vec3 diffuseColor = max(dot(s, n), 0.0) * vec3(0.0, 0.0, 1.0);" << std::endl
+		<< "	float sDotN = max( dot(s, n), 0.0);" << std::endl
+		<< "	vec3 specularColor = vec3(0.0, 0.0, 0.0);" << std::endl
+		<< "	if( sDotN > 0.0)" << std::endl
+		<< "		specularColor = vec3(1.0, 0.0, 0.0) * pow(max(dot(r,v), 0.0), 1.0);" << std::endl
+		<< "		fragColor = vec4(color + diffuseColor + + specularColor + ambientColor, 1.0);" << std::endl
+		<< "	}" << std::endl;
 	return stream.str();
 }
 
@@ -64,13 +66,14 @@ void SmoothRenderer::findLocation()
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("modelviewMatrix");
 	shader.findUniformLocation("eyePosition");
+	shader.findUniformLocation("ambientColor");
 
 	shader.findAttribLocation("position");
 	shader.findAttribLocation("normal");
 }
 
 
-void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const Material& material)
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
@@ -84,6 +87,7 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 	const auto& eyePos = camera.getPosition().toArray();
+	const auto& ambient = material.getAmbient().toArray3();
 
 	assert(GL_NO_ERROR == glGetError());
 
@@ -95,11 +99,12 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	glUniform3fv(lightLoc, 1, lightPos.data());
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
-	assert(GL_NO_ERROR == glGetError());
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
 	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
 	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, eyePos.data());
+	glUniform3fv(shader.getUniformLocation("ambientColor"), 1, ambient.data());
+
 	assert(GL_NO_ERROR == glGetError());
 
 	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
