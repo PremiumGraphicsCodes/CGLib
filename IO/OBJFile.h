@@ -84,7 +84,8 @@ public:
 		faces(faces)
 	{}
 
-	void add(const Polygon::PolygonObject& polygon);
+	bool read(std::istream& stream, bool hasTitle);
+
 
 	bool operator==(const OBJGroup& rhs) const {
 		return
@@ -99,40 +100,20 @@ public:
 
 	std::vector< OBJFace > getFaces() const { return faces; }
 
-	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
-
-	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
-
-	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
-
-	std::vector< Math::Vector3d<float> > getNormals() const { return this->normals; }
-
 	void setMtlLib(const OBJMTLLib& lib) { this->mtlLib = lib; }
 
-	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
-
-	std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoords; }
-
 	void setMaterials(const std::vector<std::string>& m) { this->materials = m; }
-
-	Math::Vector3d<float> readVertices(const std::string& str);
-
-	Math::Vector3d<float> readVector3d(const std::string& str);
 
 	//Math::Vector2d<float> readVector2d(const std::string& str);
 
 	OBJFace readFaces(const std::string& str);
 
-	Polygon::PolygonObject* toPolygonObject();
 
 private:
 	std::string name;
 	std::vector< OBJFace > faces;
 	std::vector< std::string > materials;
 	OBJMTLLib mtlLib;
-	std::vector< Math::Vector3d<float> > positions;
-	std::vector< Math::Vector3d<float> > normals;
-	std::vector< Math::Vector3d<float> > texCoords;
 };
 
 class OBJFile
@@ -146,6 +127,10 @@ public:
 		groups(groups)
 	{}
 
+	void setGroups(const std::vector<OBJGroup>& groups) { this->groups = groups; }
+
+	void add(const Polygon::PolygonObject& polygon);
+
 	std::string getComment() const { return comment; }
 
 	std::vector<OBJGroup> getGroups() const { return groups; }
@@ -158,10 +143,38 @@ public:
 
 	bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
 
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
+
+	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
+
+	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
+
+	std::vector< Math::Vector3d<float> > getNormals() const { return this->normals; }
+
+	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
+
+	std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoords; }
+
+	std::vector<Polygon::PolygonObject*> toPolygonObjects();
+
+
 private:
 	std::string comment;
 	std::vector<OBJGroup> groups;
 	std::string materialName;
+
+	std::vector< Math::Vector3d<float> > positions;
+	std::vector< Math::Vector3d<float> > normals;
+	std::vector< Math::Vector3d<float> > texCoords;
+
+
+	bool containsGroup(std::istream& stream) const;
+
+	Math::Vector3d<float> readVertices(const std::string& str);
+
+	Math::Vector3d<float> readVector3d(const std::string& str);
+
+
 };
 
 	}

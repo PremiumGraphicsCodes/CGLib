@@ -89,21 +89,28 @@ bool OBJMaterial::read(std::istream& stream)
 
 bool OBJMaterial::write(std::ostream& stream) const
 {
+	stream << "newmtl " << name << std::endl;
+
 	const ColorRGBA<float>& ambient = this->ambient;
 	char s[256];
 	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
+	stream << s << std::endl;
 
 	const ColorRGBA<float>& diffuse = this->getDiffuse();
 	sprintf(s, "Kd %.4lf %.4lf %.4lf", diffuse.getRed(), diffuse.getGreen(), diffuse.getBlue());
+	stream << s << std::endl;
 
 	const ColorRGBA<float>& specular = this->getSpecular();
 	sprintf(s, "Ks %.4lf %.4lf %.4lf", specular.getRed(), specular.getGreen(), specular.getBlue());
+	stream << s << std::endl;
 
 	const float shininess = this->getSpecularExponent();
 	sprintf(s, "Ns %.4lf", shininess);
+	stream << s << std::endl;
 
 	const float tr = this->getTransparent();
 	sprintf(s, "Tr %.4lf", tr);
+	stream << s << std::endl;
 
 	return true;
 }

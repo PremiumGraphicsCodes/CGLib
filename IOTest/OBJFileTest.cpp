@@ -17,19 +17,20 @@ TEST(OBJGroupTest, TestToPolygonObject)
 {
 	OBJFile file;
 	OBJGroup group;
-	group.setPositions({
+	file.setPositions({
 		Vector3d<float>(0.0, 0.0, 0.0),
 		Vector3d<float>(1.0, 0.0, 0.0),
 		Vector3d<float>(1.0, 1.0, 0.0)
 	});
-	group.setNormals({ Vector3d<float>(0.0, 0.0, 1.0) });
-	group.setTexCoords({ Vector3d<float>(-1.0, -1.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0) });
+	file.setNormals({ Vector3d<float>(0.0, 0.0, 1.0) });
+	file.setTexCoords({ Vector3d<float>(-1.0, -1.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0) });
 	OBJVertex v1{ 1, 1, 1 };
 	OBJVertex v2{ 2, 1, 1 };
 	OBJVertex v3{ 3, 1, 1 };
 	OBJFace face({ v1, v2, v3 });
 	group.setFaces({ face });
-	auto p = group.toPolygonObject();
+	file.setGroups({ group });
+	auto p = file.toPolygonObjects().front();
 	EXPECT_EQ(3, p->getPositions().size());
 	EXPECT_EQ(1, p->getFaces().size());
 	auto f = p->getFaces()[0];
@@ -48,11 +49,9 @@ TEST(OBJFileTest, TestReadVertices)
 	OBJFile file;
 	file.read(stream);
 
-	const auto actual = file.getGroups().front();
-
-	EXPECT_EQ( Vector3d<float>(0.1f, 0.2f, 0.3f), actual.getPositions()[0] );
-	EXPECT_EQ( Vector3d<float>(0.5f, 1.0f, 0.0f), actual.getTexCoords()[0] );
-	EXPECT_EQ( Vector3d<float>(1.0f, 0.0f, 0.0f), actual.getNormals()[0] );
+	EXPECT_EQ( Vector3d<float>(0.1f, 0.2f, 0.3f), file.getPositions()[0] );
+	EXPECT_EQ( Vector3d<float>(0.5f, 1.0f, 0.0f), file.getTexCoords()[0] );
+	EXPECT_EQ( Vector3d<float>(1.0f, 0.0f, 0.0f), file.getNormals()[0] );
 }
 
 TEST(OBJFileTest, TestReadFaces)
@@ -121,10 +120,6 @@ TEST(OBJFileTest, TestReadSquare)
 		Vector3d<float>(2.0, 0.0, 0.0),
 		Vector3d<float>(2.0, 2.0, 0.0)
 	};
-	OBJGroup group;
-	group.setPositions( positions );
-	OBJFace face({ 1, 2, 3, 4 });
-	group.setFaces({ face });
 	//expected.setGroups({ group });
 	//EXPECT_EQ( expected, actual );
 }
@@ -140,7 +135,7 @@ TEST(OBJFileTest, TestReadGroup )
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(3, file.getGroups().size() );
+	EXPECT_EQ(2, file.getGroups().size() );
 
 	/*
 	std::vector< OBJGroup > expected = {
@@ -259,7 +254,7 @@ TEST(OBJFileTest, TestExampleCube)
 	OBJFile file;
 	file.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
-	EXPECT_EQ(8, file.getGroups().front().getPositions().size());
+	EXPECT_EQ(8, file.getPositions().size());
 	EXPECT_EQ(6, file.getGroups().front().getFaces().size());
 }
 
@@ -313,7 +308,7 @@ TEST(OBJFileTest, TestExampleGroups)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ( 7, file.getGroups().size() );
+	EXPECT_EQ( 6, file.getGroups().size() );
 }
 
 TEST(OBJFileTest, TestExampleSmoothingGroup)
@@ -335,8 +330,8 @@ TEST(OBJFileTest, TestExampleSmoothingGroup)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(2, file.getGroups().size());
-	EXPECT_EQ(6, file.getGroups().front().getPositions().size());
+	EXPECT_EQ(1, file.getGroups().size());
+	EXPECT_EQ(6, file.getPositions().size());
 	EXPECT_EQ(2, file.getGroups().back().getFaces().size());
 }
 
@@ -361,6 +356,6 @@ TEST(OBJFileTest, TestExampleTextureMappedSquare)
 	OBJFile file;
 	file.read(stream);
 	EXPECT_EQ(1, file.getGroups().size());
-	EXPECT_EQ(4, file.getGroups().front().getPositions().size());
-	EXPECT_EQ(4, file.getGroups().front().getTexCoords().size());
+	EXPECT_EQ(4, file.getPositions().size());
+	EXPECT_EQ(4, file.getTexCoords().size());
 }
