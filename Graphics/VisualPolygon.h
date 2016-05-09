@@ -20,6 +20,12 @@ public:
 	{
 	}
 
+	Material getMaterial() const { return material; }
+
+	unsigned int getStartFaceIndex() const { return startFaceIndex; }
+
+	unsigned int getEndFaceIndex() const { return endFaceIndex; }
+
 private:
 	Material material;
 	unsigned int startFaceIndex;
@@ -32,7 +38,7 @@ class VisualPolygon
 public:
 	VisualPolygon() = default;
 
-	VisualPolygon(Polygon::PolygonObject* polygon);
+	explicit VisualPolygon(Polygon::PolygonObject* polygon);
 
 	void setMaterial(const MaterialMap& map) { this->materialMaps.push_back(map); }
 

@@ -166,6 +166,7 @@
     <ClCompile Include="QuadRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
+    <ClCompile Include="ShaderPolygon.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="SSAbsorptionRenderer.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="QuadRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderObject.h" />
+    <ClInclude Include="ShaderPolygon.h" />
     <ClInclude Include="SkyBoxRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="SSAbsorptionRenderer.h" />

@@ -59,3 +59,11 @@ void TriangleBuffer::clear()
 	idColors.clear();
 }
 
+std::vector<unsigned int> TriangleBuffer::getIndices(const unsigned int startIndex, const unsigned int endIndex) const
+{
+	std::vector<unsigned int> results;
+	for (unsigned int i = startIndex; i < endIndex; ++i) {
+		results.push_back(indices[i]);
+	}
+	return results;
+}

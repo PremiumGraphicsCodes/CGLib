@@ -1,5 +1,6 @@
 #include "SmoothRenderer.h"
 #include "../Graphics/Material.h"
+#include "../Graphics/VisualPolygon.h"
 #include <sstream>
 
 using namespace Crystal::Graphics;
@@ -53,10 +54,11 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 		<< "	vec3 diffuseColor = max(dot(s, n), 0.0) * vec3(0.0, 0.0, 1.0);" << std::endl
 		<< "	float sDotN = max( dot(s, n), 0.0);" << std::endl
 		<< "	vec3 specularColor = vec3(0.0, 0.0, 0.0);" << std::endl
-		<< "	if( sDotN > 0.0)" << std::endl
+		<< "	if( sDotN > 0.0) {" << std::endl
 		<< "		specularColor = vec3(1.0, 0.0, 0.0) * pow(max(dot(r,v), 0.0), 1.0);" << std::endl
-		<< "		fragColor = vec4(color + diffuseColor + + specularColor + ambientColor, 1.0);" << std::endl
-		<< "	}" << std::endl;
+		<< "	}" << std::endl
+		<< "	fragColor = vec4(color + diffuseColor + specularColor + ambientColor, 1.0);" << std::endl
+		<< "}" << std::endl;
 	return stream.str();
 }
 
@@ -67,6 +69,8 @@ void SmoothRenderer::findLocation()
 	shader.findUniformLocation("modelviewMatrix");
 	shader.findUniformLocation("eyePosition");
 	shader.findUniformLocation("ambientColor");
+	shader.findUniformLocation("lightPosition");
+
 
 	shader.findAttribLocation("position");
 	shader.findAttribLocation("normal");
@@ -120,6 +124,69 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
+
+	glUseProgram(0);
+
+	const GLenum error = glGetError();
+	assert(GL_NO_ERROR == error);
+
+	glDisable(GL_DEPTH_TEST);
+}
+
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const std::vector<MaterialMap>& materials)
+{
+	const auto& positions = buffer.getPositions().get();// buffers[0].get();
+	const auto& normals = buffer.getNormals().get();//buffers[1].get();
+	if (positions.empty()) {
+		return;
+	}
+
+	glEnable(GL_DEPTH_TEST);
+
+	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
+	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
+	const auto& eyePos = camera.getPosition().toArray();
+
+	assert(GL_NO_ERROR == glGetError());
+
+	glUseProgram(shader.getId());
+
+	const auto& lightPos = light.getPos().toArray();//{ -10.0f, 10.0f, 10.0f };
+
+	const auto lightLoc = glGetUniformLocation(shader.getId(), "lightPosition");
+	glUniform3fv(lightLoc, 1, lightPos.data());
+
+	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+
+	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
+	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
+	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, eyePos.data());
+
+	assert(GL_NO_ERROR == glGetError());
+
+	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
+	//glVertexAttribPointer(location.)
+	assert(GL_NO_ERROR == glGetError());
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	assert(GL_NO_ERROR == glGetError());
+
+	for (auto& m : materials) {
+		const auto indices = buffer.getIndices(m.getStartFaceIndex(), m.getEndFaceIndex());
+		const auto& ambient = m.getMaterial().getAmbient().toArray3();
+
+		glUniform3fv(shader.getUniformLocation("ambientColor"), 1, ambient.data());
+
+
+		//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	}
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
