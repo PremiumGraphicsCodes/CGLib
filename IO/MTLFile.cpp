@@ -61,28 +61,28 @@ bool MTLFile::read(std::istream& stream)
 			
 			MTL mtl;
 			mtl.setName( materialName );
-			mtls.push_back( mtl );
+			materials.push_back( mtl );
 		}
 		else if( header == "Ka" ) {
-			mtls.back().setAmbient( Helper::readColorRGB(stream) );
+			materials.back().setAmbient( Helper::readColorRGB(stream) );
 
 		}
 		else if( header == "Kd" ) {
-			mtls.back().setDiffuse( Helper::readColorRGB(stream) );
+			materials.back().setDiffuse( Helper::readColorRGB(stream) );
 		}
 		else if( header == "Ks" ) {
-			mtls.back().setSpecular( Helper::readColorRGB(stream) );
+			materials.back().setSpecular( Helper::readColorRGB(stream) );
 		}
 		else if( header == "Ns") {
 			const float ns = Helper::read< float >( stream );
-			mtls.back().setSpecularExponent(ns);
+			materials.back().setSpecularExponent(ns);
 		}
 		else if (header == "d" || header == "Tr") {
 			const float d = Helper::read<float>(stream);
-			mtls.back().setTransparent(d);
+			materials.back().setTransparent(d);
 		}
 		else if( header == "map_Ka" ) {
-			mtls.back().setAmbientTextureName( Helper::read< std::string >(stream) );
+			materials.back().setAmbientTextureName( Helper::read< std::string >(stream) );
 		}
 		else if( header == "map_Kd" ) {
 			str = Helper::read< std::string >(stream);
@@ -94,11 +94,11 @@ bool MTLFile::read(std::istream& stream)
 				Helper::readVector(stream);
 				str = Helper::read< std::string >(stream);
 			}
-			mtls.back().setDiffuseTextureName( str );
+			materials.back().setDiffuseTextureName( str );
 		}
 		else if( header == "map_Ks" ) {
 			const std::string& filename = Helper::read< std::string >(stream);
-			mtls.back().setShininessTextureName( filename );
+			materials.back().setShininessTextureName( filename );
 		}
 		else if( header == "map_Ns" ) {
 			const std::string& filename = Helper::read< std::string >(stream);
@@ -107,15 +107,15 @@ bool MTLFile::read(std::istream& stream)
 			const std::string& filename = Helper::read< std::string >(stream);
 		}
 		else if ( header == "map_bump" || header == "bump" ) {
-			mtls.back().setBumpTextureName( Helper::read< std::string >(stream) );
+			materials.back().setBumpTextureName( Helper::read< std::string >(stream) );
 		}
 		else if (header == "illum") {
 			const int i = Helper::read< int >(stream);
-			mtls.back().setIllumination( MTL::Illumination(i));
+			materials.back().setIllumination( MTL::Illumination(i));
 		}
 		else if (header == "Ni") {
 			const float d = Helper::read<float>(stream);
-			mtls.back().setOpticalDensity( d );
+			materials.back().setOpticalDensity( d );
 		}
 
 		stream >> header;
@@ -216,7 +216,7 @@ Material MTL::toMaterial() const
 	return m;
 }
 
-bool MTLFileWriter::save(const std::string& filename, const Material& m)
+bool MTLFile::write(const std::string& filename)
 {
 	std::ofstream stream(filename.c_str());
 
@@ -224,36 +224,39 @@ bool MTLFileWriter::save(const std::string& filename, const Material& m)
 		return false;
 	}
 
-	return save(stream, m);
+	return write(stream);
 }
 
-bool MTLFileWriter::save(std::ostream& stream, const Material& m)
+bool MTLFile::write(std::ostream& stream)
+{
+	for (const auto& m : materials) {
+		m.write(stream);
+	}
+	return true;
+}
+
+bool MTL::write(std::ostream& stream) const
 {
 
 	//stream << "# Exported from CGStudio" << std::endl;
 
 	//strs.push_back( "newmtl " + m->getName());
 
-	const ColorRGBA<float>& ambient = m.getAmbient();
+	const ColorRGBA<float>& ambient = this->ambient;
 	char s[256];
 	sprintf(s, "Ka %.4lf %.4lf %.4lf", ambient.getRed(), ambient.getGreen(), ambient.getBlue());
-	strs.push_back(s);
 
-	const ColorRGBA<float>& diffuse = m.getDiffuse();
+	const ColorRGBA<float>& diffuse = this->getDiffuse();
 	sprintf(s, "Kd %.4lf %.4lf %.4lf", diffuse.getRed(), diffuse.getGreen(), diffuse.getBlue());
-	strs.push_back(s);
 
-	const ColorRGBA<float>& specular = m.getSpecular();
+	const ColorRGBA<float>& specular = this->getSpecular();
 	sprintf(s, "Ks %.4lf %.4lf %.4lf", specular.getRed(), specular.getGreen(), specular.getBlue());
-	strs.push_back(s);
 
-	const float shininess = m.getShininess();
+	const float shininess = this->getSpecularExponent();
 	sprintf(s, "Ns %.4lf", shininess);
-	strs.push_back(s);
 
-	const float tr = m.getTransparent();
+	const float tr = this->getTransparent();
 	sprintf(s, "Tr %.4lf", tr);
-	strs.push_back(s);
 
 	//for (const Material* m : file.getMaterials()) {
 		//	stream << std::endl;
@@ -285,9 +288,5 @@ bool MTLFileWriter::save(std::ostream& stream, const Material& m)
 		//	*/
 		//}
 
-
-	for (const std::string& str : strs) {
-		stream << str << std::endl;
-	}
 	return true;
 }

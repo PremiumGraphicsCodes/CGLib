@@ -112,6 +112,8 @@ struct MTL {
 		illumination = Illumination::COLOR_ON_AND_AMBIENT_OFF;
 	}
 
+	bool write(std::ostream& stream) const;
+
 	void setName(const std::string& name) { this->name = name; }
 
 	std::string getName() const { return name; }
@@ -194,13 +196,16 @@ private:
 	float opticalDensity;
 };
 
-class MTLFile {
+class MTLFile
+{
 public:
-
 	bool read(const std::string& filename);
 
 	bool read(std::istream& stream);
 
+	bool write(const std::string& filename);
+
+	bool write(std::ostream& stream);
 
 	static MTLTextureOption getTextureOptions(const std::string& str);
 
@@ -220,23 +225,10 @@ public:
 		}
 	}
 
-	std::vector<MTL> mtls;
+	std::vector<MTL> materials;
 	MTLTextureOption option;
 };
 
-
-class MTLFileWriter
-{
-public:
-	bool save(const std::string& filename, const Graphics::Material& m);
-
-	bool save(std::ostream& stream, const Graphics::Material& m);
-
-	std::vector< std::string > getStrs() const { return strs; }
-
-private:
-	std::vector< std::string > strs;
-};
 
 	}
 }

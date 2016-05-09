@@ -10,7 +10,6 @@
 #include "../IO/File.h"
 
 #include "OBJVertex.h"
-#include "OBJFace.h"
 
 #include <fstream>
 #include <string>
@@ -47,6 +46,27 @@ public:
 private:
 	std::string name;
 	std::vector< std::string > materials;
+};
+
+struct OBJFace
+{
+	OBJFace()
+	{}
+
+	OBJFace(const std::vector<OBJVertex>& vertices) :
+		vertices(vertices)
+	{}
+
+	bool operator==(const OBJFace& rhs) const {
+		return vertices == rhs.vertices;
+	}
+
+	std::vector<OBJVertex> getVertices() const { return vertices; }
+
+	std::string usemtlname;
+
+private:
+	std::vector<OBJVertex> vertices;
 };
 
 
