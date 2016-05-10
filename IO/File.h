@@ -12,6 +12,8 @@ public:
 	explicit File(const std::string& fullpath) : fullpath(fullpath)
 	{}
 
+	std::string getFolerPath() const;
+
 	std::string getFileName() const;
 
 	std::string getExtension() const;
