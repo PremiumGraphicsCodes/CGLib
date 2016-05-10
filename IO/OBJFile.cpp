@@ -94,14 +94,7 @@ PolygonObject* OBJFile::toPolygonObject()
 		}
 
 		currentIndex += count;
-		if (count == 3) {
-			polygon->createFaces({ vv[0], vv[1], vv[2] });
-		}
-		else if (count == 4) {
-			polygon->createFaces({ vv[0], vv[1], vv[2] });
-			polygon->createFaces({ vv[2], vv[3], vv[0] });
-		}
-		//polygon->createFaces(vv);
+		polygon->createFaces(vv);
 	}
 	return polygon;
 }
@@ -311,7 +304,7 @@ VisualPolygon OBJFile::load(const File& file)
 				continue;
 			}
 			auto mat = mtlFile.find(n.first).toMaterial();
-			auto count = 6;// n.second;
+			auto count =  (n.second - 2) *3;
 			auto endIndex = startIndex + count;
 			MaterialMap mm(mat, startIndex, endIndex);
 			visualPolygon.setMaterial(mm);
