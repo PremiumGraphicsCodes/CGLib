@@ -118,11 +118,13 @@ public:
 
 	Polygon::PolygonObject* toPolygonObject();
 
-	std::map<std::string, unsigned int > getGroups() const { return groupMap; }
+	std::vector< std::pair< std::string, unsigned int > > getGroups() const { return groups; }
 
-	std::map<std::string, unsigned int > getMaterials() const { return materialMap; }
+	std::vector< std::string > getMaterialFiles() const { return mtllibs; }
 
-	std::vector<std::string> getMTLLibs() const { return mtllibs; }
+	std::vector< std::pair< std::string, unsigned int > > getMaterials() const { return useMtlNames; }
+
+	bool load(const IO::File& file);
 
 	//OBJMaterialCollection getMaterials() const { return materialMap; }
 
@@ -143,9 +145,9 @@ private:
 
 	//unsigned int readFaces(const std::string& str);
 
-	std::map<std::string, unsigned int > groupMap;
-	std::map<std::string, unsigned int > materialMap;
-	std::vector<std::string> mtllibs;
+	std::vector< std::pair< std::string, unsigned int > > groups;
+	std::vector< std::string > mtllibs;
+	std::vector< std::pair< std::string, unsigned int> > useMtlNames;
 	//OBJMaterialCollection materialMap;
 
 };

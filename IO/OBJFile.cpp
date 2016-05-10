@@ -83,14 +83,14 @@ void OBJFile::add(const PolygonObject& polygon)
 PolygonObject* OBJFile::toPolygonObject()
 {
 	PolygonObject* polygon = new PolygonObject();
-	std::vector<Vertex*> vv;
 	unsigned int currentIndex = 0;
 	for(const auto count : faceCounts) {
+		std::vector<Vertex*> vv;
 		for (unsigned int i = 0; i < count; ++i) {
-			const auto position = positions[ count + i ];
-			const auto normal = normals[ count + i ];
-			const auto texCoord = texCoords[ count + i ];
-			polygon->createVertex(position, normal, texCoord);
+			const auto position = positions[ currentIndex + i ];
+			const auto normal = normals[ currentIndex + i ];
+			const auto texCoord = texCoords[ currentIndex + i ];
+			vv.push_back( polygon->createVertex(position, normal, texCoord) );
 		}
 		currentIndex += count;
 		polygon->createFaces(vv);
@@ -116,9 +116,10 @@ bool OBJFile::read(std::istream& stream)
 	std::string str;
 
 	std::string header;
-	std::string currentGroupName;
+	std::pair< std::string, unsigned int > currentGroup;
 	std::string currentMtllibName;
-	std::string currentUseMtlName;
+	std::pair< std::string, unsigned int > currentUseMtl;
+
 
 	std::vector< Math::Vector3d<float> > positionBuffer;
 	std::vector< Math::Vector3d<float> > texCoordBuffer;
@@ -146,7 +147,9 @@ bool OBJFile::read(std::istream& stream)
 			mtllibs.push_back(currentMtllibName);
 		}
 		else if (header == "usemtl") {
-			currentUseMtlName = Helper::read<std::string>(stream);
+			useMtlNames.push_back(currentUseMtl);
+			currentUseMtl.first = Helper::read<std::string>(stream);
+			currentUseMtl.second = 0;
 			//mtllibMap.insert(std::make_pair(currentMtllibName, currentUseMtlName));
 		}
 		else if (header == "f") {
@@ -187,12 +190,14 @@ bool OBJFile::read(std::istream& stream)
 
 			const auto count = strs.size();
 			faceCounts.push_back( count );
-			groupMap[currentGroupName] += count;
+			currentGroup.second += count;
 			//groupMap.insert(std::make_pair(currentGroupName, f));
-			materialMap[currentUseMtlName] += count;
+			currentUseMtl.second += count;
 		}
 		else if (header == "g") {
-			currentGroupName = Helper::read<std::string>(stream);
+			groups.push_back(currentGroup);
+			currentGroup.first = Helper::read<std::string>(stream);
+			currentGroup.second = 0;
 		}
 
 		header = Helper::read< std::string >(stream);
@@ -278,4 +283,23 @@ bool OBJFile::write(std::ostream& stream, const PolygonObject& mesh)
 			<< i3 << "/" << "/" << i3 << std::endl;
 	}
 	return stream.good();
+}
+
+#include "../Graphics/VisualPolygon.h"
+
+bool OBJFile::load(const File& file)
+{
+	read(file);
+	auto polygon = toPolygonObject();
+	auto visualPolygon = VisualPolygon(polygon);
+	for (auto lib : mtllibs) {
+		std::string mtlFileName = file.getFolerPath() + lib;
+		MTLFile mtlFile;
+		mtlFile.read(mtlFileName);
+
+		for (auto& n : useMtlNames) {
+			auto count = n.second;
+		}
+	}
+	return false;
 }

@@ -21,9 +21,6 @@
     <ClCompile Include="PMMFile.cpp">
       <Filter>PMD</Filter>
     </ClCompile>
-    <ClCompile Include="OBJFileLoader.cpp">
-      <Filter>OBJ</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />
@@ -46,9 +43,6 @@
     </ClInclude>
     <ClInclude Include="VMDFile.h">
       <Filter>PMD</Filter>
-    </ClInclude>
-    <ClInclude Include="OBJFileLoader.h">
-      <Filter>OBJ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,6 @@
     <ClCompile Include="File.cpp" />
     <ClCompile Include="MTLFile.cpp" />
     <ClCompile Include="OBJFile.cpp" />
-    <ClCompile Include="OBJFileLoader.cpp" />
     <ClCompile Include="PLYFile.cpp" />
     <ClCompile Include="PMDFile.cpp" />
     <ClCompile Include="PMMFile.cpp" />
@@ -37,7 +36,6 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
-    <ClInclude Include="OBJFileLoader.h" />
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="PMDFile.h" />
     <ClInclude Include="PMMFile.h" />
