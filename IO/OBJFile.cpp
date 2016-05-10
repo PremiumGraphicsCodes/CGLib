@@ -20,46 +20,8 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-bool OBJGroup::read(std::istream& stream, bool hasTitle)
-{
-	std::string header;
-	std::string str;
 
-	if (hasTitle) {
-		header = Helper::read< std::string >(stream);
-		//assert(header == 'g');
-		std::getline(stream, str);
-		header = Helper::read< std::string >(stream);
-
-	}
-
-	while (!stream.eof()) {
-
-		if (header == "#") {
-			std::getline(stream, str);
-			//header = read< std::string >();
-		}
-		else if (header == "f") {
-			std::getline(stream, str);
-			faces.push_back(readFaces(str));
-		}
-		else if (header == "usemtl") {
-			std::getline(stream, str);
-			//OBJMaterial material(str);
-			const std::string name = str;
-			materials.push_back(name);
-			std::string useMtlName = name;
-		}
-		else if (header == "g") {
-			return true;
-		}
-		header = Helper::read< std::string >(stream);
-
-	}
-	return true;
-}
-
-OBJFace OBJGroup::readFaces(const std::string& str)
+OBJFace OBJFile::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
@@ -98,7 +60,6 @@ void OBJFile::add(const PolygonObject& polygon)
 		texCoords.push_back(v->getTexCoord());
 	}
 	const auto& faces = polygon.getFaces();
-	std::vector<OBJFace> objFaces;
 	for (const auto& f : faces) {
 		std::vector<OBJVertex> vs;
 		const auto index1 = f->getV1()->getId();
@@ -108,33 +69,25 @@ void OBJFile::add(const PolygonObject& polygon)
 		OBJVertex v2(index2, index2, index2);
 		OBJVertex v3(index3, index3, index3);
 		OBJFace face({ v1, v2, v3 });
-		objFaces.push_back(face);
+		this->faces.push_back(face);
 	}
-	OBJGroup group;
-	group.setFaces(objFaces);
-	groups.push_back(group);
 }
 
-std::vector<PolygonObject*> OBJFile::toPolygonObjects()
+PolygonObject* OBJFile::toPolygonObject()
 {
-	std::vector<PolygonObject*> polygons;
-	for (auto& g : groups) {
-		PolygonObject* polygon = new PolygonObject();
-		for (auto f : g.getFaces()) {
-			auto vs = f.getVertices();
-			std::vector<Vertex*> vv;
-			for (const auto v : vs) {
-				const auto& position = positions[v.positionIndex - 1];
-				const auto& normal = normals[v.normalIndex - 1];
-				const auto& texCoord = texCoords[v.texIndex - 1];
-				auto v = polygon->createVertex(position, normal, texCoord);
-				vv.push_back(v);
-			}
-			polygon->createFaces(vv);
+	PolygonObject* polygon = new PolygonObject();
+	std::vector<Vertex*> vv;
+	for(auto f : faces) {
+		for (const auto v : f.getVertices()) {
+			const auto& position = positions[v.positionIndex - 1];
+			const auto& normal = normals[v.normalIndex - 1];
+			const auto& texCoord = texCoords[v.texIndex - 1];
+			auto v = polygon->createVertex(position, normal, texCoord);
+			vv.push_back(v);
 		}
-		polygons.push_back(polygon);
+		polygon->createFaces(vv);
 	}
-	return polygons;
+	return polygon;
 }
 
 bool OBJFile::read(const File& file)
@@ -155,9 +108,9 @@ bool OBJFile::read(std::istream& stream)
 	std::string str;
 
 	std::string header;
+	std::string currentGroupName;
 
 	while (!stream.eof()) {
-
 		if (header == "#") {
 			std::getline(stream, str);
 			//header = read< std::string >();
@@ -174,27 +127,22 @@ bool OBJFile::read(std::istream& stream)
 			std::getline(stream, str);
 			normals.push_back(readVector3d(str));
 		}
-		header = Helper::read< std::string >(stream);
-	}
-
-	stream.clear();
-	stream.seekg(0, std::ios::beg);
-
-	if (containsGroup(stream)) {
-		//stream.clear();
-		//stream.seekg(0, std::ios::beg);
-		while(!stream.eof()) {
-			OBJGroup group;
-			group.read(stream, true);
-			groups.push_back(group);
+		else if (header == "usemtl") {
+			std::getline(stream, str);
+			//OBJMaterial material(str);
+			const std::string name = str;
+			//materials.push_back(name);
+			std::string useMtlName = name;
 		}
-	}
-	else {
-		stream.clear();
-		stream.seekg(0, std::ios::beg);
-		OBJGroup group;
-		group.read(stream, false);
-		groups.push_back(group);
+		else if (header == "f") {
+			std::getline(stream, str);
+			faces.push_back( readFaces(str) );
+		}
+		else if (header == "g") {
+			currentGroupName = Helper::read<std::string>(stream);
+		}
+
+		header = Helper::read< std::string >(stream);
 	}
 	return stream.good();
 }
@@ -277,16 +225,4 @@ bool OBJFile::write(std::ostream& stream, const PolygonObject& mesh)
 			<< i3 << "/" << "/" << i3 << std::endl;
 	}
 	return stream.good();
-}
-
-bool OBJFile::containsGroup(std::istream& stream) const
-{
-	while (!stream.eof()) {
-		std::string str;
-		std::getline(stream, str);
-		if (!str.empty() && str.front() == 'g') {
-			return true;
-		}
-	}
-	return false;
 }
