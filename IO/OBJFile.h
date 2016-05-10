@@ -14,6 +14,9 @@
 #include <vector>
 
 namespace Crystal {
+	namespace Graphics {
+		class VisualPolygon;
+	}
 	namespace IO {
 
 		/*
@@ -124,7 +127,7 @@ public:
 
 	std::vector< std::pair< std::string, unsigned int > > getMaterials() const { return useMtlNames; }
 
-	bool load(const IO::File& file);
+	Graphics::VisualPolygon load(const IO::File& file);
 
 	//OBJMaterialCollection getMaterials() const { return materialMap; }
 

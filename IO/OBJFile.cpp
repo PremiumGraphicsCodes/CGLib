@@ -87,13 +87,21 @@ PolygonObject* OBJFile::toPolygonObject()
 	for(const auto count : faceCounts) {
 		std::vector<Vertex*> vv;
 		for (unsigned int i = 0; i < count; ++i) {
-			const auto position = positions[ currentIndex + i ];
-			const auto normal = normals[ currentIndex + i ];
-			const auto texCoord = texCoords[ currentIndex + i ];
-			vv.push_back( polygon->createVertex(position, normal, texCoord) );
+			const auto position = positions[currentIndex + i];
+			const auto normal = normals[currentIndex + i];
+			const auto texCoord = texCoords[currentIndex + i];
+			vv.push_back(polygon->createVertex(position, normal, texCoord));
 		}
+
 		currentIndex += count;
-		polygon->createFaces(vv);
+		if (count == 3) {
+			polygon->createFaces({ vv[0], vv[1], vv[2] });
+		}
+		else if (count == 4) {
+			polygon->createFaces({ vv[0], vv[1], vv[2] });
+			polygon->createFaces({ vv[2], vv[3], vv[0] });
+		}
+		//polygon->createFaces(vv);
 	}
 	return polygon;
 }
@@ -287,7 +295,7 @@ bool OBJFile::write(std::ostream& stream, const PolygonObject& mesh)
 
 #include "../Graphics/VisualPolygon.h"
 
-bool OBJFile::load(const File& file)
+VisualPolygon OBJFile::load(const File& file)
 {
 	read(file);
 	auto polygon = toPolygonObject();
@@ -297,9 +305,18 @@ bool OBJFile::load(const File& file)
 		MTLFile mtlFile;
 		mtlFile.read(mtlFileName);
 
+		int startIndex = 0;
 		for (auto& n : useMtlNames) {
-			auto count = n.second;
+			if (n.first.empty()) {
+				continue;
+			}
+			auto mat = mtlFile.find(n.first).toMaterial();
+			auto count = 6;// n.second;
+			auto endIndex = startIndex + count;
+			MaterialMap mm(mat, startIndex, endIndex);
+			visualPolygon.setMaterial(mm);
+			startIndex += count;
 		}
 	}
-	return false;
+	return visualPolygon;
 }
