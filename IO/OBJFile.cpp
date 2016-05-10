@@ -32,9 +32,8 @@ VertexCollection OBJVertexCollection::toVertices() const
 		v.
 	}
 }
-*/
 
-unsigned int OBJFile::readFaces(const std::string& str)
+std::vector<OBJVertexIndex> OBJFile::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
@@ -60,8 +59,9 @@ unsigned int OBJFile::readFaces(const std::string& str)
 		}
 		vertices.push_back(vertex);
 	}
-	return strs.size();
+	return vertices;
 }
+*/
 
 void OBJFile::add(const PolygonObject& polygon)
 {
@@ -73,34 +73,29 @@ void OBJFile::add(const PolygonObject& polygon)
 	}
 	const auto& faces = polygon.getFaces();
 	for (const auto& f : faces) {
-		std::vector<OBJVertexIndex> vs;
 		const auto index1 = f->getV1()->getId();
 		const auto index2 = f->getV2()->getId();
 		const auto index3 = f->getV3()->getId();
-		//OBJFace face{ index1, index2, index3 };
-		//this->faces.push_back(face);
+		this->faceCounts.push_back(3);
 	}
 }
 
 PolygonObject* OBJFile::toPolygonObject()
 {
-	/*
 	PolygonObject* polygon = new PolygonObject();
 	std::vector<Vertex*> vv;
-	for(auto count : faceCounts) {
-		f
-		for (const auto v : f.getVertices()) {
-			const auto& position = vertices.positions[v.positionIndex - 1];
-			const auto& normal = vertices.normals[v.normalIndex - 1];
-			const auto& texCoord = vertices.texCoords[v.texIndex - 1];
-			auto v = polygon->createVertex(position, normal, texCoord);
-			vv.push_back(v);
+	unsigned int currentIndex = 0;
+	for(const auto count : faceCounts) {
+		for (unsigned int i = 0; i < count; ++i) {
+			const auto position = positions[ count + i ];
+			const auto normal = normals[ count + i ];
+			const auto texCoord = texCoords[ count + i ];
+			polygon->createVertex(position, normal, texCoord);
 		}
+		currentIndex += count;
 		polygon->createFaces(vv);
 	}
-	*/
-	//return polygon;
-	return nullptr;
+	return polygon;
 }
 
 bool OBJFile::read(const File& file)
@@ -125,6 +120,10 @@ bool OBJFile::read(std::istream& stream)
 	std::string currentMtllibName;
 	std::string currentUseMtlName;
 
+	std::vector< Math::Vector3d<float> > positionBuffer;
+	std::vector< Math::Vector3d<float> > texCoordBuffer;
+	std::vector< Math::Vector3d<float> > normalBuffer;
+
 	while (!stream.eof()) {
 		if (header == "#") {
 			std::getline(stream, str);
@@ -132,15 +131,15 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "v") {
 			std::getline(stream, str);
-			positions.push_back(readVertices(str));
+			positionBuffer.push_back(readVertices(str));
 		}
 		else if (header == "vt") {
 			std::getline(stream, str);
-			texCoords.push_back(readVector3d(str));
+			texCoordBuffer.push_back(readVector3d(str));
 		}
 		else if (header == "vn" || header == "-vn") {
 			std::getline(stream, str);
-			normals.push_back(readVector3d(str));
+			normalBuffer.push_back(readVector3d(str));
 		}
 		else if (header == "mtllib") {
 			currentMtllibName = Helper::read<std::string>(stream);
@@ -152,7 +151,41 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "f") {
 			std::getline(stream, str);
-			const auto count = readFaces(str);
+
+			std::vector< std::string >& strs = Helper::split(str, ' ');
+
+			//assert(strs.front() == "f");
+			for (unsigned int i = 0; i < strs.size(); ++i) {
+				if (strs[i].empty()) {
+					continue;
+				}
+				std::string::size_type pos(strs[i].find("//"));
+				if (pos != std::string::npos) {
+					strs[i].replace(pos, 2, "/ /");
+				}
+
+				std::vector<std::string>& splitted = Helper::split(strs[i], '/');
+				const int positionIndex = std::stoi(splitted[0]);
+				positions.push_back(positionBuffer[positionIndex-1]);
+
+				if (splitted.size() >= 2 && splitted[1] != " ") {
+					const int texIndex = std::stoi(splitted[1]);
+					texCoords.push_back(texCoordBuffer[texIndex-1]);
+				}
+				else {
+					texCoords.push_back(Vector3d<float>());
+				}
+
+				if (splitted.size() >= 3) {
+					const int normalIndex = std::stoi(splitted[2]);
+					normals.push_back(normalBuffer[normalIndex-1]);
+				}
+				else {
+					normals.push_back(Vector3d<float>());
+				}
+			}
+
+			const auto count = strs.size();
 			faceCounts.push_back( count );
 			groupMap[currentGroupName] += count;
 			//groupMap.insert(std::make_pair(currentGroupName, f));

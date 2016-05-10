@@ -16,6 +16,7 @@
 namespace Crystal {
 	namespace IO {
 
+		/*
 struct OBJVertexIndex
 {
 	OBJVertexIndex() :
@@ -51,7 +52,7 @@ struct OBJVertexIndex
 	int normalIndex;
 	int texIndex;
 };
-
+*/
 /*
 class OBJMaterialCollection
 {
@@ -135,13 +136,12 @@ private:
 	std::vector< Math::Vector3d<float> > texCoords;
 
 	std::vector< unsigned int > faceCounts;
-	std::vector<OBJVertexIndex> vertices;
 
 	Math::Vector3d<float> readVertices(const std::string& str);
 
 	Math::Vector3d<float> readVector3d(const std::string& str);
 
-	unsigned int readFaces(const std::string& str);
+	//unsigned int readFaces(const std::string& str);
 
 	std::map<std::string, unsigned int > groupMap;
 	std::map<std::string, unsigned int > materialMap;
