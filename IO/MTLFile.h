@@ -107,10 +107,7 @@ struct OBJMaterial {
 		CAST_SHADOWS_ONTO_INVISIBLE_SURFACES = 10,
 	};
 
-	OBJMaterial()
-	{
-		illumination = Illumination::COLOR_ON_AND_AMBIENT_OFF;
-	}
+	OBJMaterial();
 
 	bool read(std::istream& stream);
 

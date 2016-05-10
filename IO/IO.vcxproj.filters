@@ -31,9 +31,6 @@
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="POVFile.h" />
     <ClInclude Include="STLFile.h" />
-    <ClInclude Include="OBJVertex.h">
-      <Filter>OBJ</Filter>
-    </ClInclude>
     <ClInclude Include="OBJFile.h">
       <Filter>OBJ</Filter>
     </ClInclude>

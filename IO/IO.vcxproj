@@ -38,7 +38,6 @@
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="OBJFileLoader.h" />
-    <ClInclude Include="OBJVertex.h" />
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="PMDFile.h" />
     <ClInclude Include="PMMFile.h" />

@@ -17,6 +17,17 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
+OBJMaterial::OBJMaterial()
+{
+	ambient = Graphics::ColorRGBA<float>(0.0f, 0.0f, 0.0f, 0.0f);
+	diffuse = Graphics::ColorRGBA<float>(0.0f, 0.0f, 0.0f, 0.0f);
+	specular = Graphics::ColorRGBA<float>(0.0f, 0.0f, 0.0f, 0.0f);
+	float specularExponent = 0.0f;
+	float transparent = 0.0f;
+	float opticalDensity = 0.0f;
+
+	illumination = Illumination::COLOR_ON_AND_AMBIENT_OFF;
+}
 
 bool OBJMaterial::read(std::istream& stream)
 {
@@ -131,10 +142,11 @@ void MTLTextureOption::setDefault()
 bool MTLFile::read(const std::string& filename)
 {
 	std::ifstream stream;
-
 	stream.open(filename.c_str());
 
-	assert(stream.is_open());
+	if (!stream.is_open()) {
+		return false;
+	}
 
 	return read(stream);
 }
