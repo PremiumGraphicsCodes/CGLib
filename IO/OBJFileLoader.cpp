@@ -14,6 +14,7 @@ bool OBJFileLoader::load(const File& file)
 		MTLFile mtlFile;
 		mtlFile.read(mtlFileName);
 		mtlFiles.push_back(mtlFile);
+		/*
 		const auto materials = objFile.getMaterials();
 		const auto& names = materials.getNames();
 		for (auto& n : names) {
@@ -21,13 +22,11 @@ bool OBJFileLoader::load(const File& file)
 			faces.size();
 			auto mat = mtlFile.find(n);
 			auto mat2 = mat.toMaterial();
-			/*
 			MaterialMap mm();
 			visualPolygon.setMaterial()
 			for (auto& f : faces) {
 				f.
 			}
-			*/
 		}
 		/*
 		MaterialMap mm;

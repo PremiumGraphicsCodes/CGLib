@@ -52,42 +52,11 @@ struct OBJVertexIndex
 	int texIndex;
 };
 
-
-class OBJVertexCollection
-{
-public:
-	Polygon::VertexCollection toVertices() const;
-
-	std::vector< Math::Vector3d<float> > positions;
-	std::vector< Math::Vector3d<float> > normals;
-	std::vector< Math::Vector3d<float> > texCoords;
-
-};
-
-struct OBJFace
-{
-	OBJFace()
-	{}
-
-	OBJFace(const std::vector<OBJVertexIndex>& vertices) :
-		vertices(vertices)
-	{}
-
-	bool operator==(const OBJFace& rhs) const {
-		return vertices == rhs.vertices;
-	}
-
-	std::vector<OBJVertexIndex> getVertices() const { return vertices; }
-
-private:
-	std::vector<OBJVertexIndex> vertices;
-};
-
-
+/*
 class OBJMaterialCollection
 {
 public:
-	void add(const std::string& str, const OBJFace& face) {
+	void add(const std::string& str, const OBJ& face) {
 		map.insert(std::make_pair(str, face));
 	}
 
@@ -111,7 +80,7 @@ public:
 private:
 	std::multimap<std::string, OBJFace> map;
 };
-
+*/
 class OBJFile
 {
 public:
@@ -120,11 +89,11 @@ public:
 
 	void add(const Polygon::PolygonObject& polygon);
 
-	void setFaces(const std::vector<OBJFace>& faces) { this->faces = faces; }
-
-	std::vector<OBJFace> getFaces() const { return faces; }
-
 	std::string getComment() const { return comment; }
+
+	std::vector< unsigned int > getFaceCounts() { return faceCounts; }
+
+	void setFaceCounts(const std::vector< unsigned int >& counts) { faceCounts = counts; }
 
 	bool read(const File& filename);
 
@@ -134,44 +103,50 @@ public:
 
 	bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
 
-	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { vertices.positions = positions; }
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
-	std::vector< Math::Vector3d<float> > getPositions() const { return vertices.positions; }
+	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
 
-	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { vertices.normals = normals; }
+	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
 
-	std::vector< Math::Vector3d<float> > getNormals() const { return vertices.normals; }
+	std::vector< Math::Vector3d<float> > getNormals() const { return normals; }
 
-	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { vertices.texCoords = texCoords; }
+	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
 
-	std::vector< Math::Vector3d<float> > getTexCoords() const { return vertices.texCoords; }
+	std::vector< Math::Vector3d<float> > getTexCoords() const { return texCoords; }
 
 	Polygon::PolygonObject* toPolygonObject();
 
-	std::multimap<std::string, OBJFace> getGroups() const { return groupMap; }
+	std::map<std::string, unsigned int > getGroups() const { return groupMap; }
+
+	std::map<std::string, unsigned int > getMaterials() const { return materialMap; }
 
 	std::vector<std::string> getMTLLibs() const { return mtllibs; }
 
-	OBJMaterialCollection getMaterials() const { return materialMap; }
+	//OBJMaterialCollection getMaterials() const { return materialMap; }
 
 	//std::vector<OBJFace> getFaces(const std::string& str) 
 
 private:
 	std::string comment;
 
-	OBJVertexCollection vertices;
+	std::vector< Math::Vector3d<float> > positions;
+	std::vector< Math::Vector3d<float> > normals;
+	std::vector< Math::Vector3d<float> > texCoords;
 
-	std::vector<OBJFace> faces;
+	std::vector< unsigned int > faceCounts;
+	std::vector<OBJVertexIndex> vertices;
 
 	Math::Vector3d<float> readVertices(const std::string& str);
 
 	Math::Vector3d<float> readVector3d(const std::string& str);
 
-	OBJFace readFaces(const std::string& str);
+	unsigned int readFaces(const std::string& str);
 
-	std::multimap<std::string, OBJFace> groupMap;
+	std::map<std::string, unsigned int > groupMap;
+	std::map<std::string, unsigned int > materialMap;
 	std::vector<std::string> mtllibs;
-	OBJMaterialCollection materialMap;
+	//OBJMaterialCollection materialMap;
 
 };
 

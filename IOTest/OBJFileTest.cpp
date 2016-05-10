@@ -12,31 +12,6 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-
-TEST(OBJGroupTest, TestToPolygonObject)
-{
-	OBJFile file;
-	file.setPositions({
-		Vector3d<float>(0.0, 0.0, 0.0),
-		Vector3d<float>(1.0, 0.0, 0.0),
-		Vector3d<float>(1.0, 1.0, 0.0)
-	});
-	file.setNormals({ Vector3d<float>(0.0, 0.0, 1.0) });
-	file.setTexCoords({ Vector3d<float>(-1.0, -1.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0) });
-	OBJVertexIndex v1{ 1, 1, 1 };
-	OBJVertexIndex v2{ 2, 1, 1 };
-	OBJVertexIndex v3{ 3, 1, 1 };
-	OBJFace face({ v1, v2, v3 });
-	file.setFaces({ face });
-	auto p = file.toPolygonObject();
-	EXPECT_EQ(3, p->getPositions().size());
-	EXPECT_EQ(1, p->getFaces().size());
-	auto f = p->getFaces()[0];
-	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 0.0), f->getV1()->getPosition() );
-	EXPECT_EQ( Vector3d<float>(0.0, 0.0, 1.0), f->getV1()->getNormal() );
-	delete p;
-}
-
 TEST(OBJFileTest, TestReadVertices)
 {
 	std::stringstream stream;
@@ -131,10 +106,10 @@ TEST(OBJFileTest, TestReadGroup )
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(2, file.getFaces().size() );
+	EXPECT_EQ(2, file.getFaceCounts().size() );
 	EXPECT_EQ(2, file.getGroups().size());
-	EXPECT_EQ(4, file.getGroups().find("front")->second.getVertices().size());
-	EXPECT_EQ(4, file.getGroups().find("back")->second.getVertices().size());
+	//EXPECT_EQ(4, file.getGroups().find("front")->second.getVertices().size());
+	//EXPECT_EQ(4, file.getGroups().find("back")->second.getVertices().size());
 
 	/*
 	std::vector< OBJGroup > expected = {
@@ -157,11 +132,11 @@ TEST( OBJFileTest, TestReadUseMtl )
 	OBJFile file;
 	file.read(stream);
 
-	EXPECT_EQ(1, file.getFaces().size());
+	EXPECT_EQ(1, file.getFaceCounts().size());
 	EXPECT_EQ(1, file.getGroups().size());
 	EXPECT_EQ("master.mtl", file.getMTLLibs().front());
-	auto name = file.getMaterials().getNames().front();
-	EXPECT_EQ("wood", name);
+	//auto name = file.getMaterials().getNames().front();
+	//EXPECT_EQ("wood", name);
 }
 
 
@@ -248,7 +223,7 @@ TEST(OBJFileTest, TestExampleCube)
 	OBJFile file;
 	file.read(stream);
 	EXPECT_EQ(8, file.getPositions().size());
-	EXPECT_EQ(6, file.getFaces().size());
+	EXPECT_EQ(6, file.getFaceCounts().size());
 }
 
 TEST(OBJFileTest, TestNegativeReferenceNumber)
@@ -267,9 +242,8 @@ TEST(OBJFileTest, TestNegativeReferenceNumber)
 	//EXPECT_EQ(4, file.getGroups().front().getPositions().size());
 	//EXPECT_EQ(1, file.getGroups().front().getFaces().size());
 	//std::vector<int> expected{ -4, - 3, -2, -1 };
-	std::vector< OBJVertexIndex > expected{ -4, -3, -2, -1 };
-	auto actual = file.getFaces().front().getVertices();
-	EXPECT_EQ( expected, actual );
+	auto actual = file.getFaceCounts().front();
+	EXPECT_EQ( 4, actual );
 }
 
 TEST(OBJFileTest, TestExampleGroups)
@@ -301,7 +275,7 @@ TEST(OBJFileTest, TestExampleGroups)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ( 6, file.getFaces().size() );
+	EXPECT_EQ( 6, file.getFaceCounts().size() );
 }
 
 TEST(OBJFileTest, TestExampleSmoothingGroup)
@@ -323,7 +297,7 @@ TEST(OBJFileTest, TestExampleSmoothingGroup)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(2, file.getFaces().size());
+	EXPECT_EQ(2, file.getFaceCounts().size());
 	EXPECT_EQ(6, file.getPositions().size());
 }
 
@@ -347,7 +321,7 @@ TEST(OBJFileTest, TestExampleTextureMappedSquare)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(1, file.getFaces().size());
+	EXPECT_EQ(1, file.getFaceCounts().size());
 	EXPECT_EQ(4, file.getPositions().size());
 	EXPECT_EQ(4, file.getTexCoords().size());
 }

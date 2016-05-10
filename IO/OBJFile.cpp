@@ -34,13 +34,12 @@ VertexCollection OBJVertexCollection::toVertices() const
 }
 */
 
-OBJFace OBJFile::readFaces(const std::string& str)
+unsigned int OBJFile::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
 	OBJVertexIndex vertex;
 	//assert(strs.front() == "f");
-	std::vector<OBJVertexIndex> vertices;
 	for (unsigned int i = 0; i < strs.size(); ++i) {
 		if (strs[i].empty()) {
 			continue;
@@ -61,16 +60,16 @@ OBJFace OBJFile::readFaces(const std::string& str)
 		}
 		vertices.push_back(vertex);
 	}
-	return OBJFace( vertices );
+	return strs.size();
 }
 
 void OBJFile::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		this->vertices.positions.push_back(v->getPosition());
-		this->vertices.normals.push_back(v->getNormal());
-		this->vertices.texCoords.push_back(v->getTexCoord());
+		this->positions.push_back(v->getPosition());
+		this->normals.push_back(v->getNormal());
+		this->texCoords.push_back(v->getTexCoord());
 	}
 	const auto& faces = polygon.getFaces();
 	for (const auto& f : faces) {
@@ -78,19 +77,18 @@ void OBJFile::add(const PolygonObject& polygon)
 		const auto index1 = f->getV1()->getId();
 		const auto index2 = f->getV2()->getId();
 		const auto index3 = f->getV3()->getId();
-		OBJVertexIndex v1(index1, index1, index1);
-		OBJVertexIndex v2(index2, index2, index2);
-		OBJVertexIndex v3(index3, index3, index3);
-		OBJFace face({ v1, v2, v3 });
-		this->faces.push_back(face);
+		//OBJFace face{ index1, index2, index3 };
+		//this->faces.push_back(face);
 	}
 }
 
 PolygonObject* OBJFile::toPolygonObject()
 {
+	/*
 	PolygonObject* polygon = new PolygonObject();
 	std::vector<Vertex*> vv;
-	for(auto f : faces) {
+	for(auto count : faceCounts) {
+		f
 		for (const auto v : f.getVertices()) {
 			const auto& position = vertices.positions[v.positionIndex - 1];
 			const auto& normal = vertices.normals[v.normalIndex - 1];
@@ -100,7 +98,9 @@ PolygonObject* OBJFile::toPolygonObject()
 		}
 		polygon->createFaces(vv);
 	}
-	return polygon;
+	*/
+	//return polygon;
+	return nullptr;
 }
 
 bool OBJFile::read(const File& file)
@@ -132,15 +132,15 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "v") {
 			std::getline(stream, str);
-			vertices.positions.push_back(readVertices(str));
+			positions.push_back(readVertices(str));
 		}
 		else if (header == "vt") {
 			std::getline(stream, str);
-			vertices.texCoords.push_back(readVector3d(str));
+			texCoords.push_back(readVector3d(str));
 		}
 		else if (header == "vn" || header == "-vn") {
 			std::getline(stream, str);
-			vertices.normals.push_back(readVector3d(str));
+			normals.push_back(readVector3d(str));
 		}
 		else if (header == "mtllib") {
 			currentMtllibName = Helper::read<std::string>(stream);
@@ -152,10 +152,11 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "f") {
 			std::getline(stream, str);
-			const auto& f = readFaces(str);
-			faces.push_back( f );
-			groupMap.insert(std::make_pair(currentGroupName, f));
-			materialMap.add(currentUseMtlName, f);
+			const auto count = readFaces(str);
+			faceCounts.push_back( count );
+			groupMap[currentGroupName] += count;
+			//groupMap.insert(std::make_pair(currentGroupName, f));
+			materialMap[currentUseMtlName] += count;
 		}
 		else if (header == "g") {
 			currentGroupName = Helper::read<std::string>(stream);
