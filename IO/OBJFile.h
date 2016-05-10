@@ -77,7 +77,7 @@ public:
 
 	std::multimap<std::string, OBJFace> getGroups() const { return groupMap; }
 
-	std::multimap<std::string, std::string> getMTLLibs() const { return mtllibMap; }
+	std::vector<std::string> getMTLLibs() const { return mtllibs; }
 
 	std::multimap<std::string, OBJFace> getMaterials() const { return materialMap; }
 
@@ -96,7 +96,7 @@ private:
 	OBJFace readFaces(const std::string& str);
 
 	std::multimap<std::string, OBJFace> groupMap;
-	std::multimap<std::string, std::string> mtllibMap;
+	std::vector<std::string> mtllibs;
 	std::multimap<std::string, OBJFace> materialMap;
 
 };

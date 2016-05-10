@@ -131,11 +131,11 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "mtllib") {
 			currentMtllibName = Helper::read<std::string>(stream);
+			mtllibs.push_back(currentMtllibName);
 		}
-
 		else if (header == "usemtl") {
 			currentUseMtlName = Helper::read<std::string>(stream);
-			mtllibMap.insert(std::make_pair(currentMtllibName, currentUseMtlName));
+			//mtllibMap.insert(std::make_pair(currentMtllibName, currentUseMtlName));
 		}
 		else if (header == "f") {
 			std::getline(stream, str);

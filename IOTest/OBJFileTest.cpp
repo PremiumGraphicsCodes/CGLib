@@ -159,7 +159,7 @@ TEST( OBJFileTest, TestReadUseMtl )
 
 	EXPECT_EQ(1, file.getFaces().size());
 	EXPECT_EQ(1, file.getGroups().size());
-	EXPECT_EQ("wood", file.getMTLLibs().find("master.mtl")->second);
+	EXPECT_EQ("master.mtl", file.getMTLLibs().front());
 	EXPECT_EQ(4, file.getMaterials().find("wood")->second.getVertices().size());
 }
 
