@@ -16,16 +16,16 @@
 namespace Crystal {
 	namespace IO {
 
-struct OBJVertex
+struct OBJVertexIndex
 {
-	OBJVertex() :
+	OBJVertexIndex() :
 		positionIndex(-1),
 		normalIndex(-1),
 		texIndex(-1)
 	{}
 
 
-	OBJVertex(const int positionIndex, const int normalIndex = -1, const int texIndex = -1) :
+	OBJVertexIndex(const int positionIndex, const int normalIndex = -1, const int texIndex = -1) :
 		positionIndex(positionIndex),
 		normalIndex(normalIndex),
 		texIndex(texIndex)
@@ -39,25 +39,37 @@ struct OBJVertex
 		return this->texIndex != -1;
 	}
 
+	bool operator==(const OBJVertexIndex& rhs) const {
+		return
+			(this->positionIndex == rhs.positionIndex) &&
+			(this->normalIndex == rhs.normalIndex) &&
+			(this->texIndex == rhs.texIndex);
+	}
+
+
 	int positionIndex;
 	int normalIndex;
 	int texIndex;
-
-	bool operator==(const OBJVertex& rhs) const {
-		return
-			this->positionIndex == rhs.positionIndex &&
-			this->normalIndex == rhs.normalIndex &&
-			this->texIndex == rhs.texIndex;
-	}
 };
 
+
+class OBJVertexCollection
+{
+public:
+	Polygon::VertexCollection toVertices() const;
+
+	std::vector< Math::Vector3d<float> > positions;
+	std::vector< Math::Vector3d<float> > normals;
+	std::vector< Math::Vector3d<float> > texCoords;
+
+};
 
 struct OBJFace
 {
 	OBJFace()
 	{}
 
-	OBJFace(const std::vector<OBJVertex>& vertices) :
+	OBJFace(const std::vector<OBJVertexIndex>& vertices) :
 		vertices(vertices)
 	{}
 
@@ -65,12 +77,39 @@ struct OBJFace
 		return vertices == rhs.vertices;
 	}
 
-	std::vector<OBJVertex> getVertices() const { return vertices; }
-
-	std::string usemtlname;
+	std::vector<OBJVertexIndex> getVertices() const { return vertices; }
 
 private:
-	std::vector<OBJVertex> vertices;
+	std::vector<OBJVertexIndex> vertices;
+};
+
+
+class OBJMaterialCollection
+{
+public:
+	void add(const std::string& str, const OBJFace& face) {
+		map.insert(std::make_pair(str, face));
+	}
+
+	std::vector<OBJFace> getFaces(const std::string& name) const{
+		std::vector<OBJFace> faces;
+		for (auto iter = map.lower_bound(name); iter != map.upper_bound(name); ++iter) {
+			faces.push_back(iter->second);
+		}
+		return faces;
+	}
+
+	std::vector<std::string> getNames() const {
+		std::vector<std::string> strs;
+		for (auto m : map) {
+			strs.push_back(m.first);
+		}
+		std::unique(strs.begin(), strs.end());
+		return strs;
+	}
+
+private:
+	std::multimap<std::string, OBJFace> map;
 };
 
 class OBJFile
@@ -95,17 +134,17 @@ public:
 
 	bool write(std::ostream& stream, const Polygon::PolygonObject& mesh);
 
-	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
+	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { vertices.positions = positions; }
 
-	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
+	std::vector< Math::Vector3d<float> > getPositions() const { return vertices.positions; }
 
-	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { this->normals = normals; }
+	void setNormals(const std::vector< Math::Vector3d<float> >& normals) { vertices.normals = normals; }
 
-	std::vector< Math::Vector3d<float> > getNormals() const { return this->normals; }
+	std::vector< Math::Vector3d<float> > getNormals() const { return vertices.normals; }
 
-	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
+	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { vertices.texCoords = texCoords; }
 
-	std::vector< Math::Vector3d<float> > getTexCoords() const { return this->texCoords; }
+	std::vector< Math::Vector3d<float> > getTexCoords() const { return vertices.texCoords; }
 
 	Polygon::PolygonObject* toPolygonObject();
 
@@ -113,14 +152,15 @@ public:
 
 	std::vector<std::string> getMTLLibs() const { return mtllibs; }
 
-	std::multimap<std::string, OBJFace> getMaterials() const { return materialMap; }
+	OBJMaterialCollection getMaterials() const { return materialMap; }
+
+	//std::vector<OBJFace> getFaces(const std::string& str) 
 
 private:
 	std::string comment;
 
-	std::vector< Math::Vector3d<float> > positions;
-	std::vector< Math::Vector3d<float> > normals;
-	std::vector< Math::Vector3d<float> > texCoords;
+	OBJVertexCollection vertices;
+
 	std::vector<OBJFace> faces;
 
 	Math::Vector3d<float> readVertices(const std::string& str);
@@ -131,7 +171,7 @@ private:
 
 	std::multimap<std::string, OBJFace> groupMap;
 	std::vector<std::string> mtllibs;
-	std::multimap<std::string, OBJFace> materialMap;
+	OBJMaterialCollection materialMap;
 
 };
 

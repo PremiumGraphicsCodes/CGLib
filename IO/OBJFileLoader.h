@@ -3,6 +3,7 @@
 
 #include "OBJFile.h"
 #include "MTLFile.h"
+#include "../Graphics/VisualPolygon.h"
 
 namespace Crystal {
 	namespace IO {
@@ -15,6 +16,7 @@ public:
 private:
 	OBJFile objFile;
 	std::vector<MTLFile> mtlFiles;
+	Graphics::VisualPolygon visualPolygon;
 };
 	}
 }

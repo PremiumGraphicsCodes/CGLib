@@ -206,6 +206,16 @@ public:
 
 	bool write(std::ostream& stream);
 
+	OBJMaterial find(const std::string& name) {
+		for (const auto& m : materials) {
+			if (m.getName() == name) {
+				return m;
+			}
+		}
+		assert(false);
+		return OBJMaterial();
+	}
+
 	static MTLTextureOption getTextureOptions(const std::string& str);
 
 	static std::vector< std::string > writeTextureOptions(std::ostream& stream, MTLTextureOption& option);

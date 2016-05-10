@@ -23,9 +23,9 @@ TEST(OBJGroupTest, TestToPolygonObject)
 	});
 	file.setNormals({ Vector3d<float>(0.0, 0.0, 1.0) });
 	file.setTexCoords({ Vector3d<float>(-1.0, -1.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0) });
-	OBJVertex v1{ 1, 1, 1 };
-	OBJVertex v2{ 2, 1, 1 };
-	OBJVertex v3{ 3, 1, 1 };
+	OBJVertexIndex v1{ 1, 1, 1 };
+	OBJVertexIndex v2{ 2, 1, 1 };
+	OBJVertexIndex v3{ 3, 1, 1 };
 	OBJFace face({ v1, v2, v3 });
 	file.setFaces({ face });
 	auto p = file.toPolygonObject();
@@ -64,9 +64,9 @@ TEST(OBJFileTest, TestReadFaces)
 	OBJFile file;
 	file.read(stream);
 
-	OBJVertex v1(1);
-	OBJVertex v2(2);
-	OBJVertex v3(3);
+	OBJVertexIndex v1(1);
+	OBJVertexIndex v2(2);
+	OBJVertexIndex v3(3);
 	/*
 	OBJVertex v4(3, 1);
 	const std::vector<OBJFace> expected = {
@@ -160,7 +160,8 @@ TEST( OBJFileTest, TestReadUseMtl )
 	EXPECT_EQ(1, file.getFaces().size());
 	EXPECT_EQ(1, file.getGroups().size());
 	EXPECT_EQ("master.mtl", file.getMTLLibs().front());
-	EXPECT_EQ(4, file.getMaterials().find("wood")->second.getVertices().size());
+	auto name = file.getMaterials().getNames().front();
+	EXPECT_EQ("wood", name);
 }
 
 
@@ -266,7 +267,7 @@ TEST(OBJFileTest, TestNegativeReferenceNumber)
 	//EXPECT_EQ(4, file.getGroups().front().getPositions().size());
 	//EXPECT_EQ(1, file.getGroups().front().getFaces().size());
 	//std::vector<int> expected{ -4, - 3, -2, -1 };
-	std::vector< OBJVertex > expected{ -4, -3, -2, -1 };
+	std::vector< OBJVertexIndex > expected{ -4, -3, -2, -1 };
 	auto actual = file.getFaces().front().getVertices();
 	EXPECT_EQ( expected, actual );
 }

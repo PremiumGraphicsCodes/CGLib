@@ -20,14 +20,27 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
+/*
+Vertex* OBJVertex::toVertex(const int id) const
+{
+	return new Vertex(id, )
+}
+
+VertexCollection OBJVertexCollection::toVertices() const
+{
+	for (const auto& v : vertices) {
+		v.
+	}
+}
+*/
 
 OBJFace OBJFile::readFaces(const std::string& str)
 {
 	std::vector< std::string >& strs = Helper::split(str, ' ');
 
-	OBJVertex vertex;
+	OBJVertexIndex vertex;
 	//assert(strs.front() == "f");
-	std::vector<OBJVertex> vertices;
+	std::vector<OBJVertexIndex> vertices;
 	for (unsigned int i = 0; i < strs.size(); ++i) {
 		if (strs[i].empty()) {
 			continue;
@@ -55,19 +68,19 @@ void OBJFile::add(const PolygonObject& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
-		positions.push_back(v->getPosition());
-		normals.push_back(v->getNormal());
-		texCoords.push_back(v->getTexCoord());
+		this->vertices.positions.push_back(v->getPosition());
+		this->vertices.normals.push_back(v->getNormal());
+		this->vertices.texCoords.push_back(v->getTexCoord());
 	}
 	const auto& faces = polygon.getFaces();
 	for (const auto& f : faces) {
-		std::vector<OBJVertex> vs;
+		std::vector<OBJVertexIndex> vs;
 		const auto index1 = f->getV1()->getId();
 		const auto index2 = f->getV2()->getId();
 		const auto index3 = f->getV3()->getId();
-		OBJVertex v1(index1, index1, index1);
-		OBJVertex v2(index2, index2, index2);
-		OBJVertex v3(index3, index3, index3);
+		OBJVertexIndex v1(index1, index1, index1);
+		OBJVertexIndex v2(index2, index2, index2);
+		OBJVertexIndex v3(index3, index3, index3);
 		OBJFace face({ v1, v2, v3 });
 		this->faces.push_back(face);
 	}
@@ -79,9 +92,9 @@ PolygonObject* OBJFile::toPolygonObject()
 	std::vector<Vertex*> vv;
 	for(auto f : faces) {
 		for (const auto v : f.getVertices()) {
-			const auto& position = positions[v.positionIndex - 1];
-			const auto& normal = normals[v.normalIndex - 1];
-			const auto& texCoord = texCoords[v.texIndex - 1];
+			const auto& position = vertices.positions[v.positionIndex - 1];
+			const auto& normal = vertices.normals[v.normalIndex - 1];
+			const auto& texCoord = vertices.texCoords[v.texIndex - 1];
 			auto v = polygon->createVertex(position, normal, texCoord);
 			vv.push_back(v);
 		}
@@ -119,15 +132,15 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "v") {
 			std::getline(stream, str);
-			positions.push_back(readVertices(str));
+			vertices.positions.push_back(readVertices(str));
 		}
 		else if (header == "vt") {
 			std::getline(stream, str);
-			texCoords.push_back(readVector3d(str));
+			vertices.texCoords.push_back(readVector3d(str));
 		}
 		else if (header == "vn" || header == "-vn") {
 			std::getline(stream, str);
-			normals.push_back(readVector3d(str));
+			vertices.normals.push_back(readVector3d(str));
 		}
 		else if (header == "mtllib") {
 			currentMtllibName = Helper::read<std::string>(stream);
@@ -142,7 +155,7 @@ bool OBJFile::read(std::istream& stream)
 			const auto& f = readFaces(str);
 			faces.push_back( f );
 			groupMap.insert(std::make_pair(currentGroupName, f));
-			materialMap.insert(std::make_pair(currentUseMtlName, f));
+			materialMap.add(currentUseMtlName, f);
 		}
 		else if (header == "g") {
 			currentGroupName = Helper::read<std::string>(stream);
