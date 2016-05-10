@@ -109,6 +109,8 @@ bool OBJFile::read(std::istream& stream)
 
 	std::string header;
 	std::string currentGroupName;
+	std::string currentMtllibName;
+	std::string currentUseMtlName;
 
 	while (!stream.eof()) {
 		if (header == "#") {
@@ -127,16 +129,20 @@ bool OBJFile::read(std::istream& stream)
 			std::getline(stream, str);
 			normals.push_back(readVector3d(str));
 		}
+		else if (header == "mtllib") {
+			currentMtllibName = Helper::read<std::string>(stream);
+		}
+
 		else if (header == "usemtl") {
-			std::getline(stream, str);
-			//OBJMaterial material(str);
-			const std::string name = str;
-			//materials.push_back(name);
-			std::string useMtlName = name;
+			currentUseMtlName = Helper::read<std::string>(stream);
+			mtllibMap.insert(std::make_pair(currentMtllibName, currentUseMtlName));
 		}
 		else if (header == "f") {
 			std::getline(stream, str);
-			faces.push_back( readFaces(str) );
+			const auto& f = readFaces(str);
+			faces.push_back( f );
+			groupMap.insert(std::make_pair(currentGroupName, f));
+			materialMap.insert(std::make_pair(currentUseMtlName, f));
 		}
 		else if (header == "g") {
 			currentGroupName = Helper::read<std::string>(stream);

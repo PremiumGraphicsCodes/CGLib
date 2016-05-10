@@ -132,6 +132,9 @@ TEST(OBJFileTest, TestReadGroup )
 	OBJFile file;
 	file.read(stream);
 	EXPECT_EQ(2, file.getFaces().size() );
+	EXPECT_EQ(2, file.getGroups().size());
+	EXPECT_EQ(4, file.getGroups().find("front")->second.getVertices().size());
+	EXPECT_EQ(4, file.getGroups().find("back")->second.getVertices().size());
 
 	/*
 	std::vector< OBJGroup > expected = {
@@ -155,6 +158,9 @@ TEST( OBJFileTest, TestReadUseMtl )
 	file.read(stream);
 
 	EXPECT_EQ(1, file.getFaces().size());
+	EXPECT_EQ(1, file.getGroups().size());
+	EXPECT_EQ("wood", file.getMTLLibs().find("master.mtl")->second);
+	EXPECT_EQ(4, file.getMaterials().find("wood")->second.getVertices().size());
 }
 
 

@@ -18,36 +18,6 @@
 namespace Crystal {
 	namespace IO {
 
-class OBJMTLLib
-{
-public:
-	OBJMTLLib()
-	{};
-
-	OBJMTLLib(const std::string& name) :
-		name(name)
-	{}
-
-	OBJMTLLib(const std::string& name, const std::vector< std::string >& materials) :
-		name(name),
-		materials(materials)
-	{}
-
-	std::string getName() const { return name; }
-
-	std::vector< std::string > getMaterials() const { return materials; }
-
-	bool operator==(const OBJMTLLib& rhs) const {
-		return
-			name == rhs.name &&
-			materials == rhs.materials;
-	}
-
-private:
-	std::string name;
-	std::vector< std::string > materials;
-};
-
 struct OBJFace
 {
 	OBJFace()
@@ -68,7 +38,6 @@ struct OBJFace
 private:
 	std::vector<OBJVertex> vertices;
 };
-
 
 class OBJFile
 {
@@ -106,10 +75,14 @@ public:
 
 	Polygon::PolygonObject* toPolygonObject();
 
+	std::multimap<std::string, OBJFace> getGroups() const { return groupMap; }
+
+	std::multimap<std::string, std::string> getMTLLibs() const { return mtllibMap; }
+
+	std::multimap<std::string, OBJFace> getMaterials() const { return materialMap; }
 
 private:
 	std::string comment;
-	std::string materialName;
 
 	std::vector< Math::Vector3d<float> > positions;
 	std::vector< Math::Vector3d<float> > normals;
@@ -121,6 +94,10 @@ private:
 	Math::Vector3d<float> readVector3d(const std::string& str);
 
 	OBJFace readFaces(const std::string& str);
+
+	std::multimap<std::string, OBJFace> groupMap;
+	std::multimap<std::string, std::string> mtllibMap;
+	std::multimap<std::string, OBJFace> materialMap;
 
 };
 
