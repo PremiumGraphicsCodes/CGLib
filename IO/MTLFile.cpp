@@ -265,6 +265,12 @@ Material OBJMaterial::toMaterial() const
 	m.setDiffuse(this->diffuse);
 	m.setSpecular(this->specular);
 	m.setShininess(this->specularExponent);
+
+	Textures t;
+	t.setAmbient(this->ambientTexture);
+	t.setDiffuse(this->diffuseTexture);
+	t.setBump(this->bumpTexture);
+
 	return m;
 }
 

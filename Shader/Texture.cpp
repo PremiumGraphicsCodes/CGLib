@@ -30,6 +30,8 @@ bool Texture::create(const Image& image, const int id)
 	return (GL_NO_ERROR == glGetError());
 }
 
+
+
 void Texture::bind() const
 {
 	glActiveTexture(GL_TEXTURE0 + id);

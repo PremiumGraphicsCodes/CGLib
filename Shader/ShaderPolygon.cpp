@@ -24,6 +24,18 @@ void ShaderPolygon::setup(const VisualPolygon& vp)
 
 	triangleBuffer.add(*vp.getPolygon());
 	this->materialMaps = vp.getMaterialMaps();
+	/*
+	for (auto m : this->materialMaps) {
+		const auto& ambient = m.getMaterial().getTextures().getAmbient();
+		if (ambient.hasFileName()) {
+			ambientTexture.create( ambient.toImagef(), 0 );
+		}
+		const auto& diffuse = m.getMaterial().getTextures().getDiffuse();
+		if (diffuse.hasFileName()) {
+			diffuseTexture.create(diffuse.toImagef(), 1);
+		}
+	}
+	*/
 }
 
 void ShaderPolygon::draw(const ICamera<float>& camera, const PointLight<float>& light)

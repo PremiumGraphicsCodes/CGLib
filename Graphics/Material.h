@@ -5,44 +5,55 @@
 #include <string>
 #include <memory>
 
+#include "Image.h"
 #include "ColorRGBA.h"
 
 namespace Crystal {
 	namespace Graphics {
 
-struct Texture
+class Texture
 {
-	std::string ambient;
-	std::string diffuse;
-	std::string bump;
-	std::string shininess;
+public:
+	Texture() = default;
+
+	Texture(const std::string& filename) { this->filename = filename; }
+
+	bool hasFileName() const { return filename.empty(); }
+
+	void setFileName(const std::string& filename) { this->filename = filename; }
+
+	Imagef toImagef() const;
+
+private:
+	std::string filename;
+};
+
+class Textures
+{
+public:
+	void setAmbient(const Texture& t) { this->ambient; }
+
+	void setDiffuse(const Texture& t) { this->diffuse; }
+
+	void setBump(const Texture& t) { this->bump = bump; }
+
+	Texture getAmbient() const { return ambient; }
+
+	Texture getDiffuse() const { return diffuse; }
+
+	Texture getBump() const { return bump; }
+
+private:
+	Texture ambient;
+	Texture diffuse;
+	Texture bump;
 };
 
 class Material
 {
 public:
 
-	/*
-	Material() :
-		diffuse(Graphics::ColorRGBA<float>::Black()),
-		specular(Graphics::ColorRGBA<float>::Black()),
-		ambient(Graphics::ColorRGBA<float>::Black()),
-		shininess(1.0f),
-		id(id)
-	{
-	}
-	*/
-
-
-	Material(const unsigned int id = 0) :
-		diffuse( Graphics::ColorRGBA<float>::Black() ),
-		specular( Graphics::ColorRGBA<float>::Black() ),
-		ambient( Graphics::ColorRGBA<float>::Black() ),
-		shininess( 1.0f ),
-		transparent( 0.0f ),
-		id( id )
-	{
-	}
+	Material(const unsigned int id = 0);
 
 	~Material()
 	{}
@@ -73,9 +84,9 @@ public:
 
 	float getTransparent() const { return transparent; }
 
-	std::string getTextureFileName() const { return textureFileName; }
+	Textures getTextures() const { return textures; }
 
-	void setTextureFileName(const std::string& name) { this->textureFileName = name; }
+	void setTextures(const Textures& texture) { this->textures = textures; }
 
 	unsigned int getId() const { return id; }
 
@@ -90,8 +101,7 @@ private:
 
 	const unsigned int id;
 
-	std::string textureFileName;
-
+	Textures textures;
 };
 	}
 }

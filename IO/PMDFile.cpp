@@ -262,7 +262,10 @@ Material PMDMaterial::toMaterial() const
 	material.setDiffuse(this->diffuse);
 	material.setSpecular(this->specular);
 	material.setShininess(this->specularity);
-	material.setTextureFileName(std::string(this->textureFileName));
+	Texture ambient(this->textureFileName);
+	Textures texture;
+	texture.setAmbient(ambient);
+	material.setTextures(texture);
 	return material;
 }
 

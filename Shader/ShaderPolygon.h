@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Graphics/VisualPolygon.h"
+#include "../Shader/Texture.h"
 #include "SmoothRenderer.h"
 
 namespace Crystal {
@@ -23,6 +24,8 @@ public:
 private:
 	Graphics::TriangleBuffer triangleBuffer;
 	std::vector<Graphics::MaterialMap> materialMaps;
+	Shader::Texturef ambientTexture;
+	Shader::Texturef diffuseTexture;
 	SmoothRenderer renderer;
 };
 	}

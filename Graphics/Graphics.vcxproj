@@ -27,6 +27,7 @@
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="LineBuffer.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="OrthogonalCamera.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="PointBuffer.cpp" />
