@@ -93,6 +93,15 @@ PolygonObject* OBJFile::toPolygonObject()
 			vv.push_back(polygon->createVertex(position, normal, texCoord));
 		}
 
+		const auto v1 = positions[currentIndex+1] - positions[currentIndex];
+		const auto v2 = positions[currentIndex+2] - positions[currentIndex];
+		const auto normal = v1.getOuterProduct(v2).getNormalized();
+		for (auto& v : vv) {
+			if (v->getNormal() == Vector3d<float>(0, 0, 0)) {
+				v->setNormal(-normal);
+			}
+		}
+
 		currentIndex += count;
 		polygon->createFaces(vv);
 	}
@@ -185,7 +194,7 @@ bool OBJFile::read(std::istream& stream)
 					normals.push_back(normalBuffer[normalIndex-1]);
 				}
 				else {
-					normals.push_back(Vector3d<float>(1.0, 0.0, 0.0));
+					normals.push_back(Vector3d<float>(0.0, 0.0, 0.0));
 				}
 			}
 

@@ -118,7 +118,7 @@ public:
 
 	bool write(std::ostream& stream) const;
 
-	Graphics::Material toMaterial() const;
+	Graphics::Material toMaterial(const std::string& folderName) const;
 
 	unsigned int getFaceVertexCount() const { return faceVertexCount; }
 
@@ -140,7 +140,7 @@ public:
 
 	bool write(std::ostream& stream) const;
 
-	std::vector<Graphics::MaterialMap> toMaterialMap() const;
+	std::vector<Graphics::MaterialMap> toMaterialMap(const std::string& foldername) const;
 
 private:
 	std::vector<PMDMaterial> materials;
@@ -444,6 +444,7 @@ public:
 	Polygon::CGModel* toCGModel() const;
 
 private:
+	std::string filename;
 	PMDHeader header;
 	PMDVertexCollection vertices;
 	PMDFaceCollection faces;

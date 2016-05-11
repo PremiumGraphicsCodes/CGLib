@@ -255,16 +255,20 @@ bool PMDMaterial::write(std::ostream& stream) const
 }
 
 
-Material PMDMaterial::toMaterial() const
+Material PMDMaterial::toMaterial(const std::string& folderName) const
 {
 	Material material;
 	material.setAmbient(this->ambient);
 	material.setDiffuse(this->diffuse);
 	material.setSpecular(this->specular);
 	material.setShininess(this->specularity);
-	Texture ambient(this->textureFileName);
 	Textures texture;
-	texture.setAmbient(ambient);
+
+	if (!std::string(textureFileName).empty()) {
+		Texture diffuseTex(folderName + this->textureFileName);
+		texture.setDiffuse(diffuseTex);
+
+	}
 	material.setTextures(texture);
 	return material;
 }
@@ -291,13 +295,13 @@ bool PMDMaterialCollection::write(std::ostream& stream) const
 	return stream.good();
 }
 
-std::vector<MaterialMap> PMDMaterialCollection::toMaterialMap() const
+std::vector<MaterialMap> PMDMaterialCollection::toMaterialMap(const std::string& foldername) const
 {
 	std::vector<MaterialMap> results;
 	auto startIndex = 0;
 	for (auto& m : materials) {
 		auto endIndex = startIndex + m.getFaceVertexCount();
-		MaterialMap mm( m.toMaterial(), startIndex, endIndex);
+		MaterialMap mm( m.toMaterial(foldername), startIndex, endIndex);
 		startIndex = endIndex;
 		results.emplace_back(mm);
 	}
@@ -818,6 +822,7 @@ bool PMDFile::read(const std::string& filename)
 	if (!stream.is_open()) {
 		return false;
 	}
+	this->filename = filename;
 	header.read(stream);
 	vertices.read(stream);
 	faces.read(stream);
@@ -896,11 +901,14 @@ PolygonObject* PMDFile::toPolygonObject() const
 	return object;
 }
 
+#include "File.h"
+
 VisualPolygon PMDFile::toVisualPolygon() const
 {
 	auto p = toPolygonObject();
 	VisualPolygon visualPolygon(p);
-	auto mm = materials.toMaterialMap();
+	Crystal::IO::File f(filename);
+	auto mm = materials.toMaterialMap(f.getFolerPath());
 	for (const auto& m : mm) {
 		visualPolygon.setMaterial(m);
 	}

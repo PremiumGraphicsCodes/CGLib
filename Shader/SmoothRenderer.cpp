@@ -46,6 +46,7 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 		<< "out vec4 fragColor;" << std::endl
 		<< "uniform vec3 eyePosition;" << std::endl
 		<< "uniform sampler2D diffuseTex;" << std::endl
+		<< "uniform sampler2D ambientTex;" << std::endl
 		<< "struct LightInfo {" << std::endl
 		<< "	vec3 position;" << std::endl
 		<< "	vec3 La;" << std::endl
@@ -64,7 +65,8 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 		<< "	vec3 s = normalize(light.position - position);" << std::endl
 		<< "	vec3 v = normalize(position - eyePosition);" << std::endl
 		<< "	vec3 r = reflect( -s, normal );" << std::endl
-		<< "	vec3 ambient = light.La * material.Ka;" << std::endl
+		<< "	vec4 texAmbient = texture(ambientTex, vTexCoord.rg);" << std::endl
+		<< "	vec3 ambient = light.La * material.Ka * texAmbient.rgb;" << std::endl
 		<< "	float innerProduct = max( dot(s,normal), 0.0);" << std::endl
 		<< "	vec4 texDiffuse = texture(diffuseTex, vTexCoord.rg);" << std::endl
 		<< "	vec3 diffuse = light.Ld * material.Kd * innerProduct * texDiffuse.rgb;" << std::endl
@@ -72,8 +74,7 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 		<< "	if(innerProduct > 0.0) {" << std::endl
 		<< "		specular = light.Ls * material.Ks * pow( max( dot(r,v), 0.0 ), material.shininess );" << std::endl
 		<< "	}" << std::endl
-		<< "	return texDiffuse;" << std::endl
-		//<< "	return ambient + diffuse + specular;" << std::endl
+		<< "	return ambient + diffuse + specular;" << std::endl
 		<< "}"
 		<< "void main(void) {" << std::endl
 		<< "	fragColor.rgb = getPhongShadedColor( eyePosition, vNormal);" << std::endl
@@ -96,6 +97,7 @@ void SmoothRenderer::findLocation()
 	shader.findUniformLocation("material.Kd");
 	shader.findUniformLocation("material.Ks");
 	shader.findUniformLocation("material.shininess");
+	shader.findUniformLocation("ambientTex");
 	shader.findUniformLocation("diffuseTex");
 
 	shader.findAttribLocation("position");
@@ -223,19 +225,23 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	for (auto& m : materials) {
 		const auto indices = buffer.getIndices(m.getStartFaceIndex(), m.getEndFaceIndex());
+		const auto ambientTex = m.getAmbientTex();
 		const auto diffuseTex = m.getDiffuseTex();
+		ambientTex.bind();
 		diffuseTex.bind();
 
 		glUniform3fv(shader.getUniformLocation("material.Ka"), 1, m.getAmbientColor().data());
 		glUniform3fv(shader.getUniformLocation("material.Kd"), 1, m.getDiffuseColor().data());
 		glUniform3fv(shader.getUniformLocation("material.Ks"), 1, m.getSpecularColor().data());
 		glUniform1f(shader.getUniformLocation("material.shininess"), m.getShininess());
+		glUniform1i(shader.getUniformLocation("ambientTex"), ambientTex.getId());
 		glUniform1i(shader.getUniformLocation("diffuseTex"), diffuseTex.getId());
 
 
 		//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
+		ambientTex.unbind();
 		diffuseTex.unbind();
 	}
 

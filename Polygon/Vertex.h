@@ -24,6 +24,8 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
+	void setNormal(const Math::Vector3d<float>& n) { this->normal = n; }
+
 	Math::Vector3d<float> getNormal() const { return normal; }
 
 	Math::Vector3d<float> getTexCoord() const { return texCoord; }

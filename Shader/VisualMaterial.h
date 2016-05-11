@@ -32,6 +32,8 @@ public:
 
 	float getShininess() const { return shininess; }
 
+	Texturef getAmbientTex() const { return ambientTex; }
+
 	Texturef getDiffuseTex() const { return diffuseTex; }
 
 private:
