@@ -26,9 +26,9 @@ ColorRGBA<T>::ColorRGBA(const T red, const T green, const T blue, const T alpha 
 
 
 template<typename T>
-std::vector<T> ColorRGBA<T>::toArray3() const
+std::array<T, 3> ColorRGBA<T>::toArray3() const
 {
-	std::vector<T> results(3);
+	std::array<T, 3> results;
 	results[0] = getRed();
 	results[1] = getGreen();
 	results[2] = getBlue();

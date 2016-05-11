@@ -8,29 +8,7 @@ using namespace Crystal::IO;
 
 using T = float;
 
-TEST(MTLTextureOptionTest, TestConstruct)
-{
-	MTLTextureOption opt;
-
-	EXPECT_TRUE( opt.getBlendU() );
-	EXPECT_TRUE( opt.getBlendV() );
-	EXPECT_EQ( Vector3d<T>(0.0f, 0.0f, 0.0f), opt.getOrigin() );
-	EXPECT_EQ( Vector3d<T>(1.0f, 1.0f, 1.0f), opt.getScale() );
-	EXPECT_EQ( 0.0, opt.getBaseValue() );
-	EXPECT_EQ( 1.0, opt.getGainValue() );
-	EXPECT_EQ( "l", opt.getImfChan() );
-}
-
-TEST(MTLFileTest, TestWriteTextureOptions)
-{
-	MTLTextureOption opt;
-	MTLFile file;
-	std::ostringstream stream;
-	const std::vector< std::string >& strs = file.writeTextureOptions(stream, opt);
-	EXPECT_EQ(strs[0], "-blendu on");
-	EXPECT_EQ(strs[1], "-blendv on");
-}
-
+/*
 TEST(MTLFileTest, TestReadTextureOptions)
 {
 	EXPECT_TRUE( MTLFile::getTextureOptions("-blendu on").getBlendU() );
@@ -63,7 +41,7 @@ TEST(MTLFileTest, TestReadTextureOptions)
 
 	EXPECT_EQ("cube_top", MTLFile::getTextureOptions("-type cube_top").getType());
 }
-
+*/
 
 ::std::ostream& operator<<(::std::ostream& os, const ColorRGBA<float>& c) {
 	return os << c.getRed() << c.getGreen() << c.getBlue() << std::endl;

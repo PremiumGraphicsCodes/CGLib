@@ -17,84 +17,6 @@
 namespace Crystal {
 	namespace IO {
 
-struct MTLTextureOption {
-
-	MTLTextureOption()
-	{
-		setDefault();
-	}
-
-	void setDefault();
-
-	void setBlendU(const bool u) { this->blendu = u; }
-
-	bool getBlendU() const { return blendu; }
-
-	void setBlendV(const bool v) { this->blendv = v; }
-
-	bool getBlendV() const { return blendv; }
-
-	void setBoost(const float b) { this->boost = b; }
-
-	float getBoost() const { return boost; }
-
-	void setBaseValue(const float v) { this->baseValue = v; }
-
-	float getBaseValue() const { return baseValue; }
-
-	void setGainValue(const float v) { this->gainValue = v; }
-
-	float getGainValue() const { return gainValue; }
-
-	void setOrigin(const Math::Vector3d<float>& origin) { this->origin = origin; }
-
-	Math::Vector3d<float> getOrigin() const { return origin; }
-
-	void setScale(const Math::Vector3d<float>& scale) { this->scale = scale; }
-
-	Math::Vector3d<float> getScale() const { return scale; }
-
-	void setTurblence(const Math::Vector3d<float>& t) { this->turblence = t; }
-
-	Math::Vector3d<float> getTurblence() const { return turblence; }
-
-	void setResolution(const int resolution) { this->resolution = resolution; }
-
-	int getResolution() const { return resolution; }
-
-	void setClamp(const bool clamp) { this->clamp = clamp; }
-
-	bool getClamp() const { return clamp; }
-
-	void setBumpMultiplier(const float bm) { this->bm = bm; }
-
-	float getBumpMultiplier() const { return bm; }
-
-	void setImfChan(const std::string& imf) { this->imfchan = imf; }
-
-	std::string getImfChan() const { return imfchan; }
-
-	void setType(const std::string& type) { this->type = type; }
-
-	std::string getType() const { return type; }
-
-private:
-	bool blendu;
-	bool blendv;
-	float boost;
-	float baseValue;
-	float gainValue;
-	Math::Vector3d<float> origin;
-	Math::Vector3d<float> scale;
-	Math::Vector3d<float> turblence;
-	int resolution;
-	bool clamp;
-	float bm;
-	std::string imfchan;
-	std::string type;
-};
-
-
 struct OBJMaterial {
 	enum Illumination {
 		COLOR_ON_AND_AMBIENT_OFF = 0,
@@ -177,7 +99,7 @@ struct OBJMaterial {
 			illumination == rhs.illumination;
 	}
 
-	Graphics::Material toMaterial() const;
+	Graphics::Material toMaterial(const std::string& directory) const;
 
 
 private:
@@ -198,6 +120,7 @@ private:
 class MTLFile
 {
 public:
+
 	bool read(const std::string& filename);
 
 	bool read(std::istream& stream);
@@ -216,26 +139,8 @@ public:
 		return OBJMaterial();
 	}
 
-	static MTLTextureOption getTextureOptions(const std::string& str);
-
-	static std::vector< std::string > writeTextureOptions(std::ostream& stream, MTLTextureOption& option);
-
-	static bool readOnOff(const std::string& str)
-	{
-		if (str == "on") {
-			return true;
-		}
-		else if (str == "off") {
-			return false;
-		}
-		else {
-			assert(false);
-			return false;
-		}
-	}
-
 	std::vector<OBJMaterial> materials;
-	MTLTextureOption option;
+	//MTLTextureOption option;
 };
 
 

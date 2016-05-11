@@ -23,9 +23,7 @@ public:
 
 private:
 	Graphics::TriangleBuffer triangleBuffer;
-	std::vector<Graphics::MaterialMap> materialMaps;
-	Shader::Texturef ambientTexture;
-	Shader::Texturef diffuseTexture;
+	std::vector<VisualMaterial> materials;
 	SmoothRenderer renderer;
 };
 	}

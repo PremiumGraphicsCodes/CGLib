@@ -50,6 +50,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="LineBuffer.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialMap.h" />
     <ClInclude Include="OrthogonalCamera.h" />
     <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="PointBuffer.h" />

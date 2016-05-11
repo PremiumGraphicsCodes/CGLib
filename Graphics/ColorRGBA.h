@@ -2,6 +2,7 @@
 #define __CRYSTAL_GRAPHICS_COLOR_RGBA_H__
 
 #include <vector>
+#include <array>
 
 namespace Crystal {
 	namespace Graphics {
@@ -46,7 +47,7 @@ public:
 
 	static ColorRGBA Magenta() { return ColorRGBA( 255, 0, 255 ); }
 
-	std::vector<T> toArray3() const;
+	std::array<T, 3> toArray3() const;
 
 	std::vector<T> toArray4() const;
 

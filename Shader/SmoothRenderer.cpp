@@ -1,6 +1,7 @@
 #include "SmoothRenderer.h"
 #include "../Graphics/Material.h"
 #include "../Graphics/VisualPolygon.h"
+#include "VisualMaterial.h"
 #include <sstream>
 
 using namespace Crystal::Graphics;
@@ -159,7 +160,7 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	glDisable(GL_DEPTH_TEST);
 }
 
-void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const std::vector<MaterialMap>& materials)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const std::vector<VisualMaterial>& materials)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
@@ -208,12 +209,11 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	for (auto& m : materials) {
 		const auto indices = buffer.getIndices(m.getStartFaceIndex(), m.getEndFaceIndex());
-		const auto& material = m.getMaterial();
 
-		glUniform3fv(shader.getUniformLocation("material.Ka"), 1, material.getAmbient().toArray3().data());
-		glUniform3fv(shader.getUniformLocation("material.Kd"), 1, material.getDiffuse().toArray3().data());
-		glUniform3fv(shader.getUniformLocation("material.Ks"), 1, material.getSpecular().toArray3().data());
-		glUniform1f(shader.getUniformLocation("material.shininess"), material.getShininess());
+		glUniform3fv(shader.getUniformLocation("material.Ka"), 1, m.getAmbientColor().data());
+		glUniform3fv(shader.getUniformLocation("material.Kd"), 1, m.getDiffuseColor().data());
+		glUniform3fv(shader.getUniformLocation("material.Ks"), 1, m.getSpecularColor().data());
+		glUniform1f(shader.getUniformLocation("material.shininess"), m.getShininess());
 
 
 		//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));

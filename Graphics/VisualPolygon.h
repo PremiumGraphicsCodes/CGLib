@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Material.h"
+#include "MaterialMap.h"
 
 namespace Crystal{
 	namespace Polygon {
@@ -10,27 +11,6 @@ namespace Crystal{
 	}
 	namespace Graphics {
 
-class MaterialMap
-{
-public:
-	MaterialMap(Material material, unsigned int startFaceIndex, unsigned int endFaceIndex) :
-		material(material),
-		startFaceIndex(startFaceIndex),
-		endFaceIndex(endFaceIndex)
-	{
-	}
-
-	Material getMaterial() const { return material; }
-
-	unsigned int getStartFaceIndex() const { return startFaceIndex; }
-
-	unsigned int getEndFaceIndex() const { return endFaceIndex; }
-
-private:
-	Material material;
-	unsigned int startFaceIndex;
-	unsigned int endFaceIndex;
-};
 
 
 class VisualPolygon

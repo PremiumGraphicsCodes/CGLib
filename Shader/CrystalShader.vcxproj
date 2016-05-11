@@ -177,6 +177,7 @@
     <ClCompile Include="SSThicknessRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
+    <ClCompile Include="VisualMaterial.cpp" />
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +219,7 @@
     <ClInclude Include="SSThicknessRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="LineRenderer.h" />
+    <ClInclude Include="VisualMaterial.h" />
     <ClInclude Include="VisualObject.h" />
   </ItemGroup>
   <ItemGroup>

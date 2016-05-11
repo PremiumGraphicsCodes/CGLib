@@ -185,7 +185,7 @@ bool OBJFile::read(std::istream& stream)
 					normals.push_back(normalBuffer[normalIndex-1]);
 				}
 				else {
-					normals.push_back(Vector3d<float>());
+					normals.push_back(Vector3d<float>(1.0, 0.0, 0.0));
 				}
 			}
 
@@ -203,6 +203,8 @@ bool OBJFile::read(std::istream& stream)
 
 		header = Helper::read< std::string >(stream);
 	}
+	useMtlNames.push_back(currentUseMtl);
+
 	return stream.good();
 }
 
@@ -303,9 +305,10 @@ VisualPolygon OBJFile::load(const File& file)
 			if (n.first.empty()) {
 				continue;
 			}
-			auto mat = mtlFile.find(n.first).toMaterial();
+			auto mat = mtlFile.find(n.first).toMaterial(file.getFolerPath());
 			auto count =  (n.second - 2) *3;
 			auto endIndex = startIndex + count;
+			//mat.setDirectory(file.getFolerPath());
 			MaterialMap mm(mat, startIndex, endIndex);
 			visualPolygon.setMaterial(mm);
 			startIndex += count;

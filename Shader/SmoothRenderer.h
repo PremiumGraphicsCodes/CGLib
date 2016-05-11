@@ -14,9 +14,9 @@
 namespace Crystal {
 	namespace Graphics {
 		class Material;
-		class MaterialMap;
 	}
 	namespace Shader {
+		class VisualMaterial;
 
 class SmoothRenderer
 {
@@ -30,7 +30,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light, const std::vector<Graphics::MaterialMap>& materials);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light, const std::vector<VisualMaterial>& materials);
 
 	bool build();
 

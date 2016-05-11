@@ -102,6 +102,7 @@
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
     <ClCompile Include="ShaderPolygon.cpp" />
+    <ClCompile Include="VisualMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -211,6 +212,7 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="ShaderPolygon.h" />
+    <ClInclude Include="VisualMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

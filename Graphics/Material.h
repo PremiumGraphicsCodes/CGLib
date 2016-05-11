@@ -18,6 +18,8 @@ public:
 
 	Texture(const std::string& filename) { this->filename = filename; }
 
+	void setDirectory(const std::string& str) { filename = str + "\\" + filename; }
+
 	bool hasFileName() const { return filename.empty(); }
 
 	void setFileName(const std::string& filename) { this->filename = filename; }
@@ -31,11 +33,17 @@ private:
 class Textures
 {
 public:
-	void setAmbient(const Texture& t) { this->ambient; }
+	void setDirectory(const std::string& directory) {
+		ambient.setDirectory(directory);
+		diffuse.setDirectory(directory);
+		bump.setDirectory(directory);
+	}
 
-	void setDiffuse(const Texture& t) { this->diffuse; }
+	void setAmbient(const Texture& t) { this->ambient = t; }
 
-	void setBump(const Texture& t) { this->bump = bump; }
+	void setDiffuse(const Texture& t) { this->diffuse = t; }
+
+	void setBump(const Texture& t) { this->bump = t; }
 
 	Texture getAmbient() const { return ambient; }
 
@@ -86,7 +94,7 @@ public:
 
 	Textures getTextures() const { return textures; }
 
-	void setTextures(const Textures& texture) { this->textures = textures; }
+	void setTextures(const Textures& textures) { this->textures = textures; }
 
 	unsigned int getId() const { return id; }
 

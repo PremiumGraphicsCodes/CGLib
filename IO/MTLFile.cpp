@@ -63,6 +63,7 @@ bool OBJMaterial::read(std::istream& stream)
 		}
 		else if (header == "map_Kd") {
 			std::string str = Helper::read< std::string >(stream);
+			/*
 			if (str == "-o") {
 				Helper::readVector(stream);
 				str = Helper::read< std::string >(stream);
@@ -71,6 +72,7 @@ bool OBJMaterial::read(std::istream& stream)
 				Helper::readVector(stream);
 				str = Helper::read< std::string >(stream);
 			}
+			*/
 			this->diffuseTexture = str;
 		}
 		else if (header == "map_Ks") {
@@ -126,19 +128,6 @@ bool OBJMaterial::write(std::ostream& stream) const
 	return true;
 }
 
-void MTLTextureOption::setDefault()
-{
-	blendu = true;
-	blendv = true;
-	boost = 1.0f; // TODO.
-	baseValue = 0.0f;
-	gainValue = 1.0f;
-	origin = Math::Vector3d<float>::Zero();
-	scale = Math::Vector3d<float>(1.0f, 1.0f, 1.0f);
-	turblence = Math::Vector3d<float>::Zero();
-	imfchan = "l";
-}
-
 bool MTLFile::read(const std::string& filename)
 {
 	std::ifstream stream;
@@ -176,89 +165,9 @@ bool MTLFile::read(std::istream& stream)
 	return true;
 }
 
+#include "File.h"
 
-
-MTLTextureOption MTLFile::getTextureOptions(const std::string& str)
-{
-	std::stringstream stream(str);
-	MTLTextureOption options;
-	std::string nextStr = Helper::readNextString(stream);
-	while (!nextStr.empty() && nextStr.front() == '-') {
-		std::string str = Helper::read<std::string>(stream);
-		if (str == "-blendu") {
-			str = Helper::read<std::string>(stream);
-			options.setBlendU( MTLFile::readOnOff(str) );
-		}
-		else if (str == "-blendv") {
-			str = Helper::read<std::string>(stream);
-			options.setBlendV( MTLFile::readOnOff(str) );
-		}
-		else if (str == "-boost") {
-			options.setBoost( Helper::read<float>(stream) );
-		}
-		else if (str == "-mm") {
-			options.setBaseValue( Helper::read<float>(stream) );
-			options.setGainValue( Helper::read<float>(stream) );
-		}
-		else if (str == "-o") {
-			options.setOrigin( Helper::readVector(stream) );
-		}
-		else if (str == "-s") {
-			options.setScale( Helper::readVector(stream) );
-		}
-		else if (str == "-t") {
-			options.setTurblence( Helper::readVector(stream) );
-		}
-		else if (str == "-texres") {
-			options.setResolution( Helper::read<int>(stream) );
-		}
-		else if (str == "-clamp") {
-			str = Helper::read<std::string>(stream);
-			options.setClamp( MTLFile::readOnOff(str) );
-		}
-		else if (str == "-bm") {
-			options.setBumpMultiplier( Helper::read<float>(stream) );
-		}
-		else if (str == "-imfchan") {
-			const std::string& c = Helper::read<std::string>(stream);
-			//r | g | b | m | l | z
-			//assert(c == 'r' || c == 'g' || c == 'b' || c == 'm' || c == 'l' || c == 'z');
-			options.setImfChan( c );
-		}
-		else if (str == "-type") {
-			options.setType( Helper::read<std::string>(stream) );
-		}
-		nextStr = Helper::readNextString(stream);
-	}
-	return options;
-}
-
-std::vector< std::string > MTLFile::writeTextureOptions(std::ostream& stream, MTLTextureOption& option)
-{
-	std::vector< std::string > strs;
-	{
-		std::string str;
-		str += "-blendu ";
-		str += (option.getBlendU() ? "on" : "off");
-		strs.push_back(str);
-	}
-
-	{
-		std::string str;
-		str += "-blendv ";
-		str += (option.getBlendV() ? "on" : "off");
-		strs.push_back(str);
-	}
-
-	for (const std::string& str : strs) {
-		stream << str << std::endl;
-	}
-
-	return strs;
-}
-
-
-Material OBJMaterial::toMaterial() const
+Material OBJMaterial::toMaterial(const std::string& directory) const
 {
 	Material m;
 	m.setAmbient(this->ambient);
@@ -267,9 +176,17 @@ Material OBJMaterial::toMaterial() const
 	m.setShininess(this->specularExponent);
 
 	Textures t;
-	t.setAmbient(this->ambientTexture);
-	t.setDiffuse(this->diffuseTexture);
-	t.setBump(this->bumpTexture);
+	if (!this->ambientTexture.empty()) {
+		t.setAmbient(directory + this->ambientTexture);
+	}
+	if (!this->diffuseTexture.empty()) {
+		t.setDiffuse(directory + this->diffuseTexture);
+	}
+	if (!this->bumpTexture.empty()) {
+		t.setBump(directory + this->bumpTexture);
+	}
+	m.setTextures(t);
+	//t.setDirectory(directory);
 
 	return m;
 }
