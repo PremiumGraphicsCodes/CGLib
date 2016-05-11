@@ -26,7 +26,7 @@ public:
 
 	Math::Vector3d<float> getNormal() const { return normal; }
 
-	Math::Vector3d<float> getTexCoord() const { return normal; }
+	Math::Vector3d<float> getTexCoord() const { return texCoord; }
 
 	void normalize(const Vertex& rhs);
 

@@ -32,6 +32,8 @@ public:
 
 	float getShininess() const { return shininess; }
 
+	Texturef getDiffuseTex() const { return diffuseTex; }
+
 private:
 	int startFaceIndex;
 	int endFaceIndex;

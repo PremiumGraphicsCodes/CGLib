@@ -15,6 +15,7 @@ void TriangleBuffer::add(const PolygonObject& polygon)
 	for (const auto& v : vertices) {
 		this->positions.add(v->getPosition());
 		this->normals.add(v->getNormal());
+		this->texCoords.add(v->getTexCoord());
 		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
 		
 		DrawableID id(polygon.getId());
