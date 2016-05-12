@@ -4,7 +4,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-TEST(PolygonObjectTest, TestCreateVertex)
+TEST(PolygonMeshTest, TestCreateVertex)
 {
 	PolygonMesh object;
 	auto v1 = object.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
@@ -15,7 +15,7 @@ TEST(PolygonObjectTest, TestCreateVertex)
 	EXPECT_EQ( v2, object.findVertexById(1) );
 }
 
-TEST(PolygonObjectTest, TestMerge)
+TEST(PolygonMeshTest, TestMerge)
 {
 	PolygonMesh object1;
 	auto v1 = object1.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
@@ -26,7 +26,7 @@ TEST(PolygonObjectTest, TestMerge)
 	EXPECT_EQ( 0, object2.getVertices().size());
 }
 
-TEST(PolygonObjectTest, TestClone)
+TEST(PolygonMeshTest, TestClone)
 {
 	PolygonMesh object1;
 	auto v1 = object1.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
@@ -37,7 +37,7 @@ TEST(PolygonObjectTest, TestClone)
 	delete actual;
 }
 
-TEST(PolygonObjectTest, TestAddBox)
+TEST(PolygonMeshTest, TestAddBox)
 {
 	PolygonMesh object;
 	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
