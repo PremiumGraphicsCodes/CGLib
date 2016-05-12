@@ -22,6 +22,8 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
+	void move(const Math::Vector3d<float>& v) { this->position += v; }
+
 private:
 	Math::Vector3d<float> position;
 	const unsigned int id;
