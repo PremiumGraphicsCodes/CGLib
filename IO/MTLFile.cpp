@@ -175,17 +175,11 @@ Material OBJMaterial::toMaterial(const std::string& directory) const
 	m.setSpecular(this->specular);
 	m.setShininess(this->specularExponent);
 
-	Textures t;
-	if (!this->ambientTexture.empty()) {
-		t.setAmbient(directory + this->ambientTexture);
-	}
+	Texture t;
 	if (!this->diffuseTexture.empty()) {
-		t.setDiffuse(directory + this->diffuseTexture);
+		t.setFileName(directory + this->diffuseTexture);
 	}
-	if (!this->bumpTexture.empty()) {
-		t.setBump(directory + this->bumpTexture);
-	}
-	m.setTextures(t);
+	m.setTexture(t);
 	//t.setDirectory(directory);
 
 	return m;

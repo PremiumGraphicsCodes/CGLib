@@ -262,14 +262,11 @@ Material PMDMaterial::toMaterial(const std::string& folderName) const
 	material.setDiffuse(this->diffuse);
 	material.setSpecular(this->specular);
 	material.setShininess(this->specularity);
-	Textures texture;
-
+	Texture texture;
 	if (!std::string(textureFileName).empty()) {
 		Texture diffuseTex(folderName + this->textureFileName);
-		texture.setDiffuse(diffuseTex);
-
 	}
-	material.setTextures(texture);
+	material.setTexture(texture);
 	return material;
 }
 

@@ -30,33 +30,6 @@ private:
 	std::string filename;
 };
 
-class Textures
-{
-public:
-	void setDirectory(const std::string& directory) {
-		ambient.setDirectory(directory);
-		diffuse.setDirectory(directory);
-		bump.setDirectory(directory);
-	}
-
-	void setAmbient(const Texture& t) { this->ambient = t; }
-
-	void setDiffuse(const Texture& t) { this->diffuse = t; }
-
-	void setBump(const Texture& t) { this->bump = t; }
-
-	Texture getAmbient() const { return ambient; }
-
-	Texture getDiffuse() const { return diffuse; }
-
-	Texture getBump() const { return bump; }
-
-private:
-	Texture ambient;
-	Texture diffuse;
-	Texture bump;
-};
-
 class Material
 {
 public:
@@ -92,9 +65,9 @@ public:
 
 	float getTransparent() const { return transparent; }
 
-	Textures getTextures() const { return textures; }
+	Texture getTexture() const { return texture; }
 
-	void setTextures(const Textures& textures) { this->textures = textures; }
+	void setTexture(const Texture& textures) { this->texture = texture; }
 
 	unsigned int getId() const { return id; }
 
@@ -109,7 +82,7 @@ private:
 
 	const unsigned int id;
 
-	Textures textures;
+	Texture texture;
 };
 	}
 }

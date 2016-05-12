@@ -22,10 +22,7 @@ bool VisualMaterial::load(const MaterialMap& mm)
 	specularColor = material.getSpecular().toArray3();
 	shininess = material.getShininess();
 
-	const auto& textures = material.getTextures();
-	const auto& amb = textures.getAmbient();
-	this->ambientTex.create( textures.getAmbient().toImagef(), 0 );
-	this->diffuseTex.create(textures.getDiffuse().toImagef(), 1);
-	this->bumpTex.create( textures.getBump().toImagef(), 2);
+	const auto& texture = material.getTexture();
+	this->diffuseTex.create(texture.toImagef(), 0);
 	return true;
 }
