@@ -1,6 +1,6 @@
 #include "LineBuffer.h"
 
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Polygon/ActorObject.h"
 #include "../Polygon/Bone.h"
 

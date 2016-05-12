@@ -1,6 +1,6 @@
 #include "VisualPolygon.h"
 
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;

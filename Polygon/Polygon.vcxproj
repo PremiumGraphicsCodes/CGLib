@@ -28,7 +28,7 @@
     <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
-    <ClCompile Include="PolygonObject.cpp" />
+    <ClCompile Include="PolygonMesh.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VolumeCell.cpp" />
@@ -47,7 +47,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="Face.h" />
-    <ClInclude Include="PolygonObject.h" />
+    <ClInclude Include="PolygonMesh.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VolumeCell.h" />

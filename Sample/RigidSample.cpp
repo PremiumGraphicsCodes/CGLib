@@ -13,7 +13,7 @@
 #include "../Graphics/TriangleBuffer.h"
 #include "../Shader/LegacyRenderer.h"
 #include "../Polygon/ParticleObject.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Graphics/Material.h"
 #include "../Graphics/Light.h"
 

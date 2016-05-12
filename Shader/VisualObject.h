@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_SHADER_VISUAL_OBJECT_H__
 #define __CRYSTAL_SHADER_VISUAL_OBJECT_H__
 
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Polygon/ParticleObject.h"
 
 #include "../Graphics/PointBuffer.h"

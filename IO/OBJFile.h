@@ -4,7 +4,7 @@
 #include "../Math/Vector3d.h"
 
 #include "../Graphics/Buffer3d.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 
 #include "../IO/MTLFile.h"
 #include "../IO/File.h"

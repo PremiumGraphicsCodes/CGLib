@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "../Polygon/Vertex.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Polygon/ActorObject.h"
 #include "../Polygon/Bone.h"
 #include "../Graphics/VisualPolygon.h"

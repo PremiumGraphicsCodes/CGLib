@@ -2,7 +2,7 @@
 #define __CRYSTAL_SAMPLE_IO_SAMPLE_H__
 
 #include "ISample.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include <memory>
 
 class IOSample : public ISample

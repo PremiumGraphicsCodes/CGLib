@@ -9,7 +9,7 @@
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Shader/ShaderObject.h"
 #include "../Shader/PointRenderer.h"
 #include "../Shader/IDRenderer.h"

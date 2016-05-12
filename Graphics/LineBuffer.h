@@ -6,7 +6,7 @@
 #include "Buffer4d.h"
 
 #include "../Math/Line3d.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 
 namespace Crystal {
 	namespace Polygon {

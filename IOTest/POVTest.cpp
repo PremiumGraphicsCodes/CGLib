@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Triangle.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../IO/POVFile.h"
 
 using namespace Crystal::Math;

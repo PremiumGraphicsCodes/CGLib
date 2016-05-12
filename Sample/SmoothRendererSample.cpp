@@ -11,7 +11,7 @@
 #include "../Graphics/TriangleBuffer.h"
 #include "../Graphics/Material.h"
 
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;

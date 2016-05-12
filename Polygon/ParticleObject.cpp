@@ -3,7 +3,7 @@
 
 #include "../Math/Sphere.h"
 #include "VolumeObject.h"
-#include "PolygonObject.h"
+#include "PolygonMesh.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;

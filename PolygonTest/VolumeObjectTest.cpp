@@ -2,7 +2,7 @@
 
 #include "../Polygon/VolumeNode.h"
 #include "../Polygon/VolumeObject.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Polygon/ParticleObject.h"
 
 #include <memory>

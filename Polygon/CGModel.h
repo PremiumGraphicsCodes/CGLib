@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_POLYGON_CG_MODEL_H__
 #define __CRYSTAL_POLYGON_CG_MODEL_H__
 
-#include "PolygonObject.h"
+#include "PolygonMesh.h"
 #include "ActorObject.h"
 #include "../Physics/PhysicsObject.h"
 

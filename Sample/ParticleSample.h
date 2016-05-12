@@ -6,7 +6,7 @@
 #include "ISample.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/VolumeObject.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include <memory>
 
 class ParticleSample : public ISample

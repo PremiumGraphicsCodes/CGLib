@@ -1,11 +1,11 @@
 #include "PointBuffer.h"
 #include "../Physics/SPHParticle.h"
 #include "../Physics/PhysicsObject.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/Particle.h"
 #include "../Polygon/ActorObject.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include "../Polygon/VolumeObject.h"
 #include "../Polygon/Joint.h"
 

@@ -1,4 +1,4 @@
-#include "PolygonObject.h"
+#include "PolygonMesh.h"
 
 #include "Vertex.h"
 #include "Face.h"

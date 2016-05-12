@@ -12,7 +12,7 @@
 #include "../Math/Matrix4d.h"
 #include "Surfels.h"
 #include "SPHConstant.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 
 class btRigidBody;
 

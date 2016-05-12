@@ -68,7 +68,7 @@ std::vector<VolumeNode> VolumeObject::toNodes() const
 	return nodes;
 }
 
-#include "PolygonObject.h"
+#include "PolygonMesh.h"
 
 VolumeCell VolumeObject::toCell(const Index3d index) const
 {

@@ -5,7 +5,7 @@
 
 #include "ISample.h"
 #include "../Polygon/VolumeObject.h"
-#include "../Polygon/PolygonObject.h"
+#include "../Polygon/PolygonMesh.h"
 #include <memory>
 
 class VolumeSample : public ISample
