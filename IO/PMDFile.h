@@ -10,7 +10,7 @@ namespace Crystal {
 		class Vertex;
 		class VertexCollection;
 		class FaceCollection;
-		class PolygonObject;
+		class PolygonMesh;
 		class ActorObject;
 		class Bone;
 		class Joint;
@@ -435,7 +435,7 @@ public:
 
 	bool write(const std::string& filename) const;
 
-	Polygon::PolygonObject* toPolygonObject() const;
+	Polygon::PolygonMesh* toPolygonObject() const;
 
 	Graphics::VisualPolygon toVisualPolygon() const;
 

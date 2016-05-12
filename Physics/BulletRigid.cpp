@@ -8,7 +8,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
-BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const unsigned int id, PolygonObject* shape) :
+BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const unsigned int id, PolygonMesh* shape) :
 	id(id),
 	shape(shape)
 {

@@ -38,7 +38,7 @@ void SmoothRendererSample::demonstrate(const int width, const int height, const 
 
 
 	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
-	PolygonObject polygon;
+	PolygonMesh polygon;
 	polygon.add(box);
 	TriangleBuffer buffer;
 	buffer.add(polygon);

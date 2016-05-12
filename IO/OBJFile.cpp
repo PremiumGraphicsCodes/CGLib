@@ -63,7 +63,7 @@ std::vector<OBJVertexIndex> OBJFile::readFaces(const std::string& str)
 }
 */
 
-void OBJFile::add(const PolygonObject& polygon)
+void OBJFile::add(const PolygonMesh& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
@@ -80,9 +80,9 @@ void OBJFile::add(const PolygonObject& polygon)
 	}
 }
 
-PolygonObject* OBJFile::toPolygonObject()
+PolygonMesh* OBJFile::toPolygonObject()
 {
-	PolygonObject* polygon = new PolygonObject();
+	PolygonMesh* polygon = new PolygonMesh();
 	unsigned int currentIndex = 0;
 	for(const auto count : faceCounts) {
 		std::vector<Vertex*> vv;
@@ -250,7 +250,7 @@ Vector3d<float> OBJFile::readVector3d(const std::string& str)
 	}
 }
 
-bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonObject& mesh)
+bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonMesh& mesh)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -261,7 +261,7 @@ bool OBJFile::write(const std::string& path, const std::string& filename, const 
 	return write(stream, mesh);
 }
 
-bool OBJFile::write(std::ostream& stream, const PolygonObject& mesh)
+bool OBJFile::write(std::ostream& stream, const PolygonMesh& mesh)
 {
 	const auto& positions = mesh.getPositions();
 	const auto& normals = mesh.getNormals();

@@ -28,7 +28,7 @@ public:
 
 	VisualObject(const Polygon::ActorObject& actor);
 
-	VisualObject(const Polygon::PolygonObject& polygon);
+	VisualObject(const Polygon::PolygonMesh& polygon);
 
 	VisualObject(const Physics::PhysicsObject& physics);
 

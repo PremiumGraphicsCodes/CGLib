@@ -12,7 +12,7 @@ using namespace Crystal::IO;
 #include "../Polygon/Vertex.h"
 
 
-void STLFile::add(const PolygonObject& mesh)
+void STLFile::add(const PolygonMesh& mesh)
 {
 	const auto faces = mesh.getFaces();
 	for (auto f : faces) {
@@ -25,9 +25,9 @@ void STLFile::add(const PolygonObject& mesh)
 	}
 }
 
-PolygonObject* STLFile::toPolygonObject() const
+PolygonMesh* STLFile::toPolygonObject() const
 {
-	PolygonObject* polygon = new PolygonObject();
+	PolygonMesh* polygon = new PolygonMesh();
 	for (const auto& c : cells) {
 		const auto& pos = c.getPositions();
 		const auto& normal = c.getNormal();

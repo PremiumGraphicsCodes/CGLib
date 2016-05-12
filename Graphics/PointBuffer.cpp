@@ -83,7 +83,7 @@ void PointBuffer::add(const VolumeObject& volume)
 }
 
 
-void PointBuffer::add(const PolygonObject& polygon)
+void PointBuffer::add(const PolygonMesh& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (auto& v : vertices) {

@@ -36,7 +36,7 @@ void LineBuffer::add(const ActorObject& actor)
 }
 
 
-void LineBuffer::add(const PolygonObject& polygon)
+void LineBuffer::add(const PolygonMesh& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {

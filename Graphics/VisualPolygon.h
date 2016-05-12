@@ -7,7 +7,7 @@
 
 namespace Crystal{
 	namespace Polygon {
-		class PolygonObject;
+		class PolygonMesh;
 	}
 	namespace Graphics {
 
@@ -18,16 +18,16 @@ class VisualPolygon
 public:
 	VisualPolygon() = default;
 
-	explicit VisualPolygon(Polygon::PolygonObject* polygon);
+	explicit VisualPolygon(Polygon::PolygonMesh* polygon);
 
 	void setMaterial(const MaterialMap& map) { this->materialMaps.push_back(map); }
 
-	Polygon::PolygonObject* getPolygon() const { return polygon; }
+	Polygon::PolygonMesh* getPolygon() const { return polygon; }
 
 	std::vector<MaterialMap> getMaterialMaps() const { return materialMaps; }
 
 private:
-	Polygon::PolygonObject* polygon;
+	Polygon::PolygonMesh* polygon;
 	std::vector<MaterialMap> materialMaps;
 };
 	}

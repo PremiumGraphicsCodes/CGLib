@@ -16,23 +16,23 @@ namespace Crystal {
 class CGModel
 {
 public:
-	CGModel(PolygonObject* polygon) :
+	CGModel(PolygonMesh* polygon) :
 		polygon(polygon)
 	{}
 
-	CGModel(PolygonObject* polygon, ActorObject* actor) :
+	CGModel(PolygonMesh* polygon, ActorObject* actor) :
 		polygon(polygon),
 		actor(actor)
 	{}
 
-	CGModel(PolygonObject* polygon, ActorObject* actor, Physics::PhysicsObject* physics) :
+	CGModel(PolygonMesh* polygon, ActorObject* actor, Physics::PhysicsObject* physics) :
 		polygon(polygon),
 		actor(actor),
 		physics(physics)
 	{}
 
 private:
-	std::unique_ptr< Polygon::PolygonObject > polygon;
+	std::unique_ptr< Polygon::PolygonMesh > polygon;
 	std::unique_ptr< Polygon::ActorObject > actor;
 	std::unique_ptr< Physics::PhysicsObject > physics;
 };

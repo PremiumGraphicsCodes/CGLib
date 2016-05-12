@@ -16,7 +16,7 @@ using namespace Crystal::IO;
 
 TEST(PMDFileTest, TestFromPolygonObject)
 {
-	PolygonObject object;
+	PolygonMesh object;
 	Triangle<float> triangle(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 0.0));
 	object.add(triangle);
 	VisualPolygon vp(&object);

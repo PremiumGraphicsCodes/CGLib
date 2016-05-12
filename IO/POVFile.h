@@ -6,20 +6,20 @@
 
 namespace Crystal {
 	namespace Polygon {
-		class PolygonObject;
+		class PolygonMesh;
 	}
 	namespace IO {
 
 class POVFile
 {
 public:
-	bool writeScene(const std::string& file, const std::list< Polygon::PolygonObject *>& meshes);
+	bool writeScene(const std::string& file, const std::list< Polygon::PolygonMesh *>& meshes);
 
-	bool writeInc(const std::string& file, const std::list< Polygon::PolygonObject* >& meshes);
+	bool writeInc(const std::string& file, const std::list< Polygon::PolygonMesh* >& meshes);
 
 private:
 
-	bool writeMesh(std::ostream& stream, const Polygon::PolygonObject& mesh);
+	bool writeMesh(std::ostream& stream, const Polygon::PolygonMesh& mesh);
 
 };
 	}

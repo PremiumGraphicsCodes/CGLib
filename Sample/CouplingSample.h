@@ -51,7 +51,7 @@ private:
 	void cleanup() override;
 
 	std::vector< Crystal::Physics::BulletRigid* > rigids;
-	std::vector< Crystal::Polygon::PolygonObject* > shapes;
+	std::vector< Crystal::Polygon::PolygonMesh* > shapes;
 
 	Crystal::Physics::BulletRigid* selected;
 

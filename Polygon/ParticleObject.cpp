@@ -105,7 +105,7 @@ namespace {
 
 #include "VolumeCell.h"
 
-PolygonObject* ParticleObject::toPolygon(const float isolevel, const float effectLength) const
+PolygonMesh* ParticleObject::toPolygon(const float isolevel, const float effectLength) const
 {
 	/*
 	auto v = toVolume(box, effectLength);
@@ -142,7 +142,7 @@ PolygonObject* ParticleObject::toPolygon(const float isolevel, const float effec
 		const auto& ts = cell.toTriangles(isolevel);
 		triangles.insert(triangles.end(), ts.begin(), ts.end());
 	}
-	PolygonObject* result = new PolygonObject();
+	PolygonMesh* result = new PolygonMesh();
 	for (const auto& t : triangles) {
 		result->add(t);
 	}

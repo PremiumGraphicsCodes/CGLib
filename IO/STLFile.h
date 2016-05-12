@@ -59,7 +59,7 @@ public:
 
 	}
 
-	void add(const Polygon::PolygonObject& mesh);
+	void add(const Polygon::PolygonMesh& mesh);
 
 	bool read(const std::string& filename);
 
@@ -80,7 +80,7 @@ public:
 			cells == rhs.cells;
 	}
 
-	Polygon::PolygonObject* toPolygonObject() const;
+	Polygon::PolygonMesh* toPolygonObject() const;
 
 private:
 	STLCellVector cells;

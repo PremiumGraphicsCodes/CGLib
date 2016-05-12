@@ -12,7 +12,7 @@
 namespace Crystal {
 	namespace Polygon {
 		class ParticleObject;
-		class PolygonObject;
+		class PolygonMesh;
 	}
 	namespace Physics {
 		class SPHParticle;
@@ -68,9 +68,9 @@ public:
 
 	Polygon::ParticleObject* toSurfaceParticleObject() const;
 
-	Polygon::PolygonObject* toPolygonObject(const float isolevel,const float effectLength) const;
+	Polygon::PolygonMesh* toPolygonObject(const float isolevel,const float effectLength) const;
 
-	Polygon::PolygonObject* toSurfacePolygonObject(const float isolevel, const float effectLength) const;
+	Polygon::PolygonMesh* toSurfacePolygonObject(const float isolevel, const float effectLength) const;
 
 
 private:

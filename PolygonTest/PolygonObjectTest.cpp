@@ -6,7 +6,7 @@ using namespace Crystal::Polygon;
 
 TEST(PolygonObjectTest, TestCreateVertex)
 {
-	PolygonObject object;
+	PolygonMesh object;
 	auto v1 = object.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
 	EXPECT_EQ(v1->getId(), 0);
 	auto v2 = object.createVertex(Vector3d<float>(1.0f, 1.0f, 0.0f));
@@ -17,9 +17,9 @@ TEST(PolygonObjectTest, TestCreateVertex)
 
 TEST(PolygonObjectTest, TestMerge)
 {
-	PolygonObject object1;
+	PolygonMesh object1;
 	auto v1 = object1.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
-	PolygonObject object2;
+	PolygonMesh object2;
 	auto v2 = object2.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
 	object1.merge(&object2);
 	EXPECT_EQ( 2, object1.getVertices().size() );
@@ -28,7 +28,7 @@ TEST(PolygonObjectTest, TestMerge)
 
 TEST(PolygonObjectTest, TestClone)
 {
-	PolygonObject object1;
+	PolygonMesh object1;
 	auto v1 = object1.createVertex(Vector3d<float>(1.0f, 0.0f, 0.0f));
 	auto v2 = object1.createVertex(Vector3d<float>(1.0f, 1.0f, 0.0f));
 	auto v3 = object1.createVertex(Vector3d<float>(1.0f, 1.0f, 1.0f));
@@ -39,7 +39,7 @@ TEST(PolygonObjectTest, TestClone)
 
 TEST(PolygonObjectTest, TestAddBox)
 {
-	PolygonObject object;
+	PolygonMesh object;
 	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
 	object.add(box);
 	const auto faces = object.getFaces();

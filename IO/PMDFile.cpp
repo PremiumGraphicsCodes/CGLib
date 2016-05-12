@@ -887,9 +887,9 @@ void PMDFile::add(const ActorObject& actor)
 }
 */
 
-PolygonObject* PMDFile::toPolygonObject() const
+PolygonMesh* PMDFile::toPolygonObject() const
 {
-	PolygonObject* object = new PolygonObject();
+	PolygonMesh* object = new PolygonMesh();
 	auto vs = this->vertices.get();
 	for (size_t i = 0; i < vs.size(); ++i ) {
 		object->createVertex(vs[i].pos, vs[i].normal);

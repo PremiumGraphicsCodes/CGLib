@@ -14,7 +14,7 @@ public:
 		this->models.push_back(model);
 	}
 
-	std::vector<PolygonObject*> getPolygons();
+	std::vector<PolygonMesh*> getPolygons();
 
 	std::vector<ActorObject*> getActors();
 

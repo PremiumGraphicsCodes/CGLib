@@ -30,7 +30,7 @@ public:
 private:
 
 	std::vector< Crystal::Physics::BulletRigid* > rigids;
-	std::vector<  Crystal::Polygon::PolygonObject*> shapes;
+	std::vector<  Crystal::Polygon::PolygonMesh*> shapes;
 
 	std::unique_ptr< Crystal::Physics::BulletRigid > ground;
 	Crystal::Physics::BulletWorld world;

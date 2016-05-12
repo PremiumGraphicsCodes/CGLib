@@ -10,7 +10,7 @@
 namespace Crystal {
 	namespace Polygon {
 
-class PolygonObject;
+class PolygonMesh;
 class Particle;
 class VolumeObject;
 
@@ -42,7 +42,7 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	PolygonObject* toPolygon(const float isolevel, const float effectLength) const;
+	PolygonMesh* toPolygon(const float isolevel, const float effectLength) const;
 
 private:
 

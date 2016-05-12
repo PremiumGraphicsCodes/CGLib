@@ -7,7 +7,7 @@
 using namespace Crystal::Polygon;
 using namespace Crystal::IO;
 
-bool POVFile::writeScene(const std::string& file, const std::list< PolygonObject *>& meshes)
+bool POVFile::writeScene(const std::string& file, const std::list< PolygonMesh *>& meshes)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
@@ -39,7 +39,7 @@ bool POVFile::writeScene(const std::string& file, const std::list< PolygonObject
 }
 
 
-bool POVFile::writeInc(const std::string& file, const std::list< PolygonObject *>& meshes)
+bool POVFile::writeInc(const std::string& file, const std::list< PolygonMesh *>& meshes)
 {
 	std::ofstream stream(file);
 	if (!stream.is_open()) {
@@ -52,7 +52,7 @@ bool POVFile::writeInc(const std::string& file, const std::list< PolygonObject *
 	return stream.good();
 }
 
-bool POVFile::writeMesh(std::ostream& stream, const PolygonObject& mesh)
+bool POVFile::writeMesh(std::ostream& stream, const PolygonMesh& mesh)
 {
 	const auto& vertices = mesh.getVertices();
 

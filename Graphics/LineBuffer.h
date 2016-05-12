@@ -10,7 +10,7 @@
 
 namespace Crystal {
 	namespace Polygon {
-		class PolygonObject;
+		class PolygonMesh;
 		class ActorObject;
 	}
 	namespace Graphics {
@@ -20,7 +20,7 @@ class LineBuffer
 public:
 	void clear();
 
-	void add(const Polygon::PolygonObject& polygon);
+	void add(const Polygon::PolygonMesh& polygon);
 
 	void add(const Polygon::ActorObject& actor);
 

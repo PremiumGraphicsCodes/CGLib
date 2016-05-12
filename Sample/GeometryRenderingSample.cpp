@@ -37,7 +37,7 @@ void GeometryRenderingSample::demonstrate(const int width, const int height, con
 	Triangle<float> triangle(Vector3d<float>(0.0f, 0.0f, 5.0f), Vector3d<float>(5.0, 0.0, 5.0),Vector3d<float>(0.0, 5.0, 5.0));
 	Triangle<float> triangle2(Vector3d<float>(-10.0f, 0.0f, 4.0f), Vector3d<float>(5.0, 0.0, 4.0), Vector3d<float>(0.0, 5.0, 4.0));
 
-	PolygonObject polygon;
+	PolygonMesh polygon;
 	polygon.add(triangle);
 	polygon.add(triangle2);
 	TriangleBuffer buffer;

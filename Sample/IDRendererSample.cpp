@@ -55,7 +55,7 @@ void IDRendererSample::demonstrate(const int width, const int height, const Crys
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
-	PolygonObject polygon(255);
+	PolygonMesh polygon(255);
 	polygon.add(box);
 
 	TriangleBuffer buffer;

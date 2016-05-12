@@ -7,7 +7,7 @@ using namespace Crystal::Polygon;
 
 TEST(TriangleMeshTest, Test)
 {
-	PolygonObject mesh;
+	PolygonMesh mesh;
 	auto p1 = mesh.createVertex(Vector3d<float>(0.0, 0.0, 0.0));
 	auto p2 = mesh.createVertex(Vector3d<float>(1.0, 0.0, 0.0));
 	auto p3 = mesh.createVertex(Vector3d<float>(1.0, 1.0, 0.0));

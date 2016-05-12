@@ -13,7 +13,7 @@ TEST(POVFileTest, TestWriteScene)
 	POVFile file;
 	std::string dest("../TestFile/IO/POVFileTestWrite.pov");
 
-	PolygonObject mesh;
+	PolygonMesh mesh;
 	auto v1 = mesh.createVertex(Vector3d<float>(0, 0, 0));
 	auto v2 = mesh.createVertex(Vector3d<float>(1, 0, 0));
 	auto v3 = mesh.createVertex(Vector3d<float>(1, 1, 0));
@@ -26,7 +26,7 @@ TEST(POVFileTest, TestWriteInc)
 	POVFile file;
 	std::string dest("../TestFile/IO/POVFileTestWrite.inc");
 
-	PolygonObject mesh;
+	PolygonMesh mesh;
 	auto v1 = mesh.createVertex(Vector3d<float>(0, 0, 0));
 	auto v2 = mesh.createVertex(Vector3d<float>(1, 0, 0));
 	auto v3 = mesh.createVertex(Vector3d<float>(1, 1, 0));

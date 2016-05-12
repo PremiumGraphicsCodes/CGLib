@@ -42,7 +42,7 @@ void DamBreakSample::setup()
 			const Vector3d<float> start(-4.0f, 2.0f*i, 2.0f *k);
 			const Vector3d<float> end(-2.0f, 2.0f*(i + 1), 2.0f*(k + 1));
 			Box3d<float> box(start, end);
-			auto shape = new PolygonObject(id);
+			auto shape = new PolygonMesh(id);
 			auto rigid = new BulletRigid(box, &rigidConstant, id, shape);
 			bulletWorld.add(rigid);
 			shape->add(rigid->getLocalShape());
@@ -138,7 +138,7 @@ void DamBreakSample::onKeyDown(const unsigned char c)
 		const Vector3d<float> end(2.0, 30.0, 10.0);
 		Box3d<float> box(start, end);
 
-		auto shape = new PolygonObject(-1);
+		auto shape = new PolygonMesh(-1);
 		auto rigid = new BulletRigid(box, &rigidConstant, -1, shape);
 		bulletWorld.add(rigid);
 		shape->add(rigid->getLocalShape());

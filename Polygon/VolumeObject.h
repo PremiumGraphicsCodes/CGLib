@@ -13,7 +13,7 @@ namespace Crystal {
 	namespace Polygon {
 
 class Particle;
-class PolygonObject;
+class PolygonMesh;
 class ParticleObject;
 class VolumeCell;
 class VolumeNode;
@@ -32,7 +32,7 @@ public:
 
 	std::vector<VolumeNode> toNodes() const;
 
-	PolygonObject* toPolygonObject(const float isolevel) const;
+	PolygonMesh* toPolygonObject(const float isolevel) const;
 
 	Math::Vector3d<float> getUnitLength() const;
 

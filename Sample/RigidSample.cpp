@@ -30,7 +30,7 @@ void RigidSample::setup()
 	constant = SPHConstant(1000.0f, 1000000.0f, 0.0f, 0.0f, 1.25f);
 	{
 		Box3d<float> box(Vector3d<float>(-0.5, -0.5, -0.5), Vector3d<float>(0.5, 0.5, 0.5));
-		auto s = new PolygonObject();
+		auto s = new PolygonMesh();
 		s->add(box);
 		auto r = new BulletRigid(box, &constant, -1, s);
 		rigids.push_back(r);
@@ -38,7 +38,7 @@ void RigidSample::setup()
 	}
 	{
 		Box3d<float> box(Vector3d<float>(-0.5, 0.5f, -0.5f), Vector3d<float>(0.5f, 1.0f, 0.5f));
-		auto s = new PolygonObject();
+		auto s = new PolygonMesh();
 		s->add(box);
 		auto r  = new BulletRigid(box, &constant, -1, s);
 		rigids.push_back(r);
@@ -46,7 +46,7 @@ void RigidSample::setup()
 	}
 	{
 		Box3d<float> box(Vector3d<float>(-0.5, 1.0f, -0.5f), Vector3d<float>(0.5f, 2.0f, 0.5f));
-		auto s = new PolygonObject();
+		auto s = new PolygonMesh();
 		s->add(box);
 		auto r = new BulletRigid(box, &constant, -1, s);
 		world.add(r);

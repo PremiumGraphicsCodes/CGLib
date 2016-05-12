@@ -23,7 +23,7 @@ VisualObject::VisualObject(const ActorObject& actor)
 	lineBuffer.add(actor);
 }
 
-VisualObject::VisualObject(const PolygonObject& polygon)
+VisualObject::VisualObject(const PolygonMesh& polygon)
 {
 	pointBuffer.add(polygon);
 	lineBuffer.add(polygon);

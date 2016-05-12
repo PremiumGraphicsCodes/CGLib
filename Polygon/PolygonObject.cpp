@@ -11,18 +11,18 @@ using namespace Crystal::Polygon;
 
 
 
-PolygonObject::~PolygonObject()
+PolygonMesh::~PolygonMesh()
 {
 	clear();
 }
 
 
-Vertex* PolygonObject::createVertex(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
+Vertex* PolygonMesh::createVertex(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
 {
 	return vertices.create(position, normal, texCoord);
 }
 
-Vertex* PolygonObject::findVertexById(const unsigned int id) const
+Vertex* PolygonMesh::findVertexById(const unsigned int id) const
 {
 	for (auto v : vertices) {
 		if (v->getId() == id) {
@@ -46,12 +46,12 @@ Face* PolygonObject::findFaceById(const unsigned int id) const
 
 
 
-Face* PolygonObject::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+Face* PolygonMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	return faces.create(v1, v2, v3);
 }
 
-Face* PolygonObject::createFace(const int vindex1, const int vindex2, const int vindex3)
+Face* PolygonMesh::createFace(const int vindex1, const int vindex2, const int vindex3)
 {
 	auto v1 = vertices[vindex1];
 	auto v2 = vertices[vindex2];
@@ -59,7 +59,7 @@ Face* PolygonObject::createFace(const int vindex1, const int vindex2, const int 
 	return createFace(v1, v2, v3);
 }
 
-std::list< Face* > PolygonObject::createFaces(const std::vector<int>& ids)
+std::list< Face* > PolygonMesh::createFaces(const std::vector<int>& ids)
 {
 	std::list< Face* > fs;
 	const auto origin = ids[0];
@@ -72,7 +72,7 @@ std::list< Face* > PolygonObject::createFaces(const std::vector<int>& ids)
 }
 
 
-std::list< Face* > PolygonObject::createFaces(const std::vector<Vertex*>& vertices)
+std::list< Face* > PolygonMesh::createFaces(const std::vector<Vertex*>& vertices)
 {
 	std::list< Face* > fs;
 	auto origin = vertices[0];
@@ -87,7 +87,7 @@ std::list< Face* > PolygonObject::createFaces(const std::vector<Vertex*>& vertic
 }
 
 
-void PolygonObject::add(const Triangle<float>& triangle)
+void PolygonMesh::add(const Triangle<float>& triangle)
 {
 	auto n = triangle.getNormal();
 	auto p1 = triangle.getv0();
@@ -105,7 +105,7 @@ void PolygonObject::add(const Triangle<float>& triangle)
 
 
 
-void PolygonObject::add(const Quad<float>& quad)
+void PolygonMesh::add(const Quad<float>& quad)
 {
 	auto n = quad.getNormal();
 	auto p1 = quad.getPositions()[0];
@@ -120,7 +120,7 @@ void PolygonObject::add(const Quad<float>& quad)
 	auto f = createFaces({ v1, v2, v3, v4 });
 }
 
-void PolygonObject::add(const Box3d<float>& box)
+void PolygonMesh::add(const Box3d<float>& box)
 {
 	const auto& center = box.getCenter();
 	const auto minx = box.getMinX();
@@ -180,18 +180,18 @@ void PolygonObject::add(const Box3d<float>& box)
 
 }
 
-void PolygonObject::add(const Sphere<float>& sphere, const int udiv, const int vdiv)
+void PolygonMesh::add(const Sphere<float>& sphere, const int udiv, const int vdiv)
 {
 	;
 }
 
-void PolygonObject::merge(PolygonObject* rhs)
+void PolygonMesh::merge(PolygonMesh* rhs)
 {
 	this->vertices.merge(rhs->vertices);
 	this->faces.merge(rhs->faces);
 }
 
-void PolygonObject::clear()
+void PolygonMesh::clear()
 {
 	//positions.clear();
 	//normals.clear();
@@ -202,16 +202,16 @@ void PolygonObject::clear()
 
 #include "../Math/Matrix4d.h"
 
-void PolygonObject::transform(const Matrix4d<float>& matrix)
+void PolygonMesh::transform(const Matrix4d<float>& matrix)
 {
 	for (auto v : vertices) {
 		v->transform(matrix);
 	}
 }
 
-PolygonObject* PolygonObject::clone(const unsigned int id)
+PolygonMesh* PolygonMesh::clone(const unsigned int id)
 {
-	PolygonObject* newPolygon = new PolygonObject(id);
+	PolygonMesh* newPolygon = new PolygonMesh(id);
 	for (auto v : vertices) {
 		newPolygon->createVertex( v->getPosition(), v->getNormal(), v->getTexCoord());
 	}

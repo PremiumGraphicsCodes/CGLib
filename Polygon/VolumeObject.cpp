@@ -86,10 +86,10 @@ VolumeCell VolumeObject::toCell(const Index3d index) const
 }
 
 
-PolygonObject* VolumeObject::toPolygonObject(const float isolevel) const
+PolygonMesh* VolumeObject::toPolygonObject(const float isolevel) const
 {
 	const auto& triangles = toTriangles(isolevel);
-	PolygonObject* newMesh = new PolygonObject();
+	PolygonMesh* newMesh = new PolygonMesh();
 	for (const auto& t : triangles) {
 		newMesh->add(t);
 	}

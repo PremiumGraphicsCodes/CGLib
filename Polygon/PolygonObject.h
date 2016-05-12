@@ -26,15 +26,15 @@ class Vertex;
 class Face;
 
 
-class PolygonObject : private UnCopyable
+class PolygonMesh : private UnCopyable
 {
 public:
-	PolygonObject(const unsigned int id = -1) :
+	PolygonMesh(const unsigned int id = -1) :
 		id(id),
 		nextIndexId(0)
 	{}
 
-	~PolygonObject();
+	~PolygonMesh();
 
 	unsigned int getId() const { return id; }
 
@@ -46,7 +46,7 @@ public:
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
 
-	void merge(PolygonObject* rhs);
+	void merge(PolygonMesh* rhs);
 
 	void removeOverlappedVertices() { vertices.sort(); }
 
@@ -60,7 +60,7 @@ public:
 
 	Face* createFace(const int v1, const int v2, const int v3);
 
-	PolygonObject* clone(const unsigned int id = -1);
+	PolygonMesh* clone(const unsigned int id = -1);
 
 	std::list< Face* > createFaces(const std::vector<int>& ids);
 

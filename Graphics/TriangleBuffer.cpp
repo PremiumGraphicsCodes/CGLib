@@ -9,7 +9,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 
 
-void TriangleBuffer::add(const PolygonObject& polygon)
+void TriangleBuffer::add(const PolygonMesh& polygon)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {

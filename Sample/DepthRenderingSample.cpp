@@ -33,7 +33,7 @@ void DepthRenderingSample::demonstrate(const int width, const int height, const 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 5.0f), Vector3d<float>(1.0f, 1.0f, 6.0f));
-	PolygonObject polygon;
+	PolygonMesh polygon;
 	polygon.add(box);
 	TriangleBuffer buffer;
 	buffer.add(polygon);

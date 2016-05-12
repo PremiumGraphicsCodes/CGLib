@@ -11,7 +11,7 @@
 
 namespace Crystal {
 	namespace Polygon {
-		class PolygonObject;
+		class PolygonMesh;
 		class Vertex;
 	}
 	namespace Graphics {
@@ -19,7 +19,7 @@ namespace Crystal {
 class TriangleBuffer
 {
 public:
-	void add(const Polygon::PolygonObject& polygon);
+	void add(const Polygon::PolygonMesh& polygon);
 
 	void add(const Polygon::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
 

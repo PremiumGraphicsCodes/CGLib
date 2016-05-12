@@ -19,7 +19,7 @@ public:
 private:
 	std::unique_ptr<Crystal::Polygon::ParticleObject> particle;
 	std::unique_ptr<Crystal::Polygon::VolumeObject> volume;
-	std::unique_ptr<Crystal::Polygon::PolygonObject> polygon;
+	std::unique_ptr<Crystal::Polygon::PolygonMesh> polygon;
 };
 
 #endif

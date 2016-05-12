@@ -6,6 +6,6 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Polygon;
 
 
-VisualPolygon::VisualPolygon(PolygonObject* polygon)
+VisualPolygon::VisualPolygon(PolygonMesh* polygon)
 	: polygon(polygon)
 {}

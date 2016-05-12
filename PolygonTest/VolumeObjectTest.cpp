@@ -90,7 +90,7 @@ TEST(VolumeObjectTest, TestToPolygon)
 	Grid3d<float> grid(4, 4, 4);
 	grid.set(1, 0, 0, 1);
 	VolumeObject object(space, grid);
-	std::unique_ptr<PolygonObject> actual( object.toPolygonObject(0.5f) );
+	std::unique_ptr<PolygonMesh> actual( object.toPolygonObject(0.5f) );
 	EXPECT_EQ( 4, actual->getVertices().size() );
 }
 
