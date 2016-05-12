@@ -207,6 +207,7 @@
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="QuadRenderer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ShaderCollection.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="ShaderPolygon.h" />
     <ClInclude Include="SkyBoxRenderer.h" />

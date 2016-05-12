@@ -26,7 +26,7 @@ public:
 
 	~SmoothRenderer() = default;
 
-	void findLocation();
+	void set(ShaderObject* shader);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material);
 
@@ -36,9 +36,9 @@ public:
 
 private:
 
-	std::string getBuildinVertexShaderSource() const;
+	static std::string getBuildinVertexShaderSource();
 
-	std::string getBuildinFragmentShaderSource() const;
+	static std::string getBuildinFragmentShaderSource();
 
 	struct Location {
 		GLuint projectionMatrix;
@@ -48,7 +48,7 @@ private:
 	};
 
 	Location location;
-	ShaderObject shader;
+	ShaderObject* shader;
 
 };
 

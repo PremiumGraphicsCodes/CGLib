@@ -3,6 +3,7 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
 #include "VisualMaterial.h"
+#include "ShaderCollection.h"
 #include <algorithm>
 
 using namespace Crystal::Graphics;
@@ -17,7 +18,6 @@ ShaderPolygon::ShaderPolygon(const VisualPolygon& vp)
 void ShaderPolygon::setup(const VisualPolygon& vp)
 {
 	renderer.build();
-	renderer.findLocation();
 
 	triangleBuffer.add(*vp.getPolygon());
 	const auto mm = vp.getMaterialMaps();

@@ -213,6 +213,7 @@
     </ClInclude>
     <ClInclude Include="ShaderPolygon.h" />
     <ClInclude Include="VisualMaterial.h" />
+    <ClInclude Include="ShaderCollection.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

@@ -4,19 +4,27 @@
 #include "VisualMaterial.h"
 #include <sstream>
 
+#include "ShaderCollection.h"
+
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
+
+namespace {
+	std::string shaderName = "smooth";
+}
 
 bool SmoothRenderer::build()
 {
 	const auto& vShader = getBuildinVertexShaderSource();
 	const auto& fShader = getBuildinFragmentShaderSource();
-	bool b = shader.build(vShader, fShader);
-	findLocation();
-	return b;
+
+	bool result = ShaderCollection::getInstance()->build(shaderName, vShader, fShader);
+	set(ShaderCollection::getInstance()->get(shaderName));
+	
+	return result;
 }
 
-std::string SmoothRenderer::getBuildinVertexShaderSource() const
+std::string SmoothRenderer::getBuildinVertexShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -36,7 +44,7 @@ std::string SmoothRenderer::getBuildinVertexShaderSource() const
 	return stream.str();
 }
 
-std::string SmoothRenderer::getBuildinFragmentShaderSource() const
+std::string SmoothRenderer::getBuildinFragmentShaderSource()
 {
 	std::ostringstream stream;
 	stream
@@ -82,24 +90,25 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource() const
 }
 
 
-void SmoothRenderer::findLocation()
+void SmoothRenderer::set(ShaderObject* shader)
 {
-	shader.findUniformLocation("projectionMatrix");
-	shader.findUniformLocation("modelviewMatrix");
-	shader.findUniformLocation("eyePosition");
-	shader.findUniformLocation("light.position");
-	shader.findUniformLocation("light.La");
-	shader.findUniformLocation("light.Ld");
-	shader.findUniformLocation("light.Ls");
-	shader.findUniformLocation("material.Ka");
-	shader.findUniformLocation("material.Kd");
-	shader.findUniformLocation("material.Ks");
-	shader.findUniformLocation("material.shininess");
-	shader.findUniformLocation("diffuseTex");
+	this->shader = shader;
+	shader->findUniformLocation("projectionMatrix");
+	shader->findUniformLocation("modelviewMatrix");
+	shader->findUniformLocation("eyePosition");
+	shader->findUniformLocation("light.position");
+	shader->findUniformLocation("light.La");
+	shader->findUniformLocation("light.Ld");
+	shader->findUniformLocation("light.Ls");
+	shader->findUniformLocation("material.Ka");
+	shader->findUniformLocation("material.Kd");
+	shader->findUniformLocation("material.Ks");
+	shader->findUniformLocation("material.shininess");
+	shader->findUniformLocation("diffuseTex");
 
-	shader.findAttribLocation("position");
-	shader.findAttribLocation("normal");
-	shader.findAttribLocation("texCoord");
+	shader->findAttribLocation("position");
+	shader->findAttribLocation("normal");
+	shader->findAttribLocation("texCoord");
 }
 
 
@@ -120,30 +129,30 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	assert(GL_NO_ERROR == glGetError());
 
-	glUseProgram(shader.getId());
+	glUseProgram(shader->getId());
 
 	const auto& lightPos = light.getPos().toArray();//{ -10.0f, 10.0f, 10.0f };
 
-	glUniform3fv(shader.getUniformLocation("light.position"), 1, light.getPos().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.La"), 1, light.getAmbient().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.Ld"), 1, light.getDiffuse().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.Ls"), 1, light.getSpecular().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.position"), 1, light.getPos().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.La"), 1, light.getAmbient().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.Ld"), 1, light.getDiffuse().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.Ls"), 1, light.getSpecular().toArray3().data());
 
-	glUniform3fv(shader.getUniformLocation("material.Ka"), 1, material.getAmbient().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("material.Kd"), 1, material.getDiffuse().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("material.Ks"), 1, material.getSpecular().toArray3().data());
-	glUniform1f(shader.getUniformLocation("material.shininess"), material.getShininess());
+	glUniform3fv(shader->getUniformLocation("material.Ka"), 1, material.getAmbient().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("material.Kd"), 1, material.getDiffuse().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("material.Ks"), 1, material.getSpecular().toArray3().data());
+	glUniform1f(shader->getUniformLocation("material.shininess"), material.getShininess());
 
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+	glBindFragDataLocation(shader->getId(), 0, "fragColor");
 
-	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
-	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
-	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, eyePos.data());
+	glUniformMatrix4fv(shader->getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
+	glUniformMatrix4fv(shader->getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
+	glUniform3fv(shader->getUniformLocation("eyePosition"), 1, eyePos.data());
 
 	assert(GL_NO_ERROR == glGetError());
 
-	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
-	glVertexAttribPointer(shader.getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
+	glVertexAttribPointer(shader->getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader->getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
 	//glVertexAttribPointer(location.)
 	assert(GL_NO_ERROR == glGetError());
 
@@ -185,31 +194,31 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	assert(GL_NO_ERROR == glGetError());
 
-	glUseProgram(shader.getId());
+	glUseProgram(shader->getId());
 
 	const auto& lightPos = light.getPos().toArray();//{ -10.0f, 10.0f, 10.0f };
 
-	const auto lightLoc = glGetUniformLocation(shader.getId(), "light.position");
+	const auto lightLoc = glGetUniformLocation(shader->getId(), "light.position");
 	glUniform3fv(lightLoc, 1, lightPos.data());
 
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+	glBindFragDataLocation(shader->getId(), 0, "fragColor");
 
-	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
-	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
-	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, eyePos.data());
+	glUniformMatrix4fv(shader->getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
+	glUniformMatrix4fv(shader->getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
+	glUniform3fv(shader->getUniformLocation("eyePosition"), 1, eyePos.data());
 
 	assert(GL_NO_ERROR == glGetError());
 
-	glUniform3fv(shader.getUniformLocation("light.position"), 1, light.getPos().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.La"), 1, light.getAmbient().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.Ld"), 1, light.getDiffuse().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.Ls"), 1, light.getSpecular().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.position"), 1, light.getPos().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.La"), 1, light.getAmbient().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.Ld"), 1, light.getDiffuse().toArray3().data());
+	glUniform3fv(shader->getUniformLocation("light.Ls"), 1, light.getSpecular().toArray3().data());
 
 
 
-	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
-	glVertexAttribPointer(shader.getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
-	glVertexAttribPointer(shader.getAttribLocation("texCoord"), 3, GL_FLOAT, GL_FALSE, 0, texCoords.data());
+	glVertexAttribPointer(shader->getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader->getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
+	glVertexAttribPointer(shader->getAttribLocation("texCoord"), 3, GL_FLOAT, GL_FALSE, 0, texCoords.data());
 
 	//glVertexAttribPointer(location.)
 	assert(GL_NO_ERROR == glGetError());
@@ -225,11 +234,11 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 		const auto diffuseTex = m.getDiffuseTex();
 		diffuseTex.bind();
 
-		glUniform3fv(shader.getUniformLocation("material.Ka"), 1, m.getAmbientColor().data());
-		glUniform3fv(shader.getUniformLocation("material.Kd"), 1, m.getDiffuseColor().data());
-		glUniform3fv(shader.getUniformLocation("material.Ks"), 1, m.getSpecularColor().data());
-		glUniform1f(shader.getUniformLocation("material.shininess"), m.getShininess());
-		glUniform1i(shader.getUniformLocation("diffuseTex"), diffuseTex.getId());
+		glUniform3fv(shader->getUniformLocation("material.Ka"), 1, m.getAmbientColor().data());
+		glUniform3fv(shader->getUniformLocation("material.Kd"), 1, m.getDiffuseColor().data());
+		glUniform3fv(shader->getUniformLocation("material.Ks"), 1, m.getSpecularColor().data());
+		glUniform1f(shader->getUniformLocation("material.shininess"), m.getShininess());
+		glUniform1i(shader->getUniformLocation("diffuseTex"), diffuseTex.getId());
 
 
 		//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
