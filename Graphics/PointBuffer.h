@@ -41,8 +41,6 @@ public:
 
 	Point(const Physics::SPHParticle& particle);
 
-	Point(const Polygon::Joint& joint);
-
 	Math::Vector3d<float> getPosition() const { return position; }
 
 	ColorRGBA<float> getColor() const { return color; }
@@ -70,8 +68,6 @@ public:
 	void add(const Point& point);
 
 	void add(const Polygon::ParticleObject& object);
-
-	void add(const Polygon::ActorObject& actor);
 
 	void add(const Polygon::PolygonMesh& polygon);
 

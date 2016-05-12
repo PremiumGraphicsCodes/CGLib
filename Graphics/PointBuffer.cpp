@@ -42,16 +42,6 @@ Point::Point(const Vertex& vertex)
 }
 
 
-Point::Point(const Joint& joint)
-{
-	position = joint.getPosition();
-	color = ColorRGBA<float>(1.0, 1.0, 1.0, 1.0f);
-	//idColor = ColorRGBA<unsigned char>(joing.getId());
-
-	size = 1.0f;//joint.getDiameter();
-}
-
-
 PointBuffer::PointBuffer(const ParticleObject& object)
 {
 	add(object);
@@ -64,14 +54,6 @@ void PointBuffer::add(const ParticleObject& object)
 		add(Point(*particles[i]));
 	}
 
-}
-
-void PointBuffer::add(const ActorObject& actor)
-{
-	const auto joints = actor.getJoints();
-	for (auto& j : joints) {
-		add(Point(*j));
-	}
 }
 
 void PointBuffer::add(const VolumeObject& volume)

@@ -5,12 +5,12 @@
 
 #include "../Math/Vector3d.h"
 #include "Bone.h"
+#include "Joint.h"
 
 namespace Crystal {
 	namespace Polygon {
 		class Particle;
 		class ParticleObject;
-		class Joint;
 		class BoneTree;
 
 class ActorObject
@@ -42,8 +42,9 @@ public:
 
 	//ParticleObject toParticleObject();
 
+	Joint* findJointById(const unsigned int id) const;
+
 private:
-	unsigned int nextBoneId;
 	Bone* rootBone;
 	std::list<Bone*> bones;
 	std::list<Joint*> joints;

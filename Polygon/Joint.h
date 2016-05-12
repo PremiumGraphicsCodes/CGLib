@@ -11,9 +11,12 @@ namespace Crystal {
 class Joint
 {
 public:
-	Joint(const Math::Vector3d<float>& pos) :
-		position(pos)
+	Joint(const Math::Vector3d<float>& pos, const unsigned int id = -1) :
+		position(pos),
+		id(id)
 	{}
+
+	unsigned int getId() const { return id; }
 
 	Particle toParticle(const float radius, const float density) const;
 
@@ -21,6 +24,7 @@ public:
 
 private:
 	Math::Vector3d<float> position;
+	const unsigned int id;
 };
 
 	}

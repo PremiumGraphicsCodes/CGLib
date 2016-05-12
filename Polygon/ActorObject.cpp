@@ -11,8 +11,7 @@ using namespace Crystal::Polygon;
 
 
 
-ActorObject::ActorObject() :
-	nextBoneId(0)
+ActorObject::ActorObject()
 {}
 
 
@@ -22,7 +21,6 @@ void ActorObject::clear()
 		delete b;
 	}
 	bones.clear();
-	nextBoneId = (0);
 	for (auto j : joints) {
 		delete j;
 	}
@@ -32,7 +30,7 @@ void ActorObject::clear()
 
 Joint* ActorObject::createJoint(const Vector3d<float>& pos)
 {
-	auto j = new Joint(pos);
+	auto j = new Joint(pos, joints.size());
 	joints.push_back(j);
 	return j;
 }
@@ -40,7 +38,7 @@ Joint* ActorObject::createJoint(const Vector3d<float>& pos)
 
 Bone* ActorObject::createBone(Joint* j1, Joint* j2)
 {
-	auto b = new Bone(j1, j2, nextBoneId++);
+	auto b = new Bone(j1, j2, bones.size());
 	bones.push_back(b);
 	return b;
 }
@@ -57,4 +55,14 @@ ParticleObject* ActorObject::toParticleObject(const float radius, const float de
 		}
 	}
 	return new ParticleObject( particles );
+}
+
+Joint* ActorObject::findJointById(const unsigned int id) const
+{
+	for (auto j : joints) {
+		if (j->getId() == id) {
+			return j;
+		}
+	}
+	return nullptr;
 }
