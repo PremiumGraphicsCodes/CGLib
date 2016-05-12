@@ -18,11 +18,6 @@ VisualObject::VisualObject(const ParticleObject& particle)
 	pointBuffer.add(particle);
 }
 
-VisualObject::VisualObject(const ActorObject& actor)
-{
-	lineBuffer.add(actor);
-}
-
 VisualObject::VisualObject(const PolygonMesh& polygon)
 {
 	pointBuffer.add(polygon);

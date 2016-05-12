@@ -7,9 +7,10 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-Bone::Bone(Joint* origin, Joint* dest) :
+Bone::Bone(Joint* origin, Joint* dest, const unsigned int id) :
 	origin(origin),
-	dest(dest)
+	dest(dest),
+	id(id)
 {}
 
 Bone::~Bone()

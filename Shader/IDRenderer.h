@@ -3,6 +3,7 @@
 
 #include "IRenderer.h"
 #include "../Graphics/PointBuffer.h"
+#include "../Graphics/LineBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
 
 namespace Crystal {
@@ -18,6 +19,8 @@ public:
 	void findLocation();
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+
+	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
 

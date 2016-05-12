@@ -11,6 +11,10 @@ using namespace Crystal::Polygon;
 
 
 
+ActorObject::ActorObject() :
+	nextBoneId(0)
+{}
+
 
 void ActorObject::clear()
 {
@@ -18,6 +22,7 @@ void ActorObject::clear()
 		delete b;
 	}
 	bones.clear();
+	nextBoneId = (0);
 	for (auto j : joints) {
 		delete j;
 	}
@@ -35,7 +40,7 @@ Joint* ActorObject::createJoint(const Vector3d<float>& pos)
 
 Bone* ActorObject::createBone(Joint* j1, Joint* j2)
 {
-	auto b = new Bone(j1, j2);
+	auto b = new Bone(j1, j2, nextBoneId++);
 	bones.push_back(b);
 	return b;
 }

@@ -13,7 +13,7 @@ namespace Crystal {
 class Bone
 {
 public:
-	Bone(Joint* origin, Joint* dest);
+	Bone(Joint* origin, Joint* dest, const unsigned int id = -1);
 
 	~Bone();
 
@@ -35,11 +35,14 @@ public:
 
 	std::string getName() const { return "Test";  }
 
+	unsigned int getId() const { return id; }
+
 private:
 	Joint* origin;
 	Joint* dest;
 	//Bone* parent;
 	std::vector<Bone*> children;
+	const unsigned int id;
 };
 
 	}

@@ -26,8 +26,6 @@ public:
 
 	VisualObject(const Polygon::ParticleObject& particle);
 
-	VisualObject(const Polygon::ActorObject& actor);
-
 	VisualObject(const Polygon::PolygonMesh& polygon);
 
 	VisualObject(const Physics::PhysicsObject& physics);

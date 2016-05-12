@@ -4,6 +4,8 @@
 #include "../Polygon/ActorObject.h"
 #include "../Polygon/Bone.h"
 
+#include "DrawableID.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 using namespace Crystal::Graphics;
@@ -13,10 +15,11 @@ void LineBuffer::clear()
 	position.clear();
 	color.clear();
 	this->ids.clear();
+	this->idColors.clear();
 }
 
 
-void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
+void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, const int id)
 {
 	position.add(line.getStart());
 	position.add(line.getEnd());
@@ -24,17 +27,12 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 	this->color.add(color);
 	this->ids.push_back(this->ids.size());
 	this->ids.push_back(this->ids.size());
-}
 
-void LineBuffer::add(const ActorObject& actor)
-{
-	for (auto b : actor.getBones()) {
-		if (b->getOriginJoint() != nullptr && b->getDestJoint() != nullptr) {
-			add(b->toLine(), ColorRGBA<float>(1.0f, 1.0f, 1.0f, 1.0f));
-		}
-	}
-}
+	DrawableID did(id);
+	this->idColors.add(did.toColor());
+	this->idColors.add(did.toColor());
 
+}
 
 void LineBuffer::add(const PolygonMesh& polygon)
 {

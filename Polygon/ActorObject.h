@@ -4,20 +4,19 @@
 #include <list>
 
 #include "../Math/Vector3d.h"
+#include "Bone.h"
 
 namespace Crystal {
 	namespace Polygon {
 		class Particle;
 		class ParticleObject;
 		class Joint;
-		class Bone;
 		class BoneTree;
 
 class ActorObject
 {
 public:
-	ActorObject()
-	{}
+	ActorObject();
 
 	~ActorObject() {
 		clear();
@@ -44,6 +43,7 @@ public:
 	//ParticleObject toParticleObject();
 
 private:
+	unsigned int nextBoneId;
 	Bone* rootBone;
 	std::list<Bone*> bones;
 	std::list<Joint*> joints;

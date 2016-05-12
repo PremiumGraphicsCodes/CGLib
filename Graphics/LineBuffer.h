@@ -22,10 +22,7 @@ public:
 
 	void add(const Polygon::PolygonMesh& polygon);
 
-	void add(const Polygon::ActorObject& actor);
-
-
-	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color);
+	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color, const int id = 0);
 
 	std::vector<IBuffer<float>> getBuffers() const {
 		return{ position, color };
@@ -33,7 +30,7 @@ public:
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
-	Graphics::Buffer4d<unsigned char> getIdColors() const { return idColors; }
+	Buffer4d<float> getIdColors() const { return idColors; }
 
 	Graphics::Buffer4d<float> getColor() const { return color; }
 
@@ -41,7 +38,7 @@ public:
 
 private:
 	Graphics::Buffer3d<float> position;
-	Graphics::Buffer4d<unsigned char> idColors;
+	Buffer4d<float> idColors;
 	Graphics::Buffer4d<float> color;
 	std::vector<unsigned int> ids;
 };
