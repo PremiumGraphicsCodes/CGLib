@@ -41,7 +41,7 @@ private:
 	Crystal::Shader::FluidRenderer fluidRenderer;
 	Crystal::Shader::OnScreenRenderer onRenderer;
 	Crystal::Shader::DepthRenderer depthRenderer;
-	Crystal::Shader::CubeMapTexture cubeMapTexture;
+	Crystal::Shader::CubeMapTextureObject cubeMapTexture;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 	Crystal::Shader::TextureObject backgroundTexture;
 	Crystal::Shader::FrameBuffer backgroundBuffer;

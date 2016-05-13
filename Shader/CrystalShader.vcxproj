@@ -144,7 +144,7 @@
     <ClCompile Include="ActorScene.cpp" />
     <ClCompile Include="BilateralFilter.cpp" />
     <ClCompile Include="CubeMapRenderer.cpp" />
-    <ClCompile Include="CubeMapTexture.cpp" />
+    <ClCompile Include="CubeMapTextureObject.cpp" />
     <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="DepthBuffer.cpp" />
     <ClCompile Include="DepthRenderer.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="ActorScene.h" />
     <ClInclude Include="BilateralFilter.h" />
     <ClInclude Include="CubeMapRenderer.h" />
-    <ClInclude Include="CubeMapTexture.h" />
+    <ClInclude Include="CubeMapTextureObject.h" />
     <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="DepthBuffer.h" />
     <ClInclude Include="DepthRenderer.h" />

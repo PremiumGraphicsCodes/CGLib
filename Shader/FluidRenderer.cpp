@@ -100,7 +100,7 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 }
 
 
-void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material, const CubeMapTexture& cubeMapTexture)
+void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material, const CubeMapTextureObject& cubeMapTexture)
 {
 	depthBuffer.setTexture(depthTexture);
 	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());

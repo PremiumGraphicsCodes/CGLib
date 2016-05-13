@@ -5,7 +5,7 @@
 #include "../Graphics/TriangleBuffer.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
-#include "CubeMapTexture.h"
+#include "CubeMapTextureObject.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -14,7 +14,7 @@ namespace Crystal {
 class CubeMapRenderer
 {
 public:
-	void render(const CubeMapTexture& cubeMapTexture, const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
+	void render(const CubeMapTextureObject& cubeMapTexture, const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
 
 	bool build();
 

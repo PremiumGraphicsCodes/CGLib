@@ -1,10 +1,10 @@
 #include "GLee.h"
-#include "CubeMapTexture.h"
+#include "CubeMapTextureObject.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-void CubeMapTexture::create(const std::array<Imagef,6>& images, const unsigned int id)
+void CubeMapTextureObject::create(const std::array<Imagef,6>& images, const unsigned int id)
 {
 	this->id = id;
 	glActiveTexture(GL_TEXTURE0 + id);
@@ -31,55 +31,55 @@ void CubeMapTexture::create(const std::array<Imagef,6>& images, const unsigned i
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::bind() const
+void CubeMapTextureObject::bind() const
 {
 	glEnable(GL_TEXTURE_CUBE_MAP);
 	glActiveTexture(GL_TEXTURE0 + id);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 }
 
-void CubeMapTexture::unbind() const
+void CubeMapTextureObject::unbind() const
 {
 	glDisable(GL_TEXTURE_CUBE_MAP);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::setPositiveX(const Imagef& image)
+void CubeMapTextureObject::setPositiveX(const Imagef& image)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::setNegativeX(const Imagef& image)
+void CubeMapTextureObject::setNegativeX(const Imagef& image)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::setPositiveY(const Imagef& image)
+void CubeMapTextureObject::setPositiveY(const Imagef& image)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::setNegativeY(const Imagef& image)
+void CubeMapTextureObject::setNegativeY(const Imagef& image)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::setPositiveZ(const Imagef& image)
+void CubeMapTextureObject::setPositiveZ(const Imagef& image)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
 
-void CubeMapTexture::setNegativeZ(const Imagef& image)
+void CubeMapTextureObject::setNegativeZ(const Imagef& image)
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texHandle);
 	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());

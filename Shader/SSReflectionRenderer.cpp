@@ -95,7 +95,7 @@ void SSReflectionRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void SSReflectionRenderer::render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture)
+void SSReflectionRenderer::render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const ICamera<float>& renderedCamera, const CubeMapTextureObject& cubeMapTexture)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

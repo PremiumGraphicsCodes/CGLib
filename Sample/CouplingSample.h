@@ -15,7 +15,7 @@
 #include "../Shader/IDRenderer.h"
 #include "../Shader/FrameBuffer.h"
 #include "../Shader/SmoothRenderer.h"
-#include "../Shader/CubeMapTexture.h"
+#include "../Shader/CubeMapTextureObject.h"
 #include "../Shader/FluidRenderer.h"
 #include "../Shader/SSCompositeRenderer.h"
 #include "../Graphics/ColorMap.h"
@@ -71,7 +71,7 @@ private:
 	Crystal::Shader::SmoothRenderer smoothRenderer;
 
 	Crystal::Math::Matrix3d<float> rotationMatrix;
-	Crystal::Shader::CubeMapTexture cubeMapTexture;
+	Crystal::Shader::CubeMapTextureObject cubeMapTexture;
 	Crystal::Shader::FluidRenderer fluidRenderer;
 	Crystal::Shader::FrameBuffer backgroundBuffer;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;

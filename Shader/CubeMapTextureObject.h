@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_CUBE_MAP_TEXTURE_H__
-#define __CRYSTAL_SHADER_CUBE_MAP_TEXTURE_H__
+#ifndef __CRYSTAL_SHADER_CUBE_MAP_TEXTURE_OBJECT_H__
+#define __CRYSTAL_SHADER_CUBE_MAP_TEXTURE_OBJECT_H__
 
 #include "../Graphics/Image.h"
 #include "ITextureObject.h"
@@ -9,7 +9,7 @@
 namespace Crystal {
 	namespace Shader {
 
-class CubeMapTexture : public ITextureObject
+class CubeMapTextureObject : public ITextureObject
 {
 public:
 	void create(const std::array<Graphics::Imagef, 6>& images, const unsigned int id);

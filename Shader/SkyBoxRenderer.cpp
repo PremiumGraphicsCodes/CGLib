@@ -57,7 +57,7 @@ void SkyBoxRenderer::findLocation()
 	shader.findUniformLocation("cubeMapTex");
 }
 
-void SkyBoxRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<float>& camera)
+void SkyBoxRenderer::render(const CubeMapTextureObject& cubeMapTexture, const ICamera<float>& camera)
 {
 	TriangleBuffer buffer;
 	Crystal::Polygon::PolygonMesh polygon;

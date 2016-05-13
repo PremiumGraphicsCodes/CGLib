@@ -7,7 +7,7 @@
 #include "../Shader/ShaderObject.h"
 #include "../Graphics/TriangleBuffer.h"
 
-#include "../Shader/CubeMapTexture.h"
+#include "../Shader/CubeMapTextureObject.h"
 #include "../Shader/CubeMapRenderer.h"
 #include "../Shader/SkyBoxRenderer.h"
 
@@ -28,7 +28,7 @@ public:
 
 private:
 	Crystal::Shader::CubeMapRenderer renderer;
-	Crystal::Shader::CubeMapTexture cubeMapTexture;
+	Crystal::Shader::CubeMapTextureObject cubeMapTexture;
 	Crystal::Polygon::PolygonMesh polygon;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 

@@ -7,7 +7,7 @@
 #include "../Graphics/Material.h"
 #include "TextureObject.h"
 #include "DepthTextureObject.h"
-#include "CubeMapTexture.h"
+#include "CubeMapTextureObject.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -16,7 +16,7 @@ namespace Crystal {
 class SSReflectionRenderer
 {
 public:
-	void render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture);
+	void render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTextureObject& cubeMapTexture);
 
 	bool build();
 

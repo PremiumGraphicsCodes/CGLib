@@ -23,7 +23,7 @@ private:
 	int width;
 	int height;
 	Crystal::Shader::FluidRenderer renderer;
-	Crystal::Shader::CubeMapTexture cubeMapTexture;
+	Crystal::Shader::CubeMapTextureObject cubeMapTexture;
 	Crystal::Shader::FrameBuffer backgroundBuffer;
 };
 

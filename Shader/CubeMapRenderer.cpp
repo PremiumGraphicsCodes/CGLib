@@ -74,7 +74,7 @@ void CubeMapRenderer::findLocation()
 //	shader.findUniformLocation("refractFactor");
 }
 
-void CubeMapRenderer::render(const CubeMapTexture& cubeMapTexture, const ICamera<float>& camera, const TriangleBuffer& buffer)
+void CubeMapRenderer::render(const CubeMapTextureObject& cubeMapTexture, const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
