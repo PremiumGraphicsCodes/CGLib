@@ -38,6 +38,7 @@ private:
 
 	std::map<std::string, TextureObject* > textures;
 };
+
 	}
 }
 
