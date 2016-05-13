@@ -88,9 +88,6 @@
     <ClCompile Include="DepthSmoothingRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="FrameBufferObject.cpp">
-      <Filter>Buffer</Filter>
-    </ClCompile>
     <ClCompile Include="SSAbsorptionRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -204,9 +201,6 @@
     </ClInclude>
     <ClInclude Include="DepthSmoothingRenderer.h">
       <Filter>Renderer\Fluid</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameBufferObject.h">
-      <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="SSAbsorptionRenderer.h">
       <Filter>Renderer\Fluid</Filter>
