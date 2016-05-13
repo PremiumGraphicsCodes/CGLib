@@ -11,7 +11,7 @@
 namespace Crystal {
 	namespace Polygon {
 		class PolygonMesh;
-		class ActorObject;
+		class Actor;
 	}
 	namespace Graphics {
 

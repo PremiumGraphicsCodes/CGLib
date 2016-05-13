@@ -2,7 +2,7 @@
 
 
 #include "../Polygon/PolygonMesh.h"
-#include "../Polygon/ActorObject.h"
+#include "../Polygon/Actor.h"
 #include "../Polygon/Bone.h"
 #include "../Polygon/Joint.h"
 #include "../Polygon/CGModel.h"
@@ -396,9 +396,9 @@ bool PMDBoneCollection::writeEnglishNames(std::ostream& stream) const
 }
 
 
-ActorObject* PMDBoneCollection::toActorObject() const
+Actor* PMDBoneCollection::toActorObject() const
 {
-	ActorObject* object = new ActorObject();
+	Actor* object = new Actor();
 	std::vector<Joint*> joints;
 	for (size_t i = 0; i < bones.size(); ++i) {
 		//vertices.push_back(new Vertex());
@@ -913,7 +913,7 @@ VisualPolygon PMDFile::toVisualPolygon() const
 }
 
 
-ActorObject* PMDFile::toActorObject() const
+Actor* PMDFile::toActorObject() const
 {
 	return bones.toActorObject();
 }

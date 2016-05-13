@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "../Polygon/Vertex.h"
 #include "../Polygon/PolygonMesh.h"
-#include "../Polygon/ActorObject.h"
+#include "../Polygon/Actor.h"
 #include "../Polygon/Bone.h"
 #include "../Graphics/VisualPolygon.h"
 #include "../IO/PMDFile.h"
@@ -42,7 +42,7 @@ TEST(PMDFileTest, TestToActorObject)
 	child.boneHeadPos = Vector3d<float>(3, 2, 1);
 
 	PMDBoneCollection bones({ root, child });
-	std::unique_ptr<ActorObject> actor( bones.toActorObject() );
+	std::unique_ptr<Actor> actor( bones.toActorObject() );
 	EXPECT_EQ( 2, actor->getJoints().size());
 	EXPECT_EQ( 2, actor->getBones().size() );
 	Bone* bone = actor->getBones().front();

@@ -13,12 +13,12 @@ namespace Crystal {
 		class ParticleObject;
 		class BoneTree;
 
-class ActorObject
+class Actor
 {
 public:
-	ActorObject();
+	Actor();
 
-	~ActorObject() {
+	~Actor() {
 		clear();
 	}
 

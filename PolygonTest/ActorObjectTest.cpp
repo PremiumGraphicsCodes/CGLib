@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../Polygon/ActorObject.h"
+#include "../Polygon/Actor.h"
 #include "../Polygon/ParticleObject.h"
 
 #include <memory>
@@ -10,7 +10,7 @@ using namespace Crystal::Polygon;
 
 TEST(ActorObjectTest, TestToParticleObject)
 {
-	ActorObject object;
+	Actor object;
 	auto j1 = object.createJoint(Vector3d<float>(0.0, 0.0, 0.0));
 	auto j2 = object.createJoint(Vector3d<float>(1.0, 1.0, 1.0));
 	object.createBone(j1, j2);

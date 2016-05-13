@@ -11,7 +11,7 @@ namespace Crystal {
 		class VertexCollection;
 		class FaceCollection;
 		class PolygonMesh;
-		class ActorObject;
+		class Actor;
 		class Bone;
 		class Joint;
 		class CGModel;
@@ -197,7 +197,7 @@ public:
 
 	bool writeEnglishNames(std::ostream& stream) const;
 
-	Polygon::ActorObject* toActorObject() const;
+	Polygon::Actor* toActorObject() const;
 
 	//size_t getSize() const { return bones.size(); }
 
@@ -429,7 +429,7 @@ public:
 
 	//void add(const Polygon::PolygonObject& object);
 
-	void add(const Polygon::ActorObject& actor);
+	void add(const Polygon::Actor& actor);
 
 	bool read(const std::string& filename);
 
@@ -439,7 +439,7 @@ public:
 
 	Graphics::VisualPolygon toVisualPolygon() const;
 
-	Polygon::ActorObject* toActorObject() const;
+	Polygon::Actor* toActorObject() const;
 
 	Polygon::CGModel* toCGModel() const;
 

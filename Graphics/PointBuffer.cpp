@@ -4,7 +4,7 @@
 #include "../Polygon/PolygonMesh.h"
 #include "../Polygon/ParticleObject.h"
 #include "../Polygon/Particle.h"
-#include "../Polygon/ActorObject.h"
+#include "../Polygon/Actor.h"
 #include "../Polygon/PolygonMesh.h"
 #include "../Polygon/VolumeObject.h"
 #include "../Polygon/Joint.h"

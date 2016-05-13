@@ -1,8 +1,9 @@
-#ifndef __CRYSTAL_SHADER_POLYGON_SCENE__
-#define __CRYSTAL_SHADER_POLYGON_SCENE__
+#ifndef __CRYSTAL_SHADER_ACTOR_SCENE__
+#define __CRYSTAL_SHADER_ACTOR_SCENE__
 
 #include "../Util/UnCopyable.h"
 
+#include "../Polygon/Actor.h"
 #include "../Graphics/VisualPolygon.h"
 #include "../Shader/TextureObject.h"
 #include "SmoothRenderer.h"
@@ -10,12 +11,12 @@
 namespace Crystal {
 	namespace Shader {
 
-class PolygonScene : private UnCopyable
+class ActorScene : private UnCopyable
 {
 public:
-	PolygonScene() = default;
+	ActorScene() = default;
 
-	explicit PolygonScene(const Graphics::VisualPolygon& vp);
+	explicit ActorScene(const Polygon::Actor& actor);
 
 	void setup(const Graphics::VisualPolygon& vp);
 

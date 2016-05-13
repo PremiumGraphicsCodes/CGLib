@@ -1,4 +1,4 @@
-#include "ActorObject.h"
+#include "Actor.h"
 #include "Particle.h"
 #include "ParticleObject.h"
 #include "Joint.h"
@@ -11,11 +11,11 @@ using namespace Crystal::Polygon;
 
 
 
-ActorObject::ActorObject()
+Actor::Actor()
 {}
 
 
-void ActorObject::clear()
+void Actor::clear()
 {
 	for (auto b : bones) {
 		delete b;
@@ -28,7 +28,7 @@ void ActorObject::clear()
 }
 
 
-Joint* ActorObject::createJoint(const Vector3d<float>& pos)
+Joint* Actor::createJoint(const Vector3d<float>& pos)
 {
 	auto j = new Joint(pos, joints.size());
 	joints.push_back(j);
@@ -36,14 +36,14 @@ Joint* ActorObject::createJoint(const Vector3d<float>& pos)
 }
 
 
-Bone* ActorObject::createBone(Joint* j1, Joint* j2)
+Bone* Actor::createBone(Joint* j1, Joint* j2)
 {
 	auto b = new Bone(j1, j2, bones.size());
 	bones.push_back(b);
 	return b;
 }
 
-ParticleObject* ActorObject::toParticleObject(const float radius, const float density) const
+ParticleObject* Actor::toParticleObject(const float radius, const float density) const
 {
 	//rootBone->getOriginJoint();
 	//auto children =
@@ -57,7 +57,7 @@ ParticleObject* ActorObject::toParticleObject(const float radius, const float de
 	return new ParticleObject( particles );
 }
 
-Joint* ActorObject::findJointById(const unsigned int id) const
+Joint* Actor::findJointById(const unsigned int id) const
 {
 	for (auto j : joints) {
 		if (j->getId() == id) {

@@ -1,7 +1,7 @@
 #include "LineBuffer.h"
 
 #include "../Polygon/PolygonMesh.h"
-#include "../Polygon/ActorObject.h"
+#include "../Polygon/Actor.h"
 #include "../Polygon/Bone.h"
 
 #include "DrawableID.h"

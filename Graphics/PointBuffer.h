@@ -18,7 +18,7 @@ namespace Crystal {
 		class Particle;
 		class ParticleObject;
 		class VolumeObject;
-		class ActorObject;
+		class Actor;
 		class Joint;
 		class Vertex;
 	}

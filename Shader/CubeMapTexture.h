@@ -2,12 +2,14 @@
 #define __CRYSTAL_SHADER_CUBE_MAP_TEXTURE_H__
 
 #include "../Graphics/Image.h"
+#include "ITextureObject.h"
+
 #include <array>
 
 namespace Crystal {
 	namespace Shader {
 
-class CubeMapTexture
+class CubeMapTexture : public ITextureObject
 {
 public:
 	void create(const std::array<Graphics::Imagef, 6>& images, const unsigned int id);
@@ -24,12 +26,10 @@ public:
 
 	void setNegativeZ(const Graphics::Imagef& image);
 
+	void bind() const override;
 
-	void bind() const;
+	void unbind() const override;
 
-	void unbind() const;
-
-	unsigned int getId() const { return id; }
 private:
 	unsigned int texHandle;
 	unsigned int id;

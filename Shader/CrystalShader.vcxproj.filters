@@ -110,6 +110,9 @@
     <ClCompile Include="DepthTextureObject.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="ActorScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="DepthTextureObject.h">
       <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@ public:
 
 	std::vector<PolygonMesh*> getPolygons();
 
-	std::vector<ActorObject*> getActors();
+	std::vector<Actor*> getActors();
 
 private:
 	std::vector<CGModel*> models;
