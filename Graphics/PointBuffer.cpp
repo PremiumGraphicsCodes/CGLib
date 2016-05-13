@@ -6,7 +6,7 @@
 #include "../Polygon/Particle.h"
 #include "../Polygon/Actor.h"
 #include "../Polygon/PolygonMesh.h"
-#include "../Polygon/VolumeObject.h"
+#include "../Polygon/Volume.h"
 #include "../Polygon/Joint.h"
 
 #include "DrawableID.h"
@@ -56,7 +56,7 @@ void PointBuffer::add(const ParticleObject& object)
 
 }
 
-void PointBuffer::add(const VolumeObject& volume)
+void PointBuffer::add(const Volume& volume)
 {
 	const auto& particles = volume.toParticles(0.1f, 0.1f);
 	for (const auto& p : particles) {

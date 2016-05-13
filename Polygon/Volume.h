@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_POLYGON_VOLUME_OBJECT_H__
-#define __CRYSTAL_POLYGON_VOLUME_OBJECT_H__
+#ifndef __CRYSTAL_POLYGON_VOLUME_H__
+#define __CRYSTAL_POLYGON_VOLUME_H__
 
 #include "../Math/Vector3d.h"
 #include "../Math/Space3d.h"
@@ -18,10 +18,10 @@ class ParticleObject;
 class VolumeCell;
 class VolumeNode;
 
-class VolumeObject
+class Volume
 {
 public:
-	VolumeObject(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid) :
+	Volume(const Math::Space3d<float>& space, const Math::Grid3d<float>& grid) :
 		space(space),
 		grid(grid)
 	{}
@@ -46,13 +46,13 @@ public:
 
 	//void add(const VolumeObject& rhs);
 
-	VolumeObject getOverlapped(const VolumeObject& rhs) const;
+	Volume getOverlapped(const Volume& rhs) const;
 
-	bool equals(const VolumeObject& rhs) const;
+	bool equals(const Volume& rhs) const;
 
-	bool operator==(const VolumeObject& rhs) const;
+	bool operator==(const Volume& rhs) const;
 
-	bool operator!=(const VolumeObject& rhs) const;
+	bool operator!=(const Volume& rhs) const;
 
 private:
 	const Math::Space3d<float> space;

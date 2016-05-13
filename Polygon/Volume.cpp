@@ -1,4 +1,4 @@
-#include "VolumeObject.h"
+#include "Volume.h"
 
 #include "../Math/Triangle.h"
 
@@ -10,7 +10,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-Grid3d<float> VolumeObject::subGrid(const Vector3d<float>& start, const Vector3d<float>& end) const
+Grid3d<float> Volume::subGrid(const Vector3d<float>& start, const Vector3d<float>& end) const
 {
 	const auto& unitLength = getUnitLength();
 	const auto startx = static_cast<int>( start.getX() / unitLength.getX());
@@ -27,7 +27,7 @@ Grid3d<float> VolumeObject::subGrid(const Vector3d<float>& start, const Vector3d
 }
 
 
-Vector3d<float> VolumeObject::getUnitLength() const
+Vector3d<float> Volume::getUnitLength() const
 {
 	const auto x = space.getLengths().getX() / grid.getSizeX();
 	const auto y = space.getLengths().getY() / grid.getSizeY();
@@ -36,7 +36,7 @@ Vector3d<float> VolumeObject::getUnitLength() const
 }
 
 
-VolumeNode VolumeObject::toNode(const Index3d index) const
+VolumeNode Volume::toNode(const Index3d index) const
 {
 	const auto& lengths = getUnitLength();
 	const auto& innerSpace = space.offset(lengths);
@@ -55,7 +55,7 @@ VolumeNode VolumeObject::toNode(const Index3d index) const
 
 
 
-std::vector<VolumeNode> VolumeObject::toNodes() const
+std::vector<VolumeNode> Volume::toNodes() const
 {
 	std::vector<VolumeNode> nodes;
 	for (int x = 1; x < grid.getSizeX()-1; ++x) {
@@ -70,7 +70,7 @@ std::vector<VolumeNode> VolumeObject::toNodes() const
 
 #include "PolygonMesh.h"
 
-VolumeCell VolumeObject::toCell(const Index3d index) const
+VolumeCell Volume::toCell(const Index3d index) const
 {
 	const auto& lengths = getUnitLength();
 	const auto& innerSpace = space.offset(lengths);
@@ -86,7 +86,7 @@ VolumeCell VolumeObject::toCell(const Index3d index) const
 }
 
 
-PolygonMesh* VolumeObject::toPolygonObject(const float isolevel) const
+PolygonMesh* Volume::toPolygonObject(const float isolevel) const
 {
 	const auto& triangles = toTriangles(isolevel);
 	PolygonMesh* newMesh = new PolygonMesh();
@@ -97,7 +97,7 @@ PolygonMesh* VolumeObject::toPolygonObject(const float isolevel) const
 	return newMesh;
 }
 
-Vector3d<float> VolumeObject::toPosition(const Index3d index) const
+Vector3d<float> Volume::toPosition(const Index3d index) const
 {
 	const auto unitLength = getUnitLength();
 	const auto origin = space.getStart();
@@ -108,14 +108,14 @@ Vector3d<float> VolumeObject::toPosition(const Index3d index) const
 }
 
 
-Particle VolumeObject::toParticle(const Index3d index, const float radius) const
+Particle Volume::toParticle(const Index3d index, const float radius) const
 {
 	const auto position = toPosition(index);
 	const auto density = grid.get(index.getX(), index.getY(), index.getZ());
 	return Particle(position, density, radius);
 }
 
-std::vector<Particle> VolumeObject::toParticles(const float radius, const float isolevel) const
+std::vector<Particle> Volume::toParticles(const float radius, const float isolevel) const
 {
 	const auto& nodes = toNodes();
 	std::vector<Particle> particles;
@@ -133,7 +133,7 @@ std::vector<Particle> VolumeObject::toParticles(const float radius, const float 
 }
 
 
-ParticleObject* VolumeObject::toParticleObject(const float radius,const float isolevel) const
+ParticleObject* Volume::toParticleObject(const float radius,const float isolevel) const
 {
 	const auto& particles = toParticles(radius, isolevel);
 	std::vector<Particle*> ps;
@@ -146,7 +146,7 @@ ParticleObject* VolumeObject::toParticleObject(const float radius,const float is
 
 
 
-std::vector< Triangle<float> > VolumeObject::toTriangles(const float isolevel) const
+std::vector< Triangle<float> > Volume::toTriangles(const float isolevel) const
 {
 	std::vector<Triangle<float>> triangles;
 	for (int x = 0; x < grid.getSizeX() - 1; ++x) {
@@ -164,28 +164,28 @@ std::vector< Triangle<float> > VolumeObject::toTriangles(const float isolevel) c
 
 }
 
-VolumeObject VolumeObject::getOverlapped(const VolumeObject& rhs) const
+Volume Volume::getOverlapped(const Volume& rhs) const
 {
 	Space3d<float> newSpace = space.getOverlapped(rhs.space);
 	Vector3d<float> startDiff = newSpace.getStart() - space.getStart();
 	Vector3d<float> endDiff = newSpace.getEnd() - newSpace.getStart() + startDiff;
 	const auto& grid = subGrid(startDiff, endDiff);
-	return VolumeObject(newSpace, grid);
+	return Volume(newSpace, grid);
 }
 
-bool VolumeObject::equals(const VolumeObject& rhs) const
+bool Volume::equals(const Volume& rhs) const
 {
 	return
 		(space == rhs.space) &&
 		(grid == rhs.grid);
 }
 
-bool VolumeObject::operator==(const VolumeObject& rhs) const
+bool Volume::operator==(const Volume& rhs) const
 {
 	return equals(rhs);
 }
 
-bool VolumeObject::operator!=(const VolumeObject& rhs) const
+bool Volume::operator!=(const Volume& rhs) const
 {
 	return !equals(rhs);
 }

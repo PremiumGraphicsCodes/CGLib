@@ -12,7 +12,7 @@ namespace Crystal {
 
 class PolygonMesh;
 class Particle;
-class VolumeObject;
+class Volume;
 
 class ParticleObject
 {

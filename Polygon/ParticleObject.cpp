@@ -2,7 +2,7 @@
 #include "Particle.h"
 
 #include "../Math/Sphere.h"
-#include "VolumeObject.h"
+#include "Volume.h"
 #include "PolygonMesh.h"
 
 using namespace Crystal::Math;

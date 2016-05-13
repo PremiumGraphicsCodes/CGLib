@@ -5,7 +5,7 @@
 
 #include "ISample.h"
 #include "../Polygon/ParticleObject.h"
-#include "../Polygon/VolumeObject.h"
+#include "../Polygon/Volume.h"
 #include "../Polygon/PolygonMesh.h"
 #include <memory>
 
@@ -18,7 +18,7 @@ public:
 
 private:
 	std::unique_ptr<Crystal::Polygon::ParticleObject> particle;
-	std::unique_ptr<Crystal::Polygon::VolumeObject> volume;
+	std::unique_ptr<Crystal::Polygon::Volume> volume;
 	std::unique_ptr<Crystal::Polygon::PolygonMesh> polygon;
 };
 

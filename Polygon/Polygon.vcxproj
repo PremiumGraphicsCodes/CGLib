@@ -33,7 +33,7 @@
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VolumeCell.cpp" />
     <ClCompile Include="VolumeNode.cpp" />
-    <ClCompile Include="VolumeObject.cpp" />
+    <ClCompile Include="Volume.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -52,7 +52,7 @@
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VolumeCell.h" />
     <ClInclude Include="VolumeNode.h" />
-    <ClInclude Include="VolumeObject.h" />
+    <ClInclude Include="Volume.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D223F7E4-2661-4B1B-8E32-CFB895256E2E}</ProjectGuid>

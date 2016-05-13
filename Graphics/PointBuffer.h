@@ -17,7 +17,7 @@ namespace Crystal {
 		class PolygonMesh;
 		class Particle;
 		class ParticleObject;
-		class VolumeObject;
+		class Volume;
 		class Actor;
 		class Joint;
 		class Vertex;
@@ -71,7 +71,7 @@ public:
 
 	void add(const Polygon::PolygonMesh& polygon);
 
-	void add(const Polygon::VolumeObject& volume);
+	void add(const Polygon::Volume& volume);
 
 	void add(const Physics::PhysicsObject& physics);
 

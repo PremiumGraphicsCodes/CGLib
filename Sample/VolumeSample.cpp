@@ -17,7 +17,7 @@ void VolumeSample::setup()
 	Grid3d<float> grid(4, 4, 4);
 	grid.set(0, 0, 0, 1.0f);
 	grid.set(1, 1, 1, 1.0f);
-	volume = std::make_unique<VolumeObject>(space, grid);
+	volume = std::make_unique<Volume>(space, grid);
 	polygon.reset(volume->toPolygonObject(0.5f));
 }
 

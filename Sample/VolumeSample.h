@@ -4,7 +4,7 @@
 #include "glfw.h"
 
 #include "ISample.h"
-#include "../Polygon/VolumeObject.h"
+#include "../Polygon/Volume.h"
 #include "../Polygon/PolygonMesh.h"
 #include <memory>
 
@@ -16,7 +16,7 @@ public:
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
-	std::unique_ptr<Crystal::Polygon::VolumeObject> volume;
+	std::unique_ptr<Crystal::Polygon::Volume> volume;
 	std::unique_ptr<Crystal::Polygon::PolygonMesh> polygon;
 };
 

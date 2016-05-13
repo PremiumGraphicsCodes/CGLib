@@ -3,7 +3,7 @@
 
 #include "../Polygon/Particle.h"
 #include "../Physics/PhysicsObject.h"
-#include "../Polygon/VolumeObject.h"
+#include "../Polygon/Volume.h"
 
 #include "../Graphics/Light.h"
 
@@ -31,7 +31,7 @@ VisualObject::VisualObject(const PhysicsObject& physics)
 	//pointBuffer.add(*p);
 }
 
-VisualObject::VisualObject(const VolumeObject& volume)
+VisualObject::VisualObject(const Volume& volume)
 {
 	const auto& particles = volume.toParticles(0.5f, 0.1f);
 	for (const auto& p : particles) {

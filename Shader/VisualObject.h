@@ -30,7 +30,7 @@ public:
 
 	VisualObject(const Physics::PhysicsObject& physics);
 
-	VisualObject(const Polygon::VolumeObject& volume);
+	VisualObject(const Polygon::Volume& volume);
 
 	void renderPoints(const Graphics::ICamera<float>& camera)
 	{
