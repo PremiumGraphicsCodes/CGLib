@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_DEPTH_TEXTURE_H__
-#define __CRYSTAL_SHADER_DEPTH_TEXTURE_H__
+#ifndef __CRYSTAL_SHADER_DEPTH_TEXTURE_OBJECT_H__
+#define __CRYSTAL_SHADER_DEPTH_TEXTURE_OBJECT_H__
 
 #include "GLee.h"
 #include "../Graphics/Image.h"
@@ -8,14 +8,14 @@
 namespace Crystal {
 	namespace Shader {
 
-class DepthTexture : public ITextureObject
+class DepthTextureObject : public ITextureObject
 {
 public:
-	DepthTexture(const int id = 0) :
+	DepthTextureObject(const int id = 0) :
 		ITextureObject(id)
 	{}
 
-	DepthTexture(const Graphics::Imagef& image, const int id = 0);
+	DepthTextureObject(const Graphics::Imagef& image, const int id = 0);
 
 	bool create(const Graphics::Imagef& image, const int id = 0);
 

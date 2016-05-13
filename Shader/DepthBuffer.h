@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_SHADER_DEPTH_BUFFER_H__
 #define __CRYSTAL_SHADER_DEPTH_BUFFER_H__
 
-#include "DepthTexture.h"
+#include "DepthTextureObject.h"
 #include "../Graphics/Image.h"
 
 namespace Crystal {
@@ -14,9 +14,9 @@ public:
 		unbind();
 	}
 
-	void setTexture(const DepthTexture& texture);
+	void setTexture(const DepthTextureObject& texture);
 
-	bool build(const DepthTexture& depthTexture);
+	bool build(const DepthTextureObject& depthTexture);
 
 	bool bind() const;
 
@@ -30,11 +30,11 @@ public:
 
 	int getHeight() const { return height; }
 
-	DepthTexture* getTexture() { return &texture; }
+	DepthTextureObject* getTexture() { return &texture; }
 
 private:
 	GLuint frameBuffer;
-	DepthTexture texture;
+	DepthTextureObject texture;
 	int width;
 	int height;
 };

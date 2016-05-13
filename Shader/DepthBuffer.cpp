@@ -3,7 +3,7 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool DepthBuffer::build(const DepthTexture& depthTexture)
+bool DepthBuffer::build(const DepthTextureObject& depthTexture)
 {
 	this->texture = depthTexture;
 	this->width = depthTexture.getWidth();
@@ -21,7 +21,7 @@ bool DepthBuffer::build(const DepthTexture& depthTexture)
 	return (GL_NO_ERROR == glGetError());
 }
 
-void DepthBuffer::setTexture(const DepthTexture& texture)
+void DepthBuffer::setTexture(const DepthTextureObject& texture)
 {
 	this->texture = texture;
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);

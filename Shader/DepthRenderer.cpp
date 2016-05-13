@@ -50,7 +50,7 @@ void DepthRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void DepthRenderer::render(const DepthTexture& depthTexture)
+void DepthRenderer::render(const DepthTextureObject& depthTexture)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);

@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_DEPTH_RENDERER_H__
 
 #include "IDRenderer.h"
-#include "DepthTexture.h"
+#include "DepthTextureObject.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -10,7 +10,7 @@ namespace Crystal {
 class DepthRenderer
 {
 public:
-	void render(const DepthTexture& depthTexture);
+	void render(const DepthTextureObject& depthTexture);
 
 	bool build();
 private:

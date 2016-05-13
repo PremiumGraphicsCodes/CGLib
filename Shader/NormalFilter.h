@@ -4,7 +4,7 @@
 #include "../Graphics/ICamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "TextureObject.h"
-#include "DepthTexture.h"
+#include "DepthTextureObject.h"
 #include "IRenderer.h"
 
 namespace Crystal {

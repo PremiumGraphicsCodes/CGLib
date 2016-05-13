@@ -77,7 +77,7 @@ private:
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 	Crystal::Shader::DepthBuffer depthBuffer;
-	Crystal::Shader::DepthTexture depthTexture;
+	Crystal::Shader::DepthTextureObject depthTexture;
 	Crystal::Shader::SSCompositeRenderer compositeRenderer;
 	Crystal::Shader::TextureObject backgroundTexture;
 

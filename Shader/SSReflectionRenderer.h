@@ -6,7 +6,7 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
 #include "TextureObject.h"
-#include "DepthTexture.h"
+#include "DepthTextureObject.h"
 #include "CubeMapTexture.h"
 #include "IRenderer.h"
 

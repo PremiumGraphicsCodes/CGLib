@@ -67,7 +67,7 @@ private:
 	SSReflectionRenderer reflectionRenderer;
 	SSRefractionRenderer refractionRenderer;
 	
-	DepthTexture depthTexture;
+	DepthTextureObject depthTexture;
 	TextureObject sceneTexture;
 	TextureObject shadedTexture;
 	Texturef bluredDepthTexture;

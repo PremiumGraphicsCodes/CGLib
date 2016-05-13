@@ -4,7 +4,7 @@
 #include "GLee.h"
 #include "../Graphics/Image.h"
 #include "TextureObject.h"
-#include "DepthTexture.h"
+#include "DepthTextureObject.h"
 #include <cassert>
 #include <vector>
 

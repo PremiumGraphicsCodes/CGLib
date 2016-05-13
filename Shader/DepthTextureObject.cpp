@@ -1,15 +1,15 @@
-#include "DepthTexture.h"
+#include "DepthTextureObject.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
 
-DepthTexture::DepthTexture(const Imagef& image, const int id)
+DepthTextureObject::DepthTextureObject(const Imagef& image, const int id)
 {
 	create(image, id);
 }
 
-bool DepthTexture::create(const Imagef& image, const int id)
+bool DepthTextureObject::create(const Imagef& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -31,13 +31,13 @@ bool DepthTexture::create(const Imagef& image, const int id)
 	return (GL_NO_ERROR == glGetError());
 }
 
-void DepthTexture::bind() const
+void DepthTextureObject::bind() const
 {
 	glActiveTexture(GL_TEXTURE0 + id);
 	glBindTexture(GL_TEXTURE_2D, texHandle);
 }
 
-void DepthTexture::unbind() const
+void DepthTextureObject::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glActiveTexture(GL_TEXTURE0);
