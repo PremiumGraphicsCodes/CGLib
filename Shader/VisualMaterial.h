@@ -32,12 +32,12 @@ public:
 
 	float getShininess() const { return shininess; }
 
-	Texturef getDiffuseTex() const { return diffuseTex; }
+	TextureObject getDiffuseTex() const { return diffuseTex; }
 
 private:
 	int startFaceIndex;
 	int endFaceIndex;
-	Texturef diffuseTex;
+	TextureObject diffuseTex;
 	std::array<float, 3> diffuseColor;
 	std::array<float, 3> specularColor;
 	std::array<float, 3> ambientColor;

@@ -22,8 +22,6 @@ public:
 
 	void setTexture(const TextureObject& texture);
 
-	void setTexture(const Texturef& texture);
-
 	bool bind();
 
 	bool unbind();

@@ -70,7 +70,7 @@ private:
 	DepthTextureObject depthTexture;
 	TextureObject sceneTexture;
 	TextureObject shadedTexture;
-	Texturef bluredDepthTexture;
+	TextureObject bluredDepthTexture;
 	TextureObject normalTexture;
 	TextureObject thicknessTexture;
 	TextureObject bluredThicknessTexture;

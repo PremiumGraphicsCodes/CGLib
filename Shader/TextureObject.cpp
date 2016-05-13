@@ -45,12 +45,12 @@ void TextureObject::unbind() const
 }
 
 
-Texturef::Texturef(const Imagef& image, const int id)
+TextureObject::TextureObject(const Imagef& image, const int id)
 {
 	create(image, id);
 }
 
-bool Texturef::create(const Imagef& image, const int id)
+bool TextureObject::create(const Imagef& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -70,16 +70,4 @@ bool Texturef::create(const Imagef& image, const int id)
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return (GL_NO_ERROR == glGetError());
-}
-
-void Texturef::bind() const
-{
-	glActiveTexture(GL_TEXTURE0 + id);
-	glBindTexture(GL_TEXTURE_2D, texHandle);
-}
-
-void Texturef::unbind() const
-{
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glActiveTexture(GL_TEXTURE0);
 }
