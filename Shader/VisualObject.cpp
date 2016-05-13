@@ -21,7 +21,7 @@ VisualObject::VisualObject(const ParticleObject& particle)
 VisualObject::VisualObject(const PolygonMesh& polygon)
 {
 	pointBuffer.add(polygon);
-	lineBuffer.add(polygon);
+	lineBuffer.add(polygon, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
 	triangleBuffer.add(polygon);
 }
 

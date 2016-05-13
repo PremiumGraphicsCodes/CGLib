@@ -33,6 +33,6 @@ void VolumeSample::demonstrate(const int width, const int height, const Crystal:
 	renderer.render(camera, buffer);
 
 	LineBuffer lineBuffer;
-	lineBuffer.add(*polygon);
+	lineBuffer.add(*polygon, ColorRGBA<float>(1.0, 0.0, 0.0, 1.0));
 	renderer.render(camera, lineBuffer);
 }

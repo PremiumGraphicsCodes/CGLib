@@ -5,6 +5,7 @@
 #include "../Graphics/PerspectiveCamera.h"
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/LineBuffer.h"
+#include "../Graphics/ColorRGBA.h"
 #include "../Shader/LegacyRenderer.h"
 
 using namespace Crystal::Math;
@@ -20,7 +21,8 @@ void ParticleSample::setup()
 	//particle->toVolumes(1.25f);
 	Particle p(Vector3d<float>(0.0f, 0.0f, 0.0f),1.0f, 1.0f);
 	particle->add(p);
-	polygon.reset( particle->toPolygon(0.5f, 0.5f));
+	Space3d<float> space(Vector3d<float>(-2, -2, -2), Vector3d<float>(4, 4, 4));
+	polygon.reset( particle->toPolygon(0.5f, 0.5f, space ) );
 }
 
 void ParticleSample::demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera)
@@ -35,6 +37,6 @@ void ParticleSample::demonstrate(const int width, const int height, const Crysta
 	renderer.render(camera, buffer);
 
 	LineBuffer lineBuffer;
-	lineBuffer.add(*polygon);
+	lineBuffer.add(*polygon, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
 	renderer.render(camera, lineBuffer);
 }

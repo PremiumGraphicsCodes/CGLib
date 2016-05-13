@@ -68,9 +68,7 @@ public:
 
 	Polygon::ParticleObject* toSurfaceParticleObject() const;
 
-	Polygon::PolygonMesh* toPolygonObject(const float isolevel,const float effectLength) const;
-
-	Polygon::PolygonMesh* toSurfacePolygonObject(const float isolevel, const float effectLength) const;
+	Polygon::PolygonMesh* toPolygonObject(const float isolevel,const float effectLength, const Math::Space3d<float>& space) const;
 
 
 private:

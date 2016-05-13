@@ -26,6 +26,6 @@ void IOSample::demonstrate(const int width, const int height, const Crystal::Gra
 	LegacyRenderer renderer;
 	LineBuffer buffer;
 	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0));
-	buffer.add(*polygon);
+	buffer.add(*polygon, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
 	renderer.render(camera, buffer);
 }

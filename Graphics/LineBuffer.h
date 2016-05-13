@@ -7,6 +7,7 @@
 
 #include "../Math/Line3d.h"
 #include "../Polygon/PolygonMesh.h"
+#include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {
 	namespace Polygon {
@@ -20,7 +21,7 @@ class LineBuffer
 public:
 	void clear();
 
-	void add(const Polygon::PolygonMesh& polygon);
+	void add(const Polygon::PolygonMesh& polygon, const ColorRGBA<float>& color);
 
 	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color, const int id = 0);
 
@@ -37,9 +38,9 @@ public:
 	std::vector<unsigned int> getIds() const { return ids; }
 
 private:
-	Graphics::Buffer3d<float> position;
+	Buffer3d<float> position;
 	Buffer4d<float> idColors;
-	Graphics::Buffer4d<float> color;
+	Buffer4d<float> color;
 	std::vector<unsigned int> ids;
 };
 

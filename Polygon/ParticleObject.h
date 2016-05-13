@@ -42,7 +42,7 @@ public:
 
 	std::vector<Particle*> getParticles() const { return particles; }
 
-	PolygonMesh* toPolygon(const float isolevel, const float effectLength) const;
+	PolygonMesh* toPolygon(const float isolevel, const float effectLength, const Math::Space3d<float>& space) const;
 
 private:
 

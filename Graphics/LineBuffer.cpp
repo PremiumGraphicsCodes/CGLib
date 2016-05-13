@@ -34,12 +34,12 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, co
 
 }
 
-void LineBuffer::add(const PolygonMesh& polygon)
+void LineBuffer::add(const PolygonMesh& polygon, const ColorRGBA<float>& color)
 {
 	const auto& vertices = polygon.getVertices();
 	for (const auto& v : vertices) {
 		this->position.add(v->getPosition());
-		this->color.add(ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
+		this->color.add(color);
 		//this->idColors.add(ColorRGBA<unsigned char>(v->getId()));
 	}
 	const auto faces = polygon.getFaces();
@@ -50,7 +50,6 @@ void LineBuffer::add(const PolygonMesh& polygon)
 		this->ids.push_back(f->getV3()->getId());
 		this->ids.push_back(f->getV3()->getId());
 		this->ids.push_back(f->getV1()->getId());
-
 	}
 }
 
