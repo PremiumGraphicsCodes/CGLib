@@ -165,6 +165,7 @@
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="QuadRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ShaderHandler.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="PolygonScene.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="SSThicknessRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
+    <ClCompile Include="TextureHandler.cpp" />
     <ClCompile Include="VisualMaterial.cpp" />
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
@@ -220,6 +222,7 @@
     <ClInclude Include="SSThicknessRenderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="LineRenderer.h" />
+    <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="VisualMaterial.h" />
     <ClInclude Include="VisualObject.h" />
   </ItemGroup>

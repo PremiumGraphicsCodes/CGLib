@@ -37,7 +37,6 @@
       <Filter>Legacy</Filter>
     </ClCompile>
     <ClCompile Include="VisualObject.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -105,6 +104,15 @@
     <ClCompile Include="PolygonScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureHandler.cpp">
+      <Filter>Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderHandler.cpp">
+      <Filter>Handler</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -146,7 +154,6 @@
       <Filter>Legacy</Filter>
     </ClInclude>
     <ClInclude Include="VisualObject.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="BilateralFilter.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
@@ -218,6 +225,12 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="ShaderHandler.h">
+      <Filter>Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureHandler.h">
       <Filter>Handler</Filter>
     </ClInclude>
   </ItemGroup>
