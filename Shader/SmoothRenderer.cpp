@@ -4,7 +4,7 @@
 #include "VisualMaterial.h"
 #include <sstream>
 
-#include "ShaderCollection.h"
+#include "ShaderHandler.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
@@ -18,8 +18,8 @@ bool SmoothRenderer::build()
 	const auto& vShader = getBuildinVertexShaderSource();
 	const auto& fShader = getBuildinFragmentShaderSource();
 
-	bool result = ShaderCollection::getInstance()->build(shaderName, vShader, fShader);
-	set(ShaderCollection::getInstance()->get(shaderName));
+	bool result = ShaderHandler::getInstance()->build(shaderName, vShader, fShader);
+	set(ShaderHandler::getInstance()->get(shaderName));
 	
 	return result;
 }

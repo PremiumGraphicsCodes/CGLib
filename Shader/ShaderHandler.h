@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_SHADER_COLLECTION_H__
-#define __CRYSTAL_SHADER_SHADER_COLLECTION_H__
+#ifndef __CRYSTAL_SHADER_SHADER_HANDLER_H__
+#define __CRYSTAL_SHADER_SHADER_HANDLER_H__
 
 #include "../Util/UnCopyable.h"
 #include "ShaderObject.h"
@@ -8,15 +8,15 @@
 namespace Crystal {
 	namespace Shader {
 
-class ShaderCollection : private UnCopyable
+class ShaderHandler : private UnCopyable
 {
 public:
-	static ShaderCollection* getInstance() {
-		static ShaderCollection instance;
+	static ShaderHandler* getInstance() {
+		static ShaderHandler instance;
 		return &instance;
 	}
 
-	~ShaderCollection() {
+	~ShaderHandler() {
 		clear();
 	}
 
@@ -42,7 +42,7 @@ public:
 	}
 
 private:
-	ShaderCollection() = default;
+	ShaderHandler() = default;
 
 	std::map<std::string, ShaderObject* > shaders;
 };

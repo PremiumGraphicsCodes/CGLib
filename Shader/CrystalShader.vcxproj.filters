@@ -102,7 +102,9 @@
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
     <ClCompile Include="VisualMaterial.cpp" />
-    <ClCompile Include="PolygonScene.cpp" />
+    <ClCompile Include="PolygonScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -212,8 +214,12 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="VisualMaterial.h" />
-    <ClInclude Include="ShaderCollection.h" />
-    <ClInclude Include="PolygonScene.h" />
+    <ClInclude Include="PolygonScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderHandler.h">
+      <Filter>Handler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">
@@ -221,9 +227,6 @@
     </Filter>
     <Filter Include="Buffer">
       <UniqueIdentifier>{cd996dae-e6ad-4a42-9296-d1ce1496a8cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GLSL">
-      <UniqueIdentifier>{ec775b1b-fdc8-4a31-892e-cc65876e4f3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Legacy">
       <UniqueIdentifier>{ed00d851-f143-4e9e-afe0-5643e01c6eda}</UniqueIdentifier>
@@ -234,55 +237,11 @@
     <Filter Include="Texture">
       <UniqueIdentifier>{7c2c28ba-3e23-47b2-b336-a04ba7496990}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\GLSL\billboard.gs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\normal.gs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\billboard.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\depth.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\line.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\normal.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\point.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\quad.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\smooth.fs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\billboard.vs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\depth.vs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\line.vs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\normal.vs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\point.vs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\quad.vs">
-      <Filter>GLSL</Filter>
-    </None>
-    <None Include="..\GLSL\smooth.vs">
-      <Filter>GLSL</Filter>
-    </None>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{ef0bb0d9-b179-4630-a9d2-ef9d6cd5d176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Handler">
+      <UniqueIdentifier>{513a4b81-dabe-41b0-8a4b-cff23d588c3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

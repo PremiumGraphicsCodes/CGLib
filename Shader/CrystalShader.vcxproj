@@ -207,7 +207,7 @@
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="QuadRenderer.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="ShaderCollection.h" />
+    <ClInclude Include="ShaderHandler.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="PolygonScene.h" />
     <ClInclude Include="SkyBoxRenderer.h" />
@@ -222,24 +222,6 @@
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="VisualMaterial.h" />
     <ClInclude Include="VisualObject.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\GLSL\billboard.fs" />
-    <None Include="..\GLSL\billboard.gs" />
-    <None Include="..\GLSL\billboard.vs" />
-    <None Include="..\GLSL\depth.fs" />
-    <None Include="..\GLSL\depth.vs" />
-    <None Include="..\GLSL\line.fs" />
-    <None Include="..\GLSL\line.vs" />
-    <None Include="..\GLSL\normal.fs" />
-    <None Include="..\GLSL\normal.gs" />
-    <None Include="..\GLSL\normal.vs" />
-    <None Include="..\GLSL\point.fs" />
-    <None Include="..\GLSL\point.vs" />
-    <None Include="..\GLSL\quad.fs" />
-    <None Include="..\GLSL\quad.vs" />
-    <None Include="..\GLSL\smooth.fs" />
-    <None Include="..\GLSL\smooth.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

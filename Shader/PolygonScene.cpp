@@ -3,7 +3,6 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
 #include "VisualMaterial.h"
-#include "ShaderCollection.h"
 #include <algorithm>
 
 using namespace Crystal::Graphics;
