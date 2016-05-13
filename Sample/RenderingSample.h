@@ -17,7 +17,7 @@ public:
 
 private:
 	Crystal::Shader::FrameBufferObject fbo;
-	Crystal::Shader::Texture colorTexture;
+	Crystal::Shader::TextureObject colorTexture;
 	Crystal::Shader::DepthTexture depthTexture;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
 	//Crystal::Shader::DepthTexture bluredDepthTexture;

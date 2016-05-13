@@ -4,7 +4,7 @@
 #include "../Util/UnCopyable.h"
 
 #include "../Graphics/VisualPolygon.h"
-#include "../Shader/Texture.h"
+#include "../Shader/TextureObject.h"
 #include "SmoothRenderer.h"
 
 namespace Crystal {

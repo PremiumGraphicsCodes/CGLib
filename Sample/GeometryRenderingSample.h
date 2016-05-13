@@ -27,7 +27,7 @@ private:
 	Crystal::Shader::FrameBuffer normalBuffer;
 	Crystal::Shader::OnScreenRenderer onScreenRenderer;
 	Crystal::Shader::DeferredRenderer deferredRenderer;
-	Crystal::Shader::Texture normalTexture;
+	Crystal::Shader::TextureObject normalTexture;
 };
 
 #endif

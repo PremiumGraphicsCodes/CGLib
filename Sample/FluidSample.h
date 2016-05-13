@@ -43,7 +43,7 @@ private:
 	Crystal::Shader::DepthRenderer depthRenderer;
 	Crystal::Shader::CubeMapTexture cubeMapTexture;
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
-	Crystal::Shader::Texture backgroundTexture;
+	Crystal::Shader::TextureObject backgroundTexture;
 	Crystal::Shader::FrameBuffer backgroundBuffer;
 	Crystal::Shader::ITextureObject* activeTexture;
 

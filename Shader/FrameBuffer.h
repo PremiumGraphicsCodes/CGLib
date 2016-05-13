@@ -3,7 +3,7 @@
 
 #include "GLee.h"
 #include "../Graphics/Image.h"
-#include "Texture.h"
+#include "TextureObject.h"
 #include "DepthTexture.h"
 #include <cassert>
 #include <vector>
@@ -20,7 +20,7 @@ public:
 
 	bool build(int width, int height);
 
-	void setTexture(const Texture& texture);
+	void setTexture(const TextureObject& texture);
 
 	void setTexture(const Texturef& texture);
 

@@ -12,7 +12,7 @@ bool FrameBuffer::build(int width, int height)
 	return (GL_NO_ERROR == glGetError());
 }
 
-void FrameBuffer::setTexture(const Texture& texture)
+void FrameBuffer::setTexture(const TextureObject& texture)
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 

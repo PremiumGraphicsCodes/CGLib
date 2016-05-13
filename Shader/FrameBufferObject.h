@@ -3,7 +3,7 @@
 
 #include "GLee.h"
 #include "../Graphics/Image.h"
-#include "Texture.h"
+#include "TextureObject.h"
 #include "DepthTexture.h"
 #include <cassert>
 #include <vector>
@@ -20,7 +20,7 @@ public:
 
 	bool build(int width, int height);
 
-	void setColorTexture(const Texture& texture);
+	void setColorTexture(const TextureObject& texture);
 
 	void setDepthTexture(const DepthTexture& texture);
 
@@ -36,11 +36,11 @@ public:
 
 	int getHeight() const { return height; }
 
-	Texture* getColorTexture() { return &colorTexture; }
+	TextureObject* getColorTexture() { return &colorTexture; }
 
 private:
 	GLuint frameBuffer;
-	Texture colorTexture;
+	TextureObject colorTexture;
 	DepthTexture depthTexture;
 	int width;
 	int height;

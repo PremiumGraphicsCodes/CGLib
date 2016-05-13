@@ -79,7 +79,7 @@ private:
 	Crystal::Shader::DepthBuffer depthBuffer;
 	Crystal::Shader::DepthTexture depthTexture;
 	Crystal::Shader::SSCompositeRenderer compositeRenderer;
-	Crystal::Shader::Texture backgroundTexture;
+	Crystal::Shader::TextureObject backgroundTexture;
 
 	bool isParticleView;
 

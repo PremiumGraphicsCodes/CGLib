@@ -9,14 +9,14 @@ namespace Crystal {
 	namespace Shader {
 
 
-class Texture : public ITextureObject
+class TextureObject : public ITextureObject
 {
 public:
-	Texture(const int id = 0) :
+	TextureObject(const int id = 0) :
 		ITextureObject(id)
 	{}
 
-	Texture(const Graphics::Image& image, const int id = 0);
+	TextureObject(const Graphics::Image& image, const int id = 0);
 
 	bool create(const Graphics::Image& image, const int id = 0);
 

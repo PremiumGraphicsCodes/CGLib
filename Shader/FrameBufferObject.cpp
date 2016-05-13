@@ -15,7 +15,7 @@ bool FrameBufferObject::build(int width, int height)
 	return (GL_NO_ERROR == glGetError());
 }
 
-void FrameBufferObject::setColorTexture(const Texture& texture)
+void FrameBufferObject::setColorTexture(const TextureObject& texture)
 {
 	this->colorTexture = texture;
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);

@@ -5,7 +5,7 @@
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
-#include "Texture.h"
+#include "TextureObject.h"
 #include "DepthTexture.h"
 #include "CubeMapTexture.h"
 #include "IRenderer.h"

@@ -1,14 +1,14 @@
-#include "Texture.h"
+#include "TextureObject.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-Texture::Texture(const Image& image, const int id)
+TextureObject::TextureObject(const Image& image, const int id)
 {
 	create(image, id);
 }
 
-bool Texture::create(const Image& image, const int id)
+bool TextureObject::create(const Image& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -32,13 +32,13 @@ bool Texture::create(const Image& image, const int id)
 
 
 
-void Texture::bind() const
+void TextureObject::bind() const
 {
 	glActiveTexture(GL_TEXTURE0 + id);
 	glBindTexture(GL_TEXTURE_2D, texHandle);
 }
 
-void Texture::unbind() const
+void TextureObject::unbind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glActiveTexture(GL_TEXTURE0);

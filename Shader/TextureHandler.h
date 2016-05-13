@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_TEXTURE_HANDLER_H__
 
 #include "../Util/UnCopyable.h"
-#include "Texture.h"
+#include "TextureObject.h"
 #include <map>
 
 namespace Crystal {
@@ -31,12 +31,12 @@ public:
 		return textures.find(name) != textures.end();
 	}
 
-	Texture* get(const std::string& name) { return textures[name]; }
+	TextureObject* get(const std::string& name) { return textures[name]; }
 
 private:
 	TextureHandler() = default;
 
-	std::map<std::string, Texture* > textures;
+	std::map<std::string, TextureObject* > textures;
 };
 	}
 }

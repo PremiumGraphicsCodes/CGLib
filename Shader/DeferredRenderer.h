@@ -6,7 +6,7 @@
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
 #include "DepthTexture.h"
-#include "Texture.h"
+#include "TextureObject.h"
 #include "IRenderer.h"
 
 namespace Crystal {

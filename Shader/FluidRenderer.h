@@ -26,7 +26,7 @@ public:
 
 	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTexture& cubeMapTexture);
 
-	void setSceneTexture(const Texture& texture) { this->sceneTexture = texture; }
+	void setSceneTexture(const TextureObject& texture) { this->sceneTexture = texture; }
 
 	ITextureObject* getDepthTexture() { return &depthTexture; }
 
@@ -68,16 +68,16 @@ private:
 	SSRefractionRenderer refractionRenderer;
 	
 	DepthTexture depthTexture;
-	Texture sceneTexture;
-	Texture shadedTexture;
+	TextureObject sceneTexture;
+	TextureObject shadedTexture;
 	Texturef bluredDepthTexture;
-	Texture normalTexture;
-	Texture thicknessTexture;
-	Texture bluredThicknessTexture;
+	TextureObject normalTexture;
+	TextureObject thicknessTexture;
+	TextureObject bluredThicknessTexture;
 
-	Texture volumeTexture;
-	Texture reflectionTexture;
-	Texture fluidTexture;
+	TextureObject volumeTexture;
+	TextureObject reflectionTexture;
+	TextureObject fluidTexture;
 
 private:
 	std::string getBuiltinVertexShaderSource();

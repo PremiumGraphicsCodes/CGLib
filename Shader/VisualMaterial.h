@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_VISUAL_MATERIAL_H__
 
 #include <array>
-#include "Texture.h"
+#include "TextureObject.h"
 
 namespace Crystal {
 	namespace Graphics {
