@@ -101,8 +101,8 @@
     <ClCompile Include="SSThicknessRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderPolygon.cpp" />
     <ClCompile Include="VisualMaterial.cpp" />
+    <ClCompile Include="PolygonScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -211,9 +211,9 @@
     <ClInclude Include="SSThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderPolygon.h" />
     <ClInclude Include="VisualMaterial.h" />
     <ClInclude Include="ShaderCollection.h" />
+    <ClInclude Include="PolygonScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

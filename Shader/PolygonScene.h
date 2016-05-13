@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_SHADER_POLYGON__
-#define __CRYSTAL_SHADER_SHADER_POLYGON__
+#ifndef __CRYSTAL_SHADER_POLYGON_SCENE__
+#define __CRYSTAL_SHADER_POLYGON_SCENE__
 
 #include "../Util/UnCopyable.h"
 
@@ -10,12 +10,12 @@
 namespace Crystal {
 	namespace Shader {
 
-class ShaderPolygon : private UnCopyable
+class PolygonScene : private UnCopyable
 {
 public:
-	ShaderPolygon() = default;
+	PolygonScene() = default;
 
-	explicit ShaderPolygon(const Graphics::VisualPolygon& vp);
+	explicit PolygonScene(const Graphics::VisualPolygon& vp);
 
 	void setup(const Graphics::VisualPolygon& vp);
 

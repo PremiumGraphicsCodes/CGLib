@@ -1,4 +1,4 @@
-#include "ShaderPolygon.h"
+#include "PolygonScene.h"
 #include "../Polygon/PolygonMesh.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
@@ -9,13 +9,13 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-ShaderPolygon::ShaderPolygon(const VisualPolygon& vp)
+PolygonScene::PolygonScene(const VisualPolygon& vp)
 {
 	setup(vp);
 }
 
 
-void ShaderPolygon::setup(const VisualPolygon& vp)
+void PolygonScene::setup(const VisualPolygon& vp)
 {
 	renderer.build();
 
@@ -27,7 +27,7 @@ void ShaderPolygon::setup(const VisualPolygon& vp)
 	}
 }
 
-void ShaderPolygon::draw(const ICamera<float>& camera, const PointLight<float>& light)
+void PolygonScene::draw(const ICamera<float>& camera, const PointLight<float>& light)
 {
 	renderer.render(camera, triangleBuffer, light, materials);
 }
