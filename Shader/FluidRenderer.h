@@ -28,26 +28,26 @@ public:
 
 	void setSceneTexture(const Texture& texture) { this->sceneTexture = texture; }
 
-	ITexture* getDepthTexture() { return &depthTexture; }
+	ITextureObject* getDepthTexture() { return &depthTexture; }
 
-	ITexture* getShadedTexture() { return &shadedTexture; }
+	ITextureObject* getShadedTexture() { return &shadedTexture; }
 
-	ITexture* getBluredDepthTexture() { return &bluredDepthTexture; }
+	ITextureObject* getBluredDepthTexture() { return &bluredDepthTexture; }
 
 
-	ITexture* getThicknessTexture() { return &thicknessTexture; }
+	ITextureObject* getThicknessTexture() { return &thicknessTexture; }
 
-	ITexture* getBluredThicknessTexture() { return &bluredThicknessTexture; }
+	ITextureObject* getBluredThicknessTexture() { return &bluredThicknessTexture; }
 
-	ITexture* getVolumeTexture() { return &volumeTexture; }
+	ITextureObject* getVolumeTexture() { return &volumeTexture; }
 
-	ITexture* getNormalTexture() { return &normalTexture; }
+	ITextureObject* getNormalTexture() { return &normalTexture; }
 
-	ITexture* getFluidTexture() { return &fluidTexture; }
+	ITextureObject* getFluidTexture() { return &fluidTexture; }
 
-	ITexture* getReflectionTexture() { return &reflectionTexture; }
+	ITextureObject* getReflectionTexture() { return &reflectionTexture; }
 
-	ITexture* getSceneTexture() { return &sceneTexture; }
+	ITextureObject* getSceneTexture() { return &sceneTexture; }
 
 
 private:

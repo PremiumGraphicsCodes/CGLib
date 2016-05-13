@@ -15,7 +15,7 @@ namespace Crystal {
 class DeferredRenderer
 {
 public:
-	void render(const ITexture& depthTexture, const ITexture& normalTexture, const Graphics::ICamera<float>& renderedCamera, const Graphics::PointLight<float>& light, const Graphics::Material& material);
+	void render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const Graphics::ICamera<float>& renderedCamera, const Graphics::PointLight<float>& light, const Graphics::Material& material);
 
 	bool build();
 

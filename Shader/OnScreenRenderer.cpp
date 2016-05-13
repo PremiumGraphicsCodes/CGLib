@@ -54,7 +54,7 @@ void OnScreenRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void OnScreenRenderer::render(const ITexture& texture)
+void OnScreenRenderer::render(const ITextureObject& texture)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

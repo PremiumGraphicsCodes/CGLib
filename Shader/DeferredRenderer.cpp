@@ -120,7 +120,7 @@ void DeferredRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void DeferredRenderer::render(const ITexture& depthTexture, const ITexture& normalTexture, const ICamera<float>& renderedCamera, const PointLight<float>& light, const Material& material)
+void DeferredRenderer::render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const ICamera<float>& renderedCamera, const PointLight<float>& light, const Material& material)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

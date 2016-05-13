@@ -190,9 +190,6 @@
     <ClInclude Include="DepthBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="ITexture.h">
-      <Filter>Texture</Filter>
-    </ClInclude>
     <ClInclude Include="SSCompositeRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
@@ -232,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="TextureHandler.h">
       <Filter>Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextureObject.h">
+      <Filter>Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

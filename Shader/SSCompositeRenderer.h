@@ -13,7 +13,7 @@ namespace Crystal {
 class SSCompositeRenderer
 {
 public:
-	void render(const ITexture& texture, const ITexture& texture2, const DepthTexture& depthTexture1, const ITexture& depthTexture2);
+	void render(const ITextureObject& texture, const ITextureObject& texture2, const DepthTexture& depthTexture1, const ITextureObject& depthTexture2);
 
 	bool build();
 

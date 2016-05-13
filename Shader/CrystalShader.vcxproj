@@ -198,7 +198,7 @@
     <ClInclude Include="GLee.h" />
     <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="IRenderer.h" />
-    <ClInclude Include="ITexture.h" />
+    <ClInclude Include="ITextureObject.h" />
     <ClInclude Include="LegacyRenderer.h" />
     <ClInclude Include="NormalFilter.h" />
     <ClInclude Include="NormalRenderer.h" />

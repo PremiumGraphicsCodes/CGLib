@@ -63,7 +63,7 @@ void SSAbsorptionRenderer::findLocation()
 	shader.findAttribLocation("position");
 }
 
-void SSAbsorptionRenderer::render(const ITexture& volumeTexture)
+void SSAbsorptionRenderer::render(const ITextureObject& volumeTexture)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0, -1.0), Vector2d<float>(1.0, 1.0));
 	const auto& positions = box.toArray();

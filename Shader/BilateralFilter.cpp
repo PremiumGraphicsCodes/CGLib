@@ -81,7 +81,7 @@ void BilateralFilter::findLocation()
 #include "../Graphics/OrthogonalCamera.h"
 #include "../Math/Box2d.h"
 
-void BilateralFilter::render(const ITexture& texture)
+void BilateralFilter::render(const ITextureObject& texture)
 {
 	const Box2d<float> box(Vector2d<float>(-1.0f, -1.0f), Vector2d<float>(1.0f, 1.0f));
 	const auto& positions = box.toArray();

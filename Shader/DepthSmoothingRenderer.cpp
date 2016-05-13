@@ -76,7 +76,7 @@ void DepthSmoothingRenderer::findLocation()
 	shader.findUniformLocation("isX");
 }
 
-void DepthSmoothingRenderer::render(const ITexture& texture, bool isX)
+void DepthSmoothingRenderer::render(const ITextureObject& texture, bool isX)
 {
 	std::vector<float> positions;
 	positions.push_back(-1.0f);

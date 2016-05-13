@@ -13,7 +13,7 @@ namespace Crystal {
 class DepthSmoothingRenderer
 {
 public:
-	void render(const ITexture& texture, bool isX);
+	void render(const ITextureObject& texture, bool isX);
 
 	bool build();
 

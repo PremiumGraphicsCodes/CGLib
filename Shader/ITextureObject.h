@@ -1,19 +1,19 @@
-#ifndef __CRYSTAL_SHADER_I__TEXTURE_H__
-#define __CRYSTAL_SHADER_I__TEXTURE_H__
+#ifndef __CRYSTAL_SHADER_I_TEXTURE_OBJECT_H__
+#define __CRYSTAL_SHADER_I_TEXTURE_OBJECT_H__
 
 #include "GLee.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class ITexture
+class ITextureObject
 {
 public:
-	ITexture(const int id = 0) :
+	ITextureObject(const int id = 0) :
 		id(id)
 	{}
 
-	virtual ~ITexture() {
+	virtual ~ITextureObject() {
 	}
 
 	virtual void bind() const = 0;

@@ -3,17 +3,17 @@
 
 #include "GLee.h"
 #include "../Graphics/Image.h"
-#include "ITexture.h"
+#include "ITextureObject.h"
 
 namespace Crystal {
 	namespace Shader {
 
 
-class Texture : public ITexture
+class Texture : public ITextureObject
 {
 public:
 	Texture(const int id = 0) :
-		ITexture(id)
+		ITextureObject(id)
 	{}
 
 	Texture(const Graphics::Image& image, const int id = 0);
@@ -28,11 +28,11 @@ public:
 private:
 };
 
-class Texturef : public ITexture
+class Texturef : public ITextureObject
 {
 public:
 	Texturef(const int id = 0) :
-		ITexture(id)
+		ITextureObject(id)
 	{}
 
 	Texturef(const Graphics::Imagef& image, const int id = 0);

@@ -11,7 +11,7 @@
 #include "../Shader/FrameBuffer.h"
 #include "../Shader/FluidRenderer.h"
 #include "../Shader/DepthRenderer.h"
-#include "../Shader/ITexture.h"
+#include "../Shader/ITextureObject.h"
 #include "ISample.h"
 #include <memory>
 
@@ -45,7 +45,7 @@ private:
 	Crystal::Shader::SkyBoxRenderer skyBoxRenderer;
 	Crystal::Shader::Texture backgroundTexture;
 	Crystal::Shader::FrameBuffer backgroundBuffer;
-	Crystal::Shader::ITexture* activeTexture;
+	Crystal::Shader::ITextureObject* activeTexture;
 
 };
 

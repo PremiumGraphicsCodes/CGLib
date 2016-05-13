@@ -3,16 +3,16 @@
 
 #include "GLee.h"
 #include "../Graphics/Image.h"
-#include "ITexture.h"
+#include "ITextureObject.h"
 
 namespace Crystal {
 	namespace Shader {
 
-class DepthTexture : public ITexture
+class DepthTexture : public ITextureObject
 {
 public:
 	DepthTexture(const int id = 0) :
-		ITexture(id)
+		ITextureObject(id)
 	{}
 
 	DepthTexture(const Graphics::Imagef& image, const int id = 0);

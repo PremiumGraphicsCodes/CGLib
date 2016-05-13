@@ -16,7 +16,7 @@ namespace Crystal {
 class SSReflectionRenderer
 {
 public:
-	void render(const ITexture& depthTexture, const ITexture& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture);
+	void render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const Graphics::ICamera<float>& renderedCamera, const CubeMapTexture& cubeMapTexture);
 
 	bool build();
 
