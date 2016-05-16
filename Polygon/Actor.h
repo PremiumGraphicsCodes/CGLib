@@ -26,6 +26,8 @@ public:
 
 	Joint* createJoint(const Math::Vector3d<float>& pos);
 
+	Joint* insertJoint(Bone* bone);
+
 	void setRoot(Bone* bone) { this->rootBone = bone; }
 
 	Bone* getRoot() const { return this->rootBone; }
@@ -43,6 +45,8 @@ public:
 	//ParticleObject toParticleObject();
 
 	Joint* findJointById(const unsigned int id) const;
+
+	Bone* findBoneById(const unsigned int id) const;
 
 private:
 	Bone* rootBone;

@@ -16,7 +16,7 @@ public:
 
 	~IDRenderer() = default;
 
-	void findLocation();
+	void set(ShaderObject* shader);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
@@ -39,7 +39,7 @@ private:
 	};
 
 	Location location;
-	ShaderObject shader;
+	ShaderObject* shader;
 
 };
 	}

@@ -35,6 +35,19 @@ Joint* Actor::createJoint(const Vector3d<float>& pos)
 	return j;
 }
 
+Joint* Actor::insertJoint(Bone* bone)
+{
+	auto j1 = bone->getOriginJoint();
+	auto j2 = bone->getDestJoint();
+	const auto& pos = j1->getPosition() / 2.0 + j2->getPosition() / 2.0;
+	auto j = createJoint(pos);
+	bones.remove(bone);
+	auto b1 = createBone(j1, j);
+	auto b2 = createBone(j, j2);
+	return j;
+}
+
+
 
 Bone* Actor::createBone(Joint* j1, Joint* j2)
 {
@@ -62,6 +75,16 @@ Joint* Actor::findJointById(const unsigned int id) const
 	for (auto j : joints) {
 		if (j->getId() == id) {
 			return j;
+		}
+	}
+	return nullptr;
+}
+
+Bone* Actor::findBoneById(const unsigned int id) const
+{
+	for (auto b : bones) {
+		if (b->getId() == id) {
+			return b;
 		}
 	}
 	return nullptr;

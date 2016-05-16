@@ -1,56 +1,67 @@
 #include "IDRenderer.h"
+#include "ShaderHandler.h"
 
 #include <sstream>
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
+namespace {
+	std::string shaderName = "id";
+}
+
+
 bool IDRenderer::build()
 {
 	const auto& vShader = getBuildinVertexShaderSource();
 	const auto& fShader = getBuildinFragmentShaderSource();
-	bool b = shader.build(vShader, fShader);
-	findLocation();
-	return b;
+
+	bool result = ShaderHandler::getInstance()->build(shaderName, vShader, fShader);
+	set(ShaderHandler::getInstance()->get(shaderName));
+
+	return result;
 }
 
 std::string IDRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec3 position;" << std::endl;
-	stream << "in vec4 id;" << std::endl;
-	stream << "out vec4 vId;" << std::endl;
-	stream << "uniform mat4 projectionMatrix;" << std::endl;
-	stream << "uniform mat4 modelviewMatrix;" << std::endl;
-	stream << "void main(void)" << std::endl;
-	stream << "{" << std::endl;
-	stream << "gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl;
-	stream << "vId = id;" << std::endl;
-	stream << "}";
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "in vec4 id;" << std::endl
+		<< "out vec4 vId;" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< "void main(void)" << std::endl
+		<< "{" << std::endl
+		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "	vId = id;" << std::endl
+		<< "}";
 	return stream.str();
 }
 
 std::string IDRenderer::getBuildinFragmentShaderSource() const
 {
 	std::ostringstream stream;
-	stream << "#version 150" << std::endl;
-	stream << "in vec4 vId;" << std::endl;
-	stream << "out vec4 fragColor;" << std::endl;
-	stream << "void main(void) {" << std::endl;
-	stream << "fragColor = vId;" << std::endl;
-	stream << "}" << std::endl;
+	stream
+		<< "#version 150" << std::endl
+		<< "in vec4 vId;" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	fragColor = vId;" << std::endl
+		<< "}" << std::endl;
 	return stream.str();
 }
 
 
-void IDRenderer::findLocation()
+void IDRenderer::set(ShaderObject* shader)
 {
-	location.projectionMatrix = glGetUniformLocation(shader.getId(), "projectionMatrix");
-	location.modelviewMatrix = glGetUniformLocation(shader.getId(), "modelviewMatrix");
+	this->shader = shader;
+	location.projectionMatrix = glGetUniformLocation(shader->getId(), "projectionMatrix");
+	location.modelviewMatrix = glGetUniformLocation(shader->getId(), "modelviewMatrix");
 
-	location.position = glGetAttribLocation(shader.getId(), "position");
-	location.id = glGetAttribLocation(shader.getId(), "id");
+	location.position = glGetAttribLocation(shader->getId(), "position");
+	location.id = glGetAttribLocation(shader->getId(), "id");
 }
 
 void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
@@ -72,7 +83,7 @@ void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 	glEnable(GL_POINT_SPRITE);
 
 
-	glUseProgram(shader.getId());
+	glUseProgram(shader->getId());
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, projectionMatrix.data());
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, modelviewMatrix.data());
@@ -92,7 +103,7 @@ void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+	glBindFragDataLocation(shader->getId(), 0, "fragColor");
 
 	glUseProgram(0);
 
@@ -118,7 +129,7 @@ void IDRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
 
 	glEnable(GL_DEPTH_TEST);
 
-	glUseProgram(shader.getId());
+	glUseProgram(shader->getId());
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, projectionMatrix.data());
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, modelviewMatrix.data());
@@ -138,7 +149,7 @@ void IDRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+	glBindFragDataLocation(shader->getId(), 0, "fragColor");
 
 	glUseProgram(0);
 
@@ -161,7 +172,7 @@ void IDRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buff
 
 	glEnable(GL_DEPTH_TEST);
 
-	glUseProgram(shader.getId());
+	glUseProgram(shader->getId());
 
 	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, projectionMatrix.data());
 	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, modelviewMatrix.data());
@@ -181,7 +192,7 @@ void IDRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buff
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
-	glBindFragDataLocation(shader.getId(), 0, "fragColor");
+	glBindFragDataLocation(shader->getId(), 0, "fragColor");
 
 	glUseProgram(0);
 

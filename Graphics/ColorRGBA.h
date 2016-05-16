@@ -87,18 +87,6 @@ public:
 	T alpha;
 };
 
-template< typename T >
-using ColorRGBAVector = std::vector< ColorRGBA< T > >;
-
-static std::vector<float> toArray4( const ColorRGBAVector<float>& colors ) {
-	std::vector< float > result;
-	for( size_t i = 0; i < colors.size(); ++i ) {
-		const std::vector<float>& color = colors[i].toArray4();
-		result.insert( result.end(), color.begin(), color.end() );
-	}
-	return result;
-}
-
 	}
 }
 
