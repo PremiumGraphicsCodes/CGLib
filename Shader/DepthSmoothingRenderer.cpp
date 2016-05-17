@@ -97,12 +97,12 @@ void DepthSmoothingRenderer::render(const ITextureObject& texture, bool isX)
 	texture.bind();
 	glUniform1i(shader.getUniformLocation("isX"), int(isX));
 	glUniform1i(shader.getUniformLocation("tex"), texture.getId());
-	glUniform1f(shader.getUniformLocation("width"), texture.getWidth());
-	glUniform1f(shader.getUniformLocation("height"), texture.getHeight());
+	glUniform1f(shader.getUniformLocation("width"), texture.getWidth() * 1.0f);
+	glUniform1f(shader.getUniformLocation("height"), texture.getHeight() * 1.0f);
 
 	glEnableVertexAttribArray(0);
 
-	glDrawArrays(GL_QUADS, 0, positions.size() / 2);
+	glDrawArrays(GL_QUADS, 0, static_cast<GLsizei>( positions.size() / 2 ));
 
 	glDisableVertexAttribArray(0);
 

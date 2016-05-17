@@ -29,7 +29,7 @@ public:
 
 	Math::Box3d<T> getBoundingBox() const;
 
-	Vector3dVector<T> toPoints(const float divideLength) const;
+	Vector3dVector<T> toPoints(const T divideLength) const;
 
 	Vector3d<T> getCenter() const { return center; }
 

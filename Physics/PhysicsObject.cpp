@@ -44,7 +44,7 @@ PhysicsObject::~PhysicsObject()
 
 SPHParticle* PhysicsObject::createParticle(const Vector3d<float>& position, const Vector3d<float>& velocity)
 {
-	auto p = new SPHParticle(position, constant.getEffectLength() / 1.25 / 2.0, &constant, nextId++);
+	auto p = new SPHParticle(position, constant.getEffectLength() / 1.25f / 2.0f, &constant, nextId++);
 	p->setVelocity(velocity);
 	particles.push_back(p);
 	return p;
@@ -170,7 +170,7 @@ void PhysicsObject::setVelocity(const Vector3d<float>& velocity)
 ParticleObject* PhysicsObject::toParticleObject() const
 {
 	std::vector<Particle*> ps;
-	for (int i = 0; i < particles.size(); ++i) {
+	for (size_t i = 0; i < particles.size(); ++i) {
 		ps.push_back(particles[i]->clone());
 	}
 	return new ParticleObject(ps);

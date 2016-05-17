@@ -90,7 +90,7 @@ void BulletRigid::transform()
 	const auto& rotation = getOrientation();
 	std::vector<Vector3d<float>> result;
 	const auto& matrix = rotation.toMatrix();
-	for (int i = 0; i < localPositions.size(); ++i) {
+	for (size_t i = 0; i < localPositions.size(); ++i) {
 		sampleParticles[i]->moveTo(localPositions[i]);
 		sampleParticles[i]->rotate(matrix);
 		sampleParticles[i]->move(translate);

@@ -31,16 +31,16 @@ Box3d<T> Sphere<T>::getBoundingBox() const {
 }
 
 template<typename T>
-Vector3dVector<T> Sphere<T>::toPoints(const float divideLength) const
+Vector3dVector<T> Sphere<T>::toPoints(const T divideLength) const
 {
 	Vector3dVector<T> points;
 
 	Math::Box3d<T> box(center, center);
 	box.outerOffset(radius);
 
-	for (float x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
-		for (float y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
-			for (float z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
+	for (auto x = box.getMinX(); x <= box.getMaxX(); x += divideLength) {
+		for (auto y = box.getMinY(); y <= box.getMaxY(); y += divideLength) {
+			for (auto z = box.getMinZ(); z <= box.getMaxZ(); z += divideLength) {
 				const Vector3d<T> pos(x, y, z);
 				if (pos.getDistanceSquared(center) < radius * radius) {
 					points.push_back(pos);
