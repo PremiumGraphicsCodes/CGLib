@@ -107,30 +107,3 @@ TEST(STLFileTest, TestWriteBinary)
 	const std::string& actual = stream.str();
 	//EXPECT_EQ(80, actual.size());
 }
-
-#include "../IO/POVFile.h"
-
-TEST(STLFileTest, TestReadBinary)
-{
-	STLFile file;
-	file.read("../TestFile/IO/cube-binary.stl");
-}
-
-
-/*
-TEST(STLFileTest, TestToSurface)
-{
-	STLCellVector cells;
-	STLCell cell;
-	Vector3d<float> v0(0.0, 0.0, 0.0);
-	Vector3d<float> v1(1.0, 0.0, 0.0);
-	Vector3d<float> v2(1.0, 1.0, 0.0);
-	cell.setPositions({ v0,v1,v2 });
-	cells.push_back(cell);
-	STLFile file(cells, "");
-	const auto actual = file.toSurface();
-	EXPECT_EQ(1, actual.getFaces().size());
-	EXPECT_EQ(3, actual.getVertices().size());
-	//EXPECT_EQ(v2, actual.getVertices()[2]);
-}
-*/

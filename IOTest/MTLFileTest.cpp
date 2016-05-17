@@ -6,43 +6,6 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::IO;
 
-using T = float;
-
-/*
-TEST(MTLFileTest, TestReadTextureOptions)
-{
-	EXPECT_TRUE( MTLFile::getTextureOptions("-blendu on").getBlendU() );
-	EXPECT_TRUE( MTLFile::getTextureOptions("-blendv on").getBlendV() );
-
-	EXPECT_FALSE( MTLFile::getTextureOptions("-blendu off").getBlendU() );
-	EXPECT_FALSE( MTLFile::getTextureOptions("-blendv off").getBlendV() );
-
-	EXPECT_FLOAT_EQ( 0.1f, MTLFile::getTextureOptions("-boost 0.1").getBoost() );
-
-	EXPECT_FLOAT_EQ( 0.1f, MTLFile::getTextureOptions("-mm 0.1 0.5").getBaseValue() );
-
-	EXPECT_EQ( Vector3d<T>(1.0f, 0.0f, 0.0f), MTLFile::getTextureOptions("-o 1.0 0.0 0.0").getOrigin() );
-	EXPECT_EQ( Vector3d<T>(0.1f, 0.1f, 0.1f), MTLFile::getTextureOptions("-s 0.1 0.1 0.1").getScale() );
-	EXPECT_EQ( Vector3d<T>(0.5f, 0.5f, 0.0f), MTLFile::getTextureOptions("-t 0.5 0.5 0.0").getTurblence() );
-
-	EXPECT_EQ( 255, MTLFile::getTextureOptions("-texres 255").getResolution() );
-
-	EXPECT_TRUE( MTLFile::getTextureOptions("-clamp on").getClamp() );
-	EXPECT_FALSE( MTLFile::getTextureOptions("-clamp off").getClamp() );
-
-	EXPECT_EQ( "r", MTLFile::getTextureOptions("-imfchan r").getImfChan() );
-	EXPECT_EQ( "g", MTLFile::getTextureOptions("-imfchan g").getImfChan() );
-	EXPECT_EQ( "b", MTLFile::getTextureOptions("-imfchan b").getImfChan() );
-	EXPECT_EQ( "m", MTLFile::getTextureOptions("-imfchan m").getImfChan() );
-	EXPECT_EQ( "l", MTLFile::getTextureOptions("-imfchan l").getImfChan() );
-	EXPECT_EQ( "z", MTLFile::getTextureOptions("-imfchan z").getImfChan() );
-
-	EXPECT_EQ("rgb", MTLFile::getTextureOptions("-imfchan rgb").getImfChan());
-
-	EXPECT_EQ("cube_top", MTLFile::getTextureOptions("-type cube_top").getType());
-}
-*/
-
 ::std::ostream& operator<<(::std::ostream& os, const ColorRGBA<float>& c) {
 	return os << c.getRed() << c.getGreen() << c.getBlue() << std::endl;
 }

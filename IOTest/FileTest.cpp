@@ -15,3 +15,22 @@ TEST(FileTest, TestGetExtension)
 	File file("test.txt");
 	EXPECT_EQ("txt", file.getExtension());
 }
+
+TEST(FileTest, TestGetFolderPath)
+{
+	{
+		const File file("../Sample/Test.txt");
+		EXPECT_EQ("../Sample/", file.getFolerPath());
+	}
+	{
+		const File file("..\\Sample\\Test.txt");
+		EXPECT_EQ("..\\Sample\\", file.getFolerPath());
+	}
+
+}
+
+TEST(FileTest, TestGetFileNameExcludingPath)
+{
+	File file("../Sample/Test.txt");
+	EXPECT_EQ("Test.txt", file.getFileNameExcludingPath());
+}
