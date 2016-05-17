@@ -45,46 +45,7 @@ TEST(ImageRGBATest, TestColors)
 
 }
 
-TEST(ImageRGBATest, TestWritePNG)
-{
-	auto image = Image::Red(32, 32);
-	//buffer.setColor(1, 0, ColorRGBA<unsigned char>(255, 0, 0, 0));
-	image.save("../TestFile/IO/Image/testWrite.png", ImageFileFormat::PNG );
-	const Image actual("../TestFile/IO/Image/testExpected.png");
-	EXPECT_EQ(ColorRGBA<unsigned char>(255,0,0,255), actual.getColor(0, 0));
-	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(31, 31));
 
-	EXPECT_EQ(32, actual.getWidth());
-	EXPECT_EQ(32, actual.getHeight());
-
-	EXPECT_EQ(image, actual);
-	//stbi_save("test.png");
-}
-
-TEST(ImageRGBATest, TestWriteBMP)
-{
-	auto image = Image::Red(32, 32);
-	//buffer.setColor(1, 0, ColorRGBA<unsigned char>(255, 0, 0, 0));
-	image.save("../TestFile/IO/Image/actual.bmp", ImageFileFormat::BMP);
-	auto actual = Image::Red(32, 32);
-	actual.read("../TestFile/IO/Image/expected.bmp");
-	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(0, 0));
-	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(31, 31));
-
-	EXPECT_EQ(32, actual.getWidth());
-	EXPECT_EQ(32, actual.getHeight());
-
-	EXPECT_EQ(image, actual);
-	//stbi_save("test.png");
-}
-
-
-TEST(ImageRGBATest, TestChangeSize)
-{
-	auto image = Image::Red(12, 12);
-	image.changeSize(24, 24);
-	image.save("../TestFile/Graphics/ChangeSize.png", ImageFileFormat::PNG );
-}
 
 TEST(ImageRGBATest, TestReversed)
 {
@@ -94,13 +55,3 @@ TEST(ImageRGBATest, TestReversed)
 	EXPECT_EQ(ColorRGBA<unsigned char>(255, 0, 0, 255), actual.getColor(0, 3) );
 
 }
-/*
-TYPED_TEST(ColorRGBATest, TestScale)
-{
-	const auto filename = "../TestFile/UI/2x2.png";
-	ImageRGBA<unsigned char> image;
-	image.read(filename);
-	image.save("../TestFile/UI/2x2Result.png");
-	//src.createScaled(scale);
-}
-*/
