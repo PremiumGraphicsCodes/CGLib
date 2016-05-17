@@ -16,6 +16,8 @@ public:
 
 	std::string getFileName() const;
 
+	std::string getFileNameExcludingPath() const;
+
 	std::string getExtension() const;
 
 	std::string getFullPath() const { return fullpath; }
