@@ -164,7 +164,6 @@
     <ClCompile Include="OnScreenRenderer.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
-    <ClCompile Include="QuadRenderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderHandler.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
@@ -209,7 +208,6 @@
     <ClInclude Include="OnScreenRenderer.h" />
     <ClInclude Include="ParticleDepthRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
-    <ClInclude Include="QuadRenderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderHandler.h" />
     <ClInclude Include="ShaderObject.h" />

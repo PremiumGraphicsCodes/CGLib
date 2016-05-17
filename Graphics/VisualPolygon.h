@@ -5,10 +5,9 @@
 #include "Material.h"
 #include "MaterialMap.h"
 
+#include "../Polygon/PolygonMesh.h"
+
 namespace Crystal{
-	namespace Polygon {
-		class PolygonMesh;
-	}
 	namespace Graphics {
 
 
@@ -16,7 +15,7 @@ namespace Crystal{
 class VisualPolygon
 {
 public:
-	VisualPolygon() = default;
+	VisualPolygon();
 
 	explicit VisualPolygon(Polygon::PolygonMesh* polygon);
 

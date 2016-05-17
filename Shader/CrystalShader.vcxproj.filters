@@ -21,9 +21,6 @@
     <ClCompile Include="IRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="QuadRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="BillBoardRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -139,9 +136,6 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="IRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="QuadRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="BillBoardRenderer.h">

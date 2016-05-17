@@ -163,15 +163,25 @@ enum class PMDBoneType
 class PMDBone
 {
 public:
+	PMDBone() = default;
+
+	explicit PMDBone(const Polygon::Bone& bone);
+
 	bool read(std::istream& stream);
 
 	bool write(std::ostream& stream) const;
+
+	bool readEnglishName(std::istream& stream);
+
+	bool writeEnglishName(std::ostream& stream) const;
 
 	Polygon::Bone toBone() const;
 
 	Polygon::Joint toJoint() const;
 
 	char name[20];
+	char englishName[20];
+
 	unsigned short parentBoneIndex;
 	unsigned short tailBoneIndex;
 	char type;
@@ -185,7 +195,9 @@ public:
 	PMDBoneCollection()
 	{}
 
-	PMDBoneCollection(const std::vector<PMDBone>& bones) :
+	explicit PMDBoneCollection(const Polygon::Actor& actor);
+
+	explicit PMDBoneCollection(const std::vector<PMDBone>& bones) :
 		bones(bones)
 	{}
 
@@ -203,7 +215,6 @@ public:
 
 private:
 	std::vector<PMDBone> bones;
-	std::vector<std::string> englishNames;
 };
 
 class PMDIK

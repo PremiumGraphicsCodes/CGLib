@@ -39,10 +39,13 @@ public:
 
 	bool isTail() const { return origin == nullptr || dest == nullptr; }
 
+	//std::string getName() const { return name; }
+
 private:
 	Joint* origin;
 	Joint* dest;
 	//Bone* parent;
+	std::string name;
 	std::vector<Bone*> children;
 	const unsigned int id;
 };

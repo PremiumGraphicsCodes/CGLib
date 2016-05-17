@@ -305,6 +305,19 @@ std::vector<MaterialMap> PMDMaterialCollection::toMaterialMap(const std::string&
 	return results;
 }
 
+PMDBone::PMDBone(const Bone& bone)
+{
+	strcpy( name, bone.getName().c_str() );
+	strcpy(englishName, name);
+	parentBoneIndex = bone.getOriginJoint()->getId();
+	tailBoneIndex = bone.getDestJoint()->getId();
+	type = 0;
+	ikParentBoneIndex = 0;
+
+	auto pos = bone.getOriginJoint()->getPosition();
+	this->boneHeadPos = pos;
+}
+
 
 bool PMDBone::read(std::istream& stream)
 {
@@ -341,6 +354,17 @@ bool PMDBone::write(std::ostream& stream) const
 	return stream.good();
 }
 
+bool PMDBone::readEnglishName(std::istream& stream)
+{
+	stream.read(englishName, sizeof(englishName));
+	return stream.good();
+}
+
+bool PMDBone::writeEnglishName(std::ostream& stream) const
+{
+	stream.write(englishName, sizeof(englishName));
+	return stream.good();
+}
 
 /*
 Bone PMDBone::toActorBone() const
@@ -353,6 +377,15 @@ Joint PMDBone::toJoint() const
 {
 	return Joint(boneHeadPos);
 }
+
+PMDBoneCollection::PMDBoneCollection(const Actor& actor)
+{
+	auto bones = actor.getBones();
+	for (auto b : bones) {
+		this->bones.push_back(PMDBone(*b));
+	}
+}
+
 
 bool PMDBoneCollection::read(std::istream& stream)
 {
@@ -380,9 +413,7 @@ bool PMDBoneCollection::write(std::ostream& stream) const
 bool PMDBoneCollection::readEnglishNames(std::istream& stream)
 {
 	for (size_t i = 0; i < bones.size(); ++i) {
-		char boneName[20];
-		stream.read(boneName, sizeof(boneName));
-		englishNames.emplace_back(boneName);
+		bones[i].readEnglishName(stream);
 	}
 	return stream.good();
 }
@@ -390,7 +421,7 @@ bool PMDBoneCollection::readEnglishNames(std::istream& stream)
 bool PMDBoneCollection::writeEnglishNames(std::ostream& stream) const
 {
 	for (size_t i = 0; i < bones.size(); ++i) {
-		stream.write(englishNames[i].c_str(), sizeof(englishNames[i]));
+		bones[i].writeEnglishName(stream);
 	}
 	return stream.good();
 }
@@ -812,6 +843,10 @@ PMDFile::PMDFile(const VisualPolygon& polygon)
 	faces = PMDFaceCollection(polygon.getPolygon()->getFaces());
 }
 
+void PMDFile::add(const Actor& actor)
+{
+	bones = PMDBoneCollection(actor);
+}
 
 bool PMDFile::read(const std::string& filename)
 {
