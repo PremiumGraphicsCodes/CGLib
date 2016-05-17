@@ -842,7 +842,7 @@ bool PMDFile::read(const std::string& filename)
 	rigidBodies.read(stream);
 	rigidJoints.read(stream);
 
-	return stream.good();
+	return stream.eof();
 }
 
 bool PMDFile::write(const std::string& filename) const

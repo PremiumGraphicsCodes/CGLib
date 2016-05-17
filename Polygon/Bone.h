@@ -37,6 +37,8 @@ public:
 
 	unsigned int getId() const { return id; }
 
+	bool isTail() const { return origin == nullptr || dest == nullptr; }
+
 private:
 	Joint* origin;
 	Joint* dest;

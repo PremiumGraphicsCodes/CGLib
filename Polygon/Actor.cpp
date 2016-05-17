@@ -62,6 +62,9 @@ ParticleObject* Actor::toParticleObject(const float radius, const float density)
 	//auto children =
 	std::vector<Particle*> particles;
 	for (auto b : bones) {
+		if (b->isTail()) {
+			continue;
+		}
 		const auto& ps = b->toParticles(radius * 2.0f, density);
 		for (const auto& p : ps) {
 			particles.push_back( p.clone() );
