@@ -1,6 +1,5 @@
 #include "PMDFile.h"
 
-
 #include "../Polygon/PolygonMesh.h"
 #include "../Polygon/Actor.h"
 #include "../Polygon/Bone.h"
@@ -307,8 +306,8 @@ std::vector<MaterialMap> PMDMaterialCollection::toMaterialMap(const std::string&
 
 PMDBone::PMDBone(const Bone& bone)
 {
-	strcpy( name, bone.getName().c_str() );
-	strcpy(englishName, name);
+	strcpy_s( name, bone.getName().c_str() );
+	strcpy_s(englishName, name);
 	parentBoneIndex = bone.getOriginJoint()->getId();
 	tailBoneIndex = bone.getDestJoint()->getId();
 	type = 0;

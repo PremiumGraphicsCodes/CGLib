@@ -8,7 +8,7 @@
 #include "../Math/Line3d.h"
 #include "ShaderObject.h"
 
-#include "../Util/File.h"
+#include "../IO/File.h"
 
 #include <list>
 #include <vector>
@@ -40,11 +40,11 @@ public:
 
 	bool build(const std::string& vSource, const std::string& gSource, const std::string& fSource);
 
-	bool build(const File& vFile, const File& fFile) {
+	bool build(const IO::File& vFile, const IO::File& fFile) {
 		return build(Util::getStr(vFile), Util::getStr(fFile));
 	}
 
-	bool build(const File& vFile, const File& gFile, const File& fFile) {
+	bool build(const IO::File& vFile, const IO::File& gFile, const IO::File& fFile) {
 		return build(Util::getStr(vFile), Util::getStr(gFile), Util::getStr(fFile));
 	}
 

@@ -30,7 +30,7 @@ namespace {
 }
 
 
-std::string Util::getStr(const Crystal::File& file)
+std::string Util::getStr(const Crystal::IO::File& file)
 {
 	std::ifstream stream(file.getFullPath());
 	if (stream.fail()) {
@@ -100,7 +100,7 @@ bool ShaderUnit::compile( const std::string& source, const ShaderUnit::Stage sta
 	return true;
 }
 
-bool ShaderUnit::compile(const Crystal::File& file, const ShaderUnit::Stage stage)
+bool ShaderUnit::compile(const Crystal::IO::File& file, const ShaderUnit::Stage stage)
 {
 	return compile( Util::getStr(file), stage );
 }
@@ -119,7 +119,7 @@ ShaderObject::ShaderObject(void) :
 {
 }
 
-ShaderObject::ShaderObject(const Crystal::File& vFile, const Crystal::File& fFile) :
+ShaderObject::ShaderObject(const Crystal::IO::File& vFile, const Crystal::IO::File& fFile) :
 	id(-1)
 {
 	assert(glGetError() == GL_NO_ERROR);

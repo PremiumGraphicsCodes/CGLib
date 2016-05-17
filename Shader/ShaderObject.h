@@ -10,7 +10,7 @@
 
 #include "../Math/Vector3d.h"
 
-#include "../Util/File.h"
+#include "../IO/File.h"
 
 #include <string>
 
@@ -19,7 +19,7 @@ namespace Crystal {
 
 		class Util {
 		public:
-			static std::string getStr(const File& file);
+			static std::string getStr(const IO::File& file);
 		};
 
 class ShaderUnit
@@ -37,7 +37,7 @@ public:
 
 	bool compile( const std::string& source, const ShaderUnit::Stage stage );
 
-	bool compile( const File& file, const ShaderUnit::Stage stage);
+	bool compile( const IO::File& file, const ShaderUnit::Stage stage);
 
 	//bool dump(const std::string& filename);
 
@@ -59,7 +59,7 @@ class ShaderObject
 public:
 	ShaderObject(void);
 
-	ShaderObject(const File& vFile, const File& fFile);
+	ShaderObject(const IO::File& vFile, const IO::File& fFile);
 
 	~ShaderObject(void);
 
@@ -73,11 +73,11 @@ public:
 
 	bool build(const std::string& vSource, const std::string& gSource, const std::string& fSource);
 
-	bool build(const File& vFile, const File& fFile) {
+	bool build(const IO::File& vFile, const IO::File& fFile) {
 		return build(Util::getStr(vFile), Util::getStr(fFile));
 	}
 
-	bool build(const File& vFile, const File& gFile, const File& fFile) {
+	bool build(const IO::File& vFile, const IO::File& gFile, const IO::File& fFile) {
 		return build(Util::getStr(vFile), Util::getStr(gFile), Util::getStr(fFile));
 	}
 
