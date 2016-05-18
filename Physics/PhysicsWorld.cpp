@@ -9,6 +9,26 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+void ParticleWorld::clear()
+{
+	timeStep = 0;
+	/*
+	for (auto& o : objects) {
+		o->clear();
+		delete o;
+	}
+	*/
+	objects.clear();
+	//Math::Vector3d<float> externalForce;
+	//SPHKernel<float> kernel;
+	//Math::Box3d<float> boundary;
+	for (auto& b : bulletRigids) {
+		delete b;
+	}
+	bulletRigids.clear();
+}
+
+
 void ParticleWorld::add(BulletRigid* rigid)
 {
 	bulletRigids.push_back(rigid);

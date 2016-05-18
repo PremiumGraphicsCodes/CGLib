@@ -17,6 +17,8 @@ public:
 	ParticleWorld() : timeStep(0)
 	{}
 
+	void clear();
+
 	void add(PhysicsObject* object) { objects.push_back(object); }
 
 	void add(BulletRigid* rigid);

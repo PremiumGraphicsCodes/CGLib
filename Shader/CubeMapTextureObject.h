@@ -31,8 +31,6 @@ public:
 	void unbind() const override;
 
 private:
-	unsigned int texHandle;
-	unsigned int id;
 };
 
 	}
