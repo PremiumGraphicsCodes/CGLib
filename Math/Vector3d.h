@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <vector>
+#include <array>
 #include "Tolerance.h"
 #include "Matrix3d.h"
 #include "Vector2d.h"
@@ -19,6 +20,8 @@ public:
 	Vector3d(void);
 
 	explicit Vector3d(const Vector2d<T>& v);
+
+	explicit Vector3d(const std::array<T, 3>& v);
 
 	Vector3d(const T x, const T y, const T z);
 
@@ -109,6 +112,7 @@ public:
 
 	const Vector3d operator*( const Matrix3d<T>& rhs ) const { return getMult(rhs); }
 
+	T operator[](const int index) const;
 
 public:
 	T getX() const { return x; }
@@ -133,6 +137,7 @@ public:
 
 	std::array< T, 3 > toArray3() const { return std::array < T, 3 > { x, y, z }; }
 
+	/*
 	static std::vector< T > toArray(const std::vector<Vector3d>& vectors) {
 		std::vector< T > values;
 		for (const Math::Vector3d<T>& v : vectors) {
@@ -141,6 +146,7 @@ public:
 		}
 		return values;
 	}
+	*/
 
 private:
 	T x;

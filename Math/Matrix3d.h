@@ -9,6 +9,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename>
+		class Vector3d;
 
 template<typename T>
 class Matrix3d final
@@ -21,6 +23,8 @@ public:
 		const T x10, const T x11, const T x12,
 		const T x20, const T x21, const T x22
 		);
+
+	explicit Matrix3d(const std::array<T, 9>& v);
 
 	~Matrix3d() = default;
 
@@ -117,7 +121,15 @@ public:
 
 	T getX22() const { return x22; }
 
+	T get(const int i, const int j) const;
+
+	void set(const int i, const int j, const T value);
+
+	std::array<T, 9> toArray3x3() const;
+
 	std::vector< T > toArray4x4() const;
+
+	Vector3d<T> getEigenVector() const;
 
 private:
 	T x00, x01, x02;

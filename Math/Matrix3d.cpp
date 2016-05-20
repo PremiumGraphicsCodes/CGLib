@@ -1,5 +1,7 @@
 #include "Matrix3d.h"
 
+#include "Vector3d.h"
+
 using namespace Crystal::Math;
 
 template<typename T>
@@ -18,6 +20,12 @@ Matrix3d<T>::Matrix3d(
 	x00(x00), x01(x01), x02(x02),
 	x10(x10), x11(x11), x12(x12),
 	x20(x20), x21(x21), x22(x22)
+{
+}
+
+template<typename T>
+Matrix3d<T>::Matrix3d(const std::array<T, 9>& v) :
+	Matrix3d(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8])
 {
 }
 
@@ -91,6 +99,31 @@ Matrix3d<T> Matrix3d<T>::getProduct(const Matrix3d& rhs) const
 }
 
 template<typename T>
+T Matrix3d<T>::get(const int i, const int j) const
+{
+	assert(0 <= i && i < 3);
+	assert(0 <= j && j < 3);
+	return toArray3x3()[i * 3 + j];
+}
+
+template<typename T>
+void Matrix3d<T>::set(const int i, const int j, const T value)
+{
+	assert(0 <= i && i < 3);
+	assert(0 <= j && j < 3);
+	auto arr = toArray3x3();
+	arr[i + 3 + j] = value;
+	*this = Matrix3d<T>(arr);
+}
+
+template<typename T>
+std::array<T, 9> Matrix3d<T>::toArray3x3() const
+{
+	return{ x00, x01, x02, x10, x11, x12, x20, x21, x22 };
+}
+
+
+template<typename T>
 std::vector< T > Matrix3d<T>::toArray4x4() const
 {
 	return{
@@ -133,6 +166,48 @@ Matrix3d<T> Matrix3d<T>::scale(const T factor)
 	x10 *= factor; x11 *= factor; x12 *= factor;
 	x20 *= factor; x21 *= factor; x22 *= factor;
 	return *this;
+}
+
+#include <algorithm>
+
+template<typename T>
+Vector3d<T> Matrix3d<T>::getEigenVector() const
+{
+	Matrix3d<T> r = *this;
+	std::array<T,3> b;
+
+	for (int i = 0; i < 3; ++i) {
+		T tmp = 0;
+		for (int j = 1; j < 3; ++j) {
+			tmp += ::pow(get(i, j), 2);
+		}
+		auto v = r.get(i, i) + std::signbit(r.get(i, i)) * std::sqrt(r.get(i,i) +tmp);
+		tmp = ::sqrt(std::pow(v, 2) + tmp);
+		for (int j = 1; j < 3; ++j) {
+			v = r.get(i, i) / tmp;
+		}
+
+		for (int j = i; j < 3; ++j) {
+			tmp = 0;
+			for (int k = i; k < 3; ++k) {
+				tmp += v + r.get(i, k);
+			}
+			for (int k = i; k < 3; ++k) {
+				r.set(j, k, r.get(j, k) - 2 * tmp * v);
+			}
+
+		}
+
+		for (int j = i; j < 3; ++j) {
+			tmp += v * b[j];
+		}
+
+		for (int j = i; j < 3; ++j) {
+			b[j] -= T{ 2 } *tmp  *v;
+		}
+
+	}
+	return Vector3d<T>(b);
 }
 
 

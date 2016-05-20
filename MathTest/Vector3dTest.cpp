@@ -99,18 +99,6 @@ TYPED_TEST( Vector3dTest, TestGetDistance )
 	EXPECT_TRUE( Tolerance<T>::isEqualLoosely( v1.getDistance( v0 ), std::sqrt( T(3) ) ) );
 }
 
-TYPED_TEST( Vector3dTest, TestToArray )
-{
-	using T = TypeParam;
-	const Vector3dVector<T> vectors = {
-		Vector3d<T>(1, 2, 3),
-		Vector3d<T>(4, 5, 6)
-	};
-	const auto& actual = Vector3d<T>::toArray( vectors );
-	const std::vector<T> expected{ 1, 2, 3, 4, 5, 6 };
-
-	EXPECT_EQ( expected, actual );
-}
 
 TYPED_TEST(Vector3dTest, TestRotateX)
 {

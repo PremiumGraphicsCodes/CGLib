@@ -16,6 +16,12 @@ Vector3d<T>::Vector3d(const Vector2d<T>& v) :
 {}
 
 template<typename T>
+Vector3d<T>::Vector3d(const std::array<T, 3>& v) :
+	Vector3d(v[0], v[1], v[2])
+{
+}
+
+template<typename T>
 Vector3d<T>::Vector3d(const T x, const T y, const T z) :
 	x(x), y(y), z(z)
 {}
@@ -98,6 +104,13 @@ void Vector3d<T>::transform(const Matrix4d<T>& matrix)
 	Vector4d<T> v(*this);
 	v.multiple(matrix);
 	*this = v.toVector3d();
+}
+
+template<typename T>
+T Vector3d<T>::operator[](const int index) const
+{
+	assert(0 <= index  && index <= 3);
+	return toArray()[index];
 }
 
 
