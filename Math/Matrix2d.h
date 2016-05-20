@@ -100,6 +100,8 @@ public:
 
 	std::array< T, 4 > toArray2x2() const { return x; }
 
+	std::array< T, 2 > getEigenValues() const;
+
 private:
 	std::array< T, 4 > x;
 };

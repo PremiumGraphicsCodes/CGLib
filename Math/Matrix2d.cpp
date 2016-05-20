@@ -77,5 +77,21 @@ Matrix2d<T> Matrix2d<T>::getProduct(const Matrix2d<T>& rhs) const
 		);
 }
 
+template<typename T>
+std::array<T,2> Matrix2d<T>::getEigenValues() const
+{
+	const auto b = getX11() + getX00();
+	auto det = b*b - 4 * (getX11() * getX00() - getX01()*getX10());
+
+	if (det < 0) {
+		det = 0;
+	}
+	const auto eig1 = (b + sqrt(det)) / 2;
+	const auto eig2 = (b - sqrt(det)) / 2;
+
+	return{ eig1, eig2 };
+}
+
+
 template class Matrix2d<float>;
 template class Matrix2d<double>;

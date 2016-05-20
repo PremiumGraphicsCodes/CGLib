@@ -102,3 +102,9 @@ TYPED_TEST(Matrix2dTest, TestToArray)
 	EXPECT_EQ(1, values[3]);
 }
 
+
+TYPED_TEST(Matrix2dTest, TestGetEigenValues)
+{
+	Matrix2d<TypeParam> m(3, 1, 2, 2);
+	auto eigens = m.getEigenValues();
+}
