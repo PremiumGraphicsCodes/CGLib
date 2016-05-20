@@ -107,4 +107,6 @@ TYPED_TEST(Matrix2dTest, TestGetEigenValues)
 {
 	Matrix2d<TypeParam> m(3, 1, 2, 2);
 	auto eigens = m.getEigenValues();
+	auto expected = std::array<TypeParam, 2>{ 1, 4 };
+	EXPECT_EQ(expected, eigens);
 }

@@ -170,20 +170,21 @@ Matrix3d<T> Matrix3d<T>::scale(const T factor)
 
 #include <algorithm>
 
+
 template<typename T>
-Vector3d<T> Matrix3d<T>::getEigenVector() const
+Vector3d<T> Matrix3d<T>::getEigenValues() const
 {
 	Matrix3d<T> r = *this;
-	std::array<T,3> b;
+	std::array<T, 3> b{ 0,0,0 };
 
 	for (int i = 0; i < 3; ++i) {
 		T tmp = 0;
-		for (int j = 1; j < 3; ++j) {
+		for (int j = i+1; j < 3; ++j) {
 			tmp += ::pow(get(i, j), 2);
 		}
-		auto v = r.get(i, i) + std::signbit(r.get(i, i)) * std::sqrt(r.get(i,i) +tmp);
+		auto v = r.get(i, i) + std::signbit(r.get(i, i)) * std::sqrt( std::pow(r.get(i,i),2) +tmp);
 		tmp = ::sqrt(std::pow(v, 2) + tmp);
-		for (int j = 1; j < 3; ++j) {
+		for (int j = i+1; j < 3; ++j) {
 			v = r.get(i, i) / tmp;
 		}
 
@@ -208,6 +209,16 @@ Vector3d<T> Matrix3d<T>::getEigenVector() const
 
 	}
 	return Vector3d<T>(b);
+}
+
+template<typename T>
+Matrix3d<T> Matrix3d<T>::transposed() const
+{
+	return Matrix3d<T>(
+		getX00(), getX10(), getX20(),
+		getX01(), getX11(), getX21(),
+		getX02(), getX12(), getX22()
+		);
 }
 
 

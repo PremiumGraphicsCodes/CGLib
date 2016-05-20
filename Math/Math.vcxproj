@@ -24,6 +24,8 @@
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Vector.h" />
     <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="Line3d.h" />
@@ -49,6 +51,7 @@
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />
     <ClCompile Include="Line3d.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix2d.cpp" />
     <ClCompile Include="Matrix3d.cpp" />
     <ClCompile Include="Matrix4d.cpp" />
@@ -59,6 +62,7 @@
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Vector2d.cpp" />
     <ClCompile Include="Vector4d.cpp" />

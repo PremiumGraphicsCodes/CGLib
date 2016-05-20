@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Matrix3d.h"
+#include "../Math/Vector3d.h"
 
 using namespace Crystal::Math;
 
@@ -128,3 +129,8 @@ TYPED_TEST(Matrix3dTest, TestInverse)
 	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), i);
 }
 
+TYPED_TEST(Matrix3dTest, TestGetEigenValues)
+{
+	const auto m = Matrix3d<TypeParam>::Identity();
+	m.getEigenValues();
+}

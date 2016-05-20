@@ -88,8 +88,12 @@ std::array<T,2> Matrix2d<T>::getEigenValues() const
 	}
 	const auto eig1 = (b + sqrt(det)) / 2;
 	const auto eig2 = (b - sqrt(det)) / 2;
-
-	return{ eig1, eig2 };
+	if (eig1 < eig2) {
+		return{ eig1, eig2 };
+	}
+	else {
+		return{ eig2, eig1 };
+	}
 }
 
 

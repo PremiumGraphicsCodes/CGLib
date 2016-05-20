@@ -67,6 +67,8 @@ public:
 		return matrix.scale(factor);
 	}
 
+	Matrix3d transposed() const;
+
 	Matrix3d add(const Matrix3d& rhs);
 
 	Matrix3d getAdd(const Matrix3d& rhs) const;
@@ -129,7 +131,7 @@ public:
 
 	std::vector< T > toArray4x4() const;
 
-	Vector3d<T> getEigenVector() const;
+	Vector3d<T> getEigenValues() const;
 
 private:
 	T x00, x01, x02;
