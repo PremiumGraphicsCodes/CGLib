@@ -9,12 +9,12 @@ namespace Crystal {
 class AnisotropicParticle : public Polygon::Particle
 {
 public:
-	AnisotropicParticle(SPHParticle* particle);
+	AnisotropicParticle(const Math::Vector3d<float>& position, const float density, const float radius);
 
 	float weight;
 	Math::Vector3d<float> weightedPosition;
-	Math::Vector3d<float> updatePosition;
-	SPHParticle* particle;
+	Math::Matrix3d<float> matrix;
+	//Math::Vector3d<float> updatePosition;
 };
 
 class SurfaceBuilder
@@ -22,7 +22,7 @@ class SurfaceBuilder
 public:
 	SurfaceBuilder() = default;
 
-	SurfaceBuilder(const std::vector<SPHParticle*>& sphParticles);
+	SurfaceBuilder(const std::vector<Polygon::Particle*>& sphParticles);
 
 	~SurfaceBuilder();
 
@@ -30,11 +30,13 @@ public:
 
 	void updatePosition(const float effectLength);
 
-private:
-	std::vector<SPHParticle*> sphParticles;
-	std::vector<AnisotropicParticle*> aniParticles;
+	std::vector<AnisotropicParticle*> getAniParticles() { return aniParticles; }
 
+private:
+	std::vector<Polygon::Particle*> sphParticles;
+	std::vector<AnisotropicParticle*> aniParticles;
 };
+
 	}
 }
 

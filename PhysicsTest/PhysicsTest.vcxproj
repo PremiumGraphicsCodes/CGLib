@@ -28,6 +28,7 @@
     <ClCompile Include="SPHParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
     <ClCompile Include="SpringTest.cpp" />
+    <ClCompile Include="SurfaceBuilderTest.cpp" />
     <ClCompile Include="SurfelsTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

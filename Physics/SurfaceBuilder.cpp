@@ -4,7 +4,11 @@
 
 #include "IndexedFinder.h"
 
+#include "../Polygon/SpaceHash.h"
+
+
 using namespace Crystal::Math;
+using namespace Crystal::Polygon;
 using namespace Crystal::Physics;
 
 namespace {
@@ -13,19 +17,20 @@ namespace {
 	}
 }
 
-AnisotropicParticle::AnisotropicParticle(SPHParticle* particle) :
-	particle(particle),
+AnisotropicParticle::AnisotropicParticle(const Vector3d<float>& pos, const float density, const float radius) :
+	Particle(pos, density, radius),
 	weight(0)
 {
-	updatePosition = (1.0f - 0.9f) * particle->getPosition();
+	matrix = Matrix3d<float>(0, 0, 0, 0, 0, 0, 0, 0, 0);
+	//moveTo( (1.0f - 0.9f) * pos );
 }
 
 
-SurfaceBuilder::SurfaceBuilder(const std::vector<SPHParticle*>& sphParticles) :
-	sphParticles(sphParticles)
+SurfaceBuilder::SurfaceBuilder(const std::vector<Particle*>& sphParticles)
 {
 	for (auto& p : sphParticles) {
-	 	aniParticles.push_back( new AnisotropicParticle(p) );
+		auto ap = new AnisotropicParticle(p->getPosition(), p->getDensity(), p->getRadius());
+	 	aniParticles.push_back( ap );
 	}
 }
 
@@ -42,8 +47,6 @@ void SurfaceBuilder::clear()
 	aniParticles.clear();
 }
 
-#include "../Polygon/SpaceHash.h"
-using namespace Crystal::Polygon;
 
 void SurfaceBuilder::updatePosition(const float effectLength)
 {
@@ -54,20 +57,47 @@ void SurfaceBuilder::updatePosition(const float effectLength)
 	for (auto& p : aniParticles) {
 		auto neighbors = hash.getNeighbor(p);
 		for (auto& n : neighbors) {
+			if (n == p) {
+				continue;
+			}
 			auto distance = n->getPosition().getDistance(p->getPosition());
 			auto weight = ::getWeight(distance, effectLength);
 			p->weight += weight;
-			p->weightedPosition += p->getPosition() * weight;
+			p->weightedPosition += n->getPosition() * weight;
 		}
 	}
 	for (auto& p : aniParticles) {
 		auto neighbors = hash.getNeighbor(p);
 		for (auto& n : neighbors) {
+			if (n == p) {
+				continue;
+			}
+
 			auto distance = n->getPosition().getDistance(p->getPosition());
 			p->weightedPosition /= p->weight;//  ::getWeight(distance, effectLength);
 		}
 	}
 	for (auto& p : aniParticles) {
-		p->updatePosition += 0.9f * p->weightedPosition;
+		//p->move( 0.9f * p->weightedPosition );
+		//p->move( 1.0 * p->weightedPosition );
+		auto neighbors = hash.getNeighbor(p);
+		for (auto& n : neighbors) {
+			if (n == p) {
+				continue;
+			}
+			auto distance = n->getPosition().getDistance(p->getPosition());
+			auto weight = ::getWeight(distance, effectLength);
+			auto v = p->getPosition() - n->getPosition();
+			auto x = v.getX();
+			auto y = v.getY();
+			auto z = v.getZ();
+
+			Matrix3d<float> m(
+				x*x, x*y, x*z,
+				x*y, y*y, y*z,
+				x*z, y*z, z*z);
+			m.scale(weight / p->weight);
+			p->matrix += m;
+		}
 	}
 }
