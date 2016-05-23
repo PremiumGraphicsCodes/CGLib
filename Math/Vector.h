@@ -14,12 +14,14 @@ public:
 		v.fill(0);
 	}
 
-	explicit Vector(const std::array<double, DIM>& v) :v(v)
+	Vector(const std::array<double, DIM>& v) :v(v)
 	{
 	}
 
 
 	void set(int pos, double val) { this->v[pos] = val; }
+
+	double operator[](int i) const { return v[i]; }
 
 	std::array<double, DIM> v;
 

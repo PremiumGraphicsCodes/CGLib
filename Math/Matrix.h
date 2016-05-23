@@ -45,13 +45,35 @@ public:
 		}
 	}
 
+	Matrix(const std::array<T, ROW*COLUMN>& v) : a(v)
+	{
+	}
+
+
 	Vector<ROW> solveSimulateneousEquation(const Vector<ROW>& b) {
 		Vector<ROW> x;
+		if (get(2, 2) != 0.0) {
+			x.v[2] = b[2] / get(2, 2);
+		}
+		if (get(1, 1) != 0.0) {
+			x.v[1] = (b[1] - get(1, 2) * x[2]) / get(1, 1);
+		}
+		if (get(0, 0) != 0.0) {
+			x.v[0] = (b[0] - get(0, 1) * x[1] - get(0, 2)) / get(0, 0);
+		}
+		return x;
 		//x[2] = this-> [2];
 	}
 
-	Matrix<ROW, COLUMN, T> qrDecomposition(T eps) {
+	void clear(const T eps) {
+		for (auto& v : a) {
+			if (::fabs(v) < eps) {
+				v = 0.0;
+			}
+		}
+	}
 
+	Matrix<ROW, COLUMN, T> qrDecomposition(T eps) {
 		Matrix<ROW, COLUMN, T> q;
 		Vector<3> v;
 
