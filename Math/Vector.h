@@ -24,7 +24,7 @@ public:
 	std::array<double, DIM> v;
 
 	double getHouseholder() {
-		double norm = sqrt(this->getDotProduct(*this));
+		double norm = sqrt(this->getInnerProduct(*this));
 
 		if (norm) {
 			if (v[0] < 0) {
@@ -42,7 +42,7 @@ public:
 		return -norm;
 	}
 
-	double getDotProduct(const Vector<DIM>& vector2) {
+	double getInnerProduct(const Vector<DIM>& vector2) {
 		double sum = 0.0;
 		for (size_t i = 0; i< DIM; i++) {
 			sum += v[i] * vector2.v[i];
