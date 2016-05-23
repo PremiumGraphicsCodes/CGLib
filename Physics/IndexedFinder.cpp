@@ -4,31 +4,27 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+void IndexedFinder::add(const std::vector<IndexedParticle>& particles)
+{
+	iparticles = particles;
+	for (auto& particle : iparticles) {
+		particle.setGridID(effectLength);
+	}
+	std::sort(iparticles.begin(), iparticles.end());
+}
+
+
 void IndexedFinder::add(const std::vector<SPHParticle*>& particles)
 {
 	for (const auto& particle : particles) {
 		iparticles.push_back(IndexedParticle(particle));
-		//iparticlesy.push_back(IndexedParticle(particle));
-		//iparticlesz.push_back(IndexedParticle(particle));
 	}
 
 	for (auto& particle : iparticles) {
 		particle.setGridID(effectLength);
 	}
 
-	/*
-	for (auto& particle : iparticlesy) {
-		particle.setGridID(effectLength);
-	}
-	for (auto& particle : iparticlesz) {
-		particle.setGridID(effectLength);
-	}
-	*/
-
-
 	std::sort(iparticles.begin(), iparticles.end());
-	//std::sort(iparticlesy.begin(), iparticlesy.end(), &IndexedParticle::comparebyy);
-	//std::sort(iparticlesz.begin(), iparticlesz.end(), &IndexedParticle::comparebyz);
 }
 
 void IndexedFinder::createPairs(std::vector<SPHParticle*> particles)

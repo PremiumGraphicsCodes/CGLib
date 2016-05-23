@@ -28,6 +28,7 @@
     </ClCompile>
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="IndexedFinder.cpp" />
+    <ClCompile Include="SurfaceBuilder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="IndexedFinder.h" />
+    <ClInclude Include="SurfaceBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">

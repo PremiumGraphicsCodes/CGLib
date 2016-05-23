@@ -37,6 +37,7 @@
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
+    <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="Surfels.h" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +57,7 @@
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Spring.cpp" />
+    <ClCompile Include="SurfaceBuilder.cpp" />
     <ClCompile Include="Surfels.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

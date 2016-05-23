@@ -14,6 +14,8 @@ public:
 		effectLength(effectLength)
 	{}
 
+	void add(const std::vector<IndexedParticle>& particles);
+
 	void add(const std::vector<SPHParticle*>& particles);
 
 	void createPairs(std::vector<SPHParticle*> particles);

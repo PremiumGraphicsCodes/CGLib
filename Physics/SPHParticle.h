@@ -16,7 +16,7 @@ namespace Crystal{
 		class Coordinator;
 
 
-class SPHParticle final : public Polygon::Particle, private UnCopyable
+class SPHParticle: public Polygon::Particle, private UnCopyable
 {
 public:
 	SPHParticle(const int id = -1);
@@ -24,6 +24,8 @@ public:
 	SPHParticle(const Particle& particle, SPHConstant* constant);
 
 	SPHParticle(const Math::Vector3d<float>& center, float radius, SPHConstant* constant, const int id = -1);
+
+	virtual ~SPHParticle() {};
 
 	float getDensityRatio() const;
 
