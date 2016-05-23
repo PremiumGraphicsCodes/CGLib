@@ -26,7 +26,7 @@ void DXFFile::read(std::istream& stream)
 	while (str != "EOF") {
 		DXFFace f;
 		std::getline(stream, str);
-		Vector3dVector<float> positions;
+		std::vector<Vector3d<float>> positions;
 		Vector3d<float> pos;
 		if (str == "0") {
 			std::getline(stream, str);

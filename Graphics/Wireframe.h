@@ -31,7 +31,7 @@ public:
 		const auto maxz = box.getMaxZ();
 
 
-		const Math::Vector3dVector<T> vs{
+		const std::vector<Math::Vector3d<float>> vs{
 			Math::Vector3d<T>(minx, miny, minz),
 			Math::Vector3d<T>(maxx, miny, minz),
 			Math::Vector3d<T>(maxx, maxy, minz),

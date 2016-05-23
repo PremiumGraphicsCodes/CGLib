@@ -13,12 +13,12 @@ bool PLYFile::read(std::istream& stream)
 	return false;
 }
 
-bool PLYFile::write(const std::string& filename, const Vector3dVector<float>& points)
+bool PLYFile::write(const std::string& filename, const std::vector<Vector3d<float>>& points)
 {
 	return false;
 }
 
-bool PLYFile::write(std::ostream& stream, const Vector3dVector<float>& points)
+bool PLYFile::write(std::ostream& stream, const std::vector<Vector3d<float>>& points)
 {
 	stream << "ply" << std::endl;
 	stream << "format ascii 1.0" << std::endl;

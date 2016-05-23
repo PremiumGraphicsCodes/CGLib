@@ -33,6 +33,17 @@ Vector3d<T>::Vector3d(const Vector3d& start, const Vector3d& end) :
 	z(end.z - start.z)
 {}
 
+template<typename T>
+bool Vector3d<T>::equals(const Vector3d<T>&rhs) const
+{
+	const auto tolerance = 1.0e-6f;
+	return
+		Tolerance<T>::isEqual(this->x, rhs.x, tolerance) &&
+		Tolerance<T>::isEqual(this->y, rhs.y, tolerance) &&
+		Tolerance<T>::isEqual(this->z, rhs.z, tolerance);
+	//return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
+}
+
 
 template<typename T>
 Vector3d<T>& Vector3d<T>::scale(const T factor)
@@ -95,6 +106,18 @@ Vector3d<T> Vector3d<T>::getMult(const Matrix3d<T>& matrix) const
 	const auto nz = x * matrix.getX02() + y * matrix.getX12() + z * matrix.getX22();
 	return Vector3d(nx, ny, nz);
 }
+
+template<typename T>
+Vector3d<T> Vector3d<T>::getOuterProduct(const Vector3d& rhs) const
+{
+	return Vector3d
+	(
+		y * rhs.z - z * rhs.y,
+		-(x * rhs.z - z * rhs.x),
+		x * rhs.y - y * rhs.x
+	);
+}
+
 
 #include "Vector4d.h"
 

@@ -34,9 +34,9 @@ public:
 
 	T getLength() const { return vector.getLength(); }
 
-	Vector3dVector<T> toPositionsByLength(const double divideLength) const;
+	std::vector<Vector3d<T>> toPositionsByLength(const double divideLength) const;
 
-	Vector3dVector<T> toPositionsByNumber(const unsigned int howMany) const;
+	std::vector<Vector3d<T>> toPositionsByNumber(const unsigned int howMany) const;
 
 	bool equals(const Line3d<T>& rhs) const;
 

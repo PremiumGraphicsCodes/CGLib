@@ -63,7 +63,7 @@ public:
 		return getOuterOffset(-offsetLength);
 	}
 
-	Vector3dVector<T> toPoints(const T divideLength) const;
+	std::vector<Vector3d<T>> toPoints(const T divideLength) const;
 
 	T getMaxX() const { return end.getX(); }
 

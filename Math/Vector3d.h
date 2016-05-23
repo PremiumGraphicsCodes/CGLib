@@ -59,7 +59,7 @@ public:
 
 	bool isNormalized() const { return Tolerance<T>::isEqualLoosely( getLength(), 1.0 ); }
 
-	bool equals( const Vector3d&rhs ) const { return Tolerance<T>::isEqualLoosely( getDistanceSquared( rhs ) ); }
+	bool equals(const Vector3d&rhs) const;
 
 	bool isZero() const { return equals( Zero() ); }
 
@@ -91,13 +91,8 @@ public:
 		return x * rhs.x + y * rhs.y + z * rhs.z;
 	}
 
-	Vector3d getOuterProduct(const Vector3d& rhs) const {
-		return Vector3d(
-			y * rhs.z - z * rhs.y,
-			-( x * rhs.z - z * rhs.x ),
-			x * rhs.y - y * rhs.x );
-	}
-	
+	Vector3d getOuterProduct(const Vector3d& rhs) const;
+
 	Vector3d operator*=( const T factor ) { return scale( factor ); }
 
 	Vector3d operator/=( const T factor ) { return scale( T(1) / factor ); }
@@ -137,26 +132,11 @@ public:
 
 	std::array< T, 3 > toArray3() const { return std::array < T, 3 > { x, y, z }; }
 
-	/*
-	static std::vector< T > toArray(const std::vector<Vector3d>& vectors) {
-		std::vector< T > values;
-		for (const Math::Vector3d<T>& v : vectors) {
-			const std::vector<T>& vs = v.toArray();
-			values.insert(values.end(), vs.begin(), vs.end());
-		}
-		return values;
-	}
-	*/
-
 private:
 	T x;
 	T y;
 	T z;
 };
-
-
-template<typename T>
-using Vector3dVector = std::vector < Vector3d<T> > ;
 
 template<typename T>
 static Vector3d<T> operator*( float factor, const Vector3d<T>& rhs ) { return rhs.getScaled( factor ); }

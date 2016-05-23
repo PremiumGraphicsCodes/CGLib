@@ -9,6 +9,7 @@ namespace Crystal {
 template<typename T>
 class Tolerance : final
 {
+
 };
 
 template<>
@@ -22,6 +23,10 @@ public:
 	static float getStrictTolerance() {
 		return 1.0e-18f;
 	}
+
+	//static bool isEqual(const float x, const float tolerance) { return ::fabs(x) < tolerance; }
+
+	static bool isEqual(const float x, const float y, const float tolerance) { return ::fabs(x - y) < tolerance; }
 
 	static bool isEqualLoosely(const float x) { return ::fabs(x) < getLooseTolerance(); }
 
@@ -49,6 +54,11 @@ public:
 	static double getStrictTolerance() {
 		return 1.0e-18;
 	}
+
+	//static bool isEqual(const double x, const double tolerance) { return ::fabs(x) < tolerance; }
+
+	static bool isEqual(const double x, const double y, const double tolerance) { return ::fabs(x - y) < tolerance; }
+
 
 	static bool isEqualLoosely(const double x) { return ::fabs(x) < getLooseTolerance(); }
 

@@ -31,9 +31,9 @@ Box3d<T> Sphere<T>::getBoundingBox() const {
 }
 
 template<typename T>
-Vector3dVector<T> Sphere<T>::toPoints(const T divideLength) const
+std::vector<Vector3d<T>> Sphere<T>::toPoints(const T divideLength) const
 {
-	Vector3dVector<T> points;
+	std::vector<Vector3d<T>> points;
 
 	Math::Box3d<T> box(center, center);
 	box.outerOffset(radius);

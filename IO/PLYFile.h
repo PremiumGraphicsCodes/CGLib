@@ -15,9 +15,9 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(const std::string& filename, const Math::Vector3dVector<float>& points);
+	bool write(const std::string& filename, const std::vector<Math::Vector3d<float>>& points);
 
-	bool write(std::ostream& stream, const Math::Vector3dVector<float>& points);
+	bool write(std::ostream& stream, const std::vector<Math::Vector3d<float>>& points);
 private:
 };
 	}

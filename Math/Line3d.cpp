@@ -40,18 +40,18 @@ T Line3d<T>::getDistance(const Vector3d<T>& position) const
 
 
 template<typename T>
-Vector3dVector<T> Line3d<T>::toPositionsByLength(const double divideLength) const
+std::vector<Vector3d<T>> Line3d<T>::toPositionsByLength(const double divideLength) const
 {
-	Vector3dVector<T> positions;
+	std::vector<Vector3d<T>> positions;
 	const unsigned int howMany = static_cast<unsigned int>(static_cast<double>(getLength()) / divideLength);
 	return toPositionsByNumber(howMany);
 }
 
 
 template<typename T>
-Vector3dVector<T> Line3d<T>::toPositionsByNumber(const unsigned int howMany) const
+std::vector<Vector3d<T>> Line3d<T>::toPositionsByNumber(const unsigned int howMany) const
 {
-	Vector3dVector<T> positions;
+	std::vector<Vector3d<T>> positions;
 	const auto dt = T(1) / static_cast<T>(howMany);
 	for (size_t i = 0; i < howMany; ++i) {
 		const auto param = dt * i;

@@ -145,9 +145,9 @@ void Box3d<T>::outerOffset(const T offsetLength)
 }
 
 template<typename T>
-Vector3dVector<T> Box3d<T>::toPoints(const T divideLength) const
+std::vector<Vector3d<T>> Box3d<T>::toPoints(const T divideLength) const
 {
-	Vector3dVector<T> points;
+	std::vector<Vector3d<T>> points;
 	for (T x = getMinX(); x <= end.getX(); x += divideLength) {
 		for (T y = getMinY(); y <= end.getY(); y += divideLength) {
 			for (T z = getMinZ(); z <= end.getZ(); z += divideLength) {
