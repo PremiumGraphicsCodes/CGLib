@@ -13,7 +13,20 @@ TEST(MatrixTest, TestSolveSimulateneousEquation)
 	Vector<3> b({ -5,-4,10 });
 	auto result = m.solveSimulateneousEquation(b);
 }
+
+TEST(MatrixTest, TestToUpperTriangleMatrix)
+{
+	{
+		Matrix<3, 3, double> m({ 1,1,1,1,1,1,1,1,1 });
+		m.toUpperTriangleMatrix();
+	}
+	{
+		Matrix<3, 3, double> m({ 1,2,0,2,4,2,5,7,3 });
+		m.toUpperTriangleMatrix();
+	}
+}
 */
+
 
 TEST(MatrixTest, Test)
 {
@@ -37,4 +50,20 @@ TEST(MatrixTest, Test)
 	Matrix3d<double> m2(m.a[4], 0, 0, 0, m.a[8], 0, 0, 0, m.a[0]);
 	Matrix3d<double> m3 = m1.transposed();
 	auto a = m3 * m2 * m1;
+}
+
+TEST(MatrixTest, TestSymmetric)
+{
+	Matrix<3, 3, double> m({ 1,0,1,0,1,-1,1,-1,0 });
+	JacobiSolver<3, 3, double> solver(m);
+
+	auto actual = solver.solve(0.0000001);
+	EXPECT_TRUE(Tolerance<double>::isEqualLoosely(2.0, actual[0]));
+	EXPECT_TRUE(Tolerance<double>::isEqualLoosely(1.0, actual[1]));
+	EXPECT_TRUE(Tolerance<double>::isEqualLoosely(-1.0, actual[2]));
+
+	//EXPECT_TRUE(Tolerance<double>::isEqualLoosely(3.0, m.a[4]));
+	//EXPECT_TRUE(Tolerance<double>::isEqualLoosely(0.0, m.a[8]));
+	//m.clear(0.001);
+
 }

@@ -49,7 +49,63 @@ public:
 	{
 	}
 
+	/*
+	void toUpperTriangleMatrix() {
+		for (int k = 0; k <= ROW - 2; k++) {
+			for (int i = k + 1; i <= ROW - 1; ++i) {
+				auto m = get(i, k) / get(k, k);
+				for (int j = k + 1; j <= ROW - 1; ++j) {
+					const auto v = get(i, j) - m * get(k, j);
+					set(i, j, v);
+				}
 
+			}
+		}
+	}
+
+	void toLUMatrix() {
+		for (i = 0; i < COLUMN - 1; i++) {
+			auto d = i;
+			auto max = fabs( get(i,i) );
+			for (j = i + 1; j<COLUMN; j++) {
+				if (max < fabs( get(j,i) ) {
+					d = j;
+					max = fabs( get(j, i) );
+				}
+			}
+
+			if (d != i) {
+				swapRow(i, d);
+			}
+		}
+
+		if (d != i) {
+			temp = order[i];
+			order[i] = order[d];
+			order[d] = temp;
+
+			ExchangeRowvector(m, i, d);
+		}
+
+		if (!(m->a[i*width + i])) continue;
+
+		for (j = i + 1; j<height; j++) {
+			m->a[j*width + i] /= m->a[i*width + i];
+			for (k = i + 1; k<width; k++) {
+				m->a[j*width + k] -= m->a[j*width + i] * m->a[i*width + k];
+			}
+		}
+	}
+
+	void swapRow(const int row1, const int row2) {
+		for (int i = 0; i < COLUMN; ++i) {
+			auto tmp1 = get(row1, i);
+			auto tmp2 = get(row2, j);
+			set(row1, i) = tmp2;
+			set(row2, j) = tmp1;
+		}
+	}
+	*/
 	Vector<ROW> solveSimulateneousEquation(const Vector<ROW>& b) {
 		Vector<ROW> x;
 		if (get(2, 2) != 0.0) {
@@ -144,8 +200,16 @@ public:
 		return q;
 	}
 
-	T get(const int i, const int j) {
+	T get(const int i, const int j) const {
 		return a[i*ROW + j];
+	}
+
+	void set(const int i, const int j, const T v) {
+		a[i*ROW + j] = v;
+	}
+
+	void add(const int i, const int j, const T v) {
+		a[i*ROW + j] += v;
 	}
 
 	std::array<T, ROW*COLUMN> a;
@@ -207,6 +271,90 @@ public:
 	}
 };
 
+template<typename int ROW, typename int COLUMN, typename T>
+class JacobiSolver
+{
+public:
+	JacobiSolver(const Matrix<ROW, COLUMN, T>& matrix) :
+		matrix(matrix)
+	{}
+
+	double getMaxvalue(int *p, int *q)
+	{
+		double max = fabs(matrix.get(0, 1));
+		*p = 0;
+		*q = 1;
+
+		for (int i = 0; i < matrix.getRow(); i++) {
+			for (int j = i + 1; j < matrix.getColumn(); j++) {
+				double temp = fabs(matrix.get(i,j));
+
+				if (temp > max) {
+					max = temp;
+					*p = i;
+					*q = j;
+				}
+			}
+		}
+
+		return max;
+	}
+
+	Vector<ROW> solve(const T eps) {
+		double max;
+		int p;
+		int q;
+		do {
+			if (!(max = getMaxvalue(&p, &q))) {
+				break;
+			}
+			double app = matrix.get(p, p);
+			double apq = matrix.get(p, q);
+			double aqq = matrix.get(q, q);
+
+			double alpha = (app - aqq) / 2.0;
+			double beta = -apq;
+			double gamma = fabs(alpha) / sqrt(alpha*alpha + beta * beta);
+
+			double s = sqrt((1.0 - gamma) / 2.0);
+			double c = sqrt((1.0 + gamma) / 2.0);
+			if (alpha * beta < 0.0) {
+				s = -s;
+			}
+
+			for (int i = 0; i < ROW; ++i) {
+				auto tmp = c * matrix.get(p, i) - s * matrix.get(q, i);
+				matrix.set(q, i, s * matrix.get(p, i) + c * matrix.get(q, i));
+				matrix.set(p, i, tmp);
+			}
+
+			for (int i = 0; i < ROW; ++i) {
+				matrix.set(i, p, matrix.get(p, i));
+				matrix.set(i, q, matrix.get(q, i));
+			}
+
+			matrix.set(p, p, c*c*app + s*s*aqq - 2 * s*c*apq);
+			matrix.set(p, q, s*c*(app - aqq) + (c*c - s*s)*apq);
+			matrix.set(q, p, s*c*(app - aqq) + (c*c - s*s)*apq);
+			matrix.set(q, q, s*s*app + c*c*aqq + 2 * s*c*apq);
+
+			for (int i = 0; i < ROW; ++i) {
+				auto tmp = c * eigenVector.get(i, p) - s*eigenVector.get(i, q);
+				eigenVector.set(i, q, s*eigenVector.get(i, p) + c * eigenVector.get(i, q));
+				eigenVector.set(i, p, tmp);
+			} 
+		} while (max >= eps);
+		Vector<ROW> v;
+		for (int i = 0; i < ROW; ++i) {
+			v.set(i, matrix.get(i, i));
+		}
+		return v;
+	}
+
+private:
+	Matrix<ROW, COLUMN, T> matrix;
+	Matrix<ROW, COLUMN, T> eigenVector;
+};
 	}
 }
 #endif
