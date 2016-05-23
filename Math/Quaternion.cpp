@@ -1,6 +1,7 @@
 #include "Quaternion.h"
 
 #include "Matrix3d.h"
+#include "Tolerance.h"
 
 using namespace Crystal::Math;
 
@@ -99,6 +100,85 @@ void Quaternion<T>::getMult(const Quaternion& q1, const Quaternion& q2)
 	this->x = pw * qx + px * qw + py * qz - pz * qy;
 	this->y = pw * qy - px * qz + py * qw + pz * qx;
 	this->z = pw * qz + px * qy - py * qx + pz * qw;
+}
+
+template<typename T>
+Quaternion<T> Quaternion<T>::mult(const Quaternion<T>& rhs) const
+{
+	const auto pw = this->getW();
+	const auto px = this->getX();
+	const auto py = this->getY();
+	const auto pz = this->getZ();
+
+	const auto qw = rhs.getW();
+	const auto qx = rhs.getX();
+	const auto qy = rhs.getY();
+	const auto qz = rhs.getZ();
+
+	const auto w = pw * qw - px * qx - py * qy - pz * qz;
+	const auto x = pw * qx + px * qw + py * qz - pz * qy;
+	const auto y = pw * qy - px * qz + py * qw + pz * qx;
+	const auto z = pw * qz + px * qy - py * qx + pz * qw;
+	return Quaternion<T>(x, y, z, w);
+}
+
+
+template<typename T>
+Quaternion<T> Quaternion<T>::getConjugate() const
+{
+	return Quaternion<T>(-x, -y, -z, w);
+}
+
+template<typename T>
+bool Quaternion<T>::equals(const Quaternion<T>& rhs) const
+{
+	return
+		Tolerance<T>::isEqualLoosely(this->x, rhs.x) &&
+		Tolerance<T>::isEqualLoosely(this->y, rhs.y) &&
+		Tolerance<T>::isEqualLoosely(this->z, rhs.z) &&
+		::fabs(this->w - rhs.w) < 1.0e-6;
+//		Tolerance<T>::isEqualLoosely(this->w, rhs.w);
+}
+
+template<typename T>
+bool Quaternion<T>::operator==(const Quaternion<T>& rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Quaternion<T>::operator!=(const Quaternion<T>& rhs) const
+{
+	return !equals(rhs);
+}
+
+template<typename T>
+Quaternion<T> Quaternion<T>::operator*=(const T s)
+{
+	this->x *= x;
+	this->y *= y;
+	this->z *= z;
+	this->w *= s;
+	return *this;
+}
+
+template<typename T>
+Quaternion<T> Quaternion<T>::operator/=(const T s)
+{
+	this->x /= s;
+	this->y /= s;
+	this->z /= s;
+	this->w /= s;
+	return *this;
+}
+
+template<typename T>
+Quaternion<T> Quaternion<T>::getInverse() const
+{
+	const auto norm = getNorm();
+	auto conjugete = getConjugate();
+	conjugete /= (norm*norm);
+	return conjugete;
 }
 
 

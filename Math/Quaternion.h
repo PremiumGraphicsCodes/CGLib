@@ -47,6 +47,23 @@ public:
 
 	void getMult(const Quaternion& q1, const Quaternion& q2);
 
+	Quaternion<T> mult(const Quaternion<T>& rhs) const;
+
+	Quaternion<T> getConjugate() const;
+
+	Quaternion<T> getInverse() const;
+
+	bool equals(const Quaternion<T>& rhs) const;
+
+	bool operator==(const Quaternion<T>& rhs) const;
+
+	bool operator!=(const Quaternion<T>& rhs) const;
+
+	Quaternion<T> operator*=(const T s);
+
+	Quaternion<T> operator/=(const T s);
+
+
 private:
 	T x;
 	T y;
