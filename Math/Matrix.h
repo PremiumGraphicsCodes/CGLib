@@ -351,6 +351,8 @@ public:
 		return v;
 	}
 
+	Matrix<ROW, COLUMN, T> getOrthogonalMatrix() const { return eigenVector; }
+
 private:
 	Matrix<ROW, COLUMN, T> matrix;
 	Matrix<ROW, COLUMN, T> eigenVector;

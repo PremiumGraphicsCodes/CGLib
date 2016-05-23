@@ -62,6 +62,17 @@ TEST(MatrixTest, TestSymmetric)
 	EXPECT_TRUE(Tolerance<double>::isEqualLoosely(1.0, actual[1]));
 	EXPECT_TRUE(Tolerance<double>::isEqualLoosely(-1.0, actual[2]));
 
+	auto p = solver.getOrthogonalMatrix();
+
+	Matrix3d<double> m1(p.a);
+	Matrix3d<double> m2(m.a);
+	auto m3 = m1.getInverse();
+
+	auto pap = m3 * m2 * m1;
+
+	Matrix3d<double> expected(2, 0, 0, 0, 1, 0, 0, 0, -1);
+	EXPECT_EQ(expected, pap);
+
 	//EXPECT_TRUE(Tolerance<double>::isEqualLoosely(3.0, m.a[4]));
 	//EXPECT_TRUE(Tolerance<double>::isEqualLoosely(0.0, m.a[8]));
 	//m.clear(0.001);
