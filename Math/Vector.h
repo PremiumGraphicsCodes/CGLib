@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Math {
 
-template<typename int DIM>
+template<typename int DIM, typename T>
 class Vector
 {
 public:
@@ -14,19 +14,19 @@ public:
 		v.fill(0);
 	}
 
-	Vector(const std::array<double, DIM>& v) :v(v)
+	Vector(const std::array<T, DIM>& v) :v(v)
 	{
 	}
 
 
-	void set(int pos, double val) { this->v[pos] = val; }
+	void set(int pos, T val) { this->v[pos] = val; }
 
-	double operator[](int i) const { return v[i]; }
+	T operator[](int i) const { return v[i]; }
 
-	std::array<double, DIM> v;
+	std::array<T, DIM> v;
 
-	double getHouseholder() {
-		double norm = sqrt(this->getInnerProduct(*this));
+	T getHouseholder() {
+		T norm = sqrt(this->getInnerProduct(*this));
 
 		if (norm) {
 			if (v[0] < 0) {
@@ -34,7 +34,7 @@ public:
 			}
 			v[0] += norm;
 
-			double weight = 1 / (sqrt(2 * norm*v[0]));
+			T weight = 1 / (sqrt(2 * norm*v[0]));
 
 			for (int i = 0; i< v.size(); i++) {
 				v[i] *= weight;
@@ -44,8 +44,8 @@ public:
 		return -norm;
 	}
 
-	double getInnerProduct(const Vector<DIM>& vector2) {
-		double sum = 0.0;
+	T getInnerProduct(const Vector<DIM,T>& vector2) {
+		T sum = 0.0;
 		for (size_t i = 0; i< DIM; i++) {
 			sum += v[i] * vector2.v[i];
 		}

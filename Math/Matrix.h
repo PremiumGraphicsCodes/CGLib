@@ -106,8 +106,8 @@ public:
 		}
 	}
 	*/
-	Vector<ROW> solveSimulateneousEquation(const Vector<ROW>& b) {
-		Vector<ROW> x;
+	Vector<ROW, T> solveSimulateneousEquation(const Vector<ROW, T>& b) {
+		Vector<ROW, T> x;
 		if (get(2, 2) != 0.0) {
 			x.v[2] = b[2] / get(2, 2);
 		}
@@ -131,7 +131,7 @@ public:
 
 	Matrix<ROW, COLUMN, T> qrDecomposition(T eps) {
 		Matrix<ROW, COLUMN, T> q;
-		Vector<3> v;
+		Vector<3, T> v;
 
 		toTridiag();
 
@@ -218,9 +218,9 @@ public:
 
 	constexpr int getRow() const { return ROW; }
 
-	void mult(const Vector<ROW>& v, const int size) {
+	void mult(const Vector<ROW, T>& v, const int size) {
 
-		Vector<3> g;
+		Vector<3,T> g;
 
 		size_t offset = ROW - size;
 
@@ -245,7 +245,7 @@ public:
 
 	void toTridiag() {
 
-		Vector<3> v;
+		Vector<3, T> v;
 		int i, j;
 		double tmp;
 
@@ -300,7 +300,7 @@ public:
 		return max;
 	}
 
-	Vector<ROW> solve(const T eps) {
+	Vector<ROW, T> solve(const T eps) {
 		double max;
 		int p;
 		int q;
@@ -344,7 +344,7 @@ public:
 				eigenVector.set(i, p, tmp);
 			} 
 		} while (max >= eps);
-		Vector<ROW> v;
+		Vector<ROW, T> v;
 		for (int i = 0; i < ROW; ++i) {
 			v.set(i, matrix.get(i, i));
 		}

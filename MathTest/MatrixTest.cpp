@@ -38,11 +38,11 @@ TEST(MatrixTest, Test)
 	EXPECT_TRUE( Tolerance<double>::isEqualLoosely( 0.0, m.a[8]) );
 	m.clear(0.001);
 
-	Vector<3> v1(std::array<double,3>{1, 0, 0});
+	Vector<3, double> v1(std::array<double,3>{1, 0, 0});
 	auto result1 = m.solveSimulateneousEquation(v1);
-	Vector<3> v2(std::array<double, 3>{0, 1, 0});
+	Vector<3, double> v2(std::array<double, 3>{0, 1, 0});
 	auto result2 = m.solveSimulateneousEquation(v2);
-	Vector<3> v3(std::array<double, 3>{0, 0, 1});
+	Vector<3, double> v3(std::array<double, 3>{0, 0, 1});
 	auto result3 = m.solveSimulateneousEquation(v3);
 
 
