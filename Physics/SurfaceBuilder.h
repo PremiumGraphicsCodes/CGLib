@@ -17,6 +17,26 @@ public:
 	//Math::Vector3d<float> updatePosition;
 };
 
+class AnisotorpicParticlePair
+{
+public:
+	AnisotorpicParticlePair(AnisotropicParticle* p1, AnisotropicParticle* p2, const float effectLength);
+
+	float getDistance() const;
+
+	void solveWeight(const float effectLength);
+
+	void solveWeightedPosition();
+
+	void solveWeightedMatrix();
+
+private:
+	AnisotropicParticle* particle1;
+	AnisotropicParticle* particle2;
+	float weight;
+	float distance;
+};
+
 class SurfaceBuilder
 {
 public:

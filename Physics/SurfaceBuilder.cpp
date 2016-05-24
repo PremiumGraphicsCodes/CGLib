@@ -25,6 +25,43 @@ AnisotropicParticle::AnisotropicParticle(const Vector3d<float>& pos, const float
 	//moveTo( (1.0f - 0.9f) * pos );
 }
 
+AnisotorpicParticlePair::AnisotorpicParticlePair(AnisotropicParticle* p1, AnisotropicParticle* p2, const float effectLength) :
+	particle1(p1),
+	particle2(p2)
+{
+	distance = particle1->getPosition().getDistance(particle2->getPosition());
+
+	weight = ::getWeight(getDistance(), effectLength);
+	particle1->weight += weight;
+
+	solveWeightedPosition();
+	solveWeightedMatrix();
+}
+
+float AnisotorpicParticlePair::getDistance() const
+{
+	return distance;
+}
+
+void AnisotorpicParticlePair::solveWeightedPosition()
+{
+	particle1->weightedPosition += particle2->getPosition() * weight;
+}
+
+void AnisotorpicParticlePair::solveWeightedMatrix()
+{
+	auto v = particle2->getPosition() - particle1->getPosition();
+	auto x = v.getX();
+	auto y = v.getY();
+	auto z = v.getZ();
+
+	Matrix3d<float> m(
+		x*x, x*y, x*z,
+		x*y, y*y, y*z,
+		x*z, y*z, z*z);
+	m.scale(weight);
+	particle1->matrix += m;
+}
 
 SurfaceBuilder::SurfaceBuilder(const std::vector<Particle*>& sphParticles)
 {
@@ -54,50 +91,17 @@ void SurfaceBuilder::updatePosition(const float effectLength)
 	for (auto& p : aniParticles) {
 		hash.add(p);
 	}
+	std::vector<AnisotorpicParticlePair> pairs;
 	for (auto& p : aniParticles) {
 		auto neighbors = hash.getNeighbor(p);
 		for (auto& n : neighbors) {
-			if (n == p) {
-				continue;
-			}
-			auto distance = n->getPosition().getDistance(p->getPosition());
-			auto weight = ::getWeight(distance, effectLength);
-			p->weight += weight;
-			p->weightedPosition += n->getPosition() * weight;
+			auto p2 = static_cast<AnisotropicParticle*>(n);
+			pairs.push_back(AnisotorpicParticlePair(p, p2, effectLength));
 		}
 	}
-	for (auto& p : aniParticles) {
-		auto neighbors = hash.getNeighbor(p);
-		for (auto& n : neighbors) {
-			if (n == p) {
-				continue;
-			}
 
-			auto distance = n->getPosition().getDistance(p->getPosition());
-			p->weightedPosition /= p->weight;//  ::getWeight(distance, effectLength);
-		}
-	}
 	for (auto& p : aniParticles) {
-		//p->move( 0.9f * p->weightedPosition );
-		//p->move( 1.0 * p->weightedPosition );
-		auto neighbors = hash.getNeighbor(p);
-		for (auto& n : neighbors) {
-			if (n == p) {
-				continue;
-			}
-			auto distance = n->getPosition().getDistance(p->getPosition());
-			auto weight = ::getWeight(distance, effectLength);
-			auto v = p->getPosition() - n->getPosition();
-			auto x = v.getX();
-			auto y = v.getY();
-			auto z = v.getZ();
-
-			Matrix3d<float> m(
-				x*x, x*y, x*z,
-				x*y, y*y, y*z,
-				x*z, y*z, z*z);
-			m.scale(weight / p->weight);
-			p->matrix += m;
-		}
+		p->weightedPosition /= p->weight;
+		p->matrix.scale( 1.0f / p->weight );
 	}
 }
