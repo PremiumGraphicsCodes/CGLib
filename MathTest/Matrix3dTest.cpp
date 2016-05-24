@@ -129,6 +129,19 @@ TYPED_TEST(Matrix3dTest, TestInverse)
 	EXPECT_EQ(Matrix3d<TypeParam>::Identity(), i);
 }
 
+TYPED_TEST(Matrix3dTest, TestIsRegular)
+{
+	{
+		const auto m = Matrix3d<TypeParam>::Identity();
+		EXPECT_TRUE(m.isRegular());
+	}
+
+	{
+		const auto m = Matrix3d<TypeParam>(1, 1, 1, 1, 1, 1, 1, 1, 1);
+		EXPECT_FALSE(m.isRegular());
+	}
+}
+
 TYPED_TEST(Matrix3dTest, TestGetEigenValues)
 {
 	const auto m = Matrix3d<TypeParam>::Identity();

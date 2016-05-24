@@ -9,6 +9,7 @@ using namespace Crystal::Physics;
 
 TEST(SurfaceBuilderTest, Test)
 {
+	//std::vector<Particle> particles;
 	Particle particle0(Vector3d<float>(-0.5, 0, 0), 1000.0f, 0.5f);
 
 	Particle particle1( Vector3d<float>(0,0,0), 1000.0f, 0.5f);
@@ -24,5 +25,6 @@ TEST(SurfaceBuilderTest, Test)
 	JacobiSolver<3, 3, float> solver(matrix);
 	auto m = solver.solve(1.0e-6);
 	
+	auto aniMatrix = particles[0]->getAnisotoropicMatrix();
 	//builder.a
 }

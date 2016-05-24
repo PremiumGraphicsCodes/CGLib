@@ -58,10 +58,17 @@ T Matrix3d<T>::getDeterminant() const
 }
 
 template<typename T>
-Matrix3d<T> Matrix3d<T>::getInverse() const
+bool Matrix3d<T>::isRegular() const
 {
 	const T denominator = getDeterminant();
-	assert(!Tolerance<T>::isEqualStrictly(denominator));
+	return !Tolerance<T>::isEqualStrictly(denominator, 0);
+}
+
+template<typename T>
+Matrix3d<T> Matrix3d<T>::getInverse() const
+{
+	assert(isRegular());
+	const T denominator = getDeterminant();
 
 	const T i00 = x11 * x22 - x12 * x21;
 	const T i01 = x21 * x02 - x22 * x01;

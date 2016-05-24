@@ -14,13 +14,15 @@ public:
 	float weight;
 	Math::Vector3d<float> weightedPosition;
 	Math::Matrix3d<float> matrix;
+
+	Math::Matrix3d<float> getAnisotoropicMatrix();
 	//Math::Vector3d<float> updatePosition;
 };
 
-class AnisotorpicParticlePair
+class AnisotropicParticlePair
 {
 public:
-	AnisotorpicParticlePair(AnisotropicParticle* p1, AnisotropicParticle* p2, const float effectLength);
+	AnisotropicParticlePair(AnisotropicParticle* p1, AnisotropicParticle* p2, const float effectLength);
 
 	float getDistance() const;
 

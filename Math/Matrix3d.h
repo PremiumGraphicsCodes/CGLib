@@ -54,6 +54,8 @@ public:
 
 	T getDeterminant() const;
 
+	bool isRegular() const;
+
 	Matrix3d getInverse() const;
 
 	Matrix3d product(const Matrix3d& rhs) { return *this = getProduct(rhs); }

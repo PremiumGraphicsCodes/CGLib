@@ -5,6 +5,7 @@
 #include "IndexedFinder.h"
 
 #include "../Polygon/SpaceHash.h"
+#include "../Math/Matrix.h"
 
 
 using namespace Crystal::Math;
@@ -25,7 +26,28 @@ AnisotropicParticle::AnisotropicParticle(const Vector3d<float>& pos, const float
 	//moveTo( (1.0f - 0.9f) * pos );
 }
 
-AnisotorpicParticlePair::AnisotorpicParticlePair(AnisotropicParticle* p1, AnisotropicParticle* p2, const float effectLength) :
+Matrix3d<float> AnisotropicParticle::getAnisotoropicMatrix()
+{
+	Matrix<3, 3, float> m(matrix.toArray3x3());
+	JacobiSolver<3, 3, float> solver(m);
+	const auto& eigenValues = solver.solve(1.0e-6);
+	const auto& orthogonalMatrix = solver.getOrthogonalMatrix();
+	Matrix3d<float> rotationMatrix(orthogonalMatrix.a);
+
+	const float kr = 4.0f;
+	const float ks = 1400.0f;
+	Matrix3d<float> eigenMatrix;
+	for (int i = 0; i < 3; ++i) {
+		auto value = ks * std::max<float>(eigenValues[i], eigenValues[0] / kr);
+		eigenMatrix.set(i, i, value);
+	}
+	
+	const auto& inverseEigenMatrix = eigenMatrix.getInverse();
+	return rotationMatrix * inverseEigenMatrix * rotationMatrix.transposed();
+}
+
+
+AnisotropicParticlePair::AnisotropicParticlePair(AnisotropicParticle* p1, AnisotropicParticle* p2, const float effectLength) :
 	particle1(p1),
 	particle2(p2)
 {
@@ -38,17 +60,17 @@ AnisotorpicParticlePair::AnisotorpicParticlePair(AnisotropicParticle* p1, Anisot
 	solveWeightedMatrix();
 }
 
-float AnisotorpicParticlePair::getDistance() const
+float AnisotropicParticlePair::getDistance() const
 {
 	return distance;
 }
 
-void AnisotorpicParticlePair::solveWeightedPosition()
+void AnisotropicParticlePair::solveWeightedPosition()
 {
 	particle1->weightedPosition += particle2->getPosition() * weight;
 }
 
-void AnisotorpicParticlePair::solveWeightedMatrix()
+void AnisotropicParticlePair::solveWeightedMatrix()
 {
 	auto v = particle2->getPosition() - particle1->getPosition();
 	auto x = v.getX();
@@ -62,6 +84,7 @@ void AnisotorpicParticlePair::solveWeightedMatrix()
 	m.scale(weight);
 	particle1->matrix += m;
 }
+
 
 SurfaceBuilder::SurfaceBuilder(const std::vector<Particle*>& sphParticles)
 {
@@ -91,12 +114,12 @@ void SurfaceBuilder::updatePosition(const float effectLength)
 	for (auto& p : aniParticles) {
 		hash.add(p);
 	}
-	std::vector<AnisotorpicParticlePair> pairs;
+	std::vector<AnisotropicParticlePair> pairs;
 	for (auto& p : aniParticles) {
 		auto neighbors = hash.getNeighbor(p);
 		for (auto& n : neighbors) {
 			auto p2 = static_cast<AnisotropicParticle*>(n);
-			pairs.push_back(AnisotorpicParticlePair(p, p2, effectLength));
+			pairs.push_back(AnisotropicParticlePair(p, p2, effectLength));
 		}
 	}
 
