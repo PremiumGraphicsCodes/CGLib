@@ -143,7 +143,7 @@ public:
 				continue;
 			}
 
-			const double u = ::GetEigenvalue22(
+			const T u = ::GetEigenvalue22(
 				a[(nowsize - 2)*getRow() + nowsize - 2],
 				a[(nowsize - 2)*getRow() + nowsize - 1],
 				a[(nowsize - 1)*getRow() + nowsize - 2],
@@ -190,7 +190,7 @@ public:
 			}
 
 			for (int j = 0; j<nowsize; j++) {
-				double temp = -q.a[j*q.getRow() + i] * s + q.a[j*q.getRow() + i + 1] * c;
+				T temp = -q.a[j*q.getRow() + i] * s + q.a[j*q.getRow() + i + 1] * c;
 				q.a[j*getRow() + i] = q.a[j*q.getRow() + i] * c + q.a[j*q.getRow() + i + 1] * s;
 				q.a[j*getRow() + i + 1] = temp;
 			}
@@ -231,7 +231,7 @@ public:
 			}
 		}
 
-		const double tmp = g.getInnerProduct(v);
+		const T tmp = g.getInnerProduct(v);
 
 		for (int j = 0; j<g.v.size(); j++) {
 			g.v[j] = 2 * (g.v[j] - v.v[j] * tmp);
@@ -301,29 +301,29 @@ public:
 	}
 
 	Vector<ROW, T> solve(const T eps) {
-		double max;
+		T max;
 		int p;
 		int q;
 		do {
 			if (!(max = getMaxvalue(&p, &q))) {
 				break;
 			}
-			double app = matrix.get(p, p);
-			double apq = matrix.get(p, q);
-			double aqq = matrix.get(q, q);
+			T app = matrix.get(p, p);
+			T apq = matrix.get(p, q);
+			T aqq = matrix.get(q, q);
 
-			double alpha = (app - aqq) / 2.0;
-			double beta = -apq;
-			double gamma = fabs(alpha) / sqrt(alpha*alpha + beta * beta);
+			T alpha = (app - aqq) / T{ 2 };
+			T beta = -apq;
+			T gamma = fabs(alpha) / sqrt(alpha*alpha + beta * beta);
 
-			double s = sqrt((1.0 - gamma) / 2.0);
-			double c = sqrt((1.0 + gamma) / 2.0);
+			T s = sqrt((1.0 - gamma) / T{ 2 });
+			T c = sqrt((1.0 + gamma) / T{ 2 });
 			if (alpha * beta < 0.0) {
 				s = -s;
 			}
 
 			for (int i = 0; i < ROW; ++i) {
-				auto tmp = c * matrix.get(p, i) - s * matrix.get(q, i);
+				T tmp = c * matrix.get(p, i) - s * matrix.get(q, i);
 				matrix.set(q, i, s * matrix.get(p, i) + c * matrix.get(q, i));
 				matrix.set(p, i, tmp);
 			}
@@ -339,7 +339,7 @@ public:
 			matrix.set(q, q, s*s*app + c*c*aqq + 2 * s*c*apq);
 
 			for (int i = 0; i < ROW; ++i) {
-				auto tmp = c * eigenVector.get(i, p) - s*eigenVector.get(i, q);
+				T tmp = c * eigenVector.get(i, p) - s*eigenVector.get(i, q);
 				eigenVector.set(i, q, s*eigenVector.get(i, p) + c * eigenVector.get(i, q));
 				eigenVector.set(i, p, tmp);
 			} 
