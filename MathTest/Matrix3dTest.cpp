@@ -2,6 +2,7 @@
 
 #include "../Math/Matrix3d.h"
 #include "../Math/Vector3d.h"
+#include "../Math/Quaternion.h"
 
 using namespace Crystal::Math;
 
@@ -146,4 +147,13 @@ TYPED_TEST(Matrix3dTest, TestGetEigenValues)
 {
 	const auto m = Matrix3d<TypeParam>::Identity();
 	m.getEigenValues();
+}
+
+TYPED_TEST(Matrix3dTest, TestToQuaternion)
+{
+	const auto m = Matrix3d<TypeParam>::RotateX(Tolerance<TypeParam>::getHalfPI());
+	auto q = m.toQuaternion();
+
+	Quaternion<TypeParam> qq(Vector3d<TypeParam>(1,0,0), Tolerance<TypeParam>::getHalfPI());
+	EXPECT_EQ(q, qq);
 }

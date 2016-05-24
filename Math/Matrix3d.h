@@ -11,6 +11,8 @@ namespace Crystal {
 	namespace Math {
 		template<typename>
 		class Vector3d;
+		template<typename>
+		class Quaternion;
 
 template<typename T>
 class Matrix3d final
@@ -134,6 +136,8 @@ public:
 	std::vector< T > toArray4x4() const;
 
 	Vector3d<T> getEigenValues() const;
+
+	Quaternion<T> toQuaternion() const;
 
 private:
 	T x00, x01, x02;

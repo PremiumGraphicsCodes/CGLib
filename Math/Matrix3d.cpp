@@ -1,6 +1,7 @@
 #include "Matrix3d.h"
 
 #include "Vector3d.h"
+#include "Quaternion.h"
 
 using namespace Crystal::Math;
 
@@ -226,6 +227,60 @@ Matrix3d<T> Matrix3d<T>::transposed() const
 		getX01(), getX11(), getX21(),
 		getX02(), getX12(), getX22()
 		);
+}
+
+template<typename T>
+Quaternion<T> Matrix3d<T>::toQuaternion() const
+{
+	std::array<T, 4> elem;
+	elem[0] = getX00() - getX11() + getX22() + 1;
+	elem[1] = -getX00() + getX11() - getX22() + 1;
+	elem[2] = -getX00() - getX11() + getX22() + 1;
+	elem[3] = getX00() + getX11() + getX22() + 1;
+
+	int biggestIndex = 0;
+	for (int i = 0; i < 4; ++i) {
+		if (elem[i] > elem[biggestIndex]) {
+			biggestIndex = i;
+		}
+	}
+
+	if (elem[biggestIndex] < 0.0f) {
+		assert(false);
+	}
+
+	T qx = 0;
+	T qy = 0;
+	T qz = 0;
+	T qw = 0;
+	T *q[4] = { &qx, &qy, &qz, &qw };
+	T v = sqrt(elem[biggestIndex]) * 0.5f;
+	*q[biggestIndex] = v;
+	T mult = 0.25f / v;
+
+	switch (biggestIndex) {
+	case 0: // x
+		*q[1] = (getX10() + getX01()) * mult;
+		*q[2] = (getX02() + getX02()) * mult;
+		*q[3] = (getX21() - getX12()) * mult;
+		break;
+	case 1: // y
+		*q[0] = (getX10() + getX01()) * mult;
+		*q[2] = (getX21() + getX12()) * mult;
+		*q[3] = (getX02() - getX20()) * mult;
+		break;
+	case 2: // z
+		*q[0] = (getX02() + getX20()) * mult;
+		*q[1] = (getX21() + getX12()) * mult;
+		*q[3] = (getX10() - getX01()) * mult;
+		break;
+	case 3: // w
+		*q[0] = (getX21() - getX12()) * mult;
+		*q[1] = (getX02() - getX20()) * mult;
+		*q[2] = (getX10() - getX01()) * mult;
+		break;
+	}
+	return Quaternion<T>(qx, qy, qz, qw);
 }
 
 
