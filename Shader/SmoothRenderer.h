@@ -40,14 +40,6 @@ private:
 
 	static std::string getBuildinFragmentShaderSource();
 
-	struct Location {
-		GLuint projectionMatrix;
-		GLuint modelviewMatrix;
-		GLuint position;
-		GLuint id;
-	};
-
-	Location location;
 	ShaderObject* shader;
 
 };

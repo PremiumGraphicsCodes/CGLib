@@ -6,9 +6,6 @@
     <ClCompile Include="DepthRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="IDRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="NormalRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
@@ -113,14 +110,17 @@
     <ClCompile Include="FrameBufferHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
+    <ClCompile Include="IDRenderer.cpp">
+      <Filter>Renderer\ID</Filter>
+    </ClCompile>
+    <ClCompile Include="PointIDRenderer.cpp">
+      <Filter>Renderer\ID</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
     <ClInclude Include="ShaderObject.h" />
     <ClInclude Include="DepthRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="IDRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="NormalRenderer.h">
@@ -233,6 +233,12 @@
     <ClInclude Include="FrameBufferHandler.h">
       <Filter>Handler</Filter>
     </ClInclude>
+    <ClInclude Include="PointIDRenderer.h">
+      <Filter>Renderer\ID</Filter>
+    </ClInclude>
+    <ClInclude Include="IDRenderer.h">
+      <Filter>Renderer\ID</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">
@@ -255,6 +261,9 @@
     </Filter>
     <Filter Include="Handler">
       <UniqueIdentifier>{513a4b81-dabe-41b0-8a4b-cff23d588c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\ID">
+      <UniqueIdentifier>{ea732205-9e3d-43f5-bc85-46f3c06bfde5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
