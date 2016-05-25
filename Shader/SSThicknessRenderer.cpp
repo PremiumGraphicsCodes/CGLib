@@ -48,14 +48,16 @@ std::string SSThicknessRenderer::getBuildinFragmentShaderSource() const
 		<< "void main(void) {" << std::endl
 		<< "	vec3 coord;" << std::endl
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
-		<< "	coord = vMatrix * coord;" << std::endl
 		<< "	float distSquared = dot(coord.xy, coord.xy);" << std::endl
+		<< "	coord.z = sqrt(1.0 - distSquared);" << std::endl
+		<< "	coord = vMatrix * coord;" << std::endl
+		<< "	distSquared = dot(coord.xyz, coord.xyz);" << std::endl
 		<< "	if (distSquared > 1.0) {"
 		<< "		discard;"
 		<< "	}" << std::endl
 //		<< "	fragColor.rgba = vec4(sqrt(distSquared) * 0.1);" << std::endl
 	//	<< "	fragColor.a = sqrt(distSquared) * vColor.a;" << std::endl
-		<< "	fragColor = vec4(0.05);" << std::endl
+		<< "	fragColor = vec4(0.05 * coord.z);" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }

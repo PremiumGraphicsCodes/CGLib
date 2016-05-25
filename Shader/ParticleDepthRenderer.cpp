@@ -54,11 +54,12 @@ std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 		<< "	vec3 coord;" << std::endl
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
 		<< "	float distSquared = dot(coord.xy, coord.xy);" << std::endl
+		<< "	coord.z = sqrt(1.0 - distSquared);" << std::endl
+		<< "	coord = vMatrix * coord;" << std::endl
+		<< "	distSquared = dot(coord.xyz, coord.xyz);" << std::endl
 		<< "	if (distSquared > 1.0) {"
 		<< "		discard;"
 		<< "	}" << std::endl
-		<< "	coord.z = -sqrt(1.0 - distSquared);" << std::endl
-		<< "	coord = vMatrix * coord;" << std::endl
 		<< "	vec4 pixelPos = vPosition + vSize * vec4(coord.xyz, 1.0);" << std::endl
 		<< "	vec4 clipSpacePos = projectionMatrix * pixelPos;" << std::endl
 		<< "	float depth = clipSpacePos.z / clipSpacePos.w;" << std::endl
