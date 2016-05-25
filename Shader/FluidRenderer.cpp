@@ -135,7 +135,7 @@ void FluidRenderer::render(const int width, const int height, const ICamera<floa
 
 	frameBuffer.setTexture(thicknessTexture);
 	thicknessTexture.bind();
-	thicknessRenderer.render(camera, buffer);
+	thicknessRenderer.render(camera, ellipsoidBuffer);
 	thicknessTexture.unbind();
 
 	frameBuffer.setTexture(bluredThicknessTexture);

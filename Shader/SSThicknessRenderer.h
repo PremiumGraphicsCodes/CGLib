@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_SS_THICKNESS_RENDERER_H__
 
 #include "../Graphics/ICamera.h"
-#include "../Graphics/PointBuffer.h"
+#include "../Graphics/EllipsoidBuffer.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -13,7 +13,7 @@ class SSThicknessRenderer
 public:
 	void findLocation();
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::EllipsoidBuffer& buffer);
 
 	bool build();
 
