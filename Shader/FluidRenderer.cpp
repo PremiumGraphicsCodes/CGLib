@@ -100,14 +100,14 @@ std::string FluidRenderer::getBuiltinFragmentShaderSource()
 }
 
 
-void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material, const CubeMapTextureObject& cubeMapTexture)
+void FluidRenderer::render(const int width, const int height, const ICamera<float>& camera, const PointBuffer& buffer, const PointLight<float>& light, const Material& material, const CubeMapTextureObject& cubeMapTexture, const EllipsoidBuffer& ellipsoidBuffer)
 {
 	depthBuffer.setTexture(depthTexture);
 	glViewport(0, 0, depthBuffer.getWidth(), depthBuffer.getHeight());
 	depthBuffer.bind();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	depthRenderer.render(camera, buffer);
+	depthRenderer.render(camera, ellipsoidBuffer);
 	depthBuffer.unbind();
 
 	frameBuffer.bind();

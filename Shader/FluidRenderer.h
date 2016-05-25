@@ -24,7 +24,7 @@ class FluidRenderer
 public:
 	void build(const int width, const int height);
 
-	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTextureObject& cubeMapTexture);
+	void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTextureObject& cubeMapTexture, const Graphics::EllipsoidBuffer& ellipsoidBuffer);
 
 	void setSceneTexture(const TextureObject& texture) { this->sceneTexture = texture; }
 

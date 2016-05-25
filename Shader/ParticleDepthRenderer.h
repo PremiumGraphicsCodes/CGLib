@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_PARTICLE_DEPTH_RENDERER_H__
 
 #include "../Graphics/ICamera.h"
-#include "../Graphics/PointBuffer.h"
+#include "../Graphics/EllipsoidBuffer.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -11,7 +11,7 @@ namespace Crystal {
 class ParticleDepthRenderer
 {
 public:
-	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::EllipsoidBuffer& buffer);
 
 	bool build();
 

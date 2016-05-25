@@ -57,5 +57,5 @@ void FluidRendererSample::demonstrate(const int width, const int height, const C
 	material.setShininess(1.0f);
 
 	//renderer.setSceneTexture(backgroundTexture);
-	renderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+//	renderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 }

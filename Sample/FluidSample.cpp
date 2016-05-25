@@ -210,7 +210,7 @@ void FluidSample::demonstrate(const int width, const int height, const Crystal::
 	material.setShininess(0.25f);
 
 	fluidRenderer.setSceneTexture(backgroundTexture);
-	fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+//	fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 
 	glViewport(0, 0, width, height);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

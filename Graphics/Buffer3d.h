@@ -39,7 +39,7 @@ public:
 
 	bool operator==(const Buffer3d<T>& rhs) { return buffer == rhs.buffer; }
 
-	std::vector< T > get() const { return buffer; }
+	std::vector< T > get() const { return std::move(buffer); }
 
 
 private:

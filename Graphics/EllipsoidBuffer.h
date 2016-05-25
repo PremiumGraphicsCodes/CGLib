@@ -13,9 +13,8 @@ namespace Crystal {
 class Ellipsoid
 {
 public:
-	Ellipsoid(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size, const Math::Matrix3d<float>& matrix) :
+	Ellipsoid(const Math::Vector3d<float>& position,const float size, const Math::Matrix3d<float>& matrix) :
 		position(position),
-		color(color),
 		size(size)
 	{
 	}
@@ -24,21 +23,35 @@ public:
 
 	Math::Matrix3d<float> getMatrix() const { return matrix; }
 
-	ColorRGBA<float> getColor() const { return color; }
-
 	float getSize() const { return size; }
 
 private:
 	Math::Vector3d<float> position;
-	ColorRGBA<float> color;
 	Math::Matrix3d<float> matrix;
 	float size;
 };
 
 class EllipsoidBuffer
 {
+public:
 	void add(const Ellipsoid& e);
 
+	void clear() {
+		position.clear();
+		size.clear();
+		matrixRow1.clear();
+		matrixRow2.clear();
+		matrixRow3.clear();
+	}
+
+	Graphics::Buffer3d<float> getPosition() const { return position; }
+	Graphics::Buffer1d<float> getSize() const { return size; }
+	Graphics::Buffer3d<float> getMatrixRow1() const { return matrixRow1; }
+	Graphics::Buffer3d<float> getMatrixRow2() const { return matrixRow2; }
+	Graphics::Buffer3d<float> getMatrixRow3() const { return matrixRow3; }
+
+
+private:
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer1d<float> size;
 	Graphics::Buffer3d<float> matrixRow1;

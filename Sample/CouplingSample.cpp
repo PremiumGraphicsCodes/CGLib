@@ -342,7 +342,7 @@ void CouplingSample::demonstrate(const int width, const int height, const Crysta
 		Material material;
 		//fluidRenderer.setSceneDepthTexture(depthTexture);
 		//fluidRenderer.setSceneTexture(*backgroundBuffer.getTexture());
-		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
+//		fluidRenderer.render(width, height, camera, buffer, light, material, cubeMapTexture);
 	}
 	const auto fluidTex = fluidRenderer.getFluidTexture();
 	const auto fluidDepthTex = fluidRenderer.getDepthTexture();
