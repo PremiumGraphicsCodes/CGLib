@@ -13,11 +13,6 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 using namespace Crystal::Polygon;
 
-VisualObject::VisualObject(const ParticleObject& particle)
-{
-	pointBuffer.add(particle);
-}
-
 VisualObject::VisualObject(const PolygonMesh& polygon)
 {
 	pointBuffer.add(polygon);

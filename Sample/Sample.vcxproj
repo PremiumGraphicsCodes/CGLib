@@ -175,7 +175,6 @@
     <ClCompile Include="glfw.cpp" />
     <ClCompile Include="IDRendererSample.cpp" />
     <ClCompile Include="IOSample.cpp" />
-    <ClCompile Include="ParticleSample.cpp" />
     <ClCompile Include="PointRendererSample.cpp" />
     <ClCompile Include="RenderingSample.cpp" />
     <ClCompile Include="Sample.cpp" />
@@ -196,7 +195,6 @@
     <ClInclude Include="IDRendererSample.h" />
     <ClInclude Include="IOSample.h" />
     <ClInclude Include="ISample.h" />
-    <ClInclude Include="ParticleSample.h" />
     <ClInclude Include="PointRendererSample.h" />
     <ClInclude Include="SmoothRendererSample.h" />
     <ClInclude Include="VolumeSample.h" />

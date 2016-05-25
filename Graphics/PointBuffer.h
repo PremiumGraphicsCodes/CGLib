@@ -61,19 +61,13 @@ class PointBuffer
 public:
 	PointBuffer() {};
 
-	PointBuffer(const Polygon::ParticleObject& particles);
-
 	void clear();
 
 	void add(const Point& point);
 
-	void add(const Polygon::ParticleObject& object);
-
 	void add(const Polygon::PolygonMesh& polygon);
 
 	void add(const Polygon::Volume& volume);
-
-	void add(const Physics::PhysicsObject& physics);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 

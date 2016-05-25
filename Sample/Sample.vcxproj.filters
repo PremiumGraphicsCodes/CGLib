@@ -15,9 +15,6 @@
     <ClCompile Include="VolumeSample.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSample.cpp">
-      <Filter>Polygon</Filter>
-    </ClCompile>
     <ClCompile Include="PointRendererSample.cpp">
       <Filter>Shader</Filter>
     </ClCompile>
@@ -65,9 +62,6 @@
       <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="VolumeSample.h">
-      <Filter>Polygon</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSample.h">
       <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="PointRendererSample.h">

@@ -17,7 +17,6 @@
 #include "CouplingSample.h"
 #include "IOSample.h"
 #include "VolumeSample.h"
-#include "ParticleSample.h"
 #include "IDRendererSample.h"
 #include "SmoothRendererSample.h"
 #include "Cursor3dSample.h"

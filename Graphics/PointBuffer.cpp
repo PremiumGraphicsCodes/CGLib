@@ -42,19 +42,6 @@ Point::Point(const Vertex& vertex)
 }
 
 
-PointBuffer::PointBuffer(const ParticleObject& object)
-{
-	add(object);
-}
-
-void PointBuffer::add(const ParticleObject& object)
-{
-	const auto& particles = object.getParticles();
-	for (size_t i = 0; i < particles.size(); ++i) {
-		add(Point(*particles[i]));
-	}
-
-}
 
 void PointBuffer::add(const Volume& volume)
 {
@@ -70,14 +57,6 @@ void PointBuffer::add(const PolygonMesh& polygon)
 	const auto& vertices = polygon.getVertices();
 	for (auto& v : vertices) {
 		add(Point(*v));
-	}
-}
-
-void PointBuffer::add(const PhysicsObject& physics)
-{
-	const auto& particles = physics.getParticles();
-	for (auto& p : particles) {
-		add(Point(*p));
 	}
 }
 

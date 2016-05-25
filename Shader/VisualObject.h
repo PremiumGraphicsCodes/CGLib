@@ -24,8 +24,6 @@ class VisualObject
 {
 public:
 
-	VisualObject(const Polygon::ParticleObject& particle);
-
 	VisualObject(const Polygon::PolygonMesh& polygon);
 
 	VisualObject(const Physics::PhysicsObject& physics);
