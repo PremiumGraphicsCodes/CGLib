@@ -308,7 +308,7 @@ Vector3d<T> Matrix3d<T>::getColumnVector(const int i) const
 		return Vector3d<T>(x00, x10, x20);
 	}
 	else if (i == 1) {
-		return Vector3d<T>(x01, x11, x12);
+		return Vector3d<T>(x01, x11, x21);
 	}
 	else if (i == 2) {
 		return Vector3d<T>(x02, x12, x22);

@@ -157,3 +157,27 @@ TYPED_TEST(Matrix3dTest, TestToQuaternion)
 	Quaternion<TypeParam> qq(Vector3d<TypeParam>(1,0,0), Tolerance<TypeParam>::getHalfPI());
 	EXPECT_EQ(q, qq);
 }
+
+TYPED_TEST(Matrix3dTest, TestGetRowVector)
+{
+	const Matrix3d<TypeParam> m(
+		1, 2, 3,
+		4, 5, 6,
+		7, 8, 9);
+
+	EXPECT_EQ( Vector3d<TypeParam>(1,2,3), m.getRowVector(0));
+	EXPECT_EQ( Vector3d<TypeParam>(4,5,6), m.getRowVector(1));
+	EXPECT_EQ( Vector3d<TypeParam>(7,8,9), m.getRowVector(2));
+}
+
+TYPED_TEST(Matrix3dTest, TestGetColumnVector)
+{
+	const Matrix3d<TypeParam> m(
+		1, 2, 3, 
+		4, 5, 6,
+		7, 8, 9);
+
+	EXPECT_EQ(Vector3d<TypeParam>(1, 4, 7), m.getColumnVector(0));
+	EXPECT_EQ(Vector3d<TypeParam>(2, 5, 8), m.getColumnVector(1));
+	EXPECT_EQ(Vector3d<TypeParam>(3, 6, 9), m.getColumnVector(2));
+}
