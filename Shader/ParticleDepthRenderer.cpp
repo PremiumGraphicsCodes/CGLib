@@ -63,7 +63,6 @@ std::string ParticleDepthRenderer::getBuildinFragmentShaderSource()
 		<< "	vec4 pixelPos = vPosition + vSize * vec4(coord.xyz, 1.0);" << std::endl
 		<< "	vec4 clipSpacePos = projectionMatrix * pixelPos;" << std::endl
 		<< "	float depth = clipSpacePos.z / clipSpacePos.w;" << std::endl
-		<< "	gl_FragDepth = depth;" << std::endl
 		<< "	fragColor.rgb = vec3(depth*0.5 + 0.5);" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
 		<< "}" << std::endl;
