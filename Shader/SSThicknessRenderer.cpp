@@ -48,8 +48,8 @@ std::string SSThicknessRenderer::getBuildinFragmentShaderSource() const
 		<< "void main(void) {" << std::endl
 		<< "	vec3 coord;" << std::endl
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
-		<< "	float distSquared = dot(coord.xy, coord.xy);" << std::endl
-		<< "	coord.z = sqrt(1.0 - distSquared);" << std::endl
+		<< "	float distSquared = sqrt(dot(coord.xy, coord.xy));" << std::endl
+		<< "	coord.z = 1.0 - distSquared;" << std::endl
 		<< "	coord = vMatrix * coord;" << std::endl
 		<< "	distSquared = dot(coord.xyz, coord.xyz);" << std::endl
 		<< "	if (distSquared > 1.0) {"
