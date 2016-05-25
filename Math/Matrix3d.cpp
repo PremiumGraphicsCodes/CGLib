@@ -283,6 +283,41 @@ Quaternion<T> Matrix3d<T>::toQuaternion() const
 	return Quaternion<T>(qx, qy, qz, qw);
 }
 
+template<typename T>
+Vector3d<T> Matrix3d<T>::getRowVector(const int i) const
+{
+	assert(0 <= i && i < 3);
+	if (i == 0) {
+		return Vector3d<T>(x00, x01, x02);
+	}
+	else if (i == 1) {
+		return Vector3d<T>(x10, x11, x12);
+	}
+	else if (i == 2) {
+		return Vector3d<T>(x20, x21, x22);
+	}
+	assert(false);
+	return Vector3d<T>();
+}
+
+template<typename T>
+Vector3d<T> Matrix3d<T>::getColumnVector(const int i) const
+{
+	assert(0 <= i && i < 3);
+	if (i == 0) {
+		return Vector3d<T>(x00, x10, x20);
+	}
+	else if (i == 1) {
+		return Vector3d<T>(x01, x11, x12);
+	}
+	else if (i == 2) {
+		return Vector3d<T>(x02, x12, x22);
+	}
+	assert(false);
+	return Vector3d<T>();
+
+}
+
 
 template class Matrix3d<float>;
 template class Matrix3d<double>;

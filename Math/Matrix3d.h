@@ -139,6 +139,10 @@ public:
 
 	Quaternion<T> toQuaternion() const;
 
+	Vector3d<T> getRowVector(const int i) const;
+
+	Vector3d<T> getColumnVector(const int j) const;
+
 private:
 	T x00, x01, x02;
 	T x10, x11, x12;

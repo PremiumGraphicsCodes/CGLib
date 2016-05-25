@@ -3,6 +3,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Math/Matrix3d.h"
+#include "Buffer1d.h"
 #include "Buffer3d.h"
 #include "ColorRGBA.h"
 
@@ -36,8 +37,10 @@ private:
 
 class EllipsoidBuffer
 {
+	void add(const Ellipsoid& e);
+
 	Graphics::Buffer3d<float> position;
-	Graphics::Buffer3d<float> size;
+	Graphics::Buffer1d<float> size;
 	Graphics::Buffer3d<float> matrixRow1;
 	Graphics::Buffer3d<float> matrixRow2;
 	Graphics::Buffer3d<float> matrixRow3;
