@@ -15,7 +15,8 @@ class Ellipsoid
 public:
 	Ellipsoid(const Math::Vector3d<float>& position,const float size, const Math::Matrix3d<float>& matrix) :
 		position(position),
-		size(size)
+		size(size),
+		matrix(matrix)
 	{
 	}
 
