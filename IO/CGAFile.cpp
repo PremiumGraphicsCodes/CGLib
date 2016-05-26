@@ -85,6 +85,7 @@ bool CGAFile::write(std::ostream& stream)
 
 	stream << actors.size() << std::endl;
 	for (auto& actor : actors) {
+		assert(!actor->getName().empty());
 		stream << actor->getName() << std::endl;
 		const auto& joints = actor->getJoints();
 		stream << joints.size() << std::endl;
