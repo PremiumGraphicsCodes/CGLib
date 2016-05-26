@@ -10,11 +10,19 @@ namespace Crystal {
 class CGAFile
 {
 public:
+	CGAFile() = default;
+
+	explicit CGAFile(const std::vector<Core::Actor*>& actors) :
+		actors(actors)
+	{}
+
 	bool read(const File& file);
 
 	bool read(std::istream& stream);
 
 	bool write(const File& file);
+
+	bool write(std::ostream& stream);
 
 	std::vector<Core::Actor*> getActors() const { return actors; }
 
