@@ -185,6 +185,15 @@ void PolygonMesh::add(const Sphere<float>& sphere, const int udiv, const int vdi
 	;
 }
 
+void PolygonMesh::add(const Cone<float>& cone, const int div)
+{
+	const auto howMany = 360.0 / div;
+	for (int i = 0; i < howMany; ++i) {
+		;
+	}
+}
+
+
 void PolygonMesh::merge(PolygonMesh* rhs)
 {
 	this->vertices.merge(rhs->vertices);

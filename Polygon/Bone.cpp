@@ -51,8 +51,8 @@ std::vector<Particle> Bone::toParticles(const float divideLength, const float de
 {
 	const float length = this->getLength();
 	std::vector<Particle> particles;
-	const Particle originParticle = origin->toParticle(divideLength * 0.5f, density);
-	const Particle destParticle = dest->toParticle(divideLength * 0.5f, density);
+	const Particle originParticle = origin->toParticle(density);
+	const Particle destParticle = dest->toParticle(density);
 	for (float l = 0.0f; l <= length; l += divideLength) {
 		const float ratio = l / length;
 		particles.emplace_back( originParticle.createBlended(destParticle, ratio) );

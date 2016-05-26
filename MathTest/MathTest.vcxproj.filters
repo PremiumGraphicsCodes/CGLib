@@ -22,5 +22,6 @@
     <ClCompile Include="Box2dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
+    <ClCompile Include="CircleTest.cpp" />
   </ItemGroup>
 </Project>

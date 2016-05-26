@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="Box3d.h" />
     <ClInclude Include="Box2d.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Cone.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
@@ -47,6 +49,8 @@
   <ItemGroup>
     <ClCompile Include="Box3d.cpp" />
     <ClCompile Include="Box2d.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Cone.cpp" />
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />

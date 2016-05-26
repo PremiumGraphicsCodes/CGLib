@@ -6,6 +6,7 @@
 #include "../Math/Box3d.h"
 #include "../Math/Triangle.h"
 #include "../Math/Quad.h"
+#include "../Math/Cone.h"
 #include "Vertex.h"
 #include "Face.h"
 
@@ -45,6 +46,8 @@ public:
 	void add(const Math::Box3d<float>& box);
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
+
+	void add(const Math::Cone<float>& cone, const int div);
 
 	void merge(PolygonMesh* rhs);
 
