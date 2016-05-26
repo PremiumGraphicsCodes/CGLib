@@ -6,7 +6,7 @@
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
 void TriangleBuffer::add(const PolygonMesh& polygon)

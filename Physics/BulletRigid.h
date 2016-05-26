@@ -23,7 +23,7 @@ namespace Crystal {
 		class BulletRigid
 		{
 		public:
-			BulletRigid(const Math::Box3d<float>& box, SPHConstant* constant, const unsigned int id = -1, Polygon::PolygonMesh* shape = nullptr);
+			BulletRigid(const Math::Box3d<float>& box, SPHConstant* constant, const unsigned int id = -1, Core::PolygonMesh* shape = nullptr);
 
 	//BulletRigid(const Math::Sphere<float>& sphere, const float mass);
 
@@ -65,16 +65,16 @@ namespace Crystal {
 
 	unsigned int getId() const { return id; }
 
-	void setShape(Polygon::PolygonMesh* shape) { this->shape = shape; }
+	void setShape(Core::PolygonMesh* shape) { this->shape = shape; }
 
-	Polygon::PolygonMesh* getShape() const { return this->shape; }
+	Core::PolygonMesh* getShape() const { return this->shape; }
 
 private:
 	btRigidBody* body;
 	Math::Box3d<float> localBox;
 	std::vector<Math::Vector3d<float>> localPositions;
 	std::vector<SPHParticle*> sampleParticles;
-	Polygon::PolygonMesh* shape;
+	Core::PolygonMesh* shape;
 	const unsigned int id;
 };
 

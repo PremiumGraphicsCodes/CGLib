@@ -6,7 +6,7 @@
 #include "PolygonMesh.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
 

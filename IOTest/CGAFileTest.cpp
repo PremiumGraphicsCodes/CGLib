@@ -2,6 +2,7 @@
 
 #include "../IO/CGAFile.h"
 
+using namespace Crystal::Core;
 using namespace Crystal::IO;
 
 TEST(CGAFileTest, TestRead)
@@ -24,4 +25,9 @@ TEST(CGAFileTest, TestRead)
 	for (auto& a : actual) {
 		delete a;
 	}
+}
+
+TEST(CGAFileTest, TestWrite)
+{
+	
 }

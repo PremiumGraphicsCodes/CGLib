@@ -5,14 +5,14 @@
 #include <memory>
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
-TEST(ActorObjectTest, TestToParticleObject)
+TEST(ActorTest, TestToParticleObject)
 {
 	Actor object;
-	auto j1 = object.createJoint(Vector3d<float>(0.0, 0.0, 0.0));
-	auto j2 = object.createJoint(Vector3d<float>(1.0, 1.0, 1.0));
+	auto j1 = object.createJoint(Vector3d<float>(0.0, 0.0, 0.0), 0.5);
+	auto j2 = object.createJoint(Vector3d<float>(1.0, 1.0, 1.0), 0.5);
 	object.createBone(j1, j2);
 	std::unique_ptr<ParticleObject> particle( object.toParticleObject(0.5f, 1.0f) );
 	EXPECT_EQ( 2, particle->getParticles().size() );

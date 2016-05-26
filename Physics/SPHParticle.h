@@ -16,7 +16,7 @@ namespace Crystal{
 		class Coordinator;
 
 
-class SPHParticle: public Polygon::Particle, private UnCopyable
+class SPHParticle: public Core::Particle, private UnCopyable
 {
 public:
 	SPHParticle(const int id = -1);

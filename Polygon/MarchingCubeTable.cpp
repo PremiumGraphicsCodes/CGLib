@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 void MarchingCubeTable::buildEdgeTable()
 {

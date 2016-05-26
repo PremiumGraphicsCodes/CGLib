@@ -17,16 +17,16 @@ class VisualPolygon
 public:
 	VisualPolygon();
 
-	explicit VisualPolygon(Polygon::PolygonMesh* polygon);
+	explicit VisualPolygon(Core::PolygonMesh* polygon);
 
 	void setMaterial(const MaterialMap& map) { this->materialMaps.push_back(map); }
 
-	Polygon::PolygonMesh* getPolygon() const { return polygon; }
+	Core::PolygonMesh* getPolygon() const { return polygon; }
 
 	std::vector<MaterialMap> getMaterialMaps() const { return materialMaps; }
 
 private:
-	Polygon::PolygonMesh* polygon;
+	Core::PolygonMesh* polygon;
 	std::vector<MaterialMap> materialMaps;
 };
 	}

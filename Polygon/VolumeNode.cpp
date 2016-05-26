@@ -3,7 +3,7 @@
 #include "Particle.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 VolumeNode::VolumeNode() :
 	pos(Vector3d<float>(0, 0, 0)),

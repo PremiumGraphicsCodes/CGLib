@@ -5,7 +5,7 @@
 #include "../Math/Box3d.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 TEST(ParticleTest, TestGetBoundingBox)
 {

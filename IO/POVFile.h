@@ -5,7 +5,7 @@
 #include <list>
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class PolygonMesh;
 	}
 	namespace IO {
@@ -13,13 +13,13 @@ namespace Crystal {
 class POVFile
 {
 public:
-	bool writeScene(const std::string& file, const std::list< Polygon::PolygonMesh *>& meshes);
+	bool writeScene(const std::string& file, const std::list< Core::PolygonMesh *>& meshes);
 
-	bool writeInc(const std::string& file, const std::list< Polygon::PolygonMesh* >& meshes);
+	bool writeInc(const std::string& file, const std::list< Core::PolygonMesh* >& meshes);
 
 private:
 
-	bool writeMesh(std::ostream& stream, const Polygon::PolygonMesh& mesh);
+	bool writeMesh(std::ostream& stream, const Core::PolygonMesh& mesh);
 
 };
 	}

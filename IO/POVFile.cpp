@@ -4,7 +4,7 @@
 #include "../Polygon/PolygonMesh.h"
 #include <fstream>
 
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 using namespace Crystal::IO;
 
 bool POVFile::writeScene(const std::string& file, const std::list< PolygonMesh *>& meshes)

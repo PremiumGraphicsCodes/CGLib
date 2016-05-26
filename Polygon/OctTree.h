@@ -8,7 +8,7 @@
 #include "../Math/Box3d.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class Particle;
 
 class OctTree

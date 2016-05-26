@@ -15,9 +15,9 @@
 
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
-Point::Point(const Crystal::Polygon::Particle& particle)
+Point::Point(const Crystal::Core::Particle& particle)
 {
 	position = particle.getPosition();
 	color = ColorRGBA<float>(0, 0, 1.0, particle.getDensity());

@@ -24,11 +24,11 @@ class VisualObject
 {
 public:
 
-	VisualObject(const Polygon::PolygonMesh& polygon);
+	VisualObject(const Core::PolygonMesh& polygon);
 
 	VisualObject(const Physics::PhysicsObject& physics);
 
-	VisualObject(const Polygon::Volume& volume);
+	VisualObject(const Core::Volume& volume);
 
 	void renderPoints(const Graphics::ICamera<float>& camera)
 	{

@@ -21,7 +21,7 @@ namespace Crystal {
 		template<typename>
 		class Matrix4d;
 	}
-	namespace Polygon {
+	namespace Core {
 
 class Vertex;
 class Face;

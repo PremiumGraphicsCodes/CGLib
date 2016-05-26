@@ -10,7 +10,7 @@
 #include "Buffer4d.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class PolygonMesh;
 		class Vertex;
 	}
@@ -19,9 +19,9 @@ namespace Crystal {
 class TriangleBuffer
 {
 public:
-	void add(const Polygon::PolygonMesh& polygon);
+	void add(const Core::PolygonMesh& polygon);
 
-	void add(const Polygon::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
+	void add(const Core::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
 
 	void add(const Math::Triangle<float>& triangle);
 

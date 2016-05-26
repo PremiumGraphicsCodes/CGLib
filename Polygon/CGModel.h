@@ -11,7 +11,7 @@ namespace Crystal {
 	namespace Physics {
 		class PhysicsObject;
 	}
-	namespace Polygon {
+	namespace Core {
 
 class CGModel
 {
@@ -32,8 +32,8 @@ public:
 	{}
 
 private:
-	std::unique_ptr< Polygon::PolygonMesh > polygon;
-	std::unique_ptr< Polygon::Actor > actor;
+	std::unique_ptr< Core::PolygonMesh > polygon;
+	std::unique_ptr< Core::Actor > actor;
 	std::unique_ptr< Physics::PhysicsObject > physics;
 };
 

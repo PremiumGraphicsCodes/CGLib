@@ -16,10 +16,10 @@ public:
 
 	bool write(const File& file);
 
-	std::vector<Polygon::Actor*> getActors() const { return actors; }
+	std::vector<Core::Actor*> getActors() const { return actors; }
 
 private:
-	std::vector<Polygon::Actor*> actors;
+	std::vector<Core::Actor*> actors;
 };
 	}
 }

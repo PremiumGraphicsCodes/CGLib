@@ -1,7 +1,7 @@
 #include "Face.h"
 #include "Vertex.h"
 
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 Face::Face(Vertex* v1, Vertex* v2, Vertex* v3) :
 	v1(v1),

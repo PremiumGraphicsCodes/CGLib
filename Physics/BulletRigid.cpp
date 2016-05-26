@@ -5,7 +5,7 @@
 #include "SPHParticle.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 using namespace Crystal::Physics;
 
 BulletRigid::BulletRigid(const Box3d<float>& box, SPHConstant* constant, const unsigned int id, PolygonMesh* shape) :

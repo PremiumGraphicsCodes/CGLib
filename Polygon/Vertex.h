@@ -8,7 +8,7 @@
 #include <array>
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 
 class Vertex;
 class Face;

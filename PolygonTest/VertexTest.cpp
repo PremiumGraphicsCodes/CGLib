@@ -2,7 +2,7 @@
 #include "../Polygon/Vertex.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
 TEST(VertexCollectionTest, TestMerge)

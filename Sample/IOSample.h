@@ -18,7 +18,7 @@ private:
 	void setup() override;
 
 private:
-	std::unique_ptr< Crystal::Polygon::PolygonMesh > polygon;
+	std::unique_ptr< Crystal::Core::PolygonMesh > polygon;
 };
 
 #endif

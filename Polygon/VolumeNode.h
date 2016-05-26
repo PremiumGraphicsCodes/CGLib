@@ -4,7 +4,7 @@
 #include "../Math/Vector3d.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 
 class Particle;
 

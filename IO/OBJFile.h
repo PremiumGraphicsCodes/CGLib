@@ -91,7 +91,7 @@ public:
 	OBJFile()
 	{}
 
-	void add(const Polygon::PolygonMesh& polygon);
+	void add(const Core::PolygonMesh& polygon);
 
 	std::string getComment() const { return comment; }
 
@@ -103,9 +103,9 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(const std::string& path, const std::string& filename, const Polygon::PolygonMesh& mesh);
+	bool write(const std::string& path, const std::string& filename, const Core::PolygonMesh& mesh);
 
-	bool write(std::ostream& stream, const Polygon::PolygonMesh& mesh);
+	bool write(std::ostream& stream, const Core::PolygonMesh& mesh);
 
 	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 
@@ -119,7 +119,7 @@ public:
 
 	std::vector< Math::Vector3d<float> > getTexCoords() const { return texCoords; }
 
-	Polygon::PolygonMesh* toPolygonObject();
+	Core::PolygonMesh* toPolygonObject();
 
 	std::vector< std::pair< std::string, unsigned int > > getGroups() const { return groups; }
 

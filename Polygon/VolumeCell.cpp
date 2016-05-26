@@ -8,7 +8,7 @@
 #include <bitset>
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 VolumeCell::VolumeCell(const Space3d<float>& space, const std::array< float, 8>& values) :
 	space(space),

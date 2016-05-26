@@ -5,7 +5,7 @@
 #include "Particle.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class Particle;
 
 class Joint

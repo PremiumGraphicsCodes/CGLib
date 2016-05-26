@@ -8,7 +8,7 @@ namespace Crystal {
 		template<typename>
 		class Box3d;
 	}
-	namespace Polygon {
+	namespace Core {
 
 class Particle
 {

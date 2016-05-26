@@ -4,7 +4,7 @@
 #include <map>
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class Bone;
 
 class BoneTree

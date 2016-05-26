@@ -10,7 +10,7 @@
 #include "SPHConstant.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class ParticleObject;
 		class PolygonMesh;
 	}
@@ -64,11 +64,11 @@ public:
 
 	void setVelocity(const Math::Vector3d<float>& velocity);
 
-	Polygon::ParticleObject* toParticleObject() const;
+	Core::ParticleObject* toParticleObject() const;
 
-	Polygon::ParticleObject* toSurfaceParticleObject() const;
+	Core::ParticleObject* toSurfaceParticleObject() const;
 
-	Polygon::PolygonMesh* toPolygonObject(const float isolevel,const float effectLength, const Math::Space3d<float>& space) const;
+	Core::PolygonMesh* toPolygonObject(const float isolevel,const float effectLength, const Math::Space3d<float>& space) const;
 
 
 private:

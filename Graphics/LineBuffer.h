@@ -10,7 +10,7 @@
 #include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class PolygonMesh;
 		class Actor;
 	}
@@ -21,7 +21,7 @@ class LineBuffer
 public:
 	void clear();
 
-	void add(const Polygon::PolygonMesh& polygon, const ColorRGBA<float>& color);
+	void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
 
 	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color, const int id = 0);
 

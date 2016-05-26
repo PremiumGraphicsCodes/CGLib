@@ -3,7 +3,7 @@
 #include "SPHKernel.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 using namespace Crystal::Physics;
 
 SPHParticle::SPHParticle(const int id):

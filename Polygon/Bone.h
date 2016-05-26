@@ -6,7 +6,7 @@
 #include "../Math/Line3d.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class Joint;
 		class Particle;
 

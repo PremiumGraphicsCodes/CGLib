@@ -8,7 +8,7 @@
 #include "Joint.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class Particle;
 		class ParticleObject;
 		class BoneTree;

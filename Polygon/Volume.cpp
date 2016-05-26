@@ -8,7 +8,7 @@
 #include "ParticleObject.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 Grid3d<float> Volume::subGrid(const Vector3d<float>& start, const Vector3d<float>& end) const
 {

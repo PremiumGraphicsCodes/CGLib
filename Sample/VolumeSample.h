@@ -16,8 +16,8 @@ public:
 	void demonstrate(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera) override;
 
 private:
-	std::unique_ptr<Crystal::Polygon::Volume> volume;
-	std::unique_ptr<Crystal::Polygon::PolygonMesh> polygon;
+	std::unique_ptr<Crystal::Core::Volume> volume;
+	std::unique_ptr<Crystal::Core::PolygonMesh> polygon;
 };
 
 #endif

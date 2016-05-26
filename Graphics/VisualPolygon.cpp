@@ -3,7 +3,7 @@
 #include "../Polygon/PolygonMesh.h"
 
 using namespace Crystal::Graphics;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
 VisualPolygon::VisualPolygon() : polygon(nullptr)

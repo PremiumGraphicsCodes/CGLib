@@ -21,7 +21,7 @@
 #include <iostream>
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;

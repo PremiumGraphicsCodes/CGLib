@@ -2,7 +2,7 @@
 #include "Face.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 namespace {
 	int toHash(const Vector3d<float>& pos)

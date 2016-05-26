@@ -5,7 +5,7 @@
 #include "../Math/Triangle.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 TEST(VolumeCellTest, TestToTrianglePattern0)
 {

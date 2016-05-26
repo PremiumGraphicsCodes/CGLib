@@ -8,7 +8,7 @@
 #include "Particle.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 
 class PolygonMesh;
 class Particle;

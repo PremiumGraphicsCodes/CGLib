@@ -13,7 +13,7 @@
 #include "../Polygon/PolygonMesh.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 

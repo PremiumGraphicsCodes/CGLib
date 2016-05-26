@@ -11,7 +11,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 VisualObject::VisualObject(const PolygonMesh& polygon)
 {

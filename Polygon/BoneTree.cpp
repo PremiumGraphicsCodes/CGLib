@@ -1,6 +1,6 @@
 #include "BoneTree.h"
 
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 void BoneTree::add(Bone* parent, Bone* child)
 {

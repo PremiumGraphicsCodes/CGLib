@@ -7,7 +7,7 @@
 #include <vector>
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 
 // The lookup tables are from  http://paulbourke.net/geometry/polygonise/
 // The lookup tables are from  http://paulbourke.net/geometry/polygonise/

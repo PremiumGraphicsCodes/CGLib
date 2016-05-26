@@ -3,7 +3,7 @@
 #include "../Polygon/Particle.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 TEST(VolumeNodeTest, TestToParticle)
 {

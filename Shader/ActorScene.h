@@ -16,7 +16,7 @@ class ActorScene : private UnCopyable
 public:
 	ActorScene() = default;
 
-	explicit ActorScene(const Polygon::Actor& actor);
+	explicit ActorScene(const Core::Actor& actor);
 
 	void setup(const Graphics::VisualPolygon& vp);
 

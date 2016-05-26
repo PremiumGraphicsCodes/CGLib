@@ -5,7 +5,7 @@
 #include "CGModel.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 
 class CGWorld
 {

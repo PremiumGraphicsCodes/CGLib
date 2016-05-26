@@ -6,7 +6,7 @@
 #include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {
-	namespace Polygon {
+	namespace Core {
 		class Vertex;
 		class VertexCollection;
 		class FaceCollection;
@@ -57,9 +57,9 @@ class PMDVertex
 public:
 	PMDVertex() = default;
 
-	PMDVertex(const Polygon::Vertex& v);
+	PMDVertex(const Core::Vertex& v);
 
-	Polygon::Vertex toVertex(const unsigned int id);
+	Core::Vertex toVertex(const unsigned int id);
 
 	bool read(std::istream& stream);
 
@@ -80,7 +80,7 @@ class PMDVertexCollection
 public:
 	PMDVertexCollection() = default;
 
-	PMDVertexCollection(const Polygon::VertexCollection& vs);
+	PMDVertexCollection(const Core::VertexCollection& vs);
 
 	bool read(std::istream& stream);
 
@@ -98,7 +98,7 @@ class PMDFaceCollection
 public:
 	PMDFaceCollection() = default;
 
-	PMDFaceCollection(const Polygon::FaceCollection& faces);
+	PMDFaceCollection(const Core::FaceCollection& faces);
 
 	bool read(std::istream& stream);
 
@@ -165,7 +165,7 @@ class PMDBone
 public:
 	PMDBone() = default;
 
-	explicit PMDBone(const Polygon::Bone& bone);
+	explicit PMDBone(const Core::Bone& bone);
 
 	bool read(std::istream& stream);
 
@@ -175,9 +175,9 @@ public:
 
 	bool writeEnglishName(std::ostream& stream) const;
 
-	Polygon::Bone toBone() const;
+	Core::Bone toBone() const;
 
-	Polygon::Joint toJoint() const;
+	Core::Joint toJoint() const;
 
 	char name[20];
 	char englishName[20];
@@ -195,7 +195,7 @@ public:
 	PMDBoneCollection()
 	{}
 
-	explicit PMDBoneCollection(const Polygon::Actor& actor);
+	explicit PMDBoneCollection(const Core::Actor& actor);
 
 	explicit PMDBoneCollection(const std::vector<PMDBone>& bones) :
 		bones(bones)
@@ -209,7 +209,7 @@ public:
 
 	bool writeEnglishNames(std::ostream& stream) const;
 
-	Polygon::Actor* toActorObject() const;
+	Core::Actor* toActorObject() const;
 
 	//size_t getSize() const { return bones.size(); }
 
@@ -440,19 +440,19 @@ public:
 
 	//void add(const Polygon::PolygonObject& object);
 
-	void add(const Polygon::Actor& actor);
+	void add(const Core::Actor& actor);
 
 	bool read(const std::string& filename);
 
 	bool write(const std::string& filename) const;
 
-	Polygon::PolygonMesh* toPolygonObject() const;
+	Core::PolygonMesh* toPolygonObject() const;
 
 	Graphics::VisualPolygon toVisualPolygon() const;
 
-	Polygon::Actor* toActorObject() const;
+	Core::Actor* toActorObject() const;
 
-	Polygon::CGModel* toCGModel() const;
+	Core::CGModel* toCGModel() const;
 
 private:
 	std::string filename;

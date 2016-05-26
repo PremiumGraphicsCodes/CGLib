@@ -12,7 +12,7 @@ namespace Crystal {
 		class SPHParticle;
 		class PhysicsObject;
 	}
-	namespace Polygon {
+	namespace Core {
 		class PointObject;
 		class PolygonMesh;
 		class Particle;
@@ -35,9 +35,9 @@ public:
 		idColor = DrawableID(id).toColor();
 	}
 
-	Point(const Polygon::Vertex& vertex);
+	Point(const Core::Vertex& vertex);
 
-	Point(const Polygon::Particle& particle);
+	Point(const Core::Particle& particle);
 
 	Point(const Physics::SPHParticle& particle);
 
@@ -65,9 +65,9 @@ public:
 
 	void add(const Point& point);
 
-	void add(const Polygon::PolygonMesh& polygon);
+	void add(const Core::PolygonMesh& polygon);
 
-	void add(const Polygon::Volume& volume);
+	void add(const Core::Volume& volume);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 

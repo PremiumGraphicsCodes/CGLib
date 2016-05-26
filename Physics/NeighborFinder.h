@@ -21,7 +21,7 @@ public:
 	std::vector<SPHParticlePair> getPairs() const { return pairs; }
 
 private:
-	Polygon::SpaceHash spaceHash;
+	Core::SpaceHash spaceHash;
 	float divideLength;
 	std::vector<SPHParticlePair> pairs;
 };

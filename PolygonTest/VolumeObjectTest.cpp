@@ -8,7 +8,7 @@
 #include <memory>
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 TEST(VolumeObjectTest, TestSubGrid)
 {

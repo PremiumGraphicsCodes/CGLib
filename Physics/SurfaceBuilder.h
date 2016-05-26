@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Physics {
 
-class AnisotropicParticle : public Polygon::Particle
+class AnisotropicParticle : public Core::Particle
 {
 public:
 	AnisotropicParticle(const Math::Vector3d<float>& position, const float density, const float radius);
@@ -44,7 +44,7 @@ class SurfaceBuilder
 public:
 	SurfaceBuilder() = default;
 
-	SurfaceBuilder(const std::vector<Polygon::Particle*>& sphParticles);
+	SurfaceBuilder(const std::vector<Core::Particle*>& sphParticles);
 
 	~SurfaceBuilder();
 
@@ -55,7 +55,7 @@ public:
 	std::vector<AnisotropicParticle*> getAniParticles() { return aniParticles; }
 
 private:
-	std::vector<Polygon::Particle*> sphParticles;
+	std::vector<Core::Particle*> sphParticles;
 	std::vector<AnisotropicParticle*> aniParticles;
 };
 

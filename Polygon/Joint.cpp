@@ -1,6 +1,6 @@
 #include "Joint.h"
 
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
 Particle Joint::toParticle(const float density) const

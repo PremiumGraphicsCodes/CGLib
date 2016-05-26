@@ -5,7 +5,7 @@
 #include "../Math/Line3d.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 Bone::Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id) :
 	origin(origin),

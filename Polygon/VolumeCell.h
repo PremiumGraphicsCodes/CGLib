@@ -8,7 +8,7 @@ namespace Crystal {
 		template<typename>
 		class Triangle;
 	}
-	namespace Polygon {
+	namespace Core {
 class VolumeNode;
 
 class VolumeCell

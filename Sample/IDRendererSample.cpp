@@ -13,7 +13,7 @@
 #include "../Graphics/TriangleBuffer.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 

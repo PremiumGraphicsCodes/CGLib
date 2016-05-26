@@ -5,7 +5,7 @@
 #include "Particle.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Polygon;
+using namespace Crystal::Core;
 
 
 SpaceHash::SpaceHash(const float divideLength, const int hashTableSize) :
