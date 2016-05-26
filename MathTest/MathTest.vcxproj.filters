@@ -23,5 +23,6 @@
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />
+    <ClCompile Include="AngleTest.cpp" />
   </ItemGroup>
 </Project>

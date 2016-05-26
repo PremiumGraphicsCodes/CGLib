@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AngleTest.cpp" />
     <ClCompile Include="Box2dTest.cpp" />
     <ClCompile Include="Box3dTest.cpp" />
     <ClCompile Include="CircleTest.cpp" />

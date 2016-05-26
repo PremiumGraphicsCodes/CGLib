@@ -19,6 +19,12 @@ public:
 
 	T get() const { return deg; }
 
+	bool equals(const Degree<T> rhs) const;
+
+	bool operator==(const Degree<T> rhs) const;
+
+	bool operator!=(const Degree<T> rhs) const;
+
 private:
 	T deg;
 };
@@ -35,6 +41,11 @@ public:
 
 	T get() const { return rad; }
 
+	bool equals(const Radian<T> rhs) const;
+
+	bool operator==(const Radian<T> rhs) const;
+
+	bool operator!=(const Radian<T> rhs) const;
 
 private:
 	T rad;
