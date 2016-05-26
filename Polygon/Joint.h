@@ -11,9 +11,9 @@ namespace Crystal {
 class Joint
 {
 public:
-	Joint(const Math::Vector3d<float>& pos, const unsigned int id = -1) :
+	Joint(const Math::Vector3d<float>& pos, const float radius, const unsigned int id = -1) :
 		position(pos),
-		radius(1.0),
+		radius(radius),
 		id(id)
 	{}
 

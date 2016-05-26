@@ -374,7 +374,7 @@ Bone PMDBone::toActorBone() const
 
 Joint PMDBone::toJoint() const
 {
-	return Joint(boneHeadPos);
+	return Joint(boneHeadPos, 0.5);
 }
 
 PMDBoneCollection::PMDBoneCollection(const Actor& actor)
@@ -433,7 +433,7 @@ Actor* PMDBoneCollection::toActorObject() const
 	for (size_t i = 0; i < bones.size(); ++i) {
 		//vertices.push_back(new Vertex());
 		//bones[i].toJoint();
-		auto j = object->createJoint(bones[i].boneHeadPos);
+		auto j = object->createJoint(bones[i].boneHeadPos, 0.5);
 		joints.emplace_back(j);
 	}
 	for (size_t i = 0; i < bones.size(); ++i) {

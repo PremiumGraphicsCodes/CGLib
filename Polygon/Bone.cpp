@@ -7,10 +7,10 @@
 using namespace Crystal::Math;
 using namespace Crystal::Polygon;
 
-Bone::Bone(Joint* origin, Joint* dest, const unsigned int id) :
+Bone::Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id) :
 	origin(origin),
 	dest(dest),
-	thickness(1.0f),
+	thickness(thickness),
 	id(id)
 {}
 
@@ -30,7 +30,7 @@ void Bone::clear()
 
 Bone* Bone::createChild(Joint* childDest)
 {
-	auto b = new Bone(dest, childDest);
+	auto b = new Bone(dest, childDest, 1.0f);
 	children.push_back(b);
 	return b;
 }

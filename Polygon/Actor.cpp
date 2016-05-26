@@ -14,6 +14,10 @@ using namespace Crystal::Polygon;
 Actor::Actor()
 {}
 
+Actor::Actor(const std::string& name) :
+	name(name)
+{
+}
 
 void Actor::clear()
 {
@@ -28,19 +32,19 @@ void Actor::clear()
 }
 
 
-Joint* Actor::createJoint(const Vector3d<float>& pos)
+Joint* Actor::createJoint(const Vector3d<float>& pos, const float radius)
 {
-	auto j = new Joint(pos, joints.size());
+	auto j = new Joint(pos, radius, joints.size());
 	joints.push_back(j);
 	return j;
 }
 
-Joint* Actor::insertJoint(Bone* bone)
+Joint* Actor::insertJoint(Bone* bone, const float radius)
 {
 	auto j1 = bone->getOriginJoint();
 	auto j2 = bone->getDestJoint();
 	const auto& pos = j1->getPosition() / 2.0 + j2->getPosition() / 2.0;
-	auto j = createJoint(pos);
+	auto j = createJoint(pos, radius);
 	bones.remove(bone);
 	auto b1 = createBone(j1, j);
 	auto b2 = createBone(j, j2);

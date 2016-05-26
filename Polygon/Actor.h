@@ -18,15 +18,17 @@ class Actor
 public:
 	Actor();
 
+	explicit Actor(const std::string& name);
+
 	~Actor() {
 		clear();
 	}
 
 	void clear();
 
-	Joint* createJoint(const Math::Vector3d<float>& pos);
+	Joint* createJoint(const Math::Vector3d<float>& pos, const float radius);
 
-	Joint* insertJoint(Bone* bone);
+	Joint* insertJoint(Bone* bone, const float radius);
 
 	void setRoot(Bone* bone) { this->rootBone = bone; }
 
@@ -48,7 +50,10 @@ public:
 
 	Bone* findBoneById(const unsigned int id) const;
 
+	std::string getName() const { return name; }
+
 private:
+	std::string name;
 	Bone* rootBone;
 	std::list<Bone*> bones;
 	std::list<Joint*> joints;

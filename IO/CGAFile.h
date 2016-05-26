@@ -12,10 +12,14 @@ class CGAFile
 public:
 	bool read(const File& file);
 
+	bool read(std::istream& stream);
+
 	bool write(const File& file);
 
+	std::vector<Polygon::Actor*> getActors() const { return actors; }
+
 private:
-	Polygon::Actor actor;
+	std::vector<Polygon::Actor*> actors;
 };
 	}
 }
