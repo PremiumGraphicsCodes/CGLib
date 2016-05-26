@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CGAFile.cpp" />
     <ClCompile Include="DXFFile.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="MTLFile.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="VMDFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CGAFile.h" />
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Helper.h" />

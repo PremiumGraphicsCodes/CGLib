@@ -21,6 +21,9 @@
     <ClCompile Include="PMMFile.cpp">
       <Filter>PMD</Filter>
     </ClCompile>
+    <ClCompile Include="CGAFile.cpp">
+      <Filter>CGS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />
@@ -44,6 +47,9 @@
     <ClInclude Include="VMDFile.h">
       <Filter>PMD</Filter>
     </ClInclude>
+    <ClInclude Include="CGAFile.h">
+      <Filter>CGS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="OBJ">
@@ -51,6 +57,9 @@
     </Filter>
     <Filter Include="PMD">
       <UniqueIdentifier>{aa486025-c212-4916-846d-6e997c62db30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CGS">
+      <UniqueIdentifier>{b8c42dc3-48a0-4dc1-ab34-fd651be4e79c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

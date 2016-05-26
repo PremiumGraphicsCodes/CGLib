@@ -96,6 +96,25 @@ Angle<T>::Angle(const Radian<T> rad) :
 	deg(rad.toDegree())
 {}
 
+template<typename T>
+bool Angle<T>::equals(const Degree<T> rhs) const
+{
+	return deg.equals(rhs);
+}
+
+template<typename T>
+bool Angle<T>::operator==(const Degree<T> rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Angle<T>::operator!=(const Degree<T> rhs) const
+{
+	return !equals(rhs);
+}
+
+
 template class Degree<float>;
 template class Degree<double>;
 

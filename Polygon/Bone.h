@@ -39,6 +39,8 @@ public:
 
 	bool isTail() const { return origin == nullptr || dest == nullptr; }
 
+	float getThickness() const { return thickness; }
+
 	//std::string getName() const { return name; }
 
 private:
@@ -47,6 +49,7 @@ private:
 	//Bone* parent;
 	std::string name;
 	std::vector<Bone*> children;
+	float thickness;
 	const unsigned int id;
 };
 

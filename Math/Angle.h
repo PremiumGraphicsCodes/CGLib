@@ -65,6 +65,13 @@ public:
 
 	Radian<T> getRadian() const { return deg.toRadian(); }
 
+	bool equals(const Degree<T> rhs) const;
+
+	bool operator==(const Degree<T> rhs) const;
+
+	bool operator!=(const Degree<T> rhs) const;
+
+
 private:
 	Degree<T> deg;
 };
