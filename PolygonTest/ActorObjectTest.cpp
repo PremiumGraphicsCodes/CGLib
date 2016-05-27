@@ -7,6 +7,22 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+TEST(ActorTest, TestRemoveJoint)
+{
+	Actor actor;
+	auto j1 = actor.createJoint(Vector3d<float>(0.0, 0.0, 0.0), 0.5);
+	auto j2 = actor.createJoint(Vector3d<float>(1.0, 1.0, 1.0), 0.5);
+	auto j3 = actor.createJoint(Vector3d<float>(2.0, 1.0, 1.0), 0.5);
+
+	actor.createBone(j1, j2);
+	actor.createBone(j2, j3);
+
+	actor.remove(j2);
+
+	EXPECT_EQ(2, actor.getJoints().size());
+	EXPECT_EQ(1, actor.getBones().size());
+
+}
 
 TEST(ActorTest, TestToParticleObject)
 {

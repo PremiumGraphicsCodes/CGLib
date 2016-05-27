@@ -63,6 +63,30 @@ Bone* Actor::createBone(Joint* j1, Joint* j2)
 	return b;
 }
 
+void Actor::remove(Joint* j)
+{
+	std::vector<Bone*> removeBones;
+	for (auto b : bones) {
+		if (b->getOriginJoint() == j) {
+			removeBones.push_back(b);
+		}
+	}
+	Bone* originBone = nullptr;
+	for (auto b : bones) {
+		if (b->getDestJoint() == j) {
+			originBone = b;
+		}
+	}
+	for (auto b : removeBones) {
+		originBone->changeDest(b->getDestJoint());
+		bones.erase( std::remove(bones.begin(), bones.end(), b) , bones.end());
+		delete b;
+	}
+	joints.erase(std::remove(joints.begin(), joints.end(), j), joints.end());
+	delete j;
+}
+
+
 ParticleObject* Actor::toParticleObject(const float divideLength, const float density) const
 {
 	std::vector<Particle*> particles;

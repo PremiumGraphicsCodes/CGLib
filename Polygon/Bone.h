@@ -17,6 +17,8 @@ public:
 
 	~Bone();
 
+	void changeDest(Joint* dest) { this->dest = dest; }
+
 	void clear();
 
 	Bone* createChild(Joint* childDest);

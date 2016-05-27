@@ -30,6 +30,8 @@ public:
 
 	Joint* insertJoint(Bone* bone);
 
+	void remove(Joint* j);
+
 	void setRoot(Bone* bone) { this->rootBone = bone; }
 
 	Bone* getRoot() const { return this->rootBone; }
