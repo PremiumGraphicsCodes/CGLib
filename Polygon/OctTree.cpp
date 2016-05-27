@@ -11,7 +11,7 @@ OctTree::OctTree(const Space3d<float>& space) :
 bool OctTree::isNeighbor(Particle* particle) const
 {
 	const auto& position = particle->getPosition();
-	const auto offset = particle->getRadius() * 1.25f;
+	const auto offset = particle->getRadius();
 	//const auto bb = this->getBoundingBox().getOuterOffset(offset);
 	const auto minx = space.getStart().getX() - offset;
 	const auto maxx = space.getEnd().getX() + offset;
@@ -43,19 +43,13 @@ std::vector< OctTree > OctTree::createChildren() const
 	std::vector<OctTree> results;
 
 	for (int i = 0; i < 8; ++i) {
-		//OctTree result(spaces[i]);
-		//const float effectLength = 1.25f * 0.5f;
-		//spaces[i].offset( Vector3d<float>(effectLength, effectLength, effectLength));
-		//const auto offsetLength = -particles.front()->getDiameter() * 1.25f;
-		//const auto expanded = spaces[i].offset( Vector3d<float>(offsetLength, offsetLength, offsetLength ) );
 		OctTree result(spaces[i]);
 		for (const auto p : particles) {
 			if (result.isNeighbor(p)) {
 				result.add(p);
 			}
 		}
-		//const auto density = result.getDensity();
-		if (!result.isEmpty() ){//&& density < 100.0f) {
+		if (!result.isEmpty() ) {
 			results.push_back(result);
 		}
 	}
