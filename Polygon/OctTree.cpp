@@ -59,8 +59,12 @@ std::vector< OctTree > OctTree::createChildren() const
 
 std::vector<OctTree> OctTree::createChildren(const Vector3d<float>& length) const
 {
-	const auto howMany2 = static_cast<int>( space.getLengths().getX() / length.getX());
-	const int howMany = std::log2f(howMany2);
+	const auto howManyX = static_cast<int>( space.getLengths().getX() / length.getX());
+	const auto howManyY = static_cast<int>( space.getLengths().getY() / length.getY());
+	const auto howManyZ = static_cast<int>( space.getLengths().getZ() / length.getZ());
+
+	const auto howManyMax = std::max<int>({ howManyX, howManyY, howManyZ });
+	const int howMany = std::log2f(howManyMax) + 1;
 	return createChildren(howMany);
 }
 
