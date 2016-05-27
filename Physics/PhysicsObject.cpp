@@ -192,8 +192,8 @@ ParticleObject* PhysicsObject::toSurfaceParticleObject() const
 
 }
 
-PolygonMesh* PhysicsObject::toPolygonObject(const float isolevel, const float effectLength, const Space3d<float>& space) const
+PolygonMesh* PhysicsObject::toPolygonObject(const float isolevel, const int levelOfDetail, const Space3d<float>& space) const
 {
 	std::unique_ptr<ParticleObject> particleObject( toParticleObject() );
-	return particleObject->toPolygon(isolevel, effectLength, space);
+	return particleObject->toPolygon(isolevel, levelOfDetail, space);
 }

@@ -68,7 +68,7 @@ public:
 
 	Core::ParticleObject* toSurfaceParticleObject() const;
 
-	Core::PolygonMesh* toPolygonObject(const float isolevel,const float effectLength, const Math::Space3d<float>& space) const;
+	Core::PolygonMesh* toPolygonObject(const float isolevel,const int levelOfDetail, const Math::Space3d<float>& space) const;
 
 
 private:

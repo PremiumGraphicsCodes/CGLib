@@ -105,17 +105,14 @@ namespace {
 
 #include "VolumeCell.h"
 
-PolygonMesh* ParticleObject::toPolygon(const float isolevel, const float effectLength, const Space3d<float>& space) const
+PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDetail, const Space3d<float>& space) const
 {
-	float howMany = space.getLengths().getX() / effectLength;
-	int depth = ::log2(howMany) + 1;
-
 	OctTree tree(space);
 	for (auto& p : particles) {
 		tree.add(p);
 	}
 	std::vector<VolumeCell> cells;
-	const auto& children = tree.createChildren(depth);//Vector3d<float>(effectLength,effectLength,effectLength));
+	const auto& children = tree.createChildren(levelOfDetail);//Vector3d<float>(effectLength,effectLength,effectLength));
 	for (const auto& c : children) {
 		const auto& box = c.getBoundingBox();
 		const auto& poss = box.toSpace().toArray();
