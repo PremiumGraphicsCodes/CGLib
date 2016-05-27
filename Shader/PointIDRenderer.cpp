@@ -29,12 +29,14 @@ std::string PointIDRenderer::getBuildinVertexShaderSource() const
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
 		<< "in vec4 id;" << std::endl
+		<< "in float pointSize;" << std::endl
 		<< "out vec4 vId;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void)" << std::endl
 		<< "{" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
 		<< "	vId = id;" << std::endl
 		<< "}";
 	return stream.str();
@@ -63,12 +65,15 @@ void PointIDRenderer::set(ShaderObject* shader)
 	
 	shader->findAttribLocation("position");
 	shader->findAttribLocation("id");
+	shader->findAttribLocation("pointSize");
 }
 
 void PointIDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();
 	const auto& ids = buffer.getIdColor().get();
+	const auto& sizes = buffer.getSize().get();
+
 	if (positions.empty()) {
 		return;
 	}
@@ -91,16 +96,15 @@ void PointIDRenderer::render(const ICamera<float>& camera, const PointBuffer& bu
 
 	glVertexAttribPointer(shader->getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glVertexAttribPointer(shader->getAttribLocation("id"), 4, GL_FLOAT, GL_FALSE, 0, ids.data());
+	glVertexAttribPointer(shader->getAttribLocation("pointSize"), 1, GL_FLOAT, GL_FALSE, 0, sizes.data());
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-
-	//const auto positions = buffer.getPositions();
-
-	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>( positions.size() / 3));
+	glEnableVertexAttribArray(2);
 
 	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
 
+	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
