@@ -107,21 +107,15 @@ namespace {
 
 PolygonMesh* ParticleObject::toPolygon(const float isolevel, const float effectLength, const Space3d<float>& space) const
 {
-	/*
-	auto v = toVolume(box, effectLength);
-	return v.toPolygonObject(isolevel);
-*/
-	//Vector3d<float> start(-128.0f, -128.0f, -128.0f);
-	//Vector3d<float> length(256.0f, 256.0f, 256.0f);
-
-
+	float howMany = space.getLengths().getX() / effectLength;
+	int depth = ::log2(howMany) + 1;
 
 	OctTree tree(space);
 	for (auto& p : particles) {
 		tree.add(p);
 	}
 	std::vector<VolumeCell> cells;
-	const auto& children = tree.createChildren(4);//Vector3d<float>(effectLength,effectLength,effectLength));
+	const auto& children = tree.createChildren(depth);//Vector3d<float>(effectLength,effectLength,effectLength));
 	for (const auto& c : children) {
 		const auto& box = c.getBoundingBox();
 		const auto& poss = box.toSpace().toArray();
