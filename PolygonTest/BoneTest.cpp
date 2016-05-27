@@ -30,9 +30,8 @@ TEST(BoneTest, TestToParticles)
 	Joint joint2(Vector3d<float>(10.0f, 0.0f, 0.0f), 0.5);
 	Bone bone(&joint1, &joint2, 0.5);
 	const auto& actual = bone.toParticles(5.0f, 10.0f);
-	EXPECT_EQ(3, actual.size());
-	EXPECT_EQ(Vector3d<float>(0.0f, 0.0f, 0.0f), actual[0].getPosition());
-	EXPECT_EQ(Vector3d<float>(5.0f, 0.0f, 0.0f), actual[1].getPosition());
-	EXPECT_EQ(Vector3d<float>(10.0f, 0.0f, 0.0f), actual[2].getPosition());
-
+	EXPECT_EQ(2, actual.size());
+	EXPECT_EQ(Vector3d<float>(3.0f, 0.0f, 0.0f), actual[0].getPosition());
+	EXPECT_EQ(Vector3d<float>(8.0f, 0.0f, 0.0f), actual[1].getPosition());
+//	EXPECT_EQ(Vector3d<float>(10.0f, 0.0f, 0.0f), actual[2].getPosition());
 }
