@@ -449,7 +449,7 @@ Actor* PMDBoneCollection::toActorObject() const
 				tailJoint = joints[tailBoneIndex];
 			}
 		}
-		object->createBone(headJoint, tailJoint, 1.0f);
+		object->createBone(headJoint, tailJoint);
 	}
 	return object;
 }

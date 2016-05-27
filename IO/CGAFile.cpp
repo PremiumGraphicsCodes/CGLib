@@ -41,27 +41,25 @@ bool CGAFile::read(std::istream& stream)
 		stream >> jointCount;
 		std::vector<Joint*> joints;
 		for (int j = 0; j < jointCount; ++j) {
-			float radius = 0;
-			stream >> radius;
 			float posx = 0;
 			stream >> posx;
 			float posy = 0;
 			stream >> posy;
 			float posz = 0;
 			stream >> posz;
+			float radius = 0;
+			stream >> radius;
 			auto joint = actor->createJoint(Vector3d<float>(posx, posy, posz), radius);
 			joints.push_back(joint);
 		}
 		int boneCount = 0;
 		stream >> boneCount;
 		for (int j = 0; j < boneCount; ++j) {
-			float thickness = 0;
-			stream >> thickness;
 			int originalJointId = 0;
 			stream >> originalJointId;
 			int destJointId = 0;
 			stream >> destJointId;
-			actor->createBone(joints[originalJointId], joints[destJointId], thickness);
+			actor->createBone(joints[originalJointId], joints[destJointId]);
 		}
 		actors.push_back(actor);
 	}
@@ -91,17 +89,16 @@ bool CGAFile::write(std::ostream& stream)
 		stream << joints.size() << std::endl;
 		for (auto j : joints) {
 			stream
-				<< j->getRadius() << " "
-				<< j->getPosition().getX() << " "
-				<< j->getPosition().getY() << " "
-				<< j->getPosition().getZ() << std::endl;
+				<< j->getPosition().getX() << ","
+				<< j->getPosition().getY() << ","
+				<< j->getPosition().getZ() << ","
+				<< j->getRadius() << std::endl;
 		}
 		const auto& bones = actor->getBones();
 		stream << bones.size() << std::endl;
 		for (auto b : bones) {
 			stream
-				<< b->getThickness() << " "
-				<< b->getOriginJoint()->getId() << " "
+				<< b->getOriginJoint()->getId() << ","
 				<< b->getDestJoint()->getId() << std::endl;
 		}
 	}

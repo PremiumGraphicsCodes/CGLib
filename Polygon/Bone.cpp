@@ -7,10 +7,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Bone::Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id) :
+Bone::Bone(Joint* origin, Joint* dest, const unsigned int id) :
 	origin(origin),
 	dest(dest),
-	thickness(thickness),
 	id(id)
 {}
 
