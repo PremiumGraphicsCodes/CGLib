@@ -60,16 +60,19 @@ Bone* Actor::createBone(Joint* j1, Joint* j2, const float thickness)
 	return b;
 }
 
-ParticleObject* Actor::toParticleObject(const float radius, const float density) const
+ParticleObject* Actor::toParticleObject(const float divideLength, const float density) const
 {
 	//rootBone->getOriginJoint();
 	//auto children =
 	std::vector<Particle*> particles;
+	for (auto j : joints) {
+		particles.push_back( j->toParticle(density).clone() );
+	}
 	for (auto b : bones) {
 		if (b->isTail()) {
 			continue;
 		}
-		const auto& ps = b->toParticles(radius * 2.0f, density);
+		const auto& ps = b->toParticles(divideLength, density);
 		for (const auto& p : ps) {
 			particles.push_back( p.clone() );
 		}

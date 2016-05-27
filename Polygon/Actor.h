@@ -42,7 +42,7 @@ public:
 
 	BoneTree toBoneTree();
 	
-	ParticleObject* toParticleObject(const float radius, const float density) const;
+	ParticleObject* toParticleObject(const float divideLength, const float density) const;
 
 	//ParticleObject toParticleObject();
 
