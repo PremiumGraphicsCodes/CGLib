@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ActorObjectTest.cpp" />
+    <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
     <ClCompile Include="OctTreeTest.cpp" />

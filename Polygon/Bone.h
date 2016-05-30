@@ -17,6 +17,8 @@ public:
 
 	~Bone();
 
+	void changeOrigin(Joint* origin) { this->origin = origin; }
+
 	void changeDest(Joint* dest) { this->dest = dest; }
 
 	void clear();

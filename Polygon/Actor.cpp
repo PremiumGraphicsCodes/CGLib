@@ -69,27 +69,42 @@ Bone* Actor::createBone(Joint* j1, Joint* j2)
 
 void Actor::remove(Joint* j)
 {
-	std::vector<Bone*> removeBones;
-	for (auto b : bones) {
-		if (b->getOriginJoint() == j) {
-			removeBones.push_back(b);
-		}
-	}
-	Bone* originBone = nullptr;
+	std::vector<Bone*> prevBones;
+	std::vector<Bone*> nextBones;
+
 	for (auto b : bones) {
 		if (b->getDestJoint() == j) {
-			originBone = b;
+			prevBones.push_back(b);
+		}
+		if (b->getOriginJoint() == j) {
+			nextBones.push_back(b);
 		}
 	}
-	for (auto b : removeBones) {
-		originBone->changeDest(b->getDestJoint());
-		bones.erase( std::remove(bones.begin(), bones.end(), b) , bones.end());
-		delete b;
+	for (auto pb : prevBones) {
+		for (auto nb : nextBones) {
+			nb->changeOrigin(pb->getOriginJoint());
+		}
 	}
+	for (auto pb : prevBones) {
+		remove(pb);
+	}
+
 	joints.erase(std::remove(joints.begin(), joints.end(), j), joints.end());
 	delete j;
 }
 
+void Actor::remove(Bone* b)
+{
+	bones.erase(std::remove(bones.begin(), bones.end(), b), bones.end());
+	delete b;
+	/*
+	b->changeDest();
+	Bone* bone = nullptr;
+	for (auto b : bones) {
+		;
+	}
+	*/
+}
 
 ParticleObject* Actor::toParticleObject(const float divideLength, const float density) const
 {

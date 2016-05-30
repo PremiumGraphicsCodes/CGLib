@@ -32,6 +32,8 @@ public:
 
 	void remove(Joint* j);
 
+	void remove(Bone* b);
+
 	void setRoot(Bone* bone) { this->rootBone = bone; }
 
 	Bone* getRoot() const { return this->rootBone; }
