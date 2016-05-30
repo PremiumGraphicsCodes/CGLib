@@ -59,6 +59,8 @@ private:
 	Bone* rootBone;
 	std::list<Bone*> bones;
 	std::list<Joint*> joints;
+	int nextJointId;
+	int nextBoneId;
 };
 	}
 }

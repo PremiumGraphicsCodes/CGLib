@@ -11,11 +11,15 @@ using namespace Crystal::Core;
 
 
 
-Actor::Actor()
+Actor::Actor() :
+	nextBoneId(0),
+	nextJointId(0)
 {}
 
 Actor::Actor(const std::string& name) :
-	name(name)
+	name(name),
+	nextBoneId(0),
+	nextJointId(0)
 {
 }
 
@@ -29,13 +33,14 @@ void Actor::clear()
 		delete j;
 	}
 	joints.clear();
+	nextBoneId = 0;
+	nextJointId = 0;
 }
 
 
 Joint* Actor::createJoint(const Vector3d<float>& pos, const float radius)
 {
-	const auto newId = static_cast<int>(joints.size());
-	auto j = new Joint(pos, radius, newId);
+	auto j = new Joint(pos, radius, nextJointId++);
 	joints.push_back(j);
 	return j;
 }
@@ -57,8 +62,7 @@ Joint* Actor::insertJoint(Bone* bone)
 
 Bone* Actor::createBone(Joint* j1, Joint* j2)
 {
-	const auto newId = static_cast<int>(bones.size());
-	auto b = new Bone(j1, j2, newId);
+	auto b = new Bone(j1, j2, nextBoneId++);
 	bones.push_back(b);
 	return b;
 }
