@@ -23,6 +23,11 @@ Actor::Actor(const std::string& name) :
 {
 }
 
+bool Actor::isRoot(Joint* j)
+{
+	return getPrevBones(j).empty();
+}
+
 void Actor::clear()
 {
 	for (auto b : bones) {
@@ -67,19 +72,37 @@ Bone* Actor::createBone(Joint* j1, Joint* j2)
 	return b;
 }
 
-void Actor::remove(Joint* j)
+std::vector<Bone*> Actor::getPrevBones(Joint* j)
 {
 	std::vector<Bone*> prevBones;
-	std::vector<Bone*> nextBones;
-
 	for (auto b : bones) {
 		if (b->getDestJoint() == j) {
 			prevBones.push_back(b);
 		}
+	}
+	return prevBones;
+}
+
+std::vector<Bone*> Actor::getNextBones(Joint* j)
+{
+	std::vector<Bone*> nextBones;
+	for (auto b : bones) {
 		if (b->getOriginJoint() == j) {
 			nextBones.push_back(b);
 		}
 	}
+	return nextBones;
+}
+
+
+void Actor::remove(Joint* j)
+{
+	if (isRoot(j)) {
+		return;
+	}
+	const auto& prevBones = getPrevBones(j);
+	const auto& nextBones = getNextBones(j);
+
 	for (auto pb : prevBones) {
 		for (auto nb : nextBones) {
 			nb->changeOrigin(pb->getOriginJoint());

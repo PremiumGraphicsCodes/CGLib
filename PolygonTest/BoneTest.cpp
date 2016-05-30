@@ -7,6 +7,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+
 TEST(BoneTest, TestCreateChild)
 {
 	Joint joint1(Vector3d<float>(0.0f, 0.0f, 0.0f), 0.5);

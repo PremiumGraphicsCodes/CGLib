@@ -41,6 +41,8 @@ public:
 
 	unsigned int getId() const { return id; }
 
+	bool isRoot() const { return origin == nullptr; }
+
 	bool isTail() const { return origin == nullptr || dest == nullptr; }
 
 	//std::string getName() const { return name; }

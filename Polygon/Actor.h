@@ -30,6 +30,12 @@ public:
 
 	Joint* insertJoint(Bone* bone);
 
+	bool isRoot(Joint* j);
+
+	std::vector<Bone*> getPrevBones(Joint* j);
+
+	std::vector<Bone*> getNextBones(Joint* j);
+
 	void remove(Joint* j);
 
 	void remove(Bone* b);

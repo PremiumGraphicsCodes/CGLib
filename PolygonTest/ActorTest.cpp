@@ -7,6 +7,19 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+TEST(ActorTest, TestIsRoot)
+{
+	Actor actor;
+
+	auto j1 = actor.createJoint( Vector3d<float>(1.0, 0.0, 0.0), 0.5);
+	auto j2 = actor.createJoint( Vector3d<float>(2.0, 0.0, 0.0), 0.5);
+	actor.createBone(j1, j2);
+	EXPECT_TRUE(actor.isRoot(j1));
+	EXPECT_FALSE(actor.isRoot(j2));
+
+}
+
+
 TEST(ActorTest, TestRemoveBone)
 {
 	Actor actor;
