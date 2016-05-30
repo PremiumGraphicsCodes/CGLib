@@ -89,16 +89,16 @@ bool CGAFile::write(std::ostream& stream)
 		stream << joints.size() << std::endl;
 		for (auto j : joints) {
 			stream
-				<< j->getPosition().getX() << ","
-				<< j->getPosition().getY() << ","
-				<< j->getPosition().getZ() << ","
+				<< j->getPosition().getX() << " "
+				<< j->getPosition().getY() << " "
+				<< j->getPosition().getZ() << " "
 				<< j->getRadius() << std::endl;
 		}
 		const auto& bones = actor->getBones();
 		stream << bones.size() << std::endl;
 		for (auto b : bones) {
 			stream
-				<< b->getOriginJoint()->getId() << ","
+				<< b->getOriginJoint()->getId() << " "
 				<< b->getDestJoint()->getId() << std::endl;
 		}
 	}
