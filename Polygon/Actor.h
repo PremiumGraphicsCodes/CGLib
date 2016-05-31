@@ -26,6 +26,10 @@ public:
 
 	void clear();
 
+	//Actor* clone();
+
+	void orderIds();
+
 	Joint* createJoint(const Math::Vector3d<float>& pos, const float radius);
 
 	Joint* insertJoint(Bone* bone);

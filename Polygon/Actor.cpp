@@ -42,6 +42,38 @@ void Actor::clear()
 	nextJointId = 0;
 }
 
+/*
+Actor* Actor::clone()
+{
+	auto newActor = new Actor(name);
+
+	int nextId = 0;
+	std::vector< Bone* > newBones;
+	for (auto b : bones) {
+		//newBones.push_back( b->clone(nextId++) );
+		newActor->createBone()
+	}
+	nextId = 0;
+	std::vector< Joint* > newJoints;
+	for (auto j : joints) {
+		newJoints.push_back( j->clone(nextId++) );
+	}
+	newActor->bones = bon
+	 bones.begin(), bones.end();
+}
+*/
+
+void Actor::orderIds()
+{
+	nextBoneId = 0;
+	for (auto b : bones) {
+		b->changeId(nextBoneId++);
+	}
+	nextJointId = 0;
+	for (auto j : joints) {
+		j->changeId(nextJointId++);
+	}
+}
 
 Joint* Actor::createJoint(const Vector3d<float>& pos, const float radius)
 {

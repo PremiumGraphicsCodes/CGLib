@@ -17,6 +17,10 @@ public:
 
 	~Bone();
 
+	Bone* clone(const unsigned int newId) const;
+
+	void changeId(const unsigned int newId) { this->id = newId; }
+
 	void changeOrigin(Joint* origin) { this->origin = origin; }
 
 	void changeDest(Joint* dest) { this->dest = dest; }
@@ -53,7 +57,7 @@ private:
 	//Bone* parent;
 	std::string name;
 	std::vector<Bone*> children;
-	const unsigned int id;
+	unsigned int id;
 };
 
 	}

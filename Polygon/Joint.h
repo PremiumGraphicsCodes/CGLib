@@ -17,6 +17,10 @@ public:
 		id(id)
 	{}
 
+	Joint* clone(const unsigned int newId) const;
+
+	void changeId(const unsigned int newId) { this->id = newId; }
+
 	unsigned int getId() const { return id; }
 
 	Particle toParticle(const float density) const;
@@ -35,7 +39,7 @@ public:
 private:
 	Math::Vector3d<float> position;
 	float radius;
-	const unsigned int id;
+	unsigned int id;
 };
 
 	}

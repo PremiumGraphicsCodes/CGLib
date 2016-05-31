@@ -18,6 +18,11 @@ Bone::~Bone()
 	clear();
 }
 
+Bone* Bone::clone(const unsigned int newId) const
+{
+	return new Bone(origin, dest, newId);
+}
+
 void Bone::clear()
 {
 	for (auto c : children) {
