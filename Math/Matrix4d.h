@@ -80,20 +80,9 @@ public:
 				);
 	}
 
-	void translate(const T x, const T y, const T z)
-	{
-		Matrix4d m;
-		m.x[12] = x;
-		m.x[13] = y;
-		m.x[14] = z;
-		(*this) *= m;
-	}
+	void translate(const T x, const T y, const T z);
 
-	void setScale(const T x, const T y, const T z) {
-		this->x[0] = x;
-		this->x[5] = y;
-		this->x[10] = z;
-	}
+	void setScale(const T x, const T y, const T z);
 
 	void multiple(const Matrix4d& rhs);
 

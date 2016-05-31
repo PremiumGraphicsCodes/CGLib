@@ -57,7 +57,7 @@ void BillBoardRenderer::render(const ICamera<float>& camera)
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>( positions.size() / 3) );
 
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);

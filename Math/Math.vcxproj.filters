@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="Box2d.cpp" />
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Grid1d.cpp" />
+    <ClCompile Include="Grid2d.cpp" />
+    <ClCompile Include="Grid3d.cpp" />
+    <ClCompile Include="Line3d.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="Matrix2d.cpp" />
+    <ClCompile Include="Matrix3d.cpp" />
+    <ClCompile Include="Matrix4d.cpp" />
+    <ClCompile Include="Plane3d.cpp" />
+    <ClCompile Include="Quad.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Space2d.cpp" />
+    <ClCompile Include="Space3d.cpp" />
+    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Vector3d.cpp" />
+    <ClCompile Include="Vector2d.cpp" />
+    <ClCompile Include="Vector4d.cpp" />
+    <ClCompile Include="Box3d.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Cone.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Cylinder.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Angle.h" />
+    <ClInclude Include="Box2d.h" />
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Grid3d.h" />
+    <ClInclude Include="Grid1d.h" />
+    <ClInclude Include="Grid2d.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Index3d.h" />
+    <ClInclude Include="Kernel.h" />
+    <ClInclude Include="Line3d.h" />
+    <ClInclude Include="Matrix2d.h" />
+    <ClInclude Include="Matrix3d.h" />
+    <ClInclude Include="Matrix4d.h" />
+    <ClInclude Include="Plane3d.h" />
+    <ClInclude Include="Quad.h" />
+    <ClInclude Include="Quaternion.h" />
+    <ClInclude Include="Space2d.h" />
+    <ClInclude Include="Space3d.h" />
+    <ClInclude Include="Tolerance.h" />
+    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Vector3d.h" />
+    <ClInclude Include="Vector2d.h" />
+    <ClInclude Include="Vector4d.h" />
+    <ClInclude Include="Box3d.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Cone.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Cylinder.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Primitive3d">
+      <UniqueIdentifier>{6175cf8a-fa30-40b3-85a5-a1883a2e303e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -66,10 +66,7 @@ public:
 
 	Matrix3d scale(const T factor);
 
-	Matrix3d getScaled(const T factor) const {
-		Matrix3d matrix = *this;
-		return matrix.scale(factor);
-	}
+	Matrix3d getScaled(const T factor) const;
 
 	Matrix3d transposed() const;
 

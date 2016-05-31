@@ -50,17 +50,9 @@ public:
 
 	Matrix2d getProduct(const Matrix2d& rhs) const;
 
-	Matrix2d scale(const T factor) {
-		for (auto i = 0; i < 4; ++i) {
-			x[i] *= factor;
-		}
-		return *this;
-	}
+	Matrix2d scale(const T factor);
 
-	Matrix2d getScaled(const T factor) const {
-		Matrix2d matrix = *this;
-		return matrix.scale(factor);
-	}
+	Matrix2d getScaled(const T factor) const;
 
 	Matrix2d add(const Matrix2d& rhs) {
 		for (auto i = 0; i < 4; ++i) {

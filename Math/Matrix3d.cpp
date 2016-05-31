@@ -176,6 +176,14 @@ Matrix3d<T> Matrix3d<T>::scale(const T factor)
 	return *this;
 }
 
+template<typename T>
+Matrix3d<T> Matrix3d<T>::getScaled(const T factor) const
+{
+	Matrix3d matrix = *this;
+	return matrix.scale(factor);
+}
+
+
 #include <algorithm>
 
 

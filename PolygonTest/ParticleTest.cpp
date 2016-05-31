@@ -17,9 +17,9 @@ TEST(ParticleTest, TestGetBoundingBox)
 
 TEST(ParticleTest, TestCreateBlended)
 {
-	Particle particle1(Vector3d<float>(0.0, 0.0, 0.0), 0.0f, 0.5f);
-	Particle particle2(Vector3d<float>(1.0, 1.0, 1.0), 10.0f, 0.5f);
-	const auto actual = particle1.createBlended(particle2, 0.8);
-	EXPECT_EQ( Vector3d<float>(0.8, 0.8, 0.8), actual.getPosition());
+	Particle particle1(Vector3d<float>(0.0f, 0.0f, 0.0f), 0.0f, 0.5f);
+	Particle particle2(Vector3d<float>(1.0f, 1.0f, 1.0f), 10.0f, 0.5f);
+	const auto actual = particle1.createBlended(particle2, 0.8f);
+	EXPECT_EQ( Vector3d<float>(0.8f, 0.8f, 0.8f), actual.getPosition());
 	EXPECT_FLOAT_EQ( 8, actual.getDensity());
 }

@@ -279,15 +279,15 @@ public:
 		matrix(matrix)
 	{}
 
-	double getMaxvalue(int *p, int *q)
+	T getMaxvalue(int *p, int *q)
 	{
-		double max = fabs(matrix.get(0, 1));
+		T max = fabs(matrix.get(0, 1));
 		*p = 0;
 		*q = 1;
 
 		for (int i = 0; i < matrix.getRow(); i++) {
 			for (int j = i + 1; j < matrix.getColumn(); j++) {
-				double temp = fabs(matrix.get(i,j));
+				T temp = fabs(matrix.get(i,j));
 
 				if (temp > max) {
 					max = temp;
@@ -316,8 +316,8 @@ public:
 			T beta = -apq;
 			T gamma = fabs(alpha) / sqrt(alpha*alpha + beta * beta);
 
-			T s = sqrt((1.0 - gamma) / T{ 2 });
-			T c = sqrt((1.0 + gamma) / T{ 2 });
+			T s = sqrt((T{ 1 } -gamma) / T{ 2 });
+			T c = sqrt((T{ 1 } +gamma) / T{ 2 });
 			if (alpha * beta < 0.0) {
 				s = -s;
 			}

@@ -1,6 +1,7 @@
 #include "Circle.h"
 
 #include "Tolerance.h"
+#include "Angle.h"
 
 using namespace Crystal::Math;
 
@@ -25,10 +26,11 @@ std::vector<Vector2d<T>> Circle<T>::toPoints(const int number) const
 {
 	std::vector<Vector2d<T>> points;
 	for (int i = 0; i < number; ++i) {
-		T angle = T{ 360 } / number *i;
-		T radian = angle * Tolerance<T>::getPI() / 180.0f;
-		T x = ::sin(radian);
-		T y = ::cos(radian);
+		Degree<T> degree(T{ 360 } / number * i);
+		Angle<T> angle(degree);
+		const auto radian = angle.getRadian(); //angle * Tolerance<T>::getPI() / 180.0f;
+		T x = ::sin(radian.get());
+		T y = ::cos(radian.get());
 		points.emplace_back(Vector2d<T>(x, y));
 	}
 	return points;

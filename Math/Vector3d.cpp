@@ -99,6 +99,21 @@ Vector3d<T> Vector3d<T>::operator-=(const Vector3d& rhs)
 }
 
 template<typename T>
+Vector3d<T> Vector3d<T>::operator*(const float factor) const
+{
+	Vector3d vector(*this);
+	return vector.scale(factor);
+}
+
+template<typename T>
+Vector3d<T> Vector3d<T>::operator/(const float factor) const
+{
+	Vector3d vector(*this);
+	return vector.scale(1.0f / factor);
+}
+
+
+template<typename T>
 Vector3d<T> Vector3d<T>::getMult(const Matrix3d<T>& matrix) const
 {
 	const auto nx = x * matrix.getX00() + y * matrix.getX10() + z * matrix.getX20();
@@ -106,6 +121,13 @@ Vector3d<T> Vector3d<T>::getMult(const Matrix3d<T>& matrix) const
 	const auto nz = x * matrix.getX02() + y * matrix.getX12() + z * matrix.getX22();
 	return Vector3d(nx, ny, nz);
 }
+
+template<typename T>
+T Vector3d<T>::getInnerProduct(const Vector3d& rhs) const
+{
+	return x * rhs.x + y * rhs.y + z * rhs.z;
+}
+
 
 template<typename T>
 Vector3d<T> Vector3d<T>::getOuterProduct(const Vector3d& rhs) const

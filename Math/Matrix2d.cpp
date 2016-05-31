@@ -25,6 +25,23 @@ void Matrix2d<T>::setIdentity()
 }
 
 template<typename T>
+Matrix2d<T> Matrix2d<T>::scale(const T factor)
+{
+	for (auto i = 0; i < 4; ++i) {
+		x[i] *= factor;
+	}
+	return *this;
+}
+
+template<typename T>
+Matrix2d<T> Matrix2d<T>::getScaled(const T factor) const
+{
+	Matrix2d matrix = *this;
+	return matrix.scale(factor);
+}
+
+
+template<typename T>
 void Matrix2d<T>::setRotate(const T angle)
 {
 	x[0] = ::cos(angle);

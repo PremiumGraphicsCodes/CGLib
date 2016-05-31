@@ -135,7 +135,7 @@ void ParticleDepthRenderer::render(const ICamera<float>& camera, const Ellipsoid
 	glEnableVertexAttribArray(5);
 
 
-	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>( positions.size() / 3) );
 
 	glDisableVertexAttribArray(5);
 	glDisableVertexAttribArray(4);

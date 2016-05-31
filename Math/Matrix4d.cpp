@@ -82,6 +82,23 @@ Matrix4d<T> Matrix4d<T>::transposed() const
 		);
 }
 
+template<typename T>
+void Matrix4d<T>::translate(const T x, const T y, const T z)
+{
+	Matrix4d m;
+	m.x[12] = x;
+	m.x[13] = y;
+	m.x[14] = z;
+	(*this) *= m;
+}
+
+template<typename T>
+void Matrix4d<T>::setScale(const T x, const T y, const T z)
+{
+	this->x[0] = x;
+	this->x[5] = y;
+	this->x[10] = z;
+}
 
 template class Matrix4d<float>;
 template class Matrix4d<double>;

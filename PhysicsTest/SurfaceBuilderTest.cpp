@@ -23,7 +23,7 @@ TEST(SurfaceBuilderTest, Test)
 	auto particles = builder.getAniParticles();
 	Matrix<3,3,float> matrix( particles[0]->matrix.toArray3x3() );
 	JacobiSolver<3, 3, float> solver(matrix);
-	auto m = solver.solve(1.0e-6);
+	auto m = solver.solve(1.0e-6f);
 	
 	auto aniMatrix = particles[0]->getAnisotoropicMatrix();
 	//builder.a

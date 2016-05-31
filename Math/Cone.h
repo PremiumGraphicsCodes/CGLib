@@ -18,7 +18,6 @@ public:
 
 	T getHeight() const { return height; }
 
-
 private:
 	T radius;
 	T height;

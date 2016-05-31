@@ -35,7 +35,7 @@ public:
 
 	T getRadius() const { return radius; }
 
-	virtual bool isValid() const {
+	bool isValid() const {
 		return radius >= 0.0f;
 	}
 
@@ -51,7 +51,7 @@ public:
 		return sphere;
 	}
 
-	virtual void innerOffset(const float offsetLength) {
+	void innerOffset(const float offsetLength) {
 		this->radius -= offsetLength;
 		assert( isValid() );
 	}

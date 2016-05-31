@@ -100,7 +100,7 @@ void PointRenderer::render(const ICamera<float>& camera, const PointBuffer& buff
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 
-	glDrawArrays(GL_POINTS, 0, positions.size() / 3);
+	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>( positions.size() / 3) );
 
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);

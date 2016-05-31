@@ -77,19 +77,11 @@ public:
 
 	Vector3d operator-() const { return Vector3d(-x, -y, -z); }
 
-	Vector3d operator*(const float factor) const {
-		Vector3d vector(*this);
-		return vector.scale(factor);
-	}
+	Vector3d operator*(const float factor) const;
 
-	Vector3d operator/(const float factor) const {
-		Vector3d vector(*this);
-		return vector.scale(1.0f / factor);
-	}
+	Vector3d operator/(const float factor) const;
 
-	T getInnerProduct(const Vector3d& rhs) const {
-		return x * rhs.x + y * rhs.y + z * rhs.z;
-	}
+	T getInnerProduct(const Vector3d& rhs) const;
 
 	Vector3d getOuterProduct(const Vector3d& rhs) const;
 
