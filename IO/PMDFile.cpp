@@ -1,10 +1,10 @@
 #include "PMDFile.h"
 
-#include "../Polygon/PolygonMesh.h"
-#include "../Polygon/Actor.h"
-#include "../Polygon/Bone.h"
-#include "../Polygon/Joint.h"
-#include "../Polygon/CGModel.h"
+#include "../Core/PolygonMesh.h"
+#include "../Core/Actor.h"
+#include "../Core/Bone.h"
+#include "../Core/Joint.h"
+#include "../Core/CGModel.h"
 
 #include "../Graphics/Material.h"
 #include "../Graphics/VisualPolygon.h"

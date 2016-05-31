@@ -1,7 +1,7 @@
 #include "gtest\gtest.h"
 
-#include "../Polygon/SpaceHash.h"
-#include "../Polygon/Particle.h"
+#include "../Core/SpaceHash.h"
+#include "../Core/Particle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

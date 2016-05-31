@@ -1,9 +1,9 @@
 #include "GLee.h"
 #include "VisualObject.h"
 
-#include "../Polygon/Particle.h"
+#include "../Core/Particle.h"
 #include "../Physics/PhysicsObject.h"
-#include "../Polygon/Volume.h"
+#include "../Core/Volume.h"
 
 #include "../Graphics/Light.h"
 

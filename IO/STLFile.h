@@ -2,7 +2,7 @@
 #define __CRYSTAL_IO_STL_FILE_H__
 
 #include "../Math/Vector3d.h"
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/PolygonMesh.h"
 
 #include <fstream>
 

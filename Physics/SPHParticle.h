@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "../Math/Vector3d.h"
-#include "../Polygon/Particle.h"
+#include "../Core/Particle.h"
 
 #include "../Util/UnCopyable.h"
 #include "SPHConstant.h"

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../Polygon/Vertex.h"
+#include "../Core/Vertex.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

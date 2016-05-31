@@ -1,6 +1,6 @@
 #include "gtest\gtest.h"
 
-#include "../Polygon/VolumeCell.h"
+#include "../Core/VolumeCell.h"
 
 #include "../Math/Triangle.h"
 

@@ -8,7 +8,7 @@
 #include "../Physics/Fluid.h"
 #include "../Physics/PhysicsWorld.h"
 #include "../Physics/BulletRigid.h"
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/PolygonMesh.h"
 #include "../Shader/SmoothRenderer.h"
 #include "ISample.h"
 #include <memory>

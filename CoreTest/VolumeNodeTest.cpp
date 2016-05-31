@@ -1,6 +1,6 @@
 #include "gtest\gtest.h"
-#include "../Polygon/VolumeNode.h"
-#include "../Polygon/Particle.h"
+#include "../Core/VolumeNode.h"
+#include "../Core/Particle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

@@ -5,7 +5,7 @@
 #include "Material.h"
 #include "MaterialMap.h"
 
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/PolygonMesh.h"
 
 namespace Crystal{
 	namespace Graphics {

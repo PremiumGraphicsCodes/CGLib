@@ -1,6 +1,6 @@
 #include "TriangleBuffer.h"
 
-#include "../Polygon/Vertex.h"
+#include "../Core/Vertex.h"
 
 #include "DrawableID.h"
 

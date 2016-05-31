@@ -1,7 +1,7 @@
 #include "gtest\gtest.h"
 
-#include "../Polygon/OctTree.h"
-#include "../Polygon/Particle.h"
+#include "../Core/OctTree.h"
+#include "../Core/Particle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

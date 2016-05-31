@@ -10,7 +10,7 @@
 #include "../Graphics/LineBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
 
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/PolygonMesh.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

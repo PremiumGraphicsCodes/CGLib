@@ -6,7 +6,7 @@
 #include "Buffer4d.h"
 
 #include "../Math/Line3d.h"
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/PolygonMesh.h"
 #include "../Graphics/ColorRGBA.h"
 
 namespace Crystal {

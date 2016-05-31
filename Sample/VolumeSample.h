@@ -4,8 +4,8 @@
 #include "glfw.h"
 
 #include "ISample.h"
-#include "../Polygon/Volume.h"
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/Volume.h"
+#include "../Core/PolygonMesh.h"
 #include <memory>
 
 class VolumeSample : public ISample

@@ -7,8 +7,8 @@
 #include <vector>
 
 #include "../Math/Vector3d.h"
-#include "../Polygon/Vertex.h"
-#include "../Polygon/Face.h"
+#include "../Core/Vertex.h"
+#include "../Core/Face.h"
 
 #include "Helper.h"
 

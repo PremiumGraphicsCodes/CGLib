@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "../Polygon/Actor.h"
-#include "../Polygon/ParticleObject.h"
+#include "../Core/Actor.h"
+#include "../Core/ParticleObject.h"
 
 #include <memory>
 

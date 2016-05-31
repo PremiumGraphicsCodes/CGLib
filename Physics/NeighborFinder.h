@@ -2,7 +2,7 @@
 #define __CRYSTAL_PHYSICS_NEIGHBOR_FINDER_H__
 
 #include "ParticlePair.h"
-#include "../Polygon/SpaceHash.h"
+#include "../Core/SpaceHash.h"
 #include <array>
 
 

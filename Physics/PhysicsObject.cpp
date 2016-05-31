@@ -1,7 +1,7 @@
 #include "PhysicsObject.h"
 #include "SPHParticle.h"
 
-#include "../Polygon/ParticleObject.h"
+#include "../Core/ParticleObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

@@ -8,8 +8,8 @@ using namespace Crystal::IO;
 
 #include <string>
 #include <cassert>
-#include "../Polygon/Face.h"
-#include "../Polygon/Vertex.h"
+#include "../Core/Face.h"
+#include "../Core/Vertex.h"
 
 
 void STLFile::add(const PolygonMesh& mesh)

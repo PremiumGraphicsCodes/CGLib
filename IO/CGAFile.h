@@ -2,7 +2,7 @@
 #define __CRYSTAL_IO_CGA_FILE_H__
 
 #include "File.h"
-#include "../Polygon/Actor.h"
+#include "../Core/Actor.h"
 
 namespace Crystal {
 	namespace IO {

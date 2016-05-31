@@ -3,7 +3,7 @@
 
 #include "../Util/UnCopyable.h"
 
-#include "../Polygon/Actor.h"
+#include "../Core/Actor.h"
 #include "../Graphics/VisualPolygon.h"
 #include "../Shader/TextureObject.h"
 #include "SmoothRenderer.h"

@@ -1,9 +1,9 @@
 #include "gtest\gtest.h"
 
-#include "../Polygon/VolumeNode.h"
-#include "../Polygon/Volume.h"
-#include "../Polygon/PolygonMesh.h"
-#include "../Polygon/ParticleObject.h"
+#include "../Core/VolumeNode.h"
+#include "../Core/Volume.h"
+#include "../Core/PolygonMesh.h"
+#include "../Core/ParticleObject.h"
 
 #include <memory>
 

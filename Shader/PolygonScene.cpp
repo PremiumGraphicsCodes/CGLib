@@ -1,5 +1,5 @@
 #include "PolygonScene.h"
-#include "../Polygon/PolygonMesh.h"
+#include "../Core/PolygonMesh.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/Material.h"
 #include "VisualMaterial.h"

@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../Polygon/Joint.h"
+#include "../Core/Joint.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

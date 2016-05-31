@@ -4,7 +4,7 @@
 
 #include "IndexedFinder.h"
 
-#include "../Polygon/SpaceHash.h"
+#include "../Core/SpaceHash.h"
 #include "../Math/Matrix.h"
 
 

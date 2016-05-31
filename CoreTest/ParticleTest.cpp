@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "../Polygon/Particle.h"
+#include "../Core/Particle.h"
 
 #include "../Math/Box3d.h"
 

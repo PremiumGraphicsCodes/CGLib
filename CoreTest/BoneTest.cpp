@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
-#include "../Polygon/Joint.h"
-#include "../Polygon/Bone.h"
-#include "../Polygon/Particle.h"
+#include "../Core/Joint.h"
+#include "../Core/Bone.h"
+#include "../Core/Particle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
