@@ -58,3 +58,10 @@
 /CGLib.VC.db
 /CGLib.VC.VC.opendb
 /ipch/CGSTUDIO-1b8c5318
+/Core/Debug
+/Core/Release
+/Core/x64/Debug
+/Core/x64/Release
+/CoreTest/x64
+/CoreTest/Release
+/CoreTest/Debug
