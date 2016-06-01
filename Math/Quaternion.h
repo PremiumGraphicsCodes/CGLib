@@ -47,7 +47,7 @@ public:
 
 	void setW( const T w ) { this->w = w; }
 
-	void getMult(const Quaternion& q1, const Quaternion& q2);
+	//void getMult(const Quaternion& q1, const Quaternion& q2);
 
 	Quaternion<T> mult(const Quaternion<T>& rhs) const;
 
@@ -62,6 +62,8 @@ public:
 	bool operator!=(const Quaternion<T>& rhs) const;
 
 	Quaternion<T> operator*=(const T s);
+
+	Quaternion<T>& operator*=(const Quaternion<T>& s);
 
 	Quaternion<T> operator/=(const T s);
 

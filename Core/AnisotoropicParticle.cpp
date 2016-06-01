@@ -14,6 +14,11 @@ AnisotoropicParticle::AnisotoropicParticle(const Ellipsoid<float>& ellipsoid, co
 {
 }
 
+void AnisotoropicParticle::rotate(const Quaternion<float>& q)
+{
+	orientation *= q;
+}
+
 Matrix3d<float> AnisotoropicParticle::getMatrix() const
 {
 	return Matrix3d<float>();

@@ -83,6 +83,7 @@ bool Quaternion<T>::isNormalized() const
 	return Tolerance<T>::isEqualStrictly(getNorm(), 1.0);
 }
 
+/*
 template<typename T>
 void Quaternion<T>::getMult(const Quaternion& q1, const Quaternion& q2)
 {
@@ -101,6 +102,7 @@ void Quaternion<T>::getMult(const Quaternion& q1, const Quaternion& q2)
 	this->y = pw * qy - px * qz + py * qw + pz * qx;
 	this->z = pw * qz + px * qy - py * qx + pz * qw;
 }
+*/
 
 template<typename T>
 Quaternion<T> Quaternion<T>::mult(const Quaternion<T>& rhs) const
@@ -161,6 +163,14 @@ Quaternion<T> Quaternion<T>::operator*=(const T s)
 	this->w *= s;
 	return *this;
 }
+
+template<typename T>
+Quaternion<T>& Quaternion<T>::operator*=(const Quaternion<T>& s)
+{
+	*this = mult(s);
+	return *this;
+}
+
 
 template<typename T>
 Quaternion<T> Quaternion<T>::operator/=(const T s)

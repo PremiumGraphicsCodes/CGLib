@@ -18,6 +18,10 @@ public:
 
 	Math::Matrix3d<float> getMatrix() const;
 
+	void rotate(const Math::Quaternion<float>& q);
+
+	//void scale(const Math::)
+
 private:
 	Math::Vector3d<float> scale;
 	Math::Quaternion<float> orientation;

@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="OctTree.cpp" />
-    <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Actor.cpp">
       <Filter>Actor</Filter>
@@ -41,13 +40,15 @@
     <ClCompile Include="AnisotoropicParticle.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleObject.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="OctTree.h" />
-    <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Actor.h">
       <Filter>Actor</Filter>
@@ -86,6 +87,9 @@
       <Filter>Particle</Filter>
     </ClInclude>
     <ClInclude Include="IParticle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleObject.h">
       <Filter>Particle</Filter>
     </ClInclude>
   </ItemGroup>
