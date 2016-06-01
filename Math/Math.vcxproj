@@ -25,11 +25,13 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Degree.h" />
     <ClInclude Include="Ellipsoid.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Radian.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
@@ -56,6 +58,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Cone.cpp" />
     <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="Degree.cpp" />
     <ClCompile Include="Ellipsoid.cpp" />
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />
@@ -68,6 +71,7 @@
     <ClCompile Include="Plane3d.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Radian.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Sphere.cpp" />

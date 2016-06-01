@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Angle.cpp" />
     <ClCompile Include="Box2d.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Grid1d.cpp" />
@@ -37,9 +36,17 @@
     <ClCompile Include="Ellipsoid.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Angle.cpp">
+      <Filter>Angle</Filter>
+    </ClCompile>
+    <ClCompile Include="Degree.cpp">
+      <Filter>Angle</Filter>
+    </ClCompile>
+    <ClCompile Include="Radian.cpp">
+      <Filter>Angle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Angle.h" />
     <ClInclude Include="Box2d.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Grid3d.h" />
@@ -78,10 +85,22 @@
     <ClInclude Include="Ellipsoid.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
+    <ClInclude Include="Angle.h">
+      <Filter>Angle</Filter>
+    </ClInclude>
+    <ClInclude Include="Degree.h">
+      <Filter>Angle</Filter>
+    </ClInclude>
+    <ClInclude Include="Radian.h">
+      <Filter>Angle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
       <UniqueIdentifier>{6175cf8a-fa30-40b3-85a5-a1883a2e303e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Angle">
+      <UniqueIdentifier>{8738b880-7378-4faa-ade0-b2ad5e179e86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
