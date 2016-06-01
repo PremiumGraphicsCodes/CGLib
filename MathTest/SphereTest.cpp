@@ -54,8 +54,16 @@ TEST(SphereTest, TestIsOnStrictly)
 
 TEST(SphereTest, TestGetPosition)
 {
-	Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
-	const auto actual = s.getPosition(Angle<float>(Degree<float>(0)), Angle<float>(Degree<float>(0)));
-	const Vector3d<float>expected(0, 0, 1);
-	EXPECT_EQ(expected, actual);
+	const Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
+	{
+		const auto actual = s.getPosition(Angle<float>::Zero(), Angle<float>::Zero());
+		const Vector3d<float>expected(0, 0, 1);
+		EXPECT_EQ(expected, actual);
+	}
+	{
+		const auto actual = s.getPosition(Angle<float>::Zero(), Angle<float>::PI());
+		const Vector3d<float>expected(0, 0, -1);
+		EXPECT_EQ(expected, actual);
+	}
+
 }

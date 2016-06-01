@@ -127,24 +127,31 @@ bool Angle<T>::operator>(const Angle<T> rhs) const
 }
 
 template<typename T>
-Angle<T> Angle<T>::getHalfPI()
+Angle<T> Angle<T>::Zero()
+{
+	return Angle<T>(Degree<T>(0));
+}
+
+template<typename T>
+Angle<T> Angle<T>::HalfPI()
 {
 	return Angle<T>(Degree<T>(90));
 }
 
 template<typename T>
-Angle<T> Angle<T>::getPI()
+Angle<T> Angle<T>::PI()
 {
 	return Angle<T>(Degree<T>(180));
 }
 
 template<typename T>
-Angle<T> Angle<T>::getDoublePI()
+Angle<T> Angle<T>::DoublePI()
 {
 	return Angle<T>(Degree<T>(360));
 
 }
 
+/*
 template<typename T>
 T Angle<T>::getX() const
 {
@@ -156,17 +163,17 @@ T Angle<T>::getY() const
 {
 	return ::sin(deg.get());
 }
-
+*/
 template<typename T>
 T Angle<T>::getSin() const
 {
-	return ::sin(deg.get());
+	return ::sin(getRadian().get());
 }
 
 template<typename T>
 T Angle<T>::getCos() const
 {
-	return ::cos(deg.get());
+	return ::cos(getRadian().get());
 }
 
 

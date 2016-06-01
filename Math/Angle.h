@@ -77,16 +77,18 @@ public:
 
 	//static T getZero() { return T{ 0 }; }
 
-	static Angle<T> getHalfPI();
+	static Angle<T> Zero();
 
-	static Angle<T> getPI();
+	static Angle<T> HalfPI();
 
-	static Angle<T> getDoublePI();
+	static Angle<T> PI();
+
+	static Angle<T> DoublePI();
 
 
-	T getX() const;
+	//T getX() const;
 
-	T getY() const;
+	//T getY() const;
 
 	T getSin() const;
 
