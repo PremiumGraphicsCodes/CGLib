@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_POLYGON_PARTICLE_H__
 #define __CRYSTAL_POLYGON_PARTICLE_H__
 
+#include "IParticle.h"
+
 #include "../Math/Vector3d.h"
 
 namespace Crystal {
@@ -10,20 +12,13 @@ namespace Crystal {
 	}
 	namespace Core {
 
-class Particle
+class Particle : public IParticle
 {
 public:
 
-	Particle(const int id = -1) :
-		id(id)
-	{}
+	Particle(const int id = -1);
 
-	Particle(const Math::Vector3d<float>& position, const float density, const float radius, const int id = -1) :
-		position(position),
-		radius(radius),
-		density(density),
-		id(id)
-	{}
+	Particle(const Math::Vector3d<float>& position, const float density, const float radius, const int id = -1);
 
 	virtual ~Particle() {}
 
@@ -65,13 +60,7 @@ public:
 
 	int getId() const { return id; }
 
-protected:
-	float density;
-
-
 private:
-	Math::Vector3d<float> position;
-	const int id;
 	float radius;
 };
 

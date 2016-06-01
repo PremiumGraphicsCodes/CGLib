@@ -34,7 +34,7 @@ void Bone::clear()
 
 Bone* Bone::createChild(Joint* childDest)
 {
-	auto b = new Bone(dest, childDest, 1.0f);
+	auto b = new Bone(dest, childDest, 1);
 	children.push_back(b);
 	return b;
 }

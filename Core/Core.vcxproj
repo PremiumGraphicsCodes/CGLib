@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AnisotoropicParticle.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Joint.cpp" />
@@ -37,10 +38,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="AnisotoropicParticle.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoneTree.h" />
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
+    <ClInclude Include="IParticle.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="OctTree.h" />

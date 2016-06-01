@@ -5,6 +5,15 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+Particle::Particle(const int id) :
+	IParticle(id)
+{}
+
+Particle::Particle(const Vector3d<float>& position, const float density, const float radius, const int id) :
+	IParticle(position, density, id),
+	radius(radius)
+{}
+
 Box3d<float> Particle::getBoundingBox() const
 {
 	const auto minx = position.getX() - radius;

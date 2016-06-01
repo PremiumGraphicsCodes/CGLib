@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="OctTree.cpp" />
-    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Actor.cpp">
@@ -36,13 +35,18 @@
     <ClCompile Include="Volume.cpp">
       <Filter>Volume</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="AnisotoropicParticle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="OctTree.h" />
-    <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Actor.h">
@@ -75,6 +79,15 @@
     <ClInclude Include="Volume.h">
       <Filter>Volume</Filter>
     </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="AnisotoropicParticle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="IParticle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -85,6 +98,9 @@
     </Filter>
     <Filter Include="PolygonMesh">
       <UniqueIdentifier>{faef21cc-daac-4e23-9b00-4756b8033c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{2aab52e0-62b7-4d8f-970b-4b61c2cd08a3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
