@@ -97,27 +97,52 @@ Angle<T>::Angle(const Radian<T> rad) :
 {}
 
 template<typename T>
-bool Angle<T>::equals(const Degree<T> rhs) const
+bool Angle<T>::equals(const Angle<T> rhs) const
 {
-	return deg.equals(rhs);
+	return deg.equals(rhs.deg);
 }
 
 template<typename T>
-bool Angle<T>::operator==(const Degree<T> rhs) const
+bool Angle<T>::operator==(const Angle<T> rhs) const
 {
 	return equals(rhs);
 }
 
 template<typename T>
-bool Angle<T>::operator!=(const Degree<T> rhs) const
+bool Angle<T>::operator!=(const Angle<T> rhs) const
 {
 	return !equals(rhs);
 }
 
 template<typename T>
-T Angle<T>::getPI()
+bool Angle<T>::operator<(const Angle<T> rhs) const
 {
-	return Tolerance<T>::getPI();
+	return this->deg.get() < rhs.deg.get();
+}
+
+template<typename T>
+bool Angle<T>::operator>(const Angle<T> rhs) const
+{
+	return this->deg.get() < rhs.deg.get();
+}
+
+template<typename T>
+Angle<T> Angle<T>::getHalfPI()
+{
+	return Angle<T>(Degree<T>(90));
+}
+
+template<typename T>
+Angle<T> Angle<T>::getPI()
+{
+	return Angle<T>(Degree<T>(180));
+}
+
+template<typename T>
+Angle<T> Angle<T>::getDoublePI()
+{
+	return Angle<T>(Degree<T>(360));
+
 }
 
 template<typename T>
@@ -132,6 +157,17 @@ T Angle<T>::getY() const
 	return ::sin(deg.get());
 }
 
+template<typename T>
+T Angle<T>::getSin() const
+{
+	return ::sin(deg.get());
+}
+
+template<typename T>
+T Angle<T>::getCos() const
+{
+	return ::cos(deg.get());
+}
 
 
 template class Degree<float>;

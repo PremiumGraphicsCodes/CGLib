@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_SPHERE_H__
 
 #include "Vector3d.h"
-
+#include "Angle.h"
 
 #include <vector>
 #include <cassert>
@@ -30,6 +30,8 @@ public:
 	Math::Box3d<T> getBoundingBox() const;
 
 	std::vector<Vector3d<T>> toPoints(const T divideLength) const;
+
+	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
 
 	Vector3d<T> getCenter() const { return center; }
 

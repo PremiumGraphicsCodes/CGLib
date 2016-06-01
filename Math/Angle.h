@@ -65,17 +65,32 @@ public:
 
 	Radian<T> getRadian() const { return deg.toRadian(); }
 
-	bool equals(const Degree<T> rhs) const;
+	bool equals(const Angle<T> rhs) const;
 
-	bool operator==(const Degree<T> rhs) const;
+	bool operator==(const Angle<T> rhs) const;
 
-	bool operator!=(const Degree<T> rhs) const;
+	bool operator!=(const Angle<T> rhs) const;
 
-	static T getPI();
+	bool operator<(const Angle<T> rhs) const;
+
+	bool operator>(const Angle<T> rhs) const;
+
+	//static T getZero() { return T{ 0 }; }
+
+	static Angle<T> getHalfPI();
+
+	static Angle<T> getPI();
+
+	static Angle<T> getDoublePI();
+
 
 	T getX() const;
 
 	T getY() const;
+
+	T getSin() const;
+
+	T getCos() const;
 
 private:
 	Degree<T> deg;
