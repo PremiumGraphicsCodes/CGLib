@@ -9,12 +9,12 @@
 namespace Crystal {
 	namespace Core {
 
-class AnisotoropicParticle : public Particle
+class AnisotoropicParticle : public IParticle
 {
 public:
 	AnisotoropicParticle(const int id = -1);
 
-	explicit AnisotoropicParticle(const Math::Ellipsoid<float>& ellipsoid, const int id = -1);
+	explicit AnisotoropicParticle(const Math::Ellipsoid<float>& ellipsoid, const float density, const int id = -1);
 
 	Math::Matrix3d<float> getMatrix() const;
 

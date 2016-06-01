@@ -21,6 +21,12 @@ public:
 
 	virtual ~IParticle() = default;
 
+	void move(const Math::Vector3d<float>& center) { this->position += center; }
+
+	void moveTo(const Math::Vector3d<float>& center) { this->position = center; }
+
+	Math::Vector3d<float> getPosition() const { return position; }
+
 protected:
 	Math::Vector3d<float> position;
 	float density;

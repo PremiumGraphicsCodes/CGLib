@@ -4,16 +4,15 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 
 AnisotoropicParticle::AnisotoropicParticle(const int id)
-	: Particle(id)
+	: IParticle(id)
 {}
 
-/*
-AnisotoropicParticle::AnisotoropicParticle(const Ellipsoid<float>& ellipsoid, const int id) :
-	Particle(ellipsoid.getPosition(),)
+AnisotoropicParticle::AnisotoropicParticle(const Ellipsoid<float>& ellipsoid, const float density, const int id) :
+	IParticle(ellipsoid.getCenter(),density, id),
+	scale(ellipsoid.getRadii()),
+	orientation(Quaternion<float>::Unit())
 {
-
 }
-*/
 
 Matrix3d<float> AnisotoropicParticle::getMatrix() const
 {

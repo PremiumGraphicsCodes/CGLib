@@ -17,7 +17,11 @@ public:
 
 	T getVolume() const;
 
+	Vector3d<T> getCenter() const { return center; }
+
 	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
+
+	Vector3d<T> getRadii() const { return radii; }
 
 private:
 	Vector3d<T> center;

@@ -19,6 +19,8 @@ public:
 
 	Quaternion(const Vector3d<T>& axis, const T angle);
 
+	static Quaternion Unit() { return Quaternion(0, 0, 0, 1); }
+
 	Matrix3d<T> toMatrix() const;
 
 	Quaternion& operator+=(const Quaternion& rhs);
