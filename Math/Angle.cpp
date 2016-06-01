@@ -114,6 +114,25 @@ bool Angle<T>::operator!=(const Degree<T> rhs) const
 	return !equals(rhs);
 }
 
+template<typename T>
+T Angle<T>::getPI()
+{
+	return Tolerance<T>::getPI();
+}
+
+template<typename T>
+T Angle<T>::getX() const
+{
+	return ::cos(deg.get());
+}
+
+template<typename T>
+T Angle<T>::getY() const
+{
+	return ::sin(deg.get());
+}
+
+
 
 template class Degree<float>;
 template class Degree<double>;

@@ -34,6 +34,9 @@
     <ClCompile Include="Cylinder.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Ellipsoid.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Angle.h" />
@@ -70,6 +73,9 @@
       <Filter>Primitive3d</Filter>
     </ClInclude>
     <ClInclude Include="Cylinder.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipsoid.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
   </ItemGroup>

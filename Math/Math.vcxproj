@@ -25,6 +25,7 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Ellipsoid.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
@@ -55,6 +56,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Cone.cpp" />
     <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="Ellipsoid.cpp" />
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />

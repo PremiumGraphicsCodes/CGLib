@@ -71,6 +71,11 @@ public:
 
 	bool operator!=(const Degree<T> rhs) const;
 
+	static T getPI();
+
+	T getX() const;
+
+	T getY() const;
 
 private:
 	Degree<T> deg;
