@@ -3,24 +3,13 @@
   <ItemGroup>
     <ClCompile Include="Box2d.cpp" />
     <ClCompile Include="Circle.cpp" />
-    <ClCompile Include="Grid1d.cpp" />
-    <ClCompile Include="Grid2d.cpp" />
-    <ClCompile Include="Grid3d.cpp" />
     <ClCompile Include="Line3d.cpp" />
-    <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="Matrix2d.cpp" />
-    <ClCompile Include="Matrix3d.cpp" />
-    <ClCompile Include="Matrix4d.cpp" />
     <ClCompile Include="Plane3d.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Triangle.cpp" />
-    <ClCompile Include="Vector.cpp" />
-    <ClCompile Include="Vector3d.cpp" />
-    <ClCompile Include="Vector2d.cpp" />
-    <ClCompile Include="Vector4d.cpp" />
     <ClCompile Include="Box3d.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
@@ -45,21 +34,54 @@
     <ClCompile Include="Radian.cpp">
       <Filter>Angle</Filter>
     </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2d.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3d.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4d.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix2d.cpp">
+      <Filter>Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix3d.cpp">
+      <Filter>Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4d.cpp">
+      <Filter>Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="Param.cpp">
+      <Filter>Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="AngleParam.cpp">
+      <Filter>Parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="Curve3d.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid1d.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid2d.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid3d.cpp">
+      <Filter>Grid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2d.h" />
     <ClInclude Include="Circle.h" />
-    <ClInclude Include="Grid3d.h" />
-    <ClInclude Include="Grid1d.h" />
-    <ClInclude Include="Grid2d.h" />
-    <ClInclude Include="Matrix.h" />
-    <ClInclude Include="Vector.h" />
-    <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
     <ClInclude Include="Line3d.h" />
-    <ClInclude Include="Matrix2d.h" />
-    <ClInclude Include="Matrix3d.h" />
-    <ClInclude Include="Matrix4d.h" />
     <ClInclude Include="Plane3d.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
@@ -67,9 +89,6 @@
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Tolerance.h" />
     <ClInclude Include="Triangle.h" />
-    <ClInclude Include="Vector3d.h" />
-    <ClInclude Include="Vector2d.h" />
-    <ClInclude Include="Vector4d.h" />
     <ClInclude Include="Box3d.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
@@ -94,6 +113,54 @@
     <ClInclude Include="Radian.h">
       <Filter>Angle</Filter>
     </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2d.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3d.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4d.h">
+      <Filter>Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2d.h">
+      <Filter>Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix3d.h">
+      <Filter>Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4d.h">
+      <Filter>Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Param.h">
+      <Filter>Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="AngleParam.h">
+      <Filter>Parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Curve3d.h">
+      <Filter>Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="Index3d.h">
+      <Filter>Index</Filter>
+    </ClInclude>
+    <ClInclude Include="Index2d.h">
+      <Filter>Index</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid1d.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid2d.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid3d.h">
+      <Filter>Grid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
@@ -101,6 +168,24 @@
     </Filter>
     <Filter Include="Angle">
       <UniqueIdentifier>{8738b880-7378-4faa-ade0-b2ad5e179e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vector">
+      <UniqueIdentifier>{f0cbfdec-2db4-4101-be20-22fac042b48e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Matrix">
+      <UniqueIdentifier>{1feb1578-058b-473f-9c35-961ab95646d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parameter">
+      <UniqueIdentifier>{5430b555-4ece-4353-affe-585eab30d123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Curve">
+      <UniqueIdentifier>{f95e12e6-7afb-45ab-9ebd-515a02bd39e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Index">
+      <UniqueIdentifier>{8c43ae05-1828-46e7-8678-d41a9834a2f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Grid">
+      <UniqueIdentifier>{1170d314-44a6-475d-8b57-66d5b5d631d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

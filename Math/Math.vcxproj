@@ -20,17 +20,21 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Angle.h" />
+    <ClInclude Include="AngleParam.h" />
     <ClInclude Include="Box3d.h" />
     <ClInclude Include="Box2d.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Cone.h" />
+    <ClInclude Include="Curve3d.h" />
     <ClInclude Include="Cylinder.h" />
     <ClInclude Include="Degree.h" />
     <ClInclude Include="Ellipsoid.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
+    <ClInclude Include="Index2d.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Param.h" />
     <ClInclude Include="Radian.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Index3d.h" />
@@ -53,10 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Angle.cpp" />
+    <ClCompile Include="AngleParam.cpp" />
     <ClCompile Include="Box3d.cpp" />
     <ClCompile Include="Box2d.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Cone.cpp" />
+    <ClCompile Include="Curve3d.cpp" />
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Degree.cpp" />
     <ClCompile Include="Ellipsoid.cpp" />
@@ -68,6 +74,7 @@
     <ClCompile Include="Matrix2d.cpp" />
     <ClCompile Include="Matrix3d.cpp" />
     <ClCompile Include="Matrix4d.cpp" />
+    <ClCompile Include="Param.cpp" />
     <ClCompile Include="Plane3d.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Quaternion.cpp" />

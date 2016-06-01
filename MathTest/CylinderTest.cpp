@@ -6,6 +6,14 @@ using namespace Crystal::Math;
 
 TEST(CylinderTest, TestGetVolume)
 {
-	Cylinder<float> cylinder(1.0, 1.0 );
+	Cylinder<float> cylinder(Vector3d<float>(0,0,0), 1.0, 1.0 );
 	EXPECT_EQ( Tolerance<float>::getPI(), cylinder.getVolume() );
 }
+
+/*
+TEST(CylinderTest, TestGetPosition)
+{
+	Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0);
+	cylinder.getPosition();
+}
+*/
