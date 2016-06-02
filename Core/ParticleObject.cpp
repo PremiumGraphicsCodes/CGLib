@@ -92,10 +92,10 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 	return results;
 }
 
-#include "../Physics/SPHKernel.h"
+#include "../Math/SPHKernel.h"
 
 namespace {
-	Crystal::Physics::SPHKernel<float> kernel;
+	Crystal::Math::SPHKernel<float> kernel;
 	float getPoly6Kernel(const float distance, const float effectLength) {
 		return kernel.getPoly6Kernel(distance, effectLength);
 	}

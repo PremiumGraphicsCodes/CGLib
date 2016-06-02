@@ -35,7 +35,6 @@
     <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="Surfels.h" />
@@ -55,7 +54,6 @@
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
-    <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="SurfaceBuilder.cpp" />
     <ClCompile Include="Surfels.cpp" />

@@ -79,6 +79,9 @@
     <ClCompile Include="Kernel.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
+    <ClCompile Include="SPHKernel.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2d.h" />
@@ -164,6 +167,9 @@
       <Filter>Grid</Filter>
     </ClInclude>
     <ClInclude Include="Kernel.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="SPHKernel.h">
       <Filter>Kernel</Filter>
     </ClInclude>
   </ItemGroup>

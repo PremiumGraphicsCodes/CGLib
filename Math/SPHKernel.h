@@ -1,10 +1,10 @@
-#ifndef __CRYSTAL_PHYSICS_SPH_KERNEL_H__
-#define __CRYSTAL_PHYSICS_SPH_KERNEL_H__
+#ifndef __CRYSTAL_MATH_SPH_KERNEL_H__
+#define __CRYSTAL_MATH_SPH_KERNEL_H__
 
 #include "../Math/Vector3d.h"
 
 namespace Crystal {
-	namespace Physics {
+	namespace Math {
 
 template<typename GeomType>
 class SPHKernel

@@ -1,7 +1,6 @@
 #include "SPHKernel.h"
 
 using namespace Crystal::Math;
-using namespace Crystal::Physics;
 
 template<typename GeomType>
 float SPHKernel<GeomType>::getPoly6Kernel(const GeomType distance, const GeomType effectLength) {

@@ -1,6 +1,6 @@
 #include "SPHParticle.h"
 
-#include "SPHKernel.h"
+#include "../Math/SPHKernel.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

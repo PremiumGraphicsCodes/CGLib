@@ -36,6 +36,7 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Param.h" />
     <ClInclude Include="Radian.h" />
+    <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
@@ -83,6 +84,7 @@
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3d.cpp" />

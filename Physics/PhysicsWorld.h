@@ -2,7 +2,7 @@
 #define __CRYSTAL_PHYSICS_PHYSICS_WORLD_H__
 
 #include "PhysicsObject.h"
-#include "SPHKernel.h"
+#include "../Math/SPHKernel.h"
 #include "../Math/Box3d.h"
 #include <vector>
 
@@ -41,7 +41,7 @@ private:
 	int timeStep;
 	std::vector< PhysicsObject* > objects;
 	Math::Vector3d<float> externalForce;
-	SPHKernel<float> kernel;
+	Math::SPHKernel<float> kernel;
 	Math::Box3d<float> boundary;
 	std::vector<BulletRigid*> bulletRigids;
 
