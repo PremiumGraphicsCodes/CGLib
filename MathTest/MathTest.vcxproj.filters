@@ -26,5 +26,6 @@
     <ClCompile Include="AngleTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="EllipsoidTest.cpp" />
+    <ClCompile Include="SPHKernelTest.cpp" />
   </ItemGroup>
 </Project>
