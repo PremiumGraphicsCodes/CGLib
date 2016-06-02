@@ -13,6 +13,8 @@ class Ellipsoid
 public:
 	Ellipsoid();
 
+	Ellipsoid(const Vector3d<T>& center, const T radius);
+
 	Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii);
 
 	T getVolume() const;

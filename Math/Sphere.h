@@ -10,8 +10,10 @@
 
 namespace Crystal {
 	namespace Math {
-		template<typename T>
+		template<typename>
 		class Box3d;
+		template<typename>
+		class Ellipsoid;
 
 template<typename T>
 class Sphere final
@@ -23,9 +25,7 @@ public:
 
 	Sphere(const Math::Box3d<T>& boundingBox);
 
-	static Sphere UnitSphere() {
-		return Sphere( Vector3d<T>::Zero(), 1.0f );
-	}
+	static Sphere UnitSphere();
 
 	Math::Box3d<T> getBoundingBox() const;
 
@@ -58,38 +58,23 @@ public:
 		assert( isValid() );
 	}
 
-	Sphere getInnerOffset(const float offsetLength) const {
-		Sphere sphere = *this;
-		sphere.radius -= offsetLength;
-		assert( sphere.isValid() );
-		return sphere;
-	}
+	Sphere getInnerOffset(const float offsetLength) const;
 
-	bool equals( const Sphere& rhs ) const {
-		return
-			Tolerance<T>::isEqualLoosely( radius, rhs.radius) &&
-			( center == rhs.center );
-	}
+	bool equals(const Sphere& rhs) const;
 
-	bool operator==( const Sphere& rhs ) const {
-		return equals( rhs );
-	}
+	bool operator==(const Sphere& rhs) const;
 
-	bool isOuter(const Vector3d<T>& v) const {
-		return v.getDistanceSquared(center) > (radius * radius);
-	}
+	bool operator!=(const Sphere& rhs) const;
 
-	bool isInner(const Vector3d<T>& v) const {
-		return v.getDistanceSquared(center) < (radius * radius);
-	}
+	bool isInner(const Vector3d<T>& v) const;
 
-	bool isOnStrictly(const Vector3d<T>& v) const {
-		return Tolerance<T>::isEqualStrictly(v.getDistanceSquared(center), radius * radius);
-	}
+	bool isOuter(const Vector3d<T>& v) const;
 
-	bool isOnLoosely(const Vector3d<T>& v) const {
-		return Tolerance<T>::isEqualLoosely(v.getDistanceSquared(center), radius * radius);
-	}
+	bool isOnStrictly(const Vector3d<T>& v) const;
+
+	bool isOnLoosely(const Vector3d<T>& v) const;
+
+	Ellipsoid<T> toEllipsoid() const;
 
 private:
 	Vector3d<T> center;

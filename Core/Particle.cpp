@@ -1,4 +1,5 @@
 #include "Particle.h"
+#include "AnisotoropicParticle.h"
 
 #include "../Math/Box3d.h"
 
@@ -57,4 +58,10 @@ bool Particle::operator==(const Particle& rhs) const
 bool Particle::operator!=(const Particle& rhs) const
 {
 	return !equals(rhs);
+}
+
+AnisotoropicParticle Particle::toAnisotoropic(const int newId) const
+{
+	Ellipsoid<float> e(getPosition(),radius);
+	return AnisotoropicParticle(e, density, newId);
 }

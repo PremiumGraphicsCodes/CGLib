@@ -11,6 +11,7 @@ namespace Crystal {
 		class Box3d;
 	}
 	namespace Core {
+		class AnisotoropicParticle;
 
 class Particle : public IParticle
 {
@@ -51,6 +52,8 @@ public:
 	void rotate(const Math::Matrix3d<float>& matrix) {
 		position.rotate(matrix);
 	}
+
+	AnisotoropicParticle toAnisotoropic(const int newId = -1) const;
 
 private:
 	float radius;

@@ -32,12 +32,10 @@ TEST(AnisotoropicParticleTest, TestGetBoundingBox)
 
 	{
 		const Ellipsoid<float> e(Vector3d<float>(0, 0, 0), Vector3d<float>(2, 1, 1));
-		AnisotoropicParticle particle(e, 1);
-		particle.rotate(Quaternion<float>(Vector3d<float>(0, 0, 1), Tolerance<float>::getHalfPI()));
+		const Quaternion<float> orientation(Vector3d<float>(0, 0, 1), Tolerance<float>::getHalfPI());
+		const AnisotoropicParticle particle(e, 1, orientation);
 		const auto& actual = particle.getBoundingBox();
 		const Box3d<float> expected(Vector3d<float>(-1, -2, -1), Vector3d<float>(1, 2, 1));
 		EXPECT_EQ(expected, actual);
 	}
-
-
 }

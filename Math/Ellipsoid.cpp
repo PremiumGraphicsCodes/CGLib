@@ -9,6 +9,13 @@ Ellipsoid<T>::Ellipsoid() :
 {}
 
 template<typename T>
+Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const T radius) :
+	center( center ),
+	radii(radius, radius, radius)
+{
+}
+
+template<typename T>
 Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii) :
 	center( center ),
 	radii( radii )

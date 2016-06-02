@@ -15,6 +15,13 @@ AnisotoropicParticle::AnisotoropicParticle(const Ellipsoid<float>& ellipsoid, co
 {
 }
 
+AnisotoropicParticle::AnisotoropicParticle(const Ellipsoid<float>& ellipsoid, const float density, const Quaternion<float>& orientation, const int id) :
+	IParticle(ellipsoid.getCenter(),density, id),
+	radii(ellipsoid.getRadii()),
+	orientation(orientation)
+{
+}
+
 void AnisotoropicParticle::rotate(const Quaternion<float>& q)
 {
 	orientation *= q;
@@ -43,7 +50,7 @@ Box3d<float> AnisotoropicParticle::getBoundingBox() const
 	//const auto v2 = v1;
 	const Vector3d<float> v1(x, y, z);
 	const Vector3d<float> v2(-x,-y,-z);
-	return Box3d<float>(v1,v2);
+	return Box3d<float>(v1 + getPosition(),v2 + getPosition());
 }
 
 float AnisotoropicParticle::getBoundingRadius() const
@@ -70,4 +77,10 @@ Matrix3d<float> AnisotoropicParticle::getMatrix() const
 	const auto& scaling = getScalingMatrix();
 	const auto& invRotation = rotation.transposed();
 	return rotation * scaling * invRotation;
+}
+
+AnisotoropicParticle* AnisotoropicParticle::clone(const int newId) const
+{
+	Ellipsoid<float> e(this->getPosition(), radii);
+	return new AnisotoropicParticle(e, density, orientation, newId);
 }

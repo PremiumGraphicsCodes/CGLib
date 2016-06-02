@@ -15,7 +15,9 @@ class AnisotoropicParticle : public IParticle
 public:
 	AnisotoropicParticle(const int id = -1);
 
-	explicit AnisotoropicParticle(const Math::Ellipsoid<float>& ellipsoid, const float density, const int id = -1);
+	AnisotoropicParticle(const Math::Ellipsoid<float>& ellipsoid, const float density, const int id = -1);
+
+	AnisotoropicParticle(const Math::Ellipsoid<float>& ellipsoid, const float density, const Math::Quaternion<float>& orientation, const int id = -1);
 
 	Math::Matrix3d<float> getMatrix() const;
 
@@ -25,12 +27,13 @@ public:
 
 	float getBoundingRadius() const override;
 
-
 	Math::Matrix3d<float> getScalingMatrix() const;
 
 	Math::Matrix3d<float> getRotationMatrix() const;
 
 	//void scale(const Math::)
+
+	AnisotoropicParticle* clone(const int newId = -1) const;
 
 private:
 	Math::Vector3d<float> radii;

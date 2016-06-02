@@ -1,6 +1,7 @@
 #include "Sphere.h"
 
 #include "Box3d.h"
+#include "Ellipsoid.h"
 
 using namespace Crystal::Math;
 
@@ -23,6 +24,13 @@ Sphere<T>::Sphere(const Box3d<T>& boundingBox)
 	const Vector3d<T>& length = boundingBox.getLength();
 	radius = std::min<T>(std::min<T>(length.getX(), length.getY()), length.getZ()) * T{ 0.5 };
 }
+
+template<typename T>
+Sphere<T> Sphere<T>::UnitSphere()
+{
+	return Sphere<T>(Vector3d<T>::Zero(), 1.0f);
+}
+
 
 template<typename T>
 Box3d<T> Sphere<T>::getBoundingBox() const {
@@ -61,6 +69,69 @@ Vector3d<T> Sphere<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 	const auto y = radius * u.getSin() * v.getSin();
 	const auto z = radius * v.getCos();
 	return Vector3d<T>(x, y, z);
+}
+
+template<typename T>
+Sphere<T> Sphere<T>::getInnerOffset(const float offsetLength) const
+{
+	Sphere sphere = *this;
+	sphere.radius -= offsetLength;
+	assert(sphere.isValid());
+	return sphere;
+}
+
+
+template<typename T>
+bool Sphere<T>::equals(const Sphere& rhs) const
+{
+	return
+		Tolerance<T>::isEqualLoosely(radius, rhs.radius) &&
+		(center == rhs.center);
+}
+
+
+template<typename T>
+bool Sphere<T>::operator==(const Sphere& rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Sphere<T>::operator!=(const Sphere& rhs) const
+{
+	return !equals(rhs);
+}
+
+template<typename T>
+bool Sphere<T>::isInner(const Vector3d<T>& v) const
+{
+	return v.getDistanceSquared(center) < (radius * radius);
+}
+
+template<typename T>
+bool Sphere<T>::isOuter(const Vector3d<T>& v) const
+{
+	return v.getDistanceSquared(center) > (radius * radius);
+}
+
+
+template<typename T>
+bool Sphere<T>::isOnStrictly(const Vector3d<T>& v) const
+{
+	return Tolerance<T>::isEqualStrictly(v.getDistanceSquared(center), radius * radius);
+}
+
+template<typename T>
+bool Sphere<T>::isOnLoosely(const Vector3d<T>& v) const
+{
+	return Tolerance<T>::isEqualLoosely(v.getDistanceSquared(center), radius * radius);
+}
+
+
+template<typename T>
+Ellipsoid<T> Sphere<T>::toEllipsoid() const
+{
+	return Ellipsoid<T>(this->getCenter(), this->getRadius());
 }
 
 
