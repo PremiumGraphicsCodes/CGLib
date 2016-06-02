@@ -5,6 +5,7 @@
 
 #include "../Math/Ellipsoid.h"
 #include "../Math/Quaternion.h"
+#include "../Math/Matrix4d.h"
 
 namespace Crystal {
 	namespace Core {
@@ -24,10 +25,15 @@ public:
 
 	float getBoundingRadius() const override;
 
+
+	Math::Matrix3d<float> getScalingMatrix() const;
+
+	Math::Matrix3d<float> getRotationMatrix() const;
+
 	//void scale(const Math::)
 
 private:
-	Math::Vector3d<float> scale;
+	Math::Vector3d<float> radii;
 	Math::Quaternion<float> orientation;
 
 	//Math::Matrix3d<float> matrix;
