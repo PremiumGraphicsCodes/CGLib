@@ -121,7 +121,7 @@ PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDe
 		for (int i = 0; i < 8; ++i) {
 			for (const auto& particle : c.getParticles()) {
 				const auto dist2 = poss[i].getDistanceSquared(particle->getPosition());
-				const auto radiusSquared = particle->getRadius() * particle->getRadius();
+				const auto radiusSquared = particle->getBoundingRadius() * particle->getBoundingRadius();
 				if (dist2 < radiusSquared) {
 					const auto value = kernel.getPoly6Kernel(std::sqrt(dist2), std::sqrt(radiusSquared)) * particle->getDensity();
 					values[i] += value;

@@ -6,6 +6,20 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+TEST(OctTreeTest, TestIsNeighbor)
+{
+	Space3d<float> space(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(2.0f, 2.0f, 2.0f));
+	OctTree tree(space);
+	{
+		Particle particle(Vector3d<float>(0.5, 0.5, 0.5), 0.0f, 0.5);
+		EXPECT_TRUE(tree.isNeighbor(&particle));
+	}
+	{
+		Particle particle(Vector3d<float>(-1.0, 0.5, 0.5), 0.0f, 0.5);
+		EXPECT_FALSE(tree.isNeighbor(&particle));
+	}
+}
+
 TEST(OctTreeTest, CreateChildren)
 {
 	Space3d<float> space( Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(2.0f, 2.0f, 2.0f) );

@@ -8,25 +8,28 @@ OctTree::OctTree(const Space3d<float>& space) :
 	space(space)
 {}
 
-bool OctTree::isNeighbor(Particle* particle) const
+bool OctTree::isNeighbor(IParticle* particle) const
 {
 	const auto& position = particle->getPosition();
-	const auto offset = particle->getRadius();
+	const auto bb = particle->getBoundingBox();
+	const auto offsetx = bb.getLength().getX() * 0.5f;
 	//const auto bb = this->getBoundingBox().getOuterOffset(offset);
-	const auto minx = space.getStart().getX() - offset;
-	const auto maxx = space.getEnd().getX() + offset;
+	const auto minx = space.getStart().getX() - offsetx;
+	const auto maxx = space.getEnd().getX() + offsetx;
 	const auto x = position.getX();
 	if( x < minx || maxx < x) {
 		return false;
 	}
-	const auto miny = space.getStart().getY() - offset;
-	const auto maxy = space.getEnd().getY() + offset;
+	const auto offsety = bb.getLength().getY() * 0.5f;
+	const auto miny = space.getStart().getY() - offsety;
+	const auto maxy = space.getEnd().getY() + offsety;
 	const auto y = position.getY();
 	if (y < miny || maxy < y) {
 		return false;
 	}
-	const auto minz = space.getStart().getZ() - offset;
-	const auto maxz = space.getEnd().getZ() + offset;
+	const auto offsetz = bb.getLength().getZ() * 0.5f;
+	const auto minz = space.getStart().getZ() - offsetz;
+	const auto maxz = space.getEnd().getZ() + offsetz;
 	const auto z = position.getZ();
 	if (z < minz || maxz < z) {
 		return false;

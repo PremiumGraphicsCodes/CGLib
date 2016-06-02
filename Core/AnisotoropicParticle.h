@@ -20,6 +20,10 @@ public:
 
 	void rotate(const Math::Quaternion<float>& q);
 
+	Math::Box3d<float> getBoundingBox() const override;
+
+	float getBoundingRadius() const override;
+
 	//void scale(const Math::)
 
 private:

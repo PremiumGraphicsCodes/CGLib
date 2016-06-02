@@ -24,13 +24,13 @@ public:
 
 	Particle createBlended(const Particle& rhs, const float ratio) const;
 
-	Math::Box3d<float> getBoundingBox() const;
-
-	float getDensity() const { return density; }
+	Math::Box3d<float> getBoundingBox() const override;
 
 	Particle* clone() const {
 		return new Particle(position, density, radius);
 	}
+
+	float getBoundingRadius() const override { return radius; }
 
 	float getRadius() const { return radius; }
 
@@ -51,8 +51,6 @@ public:
 	void rotate(const Math::Matrix3d<float>& matrix) {
 		position.rotate(matrix);
 	}
-
-	int getId() const { return id; }
 
 private:
 	float radius;

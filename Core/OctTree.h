@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_POLYGON_OCT_TREE_H__
-#define __CRYSTAL_POLYGON_OCT_TREE_H__
+#ifndef __CRYSTAL_CORE_OCT_TREE_H__
+#define __CRYSTAL_CORE_OCT_TREE_H__
 
 #include <array>
 #include <vector>
@@ -9,7 +9,7 @@
 
 namespace Crystal {
 	namespace Core {
-		class Particle;
+		class IParticle;
 
 class OctTree
 {
@@ -18,9 +18,9 @@ public:
 
 	OctTree(const Math::Space3d<float>& space);
 	
-	void add(Particle* particle) { this->particles.push_back(particle); }
+	void add(IParticle* particle) { this->particles.push_back(particle); }
 
-	bool isNeighbor(Particle* particle) const;
+	bool isNeighbor(IParticle* particle) const;
 
 	std::vector<OctTree> createChildren() const;
 
@@ -36,7 +36,7 @@ public:
 
 	Math::Box3d<float> getBoundingBox() const;
 
-	std::vector<Particle*> getParticles() const { return particles; }
+	std::vector<IParticle*> getParticles() const { return particles; }
 
 	float getVolume() const;
 
@@ -45,7 +45,7 @@ public:
 	float getDensity() const;
 
 private:
-	std::vector<Particle*> particles;
+	std::vector<IParticle*> particles;
 	Math::Space3d<float> space;
 };
 
