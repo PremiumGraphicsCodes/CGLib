@@ -76,11 +76,13 @@
     <ClCompile Include="Grid3d.cpp">
       <Filter>Grid</Filter>
     </ClCompile>
+    <ClCompile Include="Kernel.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2d.h" />
     <ClInclude Include="Circle.h" />
-    <ClInclude Include="Kernel.h" />
     <ClInclude Include="Line3d.h" />
     <ClInclude Include="Plane3d.h" />
     <ClInclude Include="Quad.h" />
@@ -161,6 +163,9 @@
     <ClInclude Include="Grid3d.h">
       <Filter>Grid</Filter>
     </ClInclude>
+    <ClInclude Include="Kernel.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
@@ -186,6 +191,9 @@
     </Filter>
     <Filter Include="Grid">
       <UniqueIdentifier>{1170d314-44a6-475d-8b57-66d5b5d631d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kernel">
+      <UniqueIdentifier>{7d6f43af-3ba5-4b6b-845b-da3a0ed7b36c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

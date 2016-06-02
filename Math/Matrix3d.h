@@ -88,6 +88,8 @@ public:
 
 	const Matrix3d operator*=(const Matrix3d& rhs) { return product(rhs); }
 
+	//Matrix3d operator*(const Vector3d<T>& v) const;
+
 	void setX00(const T x) { this->x00 = x; }
 
 	void setX01(const T x) { this->x01 = x; }

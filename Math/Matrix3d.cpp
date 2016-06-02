@@ -326,6 +326,13 @@ Vector3d<T> Matrix3d<T>::getColumnVector(const int i) const
 
 }
 
+/*
+template<typename T>
+Matrix3d<T> Matrix3d<T>::operator*(const Vector3d<T>& v) const
+{
+
+}
+*/
 
 template class Matrix3d<float>;
 template class Matrix3d<double>;

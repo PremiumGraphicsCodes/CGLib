@@ -2,11 +2,12 @@
 
 #include "../Core/OctTree.h"
 #include "../Core/Particle.h"
+#include "../Core/AnisotoropicParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-TEST(OctTreeTest, TestIsNeighbor)
+TEST(OctTreeTest, TestIsNeighborByParticle)
 {
 	Space3d<float> space(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(2.0f, 2.0f, 2.0f));
 	OctTree tree(space);
@@ -19,6 +20,23 @@ TEST(OctTreeTest, TestIsNeighbor)
 		EXPECT_FALSE(tree.isNeighbor(&particle));
 	}
 }
+
+TEST(OctTreeTest, TestIsNeighborByAnisotoropicParticle)
+{
+	Space3d<float> space(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(2.0f, 2.0f, 2.0f));
+	OctTree tree(space);
+	{
+		const Ellipsoid<float> e(Vector3d<float>(0.5, 0.5, 0.5), Vector3d<float>(2, 1, 1));
+		AnisotoropicParticle particle(e, 0.0f);
+		EXPECT_TRUE(tree.isNeighbor(&particle));
+	}
+	{
+		const Ellipsoid<float> e(Vector3d<float>(-1.0, 0.5, 0.5), Vector3d<float>(2, 1, 1));
+		AnisotoropicParticle particle(e, 0.0f);
+		EXPECT_TRUE(tree.isNeighbor(&particle));
+	}
+}
+
 
 TEST(OctTreeTest, CreateChildren)
 {

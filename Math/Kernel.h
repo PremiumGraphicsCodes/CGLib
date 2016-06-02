@@ -10,6 +10,12 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
+class Kernel3d
+{
+	T getGaussian(const Vector3d<T>& pos1, const Vector3d<T>& pos2);
+};
+
+template<typename T>
 class Gaussian {
 public:
 	Gaussian() :

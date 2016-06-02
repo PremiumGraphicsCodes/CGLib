@@ -69,6 +69,7 @@
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />
+    <ClCompile Include="Kernel.cpp" />
     <ClCompile Include="Line3d.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="Matrix2d.cpp" />
