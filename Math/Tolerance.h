@@ -17,11 +17,11 @@ class Tolerance < float > final
 {
 public:
 	static float getLooseTolerance() {
-		return 1.0e-9f;
+		return 1.0e-6f;
 	}
 
 	static float getStrictTolerance() {
-		return 1.0e-18f;
+		return 1.0e-12f;
 	}
 
 	//static bool isEqual(const float x, const float tolerance) { return ::fabs(x) < tolerance; }
