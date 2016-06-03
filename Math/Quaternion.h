@@ -63,6 +63,8 @@ public:
 
 	Quaternion<T> operator*=(const T s);
 
+	Quaternion<T> operator*(const Quaternion<T>& s);
+
 	Quaternion<T>& operator*=(const Quaternion<T>& s);
 
 	Quaternion<T> operator/=(const T s);

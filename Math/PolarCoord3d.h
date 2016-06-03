@@ -4,6 +4,7 @@
 #include "Vector3d.h"
 #include "Angle.h"
 #include "Matrix3d.h"
+#include "Quaternion.h"
 
 namespace Crystal {
 	namespace Math {
@@ -27,6 +28,8 @@ public:
 	Vector3d<T> toOrtho() const;
 
 	Matrix3d<T> toMatrix() const;
+
+	Quaternion<T> toQuaternion() const;
 
 	bool equals(const PolarCoord3d<T>& rhs) const;
 

@@ -48,6 +48,14 @@ Matrix3d<T> PolarCoord3d<T>::toMatrix() const
 }
 
 template<typename T>
+Quaternion<T> PolarCoord3d<T>::toQuaternion() const
+{
+	Quaternion<T> q1(Vector3d<T>(0, 0, 1), phi.getRadian().get());
+	Quaternion<T> q2(Vector3d<T>(1, 0, 0), theta.getRadian().get());
+	return q1 * q2;
+}
+
+template<typename T>
 bool PolarCoord3d<T>::equals(const PolarCoord3d<T>& rhs) const
 {
 	return
