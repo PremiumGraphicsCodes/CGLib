@@ -82,6 +82,7 @@
     <ClCompile Include="SPHKernel.cpp">
       <Filter>Kernel</Filter>
     </ClCompile>
+    <ClCompile Include="PolarCoord3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2d.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="SPHKernel.h">
       <Filter>Kernel</Filter>
     </ClInclude>
+    <ClInclude Include="PolarCoord3d.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
