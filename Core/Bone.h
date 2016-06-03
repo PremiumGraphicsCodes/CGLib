@@ -14,7 +14,7 @@ namespace Crystal {
 class Bone
 {
 public:
-	Bone(Joint* origin, Joint* dest, const unsigned int id = -1);
+	Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id);
 
 	~Bone();
 
@@ -60,6 +60,7 @@ private:
 	//Bone* parent;
 	std::string name;
 	std::vector<Bone*> children;
+	float thickness;
 	unsigned int id;
 };
 

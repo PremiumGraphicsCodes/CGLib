@@ -20,6 +20,9 @@ Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii) :
 	center( center ),
 	radii( radii )
 {
+	assert(radii.getX() > T{ 0 });
+	assert(radii.getY() > T{ 0 });
+	assert(radii.getZ() > T{ 0 });
 }
 
 template<typename T>

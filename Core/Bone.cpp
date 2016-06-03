@@ -8,9 +8,10 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Bone::Bone(Joint* origin, Joint* dest, const unsigned int id) :
+Bone::Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id) :
 	origin(origin),
 	dest(dest),
+	thickness(thickness),
 	id(id)
 {}
 
@@ -21,7 +22,7 @@ Bone::~Bone()
 
 Bone* Bone::clone(const unsigned int newId) const
 {
-	return new Bone(origin, dest, newId);
+	return new Bone(origin, dest, thickness, newId);
 }
 
 void Bone::clear()
@@ -35,12 +36,10 @@ void Bone::clear()
 
 Bone* Bone::createChild(Joint* childDest)
 {
-	auto b = new Bone(dest, childDest, 1);
+	auto b = new Bone(dest, childDest, 1, 1);
 	children.push_back(b);
 	return b;
 }
-
-
 
 float Bone::getLength() const
 {
@@ -78,9 +77,10 @@ std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLengt
 	const float end = length - dest->getRadius();// - divideLength * 0.5f;
 	for (float l = start; l < end; l += divideLength) {
 		const float ratio = l / length;
-		auto p = originParticle.createBlended(destParticle, ratio);
-		auto ap = p.toAnisotoropic();
-		ap.scale(Vector3d<float>(1, 10, 1));
+		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
+		const Vector3d<float> radii(divideLength, thickness, thickness);
+		const Ellipsoid<float> e(pos, radii);
+		AnisotoropicParticle ap(e, density);
 		particles.emplace_back(ap);
 	}
 	return particles;

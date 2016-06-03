@@ -59,7 +59,7 @@ bool CGAFile::read(std::istream& stream)
 			stream >> originalJointId;
 			int destJointId = 0;
 			stream >> destJointId;
-			actor->createBone(joints[originalJointId], joints[destJointId]);
+			actor->createBone(joints[originalJointId], joints[destJointId], 0.1f);
 		}
 		actors.push_back(actor);
 	}

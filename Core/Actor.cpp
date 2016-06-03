@@ -91,16 +91,16 @@ Joint* Actor::insertJoint(Bone* bone)
 	const auto radius = j1->getRadius() / 2.0f + j2->getRadius() / 2.0f;
 	auto j = createJoint(pos, radius);
 	bones.remove(bone);
-	auto b1 = createBone(j1, j);
-	auto b2 = createBone(j, j2);
+	auto b1 = createBone(j1, j, 1);
+	auto b2 = createBone(j, j2, 1);
 	return j;
 }
 
 
 
-Bone* Actor::createBone(Joint* j1, Joint* j2)
+Bone* Actor::createBone(Joint* j1, Joint* j2, const float thickness)
 {
-	auto b = new Bone(j1, j2, nextBoneId++);
+	auto b = new Bone(j1, j2, thickness, nextBoneId++);
 	bones.push_back(b);
 	return b;
 }

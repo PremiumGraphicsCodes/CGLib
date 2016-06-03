@@ -48,7 +48,7 @@ public:
 
 	Bone* getRoot() const { return this->rootBone; }
 
-	Bone* createBone(Joint* j1, Joint* j2);
+	Bone* createBone(Joint* j1, Joint* j2, const float thickness);
 
 	std::list<Bone*> getBones() const { return bones; }
 
