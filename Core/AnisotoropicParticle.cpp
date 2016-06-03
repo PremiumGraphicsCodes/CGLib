@@ -79,22 +79,8 @@ Matrix3d<float> AnisotoropicParticle::getMatrix() const
 	return rotation * scaling * invRotation;
 }
 
-Matrix3d<float> AnisotoropicParticle::getNormalizedMatrix() const
-{
-	Matrix3d<float> m(1 / radii.getX(), 0, 0, 0, 1 / radii.getY(), 0, 0, 0, 1 / radii.getZ());
-	return getMatrix() * m;
-}
-
-
 AnisotoropicParticle* AnisotoropicParticle::clone(const int newId) const
 {
 	Ellipsoid<float> e(this->getPosition(), radii);
 	return new AnisotoropicParticle(e, density, orientation, newId);
-}
-
-Vector3d<float> AnisotoropicParticle::getTransformedVector(const Vector3d<float>& pos, const float original) const
-{
-	const auto& matrix = getMatrix().scale(1.0/original);
-	const auto v = pos - this->getPosition();
-	return v * matrix;
 }

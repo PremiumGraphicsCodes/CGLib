@@ -21,8 +21,6 @@ public:
 
 	Math::Matrix3d<float> getMatrix() const override;
 
-	Math::Matrix3d<float> getNormalizedMatrix() const;
-
 	void rotate(const Math::Quaternion<float>& q);
 
 	Math::Box3d<float> getBoundingBox() const override;
@@ -36,8 +34,6 @@ public:
 	//void scale(const Math::)
 
 	AnisotoropicParticle* clone(const int newId = -1) const;
-
-	Math::Vector3d<float> getTransformedVector(const Math::Vector3d<float>& pos, const float original) const;
 
 private:
 	Math::Vector3d<float> radii;

@@ -39,24 +39,3 @@ TEST(AnisotoropicParticleTest, TestGetBoundingBox)
 		EXPECT_EQ(expected, actual);
 	}
 }
-
-TEST(AnisotoropicParticleTest, TestGetTransformedVector)
-{
-	{
-		const AnisotoropicParticle particle;
-		const auto& actual = particle.getTransformedVector(Vector3d<float>(0.5, 0, 0), 0.5);
-		const auto det = particle.getNormalizedMatrix().getDeterminant();
-		const Vector3d<float> expected(0.5, 0, 0);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		const Ellipsoid<float> e(Vector3d<float>(0,0,0), Vector3d<float>(1, 0.5, 0.5));
-		const AnisotoropicParticle particle(e, 0.0f);
-		const auto& actual = particle.getTransformedVector(Vector3d<float>(0.5, 0, 0), 0.5);
-		const auto det = particle.getNormalizedMatrix().getDeterminant();
-		const Vector3d<float> expected(1, 0, 0);
-		EXPECT_EQ(expected, actual);
-	}
-
-}
