@@ -55,6 +55,9 @@ public:
 
 	AnisotoropicParticle toAnisotoropic(const int newId = -1) const;
 
+	Math::Matrix3d<float> getMatrix() const override;
+
+
 private:
 	float radius;
 };

@@ -19,7 +19,7 @@ public:
 
 	AnisotoropicParticle(const Math::Ellipsoid<float>& ellipsoid, const float density, const Math::Quaternion<float>& orientation, const int id = -1);
 
-	Math::Matrix3d<float> getMatrix() const;
+	Math::Matrix3d<float> getMatrix() const override;
 
 	Math::Matrix3d<float> getNormalizedMatrix() const;
 

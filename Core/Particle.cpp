@@ -65,3 +65,10 @@ AnisotoropicParticle Particle::toAnisotoropic(const int newId) const
 	Ellipsoid<float> e(getPosition(),radius);
 	return AnisotoropicParticle(e, density, newId);
 }
+
+Matrix3d<float> Particle::getMatrix() const
+{
+	return Matrix3d<float>(1.0f / radius, 0, 0,
+		0, 1.0f / radius, 0,
+		0, 0, 1.0f / radius);
+}

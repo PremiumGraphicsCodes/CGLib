@@ -33,6 +33,12 @@ TEST(SPHKernelTest, TestGetCubicSpilineByVector)
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
 	}
 	{
+		const auto actual = kernel.getCubicSpline(Vector3d<float>(2, 0, 0), 1.0f);
+		const auto expected = 0.0f;
+		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
+	}
+
+	{
 		const auto actual = kernel.getCubicSpline(Vector3d<float>(2, 0, 0), 2.0f);
 		const auto expected = 1.0f / (4 * Tolerance<float>::getPI()) / 8;
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
@@ -49,6 +55,13 @@ TEST(SPHKernelTest, TestGetCubicSpilineByMatrix)
 		const auto expected = 1.0f / (4 * Tolerance<float>::getPI());
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
 	}
+	{
+		Matrix3d<float> matrix;
+		const auto actual = kernel.getCubicSpline(Vector3d<float>(2, 0, 0), matrix);
+		const auto expected = 0.0f;
+		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
+	}
+
 	{
 		Matrix3d<float> matrix = Vector3d<float>(0.5, 0.5, 0.5).toDiagonalMatrix();
 		const auto actual = kernel.getCubicSpline(Vector3d<float>(2, 0, 0), matrix);

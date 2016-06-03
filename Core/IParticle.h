@@ -36,6 +36,8 @@ public:
 
 	float getDensity() const { return density; }
 
+	virtual Math::Matrix3d<float> getMatrix() const = 0;
+
 protected:
 	Math::Vector3d<float> position;
 	float density;
