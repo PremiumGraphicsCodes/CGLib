@@ -19,9 +19,16 @@ PolarCoord3d<T>::PolarCoord3d(const T length, const Angle<T> theta, const Angle<
 template<typename T>
 PolarCoord3d<T>::PolarCoord3d(const Vector3d<T>& v) :
 	length(v.getLength()),
-	theta(Radian<T>(std::acos(v.getZ() / v.getLength()))),
-	phi(Radian<T>(std::acos(v.getX() / std::sqrt(v.getX() * v.getX() + v.getY() * v.getY()))))
-{}
+	theta(Radian<T>(std::acos(v.getZ() / v.getLength())))
+{
+	const auto denominator = std::sqrt(v.getX() * v.getX() + v.getY() * v.getY());
+	if (Tolerance<T>::isEqualLoosely(denominator, 0)) {
+		phi = Angle<T>( Radian<T>(0) );
+	}
+	else {
+		phi = Angle<T>( Radian<T>(std::acos(v.getX() / denominator ) ) );
+	}
+}
 
 template<typename T>
 Vector3d<T> PolarCoord3d<T>::toOrtho() const
