@@ -74,7 +74,7 @@ Box3d<float> ParticleObject::getBoundingBox() const
 }
 
 #include "SpaceHash.h"
-
+/*
 std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs) const
 {
 	SpaceHash spaceHash(this->particles.front()->getDiameter(), 1000);
@@ -91,7 +91,7 @@ std::vector<Particle*> ParticleObject::getIntersection(const ParticleObject& rhs
 	}
 	return results;
 }
-
+*/
 #include "../Math/SPHKernel.h"
 
 namespace {

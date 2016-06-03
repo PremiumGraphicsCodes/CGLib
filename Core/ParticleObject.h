@@ -22,7 +22,7 @@ public:
 		sort();
 	}
 
-	ParticleObject(const std::vector<Particle*>& particles) :
+	ParticleObject(const std::vector<IParticle*>& particles) :
 		particles(particles)
 	{
 		sort();
@@ -40,15 +40,15 @@ public:
 
 	Math::Box3d<float> getBoundingBox() const;
 
-	std::vector<Particle*> getParticles() const { return particles; }
+	std::vector<IParticle*> getParticles() const { return particles; }
 
 	PolygonMesh* toPolygon(const float isolevel, const int levelOfDetail, const Math::Space3d<float>& space) const;
 
 private:
 
-	std::vector<Particle*> getIntersection(const ParticleObject& rhs) const;
+	std::vector<IParticle*> getIntersection(const ParticleObject& rhs) const;
 
-	std::vector<Particle*> particles;
+	std::vector<IParticle*> particles;
 };
 	}
 }

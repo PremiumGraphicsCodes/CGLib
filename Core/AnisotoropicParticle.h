@@ -31,7 +31,7 @@ public:
 
 	Math::Matrix3d<float> getRotationMatrix() const;
 
-	//void scale(const Math::)
+	void scale(const Math::Vector3d<float>& s);
 
 	AnisotoropicParticle* clone(const int newId = -1) const;
 

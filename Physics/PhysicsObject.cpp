@@ -169,7 +169,7 @@ void PhysicsObject::setVelocity(const Vector3d<float>& velocity)
 
 ParticleObject* PhysicsObject::toParticleObject() const
 {
-	std::vector<Particle*> ps;
+	std::vector<IParticle*> ps;
 	for (size_t i = 0; i < particles.size(); ++i) {
 		ps.push_back(particles[i]->clone());
 	}
@@ -178,7 +178,7 @@ ParticleObject* PhysicsObject::toParticleObject() const
 
 ParticleObject* PhysicsObject::toSurfaceParticleObject() const
 {
-	std::vector<Particle*> ps;
+	std::vector<IParticle*> ps;
 	for (int i = 0; i < particles.size(); ++i) {
 		const auto length = particles[i]->getNormal().getLength();
 		const auto normal = particles[i]->getNormal().getNormalized();

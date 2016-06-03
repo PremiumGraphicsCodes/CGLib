@@ -3,6 +3,7 @@
 #include "Joint.h"
 
 #include "../Math/Line3d.h"
+#include "AnisotoropicParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -63,6 +64,24 @@ std::vector<Particle> Bone::toParticles(const float divideLength, const float de
 	for (float l = start ; l < end; l += divideLength) {
 		const float ratio = l / length;
 		particles.emplace_back( originParticle.createBlended(destParticle, ratio) );
+	}
+	return particles;
+}
+
+std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLength, const float density)
+{
+	const float length = this->getLength();
+	std::vector<AnisotoropicParticle> particles;
+	const Particle originParticle = origin->toParticle(density);
+	const Particle destParticle = dest->toParticle(density);
+	const float start = origin->getRadius() + divideLength * 0.5f;
+	const float end = length - dest->getRadius();// - divideLength * 0.5f;
+	for (float l = start; l < end; l += divideLength) {
+		const float ratio = l / length;
+		auto p = originParticle.createBlended(destParticle, ratio);
+		auto ap = p.toAnisotoropic();
+		ap.scale(Vector3d<float>(1, 10, 1));
+		particles.emplace_back(ap);
 	}
 	return particles;
 }

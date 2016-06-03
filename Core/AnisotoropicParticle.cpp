@@ -79,6 +79,14 @@ Matrix3d<float> AnisotoropicParticle::getMatrix() const
 	return rotation * scaling * invRotation;
 }
 
+void AnisotoropicParticle::scale(const Vector3d<float>& s)
+{
+	radii.setX(radii.getX() * s.getX());
+	radii.setY(radii.getY() * s.getY());
+	radii.setZ(radii.getZ() * s.getZ());
+}
+
+
 AnisotoropicParticle* AnisotoropicParticle::clone(const int newId) const
 {
 	Ellipsoid<float> e(this->getPosition(), radii);

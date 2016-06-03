@@ -9,6 +9,7 @@ namespace Crystal {
 	namespace Core {
 		class Joint;
 		class Particle;
+		class AnisotoropicParticle;
 
 class Bone
 {
@@ -36,6 +37,8 @@ public:
 	Math::Line3d<float> toLine() const;
 
 	std::vector<Particle> toParticles(const float divideLength, const float density);
+
+	std::vector<AnisotoropicParticle> toAnisoParticles(const float divideLength, const float density);
 
 	Joint* getOriginJoint() const { return origin; }
 

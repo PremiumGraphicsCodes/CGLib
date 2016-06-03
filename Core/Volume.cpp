@@ -136,7 +136,7 @@ std::vector<Particle> Volume::toParticles(const float radius, const float isolev
 ParticleObject* Volume::toParticleObject(const float radius,const float isolevel) const
 {
 	const auto& particles = toParticles(radius, isolevel);
-	std::vector<Particle*> ps;
+	std::vector<IParticle*> ps;
 	for (const auto& p : particles) {
 		ps.push_back( p.clone() );
 	}

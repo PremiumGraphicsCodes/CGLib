@@ -1,5 +1,6 @@
 #include "Actor.h"
 #include "Particle.h"
+#include "AnisotoropicParticle.h"
 #include "ParticleObject.h"
 #include "Joint.h"
 #include "Bone.h"
@@ -163,7 +164,7 @@ void Actor::remove(Bone* b)
 
 ParticleObject* Actor::toParticleObject(const float divideLength, const float density) const
 {
-	std::vector<Particle*> particles;
+	std::vector<IParticle*> particles;
 	for (auto j : joints) {
 		particles.push_back( j->toParticle(density).clone() );
 	}
@@ -171,7 +172,7 @@ ParticleObject* Actor::toParticleObject(const float divideLength, const float de
 		if (b->isTail()) {
 			continue;
 		}
-		const auto& ps = b->toParticles(divideLength, density);
+		const auto& ps = b->toAnisoParticles(divideLength, density);
 		for (const auto& p : ps) {
 			particles.push_back( p.clone() );
 		}
