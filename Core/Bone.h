@@ -52,6 +52,9 @@ public:
 
 	bool isTail() const { return origin == nullptr || dest == nullptr; }
 
+	void scale(const float dt) { this->thickness += dt; }
+
+	void move(const Math::Vector3d<float>& v);
 	//std::string getName() const { return name; }
 
 private:

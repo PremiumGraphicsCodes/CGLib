@@ -90,3 +90,10 @@ std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLengt
 	}
 	return particles;
 }
+
+
+void Bone::move(const Vector3d<float>& v)
+{
+	origin->move(v);
+	dest->move(v);
+}
