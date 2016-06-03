@@ -101,6 +101,8 @@ public:
 
 	T operator[](const int index) const;
 
+	Matrix3d<T> toDiagonalMatrix() const;
+
 public:
 	T getX() const { return x; }
 

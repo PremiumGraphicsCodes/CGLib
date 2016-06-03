@@ -7,14 +7,13 @@
 namespace Crystal {
 	namespace Math {
 
-template<typename T>
+template<typename T, typename int DIM = 3>
 class SPHKernel
 {
 public:
-	SPHKernel() {};
+	SPHKernel() = default;
 
 	float getPoly6Kernel(const T distance, const T effectLength);
-
 
 	Math::Vector3d<T> getPoly6KernelGradient(const Math::Vector3d<T>& distanceVector, const T effectLength);
 
@@ -25,6 +24,10 @@ public:
 	float getViscosityKernelLaplacian(const T distance, const T effectLength);
 
 	T getCubicSpline(const T q);
+
+	T getCubicSpline(const Vector3d<T>& v, const T effectLength);
+
+	T getCubicSpline(const Vector3d<T>& v, const Matrix3d<T>& m);
 };
 	}
 }

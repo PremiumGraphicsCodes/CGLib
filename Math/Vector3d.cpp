@@ -158,6 +158,15 @@ T Vector3d<T>::operator[](const int index) const
 	return toArray()[index];
 }
 
+template<typename T>
+Matrix3d<T> Vector3d<T>::toDiagonalMatrix() const
+{
+	return Matrix3d<T>(
+		getX(), 0, 0,
+		0, getY(), 0,
+		0, 0, getZ() );
+}
+
 
 template class Vector3d<float>;
 template class Vector3d<double>;
