@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_POLYGON_FACE_H__
-#define __CRYSTAL_POLYGON_FACE_H__
+#ifndef __CRYSTAL_POLYGON_TRI_FACE_H__
+#define __CRYSTAL_POLYGON_TRI_FACE_H__
 
 #include "../Math/Vector3d.h"
 
@@ -8,10 +8,10 @@ namespace Crystal {
 
 class Vertex;
 
-class Face
+class TriFace
 {
 public:
-	Face(Vertex* v1, Vertex* v2, Vertex* v3);
+	TriFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	Vertex* find(Vertex* v);
 
@@ -40,18 +40,18 @@ class FaceCollection
 public:
 	FaceCollection();
 
-	FaceCollection(const std::vector<Face*>& faces);
+	FaceCollection(const std::vector<TriFace*>& faces);
 
 	~FaceCollection();
 
 	void merge(FaceCollection& rhs);
 
-	Face* create(Vertex* v1, Vertex* v2, Vertex* v3);
+	TriFace* create(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	void clear();
 
-	using iterator = std::vector<Face*>::iterator;
-	using const_iterator = std::vector<Face*>::const_iterator;
+	using iterator = std::vector<TriFace*>::iterator;
+	using const_iterator = std::vector<TriFace*>::const_iterator;
 
 	iterator begin() { return faces.begin(); }
 
@@ -63,10 +63,10 @@ public:
 
 	size_t size() const { return faces.size(); }
 
-	Face* operator[](const int i) const { return faces[i]; }
+	TriFace* operator[](const int i) const { return faces[i]; }
 
 private:
-	std::vector<Face*> faces;
+	std::vector<TriFace*> faces;
 
 };
 	}

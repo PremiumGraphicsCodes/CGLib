@@ -22,9 +22,6 @@
     <ClCompile Include="Joint.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Face.cpp">
-      <Filter>PolygonMesh</Filter>
-    </ClCompile>
     <ClCompile Include="PolygonMesh.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
@@ -42,6 +39,9 @@
     </ClCompile>
     <ClCompile Include="ParticleObject.cpp">
       <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="TriFace.cpp">
+      <Filter>PolygonMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +68,6 @@
     <ClInclude Include="Joint.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Face.h">
-      <Filter>PolygonMesh</Filter>
-    </ClInclude>
     <ClInclude Include="PolygonMesh.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
@@ -92,6 +89,15 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>Particle</Filter>
     </ClInclude>
+    <ClInclude Include="Edge.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="TriFace.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -105,6 +111,9 @@
     </Filter>
     <Filter Include="Particle">
       <UniqueIdentifier>{2aab52e0-62b7-4d8f-970b-4b61c2cd08a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graph">
+      <UniqueIdentifier>{da07c0d0-f6ed-466d-b7ed-996156b254de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

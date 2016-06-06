@@ -1,5 +1,5 @@
 #include "Vertex.h"
-#include "Face.h"
+#include "TriFace.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

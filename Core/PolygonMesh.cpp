@@ -1,7 +1,7 @@
 #include "PolygonMesh.h"
 
 #include "Vertex.h"
-#include "Face.h"
+#include "TriFace.h"
 
 #include "../Math/Sphere.h"
 #include "../Math/Box3d.h"
@@ -46,12 +46,12 @@ Face* PolygonObject::findFaceById(const unsigned int id) const
 
 
 
-Face* PolygonMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+TriFace* PolygonMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	return faces.create(v1, v2, v3);
 }
 
-Face* PolygonMesh::createFace(const int vindex1, const int vindex2, const int vindex3)
+TriFace* PolygonMesh::createFace(const int vindex1, const int vindex2, const int vindex3)
 {
 	auto v1 = vertices[vindex1];
 	auto v2 = vertices[vindex2];
@@ -59,9 +59,9 @@ Face* PolygonMesh::createFace(const int vindex1, const int vindex2, const int vi
 	return createFace(v1, v2, v3);
 }
 
-std::list< Face* > PolygonMesh::createFaces(const std::vector<int>& ids)
+std::list< TriFace* > PolygonMesh::createFaces(const std::vector<int>& ids)
 {
-	std::list< Face* > fs;
+	std::list< TriFace* > fs;
 	const auto origin = ids[0];
 	for (size_t i = 1; i < ids.size()-1; i++) {
 		auto id1 = ids[i];
@@ -72,9 +72,9 @@ std::list< Face* > PolygonMesh::createFaces(const std::vector<int>& ids)
 }
 
 
-std::list< Face* > PolygonMesh::createFaces(const std::vector<Vertex*>& vertices)
+std::list< TriFace* > PolygonMesh::createFaces(const std::vector<Vertex*>& vertices)
 {
-	std::list< Face* > fs;
+	std::list< TriFace* > fs;
 	auto origin = vertices[0];
 	for (size_t i = 1; i < vertices.size() - 1; i++) {
 		auto v1 = vertices[i];
@@ -185,17 +185,21 @@ void PolygonMesh::add(const Sphere<float>& sphere, const int udiv, const int vdi
 	;
 }
 
+#include "../Math/Curve3d.h"
+
 void PolygonMesh::add(const Ellipsoid<float>& ellipsoid, const int udiv, const int vdiv)
 {
-	//std::vector < std::vector< Vector3d<float> > positions;
-	for (float u = 0; u < 90; u+=10) {
+	Curve3d<float> curve(udiv, vdiv);
+	int uIndex = 0;
+	for (float u = 0; u < 90; u+=10, uIndex++) {
 		Degree<float> uDeg(u);
 		Angle<float> uAngle(uDeg);
-		for (float v = 0; v < 90; v += 10) {
+		int vIndex = 0;
+		for (float v = 0; v < 90; v += 10, vIndex) {
 			Degree<float> vDeg(v);
 			Angle<float> vAngle(vDeg);
-			ellipsoid.getPosition(uAngle, vAngle);
-
+			const auto pos = ellipsoid.getPosition(uAngle, vAngle);
+			curve.set(uIndex, vIndex, pos);
 		}
 	}
 }

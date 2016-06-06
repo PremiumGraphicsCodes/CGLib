@@ -9,7 +9,7 @@
 #include "../Math/Cone.h"
 #include "../Math/Ellipsoid.h"
 #include "Vertex.h"
-#include "Face.h"
+#include "TriFace.h"
 
 #include <list>
 
@@ -25,7 +25,7 @@ namespace Crystal {
 	namespace Core {
 
 class Vertex;
-class Face;
+class TriFace;
 
 
 class PolygonMesh : private UnCopyable
@@ -63,15 +63,15 @@ public:
 
 	//Face* findFaceById(const unsigned int id) const;
 
-	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+	TriFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	Face* createFace(const int v1, const int v2, const int v3);
+	TriFace* createFace(const int v1, const int v2, const int v3);
 
 	PolygonMesh* clone(const unsigned int id = -1);
 
-	std::list< Face* > createFaces(const std::vector<int>& ids);
+	std::list< TriFace* > createFaces(const std::vector<int>& ids);
 
-	std::list< Face* > createFaces(const std::vector<Vertex*>& vertices);
+	std::list< TriFace* > createFaces(const std::vector<Vertex*>& vertices);
 
 	VertexCollection getVertices() const { return vertices; }
 

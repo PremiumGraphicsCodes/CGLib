@@ -1,9 +1,9 @@
-#include "Face.h"
+#include "TriFace.h"
 #include "Vertex.h"
 
 using namespace Crystal::Core;
 
-Face::Face(Vertex* v1, Vertex* v2, Vertex* v3) :
+TriFace::TriFace(Vertex* v1, Vertex* v2, Vertex* v3) :
 	v1(v1),
 	v2(v2),
 	v3(v3)
@@ -12,7 +12,7 @@ Face::Face(Vertex* v1, Vertex* v2, Vertex* v3) :
 	this->normal.normalize();
 }
 
-Vertex* Face::find(Vertex* v)
+Vertex* TriFace::find(Vertex* v)
 {
 	if (v == v1) {
 		return v1;
@@ -28,7 +28,7 @@ Vertex* Face::find(Vertex* v)
 }
 
 
-void Face::replace(Vertex* oldVertex, Vertex* newVertex)
+void TriFace::replace(Vertex* oldVertex, Vertex* newVertex)
 {
 	if (oldVertex == v1) {
 		v1 = newVertex;
@@ -47,7 +47,7 @@ void Face::replace(Vertex* oldVertex, Vertex* newVertex)
 FaceCollection::FaceCollection()
 {}
 
-FaceCollection::FaceCollection(const std::vector<Face*>& faces) :
+FaceCollection::FaceCollection(const std::vector<TriFace*>& faces) :
 	faces(faces)
 {}
 
@@ -61,9 +61,9 @@ void FaceCollection::merge(FaceCollection& rhs)
 	rhs.faces.clear();
 }
 
-Face* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
+TriFace* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
 {
-	auto f = new Face(v1, v2, v3);
+	auto f = new TriFace(v1, v2, v3);
 	faces.push_back(f);
 	return f;
 }

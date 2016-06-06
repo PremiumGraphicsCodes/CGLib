@@ -1,6 +1,6 @@
 #include "POVFile.h"
 #include "../Core/Vertex.h"
-#include "../Core/Face.h"
+#include "../Core/TriFace.h"
 #include "../Core/PolygonMesh.h"
 #include <fstream>
 

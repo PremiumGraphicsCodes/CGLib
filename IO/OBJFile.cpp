@@ -8,7 +8,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Core/Vertex.h"
-#include "../Core/Face.h"
+#include "../Core/TriFace.h"
 
 #include "Helper.h"
 

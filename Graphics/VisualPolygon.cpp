@@ -12,4 +12,5 @@ VisualPolygon::VisualPolygon() : polygon(nullptr)
 
 VisualPolygon::VisualPolygon(PolygonMesh* polygon)
 	: polygon(polygon)
-{}
+{
+}

@@ -11,7 +11,7 @@ namespace Crystal {
 	namespace Core {
 
 class Vertex;
-class Face;
+class TriFace;
 
 class Vertex
 {
@@ -32,9 +32,9 @@ public:
 
 	void normalize(const Vertex& rhs);
 
-	void setFace(Face* f) { this->f = f; }
+	void setFace(TriFace* f) { this->f = f; }
 
-	Face* getFace() const { return f; }
+	TriFace* getFace() const { return f; }
 
 	void transform(const Math::Matrix4d<float>& matrix);
 
@@ -48,7 +48,7 @@ private:
 	Math::Vector3d<float> normal;
 	Math::Vector3d<float> texCoord;
 
-	Face* f;
+	TriFace* f;
 };
 
 class VertexCollection

@@ -8,7 +8,7 @@ using namespace Crystal::IO;
 
 #include <string>
 #include <cassert>
-#include "../Core/Face.h"
+#include "../Core/TriFace.h"
 #include "../Core/Vertex.h"
 
 
