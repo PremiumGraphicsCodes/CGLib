@@ -17,7 +17,8 @@ public:
 	Ellipsoid(const Math::Vector3d<float>& position,const float size, const Math::Matrix3d<float>& matrix, const ColorRGBA<float>& color) :
 		position(position),
 		size(size),
-		matrix(matrix)
+		matrix(matrix),
+		color(color)
 	{
 	}
 
