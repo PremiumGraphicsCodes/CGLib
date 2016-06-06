@@ -14,7 +14,7 @@ template<typename T>
 Degree<T>::Degree(const T deg) :
 	deg(deg)
 {
-	assert(T{ 0 } <= deg && deg <= T{ 360 });
+//	assert(T{ 0 } <= deg && deg <= T{ 360 });
 }
 
 template<typename T>

@@ -3,6 +3,7 @@
 
 #include "Vector3d.h"
 #include "Angle.h"
+#include "Curve3d.h"
 
 #include <vector>
 #include <cassert>
@@ -75,6 +76,8 @@ public:
 	bool isOnLoosely(const Vector3d<T>& v) const;
 
 	Ellipsoid<T> toEllipsoid() const;
+
+	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
 private:
 	Vector3d<T> center;

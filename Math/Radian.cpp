@@ -15,7 +15,7 @@ template<typename T>
 Radian<T>::Radian(const T rad) :
 	rad(rad)
 {
-	assert(T{ 0 } <= rad && rad <= T{ 2 } *Tolerance<T>::getPI());
+	//assert(T{ 0 } <= rad && rad <= T{ 2 } *Tolerance<T>::getPI());
 }
 
 template<typename T>

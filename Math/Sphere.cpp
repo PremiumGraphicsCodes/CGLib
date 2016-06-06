@@ -2,6 +2,7 @@
 
 #include "Box3d.h"
 #include "Ellipsoid.h"
+#include "Curve3d.h"
 
 using namespace Crystal::Math;
 
@@ -62,8 +63,8 @@ std::vector<Vector3d<T>> Sphere<T>::toPoints(const T divideLength) const
 template<typename T>
 Vector3d<T> Sphere<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 {
-	//assert(Angle<T>(0) <= u && u <= Angle<T>::getDoublePI());
-	//assert(Angle<T>(0) <= u && u <= Angle<T>::getDoublePI());
+	assert(0.0 <= u.getDegree().get() && u.getDegree().get() <= 360.0);
+	assert(-90.0 <= v.getDegree().get() && v.getDegree().get() <= 90.0);
 
 	const auto x = radius * u.getCos() * v.getCos();
 	const auto y = radius * u.getSin() * v.getCos();
@@ -134,6 +135,22 @@ Ellipsoid<T> Sphere<T>::toEllipsoid() const
 	return Ellipsoid<T>(this->getCenter(), this->getRadius());
 }
 
+template<typename T>
+Curve3d<T> Sphere<T>::toCurve3d(const int uNum, const int vNum) const
+{
+	Curve3d<T> curve(uNum, vNum);
+	const auto du = 360.0f / static_cast<T>(uNum);
+	const auto dv = 180.0f / static_cast<T>(vNum);
+	for (int i = 0; i < uNum; ++i) {
+		for (int j = 0; j < vNum; ++j) {
+			const Degree<T> uAngle(du * i);
+			const Degree<T> vAngle(dv * j - 90.0f);
+			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));
+			curve.set(i, j, pos);
+		}
+	}
+	return curve;
+}
 
 template class Sphere<float>;
 template class Sphere<double>;
