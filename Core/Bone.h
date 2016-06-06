@@ -57,6 +57,8 @@ public:
 	void move(const Math::Vector3d<float>& v);
 	//std::string getName() const { return name; }
 
+	float getThickness() const { return thickness; }
+
 private:
 	Joint* origin;
 	Joint* dest;

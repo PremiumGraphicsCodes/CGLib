@@ -11,14 +11,14 @@ namespace {
 		std::stringstream stream;
 		stream
 			<< "CGStudioActorFile" << std::endl
-			<< "1" << std::endl
+			<< "2" << std::endl
 			<< "1" << std::endl
 			<< "Actor1" << std::endl
 			<< "2" << std::endl
 			<< "0 0 0 0.5" << std::endl
 			<< "1 0 0 0.5" << std::endl
 			<< "1" << std::endl
-			<< "0 1" << std::endl;
+			<< "0 1 0.5" << std::endl;
 		return stream;
 	}
 }

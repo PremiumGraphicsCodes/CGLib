@@ -7,7 +7,7 @@ using namespace Crystal::Core;
 using namespace Crystal::IO;
 
 namespace {
-	const int fileFormatVersion = 1;
+	const int fileFormatVersion = 2;
 }
 
 bool CGAFile::read(const File& file)
@@ -28,7 +28,7 @@ bool CGAFile::read(std::istream& stream)
 	}
 	int fileFormatVersion = 0;
 	stream >> fileFormatVersion;
-	if (fileFormatVersion != 1) {
+	if (fileFormatVersion != 2) {
 		return false;
 	}
 	int actorCount = 0;
@@ -59,7 +59,9 @@ bool CGAFile::read(std::istream& stream)
 			stream >> originalJointId;
 			int destJointId = 0;
 			stream >> destJointId;
-			actor->createBone(joints[originalJointId], joints[destJointId], 0.1f);
+			float thickness = 0.0f;
+			stream >> thickness;
+			actor->createBone(joints[originalJointId], joints[destJointId], thickness);
 		}
 		actors.push_back(actor);
 	}
@@ -99,7 +101,8 @@ bool CGAFile::write(std::ostream& stream)
 		for (auto b : bones) {
 			stream
 				<< b->getOriginJoint()->getId() << " "
-				<< b->getDestJoint()->getId() << std::endl;
+				<< b->getDestJoint()->getId() << " "
+				<< b->getThickness() << std::endl;
 		}
 	}
 	return stream.good();
