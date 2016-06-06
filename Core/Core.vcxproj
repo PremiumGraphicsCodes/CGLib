@@ -24,6 +24,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="Face.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Node.cpp" />

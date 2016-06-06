@@ -52,6 +52,9 @@
     <ClCompile Include="Edge.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="Face.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />

@@ -11,15 +11,21 @@ namespace Crystal {
 class Node : private UnCopyable
 {
 public:
+	/*
 	Node(const int id) :
 		id(id)
 	{}
+	*/
 
 	Node(const Math::Vector3d<float>& position, const int id):
 		id(id),
 		position(position)
 	{
 	}
+
+	Math::Vector3d<float> getPosition() const { return position; }
+
+	int getId() const { return id; }
 
 private:
 	Math::Vector3d<float> position;

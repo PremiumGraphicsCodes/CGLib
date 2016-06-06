@@ -23,7 +23,8 @@ Surface::Surface(const Curve3d<float>& curve)
 	NodeGrid2d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
-			Node* node = new Node(nextNodeId++);
+			const auto& pos = curve.get(u, v);
+			Node* node = new Node(pos, nextNodeId++);
 			nodes.push_back(node);
 			grid.set(u, v, node);
 		}

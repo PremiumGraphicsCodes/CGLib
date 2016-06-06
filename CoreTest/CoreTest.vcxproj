@@ -22,6 +22,8 @@
     <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="AnisotoropicParticleTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
+    <ClCompile Include="EdgeTest.cpp" />
+    <ClCompile Include="FaceTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
     <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
