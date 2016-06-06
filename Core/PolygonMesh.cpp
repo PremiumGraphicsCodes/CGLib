@@ -185,6 +185,21 @@ void PolygonMesh::add(const Sphere<float>& sphere, const int udiv, const int vdi
 	;
 }
 
+void PolygonMesh::add(const Ellipsoid<float>& ellipsoid, const int udiv, const int vdiv)
+{
+	//std::vector < std::vector< Vector3d<float> > positions;
+	for (float u = 0; u < 90; u+=10) {
+		Degree<float> uDeg(u);
+		Angle<float> uAngle(uDeg);
+		for (float v = 0; v < 90; v += 10) {
+			Degree<float> vDeg(v);
+			Angle<float> vAngle(vDeg);
+			ellipsoid.getPosition(uAngle, vAngle);
+
+		}
+	}
+}
+
 void PolygonMesh::add(const Cone<float>& cone, const int div)
 {
 	const auto howMany = 360.0 / div;
