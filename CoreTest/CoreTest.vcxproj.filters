@@ -21,6 +21,9 @@
     <ClCompile Include="FaceTest.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceTest.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">

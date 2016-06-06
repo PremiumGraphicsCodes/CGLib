@@ -62,12 +62,12 @@ std::vector<Vector3d<T>> Sphere<T>::toPoints(const T divideLength) const
 template<typename T>
 Vector3d<T> Sphere<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 {
-	//assert(Angle<T>(0) < u && u < Angle<T>::getPI());
-	//assert(Angle<T>(0) < u && u < Angle<T>::getDoublePI());
+	//assert(Angle<T>(0) <= u && u <= Angle<T>::getDoublePI());
+	//assert(Angle<T>(0) <= u && u <= Angle<T>::getDoublePI());
 
-	const auto x = radius * u.getSin() * v.getCos();
-	const auto y = radius * u.getSin() * v.getSin();
-	const auto z = radius * v.getCos();
+	const auto x = radius * u.getCos() * v.getCos();
+	const auto y = radius * u.getSin() * v.getCos();
+	const auto z = radius * v.getSin();
 	return Vector3d<T>(x, y, z);
 }
 

@@ -6,6 +6,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename T>
+		class Curve3d;
 
 template<typename T>
 class Ellipsoid
@@ -24,6 +26,8 @@ public:
 	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
 
 	Vector3d<T> getRadii() const { return radii; }
+
+	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
 private:
 	Vector3d<T> center;

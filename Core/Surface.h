@@ -23,6 +23,12 @@ public:
 
 	void clear();
 
+	std::list<Face*> getFaces() const { return faces; }
+
+	std::list<Edge*> getEdges() const { return edges; }
+
+	std::list<Node*> getNodes() const { return nodes; }
+
 private:
 	int nextNodeId;
 	int nextEdgeId;

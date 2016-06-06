@@ -1,4 +1,5 @@
 #include "Ellipsoid.h"
+#include "Curve3d.h"
 
 using namespace Crystal::Math;
 
@@ -34,14 +35,32 @@ T Ellipsoid<T>::getVolume() const
 template<typename T>
 Vector3d<T> Ellipsoid<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 {
-	assert(0.0 < u.getDegree().get() && u.getDegree().get() < 180.0);
-	assert(0.0 < v.getDegree().get() && v.getDegree().get() < 360.0);
+	//assert(0.0 <= u.getDegree().get() && u.getDegree().get() <= 180.0);
+	//assert(0.0 <= v.getDegree().get() && v.getDegree().get() <= 360.0);
 
-	const T x = radii.getX() * u.getSin() * v.getCos();
-	const T y = radii.getY() * u.getSin() * v.getCos();
-	const T z = radii.getZ() * u.getCos();
+	const T x = radii.getX() * u.getCos() * v.getCos();
+	const T y = radii.getY() * u.getSin() * v.getSin();
+	const T z = radii.getZ() * v.getSin();
 	return Vector3d<T>(x, y, z);
 }
+
+template<typename T>
+Curve3d<T> Ellipsoid<T>::toCurve3d(const int uNum, const int vNum) const
+{
+	Curve3d<T> curve(uNum, vNum);
+	const auto du = 180.0f / static_cast<T>(uNum);
+	const auto dv = 360.0f / static_cast<T>(vNum);
+	for (int i = 0; i < uNum; ++i){
+		for (int j = 0; j < vNum; ++j) {
+			const Degree<T> uAngle(du * i);
+			const Degree<T> vAngle(dv * j);
+			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));
+			curve.set(i, j, pos);
+		}
+	}
+	return curve;
+}
+
 
 template class Ellipsoid<float>;
 template class Ellipsoid<double>;
