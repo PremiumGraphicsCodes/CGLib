@@ -116,6 +116,9 @@
     <ClCompile Include="PointIDRenderer.cpp">
       <Filter>Renderer\ID</Filter>
     </ClCompile>
+    <ClCompile Include="EllipsoidRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -238,6 +241,9 @@
     </ClInclude>
     <ClInclude Include="IDRenderer.h">
       <Filter>Renderer\ID</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipsoidRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

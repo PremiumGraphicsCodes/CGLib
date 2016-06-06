@@ -150,6 +150,7 @@
     <ClCompile Include="DepthRenderer.cpp" />
     <ClCompile Include="DepthSmoothingRenderer.cpp" />
     <ClCompile Include="DepthTextureObject.cpp" />
+    <ClCompile Include="EllipsoidRenderer.cpp" />
     <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="FrameBufferHandler.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="DepthRenderer.h" />
     <ClInclude Include="DepthSmoothingRenderer.h" />
     <ClInclude Include="DepthTextureObject.h" />
+    <ClInclude Include="EllipsoidRenderer.h" />
     <ClInclude Include="FluidRenderer.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="FrameBufferHandler.h" />
