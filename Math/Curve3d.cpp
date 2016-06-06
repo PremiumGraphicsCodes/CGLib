@@ -7,7 +7,9 @@ Curve3d<T>::Curve3d()
 {}
 
 template<typename T>
-Curve3d<T>::Curve3d(const int u, const int v)
+Curve3d<T>::Curve3d(const int u, const int v) :
+	uNumber(u),
+	vNumber(v)
 {
 	for (int i = 0; i < v; ++i) {
 		std::vector<Vector3d<T>> v(u);

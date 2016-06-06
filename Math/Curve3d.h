@@ -18,8 +18,14 @@ public:
 
 	void set(const int u, const int v, const Vector3d<T>& pos);
 
+	int getUNumber() const { return uNumber; }
+
+	int getVNumber() const { return vNumber; }
+
 private:
 	std::vector< std::vector< Vector3d<T> > > positions;
+	int uNumber;
+	int vNumber;
 };
 	}
 }

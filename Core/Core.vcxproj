@@ -23,8 +23,11 @@
     <ClCompile Include="AnisotoropicParticle.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
+    <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Surface.cpp" />
     <ClCompile Include="TriFace.cpp" />
     <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -44,6 +47,7 @@
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="Face.h" />
     <ClInclude Include="IParticle.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
@@ -51,6 +55,7 @@
     <ClInclude Include="OctTree.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />
+    <ClInclude Include="Surface.h" />
     <ClInclude Include="TriFace.h" />
     <ClInclude Include="PolygonMesh.h" />
     <ClInclude Include="SpaceHash.h" />

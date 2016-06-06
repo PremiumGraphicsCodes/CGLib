@@ -43,6 +43,15 @@
     <ClCompile Include="TriFace.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Edge.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -97,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="TriFace.h">
       <Filter>PolygonMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Face.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
