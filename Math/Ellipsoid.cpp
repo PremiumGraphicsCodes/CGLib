@@ -39,8 +39,13 @@ Vector3d<T> Ellipsoid<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 	assert(-90.0 <= v.getDegree().get() && v.getDegree().get() <= 90.0);
 
 	const T x = radii.getX() * u.getCos() * v.getCos();
-	const T y = radii.getY() * u.getSin() * v.getSin();
+	const T y = radii.getY() * u.getSin() * v.getCos();
 	const T z = radii.getZ() * v.getSin();
+	/*
+	const T x = radii.getX() * u.getSin() * v.getCos();
+	const T y = radii.getY() * u.getSin() * v.getSin();
+	const T z = radii.getZ() * v.getCos();
+	*/
 	return Vector3d<T>(x, y, z);
 }
 

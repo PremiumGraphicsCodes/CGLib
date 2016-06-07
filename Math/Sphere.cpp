@@ -73,6 +73,15 @@ Vector3d<T> Sphere<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 }
 
 template<typename T>
+Vector3d<T> Sphere<T>::getNormal(const Angle<T> u, const Angle<T> v) const
+{
+	const auto& pos = getPosition(u, v);
+	Vector3d<T> n( pos - center );
+	return n.getNormalized();
+}
+
+
+template<typename T>
 Sphere<T> Sphere<T>::getInnerOffset(const float offsetLength) const
 {
 	Sphere sphere = *this;
@@ -146,7 +155,8 @@ Curve3d<T> Sphere<T>::toCurve3d(const int uNum, const int vNum) const
 			const Degree<T> uAngle(du * i);
 			const Degree<T> vAngle(dv * j - 90.0f);
 			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));
-			Point<T> point(pos);
+			const auto& normal = getNormal(Angle<T>(uAngle), Angle<T>(vAngle));
+			Point<T> point(pos, normal);
 			curve.set(i, j, point);
 		}
 	}

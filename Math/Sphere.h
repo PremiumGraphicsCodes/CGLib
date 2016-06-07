@@ -34,6 +34,8 @@ public:
 
 	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
 
+	Vector3d<T> getNormal(const Angle<T> u, const Angle<T> v) const;
+
 	Vector3d<T> getCenter() const { return center; }
 
 	T getRadius() const { return radius; }

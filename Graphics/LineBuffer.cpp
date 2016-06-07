@@ -3,6 +3,9 @@
 #include "../Core/PolygonMesh.h"
 #include "../Core/Actor.h"
 #include "../Core/Bone.h"
+#include "../Core/Surface.h"
+#include "../Core/Node.h"
+#include "../Core/Edge.h"
 
 #include "DrawableID.h"
 
@@ -16,6 +19,33 @@ void LineBuffer::clear()
 	color.clear();
 	this->ids.clear();
 	this->idColors.clear();
+}
+
+void LineBuffer::add(const Point<float>& point, const ColorRGBA<float>& color)
+{
+	this->position.add(point.getPosition());
+	this->color.add(color);
+	//this->normal.add(point.getNormal());
+	//this->texCoord.add(point.getParameter());
+}
+
+void LineBuffer::add(const Edge& edge, const ColorRGBA<float>& color)
+{
+	this->ids.push_back( edge.getStart()->getId() );
+	this->ids.push_back( edge.getEnd()->getId() );
+}
+
+
+void LineBuffer::add(const Surface& surface, const ColorRGBA<float>& color)
+{
+	const auto& nodes = surface.getNodes();
+	for (auto n : nodes) {
+		add(*n, color);
+	}
+	const auto& edges = surface.getEdges();
+	for (auto e : edges) {
+		add(*e, color);
+	}
 }
 
 

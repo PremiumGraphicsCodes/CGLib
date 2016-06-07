@@ -24,7 +24,9 @@ Surface::Surface(const Curve3d<float>& curve)
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
-			Node* node = new Node(pos, nextNodeId++);
+			const auto& normal = curve.get(u, v).getNormal();
+
+			Node* node = new Node(pos,normal, nextNodeId++);
 			nodes.push_back(node);
 			grid.set(u, v, node);
 		}

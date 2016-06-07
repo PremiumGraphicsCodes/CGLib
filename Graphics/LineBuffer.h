@@ -5,6 +5,7 @@
 #include "Buffer1d.h"
 #include "Buffer4d.h"
 
+#include "../Math/Point.h"
 #include "../Math/Line3d.h"
 #include "../Core/PolygonMesh.h"
 #include "../Graphics/ColorRGBA.h"
@@ -13,6 +14,8 @@ namespace Crystal {
 	namespace Core {
 		class PolygonMesh;
 		class Actor;
+		class Surface;
+		class Edge;
 	}
 	namespace Graphics {
 
@@ -20,6 +23,12 @@ class LineBuffer
 {
 public:
 	void clear();
+
+	void add(const Math::Point<float>& point, const ColorRGBA<float>& color);
+
+	void add(const Core::Edge& edge, const ColorRGBA<float>& color);
+
+	void add(const Core::Surface& surface, const ColorRGBA<float>& color);
 
 	void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
 

@@ -20,9 +20,9 @@ public:
 
 	float getLength() const;
 
-	Node* getStart() { return start; }
+	Node* getStart() const { return start; }
 
-	Node* getEnd() { return end; }
+	Node* getEnd() const { return end; }
 
 private:
 	Node* start;
