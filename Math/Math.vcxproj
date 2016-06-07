@@ -35,6 +35,7 @@
     <ClInclude Include="Index2d.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Param.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="PolarCoord3d.h" />
     <ClInclude Include="Radian.h" />
     <ClInclude Include="SPHKernel.h" />
@@ -79,6 +80,7 @@
     <ClCompile Include="Matrix4d.cpp" />
     <ClCompile Include="Param.cpp" />
     <ClCompile Include="Plane3d.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="PolarCoord3d.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Quaternion.cpp" />

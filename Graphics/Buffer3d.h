@@ -19,6 +19,12 @@ public:
 
 	~Buffer3d() = default;
 
+	void add(const Math::Vector2d<T>& v) {
+		buffer.push_back(v.getX());
+		buffer.push_back(v.getY());
+		buffer.push_back(0);
+	}
+
 	void add(const Math::Vector3d<T>& v) {
 		buffer.push_back(v.getX());
 		buffer.push_back(v.getY());

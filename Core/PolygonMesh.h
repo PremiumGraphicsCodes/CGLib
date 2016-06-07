@@ -48,7 +48,7 @@ public:
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
 
-	void add(const Math::Ellipsoid<float>& ellipsoid, const int udiv, const int vdiv);
+	//void add(const Math::Ellipsoid<float>& ellipsoid, const int udiv, const int vdiv);
 
 	void add(const Math::Cone<float>& cone, const int div);
 

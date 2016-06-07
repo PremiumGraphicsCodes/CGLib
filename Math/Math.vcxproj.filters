@@ -83,6 +83,7 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="PolarCoord3d.cpp" />
+    <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2d.h" />
@@ -174,6 +175,7 @@
       <Filter>Kernel</Filter>
     </ClInclude>
     <ClInclude Include="PolarCoord3d.h" />
+    <ClInclude Include="Point.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "../Math/Point.h"
 #include "../Math/Triangle.h"
 #include "../Core/PolygonMesh.h"
 
@@ -21,6 +22,8 @@ class TriangleBuffer
 {
 public:
 	void add(const Core::Surface& surface);
+
+	void add(const Math::Point<float>& point);
 
 	void add(const Core::PolygonMesh& polygon);
 

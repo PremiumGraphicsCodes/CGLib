@@ -12,21 +12,21 @@ Curve3d<T>::Curve3d(const int u, const int v) :
 	vNumber(v)
 {
 	for (int i = 0; i < v; ++i) {
-		std::vector<Vector3d<T>> v(u);
-		positions.push_back(v);
+		std::vector<Point<T>> v(u);
+		points.push_back(v);
 	}
 }
 
 template<typename T>
-Vector3d<T> Curve3d<T>::getPosition(const int u, const int v) const
+Point<T> Curve3d<T>::get(const int u, const int v) const
 {
-	return positions[u][v];
+	return points[u][v];
 }
 
 template<typename T>
-void Curve3d<T>::setPosition(const int u, const int v, const Vector3d<T>& pos)
+void Curve3d<T>::set(const int u, const int v, const Point<T>& pos)
 {
-	positions[u][v] = pos;
+	points[u][v] = pos;
 }
 
 template class Curve3d<float>;

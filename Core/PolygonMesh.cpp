@@ -187,23 +187,6 @@ void PolygonMesh::add(const Sphere<float>& sphere, const int udiv, const int vdi
 
 #include "../Math/Curve3d.h"
 
-void PolygonMesh::add(const Ellipsoid<float>& ellipsoid, const int udiv, const int vdiv)
-{
-	Curve3d<float> curve(udiv, vdiv);
-	int uIndex = 0;
-	for (float u = 0; u < 90; u+=10, uIndex++) {
-		Degree<float> uDeg(u);
-		Angle<float> uAngle(uDeg);
-		int vIndex = 0;
-		for (float v = 0; v < 90; v += 10, vIndex) {
-			Degree<float> vDeg(v);
-			Angle<float> vAngle(vDeg);
-			const auto pos = ellipsoid.getPosition(uAngle, vAngle);
-			curve.setPosition(uIndex, vIndex, pos);
-		}
-	}
-}
-
 void PolygonMesh::add(const Cone<float>& cone, const int div)
 {
 	const auto howMany = 360.0 / div;
