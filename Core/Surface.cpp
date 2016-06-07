@@ -91,7 +91,7 @@ std::vector<unsigned int> Surface::toIndices() const
 		for (auto e : edges) {
 			indices.push_back( e->getStart()->getId() );
 		}
-		indices.push_back( edges.back()->getId() );
+		//indices.push_back( edges.back()->getEnd()->getId() );
 	}
 	return indices;
 }
