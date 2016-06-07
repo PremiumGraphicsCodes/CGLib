@@ -18,7 +18,9 @@ TEST(TriangleBufferTest, Test)
 	buffer.add(t);
 }
 
+/*
 TEST(TriangleBufferTest, TestAddSurface)
 {
 	Surface surface();
 }
+*/
