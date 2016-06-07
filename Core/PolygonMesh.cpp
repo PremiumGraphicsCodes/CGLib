@@ -199,7 +199,7 @@ void PolygonMesh::add(const Ellipsoid<float>& ellipsoid, const int udiv, const i
 			Degree<float> vDeg(v);
 			Angle<float> vAngle(vDeg);
 			const auto pos = ellipsoid.getPosition(uAngle, vAngle);
-			curve.set(uIndex, vIndex, pos);
+			curve.setPosition(uIndex, vIndex, pos);
 		}
 	}
 }

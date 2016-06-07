@@ -1,8 +1,10 @@
 #include "gtest\gtest.h"
 
 #include "../Graphics/TriangleBuffer.h"
+#include "../Core/Surface.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
 TEST(TriangleBufferTest, Test)
@@ -14,4 +16,9 @@ TEST(TriangleBufferTest, Test)
 		);
 	TriangleBuffer buffer;
 	buffer.add(t);
+}
+
+TEST(TriangleBufferTest, TestAddSurface)
+{
+	Surface surface();
 }

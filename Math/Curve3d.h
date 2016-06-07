@@ -14,9 +14,9 @@ public:
 
 	Curve3d(const int uNum, const int vNum);
 
-	Vector3d<T> get(const int u, const int v) const;
+	Vector3d<T> getPosition(const int u, const int v) const;
 
-	void set(const int u, const int v, const Vector3d<T>& pos);
+	void setPosition(const int u, const int v, const Vector3d<T>& pos);
 
 	int getUNumber() const { return uNumber; }
 
@@ -24,6 +24,7 @@ public:
 
 private:
 	std::vector< std::vector< Vector3d<T> > > positions;
+	std::vector< std::vector< Vector3d<T> > > normals;
 	int uNumber;
 	int vNumber;
 };

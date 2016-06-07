@@ -18,13 +18,13 @@ Curve3d<T>::Curve3d(const int u, const int v) :
 }
 
 template<typename T>
-Vector3d<T> Curve3d<T>::get(const int u, const int v) const
+Vector3d<T> Curve3d<T>::getPosition(const int u, const int v) const
 {
 	return positions[u][v];
 }
 
 template<typename T>
-void Curve3d<T>::set(const int u, const int v, const Vector3d<T>& pos)
+void Curve3d<T>::setPosition(const int u, const int v, const Vector3d<T>& pos)
 {
 	positions[u][v] = pos;
 }

@@ -23,12 +23,23 @@ public:
 	{
 	}
 
+	Node(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const int id) :
+		id(id),
+		position(position),
+		normal(normal)
+	{
+	}
+
+
 	Math::Vector3d<float> getPosition() const { return position; }
+
+	Math::Vector3d<float> getNormal() const { return normal; }
 
 	int getId() const { return id; }
 
 private:
 	Math::Vector3d<float> position;
+	Math::Vector3d<float> normal;
 	const int id;
 };
 

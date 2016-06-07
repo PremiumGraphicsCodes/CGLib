@@ -24,6 +24,8 @@ public:
 
 	Math::Vector3d<float> getNormal() const;
 
+	std::vector<Edge*> getEdges() const { return edges; }
+
 private:
 	std::vector<Edge*> edges;
 	const int id;

@@ -23,7 +23,7 @@ Surface::Surface(const Curve3d<float>& curve)
 	NodeGrid2d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
-			const auto& pos = curve.get(u, v);
+			const auto& pos = curve.getPosition(u, v);
 			Node* node = new Node(pos, nextNodeId++);
 			nodes.push_back(node);
 			grid.set(u, v, node);
@@ -81,4 +81,35 @@ void Surface::clear()
 		delete n;
 	}
 	nodes.clear();
+}
+
+std::vector<int> Surface::toIndices() const
+{
+	std::vector<int> indices;
+	for (auto f : faces) {
+		const auto& edges = f->getEdges();
+		for (auto e : edges) {
+			indices.push_back( e->getStart()->getId() );
+		}
+		indices.push_back( edges.back()->getId() );
+	}
+	return indices;
+}
+
+std::vector<Vector3d<float>> Surface::toPositions() const
+{
+	std::vector<Vector3d<float>> positions;
+	for (auto n : nodes) {
+		positions.push_back( n->getPosition() );
+	}
+	return positions;
+}
+
+std::vector<Vector3d<float>> Surface::toNormals() const
+{
+	std::vector<Vector3d<float>> normals;
+	for (auto n : nodes) {
+		normals.push_back(n->getNormal());
+	}
+	return normals;
 }

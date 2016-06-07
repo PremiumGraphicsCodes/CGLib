@@ -11,6 +11,7 @@
 
 namespace Crystal {
 	namespace Core {
+		class Surface;
 		class PolygonMesh;
 		class Vertex;
 	}
@@ -19,6 +20,8 @@ namespace Crystal {
 class TriangleBuffer
 {
 public:
+	void add(const Core::Surface& surface);
+
 	void add(const Core::PolygonMesh& polygon);
 
 	void add(const Core::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
@@ -36,6 +39,7 @@ public:
 	Buffer4d<float> getColors() const { return colors; }
 
 	Buffer4d<float> idColors;
+
 	std::vector<unsigned int> getIndices() const { return indices; }
 
 	std::vector<unsigned int> getIndices(const unsigned int start, const unsigned int end) const;

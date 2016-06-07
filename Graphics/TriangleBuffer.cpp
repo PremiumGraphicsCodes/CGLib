@@ -1,6 +1,9 @@
 #include "TriangleBuffer.h"
 
 #include "../Core/Vertex.h"
+#include "../Core/Surface.h"
+#include "../Core/Face.h"
+#include "../Core/Edge.h"
 
 #include "DrawableID.h"
 
@@ -8,6 +11,20 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
+
+void TriangleBuffer::add(const Surface& surface)
+{
+	const auto& indices = surface.toIndices();
+	const auto& positions = surface.toPositions();
+	/*
+	const auto& faces = surface.getFaces();
+	for (auto f : faces) {
+		for (auto e : f->getEdges()) {
+			e->getId();//e->getStart().
+		}
+	}
+	*/
+}
 
 void TriangleBuffer::add(const PolygonMesh& polygon)
 {

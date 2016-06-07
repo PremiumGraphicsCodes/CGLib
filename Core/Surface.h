@@ -29,6 +29,12 @@ public:
 
 	std::list<Node*> getNodes() const { return nodes; }
 
+	std::vector<int> toIndices() const;
+	
+	std::vector<Math::Vector3d<float>> toPositions() const;
+
+	std::vector<Math::Vector3d<float>> toNormals() const;
+
 private:
 	int nextNodeId;
 	int nextEdgeId;
@@ -37,6 +43,13 @@ private:
 	std::list<Edge*> edges;
 	std::list<Node*> nodes;
 };
+
+/*
+class IndexedSurface
+{
+	std::vector<Math::Vector3d<float>> positions;
+};
+*/
 	}
 }
 
