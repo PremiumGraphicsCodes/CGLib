@@ -63,6 +63,7 @@
     <ClInclude Include="LineBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="VisualSurface.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">

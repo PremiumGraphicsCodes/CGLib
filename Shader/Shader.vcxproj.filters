@@ -119,6 +119,9 @@
     <ClCompile Include="EllipsoidRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="EllipsoidRenderer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,8 @@
 #include <vector>
 #include "../Math/Vector3d.h"
 #include "../Math/Line3d.h"
+#include "../Math/Ellipsoid.h"
+#include "../Math/Quaternion.h"
 
 namespace Crystal {
 	namespace Core {
@@ -11,10 +13,12 @@ namespace Crystal {
 		class Particle;
 		class AnisotoropicParticle;
 
+using OrientedEllipsoid = std::pair< Math::Ellipsoid<float>, Math::Quaternion<float> >;
+
 class Bone
 {
 public:
-	Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id);
+	Bone(Joint* origin, Joint* dest, const Math::Vector2d<float>& thickness, const unsigned int id);
 
 	~Bone();
 
@@ -36,9 +40,9 @@ public:
 
 	Math::Line3d<float> toLine() const;
 
-	std::vector<Particle> toParticles(const float divideLength, const float density);
-
 	std::vector<AnisotoropicParticle> toAnisoParticles(const float divideLength, const float density);
+
+	std::vector< OrientedEllipsoid > toEllipsoids(const float divideLength) const;
 
 	Joint* getOriginJoint() const { return origin; }
 
@@ -52,12 +56,12 @@ public:
 
 	bool isTail() const { return origin == nullptr || dest == nullptr; }
 
-	void scale(const float dt) { this->thickness += dt; }
+	void scale(const Math::Vector2d<float>& dt) { this->thickness += dt; }
 
 	void move(const Math::Vector3d<float>& v);
 	//std::string getName() const { return name; }
 
-	float getThickness() const { return thickness; }
+	Math::Vector2d<float> getThickness() const { return thickness; }
 
 private:
 	Joint* origin;
@@ -65,7 +69,7 @@ private:
 	//Bone* parent;
 	std::string name;
 	std::vector<Bone*> children;
-	float thickness;
+	Math::Vector2d<float> thickness;
 	unsigned int id;
 };
 

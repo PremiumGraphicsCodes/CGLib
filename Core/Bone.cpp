@@ -8,7 +8,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Bone::Bone(Joint* origin, Joint* dest, const float thickness, const unsigned int id) :
+Bone::Bone(Joint* origin, Joint* dest, const Vector2d<float>& thickness, const unsigned int id) :
 	origin(origin),
 	dest(dest),
 	thickness(thickness),
@@ -36,7 +36,7 @@ void Bone::clear()
 
 Bone* Bone::createChild(Joint* childDest)
 {
-	auto b = new Bone(dest, childDest, 1, 1);
+	auto b = new Bone(dest, childDest, Vector2d<float>(1,1), 1);
 	children.push_back(b);
 	return b;
 }
@@ -52,29 +52,26 @@ Line3d<float> Bone::toLine() const
 }
 
 
-std::vector<Particle> Bone::toParticles(const float divideLength, const float density)
-{
-	const float length = this->getLength();
-	std::vector<Particle> particles;
-	const Particle originParticle = origin->toParticle(density);
-	const Particle destParticle = dest->toParticle(density);
-	const float start = origin->getRadius() + divideLength * 0.5f;
-	const float end = length - dest->getRadius();// - divideLength * 0.5f;
-	for (float l = start ; l < end; l += divideLength) {
-		const float ratio = l / length;
-		particles.emplace_back( originParticle.createBlended(destParticle, ratio) );
-	}
-	return particles;
-}
-
 #include "../Math/PolarCoord3d.h"
 
 std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLength, const float density)
 {
-	const float length = this->getLength();
 	std::vector<AnisotoropicParticle> particles;
-	const Particle originParticle = origin->toParticle(density);
-	const Particle destParticle = dest->toParticle(density);
+
+	const auto& ellipsoids = toEllipsoids(divideLength);
+	for (const auto& e : ellipsoids) {
+		AnisotoropicParticle ap(e.first, density, e.second);
+		particles.emplace_back(ap);
+	}
+
+	return particles;
+}
+
+std::vector< OrientedEllipsoid > Bone::toEllipsoids(const float divideLength) const
+{
+	std::vector< OrientedEllipsoid > results;
+
+	const auto length = this->getLength();
 	const float start = origin->getRadius() + divideLength * 0.5f;
 	const float end = length - dest->getRadius();// - divideLength * 0.5f;
 	const auto vector = dest->getPosition() - origin->getPosition();
@@ -83,13 +80,13 @@ std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLengt
 	for (float l = start; l < end; l += divideLength) {
 		const float ratio = l / length;
 		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
-		const Vector3d<float> radii(divideLength, thickness, thickness);
+		const Vector3d<float> radii(divideLength, thickness.getX(), thickness.getY());
 		const Ellipsoid<float> e(pos, radii);
-		AnisotoropicParticle ap(e, density, orientation);
-		particles.emplace_back(ap);
+		results.push_back(std::make_pair(e, orientation));
 	}
-	return particles;
+	return results;
 }
+
 
 
 void Bone::move(const Vector3d<float>& v)

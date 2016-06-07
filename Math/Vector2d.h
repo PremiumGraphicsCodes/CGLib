@@ -40,6 +40,11 @@ public:
 
 	bool operator!=(const Vector2d& rhs) const { return !equals(rhs); }
 
+	Vector2d& operator+=(const Vector2d& rhs) {
+		this->x += rhs.x; this->y += rhs.y;
+		return *this;
+	}
+
 private:
 	T x;
 	T y;

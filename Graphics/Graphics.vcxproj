@@ -59,6 +59,7 @@
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TriangleBuffer.h" />
     <ClInclude Include="VisualPolygon.h" />
+    <ClInclude Include="VisualSurface.h" />
     <ClInclude Include="WindowCoord2d.h" />
     <ClInclude Include="Wireframe.h" />
   </ItemGroup>
