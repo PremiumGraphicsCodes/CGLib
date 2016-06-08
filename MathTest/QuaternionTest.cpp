@@ -43,3 +43,10 @@ TEST(QuaternionTest, TestMult)
 	const Quaternion<float> q2(1, 1, 1, 1);
 	const auto actual = q1.mult(q2);
 }
+
+TEST(QuaternionTest, TestToMatrix)
+{
+	const Quaternion<float> q(0, 0, 0, 1);
+	const auto& actual = q.toMatrix();
+	EXPECT_EQ(Matrix3d<float>::Identity(), actual);
+}

@@ -46,6 +46,8 @@ namespace {
 			<< "	float x21 = 2*y*z + 2*x*w;" << std::endl
 			<< "	float x22 = 1 - 2*x*x - 2*y*y;" << std::endl
 			<< "	return mat3(x00, x01, x02, x10, x11, x12, x20, x21, x22); " << std::endl
+			//<< "	return mat3(1,0,0, 0,1,0, 0,0, 1); " << std::endl
+
 			<< "}" << std::endl;
 		return stream.str();
 	}
@@ -92,7 +94,8 @@ std::string EllipsoidRenderer::getBuildinFragmentShaderSource() const
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
 		<< "	float distSquared = sqrt(dot(coord.xy, coord.xy));" << std::endl
 		<< "	coord.z = 1.0 - distSquared;" << std::endl
-		<< "	mat3 matrix = toMatrix(vOrientation);" << std::endl
+		<< "	mat3 rotationMatrix = toMatrix(vOrientation);" << std::endl
+		<< "	mat3 matrix = rotationMatrix * mat3(vRadii.x, 0, 0, 0, vRadii.y, 0, 0, 0, vRadii.z) * inverse(rotationMatrix);" << std::endl
 		<< "	coord = matrix * coord;" << std::endl
 		<< "	distSquared = (coord.x * coord.x) / (vRadii.x * vRadii.x) + (coord.y * coord.y) / (vRadii.y * vRadii.y) + (coord.z * coord.z) / (vRadii.z * vRadii.z);" << std::endl
 		<< "	if (distSquared > 1.0 ) {"
