@@ -5,9 +5,9 @@ using namespace Crystal::Graphics;
 
 void OrientedParticleBuffer::clear()
 {
+	indices.clear();
 	position.clear();
 	texCoord.clear();
-	radii.clear();
 	orientation.clear();
 	color.clear();
 }
@@ -20,10 +20,10 @@ void OrientedParticleBuffer::add(const OrientedParticle& e)
 	int i3 = i1 + 2;
 	int i4 = i1 + 3;
 
-	position.add(e.getPosition() + Vector3d<float>(-0.1, 0.1, 0.0));
-	position.add(e.getPosition() + Vector3d<float>(-0.1, -0.1, 0.0));
-	position.add(e.getPosition() + Vector3d<float>(0.1, -0.1, 0.0));
-	position.add(e.getPosition() + Vector3d<float>(0.1, 0.1, 0.0));
+	position.add(e.getPosition() + Vector3d<float>(-e.getRadii().getX(), e.getRadii().getX(), 0.0));
+	position.add(e.getPosition() + Vector3d<float>(-e.getRadii().getX(), -e.getRadii().getY(), 0.0));
+	position.add(e.getPosition() + Vector3d<float>(e.getRadii().getX(), -e.getRadii().getY(), 0.0));
+	position.add(e.getPosition() + Vector3d<float>(e.getRadii().getX(), e.getRadii().getY(), 0.0));
 
 	indices.push_back(i1);
 	indices.push_back(i2);
@@ -38,10 +38,6 @@ void OrientedParticleBuffer::add(const OrientedParticle& e)
 	texCoord.add(Vector2d<float>(1, -1));
 	texCoord.add(Vector2d<float>(1, 1));
 
-	radii.add(e.getRadii());
-	radii.add(e.getRadii());
-	radii.add(e.getRadii());
-	radii.add(e.getRadii());
 
 	orientation.add(e.getOrientation());
 	orientation.add(e.getOrientation());

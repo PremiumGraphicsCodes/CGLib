@@ -47,8 +47,6 @@ public:
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
-	Graphics::Buffer3d<float> getRadii() const { return radii; }
-
 	Graphics::Buffer4d<float> getOrientation() const { return orientation; }
 
 	Graphics::Buffer4d<float> getColor() const { return color; }
@@ -62,7 +60,6 @@ private:
 	std::vector<unsigned int> indices;
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer2d<float> texCoord;
-	Graphics::Buffer3d<float> radii;
 	Graphics::Buffer4d<float> orientation;
 	Graphics::Buffer4d<float> color;
 };
