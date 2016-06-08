@@ -69,7 +69,7 @@ std::string EllipsoidRenderer::getBuildinVertexShaderSource() const
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
-		<< "	gl_PointSize = 1000 / gl_Position.w;" << std::endl
+		<< "	gl_PointSize = 100 / gl_Position.w;" << std::endl
 		<< "	vColor = color;" << std::endl
 		<< "	vRadii = radii;" << std::endl
 		<< "	vOrientation = orientation;" << std::endl
@@ -92,10 +92,10 @@ std::string EllipsoidRenderer::getBuildinFragmentShaderSource() const
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
 		<< "	float distSquared = sqrt(dot(coord.xy, coord.xy));" << std::endl
 		<< "	coord.z = 1.0 - distSquared;" << std::endl
-		<< "	mat3 matrix = toMatrix(vOrientation) * vRadii[0];"
+		<< "	mat3 matrix = toMatrix(vOrientation);" << std::endl
 		<< "	coord = matrix * coord;" << std::endl
-		<< "	distSquared = dot(coord.xyz, coord.xyz);" << std::endl
-		<< "	if (distSquared > 1.0) {"
+		<< "	distSquared = (coord.x * coord.x) / (vRadii.x * vRadii.x) + (coord.y * coord.y) / (vRadii.y * vRadii.y) + (coord.z * coord.z) / (vRadii.z * vRadii.z);" << std::endl
+		<< "	if (distSquared > 1.0 ) {"
 		<< "		discard;"
 		<< "	}" << std::endl
 	//	<< "	fragColor.rgb = vRadii;" << std::endl

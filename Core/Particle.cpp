@@ -72,3 +72,13 @@ Matrix3d<float> Particle::getMatrix() const
 		0, radius, 0,
 		0, 0, radius);
 }
+
+Vector3d<float> Particle::getRadii() const
+{
+	return Vector3d<float>(radius, radius, radius);
+}
+
+Quaternion<float> Particle::getOrientation() const
+{
+	return Quaternion<float>(0, 0, 0, 1);
+}

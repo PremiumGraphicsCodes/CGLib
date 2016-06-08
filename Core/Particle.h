@@ -57,6 +57,10 @@ public:
 
 	Math::Matrix3d<float> getMatrix() const override;
 
+	Math::Vector3d<float> getRadii() const override;
+
+	Math::Quaternion<float> getOrientation() const override;
+
 
 private:
 	float radius;

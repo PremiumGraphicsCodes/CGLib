@@ -38,6 +38,10 @@ public:
 
 	virtual Math::Matrix3d<float> getMatrix() const = 0;
 
+	virtual Math::Vector3d<float> getRadii() const = 0;
+
+	virtual Math::Quaternion<float> getOrientation() const = 0;
+
 protected:
 	Math::Vector3d<float> position;
 	float density;
