@@ -164,6 +164,8 @@ public:
 
 	Matrix4d<T> transposed() const;
 
+	T operator[](int index) { return x[index]; }
+
 private:
 	std::array< T, 16 > x;
 };

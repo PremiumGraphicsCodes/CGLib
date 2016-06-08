@@ -69,3 +69,10 @@ TEST(ICameraTest, TestGetRightVector)
 	c.moveTo(Vector3d<float>(-1, 0, 0));
 	EXPECT_EQ(Vector3d<T>(0, 0, 1), c.getRightVector());
 }
+
+TEST(ICameraTest, TestGetBillBoardMatrix)
+{
+	ConcreteCamera<T> c;
+	c.setCameraXY();
+	const auto actual = c.getBillboardMatrix();
+}

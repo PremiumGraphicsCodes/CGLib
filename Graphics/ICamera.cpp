@@ -66,6 +66,27 @@ Vector3d<T> ICamera<T>::getRightVector() const
 	return getForwardVector().getOuterProduct(getUpVector());
 }
 
+template<typename T>
+Matrix4d<T> ICamera<T>::getBillboardMatrix() const
+{
+	auto m = getModelviewMatrix();
+	Vector3d<T> z( -m[12], -m[13], -m[14]);
+	z.normalize();
+	Vector3d<T> x(-m[14], 0, m[12]);
+	x.normalize();
+	Vector3d<T> y = z.getOuterProduct(x);
+	m.setX00(x.getX());
+	m.setX10(x.getY());
+	m.setX20(x.getZ());
+	m.setX01(y.getX());
+	m.setX11(y.getY());
+	m.setX12(y.getZ());
+	m.setX02(z.getX());
+	m.setX12(z.getY());
+	m.setX22(z.getZ());
+	return m;
+}
+
 
 template class ICamera<float>;
 template class ICamera<double>;

@@ -30,6 +30,8 @@ public:
 		return Math::Vector2d<T>(x, y);
 	}
 
+	std::vector< T > get() const { return std::move(buffer); }
+
 };
 
 	}

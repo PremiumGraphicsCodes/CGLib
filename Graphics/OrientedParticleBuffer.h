@@ -4,6 +4,7 @@
 #include "../Math/Vector3d.h"
 #include "../Math/Quaternion.h"
 #include "Buffer1d.h"
+#include "Buffer2d.h"
 #include "Buffer3d.h"
 #include "Buffer4d.h"
 #include "ColorRGBA.h"
@@ -52,8 +53,15 @@ public:
 
 	Graphics::Buffer4d<float> getColor() const { return color; }
 
+	Buffer2d<float> getTexCoord() const { return texCoord; }
+
+	std::vector<unsigned int> getIndices() const { return indices; }
+
 private:
+	int nextIndex;
+	std::vector<unsigned int> indices;
 	Graphics::Buffer3d<float> position;
+	Graphics::Buffer2d<float> texCoord;
 	Graphics::Buffer3d<float> radii;
 	Graphics::Buffer4d<float> orientation;
 	Graphics::Buffer4d<float> color;

@@ -6,11 +6,8 @@
     <ClCompile Include="ColorRGBA.cpp" />
     <ClCompile Include="DrawableID.cpp" />
     <ClCompile Include="IBuffer.cpp" />
-    <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="OrthogonalCamera.cpp" />
-    <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="VisualPolygon.cpp" />
     <ClCompile Include="WindowCoord2d.cpp" />
     <ClCompile Include="PointBuffer.cpp">
@@ -28,20 +25,26 @@
     <ClCompile Include="OrientedParticleBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="OrthogonalCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="PerspectiveCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ICamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
     <ClInclude Include="DrawableID.h" />
     <ClInclude Include="IBuffer.h" />
-    <ClInclude Include="ICamera.h" />
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGBA.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialMap.h" />
-    <ClInclude Include="OrthogonalCamera.h" />
-    <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="VisualPolygon.h" />
     <ClInclude Include="WindowCoord2d.h" />
@@ -74,10 +77,22 @@
     <ClInclude Include="OrientedParticleBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="OrthogonalCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="PerspectiveCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="ICamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">
       <UniqueIdentifier>{b776f1ab-55fc-47fe-b412-31a90c3897e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{bbd160af-baa3-422f-9798-4290464b45ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

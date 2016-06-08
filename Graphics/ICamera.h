@@ -62,6 +62,8 @@ public:
 
 	void setUpVector(const Math::Vector3d<T>& v) { this->up = v; }
 
+	Math::Matrix4d<T> getBillboardMatrix() const;
+
 protected:
 	Math::Vector3d<T> pos;
 	Math::Vector3d<T> up;
