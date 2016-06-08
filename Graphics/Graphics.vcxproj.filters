@@ -5,7 +5,6 @@
     <ClCompile Include="ColorMap.cpp" />
     <ClCompile Include="ColorRGBA.cpp" />
     <ClCompile Include="DrawableID.cpp" />
-    <ClCompile Include="EllipsoidBuffer.cpp" />
     <ClCompile Include="IBuffer.cpp" />
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -23,11 +22,16 @@
     <ClCompile Include="LineBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="EllipsoidBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="OrientedParticleBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
     <ClInclude Include="DrawableID.h" />
-    <ClInclude Include="EllipsoidBuffer.h" />
     <ClInclude Include="IBuffer.h" />
     <ClInclude Include="ICamera.h" />
     <ClInclude Include="ColorHSV.h" />
@@ -64,6 +68,12 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="VisualSurface.h" />
+    <ClInclude Include="EllipsoidBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="OrientedParticleBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">

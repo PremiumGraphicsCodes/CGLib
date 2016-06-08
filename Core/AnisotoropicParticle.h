@@ -35,6 +35,10 @@ public:
 
 	AnisotoropicParticle* clone(const int newId = -1) const;
 
+	Math::Vector3d<float> getRadii() const { return radii; }
+
+	Math::Quaternion<float> getOrientation() const { return orientation; }
+
 private:
 	Math::Vector3d<float> radii;
 	Math::Quaternion<float> orientation;

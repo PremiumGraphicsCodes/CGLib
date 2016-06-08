@@ -3,6 +3,7 @@
 
 #include "ColorRGBA.h"
 #include "IBuffer.h"
+#include "../Math/Quaternion.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -27,6 +28,13 @@ public:
 
 	void add(const Buffer4d<T>& rhs) {
 		buffer.insert(buffer.end(), rhs.buffer.begin(), rhs.buffer.end());
+	}
+
+	void add(const Math::Quaternion<T>& q) {
+		buffer.push_back(q.getX());
+		buffer.push_back(q.getY());
+		buffer.push_back(q.getZ());
+		buffer.push_back(q.getW());
 	}
 
 	bool operator==(const Buffer4d<T>& rhs) { return buffer == rhs.buffer; }

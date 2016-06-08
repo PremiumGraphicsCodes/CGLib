@@ -14,6 +14,43 @@ bool EllipsoidRenderer::build()
 	return b;
 }
 
+/*
+const auto x00 = (1.0f - 2.0f * y * y - 2.0f * z * z);
+const auto x01 = (2.0f * x * y - 2.0f * z * w);
+const auto x02 = (2.0f * x * z + 2.0f * y * w);
+
+const auto x10 = (2.0f * x * y + 2.0f * z * w);
+const auto x11 = (1.0f - 2.0f * x * x - 2.0f * z * z);
+const auto x12 = (2.0f * y * z - 2.0f * x * w);
+
+const auto x20 = (2.0f * x * z - 2.0f * y * w);
+const auto x21 = (2.0f * y * z + 2.0f * x * w);
+const auto x22 = (1.0f - 2.0f * x * x - 2.0f * y * y);
+*/
+namespace {
+	std::string matrixToQuaternion() {
+		std::ostringstream stream;
+		stream
+			<< "mat3 toMatrix(vec4 q) {" << std::endl
+			<< "	float x = q[0]; " << std::endl
+			<< "	float y = q[1]; " << std::endl
+			<< "	float z = q[2]; " << std::endl
+			<< "	float w = q[3]; " << std::endl
+			<< "	float x00 = 1 - 2*y*y - 2.0*z*z;" << std::endl
+			<< "	float x01 = 2 * x*y - 2.0*z*w;" << std::endl
+			<< "	float x02 = 2 * x*z + 2.0*y*w;" << std::endl
+			<< "	float x10 = 2 * x*y + 2*z*w;" << std::endl
+			<< "	float x11 = 1 - 2*x*x - 2 *z*z;" << std::endl
+			<< "	float x12 = 2*y*z - 2*x*w;" << std::endl
+			<< "	float x20 = 2*x*z - 2*y*w;" << std::endl
+			<< "	float x21 = 2*y*z + 2*x*w;" << std::endl
+			<< "	float x22 = 1 - 2*x*x - 2*y*y;" << std::endl
+			<< "	return mat3(x00, x01, x02, x10, x11, x12, x20, x21, x22); " << std::endl
+			<< "}" << std::endl;
+		return stream.str();
+	}
+}
+
 std::string EllipsoidRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
@@ -23,18 +60,19 @@ std::string EllipsoidRenderer::getBuildinVertexShaderSource() const
 		<< "in int id;" << std::endl
 		<< "in float pointSize;" << std::endl
 		<< "in vec4 color;" << std::endl
-		<< "in vec3 matrixRow1;" << std::endl
-		<< "in vec3 matrixRow2;" << std::endl
-		<< "in vec3 matrixRow3;" << std::endl
+		<< "in vec3 radii;" << std::endl
+		<< "in vec4 orientation;" << std::endl
 		<< "out vec4 vColor;" << std::endl
-		<< "out mat3 vMatrix;" << std::endl
+		<< "out vec3 vRadii;" << std::endl
+		<< "out vec4 vOrientation;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
-		<< "	gl_PointSize = pointSize / gl_Position.w;" << std::endl
+		<< "	gl_PointSize = 1000 / gl_Position.w;" << std::endl
 		<< "	vColor = color;" << std::endl
-		<< "	vMatrix = mat3(matrixRow1, matrixRow2, matrixRow3);" << std::endl
+		<< "	vRadii = radii;" << std::endl
+		<< "	vOrientation = orientation;" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -45,18 +83,22 @@ std::string EllipsoidRenderer::getBuildinFragmentShaderSource() const
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec4 vColor;" << std::endl
-		<< "in mat3 vMatrix;" << std::endl
+		<< "in vec3 vRadii;" << std::endl
+		<< "in vec4 vOrientation;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
+		<< matrixToQuaternion() << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	vec3 coord;" << std::endl
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
 		<< "	float distSquared = sqrt(dot(coord.xy, coord.xy));" << std::endl
 		<< "	coord.z = 1.0 - distSquared;" << std::endl
-		<< "	coord = vMatrix * coord;" << std::endl
+		<< "	mat3 matrix = toMatrix(vOrientation) * vRadii[0];"
+		<< "	coord = matrix * coord;" << std::endl
 		<< "	distSquared = dot(coord.xyz, coord.xyz);" << std::endl
 		<< "	if (distSquared > 1.0) {"
 		<< "		discard;"
 		<< "	}" << std::endl
+	//	<< "	fragColor.rgb = vRadii;" << std::endl
 		<< "	fragColor.rgba = vColor;" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
@@ -69,23 +111,17 @@ void EllipsoidRenderer::findLocation()
 
 	shader.findAttribLocation("position");
 	shader.findAttribLocation("color");
-	shader.findAttribLocation("pointSize");
-
-	shader.findAttribLocation("matrixRow1");
-	shader.findAttribLocation("matrixRow2");
-	shader.findAttribLocation("matrixRow3");
+	shader.findAttribLocation("radii");
+	shader.findAttribLocation("orientation");
 }
 
 
-void EllipsoidRenderer::render(const ICamera<float>& camera, const EllipsoidBuffer& buffer)
+void EllipsoidRenderer::render(const ICamera<float>& camera, const OrientedParticleBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();
 	const auto& colors = buffer.getColor().get();
-	const auto& sizes = buffer.getSize().get();
-
-	const auto& matrixRow1 = buffer.getMatrixRow1().get();
-	const auto& matrixRow2 = buffer.getMatrixRow2().get();
-	const auto& matrixRow3 = buffer.getMatrixRow3().get();
+	const auto& radii = buffer.getRadii().get();
+	const auto& orientation = buffer.getOrientation().get();
 
 
 	if (positions.empty()) {
@@ -109,10 +145,8 @@ void EllipsoidRenderer::render(const ICamera<float>& camera, const EllipsoidBuff
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glVertexAttribPointer(shader.getAttribLocation("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
-	glVertexAttribPointer(shader.getAttribLocation("pointSize"), 1, GL_FLOAT, GL_FALSE, 0, sizes.data());
-	glVertexAttribPointer(shader.getAttribLocation("matrixRow1"), 3, GL_FLOAT, GL_FALSE, 0, matrixRow1.data());
-	glVertexAttribPointer(shader.getAttribLocation("matrixRow2"), 3, GL_FLOAT, GL_FALSE, 0, matrixRow2.data());
-	glVertexAttribPointer(shader.getAttribLocation("matrixRow3"), 3, GL_FLOAT, GL_FALSE, 0, matrixRow3.data());
+	glVertexAttribPointer(shader.getAttribLocation("radii"), 3, GL_FLOAT, GL_FALSE, 0, radii.data());
+	glVertexAttribPointer(shader.getAttribLocation("orientation"), 4, GL_FLOAT, GL_FALSE, 0, orientation.data());
 
 
 	//const auto positions = buffer.getPositions();
@@ -120,13 +154,9 @@ void EllipsoidRenderer::render(const ICamera<float>& camera, const EllipsoidBuff
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	glEnableVertexAttribArray(3);
-	glEnableVertexAttribArray(4);
-	glEnableVertexAttribArray(5);
 
 	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(positions.size() / 3));
 
-	glDisableVertexAttribArray(5);
-	glDisableVertexAttribArray(4);
 	glDisableVertexAttribArray(3);
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);

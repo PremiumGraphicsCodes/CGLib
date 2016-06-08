@@ -29,6 +29,7 @@
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="LineBuffer.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="OrientedParticleBuffer.cpp" />
     <ClCompile Include="OrthogonalCamera.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="PointBuffer.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="LineBuffer.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialMap.h" />
+    <ClInclude Include="OrientedParticleBuffer.h" />
     <ClInclude Include="OrthogonalCamera.h" />
     <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="PointBuffer.h" />

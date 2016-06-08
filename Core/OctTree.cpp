@@ -11,7 +11,7 @@ OctTree::OctTree(const Space3d<float>& space) :
 bool OctTree::isNeighbor(IParticle* particle) const
 {
 	const auto& position = particle->getPosition();
-	const auto bb = particle->getBoundingBox();
+//	const auto bb = particle->getBoundingBox();
 	const auto offsetx = particle->getBoundingRadius();//bb.getLength().getX() * 0.5f;
 	//const auto bb = this->getBoundingBox().getOuterOffset(offset);
 	const auto minx = space.getStart().getX() - offsetx;

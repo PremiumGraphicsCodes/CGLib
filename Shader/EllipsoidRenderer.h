@@ -2,7 +2,7 @@
 #define __CRYSTAL_SHADER_ELLIPSOID_RENDERER_H__
 
 #include "../Graphics/ICamera.h"
-#include "../Graphics/EllipsoidBuffer.h"
+#include "../Graphics/OrientedParticleBuffer.h"
 #include "IRenderer.h"
 
 namespace Crystal {
@@ -13,7 +13,7 @@ class EllipsoidRenderer
 public:
 	void findLocation();
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::EllipsoidBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::OrientedParticleBuffer& buffer);
 
 	//void changeSize(const float size) { this->pointSize = size; }
 	bool build();
