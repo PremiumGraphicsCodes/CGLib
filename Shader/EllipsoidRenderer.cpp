@@ -51,8 +51,44 @@ namespace {
 			<< "}" << std::endl;
 		return stream.str();
 	}
-}
 
+	std::string getCubicSpline() {
+		std::stringstream stream;
+		stream
+			<< "float getCubicSpline(const float q) {"
+			<< "	float coe = 3.0 / 3.141592;" << std::endl
+			<< "	if(q < 1) {" << std::endl
+			<< "		return coe * (2.0 / 3.0-q*q + 0.5*q*q*q);" << std::endl
+			<< "	}else if( q < 2 ) {" << std::endl
+			<< "		return coe * (pow(2-q,3)/6);" << std::endl
+			<< "	}" << std::endl
+			<< "	return 0.0;" << std::endl
+			<< "}" << std::endl;
+		return stream.str();
+	}
+
+	std::string getCubicSplineByMatrix() {
+		std::stringstream stream;
+		stream
+			<< "float getCubicSpline(vec3 v, mat3 m) {" << std::endl
+			<< "	vec3 vv = m * v;" << std::endl
+			<< "	float q = length(vv);" << std::endl
+			<< "	return determinant(m) * getCubicSpline(q);" << std::endl
+			<< "}" << std::endl;
+		return stream.str();
+	}
+}
+/*
+
+template<typename T, typename int DIM>
+T SPHKernel<T, DIM>::getCubicSpline(const Vector3d<T>& v, const Matrix3d<T>& m)
+{
+	const auto det = m.getDeterminant();
+	const auto vv = v * m;
+	const auto q = vv.getLength();
+	return det * getCubicSpline(q);
+}
+*/
 std::string EllipsoidRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
@@ -89,6 +125,8 @@ std::string EllipsoidRenderer::getBuildinFragmentShaderSource() const
 		<< "in vec4 vOrientation;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< matrixToQuaternion() << std::endl
+//		<< getCubicSpline() << std::endl
+//		<< getCubicSplineByMatrix() << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	vec3 coord;" << std::endl
 		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
@@ -96,9 +134,11 @@ std::string EllipsoidRenderer::getBuildinFragmentShaderSource() const
 		<< "	coord.z = 1.0 - distSquared;" << std::endl
 		<< "	mat3 rotationMatrix = toMatrix(vOrientation);" << std::endl
 		<< "	mat3 matrix = rotationMatrix * mat3(vRadii.x, 0, 0, 0, vRadii.y, 0, 0, 0, vRadii.z) * inverse(rotationMatrix);" << std::endl
+//		<< "	float value = getCubicSpline(coord, inverse(matrix));" << std::endl
 		<< "	coord = matrix * coord;" << std::endl
 		<< "	distSquared = (coord.x * coord.x) / (vRadii.x * vRadii.x) + (coord.y * coord.y) / (vRadii.y * vRadii.y) + (coord.z * coord.z) / (vRadii.z * vRadii.z);" << std::endl
-		<< "	if (distSquared > 1.0 ) {"
+//		<< "	if (value > 0.1 ) {"
+		<< "	if(distSquared > 1.0) {" << std::endl
 		<< "		discard;"
 		<< "	}" << std::endl
 	//	<< "	fragColor.rgb = vRadii;" << std::endl
