@@ -28,10 +28,10 @@ const auto x21 = (2.0f * y * z + 2.0f * x * w);
 const auto x22 = (1.0f - 2.0f * x * x - 2.0f * y * y);
 */
 namespace {
-	std::string matrixToQuaternion() {
+	std::string quaternionToMat3() {
 		std::ostringstream stream;
 		stream
-			<< "mat3 toMatrix(vec4 q) {" << std::endl
+			<< "mat3 toMat3(vec4 q) {" << std::endl
 			<< "	float x = q[0]; " << std::endl
 			<< "	float y = q[1]; " << std::endl
 			<< "	float z = q[2]; " << std::endl
@@ -51,6 +51,31 @@ namespace {
 			<< "}" << std::endl;
 		return stream.str();
 	}
+
+	std::string quaternionToMat4() {
+		std::ostringstream stream;
+		stream
+			<< "mat4 toMat4(vec4 q) {" << std::endl
+			<< "	float x = q[0]; " << std::endl
+			<< "	float y = q[1]; " << std::endl
+			<< "	float z = q[2]; " << std::endl
+			<< "	float w = q[3]; " << std::endl
+			<< "	float x00 = 1 - 2*y*y - 2.0*z*z;" << std::endl
+			<< "	float x01 = 2 * x*y - 2.0*z*w;" << std::endl
+			<< "	float x02 = 2 * x*z + 2.0*y*w;" << std::endl
+			<< "	float x10 = 2 * x*y + 2*z*w;" << std::endl
+			<< "	float x11 = 1 - 2*x*x - 2 *z*z;" << std::endl
+			<< "	float x12 = 2*y*z - 2*x*w;" << std::endl
+			<< "	float x20 = 2*x*z - 2*y*w;" << std::endl
+			<< "	float x21 = 2*y*z + 2*x*w;" << std::endl
+			<< "	float x22 = 1 - 2*x*x - 2*y*y;" << std::endl
+			<< "	return mat4(x00, x01, x02, 0, x10, x11, x12, 0, x20, x21, x22, 0, 0, 0, 0, 1); " << std::endl
+			//<< "	return mat3(1,0,0, 0,1,0, 0,0, 1); " << std::endl
+
+			<< "}" << std::endl;
+		return stream.str();
+	}
+
 
 	std::string getCubicSpline() {
 		std::stringstream stream;
@@ -102,15 +127,17 @@ std::string EllipsoidRenderer::getBuildinVertexShaderSource() const
 		<< "in vec4 orientation;" << std::endl
 		<< "out vec4 vColor;" << std::endl
 		<< "out vec3 vRadii;" << std::endl
-		<< "out vec4 vOrientation;" << std::endl
+		<< "out float vAngle;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< quaternionToMat3() << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "	gl_PointSize = 100 / gl_Position.w;" << std::endl
 		<< "	vColor = color;" << std::endl
-		<< "	vRadii = radii;" << std::endl
-		<< "	vOrientation = orientation;" << std::endl
+		<< "	vRadii = (projectionMatrix * vec4(radii,1.0)).xyz;" << std::endl
+		<< "	vec3 v = vec3(0,0,1) * toMat3(orientation);" << std::endl
+		<< "	vAngle = asin(v.y);" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -120,28 +147,28 @@ std::string EllipsoidRenderer::getBuildinFragmentShaderSource() const
 	std::ostringstream stream;
 	stream
 		<< "#version 150" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "in vec4 vColor;" << std::endl
 		<< "in vec3 vRadii;" << std::endl
 		<< "in vec4 vOrientation;" << std::endl
+		<< "in float vAngle;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
-		<< matrixToQuaternion() << std::endl
-//		<< getCubicSpline() << std::endl
-//		<< getCubicSplineByMatrix() << std::endl
+		<< quaternionToMat4() << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	vec3 coord;" << std::endl
-		<< "	coord.xy = gl_PointCoord * 2.0 - 1.0;" << std::endl
-		<< "	float distSquared = sqrt(dot(coord.xy, coord.xy));" << std::endl
-		<< "	coord.z = 1.0 - distSquared;" << std::endl
-		<< "	mat3 rotationMatrix = toMatrix(vOrientation);" << std::endl
-		<< "	mat3 matrix = rotationMatrix * mat3(vRadii.x, 0, 0, 0, vRadii.y, 0, 0, 0, vRadii.z) * inverse(rotationMatrix);" << std::endl
+		<< "	vec2 coord = gl_PointCoord * 2.0 - 1.0;" << std::endl
+		//		<< "	coord = (projectionMatrix * vec4(coord,0,1)).rg;" << std::endl
+		<< "	mat2 rotationMatrix = mat2(cos(vAngle), -sin(vAngle), sin(vAngle), cos(vAngle));" << std::endl
+//		<< "	mat4 rotationMatrix = toMat4(vOrientation);" << std::endl
+		<< "	mat2 scalingMatrix = mat2(vRadii.x, 0, 0, vRadii.y);" << std::endl
+		<< "	mat2 matrix = rotationMatrix * scalingMatrix * inverse(rotationMatrix);" << std::endl
 //		<< "	float value = getCubicSpline(coord, inverse(matrix));" << std::endl
 		<< "	coord = matrix * coord;" << std::endl
-		<< "	distSquared = (coord.x * coord.x) / (vRadii.x * vRadii.x) + (coord.y * coord.y) / (vRadii.y * vRadii.y) + (coord.z * coord.z) / (vRadii.z * vRadii.z);" << std::endl
-//		<< "	if (value > 0.1 ) {"
+		<< "	float distSquared = (coord.x * coord.x) / (vRadii.x * vRadii.x) + (coord.y * coord.y) / (vRadii.y * vRadii.y);" << std::endl
 		<< "	if(distSquared > 1.0) {" << std::endl
 		<< "		discard;"
 		<< "	}" << std::endl
-	//	<< "	fragColor.rgb = vRadii;" << std::endl
+		<< "	fragColor.rgb = vRadii;" << std::endl
 		<< "	fragColor.rgba = vColor;" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
