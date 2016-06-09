@@ -28,6 +28,12 @@ public:
 
 	T getParameter() const { return parameter; }
 
+	bool equals(const Point2d<T>& rhs) const;
+
+	bool operator==(const Point2d<T>& rhs) const;
+
+	bool operator!=(const Point2d<T>& rhs) const;
+
 private:
 	Math::Vector2d<T> position;
 	Math::Vector2d<T> normal;

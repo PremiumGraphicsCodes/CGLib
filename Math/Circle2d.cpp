@@ -31,15 +31,30 @@ Vector2d<T> Circle2d<T>::getPosition(const Angle<T> angle) const
 }
 
 template<typename T>
-std::vector<Vector2d<T>> Circle2d<T>::toPoints(const int number) const
+Vector2d<T> Circle2d<T>::getNormal(const Angle<T> angle) const
 {
-	std::vector<Vector2d<T>> points;
+	return getPosition(angle) - center;
+}
+
+template<typename T>
+Point2d<T> Circle2d<T>::getPoint(const Angle<T> angle) const
+{
+	const auto& position = getPosition(angle);
+	const auto& normal = getNormal(angle);
+	const auto param = angle.getDegree().get() / T{ 360 };
+	return Point2d<T>(position, normal, param);
+}
+
+template<typename T>
+Curve2d<T> Circle2d<T>::toCurve2d(const int number) const
+{
+	std::vector<Point2d<T>> points;
 	for (int i = 0; i < number; ++i) {
 		Degree<T> degree(T{ 360 } / number * i);
 		Angle<T> angle(degree);
-		points.emplace_back( getPosition(angle));
+		points.emplace_back(getPoint(angle));
 	}
-	return points;
+	return Curve2d<T>(points);
 }
 
 
