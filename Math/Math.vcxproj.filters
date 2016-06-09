@@ -84,14 +84,14 @@
     <ClCompile Include="Box2d.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Primitive2d</Filter>
-    </ClCompile>
     <ClCompile Include="Quad.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
     <ClCompile Include="Circle3d.cpp">
       <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle2d.cpp">
+      <Filter>Primitive2d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +182,6 @@
     </ClInclude>
     <ClInclude Include="PolarCoord3d.h" />
     <ClInclude Include="Point.h" />
-    <ClInclude Include="Circle.h">
-      <Filter>Primitive2d</Filter>
-    </ClInclude>
     <ClInclude Include="Box2d.h">
       <Filter>Primitive2d</Filter>
     </ClInclude>
@@ -193,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="Circle3d.h">
       <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle2d.h">
+      <Filter>Primitive2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

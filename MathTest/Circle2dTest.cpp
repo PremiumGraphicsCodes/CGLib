@@ -1,12 +1,12 @@
 #include "gtest\gtest.h"
 
-#include "../Math/Circle.h"
+#include "../Math/Circle2d.h"
 
 using namespace Crystal::Math;
 
-TEST(CircleTest, TestToPoints)
+TEST(Circle2dTest, TestToPoints)
 {
-	Circle<float> c;
+	Circle2d<float> c;
 	const auto& actual = c.toPoints(3);
 	EXPECT_EQ(3, actual.size());
 

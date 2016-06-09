@@ -12,9 +12,10 @@ class Circle3d
 public:
 	Circle3d();
 
-	Circle3d(const Vector3d<T>& center, const Vector3d<T>& normal);
+	Circle3d(const T radius, const Vector3d<T>& center, const Vector3d<T>& normal);
 
 private:
+	T radius;
 	Vector3d<T> center;
 	Vector3d<T> normal;
 };

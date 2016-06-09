@@ -22,12 +22,12 @@
     <ClCompile Include="Box2dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
-    <ClCompile Include="CircleTest.cpp" />
     <ClCompile Include="AngleTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="EllipsoidTest.cpp" />
     <ClCompile Include="SPHKernelTest.cpp" />
     <ClCompile Include="PolarCoord3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
+    <ClCompile Include="Circle2dTest.cpp" />
   </ItemGroup>
 </Project>

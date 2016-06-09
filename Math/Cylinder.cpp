@@ -1,5 +1,5 @@
 #include "Cylinder.h"
-
+#include "Circle3d.h"
 #include "Tolerance.h"
 
 using namespace Crystal::Math;
@@ -38,6 +38,19 @@ Vector3d<T> Cylinder<T>::getPosition(const Angle<T> u, const Param<T> v) const
 	const auto y = u.getSin();
 	const auto z = v.get() * height;
 	return Vector3d<T>(x, y, z);
+}
+
+template<typename T>
+Circle3d<T> Cylinder<T>::getBotton() const
+{
+	return Circle3d<T>(radius, center - Vector3d<T>(0, height*T{ 0.5 }, 0), Vector3d<T>(0, -1, 0));
+}
+
+template<typename T>
+Circle3d<T> Cylinder<T>::getTop() const
+{
+	return Circle3d<T>(radius, center + Vector3d<T>(0, height*T{ 0.5 }, 0), Vector3d<T>(0, 1, 0));
+	//return Circle3d<T>
 }
 
 

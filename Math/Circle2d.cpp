@@ -1,4 +1,4 @@
-#include "Circle.h"
+#include "Circle2d.h"
 
 #include "Tolerance.h"
 #include "Angle.h"
@@ -6,23 +6,23 @@
 using namespace Crystal::Math;
 
 template<typename T>
-Circle<T>::Circle() :
+Circle2d<T>::Circle2d() :
 	radius(0.5)
 {}
 
 template<typename T>
-Circle<T>::Circle(const T radius) :
+Circle2d<T>::Circle2d(const T radius) :
 	radius(radius)
 {}
 
 template<typename T>
-T Circle<T>::getArea() const
+T Circle2d<T>::getArea() const
 {
 	return radius * radius * Tolerance<T>::getPI();
 }
 
 template<typename T>
-std::vector<Vector2d<T>> Circle<T>::toPoints(const int number) const
+std::vector<Vector2d<T>> Circle2d<T>::toPoints(const int number) const
 {
 	std::vector<Vector2d<T>> points;
 	for (int i = 0; i < number; ++i) {
@@ -37,5 +37,5 @@ std::vector<Vector2d<T>> Circle<T>::toPoints(const int number) const
 }
 
 
-template class Circle<float>;
-template class Circle<double>;
+template class Circle2d<float>;
+template class Circle2d<double>;

@@ -7,6 +7,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename T>
+		class Circle3d;
 
 template<typename T>
 class Cylinder
@@ -22,6 +24,9 @@ public:
 
 	Vector3d<T> getPosition(const Angle<T> u, const Param<T> v) const;
 	
+	Circle3d<T> getBotton() const;
+
+	Circle3d<T> getTop() const;
 	//T getRadius() const;
 
 private:
