@@ -82,13 +82,16 @@
     <ClCompile Include="PolarCoord3d.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Box2d.cpp">
-      <Filter>Primitiv2d</Filter>
+      <Filter>Primitive2d</Filter>
     </ClCompile>
     <ClCompile Include="Circle.cpp">
-      <Filter>Primitiv2d</Filter>
+      <Filter>Primitive2d</Filter>
     </ClCompile>
     <ClCompile Include="Quad.cpp">
-      <Filter>Primitiv2d</Filter>
+      <Filter>Primitive2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle3d.cpp">
+      <Filter>Primitive3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,13 +183,16 @@
     <ClInclude Include="PolarCoord3d.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Circle.h">
-      <Filter>Primitiv2d</Filter>
+      <Filter>Primitive2d</Filter>
     </ClInclude>
     <ClInclude Include="Box2d.h">
-      <Filter>Primitiv2d</Filter>
+      <Filter>Primitive2d</Filter>
     </ClInclude>
     <ClInclude Include="Quad.h">
-      <Filter>Primitiv2d</Filter>
+      <Filter>Primitive2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle3d.h">
+      <Filter>Primitive3d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -217,7 +223,7 @@
     <Filter Include="Kernel">
       <UniqueIdentifier>{7d6f43af-3ba5-4b6b-845b-da3a0ed7b36c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Primitiv2d">
+    <Filter Include="Primitive2d">
       <UniqueIdentifier>{3b901df7-b979-4498-a6dc-b214262fe88a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

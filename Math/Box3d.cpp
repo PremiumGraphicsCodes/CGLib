@@ -210,5 +210,45 @@ std::vector<Vector3d<T>> Box3d<T>::toSurfacePositions(const T divideLength) cons
 	return results;
 }
 
+#include "Quad.h"
+
+template<typename T>
+Quad<T> Box3d<T>::getXMinusQuad() const
+{
+	return Quad<T>::YZPlane(getMin());
+}
+
+template<typename T>
+Quad<T> Box3d<T>::getXPlusQuad() const
+{
+	return Quad<T>::YZPlane(Vector3d<T>(getMaxX(), getMinY(), getMinZ()));
+}
+
+template<typename T>
+Quad<T> Box3d<T>::getYMinusQuad() const
+{
+	return Quad<T>::ZXPlane(getMin());
+}
+
+template<typename T>
+Quad<T> Box3d<T>::getYPlusQuad() const
+{
+	return Quad<T>::ZXPlane(Vector3d<T>(getMinX(), getMaxY(), getMinZ()));
+}
+/*
+
+template<typename T>
+Quad<T> Box3d<T>::getZMinusQuad() const
+{
+
+}
+
+template<typename T>
+Quad<T> Box3d<T>::getZPlusQuad() const
+{
+
+}
+*/
+
 template class Box3d<float>;
 template class Box3d<double>;

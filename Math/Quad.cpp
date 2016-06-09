@@ -53,5 +53,27 @@ std::array<Vector3d<T>, 4> Quad<T>::getPositions() const
 	return{ v1,v2,v3,v4 };
 }
 
+template<typename T>
+bool Quad<T>::equals(const Quad<T>& rhs) const
+{
+	return origin == rhs.origin &&
+		uVector == rhs.uVector &&
+		vVector == rhs.vVector;
+}
+
+template<typename T>
+bool Quad<T>::operator==(const Quad<T>& rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Quad<T>::operator!=(const Quad<T>& rhs) const
+{
+	return !equals(rhs);
+}
+
+
 
 template class Quad<float>;
+template class Quad<double>;

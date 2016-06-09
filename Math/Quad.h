@@ -28,6 +28,12 @@ public:
 
 	std::array<Vector3d<T>, 4> getPositions() const;
 
+	bool equals(const Quad<T>& rhs) const;
+
+	bool operator==(const Quad<T>& rhs) const;
+
+	bool operator!=(const Quad<T>& rhs) const;
+
 private:
 	Vector3d<T> origin;
 	Vector3d<T> uVector;
