@@ -1,7 +1,8 @@
 #ifndef __CRYSTAL_MATH_CIRCLE_2D_H__
 #define __CRYSTAL_MATH_CIRCLE_2D_H__
 
-#include "../Math/Vector2d.h"
+#include "Vector2d.h"
+#include "Angle.h"
 
 namespace Crystal {
 	namespace Math {
@@ -17,6 +18,8 @@ public:
 	T getArea() const;
 
 	std::vector<Vector2d<T>> toPoints(const int number) const;
+
+	Vector2d<T> getPosition(const Angle<T> angle) const;
 
 private:
 	T radius;

@@ -21,7 +21,7 @@ void LineBuffer::clear()
 	this->idColors.clear();
 }
 
-void LineBuffer::add(const Point<float>& point, const ColorRGBA<float>& color)
+void LineBuffer::add(const Point3d<float>& point, const ColorRGBA<float>& color)
 {
 	this->position.add(point.getPosition());
 	this->color.add(color);

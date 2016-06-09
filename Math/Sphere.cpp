@@ -156,7 +156,7 @@ Curve3d<T> Sphere<T>::toCurve3d(const int uNum, const int vNum) const
 			const Degree<T> vAngle(dv * j - 90.0f);
 			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));
 			const auto& normal = getNormal(Angle<T>(uAngle), Angle<T>(vAngle));
-			Point<T> point(pos, normal);
+			Point3d<T> point(pos, normal);
 			curve.set(i, j, point);
 		}
 	}

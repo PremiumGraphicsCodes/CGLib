@@ -15,16 +15,16 @@ public:
 
 	Curve3d(const int uNum, const int vNum);
 
-	Point<T> get(const int u, const int v) const;
+	Point3d<T> get(const int u, const int v) const;
 
-	void set(const int u, const int v, const Point<T>& point);
+	void set(const int u, const int v, const Point3d<T>& point);
 
 	int getUNumber() const { return uNumber; }
 
 	int getVNumber() const { return vNumber; }
 
 private:
-	std::vector< std::vector< Point<T> > > points;
+	std::vector< std::vector< Point3d<T> > > points;
 	int uNumber;
 	int vNumber;
 };

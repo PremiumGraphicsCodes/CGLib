@@ -93,6 +93,10 @@
     <ClCompile Include="Circle2d.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
+    <ClCompile Include="Point2d.cpp" />
+    <ClCompile Include="Curve2d.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line3d.h" />
@@ -193,6 +197,10 @@
     </ClInclude>
     <ClInclude Include="Circle2d.h">
       <Filter>Primitive2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2d.h" />
+    <ClInclude Include="Curve2d.h">
+      <Filter>Curve</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

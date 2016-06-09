@@ -60,7 +60,7 @@ Curve3d<T> Ellipsoid<T>::toCurve3d(const int uNum, const int vNum) const
 			const Degree<T> uAngle(du * i);
 			const Degree<T> vAngle(dv * j - 90.0f);
 			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));
-			const Point<T> point(pos);
+			const Point3d<T> point(pos);
 			curve.set(i, j, point);
 		}
 	}

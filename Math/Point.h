@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_POINT_H__
-#define __CRYSTAL_MATH_POINT_H__
+#ifndef __CRYSTAL_MATH_POINT_3D_H__
+#define __CRYSTAL_MATH_POINT_3D_H__
 
 #include "Vector2d.h"
 #include "Vector3d.h"
@@ -8,18 +8,18 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Point
+class Point3d
 {
 public:
-	Point() = default;
+	Point3d() = default;
 
-	explicit Point(const Vector3d<T>& position);
+	explicit Point3d(const Vector3d<T>& position);
 
-	Point(const Vector3d<T>& position, const Vector3d<T>& normal);
+	Point3d(const Vector3d<T>& position, const Vector3d<T>& normal);
 
-	Point(const Vector3d<T>& position, const Vector3d<T>& normal, const Vector2d<T>& parameter);
+	Point3d(const Vector3d<T>& position, const Vector3d<T>& normal, const Vector2d<T>& parameter);
 
-	virtual ~Point() {};
+	virtual ~Point3d() {};
 
 	Vector3d<T> getPosition() const { return position; }
 

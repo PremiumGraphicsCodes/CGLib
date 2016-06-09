@@ -13,7 +13,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
 
-void TriangleBuffer::add(const Point<float>& point)
+void TriangleBuffer::add(const Point3d<float>& point)
 {
 	this->positions.add( point.getPosition() );
 	this->normals.add(point.getNormal());

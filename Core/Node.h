@@ -9,7 +9,7 @@ namespace Crystal {
 	namespace Core {
 		class Edge;
 		
-class Node : public Math::Point<float>, private UnCopyable
+class Node : public Math::Point3d<float>, private UnCopyable
 {
 public:
 	/*
@@ -20,13 +20,13 @@ public:
 
 	Node(const Math::Vector3d<float>& position, const int id):
 		id(id),
-		Math::Point<float>( position )
+		Math::Point3d<float>( position )
 	{
 	}
 
 	Node(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const int id) :
 		id(id),
-		Math::Point<float>( position, normal)
+		Math::Point3d<float>( position, normal)
 	{
 	}
 

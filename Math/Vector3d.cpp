@@ -16,6 +16,15 @@ Vector3d<T>::Vector3d(const Vector2d<T>& v) :
 {}
 
 template<typename T>
+Vector3d<T>::Vector3d(const Vector2d<T>& v, const T z) :
+	x(v.getX()),
+	y(v.getY()),
+	z(z)
+{
+}
+
+
+template<typename T>
 Vector3d<T>::Vector3d(const std::array<T, 3>& v) :
 	Vector3d(v[0], v[1], v[2])
 {

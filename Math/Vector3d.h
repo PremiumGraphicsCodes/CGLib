@@ -21,6 +21,8 @@ public:
 
 	explicit Vector3d(const Vector2d<T>& v);
 
+	Vector3d(const Vector2d<T>& v, const T z);
+
 	explicit Vector3d(const std::array<T, 3>& v);
 
 	Vector3d(const T x, const T y, const T z);

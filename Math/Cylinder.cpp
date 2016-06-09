@@ -53,6 +53,27 @@ Circle3d<T> Cylinder<T>::getTop() const
 	//return Circle3d<T>
 }
 
+/*
+#include "Circle2d.h"
+
+template<typename T>
+std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
+{
+	Circle2d<T> bottom(radius);
+	const auto points = bottom.toPoints(number);
+	std::vector<Vector3d<T>> tops;
+	std::vector<Vector3d<T>> bottoms;
+	for (int i = 0; i < points.size(); ++i) {
+		tops.push_back(Vector3d<T>(points[i], height*0.5));
+		bottoms.push_back(Vector3d<T>(points[i], -height * 0.5));
+	}
+	std::vector<Curve3d<T>> curves;
+//	Curve3d<T> topCurve(tops);
+//	Curve3d<T> bottomCurve(bottoms);
+	return curves;
+	//getBotton().to;
+}
+
 
 /*
 template<typename T>

@@ -9,6 +9,8 @@ namespace Crystal {
 	namespace Math {
 		template<typename T>
 		class Circle3d;
+		template<typename T>
+		class Curve3d;
 
 template<typename T>
 class Cylinder
@@ -27,6 +29,8 @@ public:
 	Circle3d<T> getBotton() const;
 
 	Circle3d<T> getTop() const;
+
+	//std::vector< Curve3d<T> > toCurve3ds(int number) const;
 	//T getRadius() const;
 
 private:

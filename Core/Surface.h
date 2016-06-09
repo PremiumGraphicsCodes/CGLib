@@ -1,6 +1,7 @@
 #ifndef __CRYSTAL_CORE_SURFACE_H__
 #define __CRYSTAL_CORE_SURFACE_H__
 
+//#include "../Math/Curve2d.h"
 #include "../Math/Curve3d.h"
 
 #include <list>
@@ -16,6 +17,8 @@ class Surface
 {
 public:
 	Surface();
+
+	//explicit Surface(const Math::Curve2d<float>& curve):
 
 	explicit Surface(const Math::Curve3d<float>& curve);
 

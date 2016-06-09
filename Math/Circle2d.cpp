@@ -22,16 +22,22 @@ T Circle2d<T>::getArea() const
 }
 
 template<typename T>
+Vector2d<T> Circle2d<T>::getPosition(const Angle<T> angle) const
+{
+	const auto radian = angle.getRadian(); //angle * Tolerance<T>::getPI() / 180.0f;
+	T x = ::sin(radian.get());
+	T y = ::cos(radian.get());
+	return Vector2d<T>(x, y);
+}
+
+template<typename T>
 std::vector<Vector2d<T>> Circle2d<T>::toPoints(const int number) const
 {
 	std::vector<Vector2d<T>> points;
 	for (int i = 0; i < number; ++i) {
 		Degree<T> degree(T{ 360 } / number * i);
 		Angle<T> angle(degree);
-		const auto radian = angle.getRadian(); //angle * Tolerance<T>::getPI() / 180.0f;
-		T x = ::sin(radian.get());
-		T y = ::cos(radian.get());
-		points.emplace_back(Vector2d<T>(x, y));
+		points.emplace_back( getPosition(angle));
 	}
 	return points;
 }
