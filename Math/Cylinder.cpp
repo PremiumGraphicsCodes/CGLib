@@ -38,16 +38,24 @@ Vector3d<T> Cylinder<T>::getPosition(const Angle<T> u, const Param<T> v) const
 	const auto y = radius * v.get() * height;
 	const auto z = radius * u.getSin();
 
-	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*0.5, 0) + center;
+	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*T{ 0.5 }, 0) + center;
+}
+
+template<typename T>
+Vector3d<T> Cylinder<T>::getNormal(const Param<T> u, const Param<T> v) const
+{
+	const auto v1 = getPosition(u, v);
+	Vector3d<T> vv1(v1.getX(), 0, v1.getZ());
+	Vector3d<T> vv2(center.getX(), 0, center.getZ());
+	return vv1 - vv2;
 }
 
 template<typename T>
 Point3d<T> Cylinder<T>::getPoint(const Param<T> u, const Param<T> v) const
 {
 	const auto position = getPosition(u, v);
-	//const auto normal = position.getX() - center;
-	const Vector3d<T> normal;
-	const Vector2d<T> param;
+	const auto normal = getNormal(u, v);
+	const Vector2d<T> param(u.get(), v.get());
 	return Point3d<T>(position, normal, param);
 }
 
@@ -82,7 +90,7 @@ std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 	bottomCurve.transform(Matrix3d<T>::RotateX(-Tolerance<T>::getPI()*T { 0.5 }));
 	bottomCurve.move(Vector3d<T>(0.0, -height*T{ 0.5 }, 0.0));
 
-	Curve3d<T> sideCurve(2, number);
+	Curve3d<T> sideCurve(number, 2);
 	for (int i = 0; i < number; ++i) {
 		const auto param = Param<T>(i / (T)number);
 		const auto& v1 = getPoint(param, Param<T>(0));

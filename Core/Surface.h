@@ -24,6 +24,8 @@ public:
 
 	~Surface();
 
+	void add(const Math::Curve3d<float>& curve);
+
 	void clear();
 
 	std::list<Face*> getFaces() const { return faces; }

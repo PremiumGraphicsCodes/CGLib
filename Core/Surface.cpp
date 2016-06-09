@@ -20,20 +20,25 @@ Surface::Surface(const Curve3d<float>& curve)
 		}
 	}
 	*/
+	add(curve);
+}
+
+void Surface::add(const Curve3d<float>& curve)
+{
 	NodeGrid2d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
 			const auto& normal = curve.get(u, v).getNormal();
 
-			Node* node = new Node(pos,normal, nextNodeId++);
+			Node* node = new Node(pos, normal, nextNodeId++);
 			nodes.push_back(node);
 			grid.set(u, v, node);
 		}
 	}
 
-	for (int u = 0; u < curve.getUNumber()-1; ++u) {
-		for (int v = 0; v < curve.getVNumber()-1; ++v) {
+	for (int u = 0; u < curve.getUNumber() - 1; ++u) {
+		for (int v = 0; v < curve.getVNumber() - 1; ++v) {
 			auto v1 = grid.get(u, v);
 			auto v2 = grid.get(u + 1, v);
 			auto v3 = grid.get(u + 1, v + 1);
@@ -62,7 +67,9 @@ Surface::Surface(const Curve3d<float>& curve)
 			faces.push_back(f2);
 		}
 	}
+
 }
+
 
 Surface::~Surface()
 {
