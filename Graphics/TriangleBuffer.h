@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "../Math/Point.h"
+#include "../Math/Point3d.h"
 #include "../Math/Triangle.h"
 #include "../Core/PolygonMesh.h"
 

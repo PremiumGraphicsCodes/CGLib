@@ -5,7 +5,7 @@
 #include "Buffer1d.h"
 #include "Buffer4d.h"
 
-#include "../Math/Point.h"
+#include "../Math/Point3d.h"
 #include "../Math/Line3d.h"
 #include "../Core/PolygonMesh.h"
 #include "../Graphics/ColorRGBA.h"

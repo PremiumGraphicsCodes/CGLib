@@ -2,7 +2,7 @@
 #define __CRYSTAL_MATH_CURVE_3D_H__
 
 #include "Vector3d.h"
-#include "Point.h"
+#include "Point3d.h"
 
 namespace Crystal {
 	namespace Math {

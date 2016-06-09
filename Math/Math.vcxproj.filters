@@ -80,7 +80,6 @@
       <Filter>Kernel</Filter>
     </ClCompile>
     <ClCompile Include="PolarCoord3d.cpp" />
-    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Box2d.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
@@ -93,8 +92,13 @@
     <ClCompile Include="Circle2d.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
-    <ClCompile Include="Point2d.cpp" />
     <ClCompile Include="Curve2d.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="Point2d.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="Point3d.cpp">
       <Filter>Curve</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,7 +189,6 @@
       <Filter>Kernel</Filter>
     </ClInclude>
     <ClInclude Include="PolarCoord3d.h" />
-    <ClInclude Include="Point.h" />
     <ClInclude Include="Box2d.h">
       <Filter>Primitive2d</Filter>
     </ClInclude>
@@ -198,8 +201,13 @@
     <ClInclude Include="Circle2d.h">
       <Filter>Primitive2d</Filter>
     </ClInclude>
-    <ClInclude Include="Point2d.h" />
     <ClInclude Include="Curve2d.h">
+      <Filter>Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="Point2d.h">
+      <Filter>Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="Point3d.h">
       <Filter>Curve</Filter>
     </ClInclude>
   </ItemGroup>
