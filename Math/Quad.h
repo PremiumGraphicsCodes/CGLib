@@ -34,6 +34,10 @@ public:
 
 	bool operator!=(const Quad<T>& rhs) const;
 
+	//Point2d toPoint(const T u, const T v) const;
+
+	//Curve2d<T> toCurve2d() const;
+
 private:
 	Vector3d<T> origin;
 	Vector3d<T> uVector;

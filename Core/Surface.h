@@ -35,6 +35,8 @@ public:
 	std::list<Node*> getNodes() const { return nodes; }
 
 	std::vector<unsigned int> toIndices() const;
+
+	Face* subdiv(const Face* face);
 	
 	//std::vector<Math::Vector3d<float>> toPositions() const;
 

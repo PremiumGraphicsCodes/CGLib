@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_BOX_3D_H__
 
 #include "Vector3d.h"
+#include "Curve3d.h"
 
 namespace Crystal{
 	namespace Math{
@@ -117,6 +118,8 @@ public:
 	*/
 
 	//std::array< Quad<T>, 6 > toQuads() const;
+
+	Curve3d<T> toCurve3d() const;
 
 private:
 	Vector3d<T> start;

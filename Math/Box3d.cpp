@@ -250,5 +250,20 @@ Quad<T> Box3d<T>::getZPlusQuad() const
 }
 */
 
+#include "Curve3d.h"
+
+template<typename T>
+Curve3d<T> Box3d<T>::toCurve3d() const
+{
+	/*
+	getXMinusQuad().toCurve2d();
+	getXPlusQuad().toCurve2d();
+	*/
+	Curve3d<T> curve(2,2);
+	//curve.set
+	return curve;
+}
+
+
 template class Box3d<float>;
 template class Box3d<double>;

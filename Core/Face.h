@@ -26,6 +26,8 @@ public:
 
 	std::vector<Edge*> getEdges() const { return edges; }
 
+	Math::Vector3d<float> getCenter() const;
+
 private:
 	std::vector<Edge*> edges;
 	const int id;
