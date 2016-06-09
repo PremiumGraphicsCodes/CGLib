@@ -28,6 +28,8 @@ public:
 
 	void move(const Vector3d<T>& v);
 
+	void transform(const Matrix3d<T>& matrix);
+
 private:
 	std::vector< std::vector< Point3d<T> > > points;
 	int uNumber;

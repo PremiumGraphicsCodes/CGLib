@@ -31,5 +31,12 @@ Point3d<T>::Point3d(const Vector3d<T>& position, const Vector3d<T>& normal, cons
 {
 }
 
+template<typename T>
+void Point3d<T>::transform(const Matrix3d<T>& matrix)
+{
+	position.rotate(matrix);
+	normal.rotate(matrix);
+}
+
 template class Point3d<float>;
 template class Point3d<double>;

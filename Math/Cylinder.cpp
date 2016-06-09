@@ -34,11 +34,23 @@ Vector3d<T> Cylinder<T>::getPosition(const Param<T> u, const Param<T> v) const
 template<typename T>
 Vector3d<T> Cylinder<T>::getPosition(const Angle<T> u, const Param<T> v) const
 {
-	const auto x = u.getCos();
-	const auto y = u.getSin();
-	const auto z = v.get() * height;
-	return Vector3d<T>(x, y, z);
+	const auto x = radius * u.getCos();
+	const auto y = radius * v.get() * height;
+	const auto z = radius * u.getSin();
+
+	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*0.5, 0) + center;
 }
+
+template<typename T>
+Point3d<T> Cylinder<T>::getPoint(const Param<T> u, const Param<T> v) const
+{
+	const auto position = getPosition(u, v);
+	//const auto normal = position.getX() - center;
+	const Vector3d<T> normal;
+	const Vector2d<T> param;
+	return Point3d<T>(position, normal, param);
+}
+
 
 template<typename T>
 Circle3d<T> Cylinder<T>::getBotton() const
@@ -53,25 +65,37 @@ Circle3d<T> Cylinder<T>::getTop() const
 	//return Circle3d<T>
 }
 
-/*
 #include "Circle2d.h"
+#include "Curve3d.h"
 
 template<typename T>
 std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 {
 	Circle2d<T> bottom(radius);
-	const auto points = bottom.toPoints(number);
-	std::vector<Vector3d<T>> tops;
-	std::vector<Vector3d<T>> bottoms;
-	for (int i = 0; i < points.size(); ++i) {
-		tops.push_back(Vector3d<T>(points[i], height*0.5));
-		bottoms.push_back(Vector3d<T>(points[i], -height * 0.5));
+	Curve2d<T> curve2d = bottom.toCurve2d(number);
+
+	Curve3d<T> topCurve(curve2d);
+	topCurve.transform(Matrix3d<T>::RotateX(Tolerance<T>::getPI()*T { 0.5 }));
+	topCurve.move(Vector3d<T>(0.0, height*T{ 0.5 }, 0.0));
+
+	Curve3d<T> bottomCurve(curve2d);
+	bottomCurve.transform(Matrix3d<T>::RotateX(-Tolerance<T>::getPI()*T { 0.5 }));
+	bottomCurve.move(Vector3d<T>(0.0, -height*T{ 0.5 }, 0.0));
+
+	Curve3d<T> sideCurve(2, number);
+	for (int i = 0; i < number; ++i) {
+		const auto param = Param<T>(i / (T)number);
+		const auto& v1 = getPoint(param, Param<T>(0));
+		const auto& v2 = getPoint(param, Param<T>(1));
+		sideCurve.set(0, i, v1);
+		sideCurve.set(1, i, v2);
 	}
+
 	std::vector<Curve3d<T>> curves;
-//	Curve3d<T> topCurve(tops);
-//	Curve3d<T> bottomCurve(bottoms);
+	curves.push_back(topCurve);
+	curves.push_back(sideCurve);
+	curves.push_back(bottomCurve);
 	return curves;
-	//getBotton().to;
 }
 
 

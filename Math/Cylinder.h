@@ -4,6 +4,7 @@
 #include "Vector3d.h"
 #include "Angle.h"
 #include "Param.h"
+#include "Point3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -25,12 +26,15 @@ public:
 	Vector3d<T> getPosition(const Param<T> u, const Param<T> v) const;
 
 	Vector3d<T> getPosition(const Angle<T> u, const Param<T> v) const;
+
+	//Point3d<T> getNormal(const Param<T> u, const Param<T> v) const;
+	Point3d<T> getPoint(const Param<T> u, const Param<T> v) const;
 	
 	Circle3d<T> getBotton() const;
 
 	Circle3d<T> getTop() const;
 
-	//std::vector< Curve3d<T> > toCurve3ds(int number) const;
+	std::vector< Curve3d<T> > toCurve3ds(int number) const;
 	//T getRadius() const;
 
 private:

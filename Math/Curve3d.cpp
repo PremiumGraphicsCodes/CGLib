@@ -9,7 +9,7 @@ Curve3d<T>::Curve3d()
 template<typename T>
 Curve3d<T>::Curve3d(const Curve2d<T>& curve2d) :
 	uNumber(1),
-	vNumber(curve2d.size())
+	vNumber(static_cast<int>(curve2d.size()))
 {
 	std::vector<Point3d<T>> ps;
 	for (int i = 0; i < curve2d.size(); ++i) {
@@ -49,6 +49,16 @@ void Curve3d<T>::move(const Vector3d<T>& v)
 	for (int i = 0; i < uNumber; ++i) {
 		for (int j = 0; j < vNumber; ++j) {
 			points[i][j].move(v);
+		}
+	}
+}
+
+template<typename T>
+void Curve3d<T>::transform(const Matrix3d<T>& matrix)
+{
+	for (int i = 0; i < uNumber; ++i) {
+		for (int j = 0; j < vNumber; ++j) {
+			points[i][j].transform(matrix);
 		}
 	}
 }

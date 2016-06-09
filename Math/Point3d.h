@@ -4,6 +4,7 @@
 #include "Vector2d.h"
 #include "Vector3d.h"
 #include "Point2d.h"
+#include "Matrix3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -33,6 +34,8 @@ public:
 	Vector2d<T> getParameter() const { return parameter; }
 
 	void move(const Vector3d<T>& v) { this->position += v; }
+
+	void transform(const Matrix3d<T>& m);
 
 private:
 	Math::Vector3d<T> position;
