@@ -7,12 +7,14 @@ using namespace Crystal::Math;
 
 template<typename T>
 Circle2d<T>::Circle2d() :
-	radius(0.5)
+	radius(0.5),
+	center(Vector2d<T>(0,0))
 {}
 
 template<typename T>
 Circle2d<T>::Circle2d(const T radius) :
-	radius(radius)
+	radius(radius),
+	center(Vector2d<T>(0, 0))
 {}
 
 template<typename T>

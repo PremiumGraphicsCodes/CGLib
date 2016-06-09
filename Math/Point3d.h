@@ -3,6 +3,7 @@
 
 #include "Vector2d.h"
 #include "Vector3d.h"
+#include "Point2d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -12,6 +13,8 @@ class Point3d
 {
 public:
 	Point3d() = default;
+
+	explicit Point3d(const Point2d<T>& point2d);
 
 	explicit Point3d(const Vector3d<T>& position);
 
@@ -28,6 +31,8 @@ public:
 	Vector3d<T> getNormal() const { return normal; }
 
 	Vector2d<T> getParameter() const { return parameter; }
+
+	void move(const Vector3d<T>& v) { this->position += v; }
 
 private:
 	Math::Vector3d<T> position;

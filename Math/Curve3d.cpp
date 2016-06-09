@@ -7,6 +7,20 @@ Curve3d<T>::Curve3d()
 {}
 
 template<typename T>
+Curve3d<T>::Curve3d(const Curve2d<T>& curve2d) :
+	uNumber(1),
+	vNumber(curve2d.size())
+{
+	std::vector<Point3d<T>> ps;
+	for (int i = 0; i < curve2d.size(); ++i) {
+		Point3d<T> p(curve2d[i]);
+		ps.push_back(p);
+	}
+	points.push_back(ps);
+}
+
+
+template<typename T>
 Curve3d<T>::Curve3d(const int u, const int v) :
 	uNumber(u),
 	vNumber(v)
@@ -28,6 +42,17 @@ void Curve3d<T>::set(const int u, const int v, const Point3d<T>& pos)
 {
 	points[u][v] = pos;
 }
+
+template<typename T>
+void Curve3d<T>::move(const Vector3d<T>& v)
+{
+	for (int i = 0; i < uNumber; ++i) {
+		for (int j = 0; j < vNumber; ++j) {
+			points[i][j].move(v);
+		}
+	}
+}
+
 
 template class Curve3d<float>;
 template class Curve3d<double>;

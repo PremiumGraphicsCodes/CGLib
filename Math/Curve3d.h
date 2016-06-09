@@ -3,6 +3,7 @@
 
 #include "Vector3d.h"
 #include "Point3d.h"
+#include "Curve2d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -13,6 +14,8 @@ class Curve3d
 public:
 	Curve3d();
 
+	explicit Curve3d(const Curve2d<T>& curve2d);
+
 	Curve3d(const int uNum, const int vNum);
 
 	Point3d<T> get(const int u, const int v) const;
@@ -22,6 +25,8 @@ public:
 	int getUNumber() const { return uNumber; }
 
 	int getVNumber() const { return vNumber; }
+
+	void move(const Vector3d<T>& v);
 
 private:
 	std::vector< std::vector< Point3d<T> > > points;
