@@ -1,11 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Box2d.cpp" />
-    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Line3d.cpp" />
     <ClCompile Include="Plane3d.cpp" />
-    <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
@@ -84,13 +81,19 @@
     </ClCompile>
     <ClCompile Include="PolarCoord3d.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="Box2d.cpp">
+      <Filter>Primitiv2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Primitiv2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>Primitiv2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Box2d.h" />
-    <ClInclude Include="Circle.h" />
     <ClInclude Include="Line3d.h" />
     <ClInclude Include="Plane3d.h" />
-    <ClInclude Include="Quad.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Space3d.h" />
@@ -176,6 +179,15 @@
     </ClInclude>
     <ClInclude Include="PolarCoord3d.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Circle.h">
+      <Filter>Primitiv2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Box2d.h">
+      <Filter>Primitiv2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>Primitiv2d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
@@ -204,6 +216,9 @@
     </Filter>
     <Filter Include="Kernel">
       <UniqueIdentifier>{7d6f43af-3ba5-4b6b-845b-da3a0ed7b36c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Primitiv2d">
+      <UniqueIdentifier>{3b901df7-b979-4498-a6dc-b214262fe88a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
