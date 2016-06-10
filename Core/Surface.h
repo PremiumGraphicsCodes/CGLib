@@ -26,13 +26,15 @@ public:
 
 	void add(const Math::Curve3d<float>& curve);
 
+	void add(const Math::Curve3d<float>& curve, const Math::Vector3d<float>& center);
+
 	void clear();
 
 	std::list<Face*> getFaces() const { return faces; }
 
 	std::list<Edge*> getEdges() const { return edges; }
 
-	std::list<Node*> getNodes() const { return nodes; }
+	std::vector<Node*> getNodes() const { return nodes; }
 
 	std::vector<unsigned int> toIndices() const;
 
@@ -48,7 +50,7 @@ private:
 	int nextFaceId;
 	std::list<Face*> faces;
 	std::list<Edge*> edges;
-	std::list<Node*> nodes;
+	std::vector<Node*> nodes;
 };
 
 /*

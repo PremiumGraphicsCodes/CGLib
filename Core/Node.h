@@ -36,6 +36,7 @@ private:
 	const int id;
 };
 
+/*
 class NodeGrid2d
 {
 public:
@@ -52,6 +53,7 @@ public:
 private:
 	std::vector< std::vector<Node*> > grid;
 };
+*/
 	}
 }
 

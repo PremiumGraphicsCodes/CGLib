@@ -77,6 +77,17 @@ Circle3d<T> Cylinder<T>::getTop() const
 #include "Curve3d.h"
 
 template<typename T>
+Curve3d<T> Cylinder<T>::getTopCurve(int number) const
+{
+	Circle2d<T> bottom(radius);
+	Curve2d<T> curve2d = bottom.toCurve2d(number);
+	Curve3d<T> topCurve(curve2d);
+	topCurve.transform(Matrix3d<T>::RotateX(-Tolerance<T>::getPI()*T { 0.5 }));
+	topCurve.move(Vector3d<T>(0.0, height*T{ 0.5 }, 0.0));
+	return topCurve;
+}
+
+template<typename T>
 std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 {
 	Circle2d<T> bottom(radius);
@@ -90,7 +101,7 @@ std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 	bottomCurve.transform(Matrix3d<T>::RotateX(-Tolerance<T>::getPI()*T { 0.5 }));
 	bottomCurve.move(Vector3d<T>(0.0, -height*T{ 0.5 }, 0.0));
 
-	Curve3d<T> sideCurve(number, 2);
+	Curve3d<T> sideCurve(2, number);
 	for (int i = 0; i < number; ++i) {
 		const auto param = Param<T>(i / (T)number);
 		const auto& v1 = getPoint(param, Param<T>(0));

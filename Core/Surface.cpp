@@ -6,6 +6,14 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+Surface::Surface()
+{
+	nextNodeId = 0;
+	nextEdgeId = 0;
+	nextFaceId = 0;
+
+}
+
 Surface::Surface(const Curve3d<float>& curve)
 {
 	nextNodeId = 0;
@@ -23,9 +31,12 @@ Surface::Surface(const Curve3d<float>& curve)
 	add(curve);
 }
 
+#include "../Util/Array2d.h"
+
 void Surface::add(const Curve3d<float>& curve)
 {
-	NodeGrid2d grid(curve.getUNumber(), curve.getVNumber());
+	Array2d<Node*> grid(curve.getUNumber(), curve.getVNumber());
+	//NodeGrid2d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
@@ -69,6 +80,34 @@ void Surface::add(const Curve3d<float>& curve)
 	}
 
 }
+
+void Surface::add(const Curve3d<float>& curve, const Vector3d<float>& center)
+{
+	Node* centerNode = new Node(center, Vector3d<float>(0, 1, 0), nextNodeId++);
+	nodes.push_back(centerNode);
+
+	for (int i = 0; i < curve.getVNumber(); ++i) {
+		const auto& pos = curve.get(0, i).getPosition();
+		const auto& normal = curve.get(0, i).getNormal();
+
+		Node* node = new Node(pos, normal, nextNodeId++);
+		nodes.push_back(node);
+	}
+	for (int i = 0; i < nodes.size()-2; ++i) {
+		auto v0 = centerNode;
+		auto v1 = nodes[i];
+		auto v2 = nodes[i + 1];
+		Edge* e1 = new Edge(v0, v1, nextEdgeId++);
+		Edge* e2 = new Edge(v1, v2, nextEdgeId++);
+		Edge* e3 = new Edge(v2, v0, nextEdgeId++);
+		Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
+		edges.push_back(e1);
+		edges.push_back(e2);
+		edges.push_back(e3);
+		faces.push_back(f1);
+	}
+}
+
 
 
 Surface::~Surface()

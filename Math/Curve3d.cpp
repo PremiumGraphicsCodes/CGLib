@@ -8,47 +8,39 @@ Curve3d<T>::Curve3d()
 
 template<typename T>
 Curve3d<T>::Curve3d(const Curve2d<T>& curve2d) :
-	uNumber(1),
-	vNumber(static_cast<int>(curve2d.size()))
+	points(1, static_cast<int>(curve2d.size()) )
 {
-	std::vector<Point3d<T>> ps;
 	for (int i = 0; i < curve2d.size(); ++i) {
 		Point3d<T> p(curve2d[i]);
-		ps.push_back(p);
+		points.set(0, i, p);
 	}
-	points.push_back(ps);
 }
 
 
 template<typename T>
 Curve3d<T>::Curve3d(const int u, const int v) :
-	uNumber(u),
-	vNumber(v)
+	points(u,v)
 {
-	for (int i = 0; i < v; ++i) {
-		std::vector<Point3d<T>> v(u);
-		points.push_back(v);
-	}
 }
 
 template<typename T>
 Point3d<T> Curve3d<T>::get(const int u, const int v) const
 {
-	return points[u][v];
+	return points.get(u,v);
 }
 
 template<typename T>
 void Curve3d<T>::set(const int u, const int v, const Point3d<T>& pos)
 {
-	points[u][v] = pos;
+	points.set(u,v, pos);
 }
 
 template<typename T>
 void Curve3d<T>::move(const Vector3d<T>& v)
 {
-	for (int i = 0; i < uNumber; ++i) {
-		for (int j = 0; j < vNumber; ++j) {
-			points[i][j].move(v);
+	for (int i = 0; i < points.getSizeX(); ++i) {
+		for (int j = 0; j < points.getSizeY(); ++j) {
+			points.get(i,j).move(v);
 		}
 	}
 }
@@ -56,9 +48,9 @@ void Curve3d<T>::move(const Vector3d<T>& v)
 template<typename T>
 void Curve3d<T>::transform(const Matrix3d<T>& matrix)
 {
-	for (int i = 0; i < uNumber; ++i) {
-		for (int j = 0; j < vNumber; ++j) {
-			points[i][j].transform(matrix);
+	for (int i = 0; i < points.getSizeX(); ++i) {
+		for (int j = 0; j < points.getSizeY(); ++j) {
+			points.get(i,j).transform(matrix);
 		}
 	}
 }

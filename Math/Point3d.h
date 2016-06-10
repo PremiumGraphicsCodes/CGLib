@@ -37,6 +37,12 @@ public:
 
 	void transform(const Matrix3d<T>& m);
 
+	bool operator==(const Point3d<T>& rhs) const {
+		return this->position == rhs.position &&
+			this->normal == rhs.normal &&
+			this->parameter == rhs.parameter;
+	}
+
 private:
 	Math::Vector3d<T> position;
 	Math::Vector3d<T> normal;

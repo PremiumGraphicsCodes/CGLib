@@ -4,6 +4,7 @@
 #include "Vector3d.h"
 #include "Point3d.h"
 #include "Curve2d.h"
+#include "../Util/Array2d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -22,18 +23,18 @@ public:
 
 	void set(const int u, const int v, const Point3d<T>& point);
 
-	int getUNumber() const { return uNumber; }
-
-	int getVNumber() const { return vNumber; }
-
 	void move(const Vector3d<T>& v);
 
 	void transform(const Matrix3d<T>& matrix);
 
+	int getUNumber() const { return points.getSizeX(); }
+
+	int getVNumber() const { return points.getSizeY(); }
+
+
 private:
-	std::vector< std::vector< Point3d<T> > > points;
-	int uNumber;
-	int vNumber;
+	//std::vector< std::vector< Point3d<T> > > points;
+	Array2d<Point3d<T>> points;
 };
 	}
 }

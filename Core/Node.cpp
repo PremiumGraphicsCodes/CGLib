@@ -2,6 +2,7 @@
 
 using namespace Crystal::Core;
 
+/*
 NodeGrid2d::NodeGrid2d(const int uNum, const int vNum)
 {
 	grid.resize(uNum);
@@ -12,3 +13,4 @@ NodeGrid2d::NodeGrid2d(const int uNum, const int vNum)
 		}
 	}
 }
+*/

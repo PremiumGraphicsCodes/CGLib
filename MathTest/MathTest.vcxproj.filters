@@ -29,5 +29,6 @@
     <ClCompile Include="PolarCoord3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
     <ClCompile Include="Circle2dTest.cpp" />
+    <ClCompile Include="Curve3dTest.cpp" />
   </ItemGroup>
 </Project>

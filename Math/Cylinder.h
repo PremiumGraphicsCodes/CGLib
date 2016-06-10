@@ -35,6 +35,9 @@ public:
 
 	Circle3d<T> getTop() const;
 
+	Curve3d<T> getTopCurve(const int number) const;
+
+
 	std::vector< Curve3d<T> > toCurve3ds(int number) const;
 	//T getRadius() const;
 

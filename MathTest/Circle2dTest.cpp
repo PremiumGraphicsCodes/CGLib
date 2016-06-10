@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 
 TEST(Circle2dTest, TestToPoints)
 {
-	Circle2d<float> c;
+	Circle2d<float> c(1);
 	const auto& actual = c.toCurve2d(3);
 
 	EXPECT_EQ(3, actual.size());
