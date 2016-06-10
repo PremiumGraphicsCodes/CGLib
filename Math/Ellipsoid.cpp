@@ -46,7 +46,7 @@ Vector3d<T> Ellipsoid<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 	const T y = radii.getY() * u.getSin() * v.getSin();
 	const T z = radii.getZ() * v.getCos();
 	*/
-	return Vector3d<T>(x, y, z);
+	return Vector3d<T>(x, y, z) + center;
 }
 
 template<typename T>

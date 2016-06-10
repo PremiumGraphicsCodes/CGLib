@@ -2,6 +2,7 @@
 #define __CRYSTAL_POLYGON_JOINT_H__
 
 #include "../Math/Vector3d.h"
+#include "../Math/Ellipsoid.h"
 #include "Particle.h"
 
 namespace Crystal {
@@ -35,6 +36,7 @@ public:
 
 	float getDiameter() const { return radius * 2.0f; }
 
+	std::pair< Math::Ellipsoid<float>, Math::Quaternion<float> > toEllipsoid() const;
 
 private:
 	Math::Vector3d<float> position;

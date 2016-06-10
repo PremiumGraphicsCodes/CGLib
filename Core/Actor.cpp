@@ -180,6 +180,24 @@ ParticleObject* Actor::toParticleObject(const float divideLength, const float de
 	return new ParticleObject( particles );
 }
 
+std::vector<OrientedEllipsoid> Actor::toEllipsoids(const float divideLength) const
+{
+	std::vector<OrientedEllipsoid> ellipsoids;
+	for (auto j : joints) {
+		const auto e = j->toEllipsoid();
+		ellipsoids.push_back(e);
+	}
+	for (auto b : bones) {
+		if (b->isTail()) {
+			continue;
+		}
+		const auto& es = b->toEllipsoids(divideLength);
+		ellipsoids.insert(ellipsoids.end(), es.begin(), es.end());
+	}
+	return ellipsoids;
+}
+
+
 Joint* Actor::findJointById(const unsigned int id) const
 {
 	for (auto j : joints) {

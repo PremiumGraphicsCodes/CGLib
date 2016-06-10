@@ -24,11 +24,11 @@ public:
 
 	Vector3d<T> getPosition(const Angle<T> u, const Param<T> v) const;
 
-	/*
 	Vector3d<T> getNormal(const Param<T> u, const Param<T> v) const;
 
 	Point3d<T> getPoint(const Param<T> u, const Param<T> v) const;
 
+	/*
 	CircularCurve3d<T> getTopCurve(const int number) const;
 
 	CircularCurve3d<T> getBottomCurve(const int number) const;

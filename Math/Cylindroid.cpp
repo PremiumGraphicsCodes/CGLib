@@ -41,9 +41,8 @@ Vector3d<T> Cylindroid<T>::getPosition(const Angle<T> u, const Param<T> v) const
 	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*T{ 0.5 }, 0) + center;
 }
 
-/*
 template<typename T>
-Vector3d<T> Cylinder<T>::getNormal(const Param<T> u, const Param<T> v) const
+Vector3d<T> Cylindroid<T>::getNormal(const Param<T> u, const Param<T> v) const
 {
 	const auto v1 = getPosition(u, v);
 	Vector3d<T> vv1(v1.getX(), 0, v1.getZ());
@@ -52,7 +51,7 @@ Vector3d<T> Cylinder<T>::getNormal(const Param<T> u, const Param<T> v) const
 }
 
 template<typename T>
-Point3d<T> Cylinder<T>::getPoint(const Param<T> u, const Param<T> v) const
+Point3d<T> Cylindroid<T>::getPoint(const Param<T> u, const Param<T> v) const
 {
 	const auto position = getPosition(u, v);
 	const auto normal = getNormal(u, v);
@@ -60,6 +59,7 @@ Point3d<T> Cylinder<T>::getPoint(const Param<T> u, const Param<T> v) const
 	return Point3d<T>(position, normal, param);
 }
 
+/*
 #include "Circle2d.h"
 #include "Curve3d.h"
 
