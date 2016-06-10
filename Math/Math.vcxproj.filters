@@ -104,6 +104,9 @@
     <ClCompile Include="Quad2d.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
+    <ClCompile Include="CircularCurve3d.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line3d.h" />
@@ -215,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="Quad2d.h">
       <Filter>Primitive2d</Filter>
+    </ClInclude>
+    <ClInclude Include="CircularCurve3d.h">
+      <Filter>Curve</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

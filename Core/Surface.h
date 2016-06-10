@@ -3,6 +3,7 @@
 
 //#include "../Math/Curve2d.h"
 #include "../Math/Curve3d.h"
+#include "../Math/CircularCurve3d.h"
 
 #include <list>
 //#include "Node.h"
@@ -26,7 +27,7 @@ public:
 
 	void add(const Math::Curve3d<float>& curve);
 
-	void add(const Math::Curve3d<float>& curve, const Math::Vector3d<float>& center);
+	void add(const Math::CircularCurve3d<float>& curve);
 
 	void clear();
 

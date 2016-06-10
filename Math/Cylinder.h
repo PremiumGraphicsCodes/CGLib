@@ -5,6 +5,7 @@
 #include "Angle.h"
 #include "Param.h"
 #include "Point3d.h"
+#include "CircularCurve3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -35,7 +36,7 @@ public:
 
 	Circle3d<T> getTop() const;
 
-	Curve3d<T> getTopCurve(const int number) const;
+	CircularCurve3d<T> getTopCurve(const int number) const;
 
 
 	std::vector< Curve3d<T> > toCurve3ds(int number) const;

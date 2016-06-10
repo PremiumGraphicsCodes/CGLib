@@ -81,14 +81,15 @@ void Surface::add(const Curve3d<float>& curve)
 
 }
 
-void Surface::add(const Curve3d<float>& curve, const Vector3d<float>& center)
+void Surface::add(const CircularCurve3d<float>& curve)
 {
-	Node* centerNode = new Node(center, Vector3d<float>(0, 1, 0), nextNodeId++);
+	const auto center = curve.getCenter();
+	Node* centerNode = new Node(center.getPosition(), center.getNormal(), nextNodeId++);
 	nodes.push_back(centerNode);
 
-	for (int i = 0; i < curve.getVNumber(); ++i) {
-		const auto& pos = curve.get(0, i).getPosition();
-		const auto& normal = curve.get(0, i).getNormal();
+	for (int i = 0; i < curve.getSize(); ++i) {
+		const auto& pos = curve.get(i).getPosition();
+		const auto& normal = curve.get(i).getNormal();
 
 		Node* node = new Node(pos, normal, nextNodeId++);
 		nodes.push_back(node);

@@ -77,11 +77,11 @@ Circle3d<T> Cylinder<T>::getTop() const
 #include "Curve3d.h"
 
 template<typename T>
-Curve3d<T> Cylinder<T>::getTopCurve(int number) const
+CircularCurve3d<T> Cylinder<T>::getTopCurve(int number) const
 {
 	Circle2d<T> bottom(radius);
 	Curve2d<T> curve2d = bottom.toCurve2d(number);
-	Curve3d<T> topCurve(curve2d);
+	CircularCurve3d<T> topCurve(Point2d<T>(), curve2d);
 	topCurve.transform(Matrix3d<T>::RotateX(-Tolerance<T>::getPI()*T { 0.5 }));
 	topCurve.move(Vector3d<T>(0.0, height*T{ 0.5 }, 0.0));
 	return topCurve;
