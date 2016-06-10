@@ -88,6 +88,18 @@ CircularCurve3d<T> Cylinder<T>::getTopCurve(int number) const
 }
 
 template<typename T>
+CircularCurve3d<T> Cylinder<T>::getBottomCurve(int number) const
+{
+	Circle2d<T> bottom(radius);
+	Curve2d<T> curve2d = bottom.toCurve2d(number);
+	CircularCurve3d<T> c(Point2d<T>(), curve2d);
+	c.transform(Matrix3d<T>::RotateX(Tolerance<T>::getPI()*T { 0.5 }));
+	c.move(Vector3d<T>(0.0, -height*T{ 0.5 }, 0.0));
+	return c;
+}
+
+
+template<typename T>
 std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 {
 	Circle2d<T> bottom(radius);

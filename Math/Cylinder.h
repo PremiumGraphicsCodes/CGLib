@@ -38,6 +38,10 @@ public:
 
 	CircularCurve3d<T> getTopCurve(const int number) const;
 
+	CircularCurve3d<T> getBottomCurve(const int number) const;
+
+
+	Curve3d<T> getSideCurve(const int number) const;
 
 	std::vector< Curve3d<T> > toCurve3ds(int number) const;
 	//T getRadius() const;

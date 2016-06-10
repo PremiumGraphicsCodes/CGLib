@@ -87,17 +87,19 @@ void Surface::add(const CircularCurve3d<float>& curve)
 	Node* centerNode = new Node(center.getPosition(), center.getNormal(), nextNodeId++);
 	nodes.push_back(centerNode);
 
+	std::vector<Node*> createNodes;
 	for (int i = 0; i < curve.getSize(); ++i) {
 		const auto& pos = curve.get(i).getPosition();
 		const auto& normal = curve.get(i).getNormal();
 
 		Node* node = new Node(pos, normal, nextNodeId++);
+		createNodes.push_back(node);
 		nodes.push_back(node);
 	}
-	for (int i = 0; i < nodes.size()-2; ++i) {
+	for (int i = 0; i < createNodes.size()-1; ++i) {
 		auto v0 = centerNode;
-		auto v1 = nodes[i];
-		auto v2 = nodes[i + 1];
+		auto v1 = createNodes[i];
+		auto v2 = createNodes[i + 1];
 		Edge* e1 = new Edge(v0, v1, nextEdgeId++);
 		Edge* e2 = new Edge(v1, v2, nextEdgeId++);
 		Edge* e3 = new Edge(v2, v0, nextEdgeId++);

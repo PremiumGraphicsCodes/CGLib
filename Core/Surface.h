@@ -35,7 +35,7 @@ public:
 
 	std::list<Edge*> getEdges() const { return edges; }
 
-	std::vector<Node*> getNodes() const { return nodes; }
+	std::list<Node*> getNodes() const { return nodes; }
 
 	std::vector<unsigned int> toIndices() const;
 
@@ -51,7 +51,7 @@ private:
 	int nextFaceId;
 	std::list<Face*> faces;
 	std::list<Edge*> edges;
-	std::vector<Node*> nodes;
+	std::list<Node*> nodes;
 };
 
 /*
