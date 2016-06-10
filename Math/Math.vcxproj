@@ -30,7 +30,9 @@
     <ClInclude Include="Curve2d.h" />
     <ClInclude Include="Curve3d.h" />
     <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="Cylindroid.h" />
     <ClInclude Include="Degree.h" />
+    <ClInclude Include="Ellipse.h" />
     <ClInclude Include="Ellipsoid.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
@@ -76,6 +78,7 @@
     <ClCompile Include="Curve3d.cpp" />
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="Degree.cpp" />
+    <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="Ellipsoid.cpp" />
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />

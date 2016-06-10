@@ -4,34 +4,18 @@
 
 using namespace Crystal::Math;
 
-TEST(Circle2dTest, TestToPoints)
+TEST(Circle2dTest, TestGetPosition)
 {
 	Circle2d<float> c(1);
-	const auto& actual = c.toCurve2d(3);
+	EXPECT_EQ(Vector2d<float>(1, 0), c.getPosition(Angle<float>(Degree<float>(0))));
+	EXPECT_EQ(Vector2d<float>(0, 1), c.getPosition(Angle<float>(Degree<float>(90))));
 
-	EXPECT_EQ(3, actual.size());
+}
 
-	{
-		Vector2d<float> position(::sin(0 * Tolerance<float>::getPI()), ::cos(0 * Tolerance<float>::getPI()));
-		Vector2d<float> normal(0, 1);
-		const float param = 0;
-		Point2d<float> expected(position, normal, param);
-		EXPECT_EQ(expected, actual[0]);
+TEST(Circle2dTest, TestGetNormal)
+{
+	Circle2d<float> c(1);
+	EXPECT_EQ(Vector2d<float>(1, 0), c.getNormal(Angle<float>(Degree<float>(0))));
+	EXPECT_EQ(Vector2d<float>(0, 1), c.getNormal(Angle<float>(Degree<float>(90))));
 
-	}
-	/*
-	{
-		const auto x = ::sin(120.0f / 180.0f * Tolerance<float>::getPI());
-		const auto y = ::cos(120.0f / 180.0f * Tolerance<float>::getPI());
-
-		Vector2d<float> expected(x, y);
-		EXPECT_EQ( expected, actual[1] );
-	}
-	{
-		const auto x = ::sin(240.0f / 180.0f * Tolerance<float>::getPI());
-		const auto y = ::cos(240.0f / 180.0f * Tolerance<float>::getPI());
-		Vector2d<float> expected(x, y);
-		EXPECT_EQ(expected, actual[2]);
-	}
-	*/
 }

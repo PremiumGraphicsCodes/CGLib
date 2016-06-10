@@ -26,9 +26,8 @@ T Circle2d<T>::getArea() const
 template<typename T>
 Vector2d<T> Circle2d<T>::getPosition(const Angle<T> angle) const
 {
-	const auto radian = angle.getRadian(); //angle * Tolerance<T>::getPI() / 180.0f;
-	T x = radius * ::sin(radian.get());
-	T y = radius * ::cos(radian.get());
+	T x = radius * angle.getCos();
+	T y = radius * angle.getSin();
 	return Vector2d<T>(x, y) + center;
 }
 

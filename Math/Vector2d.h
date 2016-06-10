@@ -27,6 +27,15 @@ public:
 		return pow(x - rhs.x, 2) + pow(y - rhs.y, 2);
 	}
 
+	T getLengthSquared() const {
+		return x*x + y*y;
+	}
+
+	T getLength() const {
+		return std::sqrt(x*x + y*y);
+	}
+
+
 	bool equals(const Vector2d& rhs) const {
 		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
 	}
@@ -48,6 +57,10 @@ public:
 		this->x += rhs.x; this->y += rhs.y;
 		return *this;
 	}
+
+	Vector2d<T> normalize();
+
+	Vector2d<T> getNormalized() const;
 
 private:
 	T x;
