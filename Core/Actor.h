@@ -30,7 +30,7 @@ public:
 
 	void orderIds();
 
-	Joint* createJoint(const Math::Vector3d<float>& pos, const float radius);
+	Joint* createJoint(const Math::Vector3d<float>& pos, const Math::Vector3d<float>& radii);
 
 	Joint* insertJoint(Bone* bone);
 

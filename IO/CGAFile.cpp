@@ -47,9 +47,13 @@ bool CGAFile::read(std::istream& stream)
 			stream >> posy;
 			float posz = 0;
 			stream >> posz;
-			float radius = 0;
-			stream >> radius;
-			auto joint = actor->createJoint(Vector3d<float>(posx, posy, posz), radius);
+			float radiix = 0;
+			stream >> radiix;
+			float radiiy = 0;
+			stream >> radiiy;
+			float radiiz = 0;
+			stream >> radiiz;
+			auto joint = actor->createJoint(Vector3d<float>(posx, posy, posz), Vector3d<float>(radiix,radiiy,radiiz));
 			joints.push_back(joint);
 		}
 		int boneCount = 0;
@@ -94,7 +98,9 @@ bool CGAFile::write(std::ostream& stream)
 				<< j->getPosition().getX() << " "
 				<< j->getPosition().getY() << " "
 				<< j->getPosition().getZ() << " "
-				<< j->getRadius() << std::endl;
+				<< j->getRadii().getX() << " "
+				<< j->getRadii().getY() << " "
+				<< j->getRadii().getZ() << std::endl;
 		}
 		const auto& bones = actor->getBones();
 		stream << bones.size() << std::endl;

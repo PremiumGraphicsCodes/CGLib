@@ -12,9 +12,9 @@ namespace Crystal {
 class Joint
 {
 public:
-	Joint(const Math::Vector3d<float>& pos, const float radius, const unsigned int id = -1) :
+	Joint(const Math::Vector3d<float>& pos, const Math::Vector3d<float>& radii, const unsigned int id = -1) :
 		position(pos),
-		radius(radius),
+		radii(radii),
 		id(id)
 	{}
 
@@ -24,23 +24,27 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	Particle toParticle(const float density) const;
+	AnisotoropicParticle toParticle(const float density) const;
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
-	void scale(const float s) { this->radius += s; }
+	void scale(const Math::Vector3d<float>& s) { this->radii += s; }
 
 	void move(const Math::Vector3d<float>& v) { this->position += v; }
 
-	float getRadius() const { return radius; }
+	Math::Vector3d<float> getRadii() const { return radii; }
 
-	float getDiameter() const { return radius * 2.0f; }
+	//float getDiameter() const { return radius * 2.0f; }
+
+	float getBoundingRadius() const {
+		return std::max<float>({ radii.getX(), radii.getY(), radii.getZ() });
+	}
 
 	Math::Ellipsoid<float> toEllipsoid() const;
 
 private:
 	Math::Vector3d<float> position;
-	float radius;
+	Math::Vector3d<float> radii;
 	unsigned int id;
 };
 

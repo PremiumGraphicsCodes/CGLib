@@ -76,9 +76,9 @@ void Actor::orderIds()
 	}
 }
 
-Joint* Actor::createJoint(const Vector3d<float>& pos, const float radius)
+Joint* Actor::createJoint(const Vector3d<float>& pos, const Vector3d<float>& radii)
 {
-	auto j = new Joint(pos, radius, nextJointId++);
+	auto j = new Joint(pos, radii, nextJointId++);
 	joints.push_back(j);
 	return j;
 }
@@ -88,10 +88,10 @@ Joint* Actor::insertJoint(Bone* bone)
 	auto j1 = bone->getOriginJoint();
 	auto j2 = bone->getDestJoint();
 	const auto& pos = j1->getPosition() / 2.0f + j2->getPosition() / 2.0f;
-	const auto radius = j1->getRadius() / 2.0f + j2->getRadius() / 2.0f;
-	auto j = createJoint(pos, radius);
+	const auto radius = j1->getBoundingRadius() / 2.0f + j2->getBoundingRadius() / 2.0f;
+	auto j = createJoint(pos, Vector3d<float>(radius, radius, radius));
 	bones.remove(bone);
-	auto b1 = createBone(j1, j, Vector2d<float>(radius,radius));
+	auto b1 = createBone(j1, j, Vector2d<float>(radius, radius));
 	auto b2 = createBone(j, j2, Vector2d<float>(radius, radius));
 	return j;
 }

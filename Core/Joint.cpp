@@ -1,22 +1,24 @@
 #include "Joint.h"
 
 #include "../Math/Quaternion.h"
+#include "AnisotoropicParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
 Joint* Joint::clone(const unsigned int newId) const
 {
-	return new Joint(position, radius, newId);
+	return new Joint(position, radii, newId);
 }
 
 
-Particle Joint::toParticle(const float density) const
+AnisotoropicParticle Joint::toParticle(const float density) const
 {
-	return Particle(position, density, radius);
+	const Ellipsoid<float> e(position, radii);
+	return AnisotoropicParticle(e, density);
 }
 
 Ellipsoid<float> Joint::toEllipsoid() const
 {
-	return Ellipsoid<float>(position, Vector3d<float>(radius, radius, radius));
+	return Ellipsoid<float>(position, radii);
 }
