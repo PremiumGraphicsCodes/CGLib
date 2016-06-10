@@ -27,6 +27,15 @@ Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii) :
 }
 
 template<typename T>
+Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii, const Quaternion<T>& orientation) :
+center(center),
+radii(radii),
+orientation(orientation)
+{
+}
+
+
+template<typename T>
 T Ellipsoid<T>::getVolume() const
 {
 	return T{ 4 } / T{ 3 } * Tolerance<T>::getPI() * radii.getX() * radii.getY() * radii.getZ();
@@ -41,12 +50,13 @@ Vector3d<T> Ellipsoid<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 	const T x = radii.getX() * u.getCos() * v.getCos();
 	const T y = radii.getY() * u.getSin() * v.getCos();
 	const T z = radii.getZ() * v.getSin();
-	/*
-	const T x = radii.getX() * u.getSin() * v.getCos();
-	const T y = radii.getY() * u.getSin() * v.getSin();
-	const T z = radii.getZ() * v.getCos();
-	*/
-	return Vector3d<T>(x, y, z) + center;
+
+	Vector3d<T> vec(x, y, z);
+	const auto rotation = orientation.toMatrix();
+	vec.rotate(rotation.transposed());
+	//const auto& invRotation = rotation.transposed();
+
+	return vec + center;
 }
 
 template<typename T>

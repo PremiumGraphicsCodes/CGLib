@@ -180,9 +180,9 @@ ParticleObject* Actor::toParticleObject(const float divideLength, const float de
 	return new ParticleObject( particles );
 }
 
-std::vector<OrientedEllipsoid> Actor::toEllipsoids(const float divideLength) const
+std::vector<Ellipsoid<float>> Actor::toEllipsoids(const float divideLength) const
 {
-	std::vector<OrientedEllipsoid> ellipsoids;
+	std::vector<Ellipsoid<float>> ellipsoids;
 	for (auto j : joints) {
 		const auto e = j->toEllipsoid();
 		ellipsoids.push_back(e);

@@ -13,8 +13,6 @@ namespace Crystal {
 		class Particle;
 		class AnisotoropicParticle;
 
-using OrientedEllipsoid = std::pair< Math::Ellipsoid<float>, Math::Quaternion<float> >;
-
 class Bone
 {
 public:
@@ -42,7 +40,7 @@ public:
 
 	std::vector<AnisotoropicParticle> toAnisoParticles(const float divideLength, const float density);
 
-	std::vector< OrientedEllipsoid > toEllipsoids(const float divideLength) const;
+	std::vector< Math::Ellipsoid<float> > toEllipsoids(const float divideLength) const;
 
 	Joint* getOriginJoint() const { return origin; }
 

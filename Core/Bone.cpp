@@ -60,16 +60,16 @@ std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLengt
 
 	const auto& ellipsoids = toEllipsoids(divideLength);
 	for (const auto& e : ellipsoids) {
-		AnisotoropicParticle ap(e.first, density, e.second);
+		AnisotoropicParticle ap(e, density, e.getOrientation());
 		particles.emplace_back(ap);
 	}
 
 	return particles;
 }
 
-std::vector< OrientedEllipsoid > Bone::toEllipsoids(const float divideLength) const
+std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) const
 {
-	std::vector< OrientedEllipsoid > results;
+	std::vector< Ellipsoid<float> > results;
 
 	const auto length = this->getLength();
 	const float start = origin->getRadius() + divideLength * 0.5f;
@@ -81,8 +81,8 @@ std::vector< OrientedEllipsoid > Bone::toEllipsoids(const float divideLength) co
 		const float ratio = l / length;
 		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
 		const Vector3d<float> radii(divideLength, thickness.getX(), thickness.getY());
-		const Ellipsoid<float> e(pos, radii);
-		results.push_back(std::make_pair(e, orientation));
+		const Ellipsoid<float> e(pos, radii, orientation);
+		results.push_back(e);
 	}
 	return results;
 }

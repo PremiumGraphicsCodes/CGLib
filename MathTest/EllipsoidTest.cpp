@@ -23,7 +23,7 @@ TEST(EllipsoidTest, TestGetVolume)
 TEST(EllipsoidTest, TestGetPosition)
 {
 	using T = float;
-	Ellipsoid<T> e(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+	Ellipsoid<T> e(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1), Quaternion<T>(0,0,0,1));
 
 	{
 		const auto& actual = e.getPosition(Angle<T>(Degree<T>(0)), Angle<T>(Degree<T>(0)));
@@ -43,6 +43,9 @@ TEST(EllipsoidTest, TestGetPosition)
 		Vector3d<float> expected(0, 0, 1);
 		EXPECT_EQ(expected, actual);
 	}
+
+	//Ellipsoid<T> e1(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1), Quaternion<T>(0, 0, 0, 1));
+
 }
 
 TEST(EllipsoidTest, TestToCurve3d)

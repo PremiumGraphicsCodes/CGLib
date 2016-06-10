@@ -66,7 +66,7 @@ public:
 
 	std::string getName() const { return name; }
 
-	std::vector<OrientedEllipsoid> toEllipsoids(const float divideLength) const;
+	std::vector<Math::Ellipsoid<float>> toEllipsoids(const float divideLength) const;
 
 private:
 	std::string name;

@@ -36,7 +36,7 @@ public:
 
 	float getDiameter() const { return radius * 2.0f; }
 
-	std::pair< Math::Ellipsoid<float>, Math::Quaternion<float> > toEllipsoid() const;
+	Math::Ellipsoid<float> toEllipsoid() const;
 
 private:
 	Math::Vector3d<float> position;

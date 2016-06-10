@@ -16,9 +16,7 @@ Particle Joint::toParticle(const float density) const
 	return Particle(position, density, radius);
 }
 
-std::pair< Ellipsoid<float>, Quaternion<float> > Joint::toEllipsoid() const
+Ellipsoid<float> Joint::toEllipsoid() const
 {
-	Ellipsoid<float> e(position, Vector3d<float>(radius, radius, radius));
-	Quaternion<float> q;
-	return std::make_pair(e, q);
+	return Ellipsoid<float>(position, Vector3d<float>(radius, radius, radius));
 }

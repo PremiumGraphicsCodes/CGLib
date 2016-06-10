@@ -3,6 +3,7 @@
 
 #include "Vector3d.h"
 #include "Angle.h"
+#include "Quaternion.h"
 
 namespace Crystal {
 	namespace Math {
@@ -19,6 +20,8 @@ public:
 
 	Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii);
 
+	Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii, const Quaternion<T>& orientation);
+
 	T getVolume() const;
 
 	Vector3d<T> getCenter() const { return center; }
@@ -29,9 +32,12 @@ public:
 
 	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
+	Quaternion<T> getOrientation() const { return orientation; }
+
 private:
 	Vector3d<T> center;
 	Vector3d<T> radii;
+	Quaternion<T> orientation;
 };
 	}
 }
