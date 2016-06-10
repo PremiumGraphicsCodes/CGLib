@@ -77,6 +77,7 @@
     <ClCompile Include="Curve2d.cpp" />
     <ClCompile Include="Curve3d.cpp" />
     <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="Cylindroid.cpp" />
     <ClCompile Include="Degree.cpp" />
     <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="Ellipsoid.cpp" />

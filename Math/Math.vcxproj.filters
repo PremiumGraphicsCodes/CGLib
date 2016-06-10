@@ -110,6 +110,9 @@
     <ClCompile Include="Ellipse.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
+    <ClCompile Include="Cylindroid.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line3d.h" />
