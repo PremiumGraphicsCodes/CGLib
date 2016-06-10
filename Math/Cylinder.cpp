@@ -35,7 +35,7 @@ template<typename T>
 Vector3d<T> Cylinder<T>::getPosition(const Angle<T> u, const Param<T> v) const
 {
 	const auto x = radius * u.getCos();
-	const auto y = radius * v.get() * height;
+	const auto y = v.get() * height;
 	const auto z = radius * u.getSin();
 
 	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*T{ 0.5 }, 0) + center;
@@ -97,6 +97,22 @@ CircularCurve3d<T> Cylinder<T>::getBottomCurve(int number) const
 	c.move(Vector3d<T>(0.0, -height*T{ 0.5 }, 0.0));
 	return c;
 }
+
+template<typename T>
+Curve3d<T> Cylinder<T>::getSideCurve(const int number) const
+{
+	Curve3d<T> sideCurve(2, number);
+
+	for (int i = 0; i < number; ++i) {
+		const auto param = Param<T>(i / (T)number);
+		const auto& v1 = getPoint(param, Param<T>(0));
+		const auto& v2 = getPoint(param, Param<T>(1));
+		sideCurve.set(0, i, v1);
+		sideCurve.set(1, i, v2);
+	}
+	return sideCurve;
+}
+
 
 
 template<typename T>
