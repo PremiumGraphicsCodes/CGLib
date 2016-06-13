@@ -63,9 +63,13 @@ bool CGAFile::read(std::istream& stream)
 			stream >> originalJointId;
 			int destJointId = 0;
 			stream >> destJointId;
-			float thickness = 0.0f;
-			stream >> thickness;
-			actor->createBone(joints[originalJointId], joints[destJointId], Vector3d<float>(thickness, thickness, thickness));
+			float radiix = 0;
+			stream >> radiix;
+			float radiiy = 0;
+			stream >> radiiy;
+			float radiiz = 0;
+			stream >> radiiz;
+			actor->createBone(joints[originalJointId], joints[destJointId], Vector3d<float>(radiix, radiiy, radiiz));
 		}
 		actors.push_back(actor);
 	}
@@ -108,7 +112,9 @@ bool CGAFile::write(std::ostream& stream)
 			stream
 				<< b->getOriginJoint()->getId() << " "
 				<< b->getDestJoint()->getId() << " "
-				<< b->getThickness().getX() << std::endl;
+				<< b->getThickness().getX() << " "
+				<< b->getThickness().getY() << " "
+				<< b->getThickness().getZ() << std::endl;
 		}
 	}
 	return stream.good();
