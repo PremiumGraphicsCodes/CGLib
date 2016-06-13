@@ -18,9 +18,9 @@ public:
 
 	T getLength() const { return length; }
 
-	Angle<T> getTheta() const { return azimuth; }
+	Angle<T> getAzimuth() const { return azimuth; }
 
-	Angle<T> getPhi() const { return elevation; }
+	Angle<T> getElevation() const { return elevation; }
 
 	Vector3d<T> toOrtho() const;
 

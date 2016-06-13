@@ -67,11 +67,16 @@ std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLengt
 	return particles;
 }
 
-Quaternion<float> Bone::getOrientation() const
+PolarCoord3d<float> Bone::getPolarCoord() const
 {
 	const auto vector = dest->getPosition() - origin->getPosition();
-	PolarCoord3d<float> polar = vector.toPolarCoord();
-	return polar.getOrientation();
+	return vector.toPolarCoord();
+}
+
+
+Quaternion<float> Bone::getOrientation() const
+{
+	return getPolarCoord().getOrientation();
 }
 
 

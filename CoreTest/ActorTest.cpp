@@ -89,6 +89,6 @@ TEST(ActorTest, TestToParticleObject)
 	auto j2 = object.createJoint(Vector3d<float>(1.0, 1.0, 1.0), Vector3d<float>(0.5, 0.5, 0.5));
 	object.createBone(j1, j2, Vector2d<float>(0.5,0.5));
 	std::unique_ptr<ParticleObject> particle( object.toParticleObject(0.5f, 1.0f) );
-	EXPECT_EQ( 3, particle->getParticles().size() );
+	EXPECT_EQ( 6, particle->getParticles().size() );
 	//EXPECT_EQ( 2, particles.)
 }

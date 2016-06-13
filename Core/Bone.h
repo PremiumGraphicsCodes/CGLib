@@ -42,6 +42,8 @@ public:
 
 	std::vector< Math::Ellipsoid<float> > toEllipsoids(const float divideLength) const;
 
+	Math::PolarCoord3d<float> getPolarCoord() const;
+
 	Math::Quaternion<float> getOrientation() const;
 
 	Joint* getOriginJoint() const { return origin; }

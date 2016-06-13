@@ -33,6 +33,6 @@ TEST(BoneTest, TestToAnisoParticles)
 	Bone bone(&joint1, &joint2, Vector2d<float>(1, 1), 1);
 	const auto& actual = bone.toAnisoParticles(5.0f, 10.0f);
 	EXPECT_EQ(2, actual.size());
-	EXPECT_EQ(Vector3d<float>(3.0f, 0.0f, 0.0f), actual[0].getPosition());
-	EXPECT_EQ(Vector3d<float>(8.0f, 0.0f, 0.0f), actual[1].getPosition());
+	EXPECT_EQ(Vector3d<float>(0.0f, 0.0f, 0.0f), actual[0].getPosition());
+	EXPECT_EQ(Vector3d<float>(5.0f, 0.0f, 0.0f), actual[1].getPosition());
 }
