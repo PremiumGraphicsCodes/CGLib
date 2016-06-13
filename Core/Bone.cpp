@@ -8,7 +8,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Bone::Bone(Joint* origin, Joint* dest, const Vector2d<float>& thickness, const unsigned int id) :
+Bone::Bone(Joint* origin, Joint* dest, const Vector3d<float>& thickness, const unsigned int id) :
 	origin(origin),
 	dest(dest),
 	thickness(thickness),
@@ -36,7 +36,7 @@ void Bone::clear()
 
 Bone* Bone::createChild(Joint* childDest)
 {
-	auto b = new Bone(dest, childDest, Vector2d<float>(1,1), 1);
+	auto b = new Bone(dest, childDest, Vector3d<float>(1,1,1), 1);
 	children.push_back(b);
 	return b;
 }
