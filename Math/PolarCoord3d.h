@@ -26,7 +26,7 @@ public:
 
 	Matrix3d<T> toMatrix() const;
 
-	Quaternion<T> toQuaternion() const;
+	Quaternion<T> getOrientation() const;
 
 	bool equals(const PolarCoord3d<T>& rhs) const;
 

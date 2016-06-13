@@ -72,11 +72,11 @@ std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) con
 	std::vector< Ellipsoid<float> > results;
 
 	const auto length = this->getLength();
-	const float start = origin->getBoundingRadius() + divideLength * 0.5f;
-	const float end = length - dest->getBoundingRadius();// - divideLength * 0.5f;
+	const float start = 0.0f;//origin->getBoundingRadius() + divideLength * 0.5f;
+	const float end = length;//length - dest->getBoundingRadius();// - divideLength * 0.5f;
 	const auto vector = dest->getPosition() - origin->getPosition();
 	PolarCoord3d<float> polar = vector.toPolarCoord();
-	const auto& orientation = polar.toQuaternion();
+	const auto& orientation = polar.getOrientation();
 	//const auto& orientation = polar.toQuaternion();
 	for (float l = start; l < end; l += divideLength) {
 		const float ratio = l / length;

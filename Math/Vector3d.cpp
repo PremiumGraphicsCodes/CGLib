@@ -203,6 +203,7 @@ Angle<T> Vector3d<T>::getAzimuth() const
 	}
 	else {
 		return Angle<T>(Radian<T>(-angle));
+
 	}
 }
 

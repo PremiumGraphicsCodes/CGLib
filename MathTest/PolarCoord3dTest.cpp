@@ -44,26 +44,12 @@ TEST(PolarCoord3dTest, TestToOrtho)
 	}
 }
 
-TEST(PolarCoord3dTest, TestToQuaternion)
+TEST(PolarCoord3dTest, TestGetOrientation)
 {
 	{
 		PolarCoord3d<float> polar(1, Angle<float>(Degree<float>(0)), Angle<float>(Degree<float>(0)));
-		const auto& actual = polar.toQuaternion();
+		const auto& actual = polar.getOrientation();
 		Quaternion<float> expected(0, 0, 0, 1);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		PolarCoord3d<float> polar(1, Angle<float>(Degree<float>(90)), Angle<float>(Degree<float>(90)));
-		const auto& actual = polar.toQuaternion();
-		Quaternion<float> expected(0.5, 0.5, 0.5, 0.5);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		PolarCoord3d<float> polar(1, Angle<float>(Degree<float>(90)), Angle<float>(Degree<float>(0)));
-		const auto& actual = polar.toQuaternion();
-		Quaternion<float> expected(Vector3d<float>(1,0,0), Tolerance<float>::getHalfPI());
 		EXPECT_EQ(expected, actual);
 	}
 }

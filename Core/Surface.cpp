@@ -79,6 +79,39 @@ void Surface::add(const Curve3d<float>& curve)
 		}
 	}
 
+	{
+
+		const auto u = curve.getUNumber() - 1;
+		const auto v = curve.getVNumber() - 1;
+		auto v1 = grid.get(u, v);
+		auto v2 = grid.get(0, v);//grid.get(u + 1, v);
+		auto v3 = grid.get(0, 0);
+			auto v4 = grid.get(u, 0);
+
+			Edge* e1 = new Edge(v1, v2, nextEdgeId++);
+			Edge* e2 = new Edge(v2, v3, nextEdgeId++);
+			Edge* e3 = new Edge(v3, v1, nextEdgeId++);
+
+			Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
+
+			Edge* e4 = new Edge(v1, v3, nextEdgeId++);
+			Edge* e5 = new Edge(v3, v4, nextEdgeId++);
+			Edge* e6 = new Edge(v4, v1, nextEdgeId++);
+
+			Face* f2 = new Face({ e4, e5, e6 }, nextFaceId++);
+
+			edges.push_back(e1);
+			edges.push_back(e2);
+			edges.push_back(e3);
+			edges.push_back(e4);
+			edges.push_back(e5);
+			edges.push_back(e6);
+
+			faces.push_back(f1);
+			faces.push_back(f2);
+	}
+
+
 }
 
 void Surface::add(const CircularCurve3d<float>& curve)
