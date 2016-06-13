@@ -215,8 +215,15 @@ Angle<T> Vector3d<T>::getAzimuth() const
 template<typename T>
 Angle<T> Vector3d<T>::getElevation() const
 {
-	Vector3d<T> yunit(0, 1, 0);
-	return getAngle(yunit);
+	Vector3d<T> yunit(1, 0, 0);
+	//const auto angle = getAngle(yunit);
+	const auto angle = std::acos(y / std::sqrt(x*x + y*y + z*z)) - T{ 0.5f * Tolerance<T>::getPI() };//getAngle(yunit);
+	if (y < 0) {
+		return Angle<T>(Radian<T>(angle));
+	}
+	else {
+		return Angle<T>(Radian<T>(-angle));
+	}
 }
 
 
