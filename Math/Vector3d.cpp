@@ -188,42 +188,29 @@ Angle<T> Vector3d<T>::getAngle(const Vector3d<T>& rhs) const
 template<typename T>
 PolarCoord3d<T> Vector3d<T>::toPolarCoord() const
 {
-	Vector3d<T> xunit(1, 0, 0);
-	Vector3d<T> yunit(0, 1, 0);
-	Vector3d<T> v(x, 0, z);
-	
-	const auto azimuth = xunit.getAngle(v);
-	const auto elevation = yunit.getAngle(v);
-	
-	return PolarCoord3d<T>(getLength(), azimuth, elevation);
+	return PolarCoord3d<T>(getLength(), getAzimuth(), getElevation());
 }
 
 template<typename T>
 Angle<T> Vector3d<T>::getAzimuth() const
 {
-	Vector3d<T> xunit(1, 0, 0);
-	Vector3d<T> v(x, 0, z);
-	const auto angle = xunit.getAngle(v);
-	if (z >= 0) {
-		return angle;
+	if (Tolerance<T>::isEqualLoosely(x*x + z*z, 0)) {
+		return Angle<T>(Radian<T>(0));
+	}
+	const auto angle = std::acos(x / std::sqrt(x*x + z*z));//getAngle(yunit);
+	if (z > 0) {
+		return Angle<T>(Radian<T>(angle));
 	}
 	else {
-		return -angle;
+		return Angle<T>(Radian<T>(-angle));
 	}
 }
 
 template<typename T>
 Angle<T> Vector3d<T>::getElevation() const
 {
-	Vector3d<T> yunit(1, 0, 0);
-	//const auto angle = getAngle(yunit);
 	const auto angle = std::acos(y / std::sqrt(x*x + y*y + z*z)) - T{ 0.5f * Tolerance<T>::getPI() };//getAngle(yunit);
-	if (y < 0) {
-		return Angle<T>(Radian<T>(angle));
-	}
-	else {
-		return Angle<T>(Radian<T>(-angle));
-	}
+	return Angle<T>(Radian<T>(-angle));
 }
 
 

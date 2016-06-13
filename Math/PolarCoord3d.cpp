@@ -5,53 +5,46 @@ using namespace Crystal::Math;
 template<typename T>
 PolarCoord3d<T>::PolarCoord3d() :
 	length(1),
-	theta(Radian<T>(0)),
-	phi(Radian<T>(0))
+	azimuth(Radian<T>(0)),
+	elevation(Radian<T>(0))
 {}
 
 template<typename T>
-PolarCoord3d<T>::PolarCoord3d(const T length, const Angle<T> theta, const Angle<T> phi) :
+PolarCoord3d<T>::PolarCoord3d(const T length, const Angle<T> azimuth, const Angle<T> elevation) :
 	length(length),
-	theta(theta),
-	phi(phi)
-{}
-
-template<typename T>
-PolarCoord3d<T>::PolarCoord3d(const Vector3d<T>& v) :
-	length(v.getLength()),
-	theta(Radian<T>(std::acos(v.getZ() / v.getLength())))
+	azimuth(azimuth),
+	elevation(elevation)
 {
-	const auto denominator = std::sqrt(v.getX() * v.getX() + v.getY() * v.getY());
-	if (Tolerance<T>::isEqualLoosely(denominator, 0)) {
-		phi = Angle<T>( Radian<T>(0) );
-	}
-	else {
-		phi = Angle<T>( Radian<T>(std::acos(v.getX() / denominator ) ) );
-	}
+//	assert(isValid());
 }
 
 template<typename T>
 Vector3d<T> PolarCoord3d<T>::toOrtho() const
 {
-	const auto x = length * theta.getSin() * phi.getCos();
-	const auto y = length * theta.getSin() * phi.getSin();
-	const auto z = length * theta.getCos();
+	const auto x = length * azimuth.getSin() * elevation.getCos();
+	const auto y = length * azimuth.getSin() * elevation.getSin();
+	const auto z = length * azimuth.getCos();
 	return Vector3d<T>(x, y, z);
 }
 
 template<typename T>
 Matrix3d<T> PolarCoord3d<T>::toMatrix() const
 {
-	Matrix3d<T> m1 = Matrix3d<T>::RotateZ(phi.getRadian().get());
-	Matrix3d<T> m2 = Matrix3d<T>::RotateY(theta.getRadian().get());
+	Matrix3d<T> m1 = Matrix3d<T>::RotateZ(elevation.getRadian().get());
+	Matrix3d<T> m2 = Matrix3d<T>::RotateY(azimuth.getRadian().get());
 	return m1 * m2;
 }
 
 template<typename T>
 Quaternion<T> PolarCoord3d<T>::toQuaternion() const
 {
-	Quaternion<T> q1(Vector3d<T>(0, 0, 1), phi.getRadian().get());
-	Quaternion<T> q2(Vector3d<T>(1, 0, 0), theta.getRadian().get());
+	Quaternion<T> q1(Vector3d<T>(0, 1, 0), azimuth.getRadian().get());
+	Quaternion<T> q2(Vector3d<T>(0, 0, 1), elevation.getRadian().get());
+
+	/*
+	Quaternion<T> q1(Vector3d<T>(0, 0, 1), elevation.getRadian().get());
+	Quaternion<T> q2(Vector3d<T>(1, 0, 0), azimuth.getRadian().get());
+	*/
 	return q1 * q2;
 }
 
@@ -60,8 +53,8 @@ bool PolarCoord3d<T>::equals(const PolarCoord3d<T>& rhs) const
 {
 	return
 		Tolerance<T>::isEqualLoosely(this->length, rhs.length) &&
-		theta == rhs.theta &&
-		phi == rhs.phi;
+		azimuth == rhs.azimuth &&
+		elevation == rhs.elevation;
 }
 
 template<typename T>
@@ -74,6 +67,14 @@ template<typename T>
 bool PolarCoord3d<T>::operator!=(const PolarCoord3d<T>& rhs) const
 {
 	return !equals(rhs);
+}
+
+template<typename T>
+bool PolarCoord3d<T>::isValid() const
+{
+	bool azimuthIsValid = (T{ 0 } <= azimuth.getDegree().get() && azimuth.getDegree().get() <= T{ 360 });
+	bool elevationIsValid = (T{ -90 } <= elevation.getDegree().get() && elevation.getDegree().get() <= T{ 90 } );
+	return azimuthIsValid && elevationIsValid;
 }
 
 

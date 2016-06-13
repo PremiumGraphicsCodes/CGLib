@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_MATH_POLAR_COORD_3D_H__
 #define __CRYSTAL_MATH_POLAR_COORD_3D_H__
 
-#include "Vector3d.h"
 #include "Angle.h"
 #include "Matrix3d.h"
 #include "Quaternion.h"
@@ -15,15 +14,13 @@ class PolarCoord3d
 public:
 	PolarCoord3d();
 
-	PolarCoord3d(const T length, const Angle<T> theta, const Angle<T> phi);
-
-	explicit PolarCoord3d(const Vector3d<T>& v);
+	PolarCoord3d(const T length, const Angle<T> azimuth, const Angle<T> elevation);
 
 	T getLength() const { return length; }
 
-	Angle<T> getTheta() const { return theta; }
+	Angle<T> getTheta() const { return azimuth; }
 
-	Angle<T> getPhi() const { return phi; }
+	Angle<T> getPhi() const { return elevation; }
 
 	Vector3d<T> toOrtho() const;
 
@@ -37,11 +34,13 @@ public:
 
 	bool operator!=(const PolarCoord3d<T>& rhs) const;
 
+	bool isValid() const;
+
 
 private:
 	T length;
-	Angle<T> theta;
-	Angle<T> phi;
+	Angle<T> azimuth;
+	Angle<T> elevation;
 };
 	}
 }

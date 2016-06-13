@@ -173,9 +173,17 @@ TYPED_TEST(Vector3dTest, TestGetAzimuth)
 	{
 		Vector3d<T> v1(-1, 0, 0);
 		const auto actual = v1.getAzimuth();
-		const Angle<T> expected(Degree<T>(180));
+		const Angle<T> expected(Degree<T>(-180));
 		EXPECT_EQ(expected, actual);
 	}
+
+	{
+		Vector3d<T> v1(0, 1, 0);
+		const auto actual = v1.getAzimuth();
+		const Angle<T> expected(Degree<T>(0));
+		EXPECT_EQ(expected, actual);
+	}
+
 
 
 	{
@@ -204,6 +212,14 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 	}
 
 	{
+		Vector3d<T> v1(-1, 0, 0);
+		const auto actual = v1.getElevation();
+		const Angle<T> expected(Degree<T>(0));
+		EXPECT_EQ(expected, actual);
+	}
+
+
+	{
 		Vector3d<T> v1(0, 1, 0);
 		const auto actual = v1.getElevation();
 		const Angle<T> expected(Degree<T>(90));
@@ -211,11 +227,27 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 	}
 
 	{
+		Vector3d<T> v1(0, -1, 0);
+		const auto actual = v1.getElevation();
+		const Angle<T> expected(Degree<T>(-90));
+		EXPECT_EQ(expected, actual);
+	}
+
+
+	{
 		Vector3d<T> v1(0, 0, 1);
 		const auto actual = v1.getElevation();
 		const Angle<T> expected(Degree<T>(0));
 		EXPECT_EQ(expected, actual);
 	}
+
+	{
+		Vector3d<T> v1(0, 0, -1);
+		const auto actual = v1.getElevation();
+		const Angle<T> expected(Degree<T>(0));
+		EXPECT_EQ(expected, actual);
+	}
+
 
 
 }
