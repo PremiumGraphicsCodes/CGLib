@@ -54,11 +54,11 @@ Line3d<float> Bone::toLine() const
 
 #include "../Math/PolarCoord3d.h"
 
-std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLength, const float density)
+std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float density)
 {
 	std::vector<AnisotoropicParticle> particles;
 
-	const auto& ellipsoids = toEllipsoids(divideLength);
+	const auto& ellipsoids = toEllipsoids();
 	for (const auto& e : ellipsoids) {
 		AnisotoropicParticle ap(e, density, e.getOrientation());
 		particles.emplace_back(ap);
@@ -80,16 +80,17 @@ Quaternion<float> Bone::getOrientation() const
 }
 
 
-std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) const
+std::vector< Ellipsoid<float> > Bone::toEllipsoids() const
 {
 	std::vector< Ellipsoid<float> > results;
 
+	const auto divideLength = thickness.getX();
 	const auto length = this->getLength();
 	const auto& orientation = getOrientation();
 	for (float l = 0.0f; l < length; l += divideLength) {
 		const float ratio = l / length;
 		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
-		const Vector3d<float> radii(divideLength, thickness.getX(), thickness.getY());
+		const Vector3d<float> radii(divideLength, thickness.getY(), thickness.getZ());
 		const Ellipsoid<float> e(pos, radii, orientation);
 		results.push_back(e);
 	}

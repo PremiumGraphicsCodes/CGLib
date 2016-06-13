@@ -38,9 +38,9 @@ public:
 
 	Math::Line3d<float> toLine() const;
 
-	std::vector<AnisotoropicParticle> toAnisoParticles(const float divideLength, const float density);
+	std::vector<AnisotoropicParticle> toAnisoParticles(const float density);
 
-	std::vector< Math::Ellipsoid<float> > toEllipsoids(const float divideLength) const;
+	std::vector< Math::Ellipsoid<float> > toEllipsoids() const;
 
 	Math::PolarCoord3d<float> getPolarCoord() const;
 

@@ -56,7 +56,7 @@ public:
 
 	BoneTree toBoneTree();
 	
-	ParticleObject* toParticleObject(const float divideLength, const float density) const;
+	ParticleObject* toParticleObject(const float density) const;
 
 	//ParticleObject toParticleObject();
 
@@ -66,7 +66,7 @@ public:
 
 	std::string getName() const { return name; }
 
-	std::vector<Math::Ellipsoid<float>> toEllipsoids(const float divideLength) const;
+	std::vector<Math::Ellipsoid<float>> toEllipsoids() const;
 
 private:
 	std::string name;
