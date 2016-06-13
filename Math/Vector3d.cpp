@@ -1,5 +1,6 @@
 #include "Vector3d.h"
 #include "Matrix4d.h"
+#include "PolarCoord3d.h"
 
 using namespace Crystal::Math;
 
@@ -174,6 +175,48 @@ Matrix3d<T> Vector3d<T>::toDiagonalMatrix() const
 		getX(), 0, 0,
 		0, getY(), 0,
 		0, 0, getZ() );
+}
+
+template<typename T>
+Angle<T> Vector3d<T>::getAngle(const Vector3d<T>& rhs) const
+{
+	const auto inner = getInnerProduct(rhs);
+	return Angle<T>( Radian<T>(std::acos(inner)) );
+}
+
+
+template<typename T>
+PolarCoord3d<T> Vector3d<T>::toPolarCoord() const
+{
+	Vector3d<T> xunit(1, 0, 0);
+	Vector3d<T> yunit(0, 1, 0);
+	Vector3d<T> v(x, 0, z);
+	
+	const auto azimuth = xunit.getAngle(v);
+	const auto elevation = yunit.getAngle(v);
+	
+	return PolarCoord3d<T>(getLength(), azimuth, elevation);
+}
+
+template<typename T>
+Angle<T> Vector3d<T>::getAzimuth() const
+{
+	Vector3d<T> xunit(1, 0, 0);
+	Vector3d<T> v(x, 0, z);
+	const auto angle = xunit.getAngle(v);
+	if (z >= 0) {
+		return angle;
+	}
+	else {
+		return -angle;
+	}
+}
+
+template<typename T>
+Angle<T> Vector3d<T>::getElevation() const
+{
+	Vector3d<T> yunit(0, 1, 0);
+	return getAngle(yunit);
 }
 
 

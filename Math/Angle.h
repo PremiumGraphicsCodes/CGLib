@@ -36,6 +36,8 @@ public:
 
 	bool operator>(const Angle<T> rhs) const;
 
+	Angle<T> operator-() const { return Angle<T>(-deg); }
+
 	//static T getZero() { return T{ 0 }; }
 
 	static Angle<T> Zero();

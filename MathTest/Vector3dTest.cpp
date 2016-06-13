@@ -2,6 +2,7 @@
  
 #include "../Math/Vector3d.h"
 #include "../Math/Matrix4d.h"
+#include "../Math/PolarCoord3d.h"
 
 using namespace Crystal::Math;
 
@@ -138,3 +139,72 @@ TYPED_TEST(Vector3dTest, TestTransform)
 	Vector3d<T> v(1, 0., 0);
 	v.transform(m);
 }
+
+TYPED_TEST(Vector3dTest, TestGetAngle)
+{
+	using T = TypeParam;
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(1, 0, 0);
+		EXPECT_EQ(Angle<T>(Degree<T>(0)), v1.getAngle(v2));
+	}
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 1, 0);
+		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getAngle(v2));
+	}
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 0, 1);
+		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getAngle(v2));
+	}
+}
+
+TYPED_TEST(Vector3dTest, TestGetAzimuth)
+{
+	using T = TypeParam;
+	{
+		Vector3d<T> v1(1, 0, 0);
+		const auto actual = v1.getAzimuth();
+		const Angle<T> expected(Degree<T>(0));
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		Vector3d<T> v1(-1, 0, 0);
+		const auto actual = v1.getAzimuth();
+		const Angle<T> expected(Degree<T>(180));
+		EXPECT_EQ(expected, actual);
+	}
+
+
+	{
+		Vector3d<T> v1(0, 0, 1);
+		const auto actual = v1.getAzimuth();
+		const Angle<T> expected(Degree<T>(90));
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		Vector3d<T> v1(0, 0, -1);
+		const auto actual = v1.getAzimuth();
+		const Angle<T> expected(Degree<T>(-90));
+		EXPECT_EQ(expected, actual);
+	}
+
+
+}
+
+
+/*
+TYPED_TEST(Vector3dTest, TestToPolarCoord)
+{
+	using T = TypeParam;
+	{
+		Vector3d<T> v1(1, 0, 0);
+		const auto actual = v1.toPolarCoord();
+		const PolarCoord3d<T> expected(1, Angle<T>(Degree<T>(0) ), Angle<T>(Degree<T>(0) ) );
+		EXPECT_EQ(expected, actual);
+	}
+}
+*/

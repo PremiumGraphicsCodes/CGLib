@@ -25,6 +25,8 @@ namespace Crystal {
 
 			bool operator!=(const Degree<T> rhs) const;
 
+			Degree<T> operator-() const { return Degree<T>(-deg); }
+
 		private:
 			T deg;
 		};

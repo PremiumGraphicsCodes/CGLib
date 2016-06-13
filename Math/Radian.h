@@ -25,6 +25,8 @@ public:
 
 	bool operator!=(const Radian<T> rhs) const;
 
+	Radian<T> operator-() const { return Radian<T>(-rad); }
+
 private:
 	T rad;
 };

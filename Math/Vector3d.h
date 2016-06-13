@@ -7,11 +7,14 @@
 #include "Tolerance.h"
 #include "Matrix3d.h"
 #include "Vector2d.h"
+#include "Angle.h"
 
 namespace Crystal{
 	namespace Math{
 		template<typename>
 		class Matrix4d;
+		template<typename>
+		class PolarCoord3d;
 
 template<typename T>
 class Vector3d final
@@ -104,6 +107,15 @@ public:
 	T operator[](const int index) const;
 
 	Matrix3d<T> toDiagonalMatrix() const;
+
+	Angle<T> getAngle(const Vector3d<T>& rhs) const;
+	
+	PolarCoord3d<T> toPolarCoord() const;
+
+	Angle<T> getAzimuth() const;
+
+	Angle<T> getElevation() const;
+
 
 public:
 	T getX() const { return x; }
