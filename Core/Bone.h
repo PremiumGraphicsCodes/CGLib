@@ -42,6 +42,8 @@ public:
 
 	std::vector< Math::Ellipsoid<float> > toEllipsoids(const float divideLength) const;
 
+	Math::Quaternion<float> getOrientation() const;
+
 	Joint* getOriginJoint() const { return origin; }
 
 	Joint* getDestJoint() const { return dest; }
@@ -60,6 +62,8 @@ public:
 	//std::string getName() const { return name; }
 
 	Math::Vector2d<float> getThickness() const { return thickness; }
+
+	void setThickness(const Math::Vector2d<float>& v) { this->thickness = v; }
 
 private:
 	Joint* origin;

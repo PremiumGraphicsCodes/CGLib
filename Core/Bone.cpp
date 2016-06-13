@@ -67,18 +67,21 @@ std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float divideLengt
 	return particles;
 }
 
+Quaternion<float> Bone::getOrientation() const
+{
+	const auto vector = dest->getPosition() - origin->getPosition();
+	PolarCoord3d<float> polar = vector.toPolarCoord();
+	return polar.getOrientation();
+}
+
+
 std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) const
 {
 	std::vector< Ellipsoid<float> > results;
 
 	const auto length = this->getLength();
-	const float start = 0.0f;//origin->getBoundingRadius() + divideLength * 0.5f;
-	const float end = length;//length - dest->getBoundingRadius();// - divideLength * 0.5f;
-	const auto vector = dest->getPosition() - origin->getPosition();
-	PolarCoord3d<float> polar = vector.toPolarCoord();
-	const auto& orientation = polar.getOrientation();
-	//const auto& orientation = polar.toQuaternion();
-	for (float l = start; l < end; l += divideLength) {
+	const auto& orientation = getOrientation();
+	for (float l = 0.0f; l < length; l += divideLength) {
 		const float ratio = l / length;
 		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
 		const Vector3d<float> radii(divideLength, thickness.getX(), thickness.getY());

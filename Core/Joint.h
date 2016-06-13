@@ -32,6 +32,9 @@ public:
 
 	void move(const Math::Vector3d<float>& v) { this->position += v; }
 
+	void moveTo(const Math::Vector3d<float>& v) { this->position = v; }
+
+
 	Math::Vector3d<float> getRadii() const { return radii; }
 
 	//float getDiameter() const { return radius * 2.0f; }
