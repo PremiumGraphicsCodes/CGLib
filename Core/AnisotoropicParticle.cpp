@@ -11,7 +11,7 @@ AnisotoropicParticle::AnisotoropicParticle(const int id)
 AnisotoropicParticle::AnisotoropicParticle(const Ellipsoid<float>& ellipsoid, const float density, const int id) :
 	IParticle(ellipsoid.getCenter(),density, id),
 	radii(ellipsoid.getRadii()),
-	orientation(Quaternion<float>::Unit())
+	orientation(ellipsoid.getOrientation())
 {
 }
 

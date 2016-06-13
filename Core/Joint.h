@@ -2,6 +2,7 @@
 #define __CRYSTAL_POLYGON_JOINT_H__
 
 #include "../Math/Vector3d.h"
+#include "../Math/PolarCoord3d.h"
 #include "../Math/Ellipsoid.h"
 #include "Particle.h"
 
@@ -34,6 +35,7 @@ public:
 
 	void moveTo(const Math::Vector3d<float>& v) { this->position = v; }
 
+	void setRadii(const Math::Vector3d<float>& v) { this->radii = v; }
 
 	Math::Vector3d<float> getRadii() const { return radii; }
 
@@ -45,9 +47,16 @@ public:
 
 	Math::Ellipsoid<float> toEllipsoid() const;
 
+	Math::PolarCoord3d<float> getPolarCoord() const { return angle; }
+
+	Math::Quaternion<float> getOrientation() const { return angle.getOrientation(); }
+
+	void setOrientation(const Math::PolarCoord3d<float>& coord) { this->angle = coord; }
+
 private:
 	Math::Vector3d<float> position;
 	Math::Vector3d<float> radii;
+	Math::PolarCoord3d<float> angle;
 	unsigned int id;
 };
 

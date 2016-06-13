@@ -14,11 +14,11 @@ Joint* Joint::clone(const unsigned int newId) const
 
 AnisotoropicParticle Joint::toParticle(const float density) const
 {
-	const Ellipsoid<float> e(position, radii);
+	const Ellipsoid<float> e(position, radii, getOrientation());
 	return AnisotoropicParticle(e, density);
 }
 
 Ellipsoid<float> Joint::toEllipsoid() const
 {
-	return Ellipsoid<float>(position, radii);
+	return Ellipsoid<float>(position, radii, getOrientation());
 }
