@@ -30,6 +30,8 @@ public:
 
 	void add(const Particle& particle);
 
+	void add(IParticle* particle);
+
 	void add(const Math::Sphere<float>& sphere, const float particleDiameter, const float charge = 1.0f);
 
 	void add(const Math::Box3d<float>& box, const float particleDiameter, const float charge = 1.0f);
@@ -43,6 +45,8 @@ public:
 	std::vector<IParticle*> getParticles() const { return particles; }
 
 	PolygonMesh* toPolygon(const float isolevel, const int levelOfDetail, const Math::Space3d<float>& space) const;
+
+	std::vector<Math::Ellipsoid<float>> toEllipsoids() const;
 
 private:
 

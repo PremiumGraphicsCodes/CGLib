@@ -48,6 +48,11 @@ void ParticleObject::add(const Particle& particle)
 	sort();
 }
 
+void ParticleObject::add(IParticle* particle)
+{
+	particles.push_back(particle);
+	sort();
+}
 
 
 ParticleObject::~ParticleObject()
@@ -147,3 +152,12 @@ PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDe
 	return result;
 }
 
+std::vector<Ellipsoid<float>> ParticleObject::toEllipsoids() const
+{
+	std::vector<Ellipsoid<float>> ellipsoids;
+	for (auto p : particles) {
+		Ellipsoid<float> e(p->getPosition(), p->getRadii(), p->getOrientation());
+		ellipsoids.push_back(e);
+	}
+	return ellipsoids;
+}
