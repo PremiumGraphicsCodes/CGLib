@@ -184,6 +184,17 @@ Angle<T> Vector3d<T>::getAngle(const Vector3d<T>& rhs) const
 	return Angle<T>( Radian<T>(std::acos(inner)) );
 }
 
+template<typename T>
+Angle<T> Vector3d<T>::getSinedAngle(const Vector3d<T>& rhs) const
+{
+	const auto dir = getOuterProduct(rhs).getZ();
+	if (dir > 0) {
+		return getAngle(rhs);
+	}
+	else {
+		return -getAngle(rhs);
+	}
+}
 
 template<typename T>
 PolarCoord3d<T> Vector3d<T>::toPolarCoord() const

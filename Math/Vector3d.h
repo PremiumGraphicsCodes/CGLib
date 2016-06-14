@@ -109,12 +109,15 @@ public:
 	Matrix3d<T> toDiagonalMatrix() const;
 
 	Angle<T> getAngle(const Vector3d<T>& rhs) const;
+
+	Angle<T> getSinedAngle(const Vector3d<T>& rhs) const;
 	
 	PolarCoord3d<T> toPolarCoord() const;
 
 	Angle<T> getAzimuth() const;
 
 	Angle<T> getElevation() const;
+
 
 
 public:

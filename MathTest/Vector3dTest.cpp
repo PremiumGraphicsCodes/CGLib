@@ -160,6 +160,23 @@ TYPED_TEST(Vector3dTest, TestGetAngle)
 	}
 }
 
+TYPED_TEST(Vector3dTest, TestGetSignedAngle)
+{
+	using T = TypeParam;
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 1, 0);
+		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getSinedAngle(v2));
+	}
+
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, -1, 0);
+		EXPECT_EQ(Angle<T>(Degree<T>(-90)), v1.getSinedAngle(v2));
+	}
+}
+
+
 TYPED_TEST(Vector3dTest, TestGetAzimuth)
 {
 	using T = TypeParam;
