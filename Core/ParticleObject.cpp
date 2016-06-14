@@ -130,7 +130,7 @@ PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDe
 				if (dist2 < radiusSquared) {
 					//const auto value = kernel.getPoly6Kernel(std::sqrt(dist2), std::sqrt(radiusSquared)) * particle->getDensity();
 					const auto diff = poss[i] - particle->getPosition();
-					const auto& m = particle->getMatrix().getScaled(1.0 / particle->getBoundingRadius());
+					const auto& m = particle->getMatrix().getInverse(); //getScaled(1.0 / particle->getBoundingRadius());
 	//				const auto mm = Matrix3d<float>(1.0 / particle->getRadii().getX(), 0, 0, 0, 1.0 / particle->getRadii().getY(), 0, 0, 0, 1.0 / particle->getRadii().getZ());
 					const auto value = kernel.getCubicSpline(diff, m) * particle->getDensity();
 					values[i] += value;

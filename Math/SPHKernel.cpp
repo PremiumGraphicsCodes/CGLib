@@ -68,7 +68,7 @@ T SPHKernel<T, DIM>::getCubicSpline(const Vector3d<T>& v, const Matrix3d<T>& m)
 {
 	const auto det = m.getDeterminant();
 	const auto vv = v * m;
-	const auto q = vv.getLength();
+	const auto q = vv.getLength() * 2;
 	return det * getCubicSpline(q);
 }
 
