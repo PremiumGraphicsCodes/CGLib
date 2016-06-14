@@ -23,3 +23,20 @@ TEST(ParticleTest, TestCreateBlended)
 	EXPECT_EQ( Vector3d<float>(0.8f, 0.8f, 0.8f), actual.getPosition());
 	EXPECT_FLOAT_EQ( 8, actual.getDensity());
 }
+
+TEST(ParticleTest, TestGetMatrix)
+{
+	{
+		Particle particle(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 0.5f);
+		const Matrix3d<float> expected(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5);
+		const auto& actual = particle.getMatrix();
+		EXPECT_EQ(expected, actual);
+	}
+	{
+		Particle particle(Vector3d<float>(0.0, 0.0, 0.0), 1.0f, 5.0f);
+		const Matrix3d<float> expected(5.0, 0, 0, 0, 5.0, 0, 0, 0, 5.0);
+		const auto& actual = particle.getMatrix();
+		EXPECT_EQ(expected, actual);
+
+	}
+}

@@ -7,10 +7,21 @@ using namespace Crystal::Core;
 
 TEST(AnisotoropicParticleTest, TestGetMatrix)
 {
-	AnisotoropicParticle particle;
-	const auto& actual = particle.getMatrix();
-	const Matrix3d<float> expected(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5);
-	EXPECT_EQ(expected, actual);
+	{
+		AnisotoropicParticle particle;
+		const auto& actual = particle.getMatrix();
+		const Matrix3d<float> expected(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5);
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		Ellipsoid<float> e(Vector3d<float>(0, 0, 0), Vector3d<float>(5, 5, 5));
+		AnisotoropicParticle particle(e, 1.0f);
+		const auto& actual = particle.getMatrix();
+		const Matrix3d<float> expected(5, 0, 0, 0, 5, 0, 0, 0, 5);
+		EXPECT_EQ(expected, actual);
+	}
+
 }
 
 TEST(AnisotoropicParticleTest, TestGetBoundingBox)
