@@ -166,89 +166,71 @@ TYPED_TEST(Vector3dTest, TestGetSignedAngle)
 	{
 		Vector3d<T> v1(1, 0, 0);
 		Vector3d<T> v2(0, 1, 0);
-		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getSinedAngle(v2));
+		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getSingedAngle(v2, Vector3d<T>(0, 0, 1)));
 	}
 
 	{
 		Vector3d<T> v1(1, 0, 0);
 		Vector3d<T> v2(0, -1, 0);
-		EXPECT_EQ(Angle<T>(Degree<T>(-90)), v1.getSinedAngle(v2));
+		EXPECT_EQ(Angle<T>(Degree<T>(-90)), v1.getSingedAngle(v2, Vector3d<T>(0, 0, 1)));
+	}
+
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 0, 1);
+		EXPECT_EQ(Angle<T>(Degree<T>(-90)), v1.getSingedAngle(v2, Vector3d<T>(0, 1, 0)));
+	}
+
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 0, -1);
+		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getSingedAngle(v2, Vector3d<T>(0, 1, 0)));
 	}
 }
 
 
+TYPED_TEST(Vector3dTest, TestIsLeft)
+{
+	using T = TypeParam;
+	EXPECT_TRUE( Vector3d<T>(1, 0, 0).isLeft(Vector3d<T>(0, 1, 0), Vector3d<T>(0, 0, 1)) );
+	EXPECT_FALSE(Vector3d<T>(1, 0, 0).isLeft(Vector3d<T>(0, 1, 0), Vector3d<T>(0, 0, -1)));
+
+}
+
 TYPED_TEST(Vector3dTest, TestGetAzimuth)
 {
 	using T = TypeParam;
-	{
-		Vector3d<T> v1(1, 0, 0);
-		const auto actual = v1.getAzimuth();
-		const Angle<T> expected(Degree<T>(0));
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		Vector3d<T> v1(-1, 0, 0);
-		const auto actual = v1.getAzimuth();
-		const Angle<T> expected(Degree<T>(-180));
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		Vector3d<T> v1(0, 1, 0);
-		const auto actual = v1.getAzimuth();
-		const Angle<T> expected(Degree<T>(0));
-		EXPECT_EQ(expected, actual);
-	}
-
-
-
-	{
-		Vector3d<T> v1(0, 0, 1);
-		const auto actual = v1.getAzimuth();
-		const Angle<T> expected(Degree<T>(90));
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		Vector3d<T> v1(0, 0, -1);
-		const auto actual = v1.getAzimuth();
-		const Angle<T> expected(Degree<T>(-90));
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(1, 0, 0).getAzimuth());
+	EXPECT_EQ(Angle<T>(Degree<T>(-180)), Vector3d<T>(-1, 0, 0).getAzimuth());
+	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0, 1, 0).getAzimuth());
+	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0, 0, 1).getAzimuth());
+	EXPECT_EQ(Angle<T>(Degree<T>(90)), Vector3d<T>(0, 0, -1).getAzimuth());
 }
 
 TYPED_TEST(Vector3dTest, TestGetElevation)
 {
 	using T = TypeParam;
+	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(1,0,0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(-1,0,0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(0,0,1).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(0,0,-1).getElevation());
+
+	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0,1,0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(90)), Vector3d<T>(0,-1,0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(-45)), Vector3d<T>(1, 1, 0).getElevation());
+//	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0, -1, 0).getElevation());
+
+
+	//EXPECT_EQ(Angle<T>(Degree<T>(90)), Vector3d<T>(0, -1, 0).getElevation());
+
+	/*
 	{
-		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v1(1, 1, 0);
 		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(0));
+		const Angle<T> expected(Degree<T>(-45));
 		EXPECT_EQ(expected, actual);
 	}
 
-	{
-		Vector3d<T> v1(-1, 0, 0);
-		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(0));
-		EXPECT_EQ(expected, actual);
-	}
-
-
-	{
-		Vector3d<T> v1(0, 1, 0);
-		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(90));
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		Vector3d<T> v1(0, -1, 0);
-		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(-90));
-		EXPECT_EQ(expected, actual);
-	}
 
 
 	{
@@ -264,7 +246,7 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 		const Angle<T> expected(Degree<T>(0));
 		EXPECT_EQ(expected, actual);
 	}
-
+	*/
 
 
 }

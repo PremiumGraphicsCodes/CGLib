@@ -182,19 +182,20 @@ Angle<T> Vector3d<T>::getAngle(const Vector3d<T>& rhs) const
 {
 	const auto inner = getInnerProduct(rhs);
 	return Angle<T>( Radian<T>(std::acos(inner)) );
+	/*
+	const auto s = getOuterProduct(rhs).getLength();
+	const auto c = getInnerProduct(rhs);
+	return Angle<T>( Radian<T>(std::atan2(s, c)) );
+	*/
 }
 
 template<typename T>
-Angle<T> Vector3d<T>::getSinedAngle(const Vector3d<T>& rhs) const
+Angle<T> Vector3d<T>::getSingedAngle(const Vector3d<T>& rhs, const Vector3d<T>& normal) const
 {
-	const auto dir = getOuterProduct(rhs).getZ();
-	if (dir > 0) {
-		return getAngle(rhs);
-	}
-	else {
-		return -getAngle(rhs);
-	}
+	const auto angle = getAngle(rhs);
+	return isLeft(rhs, normal) ? angle : -angle;
 }
+
 
 template<typename T>
 PolarCoord3d<T> Vector3d<T>::toPolarCoord() const
@@ -205,6 +206,11 @@ PolarCoord3d<T> Vector3d<T>::toPolarCoord() const
 template<typename T>
 Angle<T> Vector3d<T>::getAzimuth() const
 {
+	Vector3d<T> v = getNormalized();
+	Vector3d<T> xaxis(1, 0, 0);
+	Vector3d<T> xz(v.x, 0, v.z);
+	return xaxis.getSingedAngle(xz, Vector3d<T>(0, 1, 0));
+	/*
 	if (Tolerance<T>::isEqualLoosely(x*x + z*z, 0)) {
 		return Angle<T>(Radian<T>(0));
 	}
@@ -216,13 +222,27 @@ Angle<T> Vector3d<T>::getAzimuth() const
 		return Angle<T>(Radian<T>(-angle));
 
 	}
+	*/
 }
 
 template<typename T>
 Angle<T> Vector3d<T>::getElevation() const
 {
+	//Vector3d<T> xz(x, 0, z);
+	//const auto& normal = Vector3d<T>(0,y,0).getOuterProduct(xz).getNormalized();
+	const auto& n = getNormalized();
+	return n.getAngle(Vector3d<T>(0,1,0)) - Angle<T>(Degree<T>(90));
+	/*
 	const auto angle = std::acos(y / std::sqrt(x*x + y*y + z*z)) - T{ 0.5f * Tolerance<T>::getPI() };//getAngle(yunit);
 	return Angle<T>(Radian<T>(-angle));
+	*/
+}
+
+template<typename T>
+bool Vector3d<T>::isLeft(const Vector3d<T>& rhs, const Vector3d<T>& normal) const
+{
+	const auto& cross = getOuterProduct(rhs);
+	return normal.getInnerProduct(cross) > 0;
 }
 
 

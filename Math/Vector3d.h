@@ -110,7 +110,7 @@ public:
 
 	Angle<T> getAngle(const Vector3d<T>& rhs) const;
 
-	Angle<T> getSinedAngle(const Vector3d<T>& rhs) const;
+	Angle<T> getSingedAngle(const Vector3d<T>& rhs, const Vector3d<T>& normal) const;
 	
 	PolarCoord3d<T> toPolarCoord() const;
 
@@ -118,7 +118,7 @@ public:
 
 	Angle<T> getElevation() const;
 
-
+	bool isLeft(const Vector3d<T>& rhs, const Vector3d<T>& normal) const;
 
 public:
 	T getX() const { return x; }
