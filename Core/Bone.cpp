@@ -54,11 +54,11 @@ Line3d<float> Bone::toLine() const
 
 #include "../Math/PolarCoord3d.h"
 
-std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float density)
+std::vector<AnisotoropicParticle> Bone::toAnisoParticles(const float density, const float divideLength)
 {
 	std::vector<AnisotoropicParticle> particles;
 
-	const auto& ellipsoids = toEllipsoids();
+	const auto& ellipsoids = toEllipsoids(divideLength);
 	for (const auto& e : ellipsoids) {
 		AnisotoropicParticle ap(e, density, e.getOrientation());
 		particles.emplace_back(ap);
@@ -80,23 +80,36 @@ Quaternion<float> Bone::getOrientation() const
 }
 
 
-std::vector< Ellipsoid<float> > Bone::toEllipsoids() const
+std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) const
 {
 	std::vector< Ellipsoid<float> > results;
 
-	const auto divideLength = thickness.getX();
 	const auto length = this->getLength();
 	const auto& orientation = getOrientation();
 	for (float l = 0.0f; l < length; l += divideLength) {
 		const float ratio = l / length;
 		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
-		const Vector3d<float> radii(divideLength, thickness.getY(), thickness.getZ());
+		const Vector3d<float> radii(thickness.getX(), thickness.getY(), thickness.getZ());
 		const Ellipsoid<float> e(pos, radii, orientation);
 		results.push_back(e);
 	}
 	return results;
 }
 
+#include "../Math/Cylindroid.h"
+
+Cylindroid<float> Bone::toCylindroid() const
+{
+//	const auto polarCoord = getPolarCoord();
+//	PolarCoord3d<float> pc(polarCoord.getLength(), -polarCoord.getAzimuth(), - polarCoord.getElevation());
+	const auto center = origin->getPosition() * 0.5 + dest->getPosition() * 0.5;
+	const Vector2d<float> radii(thickness.getY(), thickness.getZ());
+	Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
+//	Quaternion<float> q2(Vector3d<float>(0, -1, 0), Tolerance<float>::getHalfPI());
+	Quaternion<float> q3(Vector3d<float>(0, 0, 1), Tolerance<float>::getHalfPI());
+	Cylindroid<float> cylindroid(center,radii, getLength(), q1 * q3 * getOrientation());
+	return cylindroid;
+}
 
 
 void Bone::move(const Vector3d<float>& v)

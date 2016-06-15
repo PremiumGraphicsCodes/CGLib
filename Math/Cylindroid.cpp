@@ -20,6 +20,16 @@ Cylindroid<T>::Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, c
 }
 
 template<typename T>
+Cylindroid<T>::Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, const T height, const Quaternion<T>& orientation) :
+	center(center),
+	radii(radii),
+	height(height),
+	orientation(orientation)
+{
+}
+
+
+template<typename T>
 T Cylindroid<T>::getVolume() const
 {
 	return radii.getX() * radii.getY() * Tolerance<T>::getPI() * height;
@@ -35,10 +45,14 @@ template<typename T>
 Vector3d<T> Cylindroid<T>::getPosition(const Angle<T> u, const Param<T> v) const
 {
 	const auto x = radii.getX() * u.getCos();
-	const auto y = v.get() * height;
+	const auto y = v.get() * height - height*T{ 0.5 };
 	const auto z = radii.getY() * u.getSin();
 
-	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*T{ 0.5 }, 0) + center;
+	Vector3d<T> vec(x, y, z);
+	const auto rotation = orientation.toMatrix();
+	vec.rotate(rotation.transposed());
+
+	return vec + center;
 }
 
 template<typename T>
@@ -84,9 +98,9 @@ CircularCurve3d<T> Cylinder<T>::getBottomCurve(int number) const
 	c.move(Vector3d<T>(0.0, -height*T{ 0.5 }, 0.0));
 	return c;
 }
-
+*/
 template<typename T>
-Curve3d<T> Cylinder<T>::getSideCurve(const int number) const
+Curve3d<T> Cylindroid<T>::getSideCurve(const int number) const
 {
 	Curve3d<T> sideCurve(2, number);
 
@@ -101,7 +115,7 @@ Curve3d<T> Cylinder<T>::getSideCurve(const int number) const
 }
 
 
-
+/*
 template<typename T>
 std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 {

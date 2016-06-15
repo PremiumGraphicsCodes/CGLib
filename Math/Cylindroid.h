@@ -6,6 +6,7 @@
 #include "Vector3d.h"
 #include "Curve3d.h"
 #include "CircularCurve3d.h"
+#include "Quaternion.h"
 
 namespace Crystal {
 	namespace Math {
@@ -17,6 +18,8 @@ public:
 	Cylindroid();
 
 	Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, const T height);
+
+	Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, const T height, const Quaternion<T>& orientation);
 
 	T getVolume() const;
 
@@ -32,13 +35,14 @@ public:
 	CircularCurve3d<T> getTopCurve(const int number) const;
 
 	CircularCurve3d<T> getBottomCurve(const int number) const;
-
-	Curve3d<T> getSideCurve(const int number) const;
 	*/
+	Curve3d<T> getSideCurve(const int number) const;
+
 private:
 	Vector3d<T> center;
 	Vector2d<T> radii;
 	T height;
+	Quaternion<T> orientation;
 };
 	}
 }

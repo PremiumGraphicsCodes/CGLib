@@ -8,6 +8,10 @@
 #include "../Math/Quaternion.h"
 
 namespace Crystal {
+	namespace Math {
+		template<typename T>
+		class Cylindroid;
+	}
 	namespace Core {
 		class Joint;
 		class Particle;
@@ -38,9 +42,11 @@ public:
 
 	Math::Line3d<float> toLine() const;
 
-	std::vector<AnisotoropicParticle> toAnisoParticles(const float density);
+	std::vector<AnisotoropicParticle> toAnisoParticles(const float density, const float divideLength);
 
-	std::vector< Math::Ellipsoid<float> > toEllipsoids() const;
+	std::vector< Math::Ellipsoid<float> > toEllipsoids(const float divideLength) const;
+
+	Math::Cylindroid<float> toCylindroid() const;
 
 	Math::PolarCoord3d<float> getPolarCoord() const;
 

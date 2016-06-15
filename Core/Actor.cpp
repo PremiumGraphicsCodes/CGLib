@@ -162,7 +162,7 @@ void Actor::remove(Bone* b)
 	*/
 }
 
-ParticleObject* Actor::toParticleObject(const float density) const
+ParticleObject* Actor::toParticleObject(const float density, const float divideLength) const
 {
 	std::vector<IParticle*> particles;
 	for (auto j : joints) {
@@ -172,7 +172,7 @@ ParticleObject* Actor::toParticleObject(const float density) const
 		if (b->isTail()) {
 			continue;
 		}
-		const auto& ps = b->toAnisoParticles(density);
+		const auto& ps = b->toAnisoParticles(density, divideLength);
 		for (const auto& p : ps) {
 			particles.push_back( p.clone() );
 		}
@@ -180,7 +180,7 @@ ParticleObject* Actor::toParticleObject(const float density) const
 	return new ParticleObject( particles );
 }
 
-std::vector<Ellipsoid<float>> Actor::toEllipsoids() const
+std::vector<Ellipsoid<float>> Actor::toEllipsoids(const float divideLength) const
 {
 	std::vector<Ellipsoid<float>> ellipsoids;
 	for (auto j : joints) {
@@ -191,7 +191,7 @@ std::vector<Ellipsoid<float>> Actor::toEllipsoids() const
 		if (b->isTail()) {
 			continue;
 		}
-		const auto& es = b->toEllipsoids();
+		const auto& es = b->toEllipsoids(divideLength);
 		ellipsoids.insert(ellipsoids.end(), es.begin(), es.end());
 	}
 	return ellipsoids;
