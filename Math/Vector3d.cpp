@@ -210,32 +210,13 @@ Angle<T> Vector3d<T>::getAzimuth() const
 	Vector3d<T> xaxis(1, 0, 0);
 	Vector3d<T> xz(v.x, 0, v.z);
 	return xaxis.getSingedAngle(xz, Vector3d<T>(0, 1, 0));
-	/*
-	if (Tolerance<T>::isEqualLoosely(x*x + z*z, 0)) {
-		return Angle<T>(Radian<T>(0));
-	}
-	const auto angle = std::acos(x / std::sqrt(x*x + z*z));//getAngle(yunit);
-	if (z > 0) {
-		return Angle<T>(Radian<T>(angle));
-	}
-	else {
-		return Angle<T>(Radian<T>(-angle));
-
-	}
-	*/
 }
 
 template<typename T>
 Angle<T> Vector3d<T>::getElevation() const
 {
-	//Vector3d<T> xz(x, 0, z);
-	//const auto& normal = Vector3d<T>(0,y,0).getOuterProduct(xz).getNormalized();
 	const auto& n = getNormalized();
-	return n.getAngle(Vector3d<T>(0,1,0)) - Angle<T>(Degree<T>(90));
-	/*
-	const auto angle = std::acos(y / std::sqrt(x*x + y*y + z*z)) - T{ 0.5f * Tolerance<T>::getPI() };//getAngle(yunit);
-	return Angle<T>(Radian<T>(-angle));
-	*/
+	return -(n.getAngle(Vector3d<T>(0,1,0)) - Angle<T>(Degree<T>(90)));
 }
 
 template<typename T>

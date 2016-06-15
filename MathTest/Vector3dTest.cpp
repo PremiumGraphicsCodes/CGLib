@@ -215,9 +215,9 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(0,0,1).getElevation());
 	EXPECT_EQ(Angle<T>(Degree<T>(0)), Vector3d<T>(0,0,-1).getElevation());
 
-	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0,1,0).getElevation());
-	EXPECT_EQ(Angle<T>(Degree<T>(90)), Vector3d<T>(0,-1,0).getElevation());
-	EXPECT_EQ(Angle<T>(Degree<T>(-45)), Vector3d<T>(1, 1, 0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(90)), Vector3d<T>(0,1,0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0,-1,0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(45)), Vector3d<T>(1, 1, 0).getElevation());
 //	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0, -1, 0).getElevation());
 
 
