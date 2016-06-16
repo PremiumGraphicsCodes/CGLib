@@ -40,6 +40,9 @@ public:
 
 	Angle<T> operator-(const Angle<T>& rhs) const { return Angle<T>(deg - rhs.deg); }
 
+	Angle<T> operator+(const Angle<T>& rhs) const { return Angle<T>(deg + rhs.deg); }
+
+
 	//static T getZero() { return T{ 0 }; }
 
 	static Angle<T> Zero();

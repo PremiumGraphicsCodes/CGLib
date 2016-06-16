@@ -31,12 +31,16 @@ public:
 
 	Point3d<T> getPoint(const Param<T> u, const Param<T> v) const;
 
+	//Point3d<T> getPoint(const Angle<T> u, const Param<T> v) const;
+
 	/*
 	CircularCurve3d<T> getTopCurve(const int number) const;
 
 	CircularCurve3d<T> getBottomCurve(const int number) const;
 	*/
 	Curve3d<T> getSideCurve(const int number) const;
+
+	void rotate(const Quaternion<T>& q) { this->orientation *= q; }
 
 private:
 	Vector3d<T> center;

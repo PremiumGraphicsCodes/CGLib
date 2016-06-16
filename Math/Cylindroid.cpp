@@ -48,7 +48,7 @@ Vector3d<T> Cylindroid<T>::getPosition(const Angle<T> u, const Param<T> v) const
 	const auto y = v.get() * height - height*T{ 0.5 };
 	const auto z = radii.getY() * u.getSin();
 
-	Vector3d<T> vec(x, y, z);
+	Vector3d<T> vec(y, x, z);
 	const auto rotation = orientation.toMatrix();
 	vec.rotate(rotation.transposed());
 
@@ -72,6 +72,15 @@ Point3d<T> Cylindroid<T>::getPoint(const Param<T> u, const Param<T> v) const
 	const Vector2d<T> param(u.get(), v.get());
 	return Point3d<T>(position, normal, param);
 }
+
+/*
+template<typename T>
+Point3d<T> Cylindroid<T>::getPoint(const Angle<T> u, const Param<T> v) const
+{
+	getPosition(u, v);
+}
+*/
+
 
 /*
 #include "Circle2d.h"
@@ -103,13 +112,19 @@ template<typename T>
 Curve3d<T> Cylindroid<T>::getSideCurve(const int number) const
 {
 	Curve3d<T> sideCurve(2, number);
+	//const auto du = 360.0f / static_cast<T>(uNum);
+	const auto dv = 360.0f / static_cast<T>(number);
 
 	for (int i = 0; i < number; ++i) {
-		const auto param = Param<T>(i / (T)number);
-		const auto& v1 = getPoint(param, Param<T>(0));
-		const auto& v2 = getPoint(param, Param<T>(1));
-		sideCurve.set(0, i, v1);
-		sideCurve.set(1, i, v2);
+		const Degree<T> vAngle(dv * i);
+
+		//const auto param = Param<T>(i / (T)number);
+		const Vector3d<T>& v1 = getPosition(Angle<T>(vAngle), Param<T>(0));
+		const Vector3d<T>& v2 = getPosition(Angle<T>(vAngle), Param<T>(1));
+		const Point3d<T> p1(v1);
+		const Point3d<T> p2(v2);
+		sideCurve.set(0, i, p1);
+		sideCurve.set(1, i, p2);
 	}
 	return sideCurve;
 }
