@@ -34,6 +34,9 @@
     <ClCompile Include="ICamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="TriangleIdBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="ICamera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleIdBuffer.h">
+      <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

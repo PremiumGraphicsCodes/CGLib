@@ -34,6 +34,7 @@
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="PointBuffer.cpp" />
     <ClCompile Include="TriangleBuffer.cpp" />
+    <ClCompile Include="TriangleIdBuffer.cpp" />
     <ClCompile Include="VisualPolygon.cpp" />
     <ClCompile Include="WindowCoord2d.cpp" />
   </ItemGroup>
@@ -60,6 +61,7 @@
     <ClInclude Include="PointBuffer.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="TriangleBuffer.h" />
+    <ClInclude Include="TriangleIdBuffer.h" />
     <ClInclude Include="VisualPolygon.h" />
     <ClInclude Include="VisualSurface.h" />
     <ClInclude Include="WindowCoord2d.h" />

@@ -23,7 +23,7 @@ class TriangleBuffer
 public:
 	void add(const Core::Surface& surface);
 
-	void add(const Math::Point3d<float>& point);
+	void add(const Math::Point3d<float>& point, const int id);
 
 	void add(const Core::PolygonMesh& polygon);
 

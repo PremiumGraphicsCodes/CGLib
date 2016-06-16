@@ -13,22 +13,23 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
 
-void TriangleBuffer::add(const Point3d<float>& point)
+void TriangleBuffer::add(const Point3d<float>& point, const int id)
 {
 	this->positions.add( point.getPosition() );
 	this->normals.add(point.getNormal());
 	this->texCoords.add(point.getParameter());
+	DrawableID did(id);
+	this->idColors.add(did.toColor().toArray4());
 }
 
 
 void TriangleBuffer::add(const Surface& surface)
 {
-	this->indices = surface.toIndices();
+	const auto& si = surface.toIndices();
+	this->indices.insert(indices.end(), si.begin(), si.end());
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
-//		Point<float> p()
-//		Point<float> p(n;
-		add(*n);
+		add(*n, surface.getId());
 	}
 }
 

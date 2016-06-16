@@ -45,6 +45,8 @@ public:
 
 	//std::vector<Math::Vector3d<float>> toNormals() const;
 
+	int getId() const { return id; }
+
 private:
 	int id;
 	int nextNodeId;
