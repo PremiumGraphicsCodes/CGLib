@@ -165,7 +165,7 @@ Quaternion<T> Quaternion<T>::operator*=(const T s)
 }
 
 template<typename T>
-Quaternion<T> Quaternion<T>::operator*(const Quaternion<T>& s)
+Quaternion<T> Quaternion<T>::operator*(const Quaternion<T>& s) const
 {
 	return mult(s);
 }

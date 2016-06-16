@@ -76,7 +76,8 @@ PolarCoord3d<float> Bone::getPolarCoord() const
 
 Quaternion<float> Bone::getOrientation() const
 {
-	return getPolarCoord().getOrientation();
+	const Quaternion<float> q(Vector3d<float>(1, 0, 0), rotation.getRadian().get());
+	return getPolarCoord().getOrientation() * q;
 }
 
 
@@ -100,16 +101,14 @@ std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) con
 
 Cylindroid<float> Bone::toCylindroid() const
 {
-	const auto polarCoord = getPolarCoord();
-	PolarCoord3d<float> pc(polarCoord.getLength(), polarCoord.getAzimuth(), polarCoord.getElevation());
-	const auto center = origin->getPosition() * 0.5 + dest->getPosition() * 0.5;
 	const Vector2d<float> radii(thickness.getY(), thickness.getZ());
-//	Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
-//	Quaternion<float> q2(Vector3d<float>(0, -1, 0), Tolerance<float>::getHalfPI());
-//	Quaternion<float> q3(Vector3d<float>(0, 0, 1), Tolerance<float>::getHalfPI());
-	Cylindroid<float> cylindroid(center,radii, getLength(), pc.getOrientation());
-//	cylindroid.rotate(getOrientation());
+	Cylindroid<float> cylindroid(getCenter(), radii, getLength(), getOrientation());
 	return cylindroid;
+}
+
+Vector3d<float> Bone::getCenter() const
+{
+	return origin->getPosition() * 0.5 + dest->getPosition() * 0.5;
 }
 
 

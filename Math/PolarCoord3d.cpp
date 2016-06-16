@@ -40,11 +40,6 @@ Quaternion<T> PolarCoord3d<T>::getOrientation() const
 {
 	Quaternion<T> q1(Vector3d<T>(0, 1, 0), azimuth.getRadian().get());
 	Quaternion<T> q2(Vector3d<T>(0, 0, 1), elevation.getRadian().get());
-
-	/*
-	Quaternion<T> q1(Vector3d<T>(0, 0, 1), elevation.getRadian().get());
-	Quaternion<T> q2(Vector3d<T>(1, 0, 0), azimuth.getRadian().get());
-	*/
 	return q1 * q2;
 }
 

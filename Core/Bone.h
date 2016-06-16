@@ -73,6 +73,12 @@ public:
 
 	void setThickness(const Math::Vector3d<float>& v) { this->thickness = v; }
 
+	Math::Angle<float> getRotation() const { return rotation; }
+
+	void setRotation(const Math::Angle<float>& r) { this->rotation = r; }
+
+	Math::Vector3d<float> getCenter() const;
+
 private:
 	Joint* origin;
 	Joint* dest;
@@ -80,6 +86,7 @@ private:
 	std::string name;
 	std::vector<Bone*> children;
 	Math::Vector3d<float> thickness;
+	Math::Angle<float> rotation;
 	unsigned int id;
 };
 

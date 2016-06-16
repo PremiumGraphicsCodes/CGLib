@@ -13,12 +13,9 @@ template<typename T>
 class Vector2d final
 {
 public:
-	Vector2d(void) : Vector2d(0, 0)
-	{}
+	Vector2d();
 
-	Vector2d(const T x, const T y) :
-		x(x), y(y)
-	{}
+	Vector2d(const T x, const T y);
 
 	T getX() const { return x; }
 
@@ -30,14 +27,9 @@ public:
 
 	T getLength() const;
 
-	bool equals(const Vector2d& rhs) const {
-		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
-	}
+	void scale(const T scale);
 
-	void scale(const T scale) {
-		x *= scale;
-		y *= scale;
-	}
+	bool equals(const Vector2d& rhs) const;
 
 	bool operator==(const Vector2d& rhs) const { return equals(rhs); }
 
@@ -47,16 +39,26 @@ public:
 
 	Vector2d operator-(const Vector2d& rhs) const { return Vector2d(x - rhs.x, y - rhs.y); }
 
-	Vector2d& operator+=(const Vector2d& rhs) {
-		this->x += rhs.x; this->y += rhs.y;
-		return *this;
-	}
+	Vector2d& operator+=(const Vector2d& rhs);
+
+	Vector2d& operator-=(const Vector2d& rhs);
 
 	Vector2d<T> normalize();
 
 	Vector2d<T> getNormalized() const;
 
 	Angle<T> getAngle() const;
+
+	Angle<T> getAngle(const Vector2d<T>& rhs) const;
+
+	Angle<T> getSignedAngle(const Vector2d<T>& rhs) const;
+
+	T getInnerProduct(const Vector2d<T>& rhs) const;
+
+	bool isLeft(const Vector2d<T>& rhs) const;
+
+	bool isRight(const Vector2d<T>& rhs) const;
+
 
 private:
 	T x;
