@@ -6,6 +6,25 @@ using namespace Crystal::Math;
 //Vector2d<T>::isIn(const Vector2d<T>& )
 
 template<typename T>
+T Vector2d<T>::getDistanceSquared(const Vector2d& rhs) const
+{
+	return pow(x - rhs.x, 2) + pow(y - rhs.y, 2);
+}
+
+template<typename T>
+T Vector2d<T>::getLengthSquared() const
+{
+	return x*x + y*y;
+}
+
+template<typename T>
+T Vector2d<T>::getLength() const
+{
+	return std::sqrt(getLengthSquared());
+}
+
+
+template<typename T>
 Vector2d<T> Vector2d<T>::normalize()
 {
 	const auto length = getLength();

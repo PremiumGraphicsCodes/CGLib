@@ -6,28 +6,20 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Surface::Surface()
+Surface::Surface() :
+	id(-1),
+	nextNodeId(0),
+	nextEdgeId(0),
+	nextFaceId(0)
 {
-	nextNodeId = 0;
-	nextEdgeId = 0;
-	nextFaceId = 0;
-
 }
 
-Surface::Surface(const Curve3d<float>& curve)
+Surface::Surface(const Curve3d<float>& curve, const int id) :
+	id(id),
+	nextNodeId(0),
+	nextEdgeId(0),
+	nextFaceId(0)
 {
-	nextNodeId = 0;
-	nextEdgeId = 0;
-	nextFaceId = 0;
-	/*
-	std::vector< std::vector< Node* > > nodeGrid(curve.getVNumber());
-	for (int u = 0; u < curve.getUNumber(); ++u) {
-		for (int v = 0; v < curve.getVNumber(); ++v) {
-			Node* node = new Node(nextNodeId++);
-			nodeGrid[u][v] = node;
-		}
-	}
-	*/
 	add(curve);
 }
 

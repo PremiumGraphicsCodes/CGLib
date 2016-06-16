@@ -21,7 +21,7 @@ public:
 
 	//explicit Surface(const Math::Curve2d<float>& curve):
 
-	explicit Surface(const Math::Curve3d<float>& curve);
+	Surface(const Math::Curve3d<float>& curve, const int id = -1);
 
 	~Surface();
 
@@ -46,6 +46,7 @@ public:
 	//std::vector<Math::Vector3d<float>> toNormals() const;
 
 private:
+	int id;
 	int nextNodeId;
 	int nextEdgeId;
 	int nextFaceId;

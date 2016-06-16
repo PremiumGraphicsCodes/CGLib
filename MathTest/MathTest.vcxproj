@@ -47,6 +47,7 @@
     <ClCompile Include="SPHKernelTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="TriangleTest.cpp" />
+    <ClCompile Include="Vector2dTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
     <ClCompile Include="Vector4dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />

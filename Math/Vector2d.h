@@ -24,18 +24,11 @@ public:
 
 	T getY() const { return y; }
 
-	T getDistanceSquared(const Vector2d& rhs) const {
-		return pow(x - rhs.x, 2) + pow(y - rhs.y, 2);
-	}
+	T getDistanceSquared(const Vector2d& rhs) const;
 
-	T getLengthSquared() const {
-		return x*x + y*y;
-	}
+	T getLengthSquared() const;
 
-	T getLength() const {
-		return std::sqrt(x*x + y*y);
-	}
-
+	T getLength() const;
 
 	bool equals(const Vector2d& rhs) const {
 		return Tolerance<T>::isEqualLoosely(getDistanceSquared(rhs));
