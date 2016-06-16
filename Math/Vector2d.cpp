@@ -21,6 +21,11 @@ Vector2d<T> Vector2d<T>::getNormalized() const
 	return vector.normalize();
 }
 
+template<typename T>
+Angle<T> Vector2d<T>::getAngle() const
+{
+	return Angle<T>(Radian<T>(::atan2(y, x)));
+}
 
 template class Vector2d<float>;
 template class Vector2d<double>;

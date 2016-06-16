@@ -8,7 +8,6 @@
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="Space2dTest.cpp" />
     <ClCompile Include="Space3dTest.cpp" />
-    <ClCompile Include="Vector3dTest.cpp" />
     <ClCompile Include="Matrix4dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />
     <ClCompile Include="Matrix2dTest.cpp" />
@@ -17,7 +16,6 @@
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Plane3dTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
-    <ClCompile Include="Vector4dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="AngleTest.cpp" />
@@ -44,6 +42,12 @@
     <ClCompile Include="CylindroidTest.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Vector3dTest.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector4dTest.cpp">
+      <Filter>Vector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">
@@ -51,6 +55,9 @@
     </Filter>
     <Filter Include="Primitive3d">
       <UniqueIdentifier>{f736b951-a485-4d87-a342-7a7534280741}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vector">
+      <UniqueIdentifier>{97765429-dd2a-453c-b82e-7602238c04d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include "Tolerance.h"
+#include "Angle.h"
 
 namespace Crystal {
 	namespace Math {
@@ -61,6 +62,8 @@ public:
 	Vector2d<T> normalize();
 
 	Vector2d<T> getNormalized() const;
+
+	Angle<T> getAngle() const;
 
 private:
 	T x;

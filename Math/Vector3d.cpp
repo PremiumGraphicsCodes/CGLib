@@ -206,10 +206,18 @@ PolarCoord3d<T> Vector3d<T>::toPolarCoord() const
 template<typename T>
 Angle<T> Vector3d<T>::getAzimuth() const
 {
-	Vector3d<T> v = getNormalized();
-	Vector3d<T> xaxis(1, 0, 0);
-	Vector3d<T> xz(v.x, 0, v.z);
-	return xaxis.getSingedAngle(xz, Vector3d<T>(0, 1, 0));
+	//Vector3d<T> v = getNormalized();
+	//Vector3d<T> xaxis(1, 0, 0);
+	Vector2d<T> xz(x, z);
+	if (xz == Vector2d<T>(0, 0)) {
+		return Angle<T>::Zero();
+	}
+	xz.normalize();
+	return -xz.getAngle();
+	//xz.getAngle();
+	//auto theta = Angle<T>(Radian<T>(std::acos(z / getLength())));
+	//theta = theta - Angle<T>(Radian<T>(Tolerance<T>::getHalfPI()));
+	//return xaxis.getSingedAngle(xz, Vector3d<T>(0, 1, 0));
 }
 
 template<typename T>

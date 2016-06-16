@@ -39,9 +39,41 @@ TEST(QuaternionTest, TestGetInverse)
 
 TEST(QuaternionTest, TestMult)
 {
-	const Quaternion<float> q1(0, 0, 0, 1);
-	const Quaternion<float> q2(1, 1, 1, 1);
-	const auto actual = q1.mult(q2);
+	{
+		const Quaternion<float> q1(0, 0, 0, 1);
+		const Quaternion<float> q2(1, 1, 1, 1);
+		const auto actual = q1.mult(q2);
+		EXPECT_EQ(Quaternion<float>(1, 1, 1, 1), actual);
+	}
+
+	{
+		Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
+		Quaternion<float> q2(Vector3d<float>(0, 1, 0), Tolerance<float>::getHalfPI());
+		auto q3 = q1 * q2;
+		const auto& expected = q3.toMatrix();
+		const auto& actual = Matrix3d<float>::RotateX(Tolerance<float>::getHalfPI()) * Matrix3d<float>::RotateY(Tolerance<float>::getHalfPI());
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
+		Quaternion<float> q2(Vector3d<float>(0, 0, 1), Tolerance<float>::getHalfPI());
+		auto q3 = q1 * q2;
+		const auto& expected = q3.toMatrix();
+		const auto& actual = Matrix3d<float>::RotateX(Tolerance<float>::getHalfPI()) * Matrix3d<float>::RotateZ(Tolerance<float>::getHalfPI());
+		EXPECT_EQ(expected, actual);
+	}
+
+	{
+		Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
+		Quaternion<float> q2(Vector3d<float>(0, 1, 0), Tolerance<float>::getHalfPI());
+		Quaternion<float> q3(Vector3d<float>(0, 0, 1), Tolerance<float>::getHalfPI());
+		auto q4 = q1 * q2 * q3;
+		const auto& expected = q4.toMatrix();
+		const auto& actual = Matrix3d<float>::RotateX(Tolerance<float>::getHalfPI()) * Matrix3d<float>::RotateY(Tolerance<float>::getHalfPI()) * Matrix3d<float>::RotateZ(Tolerance<float>::getHalfPI());
+		EXPECT_EQ(expected, actual);
+	}
+
 }
 
 TEST(QuaternionTest, TestToMatrix)

@@ -117,7 +117,7 @@ Quaternion<T> Quaternion<T>::mult(const Quaternion<T>& rhs) const
 	const auto qy = rhs.getY();
 	const auto qz = rhs.getZ();
 
-	const auto w = pw * qw - px * qx - py * qy - pz * qz;
+	const auto w = pw * qw - px * qx - py * qy - pz * qz; // -p1q1-
 	const auto x = pw * qx + px * qw + py * qz - pz * qy;
 	const auto y = pw * qy - px * qz + py * qw + pz * qx;
 	const auto z = pw * qz + px * qy - py * qx + pz * qw;
