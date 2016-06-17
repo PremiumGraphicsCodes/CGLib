@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "VolumeNode.h"
 
 #include "Particle.h"

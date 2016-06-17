@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "stdafx.h"
 
 #include "../Core/OctTree.h"
 #include "../Core/Particle.h"

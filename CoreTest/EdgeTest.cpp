@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "stdafx.h"
 
 #include "../Core/Node.h"
 #include "../Core/Edge.h"

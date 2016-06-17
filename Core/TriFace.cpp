@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TriFace.h"
 #include "Vertex.h"
 

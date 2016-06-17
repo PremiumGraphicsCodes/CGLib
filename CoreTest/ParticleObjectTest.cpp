@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "stdafx.h"
 #include "../Core/Particle.h"
 #include "../Core/ParticleObject.h"
 #include "../Core/Volume.h"

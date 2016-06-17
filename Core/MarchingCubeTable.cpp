@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MarchingCubeTable.h"
 
 #include <cassert>

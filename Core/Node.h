@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_CORE_NODE_H__
 #define __CYRSTAL_CORE_NODE_H__
 
-#include "../Math/Point3d.h"
-#include "../Math/Vector3d.h"
 #include "../Util/UnCopyable.h"
 
 namespace Crystal {

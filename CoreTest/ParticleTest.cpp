@@ -1,8 +1,6 @@
-#include "gtest/gtest.h"
+#include "stdafx.h"
 
 #include "../Core/Particle.h"
-
-#include "../Math/Box3d.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

@@ -1,6 +1,5 @@
+#include "stdafx.h"
 #include "Volume.h"
-
-#include "../Math/Triangle.h"
 
 #include "VolumeNode.h"
 #include "VolumeCell.h"

@@ -1,8 +1,5 @@
-#include "gtest\gtest.h"
-
+#include "stdafx.h"
 #include "../Core/VolumeCell.h"
-
-#include "../Math/Triangle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

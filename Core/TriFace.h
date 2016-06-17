@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_POLYGON_TRI_FACE_H__
 #define __CRYSTAL_POLYGON_TRI_FACE_H__
 
-#include "../Math/Vector3d.h"
+#include "stdafx.h"
 
 namespace Crystal {
 	namespace Core {

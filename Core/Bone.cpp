@@ -1,8 +1,8 @@
+#include "stdafx.h"
 #include "Bone.h"
 
 #include "Joint.h"
 
-#include "../Math/Line3d.h"
 #include "AnisotoropicParticle.h"
 
 using namespace Crystal::Math;

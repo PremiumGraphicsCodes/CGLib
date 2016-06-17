@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "BoneTree.h"
 
 using namespace Crystal::Core;

@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "stdafx.h"
 #include "../Core/Surface.h"
 
 using namespace Crystal::Math;

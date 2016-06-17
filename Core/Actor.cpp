@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Actor.h"
 #include "Particle.h"
 #include "AnisotoropicParticle.h"

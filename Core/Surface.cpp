@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Surface.h"
 #include "Edge.h"
 #include "Node.h"

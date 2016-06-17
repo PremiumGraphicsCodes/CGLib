@@ -1,6 +1,7 @@
+#include "stdafx.h"
+
 #include "SpaceHash.h"
 
-#include "../Math/Vector3d.h"
 #include "ParticleObject.h"
 #include "Particle.h"
 

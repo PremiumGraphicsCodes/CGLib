@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Joint.h"
 
 #include "../Math/Quaternion.h"

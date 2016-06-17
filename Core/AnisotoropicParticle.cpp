@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "AnisotoropicParticle.h"
 
 using namespace Crystal::Math;

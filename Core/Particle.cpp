@@ -1,7 +1,6 @@
+#include "stdafx.h"
 #include "Particle.h"
 #include "AnisotoropicParticle.h"
-
-#include "../Math/Box3d.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

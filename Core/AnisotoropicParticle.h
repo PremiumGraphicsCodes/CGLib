@@ -3,10 +3,6 @@
 
 #include "Particle.h"
 
-#include "../Math/Ellipsoid.h"
-#include "../Math/Quaternion.h"
-#include "../Math/Matrix4d.h"
-
 namespace Crystal {
 	namespace Core {
 

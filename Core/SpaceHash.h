@@ -1,10 +1,9 @@
 #ifndef __CRYSTAL_POLYGON_SPACE_HASH_H__
 #define __CRYSTAL_POLYGON_SPACE_HASH_H__
 
+#include "stdafx.h"
 #include <vector>
 #include <list>
-#include "../Math/Index3d.h"
-#include "../Math/Vector3d.h"
 
 namespace Crystal {
 	namespace Core {

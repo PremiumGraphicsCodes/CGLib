@@ -1,5 +1,4 @@
-#include "gtest\gtest.h"
-
+#include "stdafx.h"
 #include "../Core/VolumeNode.h"
 #include "../Core/Volume.h"
 #include "../Core/PolygonMesh.h"

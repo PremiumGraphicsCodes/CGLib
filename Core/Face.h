@@ -2,8 +2,7 @@
 #define __CRYSTAL_CORE_FACE_H__
 
 #include <vector>
-#include "../Math/Vector3d.h"
-#include "../Util/UnCopyable.h"
+#include "stdafx.h"
 
 namespace Crystal {
 	namespace Core {

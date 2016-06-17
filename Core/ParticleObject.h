@@ -1,10 +1,8 @@
 #ifndef __CRYSTAL_POLYGON_PARTICLE_OBJECT_H__
 #define __CRYSTAL_POLYGON_PARTICLE_OBJECT_H__
 
+#include "stdafx.h"
 #include "Vertex.h"
-#include "../Math/Sphere.h"
-#include "../Math/Box3d.h"
-#include "../Math/Index3d.h"
 #include "Particle.h"
 
 namespace Crystal {

@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "stdafx.h"
 
 #include "../Core/SpaceHash.h"
 #include "../Core/Particle.h"

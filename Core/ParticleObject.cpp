@@ -1,7 +1,6 @@
+#include "stdafx.h"
 #include "ParticleObject.h"
 #include "Particle.h"
-
-#include "../Math/Sphere.h"
 #include "Volume.h"
 #include "PolygonMesh.h"
 

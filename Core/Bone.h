@@ -2,10 +2,7 @@
 #define __CRYSTAL_POLYGON_BONE_H__
 
 #include <vector>
-#include "../Math/Vector3d.h"
-#include "../Math/Line3d.h"
-#include "../Math/Ellipsoid.h"
-#include "../Math/Quaternion.h"
+#include "stdafx.h"
 
 namespace Crystal {
 	namespace Math {

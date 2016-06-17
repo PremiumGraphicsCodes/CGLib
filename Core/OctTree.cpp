@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OctTree.h"
 #include "Particle.h"
 

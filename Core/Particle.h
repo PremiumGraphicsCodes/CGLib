@@ -3,8 +3,6 @@
 
 #include "IParticle.h"
 
-#include "../Math/Vector3d.h"
-
 namespace Crystal {
 	namespace Math {
 		template<typename>
