@@ -47,6 +47,7 @@
     <ClInclude Include="BoneTree.h" />
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
+    <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="IParticle.h" />

@@ -38,6 +38,7 @@
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
     <ClInclude Include="Index2d.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Param.h" />
     <ClInclude Include="Point3d.h" />

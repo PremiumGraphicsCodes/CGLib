@@ -234,6 +234,7 @@
     <ClInclude Include="Ellipse.h">
       <Filter>Primitive2d</Filter>
     </ClInclude>
+    <ClInclude Include="Math.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

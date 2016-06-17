@@ -116,6 +116,7 @@
     <ClInclude Include="Surface.h">
       <Filter>Graph</Filter>
     </ClInclude>
+    <ClInclude Include="Core.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
