@@ -30,6 +30,7 @@ void AnisotoropicParticle::rotate(const Quaternion<float>& q)
 
 Box3d<float> AnisotoropicParticle::getBoundingBox() const
 {
+	/*
 	const auto& matrix = getMatrix();
 	const auto x11 = matrix.getX00();
 	const auto x12 = matrix.getX01();
@@ -52,6 +53,16 @@ Box3d<float> AnisotoropicParticle::getBoundingBox() const
 	const Vector3d<float> v1(x, y, z);
 	const Vector3d<float> v2(-x,-y,-z);
 	return Box3d<float>(v1 + getPosition(),v2 + getPosition());
+	*/
+	const auto radius = getBoundingRadius();
+	const auto minx = position.getX() - radius;
+	const auto miny = position.getY() - radius;
+	const auto minz = position.getZ() - radius;
+	const auto maxx = position.getX() + radius;
+	const auto maxy = position.getY() + radius;
+	const auto maxz = position.getZ() + radius;
+	return Box3d<float>(Vector3d<float>(minx, miny, minz), Vector3d<float>(maxx, maxy, maxz));
+
 }
 
 float AnisotoropicParticle::getBoundingRadius() const
