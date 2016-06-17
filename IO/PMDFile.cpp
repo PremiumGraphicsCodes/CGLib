@@ -1,10 +1,6 @@
+#include "stdafx.h"
 #include "PMDFile.h"
 
-#include "../Core/PolygonMesh.h"
-#include "../Core/Actor.h"
-#include "../Core/Bone.h"
-#include "../Core/Joint.h"
-#include "../Core/CGModel.h"
 
 #include "../Graphics/Material.h"
 #include "../Graphics/VisualPolygon.h"

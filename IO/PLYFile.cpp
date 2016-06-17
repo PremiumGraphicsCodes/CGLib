@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PLYFile.h"
 
 using namespace Crystal::Math;

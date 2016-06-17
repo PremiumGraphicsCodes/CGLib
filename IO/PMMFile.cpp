@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PMMFile.h"
 
 using namespace Crystal::IO;

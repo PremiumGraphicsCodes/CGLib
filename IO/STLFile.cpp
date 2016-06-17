@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "STLFile.h"
 
 #include "Helper.h"

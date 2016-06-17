@@ -1,7 +1,5 @@
+#include "stdafx.h"
 #include "POVFile.h"
-#include "../Core/Vertex.h"
-#include "../Core/TriFace.h"
-#include "../Core/PolygonMesh.h"
 #include <fstream>
 
 using namespace Crystal::Core;

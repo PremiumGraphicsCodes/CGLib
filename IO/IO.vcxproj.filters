@@ -24,6 +24,7 @@
     <ClCompile Include="CGAFile.cpp">
       <Filter>CGS</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />
@@ -51,6 +52,7 @@
       <Filter>CGS</Filter>
     </ClInclude>
     <ClInclude Include="IO.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="OBJ">

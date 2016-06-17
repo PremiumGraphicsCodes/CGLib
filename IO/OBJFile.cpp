@@ -1,5 +1,4 @@
-#define _CRT_SECURE_NO_DEPRECATE
-
+#include "stdafx.h"
 #include "OBJFile.h"
 
 #include <fstream>
