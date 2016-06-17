@@ -18,6 +18,11 @@ TEST(SurfaceTest, Test)
 	curve.set(1, 0, p3);
 	curve.set(1, 1, p4);
 
+	EXPECT_EQ( p1, curve.get(0, 0) );
+	EXPECT_EQ( p2, curve.get(0, 1) );
+	EXPECT_EQ( p3, curve.get(1, 0) );
+	EXPECT_EQ( p4, curve.get(1, 1));
+
 	Surface surface(curve);
 	EXPECT_EQ(12, surface.getEdges().size());
 	EXPECT_EQ(4, surface.getNodes().size());

@@ -28,6 +28,7 @@
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -60,6 +61,7 @@
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeGrid.h" />
     <ClInclude Include="OctTree.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />

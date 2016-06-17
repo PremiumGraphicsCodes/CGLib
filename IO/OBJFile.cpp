@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include "OBJFile.h"
 
 #include <fstream>
@@ -197,7 +198,7 @@ bool OBJFile::read(std::istream& stream)
 				}
 			}
 
-			const auto count = strs.size();
+			const auto count = static_cast<unsigned int>(strs.size());
 			faceCounts.push_back( count );
 			currentGroup.second += count;
 			//groupMap.insert(std::make_pair(currentGroupName, f));
@@ -270,14 +271,14 @@ bool OBJFile::write(std::ostream& stream, const PolygonMesh& mesh)
 	for (unsigned int i = 0; i < positions.size(); ++i) {
 		const auto pos = positions[i];
 		char s[256];
-		sprintf(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
+		sprintf_s(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
 		stream << s << std::endl;
 	}
 
 	for (unsigned int i = 0; i < normals.size(); ++i ){
 		const auto vn = normals[i];
 		char s[256];
-		sprintf(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
+		sprintf_s(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
 		stream << s << std::endl;
 	}
 

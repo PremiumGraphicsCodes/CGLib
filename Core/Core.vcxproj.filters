@@ -56,6 +56,9 @@
       <Filter>Graph</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="NodeGrid.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Core.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="NodeGrid.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
