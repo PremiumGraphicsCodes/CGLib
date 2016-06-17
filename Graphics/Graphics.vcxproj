@@ -43,6 +43,7 @@
     <ClInclude Include="ColorMap.h" />
     <ClInclude Include="DrawableID.h" />
     <ClInclude Include="EllipsoidBuffer.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="IBuffer.h" />
     <ClInclude Include="Buffer3d.h" />
     <ClInclude Include="Buffer4d.h" />

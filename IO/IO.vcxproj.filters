@@ -50,6 +50,7 @@
     <ClInclude Include="CGAFile.h">
       <Filter>CGS</Filter>
     </ClInclude>
+    <ClInclude Include="IO.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="OBJ">

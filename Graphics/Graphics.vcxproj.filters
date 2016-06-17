@@ -92,6 +92,7 @@
     <ClInclude Include="TriangleIdBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">

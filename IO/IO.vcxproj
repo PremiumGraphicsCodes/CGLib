@@ -36,6 +36,7 @@
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IO.h" />
     <ClInclude Include="MTLFile.h" />
     <ClInclude Include="OBJFile.h" />
     <ClInclude Include="PLYFile.h" />
