@@ -198,6 +198,21 @@ TEST(Space3dTest, TestGetSubSpace)
 
 	}
 }
+
+TEST(Space3dTest, TestGetPowerOfTwo)
+{
+	Space3d<float> space(Vector3d<float>(-1.5, -3, -4), Vector3d<float>(3, 6, 8));
+	EXPECT_EQ(Vector3d<float>(2, 4, 8), space.getPowerOfTwo());
+}
+
+TEST(Space3dTest, TestCreatePowerOfTwoSpace)
+{
+	Space3d<float> space(Vector3d<float>(-1.5, -3, -4), Vector3d<float>(3, 6, 8));
+	Space3d<float> expected(Vector3d<float>(-2, -4, -8), Vector3d<float>(4, 8, 16));
+	Space3d<float> actual = space.createPowerOfTwoSpace();
+	EXPECT_EQ(expected, actual);
+}
+
 /*
 
 TEST(Space3dTest, TestEquals)

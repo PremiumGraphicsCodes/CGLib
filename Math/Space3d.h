@@ -20,6 +20,8 @@ public:
 
 	~Space3d() = default;
 
+	//static Space3d<T> FromTwoPoint(const Vector3d<T>& start)
+
 	static Space3d<T> Unit() { return Space3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1)); }
 
 	bool isInner(const Math::Vector3d<float>& position) const;
@@ -69,6 +71,14 @@ public:
 	Space3d<T> offset(const Vector3d<T>& v) const;
 
 	Space3d<T> getBoundingSpace(const Space3d<T>& rhs) const;
+
+	Vector3d<T> getMin() const;
+
+	Vector3d<T> getMax() const;
+
+	Space3d<T> createPowerOfTwoSpace() const;
+
+	Vector3d<T> getPowerOfTwo() const;
 
 private:
 	Vector3d<T> origin;

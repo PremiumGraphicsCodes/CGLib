@@ -216,6 +216,45 @@ bool Space3d<T>::equals(const Space3d<T>& rhs) const
 		getLengths() == rhs.getLengths();
 }
 
+template<typename T>
+Vector3d<T> Space3d<T>::getMin() const
+{
+	const auto x = std::min<T>(getStart().getX(), getEnd().getX());
+	const auto y = std::min<T>(getStart().getY(), getEnd().getY());
+	const auto z = std::min<T>(getStart().getZ(), getEnd().getZ());
+	return Vector3d<T>(x, y, z);
+}
+
+template<typename T>
+Vector3d<T> Space3d<T>::getMax() const
+{
+	const auto x = std::max<T>(getStart().getX(), getEnd().getX());
+	const auto y = std::max<T>(getStart().getY(), getEnd().getY());
+	const auto z = std::max<T>(getStart().getZ(), getEnd().getZ());
+	return Vector3d<T>(x, y, z);
+}
+
+template<typename T>
+Vector3d<T> Space3d<T>::getPowerOfTwo() const
+{
+	const auto x = std::max(std::fabs(getMin().getX()), std::fabs(getMax().getX()));
+	const auto y = std::max(std::fabs(getMin().getY()), std::fabs(getMax().getY()));
+	const auto z = std::max(std::fabs(getMin().getZ()), std::fabs(getMax().getZ()));
+	const auto xx = std::exp2( std::floor( std::log2(x) )+1 );
+	const auto yy = std::exp2( std::floor( std::log2(y) )+1 );
+	const auto zz = std::exp2( std::floor( std::log2(z) )+1 );
+	return Vector3d<T>(xx, yy, zz);
+}
+
+
+template<typename T>
+Space3d<T> Space3d<T>::createPowerOfTwoSpace() const
+{
+	const auto start = -getPowerOfTwo();
+	const auto end = getPowerOfTwo();
+	const auto vector = end - start;
+	return Space3d<T>(start, vector);
+}
 
 template class Space3d<float>;
 template class Space3d<double>;
