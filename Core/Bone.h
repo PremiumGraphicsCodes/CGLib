@@ -74,6 +74,8 @@ public:
 
 	void setRotation(const Math::Angle<float>& r) { this->rotation = r; }
 
+	void rotate(const Math::Angle<float>& r) { this->rotation += r; }
+
 	Math::Vector3d<float> getCenter() const;
 
 private:

@@ -47,16 +47,18 @@ public:
 
 	Math::Ellipsoid<float> toEllipsoid() const;
 
-	Math::PolarCoord3d<float> getPolarCoord() const { return angle; }
+	//Math::PolarCoord3d<float> getPolarCoord() const { return angle; }
 
-	Math::Quaternion<float> getOrientation() const { return angle.getOrientation(); }
+	Math::Quaternion<float> getOrientation() const { return orientation; }
 
-	void setOrientation(const Math::PolarCoord3d<float>& coord) { this->angle = coord; }
+	void setOrientation(const Math::PolarCoord3d<float>& coord) { this->orientation = coord.getOrientation(); }
+
+	void rotate(const Math::Quaternion<float>& q) { this->orientation *= q; }
 
 private:
 	Math::Vector3d<float> position;
 	Math::Vector3d<float> radii;
-	Math::PolarCoord3d<float> angle;
+	Math::Quaternion<float> orientation;
 	unsigned int id;
 };
 

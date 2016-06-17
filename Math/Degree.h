@@ -31,6 +31,8 @@ namespace Crystal {
 
 			Degree<T> operator+(const Degree<T>& rhs) const { return Degree<T>(deg + rhs.deg); }
 
+			void operator+=(const Degree<T>& rhs) { this->deg += rhs.deg; }
+
 
 		private:
 			T deg;
