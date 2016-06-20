@@ -13,6 +13,26 @@ DrawableID::DrawableID(const unsigned char r, const unsigned char g, const unsig
 }
 */
 
+DrawableID::DrawableID(const ColorRGBA<float>& c)
+{
+	fromColor(c);
+}
+
+DrawableID::DrawableID(const ColorRGBA<unsigned char>& c)
+{
+	ColorRGBA<float> cf(c.getRed() / 256.0f, c.getGreen() / 256.0f, c.getBlue() / 256.0f, c.getAlpha() / 256.0f);
+	fromColor(cf);
+}
+
+void DrawableID::fromColor(const ColorRGBA<float>& c)
+{
+	id = c.getRed() * 256;
+	id += c.getGreen() * 256 * 256;
+	id += c.getBlue() * 256 * 256 * 256;
+
+}
+
+
 ColorRGBA<float> DrawableID::toColor() const
 {
 	const float red = (id % 256) / 256.0f;

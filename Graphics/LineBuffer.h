@@ -9,6 +9,7 @@
 #include "../Math/Line3d.h"
 #include "../Core/PolygonMesh.h"
 #include "../Graphics/ColorRGBA.h"
+#include "DrawableID.h"
 
 namespace Crystal {
 	namespace Core {
@@ -32,7 +33,7 @@ public:
 
 	void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
 
-	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color, const int id = 0);
+	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color, const DrawableID did = DrawableID(0));
 
 	std::vector<IBuffer<float>> getBuffers() const {
 		return{ position, color };

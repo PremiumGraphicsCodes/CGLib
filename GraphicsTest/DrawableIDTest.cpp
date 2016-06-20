@@ -3,59 +3,30 @@
 #include "../Graphics/ColorRGBA.h"
 
 using namespace Crystal::Graphics;
-/*
+
 TEST(DrawableIDTest, TestFromColor)
 {
-	{
-		DrawableID actual(255, 0, 0, 0);
-		DrawableID expected(255);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		DrawableID actual(255, 255, 0, 0);
-		DrawableID expected(255*255);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		DrawableID actual(255, 255, 255, 0);
-		DrawableID expected(255 * 255 * 255);
-		EXPECT_EQ(expected, actual);
-	}
-
+	EXPECT_EQ(DrawableID(0), DrawableID(ColorRGBA<float>(0, 0, 0, 0)));
+	EXPECT_EQ(DrawableID(30), DrawableID(ColorRGBA<float>(30.0f / 256.0f, 0, 0, 0)));
+	EXPECT_EQ(DrawableID(256), DrawableID(ColorRGBA<float>(0, 1.0f/256.0f, 0, 0)));
+	EXPECT_EQ(DrawableID(256*256), DrawableID(ColorRGBA<float>(0, 0, 1.0f / 256.0f, 0)));
 }
 
-*/
+TEST(DrawableIDTest, TestFromColorUC)
+{
+	EXPECT_EQ(DrawableID(0), DrawableID(ColorRGBA<unsigned char>(0, 0, 0, 0)));
+	EXPECT_EQ(DrawableID(30), DrawableID(ColorRGBA<unsigned char>(30, 0, 0, 0)));
+	EXPECT_EQ(DrawableID(256), DrawableID(ColorRGBA<unsigned char>(0, 1, 0, 0)));
+	EXPECT_EQ(DrawableID(256 * 256), DrawableID(ColorRGBA<unsigned char>(0, 0, 1, 0)));
+}
+
+
 TEST(DrawableIDTest, TestToColor)
 {
-	{
-		DrawableID id(0);
-		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(0.0f, 0.0f, 0.0f, 1.0f);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		DrawableID id(30);
-		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(30.0f / 256.0f, 0.0f, 0.0f, 1.0f);
-		EXPECT_EQ(expected, actual);
-	}
-
-	{
-		DrawableID id(256);
-		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(0.0f, 1.0f/256.0f, 0.0f, 1.0f);
-		EXPECT_EQ(expected, actual);
-	}
-	{
-		DrawableID id(256*256);
-		const auto& actual = id.toColor();
-		ColorRGBA<float> expected(0.0f, 0.0f, 1.0f / 256.0f, 1.0f);
-		EXPECT_EQ(expected, actual);
-	}
-
+	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 0.0f, 1.0f), DrawableID(0).toColor());
+	EXPECT_EQ(ColorRGBA<float>(30.0f / 256.0f, 0.0f, 0.0f, 1.0f), DrawableID(30).toColor());
+	EXPECT_EQ(ColorRGBA<float>(0.0f, 1.0f / 256.0f, 0.0f, 1.0f), DrawableID(256).toColor());
+	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 1.0f / 256.0f, 1.0f), DrawableID(256 * 256).toColor());
 }
 
 

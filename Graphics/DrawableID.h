@@ -13,6 +13,12 @@ public:
 		id(id)
 	{}
 
+	explicit DrawableID(const ColorRGBA<float>& c);
+
+	explicit DrawableID(const ColorRGBA<unsigned char>& c);
+
+	void fromColor(const ColorRGBA<float>& c);
+
 	//DrawableID(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a);
 
 	//DrawableID(const unsigned int groupId, const unsigned int elementId);

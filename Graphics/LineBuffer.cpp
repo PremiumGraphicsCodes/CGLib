@@ -7,7 +7,6 @@
 #include "../Core/Node.h"
 #include "../Core/Edge.h"
 
-#include "DrawableID.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -49,7 +48,7 @@ void LineBuffer::add(const Surface& surface, const ColorRGBA<float>& color)
 }
 
 
-void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, const int id)
+void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, const DrawableID did)
 {
 	position.add(line.getStart());
 	position.add(line.getEnd());
@@ -58,7 +57,6 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, co
 	this->ids.push_back(this->ids.size());
 	this->ids.push_back(this->ids.size());
 
-	DrawableID did(id);
 	this->idColors.add(did.toColor());
 	this->idColors.add(did.toColor());
 
