@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "../Core/NodeGrid.h"
+#include "../Core/Node.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -41,6 +42,8 @@ TEST(NodeGridTest, Test)
 	EXPECT_EQ(&n10, grid.getNextV(0, 0));
 	EXPECT_EQ(&n11, grid.getNextV(0, 1));
 
+	const auto& cells = grid.toQuadCells();
+	EXPECT_EQ(1, cells.size());
 }
 
 TEST(NodeGrid1dTest, Test)
@@ -62,6 +65,8 @@ TEST(NodeGrid1dTest, Test)
 	EXPECT_EQ(&n01, grid.getPrevU(0, 0));
 	EXPECT_EQ(&n00, grid.getPrevU(0, 1));
 
+	const auto& cells = grid.toQuadCells();
+	EXPECT_EQ(2, cells.size());
 }
 
 TEST(NodeGrid2dTest, Test)

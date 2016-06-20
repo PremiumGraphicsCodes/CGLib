@@ -25,6 +25,7 @@ Surface::Surface(const Curve3d<float>& curve, const int id) :
 }
 
 #include "../Util/Array2d.h"
+#include "NodeGrid.h"
 
 void Surface::add(const Curve3d<float>& curve)
 {
