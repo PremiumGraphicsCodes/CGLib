@@ -14,7 +14,7 @@ public:
 		nodes(nodes)
 	{}
 
-	std::array<Node*, 3> get() { return nodes; }
+	std::array<Node*, 3> get() const { return nodes; }
 
 private:
 	std::array<Node*, 3> nodes;
@@ -27,7 +27,7 @@ public:
 		nodes(nodes)
 	{}
 
-	std::array<TriangleCell, 2> toTriangleCells() {
+	std::array<TriangleCell, 2> toTriangleCells() const {
 		TriangleCell c1({ nodes[0], nodes[1], nodes[2] });
 		TriangleCell c2({ nodes[2], nodes[3], nodes[0] });
 		return{ c1, c2 };

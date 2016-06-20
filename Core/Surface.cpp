@@ -29,19 +29,43 @@ Surface::Surface(const Curve3d<float>& curve, const int id) :
 
 void Surface::add(const Curve3d<float>& curve)
 {
-	Array2d<Node*> grid(curve.getUNumber(), curve.getVNumber());
-	//NodeGrid2d grid(curve.getUNumber(), curve.getVNumber());
+	//Array2d<Node*> grid(curve.getUNumber(), curve.getVNumber());
+	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
 			const auto& normal = curve.get(u, v).getNormal();
 
 			Node* node = new Node(pos, normal, nextNodeId++);
-			nodes.push_back(node);
 			grid.set(u, v, node);
+			nodes.push_back(node);
 		}
 	}
 
+	const auto& cells = grid.toQuadCells();
+	std::vector<TriangleCell> triangleCells;
+	for (const auto& c : cells) {
+		const auto& tCells = c.toTriangleCells();
+		triangleCells.insert(triangleCells.end(), tCells.begin(), tCells.end());
+	}
+
+	for (const auto& t : triangleCells) {
+		auto v1 = t.get()[0];
+		auto v2 = t.get()[1];
+		auto v3 = t.get()[2];
+		Edge* e1 = new Edge(v1, v2, nextEdgeId++);
+		Edge* e2 = new Edge(v2, v3, nextEdgeId++);
+		Edge* e3 = new Edge(v3, v1, nextEdgeId++);
+
+		Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
+		edges.push_back(e1);
+		edges.push_back(e2);
+		edges.push_back(e3);
+
+		faces.push_back(f1);
+	}
+
+	/*
 	for (int u = 0; u < curve.getUNumber() - 1; ++u) {
 		for (int v = 0; v < curve.getVNumber() - 1; ++v) {
 			auto v1 = grid.get(u, v);
@@ -105,6 +129,7 @@ void Surface::add(const Curve3d<float>& curve)
 			faces.push_back(f2);
 	}
 
+	*/
 
 }
 
