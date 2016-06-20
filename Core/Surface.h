@@ -47,6 +47,10 @@ public:
 
 	int getId() const { return id; }
 
+	void move(const Math::Vector3d<float>& v);
+
+	void rotate(const Math::Quaternion<float>& q);
+
 private:
 	int id;
 	int nextNodeId;

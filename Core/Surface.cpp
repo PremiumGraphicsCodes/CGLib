@@ -198,3 +198,17 @@ std::vector<unsigned int> Surface::toIndices() const
 	}
 	return indices;
 }
+
+void Surface::move(const Vector3d<float>& v)
+{
+	for (auto n : nodes) {
+		n->move(v);
+	}
+}
+
+void Surface::rotate(const Quaternion<float>& q)
+{
+	for (auto n : nodes) {
+		n->transform(q.toMatrix());
+	}
+}
