@@ -26,6 +26,7 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
+    <ClCompile Include="UIDTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">

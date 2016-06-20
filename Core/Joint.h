@@ -5,6 +5,7 @@
 #include "../Math/PolarCoord3d.h"
 #include "../Math/Ellipsoid.h"
 #include "Particle.h"
+#include "UID.h"
 
 namespace Crystal {
 	namespace Core {
@@ -24,6 +25,8 @@ public:
 	void changeId(const unsigned int newId) { this->id = newId; }
 
 	unsigned int getId() const { return id; }
+
+	UID getUID() const { return UID(id, UID::Type::Joint); }
 
 	AnisotoropicParticle toParticle(const float density) const;
 

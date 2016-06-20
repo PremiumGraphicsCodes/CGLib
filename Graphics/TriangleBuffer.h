@@ -6,6 +6,7 @@
 #include "../Math/Point3d.h"
 #include "../Math/Triangle.h"
 #include "../Core/PolygonMesh.h"
+#include "DrawableID.h"
 
 #include "Buffer3d.h"
 #include "Buffer4d.h"
@@ -21,9 +22,9 @@ namespace Crystal {
 class TriangleBuffer
 {
 public:
-	void add(const Core::Surface& surface);
+	void add(const Core::Surface& surface, const DrawableID& did);
 
-	void add(const Math::Point3d<float>& point, const int id);
+	void add(const Math::Point3d<float>& point, const DrawableID& did);
 
 	void add(const Core::PolygonMesh& polygon);
 

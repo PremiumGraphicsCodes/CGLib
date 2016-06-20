@@ -2,6 +2,7 @@
 #define __CRYSTAL_POLYGON_BONE_H__
 
 #include <vector>
+#include "UID.h"
 #include "stdafx.h"
 
 namespace Crystal {
@@ -77,6 +78,9 @@ public:
 	void rotate(const Math::Angle<float>& r) { this->rotation += r; }
 
 	Math::Vector3d<float> getCenter() const;
+
+	UID getUID() const { return UID(id, UID::Type::Bone); }
+
 
 private:
 	Joint* origin;

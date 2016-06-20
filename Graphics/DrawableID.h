@@ -1,6 +1,8 @@
 #ifndef __CRYSTAL_GRAPHICS_DRAWABLE_ID_H__
 #define __CRYSTAL_GRAPHICS_DRAWABLE_ID_H__
 
+#include "../Core/UID.h"
+
 namespace Crystal {
 	namespace Graphics {
 		template<typename>
@@ -12,6 +14,8 @@ public:
 	explicit DrawableID(const unsigned int id) :
 		id(id)
 	{}
+
+	explicit DrawableID(const Core::UID& id);
 
 	explicit DrawableID(const ColorRGBA<float>& c);
 

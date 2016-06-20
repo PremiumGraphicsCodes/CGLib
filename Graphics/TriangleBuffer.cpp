@@ -6,30 +6,28 @@
 #include "../Core/Edge.h"
 #include "../Core/Node.h"
 
-#include "DrawableID.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
 
-void TriangleBuffer::add(const Point3d<float>& point, const int id)
+void TriangleBuffer::add(const Point3d<float>& point, const DrawableID& did)
 {
 	this->positions.add( point.getPosition() );
 	this->normals.add(point.getNormal());
 	this->texCoords.add(point.getParameter());
-	DrawableID did(id);
 	this->idColors.add(did.toColor().toArray4());
 }
 
 
-void TriangleBuffer::add(const Surface& surface)
+void TriangleBuffer::add(const Surface& surface, const DrawableID& did)
 {
 	const auto& si = surface.toIndices();
 	this->indices.insert(indices.end(), si.begin(), si.end());
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
-		add(*n, surface.getId());
+		add(*n, did);
 	}
 }
 
