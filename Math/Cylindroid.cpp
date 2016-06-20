@@ -73,6 +73,15 @@ Point3d<T> Cylindroid<T>::getPoint(const Param<T> u, const Param<T> v) const
 	return Point3d<T>(position, normal, param);
 }
 
+template<typename T>
+Cylindroid<T> Cylindroid<T>::scaled(const Vector2d<T>& radiiScale, const T heightScale) const
+{
+	Vector2d<T> newRadii(radii.getX() * radiiScale.getX(), radii.getY() * radiiScale.getY());
+	T newHeight = height * heightScale;
+	return Cylindroid<T>(center, newRadii, newHeight, orientation);
+}
+
+
 /*
 template<typename T>
 Point3d<T> Cylindroid<T>::getPoint(const Angle<T> u, const Param<T> v) const

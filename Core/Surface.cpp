@@ -208,7 +208,19 @@ void Surface::move(const Vector3d<float>& v)
 
 void Surface::rotate(const Quaternion<float>& q)
 {
+	const auto& center = getCenter();
+	move(-center);
 	for (auto n : nodes) {
 		n->transform(q.toMatrix());
 	}
+	move(center);
+}
+
+Vector3d<float> Surface::getCenter() const
+{
+	Vector3d<float> center;
+	for (auto n : nodes) {
+		center += n->getPosition() / nodes.size();
+	}
+	return center;
 }

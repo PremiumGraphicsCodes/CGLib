@@ -42,6 +42,8 @@ public:
 
 	void rotate(const Quaternion<T>& q) { this->orientation *= q; }
 
+	Cylindroid<T> scaled(const Vector2d<T>& radiiScale, const T heightScale) const;
+
 private:
 	Vector3d<T> center;
 	Vector2d<T> radii;

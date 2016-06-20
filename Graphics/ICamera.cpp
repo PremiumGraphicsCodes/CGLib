@@ -63,7 +63,7 @@ Vector3d<T> ICamera<T>::getUpVector() const
 template<typename T>
 Vector3d<T> ICamera<T>::getRightVector() const
 {
-	return getForwardVector().getOuterProduct(getUpVector());
+	return getForwardVector().getOuterProduct(getUpVector()).getNormalized();
 }
 
 template<typename T>

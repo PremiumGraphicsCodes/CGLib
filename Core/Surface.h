@@ -51,6 +51,8 @@ public:
 
 	void rotate(const Math::Quaternion<float>& q);
 
+	Math::Vector3d<float> getCenter() const;
+
 private:
 	int id;
 	int nextNodeId;
