@@ -3,6 +3,8 @@
 
 #include "Vector3d.h"
 #include "Angle.h"
+#include "Param.h"
+#include "Quaternion.h"
 
 namespace Crystal {
 	namespace Math {
@@ -15,7 +17,7 @@ class Circle3d
 public:
 	Circle3d();
 
-	Circle3d(const T radius, const Vector3d<T>& center, const Vector3d<T>& normal);
+	Circle3d(const T radius, const Vector3d<T>& center, const Quaternion<T>& orientation);
 
 	bool equals(const Circle3d<T>& rhs) const;
 
@@ -23,14 +25,16 @@ public:
 
 	bool operator!=(const Circle3d<T>& rhs) const;
 
-	//Vector3d<T> getPosition(const Angle<T> angle) const;
+	Vector3d<T> getPosition(const Angle<T> angle) const;
+
+	Vector3d<T> getPosition(const Param<T> param) const;
 
 	//Curve3d<T> toCurve3d() const;
 
 private:
 	T radius;
 	Vector3d<T> center;
-	Vector3d<T> normal;
+	Quaternion<T> orientation;
 };
 	}
 }

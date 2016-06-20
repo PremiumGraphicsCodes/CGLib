@@ -51,6 +51,9 @@
     <ClCompile Include="Vector2dTest.cpp">
       <Filter>Vector</Filter>
     </ClCompile>
+    <ClCompile Include="Circle3dTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">

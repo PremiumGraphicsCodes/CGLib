@@ -59,6 +59,12 @@
     <ClCompile Include="NodeGrid.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleArrow.cpp">
+      <Filter>Glyph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -125,6 +131,12 @@
     <ClInclude Include="NodeGrid.h">
       <Filter>Graph</Filter>
     </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Glyph</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleArrow.h">
+      <Filter>Glyph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -141,6 +153,9 @@
     </Filter>
     <Filter Include="Graph">
       <UniqueIdentifier>{da07c0d0-f6ed-466d-b7ed-996156b254de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glyph">
+      <UniqueIdentifier>{9656ea0d-de33-4f1c-9d3a-0a995397ce8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

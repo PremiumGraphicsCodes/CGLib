@@ -63,13 +63,15 @@ Point3d<T> Cylinder<T>::getPoint(const Param<T> u, const Param<T> v) const
 template<typename T>
 Circle3d<T> Cylinder<T>::getBotton() const
 {
-	return Circle3d<T>(radius, center - Vector3d<T>(0, height*T{ 0.5 }, 0), Vector3d<T>(0, -1, 0));
+	Quaternion<T> q(Vector3d<T>(1, 0, 0), -Tolerance<T>::getHalfPI());
+	return Circle3d<T>(radius, center - Vector3d<T>(0, height*T{ 0.5 }, 0), q);
 }
 
 template<typename T>
 Circle3d<T> Cylinder<T>::getTop() const
 {
-	return Circle3d<T>(radius, center + Vector3d<T>(0, height*T{ 0.5 }, 0), Vector3d<T>(0, 1, 0));
+	Quaternion<T> q(Vector3d<T>(1, 0, 0), Tolerance<T>::getHalfPI());
+	return Circle3d<T>(radius, center + Vector3d<T>(0, height*T{ 0.5 }, 0), q);
 	//return Circle3d<T>
 }
 

@@ -21,8 +21,10 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AnisotoropicParticle.cpp" />
+    <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
+    <ClCompile Include="CircleArrow.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="Joint.cpp" />
@@ -50,10 +52,12 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AnisotoropicParticle.h" />
+    <ClInclude Include="Arrow.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoneTree.h" />
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
+    <ClInclude Include="CircleArrow.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Face.h" />
