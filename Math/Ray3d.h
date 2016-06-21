@@ -5,6 +5,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename>
+		class Triangle;
 
 template<typename T>
 class Ray3d
@@ -19,11 +21,13 @@ public:
 
 	//bool hasIntersection(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
 
-	bool isParallel(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
+	bool isParallel(const Triangle<T>& triangle) const;
 
-	Vector3d<T> getParam(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
+	Vector3d<T> getParam(const Triangle<T>& triangle) const;
 
-	Vector3d<T> getIntersection(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
+	//bool hasIntersection(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
+
+	Vector3d<T> getIntersection(const Triangle<T>& triangle) const;
 	
 private:
 	Vector3d<T> origin;

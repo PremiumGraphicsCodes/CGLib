@@ -10,7 +10,7 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Triangle final
+class Triangle
 {
 public:
 	Triangle();
@@ -73,6 +73,13 @@ public:
 	void setv1( const Vector3d<T>& v ) { this->v1 = v; }
 
 	void setv2( const Vector3d<T>& v ) { this->v2 = v; }
+
+	bool operator==(const Triangle<T>& rhs) const {
+		return
+			v0 == rhs.v0 &&
+			v1 == rhs.v1 &&
+			v2 == rhs.v2;
+	}
 
 private:
 	Vector3d<T> v0;
