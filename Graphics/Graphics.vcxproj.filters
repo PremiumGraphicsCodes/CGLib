@@ -38,6 +38,9 @@
       <Filter>Buffer</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="LineIdBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -97,6 +100,9 @@
       <Filter>Light</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="LineIdBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">

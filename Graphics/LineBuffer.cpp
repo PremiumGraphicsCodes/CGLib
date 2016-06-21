@@ -18,8 +18,6 @@ void LineBuffer::add(const Point3d<float>& point, const ColorRGBA<float>& color)
 {
 	this->position.add(point.getPosition());
 	this->color.add(color);
-	//this->normal.add(point.getNormal());
-	//this->texCoord.add(point.getParameter());
 }
 
 void LineBuffer::add(const Edge& edge, const ColorRGBA<float>& color)

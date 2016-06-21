@@ -24,6 +24,8 @@ public:
 
 	Node* getEnd() const { return end; }
 
+	Math::Line3d<float> toLine() const;
+
 private:
 	Node* start;
 	Node* end;

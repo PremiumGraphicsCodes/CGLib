@@ -22,3 +22,8 @@ float Edge::getLength() const
 {
 	return getVector().getLength();
 }
+
+Line3d<float> Edge::toLine() const
+{
+	return Line3d<float>(start->getPosition(), end->getPosition());
+}
