@@ -26,6 +26,8 @@ public:
 		const T x20, const T x21, const T x22
 		);
 
+	Matrix3d(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2);
+
 	explicit Matrix3d(const std::array<T, 9>& v);
 
 	~Matrix3d() = default;

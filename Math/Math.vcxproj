@@ -46,6 +46,7 @@
     <ClInclude Include="PolarCoord3d.h" />
     <ClInclude Include="Quad2d.h" />
     <ClInclude Include="Radian.h" />
+    <ClInclude Include="Ray3d.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Index3d.h" />
@@ -100,6 +101,7 @@
     <ClCompile Include="Quad2d.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Radian.cpp" />
+    <ClCompile Include="Ray3d.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Sphere.cpp" />

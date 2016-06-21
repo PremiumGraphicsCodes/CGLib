@@ -82,9 +82,9 @@ public:
 
 	Vector3d operator-() const { return Vector3d(-x, -y, -z); }
 
-	Vector3d operator*(const float factor) const;
+	Vector3d operator*(const T factor) const;
 
-	Vector3d operator/(const float factor) const;
+	Vector3d operator/(const T factor) const;
 
 	T getInnerProduct(const Vector3d& rhs) const;
 
@@ -150,10 +150,10 @@ private:
 };
 
 template<typename T>
-static Vector3d<T> operator*( float factor, const Vector3d<T>& rhs ) { return rhs.getScaled( factor ); }
+static Vector3d<T> operator*( T factor, const Vector3d<T>& rhs ) { return rhs.getScaled( factor ); }
 
 template<typename T>
-static Vector3d<T> operator/( float factor, const Vector3d<T>& rhs ) { return rhs.getScaled( 1.0f / factor ); }
+static Vector3d<T> operator/( T factor, const Vector3d<T>& rhs ) { return rhs.getScaled( 1.0f / factor ); }
 
 
 	}

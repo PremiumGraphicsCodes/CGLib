@@ -109,14 +109,14 @@ Vector3d<T> Vector3d<T>::operator-=(const Vector3d& rhs)
 }
 
 template<typename T>
-Vector3d<T> Vector3d<T>::operator*(const float factor) const
+Vector3d<T> Vector3d<T>::operator*(const T factor) const
 {
 	Vector3d vector(*this);
 	return vector.scale(factor);
 }
 
 template<typename T>
-Vector3d<T> Vector3d<T>::operator/(const float factor) const
+Vector3d<T> Vector3d<T>::operator/(const T factor) const
 {
 	Vector3d vector(*this);
 	return vector.scale(1.0f / factor);

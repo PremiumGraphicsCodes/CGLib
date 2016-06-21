@@ -25,6 +25,15 @@ Matrix3d<T>::Matrix3d(
 }
 
 template<typename T>
+Matrix3d<T>::Matrix3d(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) :
+	x00(v0.getX()), x01(v1.getX()), x02(v2.getX()),
+	x10(v0.getY()), x11(v1.getY()), x12(v2.getY()),
+	x20(v0.getZ()), x21(v1.getZ()), x22(v2.getZ())
+{
+}
+
+
+template<typename T>
 Matrix3d<T>::Matrix3d(const std::array<T, 9>& v) :
 	Matrix3d(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8])
 {

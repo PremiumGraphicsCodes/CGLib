@@ -113,6 +113,7 @@
     <ClCompile Include="Cylindroid.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Ray3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line3d.h" />
@@ -235,6 +236,7 @@
       <Filter>Primitive2d</Filter>
     </ClInclude>
     <ClInclude Include="Math.h" />
+    <ClInclude Include="Ray3d.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
