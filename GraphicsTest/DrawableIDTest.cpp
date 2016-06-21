@@ -8,11 +8,11 @@ using namespace Crystal::Graphics;
 TEST(DrawableIDTest, TestFromColor)
 {
 	EXPECT_EQ(DrawableID(0), DrawableID(ColorRGBA<float>(0, 0, 0, 0)));
-	EXPECT_EQ(DrawableID(30), DrawableID(ColorRGBA<float>(30.0f / 256.0f, 0, 0, 0)));
-	EXPECT_EQ(DrawableID(256), DrawableID(ColorRGBA<float>(1.0f, 0, 0, 0)));
-	EXPECT_EQ(DrawableID(256), DrawableID(ColorRGBA<float>(0, 1.0f/256.0f, 0, 0)));
-	EXPECT_EQ(DrawableID(256*256), DrawableID(ColorRGBA<float>(0, 0, 1.0f / 256.0f, 0)));
-	EXPECT_EQ(DrawableID(256*256*256), DrawableID(ColorRGBA<float>(0, 0, 0, 1.0f / 256.0f)));
+	EXPECT_EQ(DrawableID(30), DrawableID(ColorRGBA<float>(30.0f / 255.0f, 0, 0, 0)));
+	EXPECT_EQ(DrawableID(255), DrawableID(ColorRGBA<float>(1.0f, 0, 0, 0)));
+	EXPECT_EQ(DrawableID(256), DrawableID(ColorRGBA<float>(0, 1.0f/255.0f, 0, 0)));
+	EXPECT_EQ(DrawableID(256*256), DrawableID(ColorRGBA<float>(0, 0, 1.0f / 255.0f, 0)));
+	EXPECT_EQ(DrawableID(256*256*256), DrawableID(ColorRGBA<float>(0, 0, 0, 1.0f / 255.0f)));
 
 }
 

@@ -21,6 +21,8 @@ public:
 
 	void fromColor(const ColorRGBA<float>& c);
 
+	void fromColor(const ColorRGBA<unsigned char>& c);
+
 	//DrawableID(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a);
 
 	//DrawableID(const unsigned int groupId, const unsigned int elementId);
