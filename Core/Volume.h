@@ -8,7 +8,7 @@
 namespace Crystal {
 	namespace Math {
 		template<typename>
-		class Triangle;
+		class Triangle3d;
 	}
 	namespace Core {
 
@@ -58,7 +58,7 @@ private:
 	const Math::Space3d<float> space;
 	const Math::Grid3d<float> grid;
 
-	std::vector< Math::Triangle<float> > toTriangles(const float isolevel) const;
+	std::vector< Math::Triangle3d<float> > toTriangles(const float isolevel) const;
 
 	VolumeCell toCell(const Math::Index3d index) const;
 };

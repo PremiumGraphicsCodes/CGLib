@@ -3,8 +3,6 @@
 
 #include <vector>
 
-#include "../Math/Point3d.h"
-#include "../Math/Triangle.h"
 #include "../Core/PolygonMesh.h"
 
 #include "Buffer3d.h"

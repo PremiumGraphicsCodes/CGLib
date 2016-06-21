@@ -2,7 +2,6 @@
 #include "VolumeCell.h"
 #include "VolumeNode.h"
 
-#include "../Math/Triangle.h"
 #include "MarchingCubeTable.h"
 
 
@@ -32,11 +31,11 @@ int VolumeCell::getCubeIndex(const float isolevel) const
 }
 
 
-std::vector< Triangle<float> > VolumeCell::toTriangles(const float isolevel) const
+std::vector< Triangle3d<float> > VolumeCell::toTriangles(const float isolevel) const
 {
 	MarchingCubeTable* table = MarchingCubeTable::getInstance();
 
-	std::vector<Triangle<float>> triangles;
+	std::vector<Triangle3d<float>> triangles;
 
 	const auto cubeIndex = getCubeIndex(isolevel);
 	const auto& vertices = getPositions(cubeIndex, isolevel);
@@ -45,7 +44,7 @@ std::vector< Triangle<float> > VolumeCell::toTriangles(const float isolevel) con
 		const auto& v1 = vertices[triTable[cubeIndex][i]];
 		const auto& v2 = vertices[triTable[cubeIndex][i + 1]];
 		const auto& v3 = vertices[triTable[cubeIndex][i + 2]];
-		const Triangle<float> t(v1, v2, v3);
+		const Triangle3d<float> t(v1, v2, v3);
 		triangles.emplace_back(t);
 	}
 

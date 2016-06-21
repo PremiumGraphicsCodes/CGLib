@@ -59,7 +59,7 @@ void TriangleBuffer::add(const Vertex& vertex, const ColorRGBA<float>& color)
 	//this->idColors.add()
 }
 
-void TriangleBuffer::add(const Triangle<float>& triangle)
+void TriangleBuffer::add(const Triangle3d<float>& triangle)
 {
 	positions.add(triangle.getv0());
 	positions.add(triangle.getv1());

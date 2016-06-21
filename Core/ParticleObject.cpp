@@ -139,7 +139,7 @@ PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDe
 		VolumeCell cell(c.getBoundingBox().toSpace(),values);
 		cells.emplace_back(cell);
 	}
-	std::vector<Triangle<float>> triangles;
+	std::vector<Triangle3d<float>> triangles;
 	for (const auto& cell : cells) {
 		const auto& ts = cell.toTriangles(isolevel);
 		triangles.insert(triangles.end(), ts.begin(), ts.end());

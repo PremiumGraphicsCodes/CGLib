@@ -45,7 +45,6 @@
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGBA.h" />
     <ClInclude Include="Image.h" />
-    <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MaterialMap.h" />
     <ClInclude Include="stb_image.h" />
@@ -93,6 +92,9 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Light.h">
+      <Filter>Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">
@@ -100,6 +102,9 @@
     </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{bbd160af-baa3-422f-9798-4290464b45ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{0f6a21de-55f9-437e-b03c-5a9ae6787361}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

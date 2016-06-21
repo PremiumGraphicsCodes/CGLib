@@ -2,12 +2,6 @@
 #define __CRYSTAL_POLYGON_POLYGON_OBJECT_H__
 
 #include "../Util/UnCopyable.h"
-#include "../Math/Vector3d.h"
-#include "../Math/Box3d.h"
-#include "../Math/Triangle.h"
-#include "../Math/Quad.h"
-#include "../Math/Cone.h"
-#include "../Math/Ellipsoid.h"
 #include "Vertex.h"
 #include "TriFace.h"
 
@@ -40,7 +34,7 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	void add(const Math::Triangle<float>& triangle);
+	void add(const Math::Triangle3d<float>& triangle);
 
 	void add(const Math::Quad<float>& quad);
 

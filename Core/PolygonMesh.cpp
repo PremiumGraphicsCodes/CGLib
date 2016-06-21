@@ -88,7 +88,7 @@ std::list< TriFace* > PolygonMesh::createFaces(const std::vector<Vertex*>& verti
 }
 
 
-void PolygonMesh::add(const Triangle<float>& triangle)
+void PolygonMesh::add(const Triangle3d<float>& triangle)
 {
 	auto n = triangle.getNormal();
 	auto p1 = triangle.getv0();

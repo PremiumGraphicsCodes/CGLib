@@ -1,10 +1,6 @@
 #ifndef __CRYSTAL_GRAPHICS_WIREFRAME_H__
 #define __CRYSTAL_GRAPHICS_WIREFRAME_H__
 
-#include "../Math/Line3d.h"
-#include "../Math/Triangle.h"
-#include "../Math/Box3d.h"
-
 namespace Crystal {
 	namespace Graphics {
 
@@ -16,7 +12,7 @@ public:
 
 	~Wireframe() = default;
 
-	void add(const Math::Triangle<T>& t) {
+	void add(const Math::Triangle3d<T>& t) {
 		lines.emplace_back( Math::Line3d<T>( t.getv0(), t.getv1() ) );
 		lines.emplace_back( Math::Line3d<T>( t.getv1(), t.getv2() ) );
 		lines.emplace_back( Math::Line3d<T>( t.getv2(), t.getv0() ) );

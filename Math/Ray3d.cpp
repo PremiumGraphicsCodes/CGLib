@@ -1,11 +1,11 @@
 #include "Ray3d.h"
 #include "Matrix3d.h"
-#include "Triangle.h"
+#include "Triangle3d.h"
 
 using namespace Crystal::Math;
 
 template<typename T>
-bool Ray3d<T>::isParallel(const Triangle<T>& triangle) const
+bool Ray3d<T>::isParallel(const Triangle3d<T>& triangle) const
 {
 	const Vector3d<T> edge1 = triangle.getv1() - triangle.getv0();
 	const Vector3d<T> edge2 = triangle.getv2() - triangle.getv0();
@@ -17,7 +17,7 @@ bool Ray3d<T>::isParallel(const Triangle<T>& triangle) const
 }
 
 template<typename T>
-Vector3d<T> Ray3d<T>::getParam(const Triangle<T>& triangle) const
+Vector3d<T> Ray3d<T>::getParam(const Triangle3d<T>& triangle) const
 {
 	const Vector3d<T> edge1 = triangle.getv1() - triangle.getv0();
 	const Vector3d<T> edge2 = triangle.getv2() - triangle.getv0();
@@ -38,7 +38,7 @@ Vector3d<T> Ray3d<T>::getParam(const Triangle<T>& triangle) const
 
 
 template<typename T>
-Vector3d<T> Ray3d<T>::getIntersection(const Triangle<T>& triangle) const
+Vector3d<T> Ray3d<T>::getIntersection(const Triangle3d<T>& triangle) const
 {
 	const Vector3d<T>& p = getParam(triangle);
 	return origin + dir * p.getZ();

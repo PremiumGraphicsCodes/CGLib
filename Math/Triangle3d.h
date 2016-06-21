@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_MATH_TRIANGLE_H__
-#define __CRYSTAL_MATH_TRIANGLE_H__
+#ifndef __CRYSTAL_MATH_TRIANGLE_3D_H__
+#define __CRYSTAL_MATH_TRIANGLE_3D_H__
 
 #include <vector>
 #include <cassert>
@@ -10,31 +10,31 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Triangle
+class Triangle3d
 {
 public:
-	Triangle();
+	Triangle3d();
 
-	Triangle(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2);
+	Triangle3d(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2);
 
-	static Triangle<T> UnitXY() {
-		return Triangle<T>(
+	static Triangle3d<T> UnitXY() {
+		return Triangle3d<T>(
 			Vector3d<T>(0.0, 0.0, 0.0),
 			Vector3d<T>(1.0, 0.0, 0.0),
 			Vector3d<T>(0.0, 1.0, 0.0)
 		);
 	}
 
-	static Triangle<T> UnitXZ() {
-		return Triangle<T>(
+	static Triangle3d<T> UnitXZ() {
+		return Triangle3d<T>(
 			Vector3d<T>(0.0, 0.0, 0.0),
 			Vector3d<T>(0.0, 0.0, 1.0),
 			Vector3d<T>(1.0, 0.0, 0.0)
 			);
 	}
 
-	static Triangle<T> UnitYZ() {
-		return Triangle<T>(
+	static Triangle3d<T> UnitYZ() {
+		return Triangle3d<T>(
 			Vector3d<T>(0.0, 0.0, 0.0),
 			Vector3d<T>(0.0, 1.0, 0.0),
 			Vector3d<T>(0.0, 0.0, 1.0)
@@ -74,7 +74,9 @@ public:
 
 	void setv2( const Vector3d<T>& v ) { this->v2 = v; }
 
-	bool operator==(const Triangle<T>& rhs) const {
+	bool equals(const Triangle3d<T>& rhs) const;
+
+	bool operator==(const Triangle3d<T>& rhs) const {
 		return
 			v0 == rhs.v0 &&
 			v1 == rhs.v1 &&

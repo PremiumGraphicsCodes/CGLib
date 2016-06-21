@@ -62,7 +62,7 @@
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Tolerance.h" />
-    <ClInclude Include="Triangle.h" />
+    <ClInclude Include="Triangle3d.h" />
     <ClInclude Include="Vector3d.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="Vector4d.h" />
@@ -106,7 +106,7 @@
     <ClCompile Include="Space3d.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
-    <ClCompile Include="Triangle.cpp" />
+    <ClCompile Include="Triangle3d.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Vector2d.cpp" />

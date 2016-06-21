@@ -145,9 +145,9 @@ ParticleObject* Volume::toParticleObject(const float radius,const float isolevel
 
 
 
-std::vector< Triangle<float> > Volume::toTriangles(const float isolevel) const
+std::vector< Triangle3d<float> > Volume::toTriangles(const float isolevel) const
 {
-	std::vector<Triangle<float>> triangles;
+	std::vector<Triangle3d<float>> triangles;
 	for (int x = 0; x < grid.getSizeX() - 1; ++x) {
 		for (int y = 0; y < grid.getSizeY() - 1; ++y) {
 			for (int z = 0; z < grid.getSizeZ() - 1; ++z) {

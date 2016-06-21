@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include "stdafx.h"
 
 #include "../Graphics/Wireframe.h"
 
@@ -7,7 +7,7 @@ using namespace Crystal::Graphics;
 
 TEST(WireframeTest, TestTriangle)
 {
-	Triangle < float > t;
+	Triangle3d < float > t;
 	Wireframe<float> wf;
 	wf.add(t);
 	EXPECT_EQ(3, wf.getLines().size());

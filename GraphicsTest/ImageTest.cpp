@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
- 
+#include "stdafx.h"
+
 #include "../Graphics/Image.h"
 
 using namespace Crystal::Graphics;

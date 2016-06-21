@@ -6,7 +6,6 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
-    <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Box3d.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
@@ -114,6 +113,7 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Ray3d.cpp" />
+    <ClCompile Include="Triangle3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line3d.h" />
@@ -122,7 +122,6 @@
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Space3d.h" />
     <ClInclude Include="Tolerance.h" />
-    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Box3d.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
@@ -237,6 +236,7 @@
     </ClInclude>
     <ClInclude Include="Math.h" />
     <ClInclude Include="Ray3d.h" />
+    <ClInclude Include="Triangle3d.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

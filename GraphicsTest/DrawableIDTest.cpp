@@ -1,4 +1,4 @@
-#include "gtest\gtest.h"
+#include "stdafx.h"
 #include "../Graphics/DrawableID.h"
 #include "../Graphics/ColorRGBA.h"
 

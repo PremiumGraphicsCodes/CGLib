@@ -6,7 +6,7 @@
 namespace Crystal {
 	namespace Math {
 		template<typename>
-		class Triangle;
+		class Triangle3d;
 	}
 	namespace Core {
 class VolumeNode;
@@ -16,7 +16,7 @@ class VolumeCell
 public:
 	VolumeCell(const Math::Space3d<float>& space, const std::array< float, 8>& values);
 
-	std::vector< Math::Triangle<float> > toTriangles(const float isolevel) const;
+	std::vector< Math::Triangle3d<float> > toTriangles(const float isolevel) const;
 
 
 private:

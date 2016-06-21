@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
- 
+#include "stdafx.h"
+
 #include "../Graphics/ICamera.h"
 
 using namespace Crystal::Math;

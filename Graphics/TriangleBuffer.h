@@ -3,8 +3,6 @@
 
 #include <vector>
 
-#include "../Math/Point3d.h"
-#include "../Math/Triangle.h"
 #include "../Core/PolygonMesh.h"
 #include "DrawableID.h"
 
@@ -30,7 +28,7 @@ public:
 
 	void add(const Core::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
 
-	void add(const Math::Triangle<float>& triangle);
+	void add(const Math::Triangle3d<float>& triangle);
 
 	void clear();
 
