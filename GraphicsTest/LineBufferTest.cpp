@@ -9,5 +9,5 @@ TEST(LineBufferTest, TestAdd)
 
 	Graphics::LineBuffer buffer;
 	buffer.add(line, Graphics::ColorRGBA<float>::Black());
-	EXPECT_EQ( 2, buffer.getBuffers().size() );
+	EXPECT_EQ(6, buffer.getPosition().get().size());
 }

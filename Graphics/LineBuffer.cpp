@@ -11,7 +11,6 @@ void LineBuffer::clear()
 	position.clear();
 	color.clear();
 	this->ids.clear();
-	this->idColors.clear();
 }
 
 void LineBuffer::add(const Point3d<float>& point, const ColorRGBA<float>& color)
@@ -40,7 +39,7 @@ void LineBuffer::add(const Surface& surface, const ColorRGBA<float>& color)
 }
 
 
-void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, const DrawableID did)
+void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 {
 	position.add(line.getStart());
 	position.add(line.getEnd());
@@ -48,10 +47,6 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color, co
 	this->color.add(color);
 	this->ids.push_back(this->ids.size());
 	this->ids.push_back(this->ids.size());
-
-	this->idColors.add(did.toColor());
-	this->idColors.add(did.toColor());
-
 }
 
 void LineBuffer::add(const PolygonMesh& polygon, const ColorRGBA<float>& color)

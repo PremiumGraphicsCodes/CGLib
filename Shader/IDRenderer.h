@@ -4,6 +4,7 @@
 #include "IRenderer.h"
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/LineBuffer.h"
+#include "../Graphics/LineIdBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
 #include "../Graphics/TriangleIdBuffer.h"
 
@@ -21,7 +22,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::LineIdBuffer& buffer);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleIdBuffer& buffer);
 

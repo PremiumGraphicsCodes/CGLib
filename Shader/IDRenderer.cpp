@@ -114,7 +114,7 @@ void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
 	glDisable(GL_POINT_SPRITE);
 }
 
-void IDRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
+void IDRenderer::render(const ICamera<float>& camera, const LineIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();
 	const auto& ids = buffer.getIdColors().get();

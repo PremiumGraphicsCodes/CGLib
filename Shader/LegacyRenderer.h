@@ -11,6 +11,7 @@ namespace Crystal {
 		class PointLight;
 		class PointBuffer;
 		class LineBuffer;
+		class LineIdBuffer;
 		class TriangleBuffer;
 	}
 	namespace Shader {
@@ -26,7 +27,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
 
-	void renderId(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
+	void renderId(const Graphics::ICamera<float>& camera, const Graphics::LineIdBuffer& buffer);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 

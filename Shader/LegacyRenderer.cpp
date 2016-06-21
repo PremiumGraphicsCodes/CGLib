@@ -7,6 +7,7 @@
 #include "../Graphics/ICamera.h"
 #include "../Graphics/Light.h"
 #include "../Graphics/PointBuffer.h"
+#include "../Graphics/LineIdBuffer.h"
 #include "../Graphics/LineBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
 
@@ -189,7 +190,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buff
 
 }
 
-void LegacyRenderer::renderId(const ICamera<float>& camera, const LineBuffer& buffer)
+void LegacyRenderer::renderId(const ICamera<float>& camera, const LineIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getIdColors().get();
