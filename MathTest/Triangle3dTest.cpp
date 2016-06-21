@@ -5,15 +5,15 @@
 using namespace Crystal::Math;
 
 template<class T>
-class TriangleTest : public testing::Test {
+class Triangle3dTest : public testing::Test {
 };
 
 typedef ::testing::Types<float, double> TestTypes;
 
-TYPED_TEST_CASE(TriangleTest, TestTypes);
+TYPED_TEST_CASE(Triangle3dTest, TestTypes);
 
 
-TYPED_TEST(TriangleTest, TestGet)
+TYPED_TEST(Triangle3dTest, TestGet)
 {
 	using T = TypeParam;
 	EXPECT_EQ(Vector3d<T>(0, 0, 0), Triangle3d<T>().getv0());
@@ -21,7 +21,7 @@ TYPED_TEST(TriangleTest, TestGet)
 	EXPECT_EQ(Vector3d<T>(0, 1, 0), Triangle3d<T>().getv2());
 }
 
-TYPED_TEST(TriangleTest, TestGetArea)
+TYPED_TEST(Triangle3dTest, TestGetArea)
 {
 	using T = TypeParam;
 	EXPECT_EQ( 0.5, Triangle3d<T>().getArea() );
@@ -35,7 +35,7 @@ TYPED_TEST(TriangleTest, TestIsShrinked)
 }
 */
 
-TYPED_TEST(TriangleTest, TestGetNormal)
+TYPED_TEST(Triangle3dTest, TestGetNormal)
 {
 	using T = TypeParam;
 	EXPECT_EQ(Vector3d<T>::UnitZ(), Triangle3d<T>::UnitXY().getNormal());
@@ -50,7 +50,7 @@ TYPED_TEST(TriangleTest, TestGetNormal)
 	EXPECT_EQ(Vector3d<T>(0, -1, 0), actual);
 }
 
-TYPED_TEST(TriangleTest, TestIsCCW)
+TYPED_TEST(Triangle3dTest, TestIsCCW)
 {
 	using T = TypeParam;
 	EXPECT_TRUE( Triangle3d<T>().isCCW() );

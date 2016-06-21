@@ -76,12 +76,9 @@ public:
 
 	bool equals(const Triangle3d<T>& rhs) const;
 
-	bool operator==(const Triangle3d<T>& rhs) const {
-		return
-			v0 == rhs.v0 &&
-			v1 == rhs.v1 &&
-			v2 == rhs.v2;
-	}
+	bool operator==(const Triangle3d<T>& rhs) const;
+
+	bool operator!=(const Triangle3d<T>& rhs) const;
 
 private:
 	Vector3d<T> v0;

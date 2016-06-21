@@ -4,7 +4,6 @@
     <ClCompile Include="SphereTest.cpp" />
     <ClCompile Include="QuaternionTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
-    <ClCompile Include="TriangleTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="Space2dTest.cpp" />
     <ClCompile Include="Space3dTest.cpp" />
@@ -55,6 +54,9 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Ray3dTest.cpp" />
+    <ClCompile Include="Triangle3dTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">

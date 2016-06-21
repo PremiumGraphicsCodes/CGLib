@@ -53,6 +53,28 @@ Vector3d<T> Triangle3d<T>::getCenter() const
 	return (v0 + v1 + v2) / T(3);
 }
 
+template<typename T>
+bool Triangle3d<T>::equals(const Triangle3d<T>& rhs) const
+{
+	return
+		v0 == rhs.v0 &&
+		v1 == rhs.v1 &&
+		v2 == rhs.v2;
+}
+
+template<typename T>
+bool Triangle3d<T>::operator==(const Triangle3d<T>& rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Triangle3d<T>::operator!=(const Triangle3d<T>& rhs) const
+{
+	return !equals(rhs);
+}
+
+
 
 template class Triangle3d<float>;
 template class Triangle3d<double>;

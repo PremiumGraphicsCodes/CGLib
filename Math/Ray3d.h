@@ -28,7 +28,11 @@ public:
 
 	Vector3d<T> getParam(const Triangle3d<T>& triangle) const;
 
-	//bool hasIntersection(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
+	T getParamU(const Triangle3d<T>& triangle) const;
+
+	T getParamV(const Triangle3d<T>& triangle) const;
+
+	bool hasIntersection(const Triangle3d<T>& triangle) const;
 
 	Vector3d<T> getIntersection(const Triangle3d<T>& triangle) const;
 	
