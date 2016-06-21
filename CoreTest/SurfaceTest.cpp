@@ -29,3 +29,43 @@ TEST(SurfaceTest, Test)
 	EXPECT_EQ(4, surface.getFaces().size());
 
 }
+
+TEST(SurfaceTest, TestGetBoundingBox)
+{
+	Curve3d<float> curve(2, 2);
+
+	Point3d<float> p1(Vector3d<float>(0, 0, 0));
+	Point3d<float> p2(Vector3d<float>(0, 1, 0));
+	Point3d<float> p3(Vector3d<float>(1, 0, 0));
+	Point3d<float> p4(Vector3d<float>(1, 1, 0));
+
+	curve.set(0, 0, p1);
+	curve.set(0, 1, p2);
+	curve.set(1, 0, p3);
+	curve.set(1, 1, p4);
+
+	Surface surface(curve);
+	Box3d<float> expected(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 0));
+	Box3d<float> actual = surface.getBoundingBox();
+	EXPECT_EQ( expected, actual);
+}
+
+TEST(SurfaceTest, TestGetBoundingSphere)
+{
+	Curve3d<float> curve(2, 2);
+
+	Point3d<float> p1(Vector3d<float>(0, 0, 0));
+	Point3d<float> p2(Vector3d<float>(0, 2, 0));
+	Point3d<float> p3(Vector3d<float>(2, 0, 0));
+	Point3d<float> p4(Vector3d<float>(2, 2, 0));
+
+	curve.set(0, 0, p1);
+	curve.set(0, 1, p2);
+	curve.set(1, 0, p3);
+	curve.set(1, 1, p4);
+
+	Surface surface(curve);
+	Sphere<float> expected(Vector3d<float>(1, 1, 0.0), std::sqrt(2));
+	Sphere<float> actual = surface.getBoundingSphere();
+	EXPECT_EQ(expected, actual);
+}

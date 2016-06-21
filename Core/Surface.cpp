@@ -64,73 +64,6 @@ void Surface::add(const Curve3d<float>& curve)
 
 		faces.push_back(f1);
 	}
-
-	/*
-	for (int u = 0; u < curve.getUNumber() - 1; ++u) {
-		for (int v = 0; v < curve.getVNumber() - 1; ++v) {
-			auto v1 = grid.get(u, v);
-			auto v2 = grid.get(u + 1, v);
-			auto v3 = grid.get(u + 1, v + 1);
-			auto v4 = grid.get(u, v + 1);
-
-			Edge* e1 = new Edge(v1, v2, nextEdgeId++);
-			Edge* e2 = new Edge(v2, v3, nextEdgeId++);
-			Edge* e3 = new Edge(v3, v1, nextEdgeId++);
-
-			Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
-
-			Edge* e4 = new Edge(v1, v3, nextEdgeId++);
-			Edge* e5 = new Edge(v3, v4, nextEdgeId++);
-			Edge* e6 = new Edge(v4, v1, nextEdgeId++);
-
-			Face* f2 = new Face({ e4, e5, e6 }, nextFaceId++);
-
-			edges.push_back(e1);
-			edges.push_back(e2);
-			edges.push_back(e3);
-			edges.push_back(e4);
-			edges.push_back(e5);
-			edges.push_back(e6);
-
-			faces.push_back(f1);
-			faces.push_back(f2);
-		}
-	}
-
-	{
-
-		const auto u = curve.getUNumber() - 1;
-		const auto v = curve.getVNumber() - 1;
-		auto v1 = grid.get(u, v);
-		auto v2 = grid.get(0, v);//grid.get(u + 1, v);
-		auto v3 = grid.get(0, 0);
-			auto v4 = grid.get(u, 0);
-
-			Edge* e1 = new Edge(v1, v2, nextEdgeId++);
-			Edge* e2 = new Edge(v2, v3, nextEdgeId++);
-			Edge* e3 = new Edge(v3, v1, nextEdgeId++);
-
-			Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
-
-			Edge* e4 = new Edge(v1, v3, nextEdgeId++);
-			Edge* e5 = new Edge(v3, v4, nextEdgeId++);
-			Edge* e6 = new Edge(v4, v1, nextEdgeId++);
-
-			Face* f2 = new Face({ e4, e5, e6 }, nextFaceId++);
-
-			edges.push_back(e1);
-			edges.push_back(e2);
-			edges.push_back(e3);
-			edges.push_back(e4);
-			edges.push_back(e5);
-			edges.push_back(e6);
-
-			faces.push_back(f1);
-			faces.push_back(f2);
-	}
-
-	*/
-
 }
 
 void Surface::add(const CircularCurve3d<float>& curve)
@@ -223,4 +156,24 @@ Vector3d<float> Surface::getCenter() const
 		center += n->getPosition() / nodes.size();
 	}
 	return center;
+}
+
+Box3d<float> Surface::getBoundingBox() const
+{
+	Box3d<float> bb(nodes.front()->getPosition());
+	for (auto n : nodes) {
+		bb.add(n->getPosition());
+	}
+	return bb;
+}
+
+Sphere<float> Surface::getBoundingSphere() const
+{
+	const auto& center = getCenter();
+	float maxDist = -FLT_MAX;
+	for (auto n : nodes) {
+		const auto dist = n->getPosition().getDistance(center);
+		maxDist = std::max<float>(maxDist, dist);
+	}
+	return Sphere<float>(center, maxDist);
 }

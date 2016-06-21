@@ -41,10 +41,6 @@ public:
 
 	Face* subdiv(const Face* face);
 	
-	//std::vector<Math::Vector3d<float>> toPositions() const;
-
-	//std::vector<Math::Vector3d<float>> toNormals() const;
-
 	int getId() const { return id; }
 
 	void move(const Math::Vector3d<float>& v);
@@ -52,6 +48,10 @@ public:
 	void rotate(const Math::Quaternion<float>& q);
 
 	Math::Vector3d<float> getCenter() const;
+
+	Math::Box3d<float> getBoundingBox() const;
+
+	Math::Sphere<float> getBoundingSphere() const;
 
 private:
 	int id;
