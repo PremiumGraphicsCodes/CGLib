@@ -1,5 +1,6 @@
 #include "Matrix4d.h"
 #include "Vector3d.h"
+#include "Vector4d.h"
 
 using namespace Crystal::Math;
 
@@ -33,6 +34,17 @@ Matrix4d<T>::Matrix4d(const Matrix3d<T>& m)
 	x[4] = m.getX10();	x[5] = m.getX11();	x[6] = m.getX12();	x[7] = 0;
 	x[8] = m.getX20();	x[9] = m.getX21();	x[10] = m.getX22();	x[11] = 0;
 	x[12] = 0;	x[13] = 0;			x[14] = 0;			x[15] = 1;
+}
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::Zero() {
+	return Matrix4d<T>
+	(
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0,
+		0, 0, 0, 0
+	);
 }
 
 
@@ -70,6 +82,17 @@ Vector3d<T> Matrix4d<T>::multiple(const Vector3d<T>& v)
 	const auto w = getX30() * v.getX() + getX31() * v.getY() + getX23() * v.getZ() + getX33() * 1.0f;
 	return Vector3d<T>(x/w, y/w, z/w);
 }
+
+template<typename T>
+Vector4d<T> Matrix4d<T>::multiple(const Vector4d<T>& v)
+{
+	const auto xx = getX00() * v.getX() + getX01() * v.getY() + getX02() * v.getZ() + getX03() * v.getW();
+	const auto yy = getX10() * v.getX() + getX11() * v.getY() + getX12() * v.getZ() + getX13() * v.getW();
+	const auto zz = getX20() * v.getX() + getX21() * v.getY() + getX22() * v.getZ() + getX23() * v.getW();
+	const auto ww = getX30() * v.getX() + getX31() * v.getY() + getX23() * v.getZ() + getX33() * v.getW();
+	return Vector4d<T>(xx, yy,zz,ww);
+}
+
 
 template<typename T>
 Matrix4d<T> Matrix4d<T>::transposed() const

@@ -11,6 +11,8 @@ namespace Crystal {
 		template<typename>
 		class Vector3d;
 		template<typename>
+		class Vector4d;
+		template<typename>
 		class Matrix3d;
 
 template< typename T >
@@ -30,15 +32,7 @@ public:
 
 	~Matrix4d(void) = default;
 
-	static Matrix4d Zero() {
-		return Matrix4d
-			(
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0,
-				0, 0, 0, 0
-				);
-	}
+	static Matrix4d Zero();
 
 	static Matrix4d Identity() {
 		return Matrix4d
@@ -87,6 +81,8 @@ public:
 	void multiple(const Matrix4d& rhs);
 
 	Vector3d<T> multiple(const Vector3d<T>& v);
+
+	Vector4d<T> multiple(const Vector4d<T>& v);
 
 	void operator*=(const Matrix4d& rhs) { multiple(rhs); }
 

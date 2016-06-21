@@ -35,6 +35,12 @@ Vector3d<T> Vector4d<T>::toVector3d() const
 	return Vector3d<T>(x / w, y / w, z / w);
 }
 
+template<typename T>
+Vector4d<T> Vector4d<T>::operator*(const Matrix4d<T>& matrix)
+{
+	return getMult(matrix);
+}
+
 
 template class Vector4d<float>;
 template class Vector4d<double>;

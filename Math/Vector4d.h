@@ -46,9 +46,13 @@ public:
 		*(this) = getMult(matrix);
 	}
 
+
 	Vector4d getMult(const Matrix4d<T>& matrix) const;
 
 	Vector3d<T> toVector3d() const;
+
+	Vector4d operator*(const Matrix4d<T>& matrix);
+
 
 public:
 	T getX() const { return x; }
@@ -57,18 +61,22 @@ public:
 
 	T getZ() const { return z; }
 
-			void setX(const T x) { this->x = x; }
+	T getW() const { return w; }
 
-			void setY(const T y) { this->y = y; }
+	void setX(const T x) { this->x = x; }
 
-			void setZ(const T z) { this->z = z; }
+	void setY(const T y) { this->y = y; }
 
-		private:
-			T x;
-			T y;
-			T z;
-			T w;
-		};
+	void setZ(const T z) { this->z = z; }
+
+	void setW(const T w) { this->w = w; }
+
+private:
+	T x;
+	T y;
+	T z;
+	T w;
+};
 
 
 
