@@ -58,5 +58,15 @@ TEST(Ray3dTest, TestHasIntersectionWithSphere)
 	EXPECT_TRUE(ray.hasIntersection(sphere));
 	Sphere<float> sphere2(Vector3d<float>(10, 0, 0), 1);
 	EXPECT_FALSE(ray.hasIntersection(sphere2));
+}
+
+TEST(Ray3dTest, TestGetIntersectionsWithSphere)
+{
+	const Ray3d<float> ray(Vector3d<float>(0, 0, -10), Vector3d<float>(0, 0, 1));
+	Sphere<float> sphere(Vector3d<float>(0, 0, 0), 1);
+	const auto& actual = ray.getIntersections(sphere);
+	EXPECT_EQ(2, actual.size());
+	EXPECT_EQ(Vector3d<float>(0, 0,-1), actual[0]);
+	EXPECT_EQ(Vector3d<float>(0, 0,1), actual[1]);
 
 }

@@ -39,6 +39,8 @@ public:
 	Vector3d<T> getIntersection(const Triangle3d<T>& triangle) const;
 
 	bool hasIntersection(const Sphere<T>& sphere) const;
+
+	std::vector<Vector3d<T>> getIntersections(const Sphere<T>& sphere) const;
 	
 private:
 	Vector3d<T> origin;

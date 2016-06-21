@@ -98,6 +98,24 @@ bool Ray3d<T>::hasIntersection(const Sphere<T>& sphere) const
 	return d >= 0;
 }
 
+template<typename T>
+std::vector<Vector3d<T>> Ray3d<T>::getIntersections(const Sphere<T>& sphere) const
+{
+	const auto v = sphere.getCenter() - origin;
+	const auto a = dir.getLengthSquared();
+	const auto b = v.getInnerProduct(dir);
+	const auto c = v.getLengthSquared() - sphere.getRadius() * sphere.getRadius();
+	const auto d = (b*b - a*c);
+	if (d < 0) {
+		return{};
+	}
+	const auto a1 = (b - d) / a;
+	const auto a2 = (b + d) / a;
+	Vector3d<T> i1 = origin + a1 * dir;
+	Vector3d<T> i2 = origin + a2 * dir;
+	return{ i1,i2 };
+}
+
 
 template class Ray3d<float>;
 template class Ray3d<double>;
