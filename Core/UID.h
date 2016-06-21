@@ -1,3 +1,4 @@
+/*
 #ifndef __CRYSTAL_CORE_UID_H__
 #define __CRYSTAL_CORE_UID_H__
 
@@ -59,3 +60,4 @@ private:
 }
 
 #endif
+*/

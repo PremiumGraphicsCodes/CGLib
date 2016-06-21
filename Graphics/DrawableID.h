@@ -15,8 +15,6 @@ public:
 		id(id)
 	{}
 
-	explicit DrawableID(const Core::UID& id);
-
 	explicit DrawableID(const ColorRGBA<float>& c);
 
 	explicit DrawableID(const ColorRGBA<unsigned char>& c);

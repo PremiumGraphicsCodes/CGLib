@@ -79,8 +79,6 @@ public:
 
 	Math::Vector3d<float> getCenter() const;
 
-	UID getUID() const { return UID(id, UID::Type::Bone); }
-
 
 private:
 	Joint* origin;

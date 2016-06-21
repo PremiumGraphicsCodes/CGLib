@@ -6,21 +6,6 @@
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
-/*
-DrawableID::DrawableID(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a)
-{
-	id = r % 256;
-	id += (g * 255) % 256;
-	//id += b * 255 * 255;
-}
-*/
-
-DrawableID::DrawableID(const UID& id) :
-	id(id.toInt())
-{
-
-}
-
 
 DrawableID::DrawableID(const ColorRGBA<float>& c)
 {

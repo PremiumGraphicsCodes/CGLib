@@ -26,8 +26,6 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	UID getUID() const { return UID(id, UID::Type::Joint); }
-
 	AnisotoropicParticle toParticle(const float density) const;
 
 	Math::Vector3d<float> getPosition() const { return position; }

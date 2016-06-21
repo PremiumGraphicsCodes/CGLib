@@ -1,5 +1,5 @@
 #include "stdafx.h"
-
+/*
 #include "../Core/UID.h"
 
 using namespace Crystal::Core;
@@ -31,3 +31,4 @@ TEST(UIDTest, TestToInt)
 	EXPECT_EQ(std::pow(2,25)+std::pow(2,24), UID(0, 3).toInt());
 
 }
+*/
