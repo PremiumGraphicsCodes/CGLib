@@ -1,11 +1,5 @@
+#include "stdafx.h"
 #include "LineBuffer.h"
-
-#include "../Core/PolygonMesh.h"
-#include "../Core/Actor.h"
-#include "../Core/Bone.h"
-#include "../Core/Surface.h"
-#include "../Core/Node.h"
-#include "../Core/Edge.h"
 
 
 using namespace Crystal::Math;

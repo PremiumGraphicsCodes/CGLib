@@ -21,3 +21,11 @@ TEST(PerspectiveCameraTest, TestGetProjectionMatrix)
 	EXPECT_EQ(0, m.getX12());
 	EXPECT_EQ(0, m.getX13());
 }
+
+/*
+TEST(PerspectiveCameraTest, TestGetRay)
+{
+	const PerspectiveCamera<float> c;
+	c.getRay(-1.0, -1.0);
+}
+*/

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "WindowCoord2d.h"
 
 using namespace Crystal::Graphics;

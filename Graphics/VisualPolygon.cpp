@@ -1,6 +1,5 @@
+#include "stdafx.h"
 #include "VisualPolygon.h"
-
-#include "../Core/PolygonMesh.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Core;

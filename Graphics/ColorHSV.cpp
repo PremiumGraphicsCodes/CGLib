@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ColorHSV.h"
 
 using namespace Crystal::Graphics;

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OrientedParticleBuffer.h"
 
 using namespace Crystal::Math;

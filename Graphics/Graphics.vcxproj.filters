@@ -37,6 +37,7 @@
     <ClCompile Include="TriangleIdBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Light.h">
       <Filter>Light</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">

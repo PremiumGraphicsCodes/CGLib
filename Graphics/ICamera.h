@@ -64,6 +64,8 @@ public:
 
 	Math::Matrix4d<T> getBillboardMatrix() const;
 
+	//Math::Ray3d<T> getRay(const T x, const T y) const;
+
 protected:
 	Math::Vector3d<T> pos;
 	Math::Vector3d<T> up;

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DrawableID.h"
 
 #include "ColorRGBA.h"

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "OrthogonalCamera.h"
 
 using namespace Crystal::Math;

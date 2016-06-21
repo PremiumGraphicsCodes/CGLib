@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ColorRGBA.h"
 #include "ColorHSV.h"
 

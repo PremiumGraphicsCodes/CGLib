@@ -1,13 +1,7 @@
+#include "stdafx.h"
 #include "PointBuffer.h"
 #include "../Physics/SPHParticle.h"
 #include "../Physics/PhysicsObject.h"
-#include "../Core/PolygonMesh.h"
-#include "../Core/ParticleObject.h"
-#include "../Core/Particle.h"
-#include "../Core/Actor.h"
-#include "../Core/PolygonMesh.h"
-#include "../Core/Volume.h"
-#include "../Core/Joint.h"
 
 #include "DrawableID.h"
 

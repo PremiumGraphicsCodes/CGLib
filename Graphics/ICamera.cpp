@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "../Graphics/ICamera.h"
 
 using namespace Crystal::Math;
@@ -86,6 +87,18 @@ Matrix4d<T> ICamera<T>::getBillboardMatrix() const
 	m.setX22(z.getZ());
 	return m;
 }
+
+/*
+template<typename T>
+Ray3d<T> ICamera<T>::getRay(const T x, const T y) const
+{
+	//Vector4d<float> near(-2 * x + 1, -2 * y + 1, 0, 1);
+	//Vector4d<float> rayStart = near * getModelviewMatrix();
+
+	Ray3d<T> ray;
+	return ray;
+}
+*/
 
 
 template class ICamera<float>;

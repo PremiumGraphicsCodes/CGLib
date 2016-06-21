@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ColorMap.h"
 
 using namespace Crystal::Graphics;

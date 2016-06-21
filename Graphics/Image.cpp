@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Image.h"
 #pragma warning(disable:4996)
 

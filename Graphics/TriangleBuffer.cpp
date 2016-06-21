@@ -1,11 +1,5 @@
+#include "stdafx.h"
 #include "TriangleBuffer.h"
-
-#include "../Core/Vertex.h"
-#include "../Core/Surface.h"
-#include "../Core/Face.h"
-#include "../Core/Edge.h"
-#include "../Core/Node.h"
-
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
