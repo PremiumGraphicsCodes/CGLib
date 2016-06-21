@@ -7,6 +7,8 @@ namespace Crystal {
 	namespace Math {
 		template<typename>
 		class Triangle3d;
+		template<typename>
+		class Sphere;
 
 template<typename T>
 class Ray3d
@@ -35,6 +37,8 @@ public:
 	bool hasIntersection(const Triangle3d<T>& triangle) const;
 
 	Vector3d<T> getIntersection(const Triangle3d<T>& triangle) const;
+
+	bool hasIntersection(const Sphere<T>& sphere) const;
 	
 private:
 	Vector3d<T> origin;

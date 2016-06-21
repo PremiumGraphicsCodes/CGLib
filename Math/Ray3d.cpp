@@ -1,6 +1,7 @@
 #include "Ray3d.h"
 #include "Matrix3d.h"
 #include "Triangle3d.h"
+#include "Sphere.h"
 
 using namespace Crystal::Math;
 
@@ -86,6 +87,17 @@ bool Ray3d<T>::hasIntersection(const Triangle3d<T>& triangle) const
 	}
 	return true;
 }
+
+template<typename T>
+bool Ray3d<T>::hasIntersection(const Sphere<T>& sphere) const
+{
+	const auto a = dir.getLengthSquared();
+	const auto b = sphere.getCenter().getInnerProduct(dir);
+	const auto c = sphere.getCenter().getLengthSquared() - sphere.getRadius() * sphere.getRadius();
+	const auto d = (b*b - a*c);
+	return d >= 0;
+}
+
 
 template class Ray3d<float>;
 template class Ray3d<double>;

@@ -1,6 +1,7 @@
 #include "gtest\gtest.h"
 #include "../Math/Ray3d.h"
 #include "../Math/Triangle3d.h"
+#include "../Math/Sphere.h"
 
 using namespace Crystal::Math;
 
@@ -31,7 +32,7 @@ TEST(Ray3dTest, TestGetParam)
 	const auto& actual = ray.getParam(triangle);
 }
 
-TEST(Ray3dTest, TestHasIntersection)
+TEST(Ray3dTest, TestHasIntersectionWithTriangle)
 {
 	const Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1));
 	Triangle3d<float> triangleYZ(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1), Vector3d<float>(0, 1, 1));
@@ -40,7 +41,6 @@ TEST(Ray3dTest, TestHasIntersection)
 	EXPECT_FALSE(ray.hasIntersection(triangleXZ));
 	Triangle3d<float> triangleXY(Vector3d<float>(-1, 0, 10), Vector3d<float>(1, 0, 10), Vector3d<float>(1, 1, 10));
 	EXPECT_TRUE(ray.hasIntersection(triangleXY));
-
 }
 
 
@@ -49,4 +49,14 @@ TEST(Ray3dTest, TestGetIntersection)
 	Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1));
 	Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
 	EXPECT_EQ(Vector3d<float>(0, 0, 10), ray.getIntersection(triangle));
+}
+
+TEST(Ray3dTest, TestHasIntersectionWithSphere)
+{
+	const Ray3d<float> ray(Vector3d<float>(0, 0, -10), Vector3d<float>(0, 0, 1));
+	Sphere<float> sphere(Vector3d<float>(0, 0, 0), 1);
+	EXPECT_TRUE(ray.hasIntersection(sphere));
+	Sphere<float> sphere2(Vector3d<float>(10, 0, 0), 1);
+	EXPECT_FALSE(ray.hasIntersection(sphere2));
+
 }
