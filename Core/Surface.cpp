@@ -177,3 +177,14 @@ Sphere<float> Surface::getBoundingSphere() const
 	}
 	return Sphere<float>(center, maxDist);
 }
+
+std::vector<Vector3d<float>> Surface::getIntersections(const Ray3d<float>& ray) const
+{
+	std::vector<Vector3d<float>> intersections;
+	for (auto f : faces) {
+		if (f->hasIntersection(ray)) {
+			intersections.push_back( f->getIntersection(ray) );
+		}
+	}
+	return intersections;
+}

@@ -17,20 +17,15 @@ TEST(Ray3dTest, TestIsParallel)
 
 }
 
-TEST(Ray3dTest, TestGetParamU)
-{
-	Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1));
-	Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
-	EXPECT_EQ(0, ray.getParamU(triangle));
-}
-
-
+/*
 TEST(Ray3dTest, TestGetParam)
 {
 	Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1));
 	Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
 	const auto& actual = ray.getParam(triangle);
+	EXPECT_EQ(Vector3d<float>(0.5, 0.0, 0.0), actual);
 }
+*/
 
 TEST(Ray3dTest, TestHasIntersectionWithTriangle)
 {
@@ -44,11 +39,31 @@ TEST(Ray3dTest, TestHasIntersectionWithTriangle)
 }
 
 
-TEST(Ray3dTest, TestGetIntersection)
+TEST(Ray3dTest, TestGetIntersectionWithTriangle)
 {
-	Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1));
-	Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
-	EXPECT_EQ(Vector3d<float>(0, 0, 10), ray.getIntersection(triangle));
+	{
+		Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 1));
+		Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
+		EXPECT_EQ(Vector3d<float>(0, 0, 10), ray.getIntersection(triangle));
+	}
+
+	{
+		Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 1, 1));
+		Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
+		EXPECT_EQ(Vector3d<float>(0, 10, 10), ray.getIntersection(triangle));
+	}
+
+	{
+		Ray3d<float> ray(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
+		Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
+		EXPECT_EQ(Vector3d<float>(10, 10, 10), ray.getIntersection(triangle));
+	}
+
+	{
+		Ray3d<float> ray(Vector3d<float>(-10, 0, 0), Vector3d<float>(0, 0, 1));
+		Triangle3d<float> triangle(Vector3d<float>(-10, -10, 10), Vector3d<float>(-10, 10, 10), Vector3d<float>(10, 10, 10));
+		EXPECT_EQ(Vector3d<float>(-10, 0, 10), ray.getIntersection(triangle));
+	}
 }
 
 TEST(Ray3dTest, TestHasIntersectionWithSphere)
@@ -62,11 +77,21 @@ TEST(Ray3dTest, TestHasIntersectionWithSphere)
 
 TEST(Ray3dTest, TestGetIntersectionsWithSphere)
 {
-	const Ray3d<float> ray(Vector3d<float>(0, 0, -10), Vector3d<float>(0, 0, 1));
-	Sphere<float> sphere(Vector3d<float>(0, 0, 0), 1);
-	const auto& actual = ray.getIntersections(sphere);
-	EXPECT_EQ(2, actual.size());
-	EXPECT_EQ(Vector3d<float>(0, 0,-1), actual[0]);
-	EXPECT_EQ(Vector3d<float>(0, 0,1), actual[1]);
+	{
+		const Ray3d<float> ray(Vector3d<float>(0, 0, -10), Vector3d<float>(0, 0, 1));
+		Sphere<float> sphere(Vector3d<float>(0, 0, 0), 1);
+		const auto& actual = ray.getIntersections(sphere);
+		EXPECT_EQ(2, actual.size());
+		EXPECT_EQ(Vector3d<float>(0, 0, -1), actual[0]);
+		EXPECT_EQ(Vector3d<float>(0, 0, 1), actual[1]);
+	}
+	{
+		const Ray3d<float> ray(Vector3d<float>(0, 0, 10), Vector3d<float>(0, 0, -1));
+		Sphere<float> sphere(Vector3d<float>(0, 0, 0), 1);
+		const auto& actual = ray.getIntersections(sphere);
+		EXPECT_EQ(2, actual.size());
+		EXPECT_EQ(Vector3d<float>(0, 0, 1), actual[0]);
+		EXPECT_EQ(Vector3d<float>(0, 0, -1), actual[1]);
+	}
 
 }

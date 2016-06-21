@@ -36,6 +36,7 @@
 #include "Quad2d.h"
 #include "Quaternion.h"
 #include "Radian.h"
+#include "Ray3d.h"
 #include "Space2d.h"
 #include "Space3d.h"
 #include "Sphere.h"

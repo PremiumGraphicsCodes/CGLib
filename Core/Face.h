@@ -27,6 +27,12 @@ public:
 
 	Math::Vector3d<float> getCenter() const;
 
+	Math::Triangle3d<float> toTriangle() const;
+
+	bool hasIntersection(const Math::Ray3d<float>& ray) const;
+
+	Math::Vector3d<float> getIntersection(const Math::Ray3d<float>& ray) const;
+
 private:
 	std::vector<Edge*> edges;
 	const int id;

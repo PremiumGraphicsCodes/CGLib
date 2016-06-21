@@ -69,3 +69,23 @@ TEST(SurfaceTest, TestGetBoundingSphere)
 	Sphere<float> actual = surface.getBoundingSphere();
 	EXPECT_EQ(expected, actual);
 }
+
+TEST(SurfaceTest, TestGetIntersections)
+{
+	Curve3d<float> curve(2, 2);
+
+	Point3d<float> p1(Vector3d<float>(0, 0, 0));
+	Point3d<float> p2(Vector3d<float>(0, 1, 0));
+	Point3d<float> p3(Vector3d<float>(1, 0, 0));
+	Point3d<float> p4(Vector3d<float>(1, 1, 0));
+
+	curve.set(0, 0, p1);
+	curve.set(0, 1, p2);
+	curve.set(1, 0, p3);
+	curve.set(1, 1, p4);
+
+	Surface surface(curve);
+	const Ray3d<float> ray(Vector3d<float>(0, 0, -10), Vector3d<float>(0, 0, 1));
+	const auto& actual = surface.getIntersections(ray);
+	EXPECT_EQ(2, actual.size());
+}

@@ -53,6 +53,8 @@ public:
 
 	Math::Sphere<float> getBoundingSphere() const;
 
+	std::vector<Math::Vector3d<float>> getIntersections(const Math::Ray3d<float>& ray) const;
+
 private:
 	int id;
 	int nextNodeId;
@@ -63,12 +65,6 @@ private:
 	std::list<Node*> nodes;
 };
 
-/*
-class IndexedSurface
-{
-	std::vector<Math::Vector3d<float>> positions;
-};
-*/
 	}
 }
 

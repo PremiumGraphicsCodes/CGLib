@@ -18,33 +18,6 @@ bool Ray3d<T>::isParallel(const Triangle3d<T>& triangle) const
 	return det < Tolerance<T>::getLooseTolerance();;
 }
 
-template<typename T>
-T Ray3d<T>::getParamU(const Triangle3d<T>& triangle) const
-{
-	const Vector3d<T> edge1 = triangle.getv1() - triangle.getv0();
-	const Vector3d<T> edge2 = triangle.getv2() - triangle.getv0();
-
-	const Matrix3d<T> m1(edge1, edge2, -dir);
-	const auto denominator = m1.getDeterminant();
-
-	const Matrix3d<T> m2(origin - triangle.getv0(), edge2, -dir);
-	return m2.getDeterminant() / denominator;
-}
-
-template<typename T>
-T Ray3d<T>::getParamV(const Triangle3d<T>& triangle) const
-{
-	const Vector3d<T> edge1 = triangle.getv1() - triangle.getv0();
-	const Vector3d<T> edge2 = triangle.getv2() - triangle.getv0();
-
-	const Matrix3d<T> m1(edge1, edge2, -dir);
-	const auto denominator = m1.getDeterminant();
-
-	const Matrix3d<T> m3(edge1, origin - triangle.getv0(), -dir);
-	return m3.getDeterminant() / denominator;
-}
-
-
 
 template<typename T>
 Vector3d<T> Ray3d<T>::getParam(const Triangle3d<T>& triangle) const
@@ -55,8 +28,11 @@ Vector3d<T> Ray3d<T>::getParam(const Triangle3d<T>& triangle) const
 	const Matrix3d<T> m1(edge1, edge2, -dir);
 	const auto denominator = m1.getDeterminant();
 
-	const auto u = getParamU(triangle);
-	const auto v = getParamV(triangle);
+	const Matrix3d<T> m2(origin - triangle.getv0(), edge2, -dir);
+	const auto u = m2.getDeterminant() / denominator;
+
+	const Matrix3d<T> m3(edge1, origin - triangle.getv0(), -dir);
+	const auto v = m3.getDeterminant() / denominator;
 
 	const Matrix3d<T> m4(edge1, edge2, origin - triangle.getv0());
 	const auto t = m4.getDeterminant() / denominator;
@@ -77,12 +53,11 @@ bool Ray3d<T>::hasIntersection(const Triangle3d<T>& triangle) const
 	if (isParallel(triangle)) {
 		return false;
 	}
-	const auto u = getParamU(triangle);
-	if (u < 0 || 1 < u) {
+	const auto& param = getParam(triangle);
+	if (param.getX() < 0 || 1 < param.getX()) {
 		return false;
 	}
-	const auto v = getParamV(triangle);
-	if (u < 0 || 1 < (u + v)) {
+	if (param.getX() < 0 || 1 < (param.getX() + param.getY())) {
 		return false;
 	}
 	return true;

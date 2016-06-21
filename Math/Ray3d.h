@@ -24,15 +24,9 @@ public:
 		dir(dir.getNormalized())
 	{}
 
-	//bool hasIntersection(const Vector3d<T>& v0, const Vector3d<T>& v1, const Vector3d<T>& v2) const;
-
 	bool isParallel(const Triangle3d<T>& triangle) const;
 
 	Vector3d<T> getParam(const Triangle3d<T>& triangle) const;
-
-	T getParamU(const Triangle3d<T>& triangle) const;
-
-	T getParamV(const Triangle3d<T>& triangle) const;
 
 	bool hasIntersection(const Triangle3d<T>& triangle) const;
 

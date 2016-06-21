@@ -31,3 +31,23 @@ Vector3d<float> Face::getCenter() const
 	}
 	return pos;
 }
+
+Triangle3d<float> Face::toTriangle() const
+{
+	const auto v0 = edges[0]->getStart()->getPosition();
+	const auto v1 = edges[1]->getStart()->getPosition();
+	const auto v2 = edges[2]->getStart()->getPosition();
+	return Triangle3d<float>(v0, v1, v2);
+}
+
+bool Face::hasIntersection(const Ray3d<float>& ray) const
+{
+	const auto& t = toTriangle();
+	return ray.hasIntersection(t);
+}
+
+Vector3d<float> Face::getIntersection(const Ray3d<float>& ray) const
+{
+	const auto& t = toTriangle();
+	return ray.getIntersection(t);
+}
