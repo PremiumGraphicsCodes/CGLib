@@ -86,9 +86,6 @@
     <ClCompile Include="PolygonScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="TextureHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
@@ -214,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="ShaderHandler.h">
       <Filter>Handler</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="TextureHandler.h">
       <Filter>Handler</Filter>
