@@ -5,6 +5,7 @@
 #include "../Graphics/PointBuffer.h"
 #include "../Graphics/LineBuffer.h"
 #include "../Graphics/TriangleBuffer.h"
+#include "../Graphics/TriangleIdBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -22,7 +23,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleIdBuffer& buffer);
 
 	bool build();
 

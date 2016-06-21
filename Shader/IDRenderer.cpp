@@ -156,11 +156,11 @@ void IDRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
 	glDisable(GL_DEPTH_TEST);
 }
 
-void IDRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
+void IDRenderer::render(const ICamera<float>& camera, const TriangleIdBuffer& buffer)
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();
-	const auto& ids = buffer.idColors.get();
+	const auto& ids = buffer.getIdColors().get();
 	if (positions.empty()) {
 		return;
 	}

@@ -8,6 +8,8 @@
 #include "Buffer3d.h"
 #include "Buffer4d.h"
 
+#include "DrawableID.h"
+
 namespace Crystal {
 	namespace Core {
 		class Surface;
@@ -21,9 +23,9 @@ class TriangleIdBuffer
 public:
 	TriangleIdBuffer();
 
-	void add(const Core::Surface& surface);
+	void add(const Core::Surface& surface, const DrawableID& did);
 
-	void add(const Math::Point3d<float>& point, const int id);
+	void add(const Math::Point3d<float>& point, const DrawableID& did);
 
 	void clear();
 

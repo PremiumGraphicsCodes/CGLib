@@ -11,7 +11,6 @@ void TriangleBuffer::add(const Point3d<float>& point, const DrawableID& did)
 	this->positions.add( point.getPosition() );
 	this->normals.add(point.getNormal());
 	this->texCoords.add(point.getParameter());
-	this->idColors.add(did.toColor().toArray4());
 }
 
 
@@ -33,9 +32,6 @@ void TriangleBuffer::add(const PolygonMesh& polygon)
 		this->normals.add(v->getNormal());
 		this->texCoords.add(v->getTexCoord());
 		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
-		
-		DrawableID id(polygon.getId());
-		this->idColors.add(id.toColor());
 	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {
@@ -73,7 +69,6 @@ void TriangleBuffer::clear()
 	positions.clear();
 	normals.clear();
 	colors.clear();
-	idColors.clear();
 }
 
 std::vector<unsigned int> TriangleBuffer::getIndices(const unsigned int startIndex, const unsigned int endIndex) const

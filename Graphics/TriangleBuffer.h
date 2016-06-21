@@ -40,8 +40,6 @@ public:
 
 	Buffer4d<float> getColors() const { return colors; }
 
-	Buffer4d<float> idColors;
-
 	std::vector<unsigned int> getIndices() const { return indices; }
 
 	std::vector<unsigned int> getIndices(const unsigned int start, const unsigned int end) const;

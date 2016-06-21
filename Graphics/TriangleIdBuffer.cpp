@@ -11,22 +11,27 @@ TriangleIdBuffer::TriangleIdBuffer() :
 {
 }
 
+void TriangleIdBuffer::clear()
+{
+	indices.clear();
+	positions.clear();
+	idColors.clear();
+	nextIndex = 0;
+}
 
-void TriangleIdBuffer::add(const Surface& surface)
+void TriangleIdBuffer::add(const Surface& surface, const DrawableID& did)
 {
 	auto si = surface.toIndices();
 	this->indices.insert( indices.end(), si.begin(), si.end());
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
-		add(*n, surface.getId());
+		add(*n, did);
 	}
 }
 
-#include "DrawableID.h"
 
-void TriangleIdBuffer::add(const Point3d<float>& point, const int id)
+void TriangleIdBuffer::add(const Point3d<float>& point, const DrawableID& did)
 {
 	this->positions.add(point.getPosition());
-	DrawableID did(id);
 	this->idColors.add(did.toColor().toArray4());
 }
