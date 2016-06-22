@@ -11,9 +11,8 @@ namespace Crystal {
 class DrawableID
 {
 public:
-	explicit DrawableID(const unsigned int id) :
-		id(id)
-	{}
+
+	DrawableID(const unsigned int id, const unsigned char type);
 
 	explicit DrawableID(const ColorRGBA<float>& c);
 
@@ -24,17 +23,27 @@ public:
 	void fromColor(const ColorRGBA<unsigned char>& c);
 
 	ColorRGBA<float> toColor() const;
-	
-	unsigned int toUInt() const { return id.to_ulong(); }
 
-	bool equals(const DrawableID& rhs) const { return this->id == rhs.id; }
+	//ColorRGBA<unsigned char> toColorUC() const;
+	
+	//unsigned int toUInt() const { return id.to_ulong(); }
+
+	bool equals(const DrawableID& rhs) const {
+		return this->id == rhs.id &&
+			this->type == rhs.type;
+	}
 
 	bool operator==(const DrawableID& rhs) const { return equals(rhs); }
 
 	bool operator!=(const DrawableID& rhs) const { return !equals(rhs); }
 
+	unsigned char getType() const;
+
+	unsigned int getValue() const;
+
 private:
-	std::bitset<32> id;
+	std::bitset<24> id;
+	std::bitset<8> type;
 };
 
 	}

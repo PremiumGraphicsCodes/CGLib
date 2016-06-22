@@ -6,6 +6,12 @@
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
+DrawableID::DrawableID(const unsigned int id, const unsigned char type)
+{
+	this->id = id;
+	this->type = type;
+}
+
 
 DrawableID::DrawableID(const ColorRGBA<float>& c)
 {
@@ -25,8 +31,7 @@ void DrawableID::fromColor(const ColorRGBA<float>& c)
 
 void DrawableID::fromColor(const ColorRGBA<unsigned char>& c)
 {
-	id = c.getAlpha();
-	id <<= 8;
+	type = c.getAlpha();
 	id |= c.getBlue();
 	id <<= 8;
 	id |= c.getGreen();
@@ -37,10 +42,32 @@ void DrawableID::fromColor(const ColorRGBA<unsigned char>& c)
 
 ColorRGBA<float> DrawableID::toColor() const
 {
-	const int id = toUInt();
+	const int id = this->id.to_ulong();
 	const float red = (id % 256) / 256.0f;
 	const float green = ((id / 256) % 256) / 256.0f;
 	const float blue = ((id / 256 / 256) % (256 * 256)) / 256.0f;
-	const float alpha = ((id / 256 / 256 / 256) % (256 * 256 * 256)) / 256.0f;;
+	const float alpha = getType() / 256.0f;
 	return ColorRGBA<float>(red, green, blue, alpha);
 }
+
+unsigned char DrawableID::getType() const
+{
+	return type.to_ulong();
+}
+
+unsigned int DrawableID::getValue() const
+{
+	return id.to_ulong();
+}
+
+
+/*
+ColorRGBA<unsigned char> DrawableID::toColorUC() const
+{
+	const auto r = static_cast<unsigned char>(std::bitset<32>(id & std::bitset<32>(7)).to_ulong());
+	const auto g = static_cast<unsigned char>(std::bitset<32>(id & std::bitset<32>(256-1)).to_ulong());
+	const auto b = std::bitset<32>(id & std::bitset<32>(256*256-1)).to_ulong();
+	const auto a = std::bitset<32>(id & std::bitset<32>(256*256-1)).to_ulong();
+	return ColorRGBA<unsigned char>(r, g, b, a);
+}
+*/
