@@ -137,7 +137,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ActorScene.cpp" />
     <ClCompile Include="BilateralFilter.cpp" />
     <ClCompile Include="CubeMapRenderer.cpp" />
     <ClCompile Include="CubeMapTextureObject.cpp" />
@@ -179,7 +178,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SurfaceScene.cpp" />
     <ClCompile Include="TextureObject.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="TextureHandler.cpp" />
@@ -187,7 +185,6 @@
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ActorScene.h" />
     <ClInclude Include="BilateralFilter.h" />
     <ClInclude Include="CubeMapRenderer.h" />
     <ClInclude Include="CubeMapTextureObject.h" />
@@ -226,7 +223,6 @@
     <ClInclude Include="SSNormalRenderer.h" />
     <ClInclude Include="SSRefractionRenderer.h" />
     <ClInclude Include="SSThicknessRenderer.h" />
-    <ClInclude Include="SurfaceScene.h" />
     <ClInclude Include="TextureObject.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="TextureHandler.h" />
