@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SurfaceScene.h"
 #include "../Core/PolygonMesh.h"
 #include "../Graphics/Light.h"

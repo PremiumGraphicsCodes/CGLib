@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PointIDRenderer.h"
 
 #include "ShaderHandler.h"

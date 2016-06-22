@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "VisualMaterial.h"
 
 #include "../Graphics/MaterialMap.h"

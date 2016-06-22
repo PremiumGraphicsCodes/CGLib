@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "BillBoardRenderer.h"
 
 using namespace Crystal::Graphics;

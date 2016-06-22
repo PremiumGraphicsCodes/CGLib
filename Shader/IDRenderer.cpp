@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "IDRenderer.h"
 #include "ShaderHandler.h"
 #include "../Graphics/PointIdBuffer.h"

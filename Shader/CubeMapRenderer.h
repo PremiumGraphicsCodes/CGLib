@@ -1,10 +1,6 @@
 #ifndef __CRYSTAL_SHADER_CUBE_MAP_RENDERER_H__
 #define __CRYSTAL_SHADER_CUBE_MAP_RENDERER_H__
 
-#include "../Graphics/ICamera.h"
-#include "../Graphics/TriangleBuffer.h"
-#include "../Graphics/Light.h"
-#include "../Graphics/Material.h"
 #include "CubeMapTextureObject.h"
 #include "IRenderer.h"
 

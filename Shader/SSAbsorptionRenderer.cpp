@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "SSAbsorptionRenderer.h"
-#include "../Math/Box2d.h"
 
 #include <sstream>
 

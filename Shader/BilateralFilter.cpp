@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "BilateralFilter.h"
 
 #include <sstream>

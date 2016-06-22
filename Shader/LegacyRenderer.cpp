@@ -1,16 +1,6 @@
+#include "stdafx.h"
 #include "GLee.h"
-
 #include "LegacyRenderer.h"
-
-#include "../Math/Vector3d.h"
-#include "../Math/Matrix4d.h"
-#include "../Graphics/ICamera.h"
-#include "../Graphics/Light.h"
-#include "../Graphics/PointBuffer.h"
-#include "../Graphics/PointIdBuffer.h"
-#include "../Graphics/LineIdBuffer.h"
-#include "../Graphics/LineBuffer.h"
-#include "../Graphics/TriangleBuffer.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;

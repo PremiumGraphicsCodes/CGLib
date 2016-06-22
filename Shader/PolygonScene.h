@@ -2,9 +2,6 @@
 #define __CRYSTAL_SHADER_POLYGON_SCENE__
 
 #include "../Util/UnCopyable.h"
-
-#include "../Graphics/VisualPolygon.h"
-#include "../Shader/TextureObject.h"
 #include "SmoothRenderer.h"
 
 namespace Crystal {

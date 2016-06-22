@@ -119,6 +119,7 @@
     <ClCompile Include="SurfaceScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -245,6 +246,7 @@
     <ClInclude Include="SurfaceScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

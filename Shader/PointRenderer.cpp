@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PointRenderer.h"
 
 #include <sstream>

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DeferredRenderer.h"
 #include "../Math/Box2d.h"
 

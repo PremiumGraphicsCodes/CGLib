@@ -1,8 +1,6 @@
 #ifndef __CRYSTAL_SHADER_DEPTH_SMOOTHING_RENDERER_H__
 #define __CRYSTAL_SHADER_DEPTH_SMOOTHING_RENDERER_H__
 
-#include "../Graphics/ICamera.h"
-#include "../Graphics/PointBuffer.h"
 #include "TextureObject.h"
 #include "DepthTextureObject.h"
 #include "IRenderer.h"

@@ -4,8 +4,6 @@
 #include "FrameBuffer.h"
 #include "DepthBuffer.h"
 #include "ShaderObject.h"
-#include "../Graphics/TriangleBuffer.h"
-#include "../Graphics/ICamera.h"
 
 namespace Crystal {
 	namespace Shader {

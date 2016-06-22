@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TextureObject.h"
 
 using namespace Crystal::Graphics;

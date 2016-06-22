@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "LineRenderer.h"
 
 using namespace Crystal::Graphics;

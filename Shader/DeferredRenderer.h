@@ -1,10 +1,6 @@
 #ifndef __CRYSTAL_SHADER_DEFERRED_RENDERER_H__
 #define __CRYSTAL_SHADER_DEFERRED_RENDERER_H__
 
-#include "../Graphics/ICamera.h"
-#include "../Graphics/PointBuffer.h"
-#include "../Graphics/Light.h"
-#include "../Graphics/Material.h"
 #include "DepthTextureObject.h"
 #include "TextureObject.h"
 #include "IRenderer.h"

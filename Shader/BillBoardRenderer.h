@@ -1,7 +1,6 @@
 #ifndef __CRYSTAL_BILLBOARD_RENDERER_H__
 #define __CRYSTAL_BILLBOARD_RENDERER_H__
 
-#include "../Graphics/ICamera.h"
 #include "IRenderer.h"
 
 namespace Crystal {

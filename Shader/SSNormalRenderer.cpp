@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "SSNormalRenderer.h"
-#include "../Math/Box2d.h"
 #include <sstream>
 
 using namespace Crystal::Math;

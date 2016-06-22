@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "NormalRenderer.h"
 
 using namespace Crystal::Graphics;

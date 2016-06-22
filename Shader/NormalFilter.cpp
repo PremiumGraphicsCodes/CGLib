@@ -1,6 +1,5 @@
+#include "stdafx.h"
 #include "NormalFilter.h"
-
-#include "../Math/Box2d.h"
 
 #include <sstream>
 

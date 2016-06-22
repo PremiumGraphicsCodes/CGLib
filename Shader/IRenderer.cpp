@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "IRenderer.h"
 
 #include <gl/GL.h>

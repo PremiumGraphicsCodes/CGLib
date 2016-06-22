@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DepthSmoothingRenderer.h"
 
 #include <sstream>

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GLee.h"
 #include "VisualObject.h"
 

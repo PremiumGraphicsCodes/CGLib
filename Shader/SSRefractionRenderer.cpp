@@ -1,5 +1,6 @@
+#include "stdafx.h"
+
 #include "SSRefractionRenderer.h"
-#include "../Math/Box2d.h"
 
 #include <sstream>
 

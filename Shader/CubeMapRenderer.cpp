@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CubeMapRenderer.h"
 
 #include <sstream>
