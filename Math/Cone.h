@@ -1,6 +1,10 @@
 #ifndef __CRYSTAL_MATH_CONE_H__
 #define __CRYSTAL_MATH_CONE_H__
 
+#include "Vector3d.h"
+#include "Param.h"
+#include "Angle.h"
+
 namespace Crystal {
 	namespace Math {
 
@@ -18,7 +22,12 @@ public:
 
 	T getHeight() const { return height; }
 
+	Vector3d<T> getPosition(const Param<T> u, const Param<T> v) const;
+
+	Vector3d<T> getPosition(const Angle<T> u, const Param<T> v) const;
+
 private:
+	Math::Vector3d<T> center;
 	T radius;
 	T height;
 };

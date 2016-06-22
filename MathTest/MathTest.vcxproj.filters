@@ -63,6 +63,9 @@
     <ClCompile Include="Matrix4dTest.cpp">
       <Filter>Matrix</Filter>
     </ClCompile>
+    <ClCompile Include="ConeTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">
