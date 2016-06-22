@@ -23,30 +23,18 @@ public:
 
 	void fromColor(const ColorRGBA<unsigned char>& c);
 
-	//DrawableID(const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a);
-
-	//DrawableID(const unsigned int groupId, const unsigned int elementId);
-
 	ColorRGBA<float> toColor() const;
-
 	
-	unsigned int toUInt() const { return id; }
+	unsigned int toUInt() const { return id.to_ulong(); }
 
-	bool equals(const DrawableID& rhs) const {
-		return this->id == rhs.id;
-	}
+	bool equals(const DrawableID& rhs) const { return this->id == rhs.id; }
 
-	bool operator==(const DrawableID& rhs) const {
-		return equals(rhs);
-	}
+	bool operator==(const DrawableID& rhs) const { return equals(rhs); }
 
-	bool operator!=(const DrawableID& rhs) const {
-		return !equals(rhs);
-	}
-
+	bool operator!=(const DrawableID& rhs) const { return !equals(rhs); }
 
 private:
-	unsigned int id;
+	std::bitset<32> id;
 };
 
 	}

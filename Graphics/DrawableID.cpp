@@ -25,16 +25,19 @@ void DrawableID::fromColor(const ColorRGBA<float>& c)
 
 void DrawableID::fromColor(const ColorRGBA<unsigned char>& c)
 {
-	id = c.getRed();
-	id += c.getGreen() * std::pow(256, 1);
-	id += c.getBlue() * std::pow(256, 2);
-	id += c.getAlpha() * std::pow(256, 3);
-
+	id = c.getAlpha();
+	id <<= 8;
+	id |= c.getBlue();
+	id <<= 8;
+	id |= c.getGreen();
+	id <<= 8;
+	id |= c.getRed();
 }
 
 
 ColorRGBA<float> DrawableID::toColor() const
 {
+	const int id = toUInt();
 	const float red = (id % 256) / 256.0f;
 	const float green = ((id / 256) % 256) / 256.0f;
 	const float blue = ((id / 256 / 256) % (256 * 256)) / 256.0f;
