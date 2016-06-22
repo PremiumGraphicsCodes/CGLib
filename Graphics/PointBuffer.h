@@ -27,12 +27,11 @@ namespace Crystal {
 class Point
 {
 public:
-	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size, const int id = -1) :
+	Point(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size) :
 		position(position),
 		color(color),
 		size(size)
 	{
-		idColor = DrawableID(id).toColor();
 	}
 
 	Point(const Core::Vertex& vertex);
@@ -45,14 +44,11 @@ public:
 
 	ColorRGBA<float> getColor() const { return color; }
 
-	ColorRGBA<float> getIdColor() const { return idColor; }
-
 	float getSize() const { return size; }
 
 private:
 	Math::Vector3d<float> position;
 	ColorRGBA<float> color;
-	ColorRGBA<float> idColor;
 	float size;
 };
 
@@ -73,14 +69,11 @@ public:
 
 	Graphics::Buffer4d<float> getColor() const { return color; }
 
-	Graphics::Buffer4d<float> getIdColor() const { return idColor; }
-
 	Graphics::Buffer1d<float> getSize() const { return sizes; }
 	
 private:
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer4d<float> color;
-	Graphics::Buffer4d<float> idColor;
 	Graphics::Buffer1d<float> sizes;
 };
 

@@ -1,5 +1,6 @@
 #include "IDRenderer.h"
 #include "ShaderHandler.h"
+#include "../Graphics/PointIdBuffer.h"
 
 #include <sstream>
 
@@ -64,7 +65,7 @@ void IDRenderer::set(ShaderObject* shader)
 	location.id = glGetAttribLocation(shader->getId(), "id");
 }
 
-void IDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
+void IDRenderer::render(const ICamera<float>& camera, const PointIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();
 	const auto& ids = buffer.getIdColor().get();

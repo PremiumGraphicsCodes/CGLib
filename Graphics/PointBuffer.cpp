@@ -15,7 +15,6 @@ Point::Point(const Crystal::Core::Particle& particle)
 {
 	position = particle.getPosition();
 	color = ColorRGBA<float>(0, 0, 1.0, particle.getDensity());
-	idColor = DrawableID(particle.getId()).toColor();
 	size = particle.getDiameter();
 }
 
@@ -59,7 +58,6 @@ void PointBuffer::clear()
 {
 	position.clear();
 	color.clear();
-	idColor.clear();
 	sizes.clear();
 }
 
@@ -69,7 +67,6 @@ void PointBuffer::add(const Point& point)
 {
 	position.add(point.getPosition());
 	color.add(point.getColor());
-	idColor.add(point.getIdColor());
 	sizes.add(point.getSize());
 }
 

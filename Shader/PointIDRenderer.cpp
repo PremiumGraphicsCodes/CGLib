@@ -68,7 +68,7 @@ void PointIDRenderer::set(ShaderObject* shader)
 	shader->findAttribLocation("pointSize");
 }
 
-void PointIDRenderer::render(const ICamera<float>& camera, const PointBuffer& buffer)
+void PointIDRenderer::render(const ICamera<float>& camera, const PointIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();
 	const auto& ids = buffer.getIdColor().get();

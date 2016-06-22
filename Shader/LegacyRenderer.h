@@ -10,6 +10,7 @@ namespace Crystal {
 		template<typename>
 		class PointLight;
 		class PointBuffer;
+		class PointIdBuffer;
 		class LineBuffer;
 		class LineIdBuffer;
 		class TriangleBuffer;
@@ -21,7 +22,7 @@ class LegacyRenderer
 public:
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer, const float pointSize = 10.0f);
 
-	void renderId(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
+	void renderId(const Graphics::ICamera<float>& camera, const Graphics::PointIdBuffer& buffer);
 
 	void renderAlphaBlend(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 

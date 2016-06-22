@@ -35,11 +35,6 @@ public:
 		renderer.render(camera, pointBuffer);
 	}
 
-	void renderPointIds(const Graphics::ICamera<float>& camera)
-	{
-		renderer.renderId(camera, pointBuffer);
-	}
-
 	void renderLines(const Graphics::ICamera<float>& camera)
 	{
 		renderer.render(camera, lineBuffer);
