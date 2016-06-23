@@ -96,8 +96,6 @@ void Surface::add(const CircularCurve3d<float>& curve)
 	}
 }
 
-
-
 Surface::~Surface()
 {
 	clear();

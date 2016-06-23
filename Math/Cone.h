@@ -6,6 +6,7 @@
 #include "Point3d.h"
 #include "Param.h"
 #include "Angle.h"
+#include "CircularCurve3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -34,6 +35,12 @@ public:
 	Vector3d<T> getPosition(const Angle<T> u, const Param<T> v) const;
 
 	Vector3d<T> getNormal(const Angle<T> u, const Param<T> v) const;
+
+	Vector3d<T> getNormal(const Param<T> u, const Param<T> v) const;
+
+	Point3d<T> getPoint(const Param<T> u, const Param<T> v) const;
+
+	CircularCurve3d<T> toSideCurve(const int num) const;
 
 private:
 	T radius;

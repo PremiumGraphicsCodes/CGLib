@@ -71,6 +71,36 @@ Vector3d<T> Cone<T>::getNormal(const Angle<T> u, const Param<T> v) const
 	return Vector3d<T>(x, y, z).getNormalized();
 }
 
+template<typename T>
+Vector3d<T> Cone<T>::getNormal(const Param<T> u, const Param<T> v) const
+{
+	return getNormal(u.toAngle(), v);
+}
+
+template<typename T>
+Point3d<T> Cone<T>::getPoint(const Param<T> u, const Param<T> v) const
+{
+	const auto pos = getPosition(u, v);
+	const auto norm = getNormal(u, v);
+	const Vector2d<T> param(u.get(), v.get());
+	return Point3d<T>(pos, norm, param);
+}
+
+
+template<typename T>
+CircularCurve3d<T> Cone<T>::toSideCurve(const int number) const
+{
+	const auto top = getPoint(Param<T>(0), Param<T>(1));
+	std::vector<Point3d<T>> points;
+	for (int i = 0; i < number; ++i) {
+		const auto param = Param<T>(i / (T)number);
+		const auto& v1 = getPoint(param, Param<T>(0));
+		points.push_back(v1);
+	}
+	CircularCurve3d<T> curve(top, points);
+
+	return curve;
+}
 
 
 template class Cone<float>;
