@@ -6,6 +6,7 @@
 #include "Param.h"
 #include "Point3d.h"
 #include "CircularCurve3d.h"
+#include "IPrimitive3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -15,12 +16,14 @@ namespace Crystal {
 		class Curve3d;
 
 template<typename T>
-class Cylinder
+class Cylinder : public IPrimitive3d<T>
 {
 public:
 	Cylinder();
 
 	Cylinder(const Vector3d<T>& center, const T radius, const T height);
+
+	Cylinder(const Vector3d<T>& center, const T radius, const T height, const Quaternion<T>& quaternion);
 
 	T getVolume() const;
 
@@ -47,10 +50,15 @@ public:
 
 	void move(const Vector3d<T>& v) { this->center += v; }
 
+	bool equals(const Cylinder<T>& rhs) const;
+
+	bool operator==(const Cylinder<T>& rhs) const;
+
+	bool operator!=(const Cylinder<T>& rhs) const;
+
 private:
 	T radius;
 	T height;
-	Vector3d<T> center;
 };
 	}
 }

@@ -1,29 +1,21 @@
 #include "stdafx.h"
 #include "Arrow.h"
+#include "Surface.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Arrow::Arrow()
+Arrow::Arrow(const Vector3d<float>& center)
 {
-	std::vector<Vector3d<float>> positions;
-
-	positions.push_back(Vector3d<float>(-0.5, -0.25, 0.0));
-	positions.push_back(Vector3d<float>(0.0, -0.25, 0.0));
-	positions.push_back(Vector3d<float>(0.0, -0.5, 0.0));
-	positions.push_back(Vector3d<float>(0.5, 0.0, 0.0));
-	positions.push_back(Vector3d<float>(0.0, 0.5, 0.0));
-	positions.push_back(Vector3d<float>(0.0, 0.25, 0.0));
-	positions.push_back(Vector3d<float>(-0.5, 0.25, 0.0));
-
-	for (auto p : positions) {
-		points.push_back(Point3d<float>(p));
-	}
+	cone = Cone<float>(1, 1, center + Vector3d<float>(0, 0.5, 0));
+	cylinder = Cylinder<float>(center- Vector3d<float>(0,0.5,0), 0.5, 1);
 }
 
-CircularCurve3d<float> Arrow::toCirularCurve() const
+
+Surface* Arrow::toSurface() const
 {
-	Point3d<float> center(Vector3d<float>(0, 0, 0));
-	CircularCurve3d<float> c(center, points);
-	return c;
+	Surface* surface = new Surface();
+	surface->add( cone.toSideCurve(10) );
+	surface->add( cylinder.getSideCurve(10) );
+	return surface;
 }

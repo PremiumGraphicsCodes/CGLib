@@ -26,10 +26,12 @@ public:
 
 	Math::Line3d<float> toLine() const;
 
+	void setId(const int id) { this->id = id; }
+
 private:
 	Node* start;
 	Node* end;
-	const int id;
+	int id;
 };
 	}
 }

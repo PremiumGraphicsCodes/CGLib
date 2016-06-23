@@ -27,10 +27,16 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
+    <ClCompile Include="ArrowTest.cpp">
+      <Filter>Glyph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
       <UniqueIdentifier>{efddd844-a07d-4c32-aa45-3bd9ae91d635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glyph">
+      <UniqueIdentifier>{dd0b1525-a28b-415f-b2e6-fc2f9047ab8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

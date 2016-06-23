@@ -96,6 +96,27 @@ void Surface::add(const CircularCurve3d<float>& curve)
 	}
 }
 
+void Surface::merge(Surface& rhs)
+{
+	for (auto n : rhs.nodes) {
+		n->setId(nextNodeId++);
+	}
+	for (auto e : rhs.edges) {
+		e->setId(nextEdgeId++);
+	}
+	for (auto f : rhs.faces) {
+		f->setId(nextFaceId++);
+	}
+	nodes.insert(nodes.end(), rhs.nodes.begin(), rhs.nodes.end());
+	edges.insert(edges.end(), rhs.edges.begin(), rhs.edges.end());
+	faces.insert(faces.end(), rhs.faces.begin(), rhs.faces.end());
+
+	rhs.nodes.clear();
+	rhs.edges.clear();
+	rhs.faces.clear();
+}
+
+
 Surface::~Surface()
 {
 	clear();
@@ -146,6 +167,18 @@ void Surface::rotate(const Quaternion<float>& q)
 	}
 	move(center);
 }
+
+void Surface::scale(const Vector3d<float>& v)
+{
+	const auto& center = getCenter();
+	move(-center);
+	for (auto n : nodes) {
+		n->scale(v);
+	}
+	move(center);
+
+}
+
 
 Vector3d<float> Surface::getCenter() const
 {

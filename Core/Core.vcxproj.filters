@@ -138,6 +138,9 @@
       <Filter>Glyph</Filter>
     </ClInclude>
     <ClInclude Include="UID.h" />
+    <ClInclude Include="TriangleCell.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">

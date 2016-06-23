@@ -56,6 +56,7 @@ public:
 
 	void rotate(const Math::Quaternion<float>& q) { this->orientation *= q; }
 
+
 private:
 	Math::Vector3d<float> position;
 	Math::Vector3d<float> radii;

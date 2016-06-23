@@ -2,39 +2,11 @@
 #define __CRYSTAL_CORE_NODE_GRID_H__
 
 #include "../Util/Array2d.h"
+#include "TriangleCell.h"
 
 namespace Crystal {
 	namespace Core {
 		class Node;
-
-class TriangleCell
-{
-public:
-	TriangleCell(const std::array<Node*, 3>& nodes) :
-		nodes(nodes)
-	{}
-
-	std::array<Node*, 3> get() const { return nodes; }
-
-private:
-	std::array<Node*, 3> nodes;
-};
-
-class QuadCell
-{
-public:
-	QuadCell(const std::array<Node*, 4>& nodes) :
-		nodes(nodes)
-	{}
-
-	std::array<TriangleCell, 2> toTriangleCells() const {
-		TriangleCell c1({ nodes[0], nodes[1], nodes[2] });
-		TriangleCell c2({ nodes[2], nodes[3], nodes[0] });
-		return{ c1, c2 };
-	}
-private:
-	std::array<Node*, 4> nodes;
-};
 
 class INodeGrid
 {

@@ -23,6 +23,17 @@ namespace Crystal {
 class LineBuffer
 {
 public:
+	LineBuffer() = default;
+
+	LineBuffer(const Core::Surface& surface, const ColorRGBA<float>& color) {
+		add(surface, color);
+	}
+
+	LineBuffer(const Math::Line3d<float>& line, const ColorRGBA<float>& color) {
+		add(line, color);
+	}
+
+
 	void clear();
 
 	void add(const Math::Point3d<float>& point, const ColorRGBA<float>& color);

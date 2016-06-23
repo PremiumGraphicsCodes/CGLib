@@ -38,5 +38,12 @@ void Point3d<T>::transform(const Matrix3d<T>& matrix)
 	normal.rotate(matrix);
 }
 
+template<typename T>
+void Point3d<T>::scale(const Vector3d<T>& v)
+{
+	position.scale(v.getX(), v.getY(), v.getZ());
+}
+
+
 template class Point3d<float>;
 template class Point3d<double>;

@@ -24,13 +24,24 @@ TEST(ConeTest, TestGetPositionByAngleAndParam)
 
 TEST(ConeTest, TestGetPositionByParamAndParam)
 {
-	const Cone<float> cone(1, 1);
-	EXPECT_EQ(Vector3d<float>(1, -0.5, 0), cone.getPosition(Param<float>(0), Param<float>(0)));
-	EXPECT_EQ(Vector3d<float>(-1, -0.5, 0), cone.getPosition(Param<float>(0.5), Param<float>(0)));
+	{
+		const Cone<float> cone(1, 1);
+		EXPECT_EQ(Vector3d<float>(1, -0.5, 0), cone.getPosition(Param<float>(0), Param<float>(0)));
+		EXPECT_EQ(Vector3d<float>(-1, -0.5, 0), cone.getPosition(Param<float>(0.5), Param<float>(0)));
 
-	EXPECT_EQ(Vector3d<float>(0, 0.5, 0), cone.getPosition(Param<float>(0), Param<float>(1)));
-	EXPECT_EQ(Vector3d<float>(0, 0.5, 0), cone.getPosition(Param<float>(1), Param<float>(1)));
+		EXPECT_EQ(Vector3d<float>(0, 0.5, 0), cone.getPosition(Param<float>(0), Param<float>(1)));
+		EXPECT_EQ(Vector3d<float>(0, 0.5, 0), cone.getPosition(Param<float>(1), Param<float>(1)));
+	}
 
+	{
+		const Quaternion<float> q(Vector3d<float>(0, 1, 0), Tolerance<float>::getPI());
+		const Cone<float> cone(1, 1, Vector3d<float>(0, 0, 0), q);
+		EXPECT_EQ(Vector3d<float>(-1, -0.5, 0), cone.getPosition(Param<float>(0), Param<float>(0)));
+		EXPECT_EQ(Vector3d<float>(1, -0.5, 0), cone.getPosition(Param<float>(0.5), Param<float>(0)));
+
+//		EXPECT_EQ(Vector3d<float>(0, 0.5, 0), cone.getPosition(Param<float>(0), Param<float>(1)));
+//		EXPECT_EQ(Vector3d<float>(0, 0.5, 0), cone.getPosition(Param<float>(1), Param<float>(1)));
+	}
 }
 
 TEST(ConeTest, TestGetNormal)

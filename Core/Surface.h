@@ -29,6 +29,8 @@ public:
 
 	void add(const Math::CircularCurve3d<float>& curve);
 
+	void merge(Surface& rhs);
+
 	void clear();
 
 	std::list<Face*> getFaces() const { return faces; }
@@ -54,6 +56,8 @@ public:
 	Math::Sphere<float> getBoundingSphere() const;
 
 	std::vector<Math::Vector3d<float>> getIntersections(const Math::Ray3d<float>& ray) const;
+
+	void scale(const Math::Vector3d<float>& s);
 
 private:
 	int id;

@@ -13,11 +13,20 @@ Cylinder<T>::Cylinder() :
 
 template<typename T>
 Cylinder<T>::Cylinder(const Vector3d<T>& center, const T radius, const T height) :
-	center(center),
 	radius(radius),
-	height(height)
+	height(height),
+	IPrimitive3d<T>(center)
 {
 }
+
+template<typename T>
+Cylinder<T>::Cylinder(const Vector3d<T>& center, const T radius, const T height, const Quaternion<T>& orientation) :
+	radius(radius),
+	height(height),
+	IPrimitive3d<T>(center, orientation)
+{
+}
+
 
 template<typename T>
 T Cylinder<T>::getVolume() const
@@ -35,10 +44,15 @@ template<typename T>
 Vector3d<T> Cylinder<T>::getPosition(const Angle<T> u, const Param<T> v) const
 {
 	const auto x = radius * u.getCos();
-	const auto y = v.get() * height;
+	const auto y = v.get() * height - height*T{ 0.5 };
 	const auto z = radius * u.getSin();
 
-	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*T{ 0.5 }, 0) + center;
+	Vector3d<T> vec(x, y, z);
+	const auto rotation = orientation.toMatrix();
+	vec.rotate(rotation.transposed());
+
+
+	return vec + center;
 }
 
 template<typename T>
@@ -147,6 +161,27 @@ std::vector< Curve3d<T> > Cylinder<T>::toCurve3ds(int number) const
 	return curves;
 }
 
+template<typename T>
+bool Cylinder<T>::equals(const Cylinder<T>& rhs) const
+{
+	return
+		center == rhs.center &&
+		orientation == rhs.orientation &&
+		Tolerance<T>::isEqualLoosely(radius, rhs.radius) &&
+		Tolerance<T>::isEqualLoosely(height, rhs.height);
+}
+
+template<typename T>
+bool Cylinder<T>::operator==(const Cylinder<T>& rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Cylinder<T>::operator!=(const Cylinder<T>& rhs) const
+{
+	return !equals(rhs);
+}
 
 /*
 template<typename T>

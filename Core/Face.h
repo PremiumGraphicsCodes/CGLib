@@ -33,9 +33,11 @@ public:
 
 	Math::Vector3d<float> getIntersection(const Math::Ray3d<float>& ray) const;
 
+	void setId(const int id) { this->id = id; }
+
 private:
 	std::vector<Edge*> edges;
-	const int id;
+	int id;
 };
 	}
 }

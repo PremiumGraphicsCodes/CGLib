@@ -37,6 +37,9 @@ public:
 
 	void transform(const Matrix3d<T>& m);
 
+	void scale(const Math::Vector3d<T>& m);
+
+
 	bool operator==(const Point3d<T>& rhs) const {
 		return this->position == rhs.position &&
 			this->normal == rhs.normal &&

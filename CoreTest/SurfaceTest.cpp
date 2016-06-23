@@ -27,8 +27,39 @@ TEST(SurfaceTest, Test)
 	EXPECT_EQ(12, surface.getEdges().size());
 	EXPECT_EQ(4, surface.getNodes().size());
 	EXPECT_EQ(4, surface.getFaces().size());
-
 }
+
+TEST(SurfaceTest, TestMerge)
+{
+	Curve3d<float> curve(2, 2);
+
+	Point3d<float> p1(Vector3d<float>(0, 0, 0));
+	Point3d<float> p2(Vector3d<float>(0, 1, 0));
+	Point3d<float> p3(Vector3d<float>(1, 0, 0));
+	Point3d<float> p4(Vector3d<float>(1, 1, 0));
+
+	curve.set(0, 0, p1);
+	curve.set(0, 1, p2);
+	curve.set(1, 0, p3);
+	curve.set(1, 1, p4);
+
+	EXPECT_EQ(p1, curve.get(0, 0));
+	EXPECT_EQ(p2, curve.get(0, 1));
+	EXPECT_EQ(p3, curve.get(1, 0));
+	EXPECT_EQ(p4, curve.get(1, 1));
+
+	Surface surface1(curve);
+	Surface surface2(curve);
+	surface1.merge(surface2);
+	EXPECT_EQ(24, surface1.getEdges().size());
+	EXPECT_EQ(8, surface1.getNodes().size());
+	EXPECT_EQ(8, surface1.getFaces().size());
+
+	EXPECT_TRUE(surface2.getEdges().empty());
+	EXPECT_TRUE(surface2.getNodes().empty());
+	EXPECT_TRUE(surface2.getFaces().empty());
+}
+
 
 TEST(SurfaceTest, TestGetBoundingBox)
 {

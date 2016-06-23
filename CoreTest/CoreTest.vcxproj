@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="AnisotoropicParticleTest.cpp" />
+    <ClCompile Include="ArrowTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="EdgeTest.cpp" />
     <ClCompile Include="FaceTest.cpp" />

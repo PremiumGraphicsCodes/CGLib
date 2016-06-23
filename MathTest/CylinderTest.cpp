@@ -13,14 +13,16 @@ TEST(CylinderTest, TestGetVolume)
 
 TEST(CylinderTest, TestGetPosition)
 {
-	Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0);
 	{
-		const auto pos = cylinder.getPosition(Param<float>(0), Param<float>(0));
-		EXPECT_EQ(Vector3d<float>(1, -0.5, 0), pos);
+		const Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0);
+		EXPECT_EQ(Vector3d<float>(1, -0.5, 0), cylinder.getPosition(Param<float>(0), Param<float>(0)));
+		EXPECT_EQ(Vector3d<float>(1, 0.5, 0), cylinder.getPosition(Param<float>(0), Param<float>(1)));
 	}
 	{
-		const auto pos = cylinder.getPosition(Param<float>(0), Param<float>(1));
-		EXPECT_EQ(Vector3d<float>(1, 0.5, 0), pos);
+		Quaternion<float> q(Vector3d<float>(0, 1, 0), Tolerance<float>::getPI());
+		const Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0, q);
+		EXPECT_EQ(Vector3d<float>(-1, -0.5, 0), cylinder.getPosition(Param<float>(0), Param<float>(0)));
+
 	}
 }
 

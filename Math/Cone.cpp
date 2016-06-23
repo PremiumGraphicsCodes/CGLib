@@ -50,14 +50,14 @@ template<typename T>
 Vector3d<T> Cone<T>::getPosition(const Angle<T> u, const Param<T> v) const
 {
 	const auto x = radius * (1-v.get()) * u.getCos();
-	const auto y = v.get() * height;
+	const auto y = v.get() * height - height*T{ 0.5 };
 	const auto z = radius * (1-v.get()) * u.getSin();
 
 	Vector3d<T> vec(x, y, z);
 	const auto rotation = orientation.toMatrix();
 	vec.rotate(rotation.transposed());
 
-	return Vector3d<T>(x, y, z) + Vector3d<T>(0, -height*T{ 0.5 }, 0) + center;
+	return vec + center;
 }
 
 template<typename T>

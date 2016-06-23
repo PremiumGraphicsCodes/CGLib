@@ -28,10 +28,12 @@ public:
 	{
 	}
 
+	void setId(const int id) { this->id = id; }
+
 	int getId() const { return id; }
 
 private:
-	const int id;
+	int id;
 };
 
 /*
