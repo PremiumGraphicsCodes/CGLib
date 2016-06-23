@@ -20,9 +20,9 @@ namespace Crystal {
 class TriangleBuffer
 {
 public:
-	void add(const Core::Surface& surface, const DrawableID& did);
+	void add(const Core::Surface& surface);
 
-	void add(const Math::Point3d<float>& point, const DrawableID& did);
+	void add(const Math::Point3d<float>& point);
 
 	void add(const Core::PolygonMesh& polygon);
 

@@ -45,6 +45,8 @@ public:
 	std::vector< Curve3d<T> > toCurve3ds(int number) const;
 	//T getRadius() const;
 
+	void move(const Vector3d<T>& v) { this->center += v; }
+
 private:
 	T radius;
 	T height;

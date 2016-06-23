@@ -42,6 +42,8 @@ public:
 
 	CircularCurve3d<T> toSideCurve(const int num) const;
 
+	CircularCurve3d<T> toBottomCurve(const int num) const;
+
 private:
 	T radius;
 	T height;

@@ -6,7 +6,7 @@ using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
 
-void TriangleBuffer::add(const Point3d<float>& point, const DrawableID& did)
+void TriangleBuffer::add(const Point3d<float>& point)
 {
 	this->positions.add( point.getPosition() );
 	this->normals.add(point.getNormal());
@@ -14,13 +14,13 @@ void TriangleBuffer::add(const Point3d<float>& point, const DrawableID& did)
 }
 
 
-void TriangleBuffer::add(const Surface& surface, const DrawableID& did)
+void TriangleBuffer::add(const Surface& surface)
 {
 	const auto& si = surface.toIndices();
 	this->indices.insert(indices.end(), si.begin(), si.end());
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
-		add(*n, did);
+		add(*n);
 	}
 }
 

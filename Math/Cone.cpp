@@ -102,6 +102,22 @@ CircularCurve3d<T> Cone<T>::toSideCurve(const int number) const
 	return curve;
 }
 
+template<typename T>
+CircularCurve3d<T> Cone<T>::toBottomCurve(const int number) const
+{
+	const auto b1 = getPosition(Param<T>(0), Param<T>(0));
+	const auto b2 = getPosition(Param<T>(0.5), Param<T>(0));
+	const auto center = b1 / T{ 2 } +b2 / T{ 2 };
+	Point3d<T> c(center);
+	std::vector<Point3d<T>> points;
+	for (int i = 0; i < number; ++i) {
+		const auto param = Param<T>(i / (T)number);
+		const auto& v1 = getPoint(param, Param<T>(0));
+		points.push_back(v1);
+	}
+	return CircularCurve3d<T>(c, points);
+}
+
 
 template class Cone<float>;
 template class Cone<double>;
