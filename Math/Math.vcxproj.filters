@@ -237,6 +237,9 @@
     <ClInclude Include="Math.h" />
     <ClInclude Include="Ray3d.h" />
     <ClInclude Include="Triangle3d.h" />
+    <ClInclude Include="IPrimitive3d.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

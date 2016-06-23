@@ -13,7 +13,7 @@ Cylindroid<T>::Cylindroid() :
 
 template<typename T>
 Cylindroid<T>::Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, const T height) :
-	center(center),
+	IPrimitive3d<T>(center),
 	radii(radii),
 	height(height)
 {
@@ -21,10 +21,9 @@ Cylindroid<T>::Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, c
 
 template<typename T>
 Cylindroid<T>::Cylindroid(const Vector3d<T>& center, const Vector2d<T>& radii, const T height, const Quaternion<T>& orientation) :
-	center(center),
+	IPrimitive3d<T>(center, orientation),
 	radii(radii),
-	height(height),
-	orientation(orientation)
+	height(height)
 {
 }
 

@@ -1,20 +1,27 @@
 #ifndef __CRYSTAL_MATH_CONE_H__
 #define __CRYSTAL_MATH_CONE_H__
 
-#include "Vector3d.h"
+#include "IPrimitive3d.h"
+
+#include "Point3d.h"
 #include "Param.h"
 #include "Angle.h"
 
 namespace Crystal {
 	namespace Math {
 
+
 template<typename T>
-class Cone
+class Cone : public IPrimitive3d<T>
 {
 public:
 	Cone();
 
 	Cone(const T radius, const T height);
+
+	Cone(const T radius, const T height, const Vector3d<T>& center);
+
+	Cone(const T radius, const T height, const Vector3d<T>& center, const Quaternion<T>& orientation);
 
 	T getVolume() const;
 
@@ -26,8 +33,9 @@ public:
 
 	Vector3d<T> getPosition(const Angle<T> u, const Param<T> v) const;
 
+	Vector3d<T> getNormal(const Angle<T> u, const Param<T> v) const;
+
 private:
-	Math::Vector3d<T> center;
 	T radius;
 	T height;
 };

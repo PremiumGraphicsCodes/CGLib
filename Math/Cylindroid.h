@@ -7,12 +7,13 @@
 #include "Curve3d.h"
 #include "CircularCurve3d.h"
 #include "Quaternion.h"
+#include "IPrimitive3d.h"
 
 namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Cylindroid
+class Cylindroid : public IPrimitive3d<T>
 {
 public:
 	Cylindroid();
@@ -40,15 +41,11 @@ public:
 	*/
 	Curve3d<T> getSideCurve(const int number) const;
 
-	void rotate(const Quaternion<T>& q) { this->orientation *= q; }
-
 	Cylindroid<T> scaled(const Vector2d<T>& radiiScale, const T heightScale) const;
 
 private:
-	Vector3d<T> center;
 	Vector2d<T> radii;
 	T height;
-	Quaternion<T> orientation;
 };
 	}
 }
