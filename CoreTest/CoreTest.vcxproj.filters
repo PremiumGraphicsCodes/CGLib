@@ -30,6 +30,9 @@
     <ClCompile Include="ArrowTest.cpp">
       <Filter>Glyph</Filter>
     </ClCompile>
+    <ClCompile Include="CircleArrowTest.cpp">
+      <Filter>Glyph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">

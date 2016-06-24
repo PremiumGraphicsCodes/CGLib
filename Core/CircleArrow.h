@@ -13,10 +13,13 @@ namespace Crystal {
 class CircleArrow
 {
 public:
-	CircleArrow(const Math::Circle3d<float>& circle);
+	CircleArrow(const Math::Circle3d<float>& circle,const int divNum);
+
+	std::vector<Math::Cylinder<float>> getCylinders() const { return cylinders; }
 
 private:
-	std::vector<Math::Point3d<float>> points;
+	std::vector<Math::Cylinder<float>> cylinders;
+
 };
 	}
 }

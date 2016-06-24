@@ -69,6 +69,9 @@ public:
 
 	Quaternion<T> operator/=(const T s);
 
+	Quaternion<T> operator-() const;
+
+	Quaternion<T> slerp(const Quaternion<T>& rhs, const T t) const;
 
 private:
 	T x;

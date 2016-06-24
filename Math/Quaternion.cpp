@@ -198,6 +198,45 @@ Quaternion<T> Quaternion<T>::getInverse() const
 	return conjugete;
 }
 
+template<typename T>
+Quaternion<T> Quaternion<T>::operator-() const
+{
+	return Quaternion<T>(-x, -y, -z, -w);
+}
+
+
+template<typename T>
+Quaternion<T> Quaternion<T>::slerp(const Quaternion<T>& rhs, const T t) const
+{
+	Quaternion<T> to;
+	T cosom = this->x * rhs.x + this->y * rhs.y + this->z * rhs.z + this->w * rhs.w;
+	if (cosom < 0) {
+		cosom = -cosom;
+		to = -rhs;
+	}
+	else {
+		to = rhs;
+	}
+
+	T scale0, scale1;
+	if ((1 - cosom) > 1.0e-3) {
+		T omega = std::acos(cosom);
+		T sinom = std::sin(omega);
+		scale0 = std::sin((1 - t) * omega) / sinom;
+		scale1 = std::sin(t * omega) / sinom;
+	}
+	else {
+		scale0 = 1-t;
+		scale1 = t;
+	}
+	const auto xx = scale0 * this->x + scale1 * to.x;
+	const auto yy = scale0 * this->y + scale1 * to.y;
+	const auto zz = scale0 * this->z + scale1 * to.z;
+	const auto ww = scale0 * this->w + scale1 * to.w;
+	return Quaternion<T>(xx, yy, zz, ww);
+}
+
+
 
 template class Quaternion<float>;
 template class Quaternion<double>;
