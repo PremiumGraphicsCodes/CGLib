@@ -137,6 +137,23 @@ void Surface::add(const TriangleCurve3d<float>& curve)
 			faces.push_back(f1);
 		}
 	}
+	/*
+	for (int i = 1; i < createdNodes.size(); ++i) {
+		for (int j = 0; j < i-1; ++j) {
+			auto v0 = createdNodes[i - 1][j];
+			auto v1 = createdNodes[i][j+1];
+			auto v2 = createdNodes[i-1][j + 1];
+			Edge* e1 = new Edge(v0, v1, nextEdgeId++);
+			Edge* e2 = new Edge(v1, v2, nextEdgeId++);
+			Edge* e3 = new Edge(v2, v0, nextEdgeId++);
+			Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
+			edges.push_back(e1);
+			edges.push_back(e2);
+			edges.push_back(e3);
+			faces.push_back(f1);
+		}
+	}
+	*/
 
 }
 
