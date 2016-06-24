@@ -99,4 +99,15 @@ TEST(QuaternionTest, TestSlerp)
 		Quaternion<float> expected(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI()*0.75);
 		EXPECT_EQ(expected, actual);
 	}
+
+	/*
+	{
+		Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI());
+		Quaternion<float> q2(Vector3d<float>(0, 1, 0), Tolerance<float>::getPI());
+		const auto actual = q1.slerp(q2, 0.5);
+		Quaternion<float> q3(Vector3d<float>(0, 0, 1), 0);
+
+	}
+	*/
+
 }

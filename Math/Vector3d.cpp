@@ -234,6 +234,18 @@ bool Vector3d<T>::isLeft(const Vector3d<T>& rhs, const Vector3d<T>& normal) cons
 	return normal.getInnerProduct(cross) > 0;
 }
 
+#include "PolarCoord3d.h"
+
+template<typename T>
+Vector3d<T> Vector3d<T>::slerp(const Vector3d<T>& rhs, const T param) const
+{
+	const auto q1 = toPolarCoord().getOrientation();
+	const auto q2 = rhs.toPolarCoord().getOrientation();
+
+	Quaternion<T> qq = q1.slerp(q2, param);
+	const auto result = Vector3d<T>(1,0,0).getMult(qq.toMatrix().transposed());
+	return result;
+}
 
 template class Vector3d<float>;
 template class Vector3d<double>;

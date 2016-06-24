@@ -219,49 +219,49 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 	EXPECT_EQ(Angle<T>(Degree<T>(  0)), Vector3d<T>( 0, 0, 1).getElevation());
 	EXPECT_EQ(Angle<T>(Degree<T>(  0)), Vector3d<T>( 0, 0,-1).getElevation());
 
-	EXPECT_EQ(Angle<T>(Degree<T>(  90)), Vector3d<T>(0,1,0).getElevation());
-	EXPECT_EQ(Angle<T>(Degree<T>(  90)), Vector3d<T>(0,2, 0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(  90)), Vector3d<T>(0, 1, 0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>(  90)), Vector3d<T>(0, 2, 0).getElevation());
 
-	EXPECT_EQ(Angle<T>(Degree<T>( -90)), Vector3d<T>(0,-1,0).getElevation());
-	EXPECT_EQ(Angle<T>(Degree<T>( -90)), Vector3d<T>(0, -2, 0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>( -90)), Vector3d<T>(0,-1, 0).getElevation());
+	EXPECT_EQ(Angle<T>(Degree<T>( -90)), Vector3d<T>(0,-2, 0).getElevation());
 
 	EXPECT_EQ(Angle<T>(Degree<T>(  45)), Vector3d<T>(1, 1, 0).getElevation());
 	EXPECT_EQ(Angle<T>(Degree<T>( -45)), Vector3d<T>(1, -1, 0).getElevation());
+}
 
-//	EXPECT_EQ(Angle<T>(Degree<T>(-90)), Vector3d<T>(0, -1, 0).getElevation());
+TYPED_TEST(Vector3dTest, TestSlerp)
+{
+	using T = TypeParam;
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 1, 0);
+		EXPECT_EQ( Vector3d<T>(1,0,0), v1.slerp(v2, 0.0) );
+		EXPECT_EQ( Vector3d<T>(0,1,0), v1.slerp(v2, 1.0));
+		EXPECT_EQ( Vector3d<T>(1/std::sqrt(2), 1 / std::sqrt(2),0), v1.slerp(v2, 0.5));
+		EXPECT_EQ( Vector3d<T>(0, 1, 0), v2.slerp(v1, 0.0));
 
+	}
 
-	//EXPECT_EQ(Angle<T>(Degree<T>(90)), Vector3d<T>(0, -1, 0).getElevation());
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 0, 1);
+		EXPECT_EQ(Vector3d<T>(1, 0, 0), v1.slerp(v2, 0.0));
+		EXPECT_EQ(Vector3d<T>(0, 0, 1), v1.slerp(v2, 1.0));
+
+		EXPECT_EQ(Vector3d<T>(1 / std::sqrt(2), 0, 1 / std::sqrt(2)), v1.slerp(v2, 0.5));
+	}
 
 	/*
 	{
-		Vector3d<T> v1(1, 1, 0);
-		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(-45));
-		EXPECT_EQ(expected, actual);
-	}
-
-
-
-	{
 		Vector3d<T> v1(0, 0, 1);
-		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(0));
-		EXPECT_EQ(expected, actual);
-	}
+		Vector3d<T> v2(0, 1, 0);
+		EXPECT_EQ(Vector3d<T>(0, 1, 0), v1.slerp(v2, 0.0));
+		EXPECT_EQ(Vector3d<T>(0, 0, 1), v1.slerp(v2, 1.0));
 
-	{
-		Vector3d<T> v1(0, 0, -1);
-		const auto actual = v1.getElevation();
-		const Angle<T> expected(Degree<T>(0));
-		EXPECT_EQ(expected, actual);
+		EXPECT_EQ(Vector3d<T>(1 / std::sqrt(2), 0, 1 / std::sqrt(2)), v1.slerp(v2, 0.5));
 	}
 	*/
-
-
 }
-
-
 /*
 TYPED_TEST(Vector3dTest, TestToPolarCoord)
 {

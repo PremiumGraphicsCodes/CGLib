@@ -120,6 +120,8 @@ public:
 
 	bool isLeft(const Vector3d<T>& rhs, const Vector3d<T>& normal) const;
 
+	Vector3d<T> slerp(const Vector3d<T>& rhs, const T param) const;
+
 public:
 	T getX() const { return x; }
 
