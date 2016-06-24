@@ -50,6 +50,7 @@
     <ClCompile Include="SPHKernelTest.cpp" />
     <ClCompile Include="ToleranceTest.cpp" />
     <ClCompile Include="Triangle3dTest.cpp" />
+    <ClCompile Include="TriangleCurve3dTest.cpp" />
     <ClCompile Include="Vector2dTest.cpp" />
     <ClCompile Include="Vector3dTest.cpp" />
     <ClCompile Include="Vector4dTest.cpp" />

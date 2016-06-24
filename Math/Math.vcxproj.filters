@@ -114,6 +114,7 @@
     </ClCompile>
     <ClCompile Include="Ray3d.cpp" />
     <ClCompile Include="Triangle3d.cpp" />
+    <ClCompile Include="TriangleCurve3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Line3d.h" />
@@ -239,6 +240,9 @@
     <ClInclude Include="Triangle3d.h" />
     <ClInclude Include="IPrimitive3d.h">
       <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleCurve3d.h">
+      <Filter>Curve</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,16 @@ Surface::Surface(const Curve3d<float>& curve, const int id) :
 	add(curve);
 }
 
+Surface::Surface(const TriangleCurve3d<float>& curve, const int id) :
+	id(id),
+	nextNodeId(0),
+	nextEdgeId(0),
+	nextFaceId(0)
+{
+	add(curve);
+}
+
+
 #include "../Util/Array2d.h"
 #include "NodeGrid.h"
 
@@ -95,6 +105,41 @@ void Surface::add(const CircularCurve3d<float>& curve)
 		faces.push_back(f1);
 	}
 }
+
+void Surface::add(const TriangleCurve3d<float>& curve)
+{
+	std::vector< TriangleCell > cells;
+
+	std::vector<std::vector<Node*>> createdNodes;
+	for (int i = 0; i < curve.getSize(); ++i) {
+		std::vector<Node*> ns;
+		for (int j = 0; j <= i; ++j) {
+			auto p = curve.get(i, j);
+			Node* node = new Node(p.getPosition(), p.getNormal(), nextNodeId++);
+			nodes.push_back(node);
+			ns.push_back(node);
+		}
+		createdNodes.push_back(ns);
+	}
+
+	for (int i = 1; i < createdNodes.size(); ++i) {
+		for (int j = i - 1; j < i; ++j) {
+			auto v0 = createdNodes[i - 1][j];
+			auto v1 = createdNodes[i][j];
+			auto v2 = createdNodes[i][j + 1];
+			Edge* e1 = new Edge(v0, v1, nextEdgeId++);
+			Edge* e2 = new Edge(v1, v2, nextEdgeId++);
+			Edge* e3 = new Edge(v2, v0, nextEdgeId++);
+			Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
+			edges.push_back(e1);
+			edges.push_back(e2);
+			edges.push_back(e3);
+			faces.push_back(f1);
+		}
+	}
+
+}
+
 
 void Surface::merge(Surface& rhs)
 {

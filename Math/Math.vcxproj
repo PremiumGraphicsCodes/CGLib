@@ -49,6 +49,7 @@
     <ClInclude Include="Radian.h" />
     <ClInclude Include="Ray3d.h" />
     <ClInclude Include="SPHKernel.h" />
+    <ClInclude Include="TriangleCurve3d.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="Index3d.h" />
     <ClInclude Include="Kernel.h" />
@@ -108,6 +109,7 @@
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="Triangle3d.cpp" />
+    <ClCompile Include="TriangleCurve3d.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="Vector3d.cpp" />
     <ClCompile Include="Vector2d.cpp" />

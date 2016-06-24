@@ -19,7 +19,6 @@
     <ClCompile Include="SPHKernelTest.cpp" />
     <ClCompile Include="PolarCoord3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />
-    <ClCompile Include="Curve3dTest.cpp" />
     <ClCompile Include="Circle2dTest.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
@@ -66,6 +65,12 @@
     <ClCompile Include="ConeTest.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Curve3dTest.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleCurve3dTest.cpp">
+      <Filter>Curve</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">
@@ -79,6 +84,9 @@
     </Filter>
     <Filter Include="Matrix">
       <UniqueIdentifier>{02bf1e21-5a89-40ae-a289-3cbcffee2522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Curve">
+      <UniqueIdentifier>{f158f054-5da1-42ce-a57c-9d1ac12c6cbf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

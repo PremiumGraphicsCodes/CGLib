@@ -4,6 +4,7 @@
 //#include "../Math/Curve2d.h"
 #include "../Math/Curve3d.h"
 #include "../Math/CircularCurve3d.h"
+#include "../Math/TriangleCurve3d.h"
 
 #include <list>
 //#include "Node.h"
@@ -23,11 +24,17 @@ public:
 
 	Surface(const Math::Curve3d<float>& curve, const int id = -1);
 
+	Surface(const Math::TriangleCurve3d<float>& curve, const int id = -1);
+
+
 	~Surface();
 
 	void add(const Math::Curve3d<float>& curve);
 
 	void add(const Math::CircularCurve3d<float>& curve);
+
+	void add(const Math::TriangleCurve3d<float>& curve);
+
 
 	void merge(Surface& rhs);
 
