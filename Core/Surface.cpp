@@ -123,7 +123,7 @@ void Surface::add(const TriangleCurve3d<float>& curve)
 	}
 
 	for (int i = 1; i < createdNodes.size(); ++i) {
-		for (int j = i - 1; j < i; ++j) {
+		for (int j = 0; j < i; ++j) {
 			auto v0 = createdNodes[i - 1][j];
 			auto v1 = createdNodes[i][j];
 			auto v2 = createdNodes[i][j + 1];

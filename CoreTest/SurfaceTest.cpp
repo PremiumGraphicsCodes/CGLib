@@ -41,12 +41,23 @@ TEST(SurfaceTest, TestConstructByTriangleCurve3d)
 	curve.set(1, 0, p2);
 	curve.set(1, 1, p3);
 
-
 	Surface surface(curve);
 	EXPECT_EQ(3, surface.getNodes().size());
 	EXPECT_EQ(3, surface.getEdges().size());
 	EXPECT_EQ(1, surface.getFaces().size());
 
+}
+
+TEST(SurfaceTest, TestConstructByTriangleCurve3d2)
+{
+	TriangleCurve3d<float> curve(3);
+	curve.set(0, 0, Point3d<float>(Vector3d<float>(0, 2, 0)));
+	curve.set(1, 0, Point3d<float>(Vector3d<float>(-1, 1, 0)));
+	curve.set(1, 1, Point3d<float>(Vector3d<float>(1, 1, 0)));
+	curve.set(2, 0, Point3d<float>(Vector3d<float>(-2, 0, 0)));
+	curve.set(2, 1, Point3d<float>(Vector3d<float>(0, 0, 0)));
+	curve.set(2, 2, Point3d<float>(Vector3d<float>(2, 0, 0)));
+	Surface surface(curve);
 }
 
 
