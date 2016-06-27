@@ -11,7 +11,6 @@
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Plane3dTest.cpp" />
-    <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="AngleTest.cpp" />
@@ -70,6 +69,12 @@
     </ClCompile>
     <ClCompile Include="TriangleCurve3dTest.cpp">
       <Filter>Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="Line3dTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="PolyLine3dTest.cpp">
+      <Filter>Primitive3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

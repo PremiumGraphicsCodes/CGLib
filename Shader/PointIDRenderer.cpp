@@ -12,7 +12,7 @@ namespace {
 	std::string shaderName = "pointid";
 }
 
-bool PointIDRenderer::build()
+bool PointIdRenderer::build()
 {
 	const auto& vShader = getBuildinVertexShaderSource();
 	const auto& fShader = getBuildinFragmentShaderSource();
@@ -23,7 +23,7 @@ bool PointIDRenderer::build()
 	return result;
 }
 
-std::string PointIDRenderer::getBuildinVertexShaderSource() const
+std::string PointIdRenderer::getBuildinVertexShaderSource() const
 {
 	std::ostringstream stream;
 	stream
@@ -43,7 +43,7 @@ std::string PointIDRenderer::getBuildinVertexShaderSource() const
 	return stream.str();
 }
 
-std::string PointIDRenderer::getBuildinFragmentShaderSource() const
+std::string PointIdRenderer::getBuildinFragmentShaderSource() const
 {
 	std::ostringstream stream;
 	stream
@@ -57,7 +57,7 @@ std::string PointIDRenderer::getBuildinFragmentShaderSource() const
 }
 
 
-void PointIDRenderer::set(ShaderObject* shader)
+void PointIdRenderer::set(ShaderObject* shader)
 {
 	this->shader = shader;
 
@@ -69,7 +69,7 @@ void PointIDRenderer::set(ShaderObject* shader)
 	shader->findAttribLocation("pointSize");
 }
 
-void PointIDRenderer::render(const ICamera<float>& camera, const PointIdBuffer& buffer)
+void PointIdRenderer::render(const ICamera<float>& camera, const PointIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();
 	const auto& ids = buffer.getIdColor().get();

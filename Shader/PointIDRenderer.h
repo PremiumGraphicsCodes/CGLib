@@ -7,12 +7,12 @@
 namespace Crystal {
 	namespace Shader {
 
-class PointIDRenderer
+class PointIdRenderer
 {
 public:
-	PointIDRenderer() = default;
+	PointIdRenderer() = default;
 
-	~PointIDRenderer() = default;
+	~PointIdRenderer() = default;
 
 	void set(ShaderObject* shader);
 

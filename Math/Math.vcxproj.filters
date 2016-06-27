@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Line3d.cpp" />
     <ClCompile Include="Plane3d.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Space2d.cpp" />
@@ -115,9 +114,12 @@
     <ClCompile Include="Ray3d.cpp" />
     <ClCompile Include="Triangle3d.cpp" />
     <ClCompile Include="TriangleCurve3d.cpp" />
+    <ClCompile Include="Line3d.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="PolyLine3d.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Line3d.h" />
     <ClInclude Include="Plane3d.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space2d.h" />
@@ -243,6 +245,12 @@
     </ClInclude>
     <ClInclude Include="TriangleCurve3d.h">
       <Filter>Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="Line3d.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="PolyLine3d.h">
+      <Filter>Primitive3d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

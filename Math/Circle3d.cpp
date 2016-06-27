@@ -10,9 +10,8 @@ Circle3d<T>::Circle3d():
 
 template<typename T>
 Circle3d<T>::Circle3d(const T radius,const Vector3d<T>& center, const Quaternion<T>& orientation) :
-	radius(radius),
-	center(center),
-	orientation(orientation)
+	IPrimitive3d<T>(center, orientation),
+	radius(radius)
 {
 }
 

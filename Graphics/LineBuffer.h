@@ -5,9 +5,6 @@
 #include "Buffer1d.h"
 #include "Buffer4d.h"
 
-#include "../Math/Point3d.h"
-#include "../Math/Line3d.h"
-#include "../Core/PolygonMesh.h"
 #include "../Graphics/ColorRGBA.h"
 #include "DrawableID.h"
 
@@ -33,6 +30,7 @@ public:
 		add(line, color);
 	}
 
+	LineBuffer(const Math::PolyLine3d<float>& polyline, const ColorRGBA<float>& color);
 
 	void clear();
 

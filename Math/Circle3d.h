@@ -5,6 +5,7 @@
 #include "Angle.h"
 #include "Param.h"
 #include "Quaternion.h"
+#include "IPrimitive3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -12,7 +13,7 @@ namespace Crystal {
 		class Curve3d;
 
 template<typename T>
-class Circle3d
+class Circle3d : public IPrimitive3d<T>
 {
 public:
 	Circle3d();
@@ -33,8 +34,6 @@ public:
 
 private:
 	T radius;
-	Vector3d<T> center;
-	Quaternion<T> orientation;
 };
 	}
 }

@@ -32,6 +32,7 @@
 #include "Point2d.h"
 #include "Point3d.h"
 #include "PolarCoord3d.h"
+#include "PolyLine3d.h"
 #include "Quad.h"
 #include "Quad2d.h"
 #include "Quaternion.h"

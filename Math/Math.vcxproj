@@ -45,6 +45,7 @@
     <ClInclude Include="Point3d.h" />
     <ClInclude Include="Point2d.h" />
     <ClInclude Include="PolarCoord3d.h" />
+    <ClInclude Include="PolyLine3d.h" />
     <ClInclude Include="Quad2d.h" />
     <ClInclude Include="Radian.h" />
     <ClInclude Include="Ray3d.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="Point3d.cpp" />
     <ClCompile Include="Point2d.cpp" />
     <ClCompile Include="PolarCoord3d.cpp" />
+    <ClCompile Include="PolyLine3d.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Quad2d.cpp" />
     <ClCompile Include="Quaternion.cpp" />
