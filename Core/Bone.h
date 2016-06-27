@@ -40,9 +40,9 @@ public:
 
 	Math::Line3d<float> toLine() const;
 
-	std::vector<AnisotoropicParticle> toAnisoParticles(const float density, const float divideLength);
+	AnisotoropicParticle toAnisoParticles(const float density);
 
-	std::vector< Math::Ellipsoid<float> > toEllipsoids(const float divideLength) const;
+	Math::Ellipsoid<float> toEllipsoid() const;
 
 	Math::Cylindroid<float> toCylindroid() const;
 

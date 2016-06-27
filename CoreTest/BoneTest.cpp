@@ -31,8 +31,7 @@ TEST(BoneTest, TestToAnisoParticles)
 	Joint joint1(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(0.5, 0.5, 0.5));
 	Joint joint2(Vector3d<float>(10.0f, 0.0f, 0.0f), Vector3d<float>(0.5, 0.5, 0.5));
 	Bone bone(&joint1, &joint2, Vector2d<float>(1, 1), 1);
-	const auto& actual = bone.toAnisoParticles(10.0f, 5);
-	EXPECT_EQ(1, actual.size());
-	//EXPECT_EQ(Vector3d<float>(0.0f, 0.0f, 0.0f), actual[0].getPosition());
+	const auto& actual = bone.toAnisoParticles(10.0f);
+	EXPECT_EQ(Vector3d<float>(5.0f, 0.0f, 0.0f), actual.getPosition());
 	//EXPECT_EQ(Vector3d<float>(5.0f, 0.0f, 0.0f), actual[1].getPosition());
 }
