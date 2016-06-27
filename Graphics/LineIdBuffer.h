@@ -29,6 +29,8 @@ public:
 
 	void add(const Math::Line3d<float>& line, const DrawableID& did);
 
+	void add(const Math::Polyline3d<float>& polyline, const DrawableID& did);
+
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
 	Buffer4d<float> getIdColors() const { return idColors; }

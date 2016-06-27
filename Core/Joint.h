@@ -30,7 +30,7 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
-	void scale(const Math::Vector3d<float>& s) { this->radii += s; }
+	void scale(const Math::Vector3d<float>& s);
 
 	void move(const Math::Vector3d<float>& v) { this->position += v; }
 

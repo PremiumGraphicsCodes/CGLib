@@ -34,3 +34,11 @@ void LineIdBuffer::add(const Line3d<float>& line, const DrawableID& did)
 	this->ids.push_back(ids.size());
 	this->ids.push_back(ids.size());
 }
+
+void LineIdBuffer::add(const Polyline3d<float>& polyline, const DrawableID& did)
+{
+	const auto& lines = polyline.toLines();
+	for (const auto& l : lines) {
+		add(l, did);
+	}
+}
