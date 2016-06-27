@@ -21,6 +21,8 @@ std::vector<Line3d<T>> Polyline3d<T>::toLines() const
 		Line3d<T> l(positions[i], positions[i + 1]);
 		lines.push_back(l);
 	}
+	lines.push_back(Line3d<T>(positions.back(), positions.front()));
+
 	return lines;
 }
 
@@ -33,9 +35,7 @@ std::vector<Vector3d<T>> Polyline3d<T>::getPositions() const
 template<typename T>
 bool Polyline3d<T>::equals(const Polyline3d<T>& rhs) const
 {
-	return
-		positions.size() == rhs.positions.size() &&
-		std::equal(positions.cbegin(), positions.cend(), rhs.positions.begin());
+	return positions == rhs.positions;
 }
 
 template<typename T>

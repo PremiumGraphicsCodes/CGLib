@@ -30,4 +30,7 @@ void LineIdBuffer::add(const Line3d<float>& line, const DrawableID& did)
 
 	this->idColors.add(did.toColor());
 	this->idColors.add(did.toColor());
+
+	this->ids.push_back(ids.size());
+	this->ids.push_back(ids.size());
 }

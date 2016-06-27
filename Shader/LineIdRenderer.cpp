@@ -96,7 +96,7 @@ void LineIdRenderer::render(const ICamera<float>& camera, const LineIdBuffer& bu
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);

@@ -8,13 +8,7 @@ using namespace Crystal::Graphics;
 
 LineBuffer::LineBuffer(const Polyline3d<float>& polyline, const ColorRGBA<float>& color)
 {
-	const auto& poss = polyline.getPositions();
-	for (int i = 0; i < poss.size(); ++i) {
-		const auto p = poss[i];
-		position.add(p);
-		this->color.add(color);
-		this->ids.push_back(i);
-	}
+	add(polyline, color);
 }
 
 void LineBuffer::clear()
@@ -48,6 +42,16 @@ void LineBuffer::add(const Surface& surface, const ColorRGBA<float>& color)
 		add(*e, color);
 	}
 }
+
+void LineBuffer::add(const Polyline3d<float>& polyline, const ColorRGBA<float>& color)
+{
+	const auto& lines = polyline.toLines();
+	for (int i = 0; i < lines.size(); ++i) {
+		add(lines[i], color);
+	}
+
+}
+
 
 
 void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)

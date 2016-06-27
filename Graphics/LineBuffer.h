@@ -34,6 +34,8 @@ public:
 
 	void clear();
 
+	void add(const Math::Polyline3d<float>& polyline, const ColorRGBA<float>& color);
+
 	void add(const Math::Point3d<float>& point, const ColorRGBA<float>& color);
 
 	void add(const Core::Edge& edge, const ColorRGBA<float>& color);
