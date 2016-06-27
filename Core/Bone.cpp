@@ -8,7 +8,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Bone::Bone(Joint* origin, Joint* dest, const Vector3d<float>& thickness, const unsigned int id) :
+Bone::Bone(Joint* origin, Joint* dest, const Vector2d<float>& thickness, const unsigned int id) :
 	origin(origin),
 	dest(dest),
 	thickness(thickness),
@@ -36,7 +36,7 @@ void Bone::clear()
 
 Bone* Bone::createChild(Joint* childDest)
 {
-	auto b = new Bone(dest, childDest, Vector3d<float>(1,1,1), 1);
+	auto b = new Bone(dest, childDest, Vector2d<float>(1,1), 1);
 	children.push_back(b);
 	return b;
 }
@@ -87,13 +87,12 @@ std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) con
 
 	const auto length = this->getLength();
 	const auto& orientation = getOrientation();
-	for (float l = 0.0f; l < length; l += divideLength) {
-		const float ratio = l / length;
-		const auto pos = getOriginJoint()->getPosition() * (1.0f - ratio) + getDestJoint()->getPosition() * (ratio);
-		const Vector3d<float> radii(thickness.getX(), thickness.getY(), thickness.getZ());
+	//for (float l = 0.0f; l < length; l += length) {
+		const auto pos = getCenter();
+		const Vector3d<float> radii(length, thickness.getX(), thickness.getY());
 		const Ellipsoid<float> e(pos, radii, orientation);
 		results.push_back(e);
-	}
+	//}
 	return results;
 }
 
@@ -101,8 +100,7 @@ std::vector< Ellipsoid<float> > Bone::toEllipsoids(const float divideLength) con
 
 Cylindroid<float> Bone::toCylindroid() const
 {
-	const Vector2d<float> radii(thickness.getY(), thickness.getZ());
-	Cylindroid<float> cylindroid(getCenter(), radii, getLength(), getOrientation());
+	Cylindroid<float> cylindroid(getCenter(), thickness, getLength(), getOrientation());
 	return cylindroid;
 }
 

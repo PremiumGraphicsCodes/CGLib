@@ -92,14 +92,14 @@ Joint* Actor::insertJoint(Bone* bone)
 	const auto radius = j1->getBoundingRadius() / 2.0f + j2->getBoundingRadius() / 2.0f;
 	auto j = createJoint(pos, Vector3d<float>(radius, radius, radius));
 	bones.remove(bone);
-	auto b1 = createBone(j1, j, Vector3d<float>(radius, radius, radius));
-	auto b2 = createBone(j, j2, Vector3d<float>(radius, radius, radius));
+	auto b1 = createBone(j1, j, Vector2d<float>(radius, radius));
+	auto b2 = createBone(j, j2, Vector2d<float>(radius, radius));
 	return j;
 }
 
 
 
-Bone* Actor::createBone(Joint* j1, Joint* j2, const Vector3d<float>& thickness)
+Bone* Actor::createBone(Joint* j1, Joint* j2, const Vector2d<float>& thickness)
 {
 	auto b = new Bone(j1, j2, thickness, nextBoneId++);
 	bones.push_back(b);

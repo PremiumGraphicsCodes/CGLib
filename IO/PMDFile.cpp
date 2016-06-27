@@ -445,7 +445,7 @@ Actor* PMDBoneCollection::toActorObject() const
 				tailJoint = joints[tailBoneIndex];
 			}
 		}
-		object->createBone(headJoint, tailJoint, Vector3d<float>(0.2f, 0.1f, 0.1f));
+		object->createBone(headJoint, tailJoint, Vector2d<float>(0.2f, 0.1f));
 	}
 	return object;
 }

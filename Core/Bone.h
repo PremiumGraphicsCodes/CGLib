@@ -18,7 +18,7 @@ namespace Crystal {
 class Bone
 {
 public:
-	Bone(Joint* origin, Joint* dest, const Math::Vector3d<float>& thickness, const unsigned int id);
+	Bone(Joint* origin, Joint* dest, const Math::Vector2d<float>& thickness, const unsigned int id);
 
 	~Bone();
 
@@ -62,14 +62,14 @@ public:
 
 	bool isTail() const { return origin == nullptr || dest == nullptr; }
 
-	void scale(const Math::Vector3d<float>& dt) { this->thickness += dt; }
+	void scale(const Math::Vector2d<float>& dt) { this->thickness += dt; }
 
 	void move(const Math::Vector3d<float>& v);
 	//std::string getName() const { return name; }
 
-	Math::Vector3d<float> getThickness() const { return thickness; }
+	Math::Vector2d<float> getThickness() const { return thickness; }
 
-	void setThickness(const Math::Vector3d<float>& v) { this->thickness = v; }
+	void setThickness(const Math::Vector2d<float>& v) { this->thickness = v; }
 
 	Math::Angle<float> getRotation() const { return rotation; }
 
@@ -86,7 +86,7 @@ private:
 	//Bone* parent;
 	std::string name;
 	std::vector<Bone*> children;
-	Math::Vector3d<float> thickness;
+	Math::Vector2d<float> thickness;
 	Math::Angle<float> rotation;
 	unsigned int id;
 };
