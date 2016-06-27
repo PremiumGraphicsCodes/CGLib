@@ -104,9 +104,6 @@
     <ClCompile Include="FrameBufferHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
-    <ClCompile Include="IDRenderer.cpp">
-      <Filter>Renderer\ID</Filter>
-    </ClCompile>
     <ClCompile Include="PointIDRenderer.cpp">
       <Filter>Renderer\ID</Filter>
     </ClCompile>
@@ -115,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="TriangleIdRenderer.cpp">
+      <Filter>Renderer\ID</Filter>
+    </ClCompile>
+    <ClCompile Include="LineIdRenderer.cpp">
       <Filter>Renderer\ID</Filter>
     </ClCompile>
   </ItemGroup>
@@ -231,14 +231,14 @@
     <ClInclude Include="PointIDRenderer.h">
       <Filter>Renderer\ID</Filter>
     </ClInclude>
-    <ClInclude Include="IDRenderer.h">
-      <Filter>Renderer\ID</Filter>
-    </ClInclude>
     <ClInclude Include="EllipsoidRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TriangleIdRenderer.h">
+      <Filter>Renderer\ID</Filter>
+    </ClInclude>
+    <ClInclude Include="LineIdRenderer.h">
       <Filter>Renderer\ID</Filter>
     </ClInclude>
   </ItemGroup>

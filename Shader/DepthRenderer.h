@@ -1,8 +1,9 @@
 #ifndef __CRYSTAL_SHADER_DEPTH_RENDERER_H__
 #define __CRYSTAL_SHADER_DEPTH_RENDERER_H__
 
-#include "IDRenderer.h"
+//#include "IDRenderer.h"
 #include "DepthTextureObject.h"
+#include "ShaderObject.h"
 
 namespace Crystal {
 	namespace Shader {

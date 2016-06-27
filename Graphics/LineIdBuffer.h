@@ -33,7 +33,7 @@ public:
 
 	Buffer4d<float> getIdColors() const { return idColors; }
 
-	std::vector<unsigned int> getIds() const { return ids; }
+	std::vector<unsigned int> getIndices() const { return ids; }
 
 private:
 	Buffer3d<float> position;

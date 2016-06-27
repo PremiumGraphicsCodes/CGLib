@@ -151,9 +151,9 @@
     <ClCompile Include="FrameBufferHandler.cpp" />
     <ClCompile Include="GeometryRenderer.cpp" />
     <ClCompile Include="GLee.cpp" />
-    <ClCompile Include="IDRenderer.cpp" />
     <ClCompile Include="IRenderer.cpp" />
     <ClCompile Include="LegacyRenderer.cpp" />
+    <ClCompile Include="LineIdRenderer.cpp" />
     <ClCompile Include="NormalFilter.cpp" />
     <ClCompile Include="NormalRenderer.cpp" />
     <ClCompile Include="BillBoardRenderer.cpp" />
@@ -200,10 +200,10 @@
     <ClInclude Include="FrameBufferHandler.h" />
     <ClInclude Include="GeometryRenderer.h" />
     <ClInclude Include="GLee.h" />
-    <ClInclude Include="IDRenderer.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ITextureObject.h" />
     <ClInclude Include="LegacyRenderer.h" />
+    <ClInclude Include="LineIdRenderer.h" />
     <ClInclude Include="NormalFilter.h" />
     <ClInclude Include="NormalRenderer.h" />
     <ClInclude Include="NullRenderer.h" />

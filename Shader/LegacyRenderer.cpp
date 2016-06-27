@@ -185,7 +185,7 @@ void LegacyRenderer::renderId(const ICamera<float>& camera, const LineIdBuffer& 
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getIdColors().get();
-	const auto& indices = buffer.getIds();
+	const auto& indices = buffer.getIndices();
 
 	if (positions.empty()) {
 		return;
