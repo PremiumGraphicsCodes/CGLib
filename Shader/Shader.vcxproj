@@ -182,6 +182,7 @@
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="TextureHandler.cpp" />
     <ClCompile Include="TriangleIdRenderer.cpp" />
+    <ClCompile Include="TriangleRenderer.cpp" />
     <ClCompile Include="VisualMaterial.cpp" />
     <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
@@ -228,6 +229,7 @@
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="TriangleIdRenderer.h" />
+    <ClInclude Include="TriangleRenderer.h" />
     <ClInclude Include="VisualMaterial.h" />
     <ClInclude Include="VisualObject.h" />
   </ItemGroup>

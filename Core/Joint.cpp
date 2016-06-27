@@ -38,3 +38,8 @@ Ellipsoid<float> Joint::toEllipsoid() const
 {
 	return Ellipsoid<float>(position, radii, getOrientation());
 }
+
+Box3d<float> Joint::getBoundingBox() const
+{
+	return toParticle(1000.0f).getBoundingBox();
+}

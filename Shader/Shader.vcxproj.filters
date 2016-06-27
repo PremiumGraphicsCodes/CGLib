@@ -21,12 +21,6 @@
     <ClCompile Include="BillBoardRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="PointRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="LineRenderer.cpp">
-      <Filter>Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="LegacyRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
@@ -117,6 +111,15 @@
     <ClCompile Include="LineIdRenderer.cpp">
       <Filter>Renderer\ID</Filter>
     </ClCompile>
+    <ClCompile Include="LineRenderer.cpp">
+      <Filter>Renderer\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="PointRenderer.cpp">
+      <Filter>Renderer\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleRenderer.cpp">
+      <Filter>Renderer\Color</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -140,12 +143,6 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="BillBoardRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="PointRenderer.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="LineRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="LegacyRenderer.h">
@@ -241,6 +238,15 @@
     <ClInclude Include="LineIdRenderer.h">
       <Filter>Renderer\ID</Filter>
     </ClInclude>
+    <ClInclude Include="LineRenderer.h">
+      <Filter>Renderer\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="PointRenderer.h">
+      <Filter>Renderer\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleRenderer.h">
+      <Filter>Renderer\Color</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">
@@ -266,6 +272,9 @@
     </Filter>
     <Filter Include="Renderer\ID">
       <UniqueIdentifier>{ea732205-9e3d-43f5-bc85-46f3c06bfde5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer\Color">
+      <UniqueIdentifier>{7f072bbd-daca-45ac-8147-9618e982cd08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

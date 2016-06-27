@@ -56,6 +56,7 @@ public:
 
 	void rotate(const Math::Quaternion<float>& q) { this->orientation *= q; }
 
+	Math::Box3d<float> getBoundingBox() const;
 
 private:
 	Math::Vector3d<float> position;
