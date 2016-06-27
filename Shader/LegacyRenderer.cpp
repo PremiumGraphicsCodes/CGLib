@@ -53,7 +53,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointBuffer& buf
 
 }
 
-void LegacyRenderer::renderId(const ICamera<float>& camera, const PointIdBuffer& buffer)
+void LegacyRenderer::render(const ICamera<float>& camera, const PointIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getIdColor().get();
@@ -280,11 +280,11 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 
 }
 
-void LegacyRenderer::renderId(const ICamera<float>& camera, const TriangleBuffer& buffer)
+void LegacyRenderer::render(const ICamera<float>& camera, const TriangleIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& indices = buffer.getIndices();
-	const auto& colors = buffer.getColors().get();
+	const auto& colors = buffer.getIdColors().get();
 
 	if (positions.empty()) {
 		return;

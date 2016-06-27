@@ -114,6 +114,9 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TriangleIdRenderer.cpp">
+      <Filter>Renderer\ID</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -235,6 +238,9 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TriangleIdRenderer.h">
+      <Filter>Renderer\ID</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

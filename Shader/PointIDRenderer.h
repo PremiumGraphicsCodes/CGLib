@@ -3,8 +3,6 @@
 
 #include "IRenderer.h"
 #include "../Graphics/PointIdBuffer.h"
-#include "../Graphics/LineBuffer.h"
-#include "../Graphics/TriangleBuffer.h"
 
 namespace Crystal {
 	namespace Shader {

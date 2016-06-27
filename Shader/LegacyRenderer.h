@@ -14,6 +14,7 @@ namespace Crystal {
 		class LineBuffer;
 		class LineIdBuffer;
 		class TriangleBuffer;
+		class TriangleIdBuffer;
 	}
 	namespace Shader {
 
@@ -22,7 +23,7 @@ class LegacyRenderer
 public:
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer, const float pointSize = 10.0f);
 
-	void renderId(const Graphics::ICamera<float>& camera, const Graphics::PointIdBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::PointIdBuffer& buffer);
 
 	void renderAlphaBlend(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
@@ -32,7 +33,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 
-	void renderId(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleIdBuffer& buffer);
 
 };
 
