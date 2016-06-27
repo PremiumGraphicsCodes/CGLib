@@ -20,6 +20,8 @@ class Ellipse3d : public IPrimitive3d<T>
 public:
 	Ellipse3d();
 
+	Ellipse3d(const Vector3d<T> radii, const Vector3d<T>& center);
+
 	Ellipse3d(const Vector3d<T> radii, const Vector3d<T>& center, const Quaternion<T>& orientation);
 
 	bool equals(const Ellipse3d<T>& rhs) const;

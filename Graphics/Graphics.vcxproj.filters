@@ -44,6 +44,9 @@
     <ClCompile Include="PointIdBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="TriangleColorBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -107,6 +110,9 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="PointIdBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleColorBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>

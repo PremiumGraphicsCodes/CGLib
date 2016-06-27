@@ -25,7 +25,7 @@ namespace Crystal {
 
 			void set(ShaderObject* shader);
 
-			void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
+			void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleColorBuffer& buffer);
 
 			bool build();
 

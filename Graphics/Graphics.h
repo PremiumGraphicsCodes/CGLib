@@ -25,6 +25,7 @@
 #include "PointIdBuffer.h"
 //#include "stb_image.h"
 #include "TriangleBuffer.h"
+#include "TriangleColorBuffer.h"
 #include "TriangleIdBuffer.h"
 #include "VisualPolygon.h"
 #include "VisualSurface.h"

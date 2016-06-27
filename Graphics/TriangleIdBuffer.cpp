@@ -22,11 +22,15 @@ void TriangleIdBuffer::clear()
 void TriangleIdBuffer::add(const Surface& surface, const DrawableID& did)
 {
 	auto si = surface.toIndices();
+	for (auto& s : si) {
+		s += nextIndex;
+	}
 	this->indices.insert( indices.end(), si.begin(), si.end());
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
 		add(*n, did);
 	}
+	nextIndex += surface.getNodes().size();
 }
 
 

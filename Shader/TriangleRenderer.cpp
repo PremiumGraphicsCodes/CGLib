@@ -64,7 +64,7 @@ void TriangleRenderer::set(ShaderObject* shader)
 }
 
 
-void TriangleRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
+void TriangleRenderer::render(const ICamera<float>& camera, const TriangleColorBuffer& buffer)
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();

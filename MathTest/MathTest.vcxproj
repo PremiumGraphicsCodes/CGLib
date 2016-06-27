@@ -28,6 +28,7 @@
     <ClCompile Include="Curve3dTest.cpp" />
     <ClCompile Include="CylinderTest.cpp" />
     <ClCompile Include="CylindroidTest.cpp" />
+    <ClCompile Include="Ellipse3dTest.cpp" />
     <ClCompile Include="EllipseTest.cpp" />
     <ClCompile Include="EllipsoidTest.cpp" />
     <ClCompile Include="Grid1dTest.cpp" />

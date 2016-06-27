@@ -76,6 +76,9 @@
     <ClCompile Include="PolyLine3dTest.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Ellipse3dTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">

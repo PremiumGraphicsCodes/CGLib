@@ -8,6 +8,14 @@ Ellipse3d<T>::Ellipse3d()
 {}
 
 template<typename T>
+Ellipse3d<T>::Ellipse3d(const Vector3d<T> radii, const Vector3d<T>& center) :
+	IPrimitive3d<T>(center),
+	radii(radii)
+{
+}
+
+
+template<typename T>
 Ellipse3d<T>::Ellipse3d(const Vector3d<T> radii, const Vector3d<T>& center, const Quaternion<T>& orientation) :
 	radii(radii),
 	IPrimitive3d<T>(center, orientation)
@@ -56,8 +64,12 @@ Vector3d<T> Ellipse3d<T>::getPosition(const Param<T> param) const
 
 template<typename T>
 Polyline3d<T> Ellipse3d<T>::toPolyline(const int number) const
-{
-	return Polyline3d<T>();
+{	
+	Polyline3d<T> polyline;
+	for (int i = 0; i < number-1; ++i) {
+		polyline.add( getPosition(Param<T>( i / (T)number)));
+	}
+	return polyline;
 }
 
 template class Ellipse3d<float>;
