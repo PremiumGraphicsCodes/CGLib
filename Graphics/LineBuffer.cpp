@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
-LineBuffer::LineBuffer(const PolyLine3d<float>& polyline, const ColorRGBA<float>& color)
+LineBuffer::LineBuffer(const Polyline3d<float>& polyline, const ColorRGBA<float>& color)
 {
 	const auto& poss = polyline.getPositions();
 	for (int i = 0; i < poss.size(); ++i) {

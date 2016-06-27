@@ -4,17 +4,17 @@
 using namespace Crystal::Math;
 
 template<typename T>
-PolyLine3d<T>::PolyLine3d()
+Polyline3d<T>::Polyline3d()
 {
 }
 
 template<typename T>
-PolyLine3d<T>::PolyLine3d(const std::vector<Vector3d<T>>& positions) :
+Polyline3d<T>::Polyline3d(const std::vector<Vector3d<T>>& positions) :
 	positions(positions)
 {}
 
 template<typename T>
-std::vector<Line3d<T>> PolyLine3d<T>::toLines() const
+std::vector<Line3d<T>> Polyline3d<T>::toLines() const
 {
 	std::vector<Line3d<T>> lines;
 	for (int i = 0; i < positions.size() - 1; ++i) {
@@ -25,11 +25,31 @@ std::vector<Line3d<T>> PolyLine3d<T>::toLines() const
 }
 
 template<typename T>
-std::vector<Vector3d<T>> PolyLine3d<T>::getPositions() const
+std::vector<Vector3d<T>> Polyline3d<T>::getPositions() const
 {
 	return positions;
 }
 
+template<typename T>
+bool Polyline3d<T>::equals(const Polyline3d<T>& rhs) const
+{
+	return
+		positions.size() == rhs.positions.size() &&
+		std::equal(positions.cbegin(), positions.cend(), rhs.positions.begin());
+}
 
-template class PolyLine3d<float>;
-template class PolyLine3d<double>;
+template<typename T>
+bool Polyline3d<T>::operator==(const Polyline3d<T>& rhs) const
+{
+	return equals(rhs);
+}
+
+template<typename T>
+bool Polyline3d<T>::operator!=(const Polyline3d<T>& rhs) const
+{
+	return !equals(rhs);
+}
+
+
+template class Polyline3d<float>;
+template class Polyline3d<double>;

@@ -30,7 +30,7 @@ public:
 		add(line, color);
 	}
 
-	LineBuffer(const Math::PolyLine3d<float>& polyline, const ColorRGBA<float>& color);
+	LineBuffer(const Math::Polyline3d<float>& polyline, const ColorRGBA<float>& color);
 
 	void clear();
 

@@ -3,11 +3,9 @@
 
 using namespace Crystal::Math;
 
-/*
-TEST(PolyLine3dTest, TestAdd)
+TEST(Polyline3dTest, TestAdd)
 {
-	PolyLine3d<float> pl;
+	Polyline3d<float> pl;
 	pl.add(Vector3d<float>(1, 2, 3));
-	pl.getPositions().size()
+	EXPECT_EQ(1, pl.size());
 }
-*/

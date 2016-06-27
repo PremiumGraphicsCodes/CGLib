@@ -1,4 +1,5 @@
 #include "Circle3d.h"
+#include "PolyLine3d.h"
 
 using namespace Crystal::Math;
 
@@ -55,6 +56,17 @@ Vector3d<T> Circle3d<T>::getPosition(const Param<T> param) const
 	Angle<T> angle(Degree<T>(param.get() * 360));
 	return getPosition(angle);
 }
+
+template<typename T>
+Polyline3d<T> Circle3d<T>::toPolyline(const int number) const
+{
+	Polyline3d<T> polyline;
+	for (int i = 0; i < number; ++i) {
+		polyline.add( getPosition( Param<T>( i / (T)number) ) );
+	}
+	return polyline;
+}
+
 
 /*
 template<typename T>

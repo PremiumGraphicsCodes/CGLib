@@ -9,18 +9,26 @@ namespace Crystal {
 		class Line3d;
 
 template<typename T>
-class PolyLine3d
+class Polyline3d
 {
 public:
-	PolyLine3d();
+	Polyline3d();
 
-	PolyLine3d(const std::vector<Vector3d<T>>& positions);
+	Polyline3d(const std::vector<Vector3d<T>>& positions);
 
 	void add(const Vector3d<T>& v) { this->positions.push_back(v); }
 
 	std::vector<Math::Line3d<T>> toLines() const;
 
 	std::vector<Vector3d<T>> getPositions() const;
+
+	bool equals(const Polyline3d<T>& rhs) const;
+
+	bool operator==(const Polyline3d<T>& rhs) const;
+
+	bool operator!=(const Polyline3d<T>& rhs) const;
+
+	size_t size() const { return positions.size(); }
 
 private:
 	std::vector<Vector3d<T>> positions;

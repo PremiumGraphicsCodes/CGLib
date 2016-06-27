@@ -11,6 +11,8 @@ namespace Crystal {
 	namespace Math {
 		template<typename>
 		class Curve3d;
+		template<typename>
+		class Polyline3d;
 
 template<typename T>
 class Circle3d : public IPrimitive3d<T>
@@ -29,6 +31,8 @@ public:
 	Vector3d<T> getPosition(const Angle<T> angle) const;
 
 	Vector3d<T> getPosition(const Param<T> param) const;
+
+	Polyline3d<T> toPolyline(const int number) const;
 
 	//Curve3d<T> toCurve3d() const;
 
