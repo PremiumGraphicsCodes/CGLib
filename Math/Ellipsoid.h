@@ -4,6 +4,7 @@
 #include "Vector3d.h"
 #include "Angle.h"
 #include "Quaternion.h"
+#include "IPrimitive3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -11,7 +12,7 @@ namespace Crystal {
 		class Curve3d;
 
 template<typename T>
-class Ellipsoid
+class Ellipsoid : public IPrimitive3d<T>
 {
 public:
 	Ellipsoid();
@@ -24,20 +25,14 @@ public:
 
 	T getVolume() const;
 
-	Vector3d<T> getCenter() const { return center; }
-
 	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
 
 	Vector3d<T> getRadii() const { return radii; }
 
 	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
-	Quaternion<T> getOrientation() const { return orientation; }
-
 private:
-	Vector3d<T> center;
 	Vector3d<T> radii;
-	Quaternion<T> orientation;
 };
 	}
 }

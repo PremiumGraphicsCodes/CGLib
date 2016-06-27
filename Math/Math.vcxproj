@@ -33,6 +33,7 @@
     <ClInclude Include="Cylindroid.h" />
     <ClInclude Include="Degree.h" />
     <ClInclude Include="Ellipse.h" />
+    <ClInclude Include="Ellipse3d.h" />
     <ClInclude Include="Ellipsoid.h" />
     <ClInclude Include="Grid3d.h" />
     <ClInclude Include="Grid1d.h" />
@@ -85,6 +86,7 @@
     <ClCompile Include="Cylindroid.cpp" />
     <ClCompile Include="Degree.cpp" />
     <ClCompile Include="Ellipse.cpp" />
+    <ClCompile Include="Ellipse3d.cpp" />
     <ClCompile Include="Ellipsoid.cpp" />
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />

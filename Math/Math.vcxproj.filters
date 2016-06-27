@@ -118,6 +118,9 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="PolyLine3d.cpp" />
+    <ClCompile Include="Ellipse3d.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Plane3d.h" />
@@ -250,6 +253,9 @@
       <Filter>Primitive3d</Filter>
     </ClInclude>
     <ClInclude Include="PolyLine3d.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipse3d.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
   </ItemGroup>

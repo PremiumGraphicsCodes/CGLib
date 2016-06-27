@@ -5,20 +5,20 @@ using namespace Crystal::Math;
 
 template<typename T>
 Ellipsoid<T>::Ellipsoid() :
-	center( 0, 0, 0),
+	IPrimitive3d<T>(center),
 	radii( 0.5, 0.5, 0.5 )
 {}
 
 template<typename T>
 Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const T radius) :
-	center( center ),
+	IPrimitive3d<T>( center ),
 	radii(radius, radius, radius)
 {
 }
 
 template<typename T>
 Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii) :
-	center( center ),
+	IPrimitive3d<T>(center),
 	radii( radii )
 {
 	assert(radii.getX() > T{ 0 });
@@ -28,9 +28,8 @@ Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii) :
 
 template<typename T>
 Ellipsoid<T>::Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii, const Quaternion<T>& orientation) :
-center(center),
-radii(radii),
-orientation(orientation)
+	IPrimitive3d<T>(center, orientation),
+	radii(radii)
 {
 }
 

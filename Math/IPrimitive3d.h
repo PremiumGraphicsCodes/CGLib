@@ -33,6 +33,8 @@ public:
 
 	void rotate(const Quaternion<T> q) { this->orientation *= q; }
 
+	Math::Quaternion<T> getOrientation() const { return orientation; }
+
 protected:
 	Math::Vector3d<T> center;
 	Math::Quaternion<T> orientation;
