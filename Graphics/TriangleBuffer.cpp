@@ -16,12 +16,17 @@ void TriangleBuffer::add(const Point3d<float>& point)
 
 void TriangleBuffer::add(const Surface& surface)
 {
-	const auto& si = surface.toIndices();
+	auto si = surface.toIndices();
+	for (auto& s : si) {
+		s += nextIndex;
+	}
+
 	this->indices.insert(indices.end(), si.begin(), si.end());
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
 		add(*n);
 	}
+	nextIndex += surface.getNodes().size();
 }
 
 void TriangleBuffer::add(const PolygonMesh& polygon)
