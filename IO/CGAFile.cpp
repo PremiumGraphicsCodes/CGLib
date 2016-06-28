@@ -54,7 +54,16 @@ bool CGAFile::read(std::istream& stream)
 			stream >> radiiy;
 			float radiiz = 0;
 			stream >> radiiz;
+			float qx = 0;
+			stream >> qx;
+			float qy = 0;
+			stream >> qy;
+			float qz = 0;
+			stream >> qz;
+			float qw = 0;
+			stream >> qw;
 			auto joint = actor->createJoint(Vector3d<float>(posx, posy, posz), Vector3d<float>(radiix,radiiy,radiiz));
+			joint->setOrientation(Quaternion<float>(qx, qy, qz, qw));
 			joints.push_back(joint);
 		}
 		int boneCount = 0;
@@ -68,7 +77,10 @@ bool CGAFile::read(std::istream& stream)
 			stream >> radiix;
 			float radiiy = 0;
 			stream >> radiiy;
-			actor->createBone(joints[originalJointId], joints[destJointId], Vector2d<float>(radiix, radiiy));
+			float angle = 0;
+			stream >> angle;
+			auto b = actor->createBone(joints[originalJointId], joints[destJointId], Vector2d<float>(radiix, radiiy));
+			b->setRotation(Angle<float>(Degree<float>(angle)));
 		}
 		actors.push_back(actor);
 	}
@@ -97,13 +109,19 @@ bool CGAFile::write(std::ostream& stream)
 		const auto& joints = actor->getJoints();
 		stream << joints.size() << std::endl;
 		for (auto j : joints) {
+			const auto& pos = j->getPosition();
+			const auto& radii = j->getRadii();
 			stream
-				<< j->getPosition().getX() << " "
-				<< j->getPosition().getY() << " "
-				<< j->getPosition().getZ() << " "
-				<< j->getRadii().getX() << " "
-				<< j->getRadii().getY() << " "
-				<< j->getRadii().getZ() << std::endl;
+				<< pos.getX() << " "
+				<< pos.getY() << " "
+				<< pos.getZ() << " "
+				<< radii.getX() << " "
+				<< radii.getY() << " "
+				<< radii.getZ() << " "
+				<< j->getOrientation().getX() << " "
+				<< j->getOrientation().getY() << " "
+				<< j->getOrientation().getZ() << " "
+				<< j->getOrientation().getW() << std::endl;
 		}
 		const auto& bones = actor->getBones();
 		stream << bones.size() << std::endl;
@@ -112,7 +130,8 @@ bool CGAFile::write(std::ostream& stream)
 				<< b->getOriginJoint()->getId() << " "
 				<< b->getDestJoint()->getId() << " "
 				<< b->getThickness().getX() << " "
-				<< b->getThickness().getY() << std::endl;
+				<< b->getThickness().getY() << " "
+				<< b->getRotation().getDegree().get() << std::endl;
 		}
 	}
 	return stream.good();

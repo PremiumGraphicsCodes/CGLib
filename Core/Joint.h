@@ -20,6 +20,14 @@ public:
 		id(id)
 	{}
 
+	Joint(const Math::Vector3d<float>& pos, const Math::Vector3d<float>& radii, const Math::Quaternion<float>& orientation, const unsigned int id = -1) :
+		position(pos),
+		radii(radii),
+		orientation(orientation),
+		id(id)
+	{}
+
+
 	Joint* clone(const unsigned int newId) const;
 
 	void changeId(const unsigned int newId) { this->id = newId; }
@@ -48,9 +56,9 @@ public:
 
 	Math::Ellipsoid<float> toEllipsoid() const;
 
-	//Math::PolarCoord3d<float> getPolarCoord() const { return angle; }
-
 	Math::Quaternion<float> getOrientation() const { return orientation; }
+
+	void setOrientation(const Math::Quaternion<float>& q) { this->orientation = q; }
 
 	void setOrientation(const Math::PolarCoord3d<float>& coord) { this->orientation = coord.getOrientation(); }
 
