@@ -81,7 +81,7 @@ Ellipsoid<float> Bone::toEllipsoid() const
 	const auto length = this->getLength();
 	const auto& orientation = getOrientation();
 	const auto pos = getCenter();
-	const Vector3d<float> radii(length, thickness.getX(), thickness.getY());	
+	const Vector3d<float> radii(length*0.5f, thickness.getX(), thickness.getY());	
 	return Ellipsoid<float>(pos, radii, orientation);
 }
 
