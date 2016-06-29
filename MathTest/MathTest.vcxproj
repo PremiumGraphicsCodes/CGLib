@@ -41,6 +41,7 @@
     <ClCompile Include="Matrix2dTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="Plane3dTest.cpp" />
+    <ClCompile Include="Point3dTest.cpp" />
     <ClCompile Include="PolarCoord3dTest.cpp" />
     <ClCompile Include="PolyLine3dTest.cpp" />
     <ClCompile Include="QuadTest.cpp" />

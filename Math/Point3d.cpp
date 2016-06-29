@@ -44,6 +44,16 @@ void Point3d<T>::scale(const Vector3d<T>& v)
 	position.scale(v.getX(), v.getY(), v.getZ());
 }
 
+template<typename T>
+Point3d<T> Point3d<T>::lerp(const Point3d<T>& rhs, const T param) const
+{
+	const auto pp = position.lerp(rhs.position, param);
+	const auto nn = normal.lerp(rhs.normal, param);
+	const auto p = Vector2d<T>(0, 0);
+	return Point3d<T>(pp, nn, p);
+}
+
+
 
 template class Point3d<float>;
 template class Point3d<double>;

@@ -46,6 +46,8 @@ public:
 			this->parameter == rhs.parameter;
 	}
 
+	Point3d lerp(const Point3d& rhs, const T param) const;
+
 private:
 	Math::Vector3d<T> position;
 	Math::Vector3d<T> normal;

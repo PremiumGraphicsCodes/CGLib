@@ -24,6 +24,8 @@ public:
 
 	Node* getEnd() const { return end; }
 
+	Math::Point3d<float> getMidPoint() const;
+
 	Math::Line3d<float> toLine() const;
 
 	void setId(const int id) { this->id = id; }

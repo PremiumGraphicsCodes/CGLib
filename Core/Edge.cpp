@@ -27,3 +27,8 @@ Line3d<float> Edge::toLine() const
 {
 	return Line3d<float>(start->getPosition(), end->getPosition());
 }
+
+Point3d<float> Edge::getMidPoint() const
+{
+	return start->lerp(*end, 0.5f);
+}

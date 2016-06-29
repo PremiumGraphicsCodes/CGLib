@@ -237,6 +237,16 @@ bool Vector3d<T>::isLeft(const Vector3d<T>& rhs, const Vector3d<T>& normal) cons
 #include "PolarCoord3d.h"
 
 template<typename T>
+Vector3d<T> Vector3d<T>::lerp(const Vector3d& rhs, const T param) const
+{
+	const auto xx = this->x * (1 - param) + rhs.x * param;
+	const auto yy = this->y * (1 - param) + rhs.y * param;
+	const auto zz = this->z * (1 - param) + rhs.z * param;
+	return Vector3d<T>(xx, yy, zz);
+}
+
+
+template<typename T>
 Vector3d<T> Vector3d<T>::slerp(const Vector3d<T>& rhs, const T param) const
 {
 	const auto q1 = toPolarCoord().getOrientation();

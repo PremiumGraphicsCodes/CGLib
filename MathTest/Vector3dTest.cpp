@@ -229,6 +229,19 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 	EXPECT_EQ(Angle<T>(Degree<T>( -45)), Vector3d<T>(1,-1, 0).getElevation());
 }
 
+TYPED_TEST(Vector3dTest, TestLerp)
+{
+	using T = TypeParam;
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, 1, 0);
+		EXPECT_EQ(Vector3d<T>(1, 0, 0), v1.lerp(v2, 0.0));
+		EXPECT_EQ(Vector3d<T>(0, 1, 0), v1.lerp(v2, 1.0));
+		EXPECT_EQ(Vector3d<T>(0.5, 0.5, 0), v1.lerp(v2, 0.5));
+
+	}
+}
+
 TYPED_TEST(Vector3dTest, TestSlerp)
 {
 	using T = TypeParam;
