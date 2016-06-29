@@ -30,6 +30,10 @@ public:
 
 	void setId(const int id) { this->id = id; }
 
+	Edge* createReverse(const int id) const;
+
+	bool isReverse(const Edge& rhs) const;
+
 private:
 	Node* start;
 	Node* end;

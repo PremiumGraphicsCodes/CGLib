@@ -121,6 +121,9 @@
     <ClCompile Include="Ellipse3d.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="ClosedLoop3d.cpp">
+      <Filter>Loop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Plane3d.h" />
@@ -258,6 +261,9 @@
     <ClInclude Include="Ellipse3d.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
+    <ClInclude Include="ClosedLoop3d.h">
+      <Filter>Loop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">
@@ -289,6 +295,9 @@
     </Filter>
     <Filter Include="Primitive2d">
       <UniqueIdentifier>{3b901df7-b979-4498-a6dc-b214262fe88a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Loop">
+      <UniqueIdentifier>{0b8b09a6-5010-44ab-b6ff-36d30aa607ed}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

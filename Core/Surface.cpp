@@ -63,16 +63,10 @@ void Surface::add(const Curve3d<float>& curve)
 		auto v1 = t.get()[0];
 		auto v2 = t.get()[1];
 		auto v3 = t.get()[2];
-		Edge* e1 = new Edge(v1, v2, nextEdgeId++);
-		Edge* e2 = new Edge(v2, v3, nextEdgeId++);
-		Edge* e3 = new Edge(v3, v1, nextEdgeId++);
-
-		Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
-		edges.push_back(e1);
-		edges.push_back(e2);
-		edges.push_back(e3);
-
-		faces.push_back(f1);
+		Edge* e1 = createEdge(v1, v2 );
+		Edge* e2 = createEdge(v2, v3 );
+		Edge* e3 = createEdge(v3, v1 );
+		Face* f1 = createFace(e1, e2, e3);
 	}
 }
 
@@ -95,14 +89,10 @@ void Surface::add(const CircularCurve3d<float>& curve)
 		auto v0 = centerNode;
 		auto v1 = createNodes[i];
 		auto v2 = createNodes[i + 1];
-		Edge* e1 = new Edge(v0, v1, nextEdgeId++);
-		Edge* e2 = new Edge(v1, v2, nextEdgeId++);
-		Edge* e3 = new Edge(v2, v0, nextEdgeId++);
-		Face* f1 = new Face({ e1, e2, e3 }, nextFaceId++);
-		edges.push_back(e1);
-		edges.push_back(e2);
-		edges.push_back(e3);
-		faces.push_back(f1);
+		Edge* e1 = createEdge(v0, v1);
+		Edge* e2 = createEdge(v1, v2);
+		Edge* e3 = createEdge(v2, v0);
+		Face* f1 = createFace(e1, e2, e3);
 	}
 }
 
@@ -280,4 +270,56 @@ std::vector<Vector3d<float>> Surface::getIntersections(const Ray3d<float>& ray) 
 		}
 	}
 	return intersections;
+}
+
+Face* Surface::split(Face* f)
+{
+	const auto& es = f->getEdges();
+	std::vector<Node*> createdNodes;
+	for (const auto& e : es) {
+		createdNodes.push_back(createNode( e->getMidPoint() ) );
+	}
+	std::array<Edge*, 12> createdEdges = {
+		createEdge( es[0]->getStart(), createdNodes[0] ),
+		createEdge( createdNodes[0], es[0]->getEnd() ),
+		createEdge( es[1]->getStart(), createdNodes[1]),
+		createEdge( createdNodes[1], es[1]->getEnd()),
+		createEdge( es[2]->getStart(), createdNodes[2]),
+		createEdge( createdNodes[2], es[2]->getEnd()),
+		createEdge( createdNodes[0], createdNodes[1]),
+		createEdge( createdNodes[1], createdNodes[2]),
+		createEdge( createdNodes[2], createdNodes[0]),
+		createEdge( createdNodes[1], createdNodes[0]),
+		createEdge( createdNodes[0], createdNodes[2]),
+		createEdge( createdNodes[2], createdNodes[1]),
+
+	};
+	std::array<Face*, 4> fs = {
+		createFace(createdEdges[0], createdEdges[10], createdEdges[5]),
+		createFace(createdEdges[1],createdEdges[2], createdEdges[9]),
+		createFace(createdEdges[11],createdEdges[3], createdEdges[4]),
+		createFace(createdEdges[6], createdEdges[7], createdEdges[8])
+	};
+	return nullptr;
+}
+
+Node* Surface::createNode(const Point3d<float>& p)
+{
+	auto n = new Node(p.getPosition(), p.getNormal(), nextNodeId++);
+	nodes.push_back(n);
+	return n;
+}
+
+Edge* Surface::createEdge(Node* start, Node* end)
+{
+	auto e = new Edge(start, end, nextEdgeId++);
+	edges.push_back(e);
+	return e;
+}
+
+Face* Surface::createFace(Edge* e1, Edge* e2, Edge* e3)
+{
+	auto f = new Face({ e1,e2,e3 }, nextFaceId++);
+	faces.push_back(f);
+	return f;
 }

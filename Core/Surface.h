@@ -26,7 +26,6 @@ public:
 
 	Surface(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
-
 	~Surface();
 
 	void add(const Math::Curve3d<float>& curve);
@@ -66,7 +65,15 @@ public:
 
 	void scale(const Math::Vector3d<float>& s);
 
+	Face* split(Face* f);
+
 private:
+	Node* createNode(const Math::Point3d<float>& p);
+
+	Edge* createEdge(Node* start, Node* end);
+
+	Face* createFace(Edge* e1, Edge* e2, Edge* e3);
+
 	int id;
 	int nextNodeId;
 	int nextEdgeId;

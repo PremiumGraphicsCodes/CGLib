@@ -32,3 +32,17 @@ Point3d<float> Edge::getMidPoint() const
 {
 	return start->lerp(*end, 0.5f);
 }
+
+Edge* Edge::createReverse(const int id) const
+{
+	return new Edge(end, start, id);
+}
+
+bool Edge::isReverse(const Edge& rhs) const
+{
+	return
+		this->start == rhs.end &&
+		this->end == rhs.start;
+}
+
+

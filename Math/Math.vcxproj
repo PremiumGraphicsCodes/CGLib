@@ -26,6 +26,7 @@
     <ClInclude Include="Circle2d.h" />
     <ClInclude Include="Circle3d.h" />
     <ClInclude Include="CircularCurve3d.h" />
+    <ClInclude Include="ClosedLoop3d.h" />
     <ClInclude Include="Cone.h" />
     <ClInclude Include="Curve2d.h" />
     <ClInclude Include="Curve3d.h" />
@@ -79,6 +80,7 @@
     <ClCompile Include="Circle2d.cpp" />
     <ClCompile Include="Circle3d.cpp" />
     <ClCompile Include="CircularCurve3d.cpp" />
+    <ClCompile Include="ClosedLoop3d.cpp" />
     <ClCompile Include="Cone.cpp" />
     <ClCompile Include="Curve2d.cpp" />
     <ClCompile Include="Curve3d.cpp" />
