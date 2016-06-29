@@ -45,8 +45,6 @@ template<typename T>
 Vector3d<T> Plane3d<T>::getIntersection(const Line3d<T>& line) const
 {
 	assert(hasIntersection(line));
-	const auto& v = line.getVector();
-	const auto v2 = getNormal().getInnerProduct(v);
 	const auto d1 = getDistance(line.getStart());
 	const auto d2 = getDistance(line.getEnd());
 	const auto param = d1 / (d1 + d2);

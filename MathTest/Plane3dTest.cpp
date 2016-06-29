@@ -22,29 +22,54 @@ TEST(Plane3dTest, TestGetDistance)
 
 TEST(Plane3dTest, TestHasIntersection)
 {
-	const auto& planexz = Plane3d<float>::ZXPlane();// (Vector3d<float>(0, 0, 0), Vector3d<float>(2, 0, 0), Vector3d<float>(0, 0, 2));
+	const auto& planezx = Plane3d<float>::ZXPlane();
+	const auto& planeyz = Plane3d<float>::YZPlane();
+	const auto& planexy = Plane3d<float>::XYPlane();
 
 	const Line3d<float> line1(Vector3d<float>(1, 1, 1), Vector3d<float>(2, 2, 2));
-	const Line3d<float> xyzcorss(Vector3d<float>(-1, -1, -1), Vector3d<float>(2, 2, 2));
-	const Line3d<float> xcross(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0));
-	const Line3d<float> ycross(Vector3d<float>(0, -1, 0), Vector3d<float>(0, 1, 0));
-	const Line3d<float> zcross(Vector3d<float>(0, 0, -1), Vector3d<float>(0, 0, 1));
+	const Line3d<float> xyzcross(Vector3d<float>(-1, -1, -1), Vector3d<float>(2, 2, 2));
+	const Line3d<float> xcross(Vector3d<float>(-1, 1, 1), Vector3d<float>(1, 1, 1));
+	const Line3d<float> ycross(Vector3d<float>(1, -1, 1), Vector3d<float>(1, 1, 1));
+	const Line3d<float> zcross(Vector3d<float>(1, 1, -1), Vector3d<float>(1, 1, 1));
 
-	{
-		EXPECT_FALSE(planexz.hasIntersection(line1));
-		EXPECT_TRUE( planexz.hasIntersection(xyzcorss));
-		EXPECT_FALSE(planexz.hasIntersection(xcross));
-		EXPECT_TRUE( planexz.hasIntersection(ycross));
-		EXPECT_FALSE( planexz.hasIntersection(zcross));
+	EXPECT_FALSE(planezx.hasIntersection(line1));
+	EXPECT_FALSE(planezx.hasIntersection(xcross));
+	EXPECT_TRUE( planezx.hasIntersection(ycross));
+	EXPECT_FALSE(planezx.hasIntersection(zcross));
+	EXPECT_TRUE( planezx.hasIntersection(xyzcross));
 
-	}
-	{
-		const auto& plane = Plane3d<float>::YZPlane();
-		EXPECT_FALSE(plane.hasIntersection(line1));
-		EXPECT_TRUE(plane.hasIntersection(xyzcorss));
-		EXPECT_TRUE(plane.hasIntersection(xcross));
-		EXPECT_FALSE(plane.hasIntersection(ycross));
-		EXPECT_FALSE(plane.hasIntersection(zcross));
+	EXPECT_FALSE(planeyz.hasIntersection(line1));
+	EXPECT_TRUE( planeyz.hasIntersection(xcross));
+	EXPECT_FALSE(planeyz.hasIntersection(ycross));
+	EXPECT_FALSE(planeyz.hasIntersection(zcross));
+	EXPECT_TRUE( planeyz.hasIntersection(xyzcross));
 
-	}
+	EXPECT_FALSE(planexy.hasIntersection(line1));
+	EXPECT_FALSE(planexy.hasIntersection(xcross));
+	EXPECT_FALSE(planexy.hasIntersection(ycross));
+	EXPECT_TRUE( planexy.hasIntersection(zcross));
+	EXPECT_TRUE(planeyz.hasIntersection(xyzcross));
+
+}
+
+TEST(Plane3dTest, TestGetIntersection)
+{
+	const auto& planezx = Plane3d<float>::ZXPlane();// (Vector3d<float>(0, 0, 0), Vector3d<float>(2, 0, 0), Vector3d<float>(0, 0, 2));
+	const auto& planeyz = Plane3d<float>::YZPlane();
+	const auto& planexy = Plane3d<float>::XYPlane();
+
+	const Line3d<float> xcross(Vector3d<float>(-1, 1, 1), Vector3d<float>(1, 1, 1));
+	const Line3d<float> ycross(Vector3d<float>(1, -1, 1), Vector3d<float>(1, 1, 1));
+	const Line3d<float> zcross(Vector3d<float>(1, 1, -1), Vector3d<float>(1, 1, 1));
+	const Line3d<float> xyzcross(Vector3d<float>(-1, -1, -1), Vector3d<float>(2, 2, 2));
+
+
+	EXPECT_EQ( Vector3d<float>(0,0,0), planezx.getIntersection(xyzcross));
+	EXPECT_EQ( Vector3d<float>(1,0,1), planezx.getIntersection(ycross));
+	EXPECT_EQ( Vector3d<float>(0,1,1), planeyz.getIntersection(xcross));
+	EXPECT_EQ( Vector3d<float>(0,0,0), planeyz.getIntersection(xyzcross));
+	EXPECT_EQ( Vector3d<float>(1,1,0), planexy.getIntersection(zcross));
+	EXPECT_EQ( Vector3d<float>(0,0,0), planexy.getIntersection(xyzcross));
+
+	//EXPECT_FALSE(planexz.hasIntersection(zcross));
 }
