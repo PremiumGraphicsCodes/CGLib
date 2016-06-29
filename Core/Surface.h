@@ -65,7 +65,7 @@ public:
 
 	void scale(const Math::Vector3d<float>& s);
 
-	Face* split(Face* f);
+	Surface* split(Face* f);
 
 private:
 	Node* createNode(const Math::Point3d<float>& p);
@@ -73,6 +73,8 @@ private:
 	Edge* createEdge(Node* start, Node* end);
 
 	Face* createFace(Edge* e1, Edge* e2, Edge* e3);
+
+	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
 
 	int id;
 	int nextNodeId;

@@ -152,3 +152,29 @@ TEST(SurfaceTest, TestGetIntersections)
 	const auto& actual = surface.getIntersections(ray);
 	EXPECT_EQ(2, actual.size());
 }
+
+TEST(SurfaceTest, TestSplit)
+{
+	Curve3d<float> curve(2, 2);
+
+	Point3d<float> p1(Vector3d<float>(0, 0, 0));
+	Point3d<float> p2(Vector3d<float>(0, 1, 0));
+	Point3d<float> p3(Vector3d<float>(1, 0, 0));
+	Point3d<float> p4(Vector3d<float>(1, 1, 0));
+
+	curve.set(0, 0, p1);
+	curve.set(0, 1, p2);
+	curve.set(1, 0, p3);
+	curve.set(1, 1, p4);
+
+	Surface surface(curve);
+	auto f = surface.getFaces().front();
+	Surface* actual = surface.split(f);
+
+	EXPECT_EQ(actual->getNodes().size(), 6);
+	EXPECT_EQ(actual->getFaces().size(), 4);
+
+
+	//EXPECT_EQ(Vector3d<float>(0,0,0), actual->getNodes().front());
+	delete actual;
+}
