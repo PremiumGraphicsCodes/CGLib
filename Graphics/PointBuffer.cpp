@@ -7,6 +7,7 @@
 
 #include <memory>
 
+using namespace Crystal::Math;
 using namespace Crystal::Physics;
 using namespace Crystal::Graphics;
 using namespace Crystal::Core;
@@ -34,7 +35,12 @@ Point::Point(const Vertex& vertex)
 	size = 1.0f;
 }
 
-
+void PointBuffer::add(const Vector3d<float>& position, const ColorRGBA<float>& color, const float size)
+{
+	this->position.add(position);
+	this->color.add(color);
+	this->sizes.add(size);
+}
 
 void PointBuffer::add(const Volume& volume)
 {

@@ -59,6 +59,8 @@ public:
 
 	void clear();
 
+	void add(const Math::Vector3d<float>& position, const ColorRGBA<float>& color, const float size);
+
 	void add(const Point& point);
 
 	void add(const Core::PolygonMesh& polygon);
