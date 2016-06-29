@@ -44,6 +44,8 @@ public:
 
 	bool operator!=(const Line3d<T>& rhs) const { return !equals(rhs); }
 
+	Vector3d<T> getVector() const { return vector; }
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> vector;

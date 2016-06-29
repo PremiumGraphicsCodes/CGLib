@@ -5,6 +5,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename T>
+		class Line3d;
 
 template<typename T>
 class Plane3d
@@ -20,6 +22,8 @@ public:
 
 	Math::Vector3d<T> getNormal() const;
 
+	T getDistance(const Math::Vector3d<T>& p) const;
+
 	T getSignedDistance(const Math::Vector3d<T>& p) const;
 
 	bool equals(const Plane3d<T>& rhs) const {
@@ -32,6 +36,10 @@ public:
 	bool operator==(const Plane3d<T>& rhs) const { return equals(rhs); }
 
 	bool operator!=(const Plane3d<T>& rhs) const { return !equals(rhs); }
+
+	bool hasIntersection(const Line3d<T>& line) const;
+
+	Vector3d<T> getIntersection(const Line3d<T>& line) const;
 
 private:
 	const Math::Vector3d<T> point;

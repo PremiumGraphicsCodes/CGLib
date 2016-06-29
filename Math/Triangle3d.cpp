@@ -1,4 +1,5 @@
 #include "Triangle3d.h"
+#include "Line3d.h"
 
 using namespace Crystal::Math;
 
@@ -74,6 +75,17 @@ bool Triangle3d<T>::operator!=(const Triangle3d<T>& rhs) const
 	return !equals(rhs);
 }
 
+/*
+#include "Ray3d.h"
+
+template<typename T>
+Vector3d<T> Triangle3d<T>::getIntersection(const Line3d<T>& line) const
+{
+	Ray3d<T> ray(line.getStart(), line.getVector().getNormalized());
+	const auto i = ray.getIntersection(*this);
+	if(line.ge)
+}
+*/
 
 
 template class Triangle3d<float>;

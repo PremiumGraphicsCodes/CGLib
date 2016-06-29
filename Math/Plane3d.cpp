@@ -1,4 +1,5 @@
 #include "Plane3d.h"
+#include "Line3d.h"
 
 using namespace Crystal::Math;
 
@@ -17,6 +18,13 @@ Vector3d<T> Plane3d<T>::getNormal() const
 }
 
 template<typename T>
+T Plane3d<T>::getDistance(const Vector3d<T>& p) const
+{
+	return std::fabs(getSignedDistance(p));
+}
+
+
+template<typename T>
 T Plane3d<T>::getSignedDistance(const Vector3d<T>& p) const
 {
 	const auto v = p - point;
@@ -24,6 +32,26 @@ T Plane3d<T>::getSignedDistance(const Vector3d<T>& p) const
 	return n.getInnerProduct(v);
 }
 
+template<typename T>
+bool Plane3d<T>::hasIntersection(const Line3d<T>& line) const
+{
+	const auto d1 = getSignedDistance( line.getStart() );
+	const auto d2 = getSignedDistance(line.getEnd());
+	return (d1 * d2) < 0;
+}
+
+
+template<typename T>
+Vector3d<T> Plane3d<T>::getIntersection(const Line3d<T>& line) const
+{
+	assert(hasIntersection(line));
+	const auto& v = line.getVector();
+	const auto v2 = getNormal().getInnerProduct(v);
+	const auto d1 = getDistance(line.getStart());
+	const auto d2 = getDistance(line.getEnd());
+	const auto param = d1 / (d1 + d2);
+	return line.getPosition(param);
+}
 
 template class Plane3d<float>;
 template class Plane3d<double>;

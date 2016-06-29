@@ -8,6 +8,8 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename T>
+		class Line3d;
 
 template<typename T>
 class Triangle3d
@@ -79,6 +81,9 @@ public:
 	bool operator==(const Triangle3d<T>& rhs) const;
 
 	bool operator!=(const Triangle3d<T>& rhs) const;
+
+	//Vector3d<T> getIntersection(const Line3d<T>& line) const;
+
 
 private:
 	Vector3d<T> v0;
