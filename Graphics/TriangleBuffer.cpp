@@ -5,6 +5,12 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
+TriangleBuffer::TriangleBuffer() :
+	nextIndex(0)
+{
+
+}
+
 
 void TriangleBuffer::add(const Point3d<float>& point)
 {
