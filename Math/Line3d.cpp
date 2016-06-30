@@ -40,7 +40,7 @@ T Line3d<T>::getDistance(const Vector3d<T>& position) const
 
 
 template<typename T>
-std::vector<Vector3d<T>> Line3d<T>::toPositionsByLength(const double divideLength) const
+std::vector<Vector3d<T>> Line3d<T>::toPositionsByLength(const T divideLength) const
 {
 	std::vector<Vector3d<T>> positions;
 	const unsigned int howMany = static_cast<unsigned int>(static_cast<double>(getLength()) / divideLength);
@@ -60,6 +60,55 @@ std::vector<Vector3d<T>> Line3d<T>::toPositionsByNumber(const unsigned int howMa
 	return std::move(positions);
 }
 
+template<typename T>
+bool Line3d<T>::hasIntersection(const Line3d<T>& rhs) const
+{
+	const auto v1 = this->getVector().getNormalized();
+	const auto v2 = rhs.getVector().getNormalized();
+	const auto v3 = rhs.start - this->start;
+	const auto n1 = v1.getOuterProduct(v2);
+	const auto n2 = v1.getOuterProduct(v3);
+	if (Tolerance<T>::isEqualLoosely(n2.getLength()), T{ 0 }) {
+		return true;
+	}
+	if (n1.getLength() > 0) {
+		if (Tolerance<T>::isEqualLoosely(n1.getOuterProduct(n2).getLength(), T{ 0 })) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/*
+template<typename T>
+T Line3d<T>::getDistance(const Line3d<T>& rhs) const
+{
+	const auto l1 = this->getVector();
+	const auto l2 = rhs.getVector();
+	const auto v = rhs.getStart() - this->getStart();
+	const auto outerProduct = l1.getOuterProduct(l2);
+	const auto numerator = outerProduct.getInnerProduct( v );
+	const auto denominator = outerProduct.getLength();
+	return numerator / denominator;
+}
+
+
+template<typename T>
+Vector3d<T> Line3d<T>::getIntersection(const Line3d<T>& rhs) const
+{
+	const auto v1 = this->getVector().getNormalized();
+	const auto v2 = rhs.getVector().getNormalized();
+	const auto v3 = rhs.start - this->start;
+
+	const auto w1 = v1.getInnerProduct(v2);
+	const auto w2 = 1 - w1 * w1;
+
+	const auto d1 = (v3.getInnerProduct(v1) - w1 * v3.getInnerProduct(v2)) / w2;
+//	const auto d2 = (w1 * v3.getInnerProduct(v1) - v3.getInnerProduct(v2)) / w2;
+
+	return getPosition(d1);
+}
+*/
 
 
 template class Line3d<float>;

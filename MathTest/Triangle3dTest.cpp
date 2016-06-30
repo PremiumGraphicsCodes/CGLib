@@ -55,3 +55,23 @@ TYPED_TEST(Triangle3dTest, TestIsCCW)
 	using T = TypeParam;
 	EXPECT_TRUE( Triangle3d<T>().isCCW() );
 }
+
+
+TYPED_TEST(Triangle3dTest, TestIsInside)
+{
+	using T = TypeParam;
+	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	EXPECT_TRUE( triangle.isInside(Vector3d<T>( 0, 0.5, 0)));
+	EXPECT_FALSE(triangle.isInside(Vector3d<T>(-2, 0, 0)));
+	EXPECT_FALSE(triangle.isInside(Vector3d<T>( 2, 0, 0)));
+
+}
+
+TYPED_TEST(Triangle3dTest, TestIsOutside)
+{
+	using T = TypeParam;
+	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	EXPECT_FALSE(triangle.isOutside(Vector3d<T>(0, 0.5, 0)));
+	EXPECT_TRUE( triangle.isOutside(Vector3d<T>(-2, 0, 0)));
+	EXPECT_TRUE( triangle.isOutside(Vector3d<T>(2, 0, 0)));
+}

@@ -40,6 +40,7 @@
     <ClInclude Include="Grid1d.h" />
     <ClInclude Include="Grid2d.h" />
     <ClInclude Include="Index2d.h" />
+    <ClInclude Include="Intersection3d.h" />
     <ClInclude Include="IPrimitive3d.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix.h" />
@@ -93,6 +94,7 @@
     <ClCompile Include="Grid1d.cpp" />
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />
+    <ClCompile Include="Intersection3d.cpp" />
     <ClCompile Include="Kernel.cpp" />
     <ClCompile Include="Line3d.cpp" />
     <ClCompile Include="Matrix.cpp" />

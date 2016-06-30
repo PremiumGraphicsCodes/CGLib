@@ -124,6 +124,7 @@
     <ClCompile Include="ClosedLoop3d.cpp">
       <Filter>Loop</Filter>
     </ClCompile>
+    <ClCompile Include="Intersection3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Plane3d.h" />
@@ -264,6 +265,7 @@
     <ClInclude Include="ClosedLoop3d.h">
       <Filter>Loop</Filter>
     </ClInclude>
+    <ClInclude Include="Intersection3d.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

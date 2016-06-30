@@ -75,3 +75,34 @@ TYPED_TEST(Line3dTest, TestGetDistance)
 	const auto actual = line.getDistance(Vector3d<T>(0.5, 1.0, 0.0));
 	EXPECT_EQ(actual, 1.0);
 }
+
+/*
+TYPED_TEST(Line3dTest, TestHasIntersection)
+{
+	using T = TypeParam;
+	Line3d<T> xline(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0));
+	Line3d<T> yline(Vector3d<T>(0, -1, 0), Vector3d<T>(0, 1, 0));
+	Line3d<T> zline(Vector3d<T>(0, 0, -1), Vector3d<T>(0, 0, 1));
+
+	EXPECT_TRUE(xline.hasIntersection(yline));
+	EXPECT_TRUE(yline.hasIntersection(xline));
+
+	EXPECT_TRUE(xline.hasIntersection(zline));
+	EXPECT_TRUE(zline.hasIntersection(yline));
+
+	EXPECT_FALSE(xline.hasIntersection(Line3d<T>(Vector3d<T>(2, 0, 0), Vector3d<T>(4, 0, 0))));
+}
+
+TYPED_TEST(Line3dTest, TestGetDistanceByLine)
+{
+	using T = TypeParam;
+	Line3d<T> xline(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0));
+	Line3d<T> xline2(Vector3d<T>(2, 0, 0), Vector3d<T>(4, 2, 0));
+
+	Line3d<T> yline(Vector3d<T>(0, -1, 0), Vector3d<T>(0, 1, 0));
+
+	EXPECT_EQ(0, xline.getDistance(yline));
+	EXPECT_EQ(1, xline.getDistance(xline2));
+
+}
+*/

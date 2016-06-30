@@ -58,12 +58,6 @@ public:
 		return ( v0 != v1 ) && ( v1 != v2 ) && ( v0 != v2 );
 	}
 
-	/*
-	bool isShrinekd() const {
-		return Tolerance<T>::isEqualLoosely( get)
-	}
-	*/
-
 	Vector3d<T> getv0() const { return v0; }
 
 	Vector3d<T> getv1() const { return v1; }
@@ -81,6 +75,10 @@ public:
 	bool operator==(const Triangle3d<T>& rhs) const;
 
 	bool operator!=(const Triangle3d<T>& rhs) const;
+
+	bool isInside(const Vector3d<T>& position) const;
+
+	bool isOutside(const Vector3d<T>& position) const;
 
 	//Vector3d<T> getIntersection(const Line3d<T>& line) const;
 

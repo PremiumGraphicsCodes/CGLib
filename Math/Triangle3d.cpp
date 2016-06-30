@@ -75,6 +75,26 @@ bool Triangle3d<T>::operator!=(const Triangle3d<T>& rhs) const
 	return !equals(rhs);
 }
 
+template<typename T>
+bool Triangle3d<T>::isInside(const Vector3d<T>& position) const
+{
+	const auto& o1 = v0.getOuterProduct(position);
+	const auto& o2 = v1.getOuterProduct(position);
+	const auto& o3 = v2.getOuterProduct(position);
+	const auto dir1 = o1.getInnerProduct(o1);
+	const auto dir2 = o2.getInnerProduct(o2);
+	return (dir1 * dir2) > T{ 0 };
+}
+
+template<typename T>
+bool Triangle3d<T>::isOutside(const Vector3d<T>& position) const
+{
+	return !isInside(position);
+}
+
+//template<typename T>
+//Vector3d<T> getIntersection
+
 /*
 #include "Ray3d.h"
 

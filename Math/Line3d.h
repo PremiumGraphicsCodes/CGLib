@@ -34,7 +34,7 @@ public:
 
 	T getLength() const { return vector.getLength(); }
 
-	std::vector<Vector3d<T>> toPositionsByLength(const double divideLength) const;
+	std::vector<Vector3d<T>> toPositionsByLength(const T divideLength) const;
 
 	std::vector<Vector3d<T>> toPositionsByNumber(const unsigned int howMany) const;
 
@@ -45,6 +45,12 @@ public:
 	bool operator!=(const Line3d<T>& rhs) const { return !equals(rhs); }
 
 	Vector3d<T> getVector() const { return vector; }
+
+	bool hasIntersection(const Line3d<T>& rhs) const;
+
+	//T getDistance(const Line3d<T>& rhs) const;
+
+	//Vector3d<T> getIntersection(const Line3d<T>& rhs) const;
 
 private:
 	Vector3d<T> start;
