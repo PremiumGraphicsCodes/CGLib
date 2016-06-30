@@ -80,6 +80,7 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Point3dTest.cpp" />
+    <ClCompile Include="Intersection3dTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">

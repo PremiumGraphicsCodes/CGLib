@@ -36,8 +36,11 @@ Intersection3d<T>::Intersection3d(const Line3d<T>& line, const Triangle3d<T>& tr
 	const auto a2 = v2.getInnerProduct(v3);
 	const auto a3 = v3.getInnerProduct(v1);
 	const auto angle = Radian<T>( std::acos(a1) + std::acos(a2) + std::acos(a3) );
-	if (angle.get() > Tolerance<T>::getTwoPI()) {
+	if (::fabs( angle.get() - Tolerance<T>::getTwoPI() ) > 0) {
 		return;
 	}
 	this->intersections.push_back(pos);
 }
+
+template class Intersection3d<float>;
+template class Intersection3d<double>;
