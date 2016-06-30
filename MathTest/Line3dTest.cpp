@@ -76,6 +76,21 @@ TYPED_TEST(Line3dTest, TestGetDistance)
 	EXPECT_EQ(actual, 1.0);
 }
 
+TYPED_TEST(Line3dTest, TestGetIntersection)
+{
+	using T = TypeParam;
+	Line3d<T> linex(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0));
+	Line3d<T> liney(Vector3d<T>(0, -1, 0), Vector3d<T>(0, 1, 0));
+	Line3d<T> linez(Vector3d<T>(0, 0, -1), Vector3d<T>(0, 0, 1));
+
+	EXPECT_EQ(Vector3d<T>(0,0,0), linex.getIntersection(liney));
+	EXPECT_EQ(Vector3d<T>(0,0,0), linex.getIntersection(linez));
+	EXPECT_EQ(Vector3d<T>(1,0,0), linex.getIntersection(Line3d<T>(Vector3d<T>(1,-1,0),Vector3d<T>(1, 1, 0))));
+
+	//EXPECT_EQ(actual, 1.0);
+}
+
+
 /*
 TYPED_TEST(Line3dTest, TestHasIntersection)
 {

@@ -50,7 +50,7 @@ public:
 
 	//T getDistance(const Line3d<T>& rhs) const;
 
-	//Vector3d<T> getIntersection(const Line3d<T>& rhs) const;
+	Vector3d<T> getIntersection(const Line3d<T>& rhs) const;
 
 private:
 	Vector3d<T> start;

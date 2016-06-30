@@ -91,24 +91,27 @@ T Line3d<T>::getDistance(const Line3d<T>& rhs) const
 	const auto denominator = outerProduct.getLength();
 	return numerator / denominator;
 }
-
+*/
 
 template<typename T>
 Vector3d<T> Line3d<T>::getIntersection(const Line3d<T>& rhs) const
 {
-	const auto v1 = this->getVector().getNormalized();
-	const auto v2 = rhs.getVector().getNormalized();
-	const auto v3 = rhs.start - this->start;
+	const auto ab = this->getVector();
+	const auto cd = rhs.getVector();
 
-	const auto w1 = v1.getInnerProduct(v2);
-	const auto w2 = 1 - w1 * w1;
+	const auto n1 = ab.getNormalized();
+	const auto n2 = cd.getNormalized();
 
-	const auto d1 = (v3.getInnerProduct(v1) - w1 * v3.getInnerProduct(v2)) / w2;
+	const auto work1 = n1.getInnerProduct(n2);
+	const auto work2 = 1 - work1 * work1;
+
+	const auto ac = rhs.getStart() - this->getStart();
+
+	const auto d1 = (ac.getInnerProduct(n1) - work1 * ac.getInnerProduct(n2)) / work2;
 //	const auto d2 = (w1 * v3.getInnerProduct(v1) - v3.getInnerProduct(v2)) / w2;
 
-	return getPosition(d1);
+	return getStart() + d1 * n1;
 }
-*/
 
 
 template class Line3d<float>;
