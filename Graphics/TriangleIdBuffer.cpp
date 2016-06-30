@@ -33,6 +33,27 @@ void TriangleIdBuffer::add(const Surface& surface, const DrawableID& did)
 	nextIndex += surface.getNodes().size();
 }
 
+void TriangleIdBuffer::add(const Surface& surface)
+{
+	auto si = surface.toIndices();
+	for (auto& s : si) {
+		s += nextIndex;
+	}
+	this->indices.insert(indices.end(), si.begin(), si.end());
+	const auto faceIds = surface.toFaceIds();
+	for (auto& f : faceIds) {
+		//add(*n, DrawableID(n->getId(), surface.getId()));
+		idColors.add(DrawableID(f, surface.getId()).toColor());
+	}
+
+	const auto& nodes = surface.getNodes();
+	for (auto& n : nodes) {
+		//add(*n, DrawableID(n->getId(), surface.getId()));
+		positions.add(n->getPosition());
+	}
+	nextIndex += surface.getNodes().size();
+}
+
 
 void TriangleIdBuffer::add(const Point3d<float>& point, const DrawableID& did)
 {

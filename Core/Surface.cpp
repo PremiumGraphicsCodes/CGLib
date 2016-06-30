@@ -176,7 +176,18 @@ std::vector<unsigned int> Surface::toIndices() const
 		for (auto e : edges) {
 			indices.push_back( e->getStart()->getId() );
 		}
-		//indices.push_back( edges.back()->getEnd()->getId() );
+	}
+	return indices;
+}
+
+std::vector<unsigned int> Surface::toFaceIds() const
+{
+	std::vector<unsigned int> indices;
+	for (auto f : faces) {
+		const auto& edges = f->getEdges();
+		for (auto e : edges) {
+			indices.push_back(f->getId());
+		}
 	}
 	return indices;
 }
@@ -298,4 +309,25 @@ Face* Surface::createTriangleFace(Node* n1, Node* n2, Node* n3)
 	auto e2 = createEdge(n2, n3);
 	auto e3 = createEdge(n3, n1);
 	return createFace(e1, e2, e3);
+}
+
+Node* Surface::findNodeById(const int id)
+{
+	for (auto n : nodes) {
+		if (n->getId() == id) {
+			return n;
+		}
+	}
+	return nullptr;
+}
+
+Face* Surface::findFaceById(const int id)
+{
+	for (auto f : faces) {
+		if (f->getId() == id) {
+			return f;
+		}
+	}
+	return nullptr;
+
 }

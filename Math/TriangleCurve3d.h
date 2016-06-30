@@ -27,7 +27,7 @@ public:
 
 	//void transform(const Matrix3d<T>& matrix);
 
-	int getSize() const { return points.size(); }
+	size_t getSize() const { return points.size(); }
 
 	//TriangleCell<T> toCells() const;
 

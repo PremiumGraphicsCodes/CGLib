@@ -20,8 +20,6 @@ class Surface
 public:
 	Surface();
 
-	//explicit Surface(const Math::Curve2d<float>& curve):
-
 	Surface(const Math::Curve3d<float>& curve, const int id = -1);
 
 	Surface(const Math::TriangleCurve3d<float>& curve, const int id = -1);
@@ -34,7 +32,6 @@ public:
 
 	void add(const Math::TriangleCurve3d<float>& curve);
 
-
 	void merge(Surface& rhs);
 
 	void clear();
@@ -46,6 +43,8 @@ public:
 	std::list<Node*> getNodes() const { return nodes; }
 
 	std::vector<unsigned int> toIndices() const;
+
+	std::vector<unsigned int> toFaceIds() const;
 
 	Face* subdiv(const Face* face);
 	
@@ -66,6 +65,10 @@ public:
 	void scale(const Math::Vector3d<float>& s);
 
 	Surface* split(Face* f);
+
+	Node* findNodeById(const int id);
+
+	Face* findFaceById(const int id);
 
 private:
 	Node* createNode(const Math::Point3d<float>& p);

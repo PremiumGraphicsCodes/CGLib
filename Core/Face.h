@@ -35,6 +35,8 @@ public:
 
 	void setId(const int id) { this->id = id; }
 
+	int getId() const { return id; }
+
 private:
 	std::vector<Edge*> edges;
 	int id;
