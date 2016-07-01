@@ -42,6 +42,7 @@
     </ClCompile>
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceFactory.cpp" />
+    <ClCompile Include="SurfaceSplitter.cpp" />
     <ClCompile Include="TriFace.cpp" />
     <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="NodeCollection.h" />
     <ClInclude Include="SurfaceFactory.h" />
+    <ClInclude Include="SurfaceSplitter.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="IParticle.h" />

@@ -21,6 +21,8 @@ public:
 
 	void merge(FaceCollection_& rhs);
 
+	void remove(Face* f);
+
 private:
 	int nextId;
 	std::list<Face*> faces;

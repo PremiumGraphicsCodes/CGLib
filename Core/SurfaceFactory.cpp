@@ -8,6 +8,14 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+SurfaceFactory::SurfaceFactory(NodeCollection& nodes, EdgeCollection& edges, FaceCollection_& faces)
+{
+	this->nodes.merge(nodes);
+	this->edges.merge(edges);
+	this->faces.merge(faces);
+}
+
+
 SurfaceFactory::~SurfaceFactory()
 {
 	clear();
@@ -118,21 +126,11 @@ Face* SurfaceFactory::createTriangleFace(Node* n1, Node* n2, Node* n3)
 	return faces.create(e1, e2, e3);
 }
 
-void SurfaceFactory::split(Face* f)
+void SurfaceFactory::merge(SurfaceFactory& rhs)
 {
-	const auto& es = f->getEdges();
-	std::vector<Node*> startPoints;
-	std::vector<Node*> midPoints;
-	for (const auto& e : es) {
-		startPoints.push_back(e->getStart());
-		midPoints.push_back(nodes.create(e->getMidPoint()));
-	}
-
-	createTriangleFace(startPoints[0], midPoints[0], midPoints[2]);
-	createTriangleFace(midPoints[0], startPoints[1], midPoints[1]);
-	createTriangleFace(midPoints[1], startPoints[2], midPoints[2]);
-
-
-	createTriangleFace(midPoints[0], midPoints[1], midPoints[2]);
-
+	nodes.merge(rhs.nodes);
+	edges.merge(rhs.edges);
+	faces.merge(rhs.faces);
 }
+
+

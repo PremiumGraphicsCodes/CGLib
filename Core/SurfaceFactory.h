@@ -13,6 +13,10 @@ namespace Crystal {
 class SurfaceFactory : private UnCopyable
 {
 public:
+	SurfaceFactory() = default;
+
+	SurfaceFactory(NodeCollection& nodes, EdgeCollection& edges, FaceCollection_& faces);
+
 	~SurfaceFactory();
 
 	void clear();
@@ -23,12 +27,14 @@ public:
 
 	Surface* create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
-	void split(Face* f);
+	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
 
 	//void remove(Node* n);
 
+	void merge(SurfaceFactory& rhs);
+
+
 private:
-	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
 
 	Surface* create(int id);
 

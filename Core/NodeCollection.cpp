@@ -40,3 +40,10 @@ void NodeCollection::merge(NodeCollection& rhs)
 	nodes.insert(nodes.end(), rhs.nodes.begin(), rhs.nodes.end());
 	rhs.nodes.clear();
 }
+
+void NodeCollection::remove(Node* n)
+{
+	auto found = std::find(nodes.begin(), nodes.end(), n);
+	delete n;
+	nodes.remove(n);
+}

@@ -41,3 +41,10 @@ void EdgeCollection::merge(EdgeCollection& rhs)
 	edges.insert(edges.end(), rhs.edges.begin(), rhs.edges.end());
 	rhs.edges.clear();
 }
+
+void EdgeCollection::remove(Edge* e)
+{
+	auto found = std::find(edges.begin(), edges.end(), e);
+	delete e;
+	edges.remove(*found);
+}

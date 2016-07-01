@@ -23,6 +23,8 @@ public:
 
 	void merge(NodeCollection& rhs);
 
+	void remove(Node* n);
+
 private:
 	std::list<Node*> nodes;
 

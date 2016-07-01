@@ -38,3 +38,10 @@ void FaceCollection_::merge(FaceCollection_& rhs)
 	faces.insert(faces.end(), rhs.faces.begin(), rhs.faces.end());
 	rhs.faces.clear();
 }
+
+void FaceCollection_::remove(Face* f)
+{
+	auto found = std::find(faces.begin(), faces.end(), f);
+	delete f;
+	faces.remove(*found);
+}

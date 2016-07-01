@@ -24,6 +24,8 @@ public:
 
 	void merge(EdgeCollection& rhs);
 
+	void remove(Edge* e);
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

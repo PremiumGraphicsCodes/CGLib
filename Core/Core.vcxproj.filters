@@ -77,6 +77,9 @@
     <ClCompile Include="SurfaceFactory.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceSplitter.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="SurfaceFactory.h">
       <Filter>Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceSplitter.h">
+      <Filter>Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
