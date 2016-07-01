@@ -23,10 +23,11 @@ TEST(SurfaceTest, Test)
 	EXPECT_EQ( p3, curve.get(1, 0) );
 	EXPECT_EQ( p4, curve.get(1, 1));
 
-	Surface surface(curve);
-	EXPECT_EQ(12, surface.getEdges().size());
-	EXPECT_EQ(4, surface.getNodes().size());
-	EXPECT_EQ(4, surface.getFaces().size());
+	SurfaceFactory factory;
+	auto surface = factory.create(curve);
+	EXPECT_EQ(12, surface->getEdges().size());
+	EXPECT_EQ(4, surface->getNodes().size());
+	EXPECT_EQ(4, surface->getFaces().size());
 }
 
 TEST(SurfaceTest, TestConstructByTriangleCurve3d)
@@ -41,10 +42,11 @@ TEST(SurfaceTest, TestConstructByTriangleCurve3d)
 	curve.set(1, 0, p2);
 	curve.set(1, 1, p3);
 
-	Surface surface(curve);
-	EXPECT_EQ(3, surface.getNodes().size());
-	EXPECT_EQ(3, surface.getEdges().size());
-	EXPECT_EQ(1, surface.getFaces().size());
+	SurfaceFactory factory;
+	auto surface = factory.create(curve);
+	EXPECT_EQ(3, surface->getNodes().size());
+	EXPECT_EQ(3, surface->getEdges().size());
+	EXPECT_EQ(1, surface->getFaces().size());
 
 }
 
@@ -57,7 +59,8 @@ TEST(SurfaceTest, TestConstructByTriangleCurve3d2)
 	curve.set(2, 0, Point3d<float>(Vector3d<float>(-2, 0, 0)));
 	curve.set(2, 1, Point3d<float>(Vector3d<float>(0, 0, 0)));
 	curve.set(2, 2, Point3d<float>(Vector3d<float>(2, 0, 0)));
-	Surface surface(curve);
+	SurfaceFactory factory;
+	auto f = factory.create(curve);
 }
 
 
@@ -80,18 +83,19 @@ TEST(SurfaceTest, TestMerge)
 	EXPECT_EQ(p3, curve.get(1, 0));
 	EXPECT_EQ(p4, curve.get(1, 1));
 
-	Surface surface1(curve);
-	Surface surface2(curve);
-	surface1.merge(surface2);
-	EXPECT_EQ(24, surface1.getEdges().size());
-	EXPECT_EQ(8, surface1.getNodes().size());
-	EXPECT_EQ(8, surface1.getFaces().size());
+	SurfaceFactory f1;
+	Surface* surface1 = f1.create(curve);
+	SurfaceFactory f2;
+	Surface* surface2 = f2.create(curve);
+	surface1->merge(*surface2);
+	EXPECT_EQ(24, surface1->getEdges().size());
+	EXPECT_EQ(8, surface1->getNodes().size());
+	EXPECT_EQ(8, surface1->getFaces().size());
 
-	EXPECT_TRUE(surface2.getEdges().empty());
-	EXPECT_TRUE(surface2.getNodes().empty());
-	EXPECT_TRUE(surface2.getFaces().empty());
+	EXPECT_TRUE(surface2->getEdges().empty());
+	EXPECT_TRUE(surface2->getNodes().empty());
+	EXPECT_TRUE(surface2->getFaces().empty());
 }
-
 
 TEST(SurfaceTest, TestGetBoundingBox)
 {
@@ -107,9 +111,10 @@ TEST(SurfaceTest, TestGetBoundingBox)
 	curve.set(1, 0, p3);
 	curve.set(1, 1, p4);
 
-	Surface surface(curve);
+	SurfaceFactory factory;
+	Surface* surface = factory.create(curve);
 	Box3d<float> expected(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 0));
-	Box3d<float> actual = surface.getBoundingBox();
+	Box3d<float> actual = surface->getBoundingBox();
 	EXPECT_EQ( expected, actual);
 }
 
@@ -127,9 +132,10 @@ TEST(SurfaceTest, TestGetBoundingSphere)
 	curve.set(1, 0, p3);
 	curve.set(1, 1, p4);
 
-	Surface surface(curve);
+	SurfaceFactory factory;
+	Surface* surface = factory.create(curve);
 	Sphere<float> expected(Vector3d<float>(1, 1, 0.0), std::sqrt(2));
-	Sphere<float> actual = surface.getBoundingSphere();
+	Sphere<float> actual = surface->getBoundingSphere();
 	EXPECT_EQ(expected, actual);
 }
 
@@ -147,9 +153,10 @@ TEST(SurfaceTest, TestGetIntersections)
 	curve.set(1, 0, p3);
 	curve.set(1, 1, p4);
 
-	Surface surface(curve);
+	SurfaceFactory factory;
+	Surface* surface = factory.create(curve);
 	const Ray3d<float> ray(Vector3d<float>(0, 0, -10), Vector3d<float>(0, 0, 1));
-	const auto& actual = surface.getIntersections(ray);
+	const auto& actual = surface->getIntersections(ray);
 	EXPECT_EQ(2, actual.size());
 }
 
@@ -167,9 +174,10 @@ TEST(SurfaceTest, TestSplit)
 	curve.set(1, 0, p3);
 	curve.set(1, 1, p4);
 
-	Surface surface(curve);
-	auto f = surface.getFaces().front();
-	Surface* actual = surface.split(f);
+	SurfaceFactory factory;
+	Surface* surface = factory.create(curve);
+	auto f = surface->getFaces().front();
+	Surface* actual = surface->split(f);
 
 	EXPECT_EQ(actual->getNodes().size(), 6);
 	EXPECT_EQ(actual->getFaces().size(), 4);

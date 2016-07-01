@@ -26,6 +26,7 @@
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="CircleArrow.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="EdgeCollection.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="Joint.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="CircleArrow.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="Face.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="NodeCollection.h" />

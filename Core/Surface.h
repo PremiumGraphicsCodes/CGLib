@@ -5,6 +5,12 @@
 #include "../Math/Curve3d.h"
 #include "../Math/CircularCurve3d.h"
 #include "../Math/TriangleCurve3d.h"
+#include "Edge.h"
+#include "Node.h"
+#include "Face.h"
+#include "NodeCollection.h"
+#include "EdgeCollection.h"
+#include "FaceCollection.h"
 
 #include <list>
 //#include "Node.h"
@@ -15,22 +21,43 @@ namespace Crystal {
 		class Edge;
 		class Node;
 
+		class Surface;
+
+class SurfaceFactory
+{
+public:
+	Surface* create(const Math::Curve3d<float>& curve, const int id = -1);
+
+	Surface* create(const Math::CircularCurve3d<float>& curve, const int id = -1);
+
+	Surface* create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
+
+private:
+	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
+
+	Surface* create(int id);
+
+	NodeCollection nodes;
+	EdgeCollection edges;
+	FaceCollection_ faces;
+};
+
 class Surface
 {
 public:
 	Surface();
 
-	Surface(const Math::Curve3d<float>& curve, const int id = -1);
 
-	Surface(const Math::TriangleCurve3d<float>& curve, const int id = -1);
+	Surface(const std::list<Node*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id);
 
 	~Surface();
 
-	void add(const Math::Curve3d<float>& curve);
 
-	void add(const Math::CircularCurve3d<float>& curve);
-
-	void add(const Math::TriangleCurve3d<float>& curve);
+	void add(const std::list<Node*>& nodes);
+	
+	void add(const std::list<Edge*>& edges);
+	
+	void add(const std::list<Face*>& faces);
 
 	void merge(Surface& rhs);
 
@@ -71,18 +98,7 @@ public:
 	Face* findFaceById(const int id);
 
 private:
-	Node* createNode(const Math::Point3d<float>& p);
-
-	Edge* createEdge(Node* start, Node* end);
-
-	Face* createFace(Edge* e1, Edge* e2, Edge* e3);
-
-	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
-
 	int id;
-	int nextNodeId;
-	int nextEdgeId;
-	int nextFaceId;
 	std::list<Face*> faces;
 	std::list<Edge*> edges;
 	std::list<Node*> nodes;

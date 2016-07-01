@@ -1,54 +1,28 @@
 #include "stdafx.h"
 #include "Surface.h"
-#include "Edge.h"
-#include "Node.h"
-#include "Face.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
 Surface::Surface() :
-	id(-1),
-	nextNodeId(0),
-	nextEdgeId(0),
-	nextFaceId(0)
+	id(-1)
 {
 }
-
-Surface::Surface(const Curve3d<float>& curve, const int id) :
-	id(id),
-	nextNodeId(0),
-	nextEdgeId(0),
-	nextFaceId(0)
-{
-	add(curve);
-}
-
-Surface::Surface(const TriangleCurve3d<float>& curve, const int id) :
-	id(id),
-	nextNodeId(0),
-	nextEdgeId(0),
-	nextFaceId(0)
-{
-	add(curve);
-}
-
 
 #include "../Util/Array2d.h"
 #include "NodeGrid.h"
 
-void Surface::add(const Curve3d<float>& curve)
+
+Surface* SurfaceFactory::create(const Curve3d<float>& curve, const int id)
 {
-	//Array2d<Node*> grid(curve.getUNumber(), curve.getVNumber());
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
 			const auto& normal = curve.get(u, v).getNormal();
 
-			Node* node = new Node(pos, normal, nextNodeId++);
-			grid.set(u, v, node);
-			nodes.push_back(node);
+			auto n = nodes.create(Point3d<float>(pos, normal));
+			grid.set(u, v, n);
 		}
 	}
 
@@ -65,22 +39,27 @@ void Surface::add(const Curve3d<float>& curve)
 		auto v3 = t.get()[2];
 		createTriangleFace(v1, v2, v3);
 	}
+	return create(id);
 }
 
-void Surface::add(const CircularCurve3d<float>& curve)
+
+Surface::Surface(const std::list<Node*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id) :
+	nodes(nodes),
+	edges(edges),
+	faces(faces),
+	id(id)
 {
-	const auto center = curve.getCenter();
-	Node* centerNode = new Node(center.getPosition(), center.getNormal(), nextNodeId++);
-	nodes.push_back(centerNode);
+}
+
+
+Surface* SurfaceFactory::create(const CircularCurve3d<float>& curve, const int id)
+{
+	Node* centerNode = nodes.create(curve.getCenter());
 
 	std::vector<Node*> createNodes;
 	for (int i = 0; i < curve.getSize(); ++i) {
-		const auto& pos = curve.get(i).getPosition();
-		const auto& normal = curve.get(i).getNormal();
-
-		Node* node = new Node(pos, normal, nextNodeId++);
+		Node* node = nodes.create(curve.get(i));
 		createNodes.push_back(node);
-		nodes.push_back(node);
 	}
 	for (int i = 0; i < createNodes.size()-1; ++i) {
 		auto v0 = centerNode;
@@ -88,9 +67,10 @@ void Surface::add(const CircularCurve3d<float>& curve)
 		auto v2 = createNodes[i + 1];
 		createTriangleFace(v0, v1, v2);
 	}
+	return create(id);
 }
 
-void Surface::add(const TriangleCurve3d<float>& curve)
+Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int id)
 {
 	std::vector< TriangleCell > cells;
 
@@ -99,8 +79,7 @@ void Surface::add(const TriangleCurve3d<float>& curve)
 		std::vector<Node*> ns;
 		for (int j = 0; j <= i; ++j) {
 			auto p = curve.get(i, j);
-			Node* node = new Node(p.getPosition(), p.getNormal(), nextNodeId++);
-			nodes.push_back(node);
+			Node* node = nodes.create(curve.get(i,j));
 			ns.push_back(node);
 		}
 		createdNodes.push_back(ns);
@@ -122,24 +101,49 @@ void Surface::add(const TriangleCurve3d<float>& curve)
 			createTriangleFace(v0, v1, v2);
 		}
 	}
+	return create(id);
+}
 
+Surface* SurfaceFactory::create(const int id)
+{
+	return new Surface(nodes.get(), edges.get(), faces.get(), id);
+}
+
+
+void Surface::add(const std::list<Node*>& nodes)
+{
+	this->nodes.insert(this->nodes.end(), nodes.begin(), nodes.end());
+}
+
+
+void Surface::add(const std::list<Edge*>& edges)
+{
+	this->edges.insert(this->edges.end(), edges.begin(), edges.end());
+}
+
+void Surface::add(const std::list<Face*>& faces)
+{
+	this->faces.insert(this->faces.end(), faces.begin(), faces.end());
 }
 
 
 void Surface::merge(Surface& rhs)
 {
+	int nextNodeId = nodes.size();
 	for (auto n : rhs.nodes) {
 		n->setId(nextNodeId++);
 	}
+	int nextEdgeId = edges.size();
 	for (auto e : rhs.edges) {
 		e->setId(nextEdgeId++);
 	}
+	int nextFaceId = faces.size();
 	for (auto f : rhs.faces) {
 		f->setId(nextFaceId++);
 	}
-	nodes.insert(nodes.end(), rhs.nodes.begin(), rhs.nodes.end());
-	edges.insert(edges.end(), rhs.edges.begin(), rhs.edges.end());
-	faces.insert(faces.end(), rhs.faces.begin(), rhs.faces.end());
+	add(rhs.nodes);
+	add(rhs.edges);
+	add(rhs.faces);
 
 	rhs.nodes.clear();
 	rhs.edges.clear();
@@ -279,36 +283,17 @@ Surface* Surface::split(Face* f)
 	curve.set(2, 1, midPoints[1]);
 	curve.set(2, 2, startPoints[2]);
 
-	return new Surface(curve);
+	SurfaceFactory factory;
+	return factory.create(curve);
 }
 
-Node* Surface::createNode(const Point3d<float>& p)
-{
-	auto n = new Node(p.getPosition(), p.getNormal(), nextNodeId++);
-	nodes.push_back(n);
-	return n;
-}
 
-Edge* Surface::createEdge(Node* start, Node* end)
+Face* SurfaceFactory::createTriangleFace(Node* n1, Node* n2, Node* n3)
 {
-	auto e = new Edge(start, end, nextEdgeId++);
-	edges.push_back(e);
-	return e;
-}
-
-Face* Surface::createFace(Edge* e1, Edge* e2, Edge* e3)
-{
-	auto f = new Face({ e1,e2,e3 }, nextFaceId++);
-	faces.push_back(f);
-	return f;
-}
-
-Face* Surface::createTriangleFace(Node* n1, Node* n2, Node* n3)
-{
-	auto e1 = createEdge(n1, n2);
-	auto e2 = createEdge(n2, n3);
-	auto e3 = createEdge(n3, n1);
-	return createFace(e1, e2, e3);
+	auto e1 = edges.create( n1, n2);
+	auto e2 = edges.create( n2, n3);
+	auto e3 = edges.create( n3, n1);
+	return faces.create(e1, e2, e3);
 }
 
 Node* Surface::findNodeById(const int id)

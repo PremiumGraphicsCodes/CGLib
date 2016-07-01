@@ -9,7 +9,7 @@ namespace Crystal {
 	namespace Core {
 		class Vertex;
 		class VertexCollection;
-		class FaceCollection;
+		class FaceCollection_;
 		class PolygonMesh;
 		class Actor;
 		class Bone;

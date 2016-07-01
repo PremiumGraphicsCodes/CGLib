@@ -17,6 +17,7 @@ public:
 
 	Node* create(const Math::Point3d<float>& p);
 
+
 	void clear();
 
 	std::list<Node*> get() const { return nodes; }

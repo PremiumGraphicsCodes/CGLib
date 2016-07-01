@@ -6,20 +6,22 @@ namespace Crystal {
 		class Edge;
 		class Face;
 
-class FaceCollection
+class FaceCollection_
 {
 public:
-	FaceCollection();
+	FaceCollection_();
 
-	~FaceCollection();
+	~FaceCollection_();
 
 	void clear();
 
 	Face* create(Edge* e1, Edge* e2, Edge* e3);
 
+	std::list<Face*> get() { return faces; }
+
 private:
 	int nextId;
-	std::vector<Face*> faces;
+	std::list<Face*> faces;
 };
 	}
 }

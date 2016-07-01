@@ -71,6 +71,9 @@
     <ClCompile Include="FaceCollection.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
+    <ClCompile Include="EdgeCollection.cpp">
+      <Filter>Collection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -151,6 +154,9 @@
       <Filter>Collection</Filter>
     </ClInclude>
     <ClInclude Include="FaceCollection.h">
+      <Filter>Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeCollection.h">
       <Filter>Collection</Filter>
     </ClInclude>
   </ItemGroup>

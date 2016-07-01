@@ -11,7 +11,7 @@ NodeCollection::NodeCollection() :
 
 NodeCollection::~NodeCollection()
 {
-	clear();
+	//clear();
 }
 
 
@@ -21,6 +21,7 @@ void NodeCollection::clear()
 		delete n;
 	}
 	nodes.clear();
+	nextId = 0;
 }
 
 

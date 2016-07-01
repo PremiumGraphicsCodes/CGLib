@@ -14,8 +14,9 @@ Arrow::Arrow(const Vector3d<float>& center)
 
 Surface* Arrow::toSurface() const
 {
-	Surface* surface = new Surface();
-	surface->add( cone.toSideCurve(10) );
-	surface->add( cylinder.getSideCurve(10) );
+	SurfaceFactory factory;
+	Surface* surface =  new Surface();
+	factory.create( cone.toSideCurve(10) );
+	factory.create( cylinder.getSideCurve(10) );
 	return surface;
 }
