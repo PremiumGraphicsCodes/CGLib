@@ -1,4 +1,4 @@
-#ifndef __CRYSTAL_CORE_NODE_H__
+#ifndef __CYRSTAL_CORE_NODE_H__
 #define __CYRSTAL_CORE_NODE_H__
 
 #include "../Util/UnCopyable.h"

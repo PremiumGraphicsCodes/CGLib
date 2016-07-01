@@ -65,6 +65,12 @@
     <ClCompile Include="CircleArrow.cpp">
       <Filter>Glyph</Filter>
     </ClCompile>
+    <ClCompile Include="NodeCollection.cpp">
+      <Filter>Collection</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceCollection.cpp">
+      <Filter>Collection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -141,6 +147,12 @@
     <ClInclude Include="TriangleCell.h">
       <Filter>Graph</Filter>
     </ClInclude>
+    <ClInclude Include="NodeCollection.h">
+      <Filter>Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceCollection.h">
+      <Filter>Collection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -160,6 +172,9 @@
     </Filter>
     <Filter Include="Glyph">
       <UniqueIdentifier>{9656ea0d-de33-4f1c-9d3a-0a995397ce8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collection">
+      <UniqueIdentifier>{af6e26f3-c339-41c6-ad9d-4142e254d3fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

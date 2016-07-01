@@ -27,9 +27,11 @@
     <ClCompile Include="CircleArrow.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeCollection.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -61,6 +63,8 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Face.h" />
+    <ClInclude Include="FaceCollection.h" />
+    <ClInclude Include="NodeCollection.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="IParticle.h" />
