@@ -20,8 +20,9 @@ public:
 
 	Edge* create(Node* start, Node* end);
 
-
 	std::list<Edge*> get() { return edges; }
+
+	void merge(EdgeCollection& rhs);
 
 private:
 	int nextId;

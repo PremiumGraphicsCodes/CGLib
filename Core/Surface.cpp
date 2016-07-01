@@ -23,7 +23,6 @@ void Surface::add(const std::list<Node*>& nodes)
 	this->nodes.insert(this->nodes.end(), nodes.begin(), nodes.end());
 }
 
-
 void Surface::add(const std::list<Edge*>& edges)
 {
 	this->edges.insert(this->edges.end(), edges.begin(), edges.end());
@@ -37,25 +36,9 @@ void Surface::add(const std::list<Face*>& faces)
 
 void Surface::merge(Surface& rhs)
 {
-	int nextNodeId = nodes.size();
-	for (auto n : rhs.nodes) {
-		n->setId(nextNodeId++);
-	}
-	int nextEdgeId = edges.size();
-	for (auto e : rhs.edges) {
-		e->setId(nextEdgeId++);
-	}
-	int nextFaceId = faces.size();
-	for (auto f : rhs.faces) {
-		f->setId(nextFaceId++);
-	}
-	add(rhs.nodes);
-	add(rhs.edges);
 	add(rhs.faces);
-
-	rhs.nodes.clear();
-	rhs.edges.clear();
-	rhs.faces.clear();
+	add(rhs.edges);
+	add(rhs.nodes);
 }
 
 
@@ -66,17 +49,8 @@ Surface::~Surface()
 
 void Surface::clear()
 {
-	for (auto f : faces) {
-		delete f;
-	}
 	faces.clear();
-	for (auto e : edges) {
-		delete e;
-	}
 	edges.clear();
-	for (auto n : nodes) {
-		delete n;
-	}
 	nodes.clear();
 }
 
@@ -172,30 +146,6 @@ std::vector<Vector3d<float>> Surface::getIntersections(const Ray3d<float>& ray) 
 	}
 	return intersections;
 }
-
-Surface* Surface::split(Face* f)
-{
-	const auto& es = f->getEdges();
-	std::vector<Point3d<float>> startPoints;
-	std::vector<Point3d<float>> midPoints;
-	for (const auto& e : es) {
-		startPoints.push_back(e->getStart()->clone());
-		midPoints.push_back(e->getMidPoint());
-	}
-
-	TriangleCurve3d<float> curve(3);
-	curve.set(0, 0, startPoints[0]);
-	curve.set(1, 0, midPoints.front());
-	curve.set(1, 1, midPoints.back());
-	curve.set(2, 0, startPoints[1]);
-	curve.set(2, 1, midPoints[1]);
-	curve.set(2, 2, startPoints[2]);
-
-	SurfaceFactory factory;
-	return factory.create(curve);
-}
-
-
 
 Node* Surface::findNodeById(const int id)
 {

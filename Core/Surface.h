@@ -29,14 +29,12 @@ class Surface
 public:
 	Surface();
 
-
 	Surface(const std::list<Node*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id);
 
 	~Surface();
 
-
 	void add(const std::list<Node*>& nodes);
-	
+
 	void add(const std::list<Edge*>& edges);
 	
 	void add(const std::list<Face*>& faces);
@@ -54,8 +52,6 @@ public:
 	std::vector<unsigned int> toIndices() const;
 
 	std::vector<unsigned int> toFaceIds() const;
-
-	Face* subdiv(const Face* face);
 	
 	int getId() const { return id; }
 
@@ -73,7 +69,6 @@ public:
 
 	void scale(const Math::Vector3d<float>& s);
 
-	Surface* split(Face* f);
 
 	Node* findNodeById(const int id);
 

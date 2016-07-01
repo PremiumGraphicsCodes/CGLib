@@ -31,3 +31,13 @@ Edge* EdgeCollection::create(Node* start, Node* end)
 	edges.push_back(e);
 	return e;
 }
+
+void EdgeCollection::merge(EdgeCollection& rhs)
+{
+	for (auto n : rhs.edges) {
+		n->setId(nextId++);
+	}
+
+	edges.insert(edges.end(), rhs.edges.begin(), rhs.edges.end());
+	rhs.edges.clear();
+}

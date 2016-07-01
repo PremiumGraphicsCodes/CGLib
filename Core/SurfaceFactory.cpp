@@ -8,6 +8,18 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+SurfaceFactory::~SurfaceFactory()
+{
+	clear();
+}
+
+void SurfaceFactory::clear()
+{
+	nodes.clear();
+	edges.clear();
+	faces.clear();
+}
+
 Surface* SurfaceFactory::create(const Curve3d<float>& curve, const int id)
 {
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
@@ -94,7 +106,8 @@ Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int i
 
 Surface* SurfaceFactory::create(const int id)
 {
-	return new Surface(nodes.get(), edges.get(), faces.get(), id);
+	auto s = new Surface(nodes.get(), edges.get(), faces.get(), id);
+	return s;
 }
 
 Face* SurfaceFactory::createTriangleFace(Node* n1, Node* n2, Node* n3)
@@ -105,3 +118,21 @@ Face* SurfaceFactory::createTriangleFace(Node* n1, Node* n2, Node* n3)
 	return faces.create(e1, e2, e3);
 }
 
+void SurfaceFactory::split(Face* f)
+{
+	const auto& es = f->getEdges();
+	std::vector<Node*> startPoints;
+	std::vector<Node*> midPoints;
+	for (const auto& e : es) {
+		startPoints.push_back(e->getStart());
+		midPoints.push_back(nodes.create(e->getMidPoint()));
+	}
+
+	createTriangleFace(startPoints[0], midPoints[0], midPoints[2]);
+	createTriangleFace(midPoints[0], startPoints[1], midPoints[1]);
+	createTriangleFace(midPoints[1], startPoints[2], midPoints[2]);
+
+
+	createTriangleFace(midPoints[0], midPoints[1], midPoints[2]);
+
+}

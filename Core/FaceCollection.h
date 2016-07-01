@@ -19,6 +19,8 @@ public:
 
 	std::list<Face*> get() { return faces; }
 
+	void merge(FaceCollection_& rhs);
+
 private:
 	int nextId;
 	std::list<Face*> faces;

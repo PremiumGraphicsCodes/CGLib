@@ -33,7 +33,9 @@
     <ClCompile Include="CircleArrowTest.cpp">
       <Filter>Glyph</Filter>
     </ClCompile>
-    <ClCompile Include="NodeCollectionTest.cpp" />
+    <ClCompile Include="NodeCollectionTest.cpp">
+      <Filter>Collection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -41,6 +43,9 @@
     </Filter>
     <Filter Include="Glyph">
       <UniqueIdentifier>{dd0b1525-a28b-415f-b2e6-fc2f9047ab8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collection">
+      <UniqueIdentifier>{5335422d-c4a9-4ef5-99e5-b29948d5bbcb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

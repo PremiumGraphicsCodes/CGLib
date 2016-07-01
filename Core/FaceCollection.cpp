@@ -29,3 +29,12 @@ Face* FaceCollection_::create(Edge* e1, Edge* e2, Edge* e3)
 	faces.push_back(f);
 	return f;
 }
+
+void FaceCollection_::merge(FaceCollection_& rhs)
+{
+	for (auto n : rhs.faces) {
+		n->setId(nextId++);
+	}
+	faces.insert(faces.end(), rhs.faces.begin(), rhs.faces.end());
+	rhs.faces.clear();
+}

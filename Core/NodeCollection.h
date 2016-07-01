@@ -17,10 +17,11 @@ public:
 
 	Node* create(const Math::Point3d<float>& p);
 
-
 	void clear();
 
 	std::list<Node*> get() const { return nodes; }
+
+	void merge(NodeCollection& rhs);
 
 private:
 	std::list<Node*> nodes;
