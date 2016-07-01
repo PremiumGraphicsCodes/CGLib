@@ -45,4 +45,8 @@ bool Edge::isReverse(const Edge& rhs) const
 		this->end == rhs.start;
 }
 
-
+void Edge::move(const Vector3d<float>& v)
+{
+	this->start->move(v);
+	this->end->move(v);
+}

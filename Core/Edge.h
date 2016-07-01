@@ -34,6 +34,8 @@ public:
 
 	bool isReverse(const Edge& rhs) const;
 
+	void move(const Math::Vector3d<float>& v);
+
 private:
 	Node* start;
 	Node* end;
