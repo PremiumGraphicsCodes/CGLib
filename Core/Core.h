@@ -19,6 +19,7 @@
 #include "PolygonMesh.h"
 #include "SpaceHash.h"
 #include "Surface.h"
+#include "SurfaceFactory.h"
 #include "TriFace.h"
 #include "Vertex.h"
 #include "Volume.h"

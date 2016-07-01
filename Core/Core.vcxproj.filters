@@ -74,6 +74,9 @@
     <ClCompile Include="EdgeCollection.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceFactory.cpp">
+      <Filter>Collection</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -132,9 +135,6 @@
     <ClInclude Include="Face.h">
       <Filter>Graph</Filter>
     </ClInclude>
-    <ClInclude Include="Surface.h">
-      <Filter>Graph</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="NodeGrid.h">
@@ -157,6 +157,12 @@
       <Filter>Collection</Filter>
     </ClInclude>
     <ClInclude Include="EdgeCollection.h">
+      <Filter>Collection</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceFactory.h">
       <Filter>Collection</Filter>
     </ClInclude>
   </ItemGroup>

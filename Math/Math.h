@@ -43,6 +43,7 @@
 #include "Sphere.h"
 #include "SPHKernel.h"
 #include "Triangle3d.h"
+#include "TriangleCurve3d.h"
 #include "Vector.h"
 #include "Vector2d.h"
 #include "Vector3d.h"

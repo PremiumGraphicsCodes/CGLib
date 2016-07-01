@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Arrow.h"
 #include "Surface.h"
+#include "SurfaceFactory.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

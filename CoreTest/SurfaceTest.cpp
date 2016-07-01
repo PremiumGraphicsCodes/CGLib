@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "../Core/Surface.h"
+#include "../Core/SurfaceFactory.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
