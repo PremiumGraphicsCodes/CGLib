@@ -29,14 +29,11 @@ std::string TriangleIdRenderer::getBuildinVertexShaderSource() const
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
-		<< "in vec4 id;" << std::endl
-		<< "out vec4 vId;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void)" << std::endl
 		<< "{" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
-		<< "	vId = id;" << std::endl
 		<< "}";
 	return stream.str();
 }
@@ -46,10 +43,10 @@ std::string TriangleIdRenderer::getBuildinFragmentShaderSource() const
 	std::ostringstream stream;
 	stream
 		<< "#version 150" << std::endl
-		<< "in vec4 vId;" << std::endl
+		<< "uniform vec4 idColor;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	fragColor = vId;" << std::endl
+		<< "	fragColor = idColor;" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -61,16 +58,15 @@ void TriangleIdRenderer::set(ShaderObject* shader)
 
 	shader->findUniformLocation("projectionMatrix");
 	shader->findUniformLocation("modelviewMatrix");
+	shader->findUniformLocation("idColor");
 
 	shader->findAttribLocation("position");
-	shader->findAttribLocation("id");
 }
 
 void TriangleIdRenderer::render(const ICamera<float>& camera, const TriangleIdBuffer& buffer)
 {
-	const auto& indices = buffer.getIndices();
+	const auto& blocks = buffer.getBlocks();
 	const auto& positions = buffer.getPositions().get();
-	const auto& ids = buffer.getIdColors().get();
 
 	if (positions.empty()) {
 		return;
@@ -81,8 +77,8 @@ void TriangleIdRenderer::render(const ICamera<float>& camera, const TriangleIdBu
 
 	assert(GL_NO_ERROR == glGetError());
 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
-
 
 	glUseProgram(shader->getId());
 
@@ -90,14 +86,16 @@ void TriangleIdRenderer::render(const ICamera<float>& camera, const TriangleIdBu
 	glUniformMatrix4fv(shader->getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
 
 	glVertexAttribPointer(shader->getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
-	glVertexAttribPointer(shader->getAttribLocation("id"), 4, GL_FLOAT, GL_FALSE, 0, ids.data());
 
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	for (const auto& block : blocks) {
+		const auto& indices = block.indices;
+		auto idColor = block.idColor.get();
+		glUniform4fv(shader->getUniformLocation("idColor"), 1, idColor.data());
+		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	}
 
-	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader->getId(), 0, "fragColor");

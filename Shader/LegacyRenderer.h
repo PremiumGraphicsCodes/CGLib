@@ -33,7 +33,7 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleIdBuffer& buffer);
+	//void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleIdBuffer& buffer);
 
 };
 

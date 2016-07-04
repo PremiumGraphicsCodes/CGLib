@@ -280,6 +280,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 
 }
 
+/*
 void LegacyRenderer::render(const ICamera<float>& camera, const TriangleIdBuffer& buffer)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
@@ -327,3 +328,4 @@ void LegacyRenderer::render(const ICamera<float>& camera, const TriangleIdBuffer
 	glDisable(GL_DEPTH_TEST);
 
 }
+*/

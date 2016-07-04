@@ -18,6 +18,19 @@ namespace Crystal {
 	}
 	namespace Graphics {
 
+class TriangleIdBlock
+{
+public:
+	TriangleIdBlock(const std::vector<unsigned int>& indices, const DrawableID& did) :
+		indices(indices)
+	{
+		idColor.add(did.toColor());
+	}
+
+	std::vector<unsigned int> indices;
+	Buffer4d<float> idColor;
+};
+
 class TriangleIdBuffer
 {
 public:
@@ -27,20 +40,15 @@ public:
 
 	void add(const Core::Surface& surface);
 
-	void add(const Math::Point3d<float>& point, const DrawableID& did);
-
 	void clear();
 
 	Buffer3d<float> getPositions() const { return positions; }
 
-	Buffer4d<float> getIdColors() const { return idColors; }
-
-	std::vector<unsigned int> getIndices() const { return indices; }
+	std::vector<TriangleIdBlock> getBlocks() const { return blocks; }
 
 private:
-	std::vector<unsigned int> indices;
 	Buffer3d<float> positions;
-	Buffer4d<float> idColors;
+	std::vector<TriangleIdBlock> blocks;
 	unsigned int nextIndex;
 };
 

@@ -51,3 +51,11 @@ Vector3d<float> Face::getIntersection(const Ray3d<float>& ray) const
 	const auto& t = toTriangle();
 	return ray.getIntersection(t);
 }
+
+std::vector<unsigned int> Face::getNodeIds() const
+{
+	const unsigned int n1 = edges[0]->getStart()->getId();
+	const unsigned int n2 = edges[1]->getStart()->getId();
+	const unsigned int n3 = edges[2]->getStart()->getId();
+	return {n1, n2, n3};
+}

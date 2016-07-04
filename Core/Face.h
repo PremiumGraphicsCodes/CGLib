@@ -37,6 +37,8 @@ public:
 
 	int getId() const { return id; }
 
+	std::vector<unsigned int> getNodeIds() const;
+
 private:
 	std::vector<Edge*> edges;
 	int id;
