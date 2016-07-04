@@ -165,5 +165,27 @@ Face* Surface::findFaceById(const int id)
 		}
 	}
 	return nullptr;
+}
 
+Edge* Surface::findEdgeById(const int id)
+{
+	for (auto e : edges) {
+		if (e->getId() == id) {
+			return e;
+		}
+	}
+	return nullptr;
+
+}
+
+
+std::list<Node*> Surface::getNeighbor(Node* center, const float radius)
+{
+	std::list<Node*> results;
+	for (auto n : nodes) {
+		if (center->getPosition().getDistanceSquared(n->getPosition()) < radius * radius ) {
+			results.push_back(n);
+		}
+	}
+	return results;
 }

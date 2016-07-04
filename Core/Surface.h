@@ -69,10 +69,13 @@ public:
 
 	void scale(const Math::Vector3d<float>& s);
 
-
 	Node* findNodeById(const int id);
 
 	Face* findFaceById(const int id);
+
+	Edge* findEdgeById(const int id);
+
+	std::list<Node*> getNeighbor(Node* center, const float radius);
 
 private:
 	int id;

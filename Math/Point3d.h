@@ -35,6 +35,8 @@ public:
 
 	void move(const Vector3d<T>& v) { this->position += v; }
 
+	void moveTo(const Vector3d<T>& v) { this->position = v; }
+
 	void transform(const Matrix3d<T>& m);
 
 	void scale(const Math::Vector3d<T>& m);
@@ -48,6 +50,7 @@ public:
 	Point3d lerp(const Point3d& rhs, const T param) const;
 
 	Point3d clone() const { return Point3d<T>(position, normal, parameter); }
+
 
 private:
 	Math::Vector3d<T> position;
