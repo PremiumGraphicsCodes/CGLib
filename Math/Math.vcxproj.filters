@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Plane3d.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Space2d.cpp" />
     <ClCompile Include="Space3d.cpp" />
@@ -125,9 +124,11 @@
       <Filter>Loop</Filter>
     </ClCompile>
     <ClCompile Include="Intersection3d.cpp" />
+    <ClCompile Include="Plane3d.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Plane3d.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Space3d.h" />
@@ -266,6 +267,9 @@
       <Filter>Loop</Filter>
     </ClInclude>
     <ClInclude Include="Intersection3d.h" />
+    <ClInclude Include="Plane3d.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

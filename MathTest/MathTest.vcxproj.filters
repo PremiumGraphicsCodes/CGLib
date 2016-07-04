@@ -10,7 +10,6 @@
     <ClCompile Include="Grid1dTest.cpp" />
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Grid2dTest.cpp" />
-    <ClCompile Include="Plane3dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="AngleTest.cpp" />
@@ -81,6 +80,9 @@
     </ClCompile>
     <ClCompile Include="Point3dTest.cpp" />
     <ClCompile Include="Intersection3dTest.cpp" />
+    <ClCompile Include="Plane3dTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive2d">

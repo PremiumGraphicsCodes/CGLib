@@ -20,6 +20,14 @@ TEST(Plane3dTest, TestGetDistance)
 
 }
 
+TEST(Plane3dTest, TestGetPosition)
+{
+	Plane3d<float> xy(Vector3d<float>(0,0,0), Vector3d<float>(1,0,0), Vector3d<float>(0,1,0));
+	EXPECT_EQ(Vector3d<float>(0,0,0), xy.getPosition(Param<float>(0), Param<float>(0)));
+	EXPECT_EQ(Vector3d<float>(1,0,0), xy.getPosition(Param<float>(1), Param<float>(0)));
+	EXPECT_EQ(Vector3d<float>(1,1,0), xy.getPosition(Param<float>(1), Param<float>(1)));
+}
+
 TEST(Plane3dTest, TestHasIntersection)
 {
 	const auto& planezx = Plane3d<float>::ZXPlane();
