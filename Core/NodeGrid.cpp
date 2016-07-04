@@ -98,6 +98,7 @@ std::vector<QuadCell> NodeGrid1d::toQuadCells() const
 			cells.push_back(c);
 		}
 	}
+	/*
 	{
 		const int u = grid.getSizeX()-1;
 		for (int v = 0; v < grid.getSizeY() - 1; ++v) {
@@ -109,6 +110,7 @@ std::vector<QuadCell> NodeGrid1d::toQuadCells() const
 			cells.push_back(c);
 		}
 	}
+	*/
 	return cells;
 }
 
