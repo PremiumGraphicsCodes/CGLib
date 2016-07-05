@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SurfaceSplitter.h"
+#include "SurfaceSplittingAlgo.h"
 #include "Face.h"
 #include "Edge.h"
 #include "Node.h"
@@ -7,7 +7,7 @@
 
 using namespace Crystal::Core;
 
-void SurfaceSplitter::splited(Face* f)
+void SurfaceSplittingAlgo::splited(Face* f)
 {
 	const auto& es = f->getEdges();
 	std::vector<Node*> startPoints;
@@ -32,7 +32,7 @@ void SurfaceSplitter::splited(Face* f)
 }
 
 
-Face* SurfaceSplitter::createTriangleFace(Node* n1, Node* n2, Node* n3)
+Face* SurfaceSplittingAlgo::createTriangleFace(Node* n1, Node* n2, Node* n3)
 {
 	auto e1 = edges.create(n1, n2);
 	auto e2 = edges.create(n2, n3);

@@ -77,10 +77,10 @@
     <ClCompile Include="SurfaceFactory.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
-    <ClCompile Include="SurfaceSplitter.cpp">
+    <ClCompile Include="SmoothingAlgo.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
-    <ClCompile Include="SmoothingAlgo.cpp">
+    <ClCompile Include="SurfaceSplittingAlgo.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
   </ItemGroup>
@@ -171,10 +171,10 @@
     <ClInclude Include="SurfaceFactory.h">
       <Filter>Collection</Filter>
     </ClInclude>
-    <ClInclude Include="SurfaceSplitter.h">
+    <ClInclude Include="SmoothingAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
-    <ClInclude Include="SmoothingAlgo.h">
+    <ClInclude Include="SurfaceSplittingAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_SURFACE_SPLITTER_H__
-#define __CRYSTAL_CORE_SURFACE_SPLITTER_H__
+#ifndef __CRYSTAL_CORE_SURFACE_SPLITTING_ALGO_H__
+#define __CRYSTAL_CORE_SURFACE_SPLITTING_ALGO_H__
 
 #include "SurfaceFactory.h"
 
@@ -10,11 +10,11 @@
 namespace Crystal {
 	namespace Core {
 
-class SurfaceSplitter
+class SurfaceSplittingAlgo
 {
 public:
 
-	SurfaceSplitter(Surface* s, SurfaceFactory* f) :
+	SurfaceSplittingAlgo(Surface* s, SurfaceFactory* f) :
 		surface(s),
 		factory(f)
 	{}

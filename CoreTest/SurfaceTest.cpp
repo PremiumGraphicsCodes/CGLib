@@ -178,7 +178,7 @@ TEST(SurfaceTest, TestSplit)
 	SurfaceFactory factory;
 	Surface* surface = factory.create(curve);
 	auto f = surface->getFaces().front();
-	SurfaceSplitter splitter(surface, &factory);
+	SurfaceSplittingAlgo splitter(surface, &factory);
 	splitter.splited(f);
 
 //	EXPECT_EQ(surface->getNodes().size(), 3);
