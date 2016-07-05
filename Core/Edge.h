@@ -24,6 +24,10 @@ public:
 
 	Node* getEnd() const { return end; }
 
+	void changeStart(Node* n) { this->start = n; }
+
+	void changeEnd(Node* n) { this->end = n; }
+
 	Math::Point3d<float> getMidPoint() const;
 
 	Math::Line3d<float> toLine() const;

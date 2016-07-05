@@ -16,8 +16,11 @@ void SurfaceSplitter::splited(Face* f)
 		startPoints.push_back(e->getStart());
 		midPoints.push_back(nodes.create(e->getMidPoint()));
 	}
-
-	createTriangleFace(startPoints[0], midPoints[0], midPoints[2]);
+	f->getEdges()[0]->changeEnd(midPoints[0]);
+	f->getEdges()[1]->changeStart(midPoints[0]);
+	f->getEdges()[1]->changeEnd(midPoints[2]);
+	f->getEdges()[2]->changeStart(midPoints[2]);
+	//createTriangleFace(startPoints[0], midPoints[0], midPoints[2]);
 	createTriangleFace(midPoints[0], startPoints[1], midPoints[1]);
 	createTriangleFace(midPoints[1], startPoints[2], midPoints[2]);
 	createTriangleFace(midPoints[0], midPoints[1], midPoints[2]);
