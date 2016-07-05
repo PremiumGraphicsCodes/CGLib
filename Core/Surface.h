@@ -77,6 +77,12 @@ public:
 
 	std::list<Node*> getNeighbor(Node* center, const float radius);
 
+	bool has(const Node* node) const;
+
+	bool has(const Edge* edge) const;
+
+	bool has(const Face* face) const;
+
 private:
 	int id;
 	std::list<Face*> faces;

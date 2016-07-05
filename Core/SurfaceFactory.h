@@ -41,6 +41,13 @@ public:
 
 	Face* findFaceById(const int id) const;
 
+	Surface* findSurface(Edge* e) const;
+
+	Surface* findSurface(Face* e) const;
+
+	Surface* findSurface(Node* e) const;
+
+
 	std::list<Surface*> getSurfaces() const { return surfaces; }
 
 private:

@@ -159,3 +159,33 @@ Face* SurfaceFactory::findFaceById(const int id) const
 	return faces.findById(id);
 }
 
+Surface* SurfaceFactory::findSurface(Edge* e) const
+{
+	for (auto s : surfaces) {
+		if (s->has(e)) {
+			return s;
+		}
+	}
+	return nullptr;
+}
+
+Surface* SurfaceFactory::findSurface(Face* f) const
+{
+	for (auto s : surfaces) {
+		if (s->has(f)) {
+			return s;
+		}
+	}
+	return nullptr;
+}
+
+Surface* SurfaceFactory::findSurface(Node* e) const
+{
+	for (auto s : surfaces) {
+		if (s->has(e)) {
+			return s;
+		}
+	}
+	return nullptr;
+}
+

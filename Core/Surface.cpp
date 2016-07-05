@@ -189,3 +189,18 @@ std::list<Node*> Surface::getNeighbor(Node* center, const float radius)
 	}
 	return results;
 }
+
+bool Surface::has(const Node* node) const
+{
+	return std::find(nodes.begin(), nodes.end(), node) != nodes.end();
+}
+
+bool Surface::has(const Edge* edge) const
+{
+	return std::find(edges.begin(), edges.end(), edge) != edges.end();
+}
+
+bool Surface::has(const Face* face) const
+{
+	return std::find(faces.begin(), faces.end(), face) != faces.end();
+}
