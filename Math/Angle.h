@@ -42,6 +42,10 @@ public:
 
 	Angle<T> operator+(const Angle<T>& rhs) const { return Angle<T>(deg + rhs.deg); }
 
+	Angle<T> operator*(const T rhs) const { return Angle<T>(deg * rhs); }
+
+	Angle<T> operator/(const T rhs) const { return Angle<T>(deg / rhs); }
+
 	void operator+=(const Angle<T>& rhs) { this->deg += rhs.deg; }
 
 	//static T getZero() { return T{ 0 }; }

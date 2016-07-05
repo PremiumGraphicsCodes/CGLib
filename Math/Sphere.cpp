@@ -73,6 +73,14 @@ Vector3d<T> Sphere<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 }
 
 template<typename T>
+Vector3d<T> Sphere<T>::getPosition(const Param<T> u, const Param<T> v) const
+{
+	Angle<T> a = (v.toAngle() * 0.5 - Angle<T>(Degree<T>(90)));
+	return getPosition(u.toAngle(), a);
+}
+
+
+template<typename T>
 Vector3d<T> Sphere<T>::getNormal(const Angle<T> u, const Angle<T> v) const
 {
 	const auto& pos = getPosition(u, v);
@@ -80,6 +88,19 @@ Vector3d<T> Sphere<T>::getNormal(const Angle<T> u, const Angle<T> v) const
 	return n.getNormalized();
 }
 
+template<typename T>
+Vector3d<T> Sphere<T>::getNormal(const Param<T> u, const Param<T> v) const
+{
+	const auto& pos = getPosition(u, v);
+	Vector3d<T> n(pos - center);
+	return n.getNormalized();
+}
+
+template<typename T>
+Point3d<T> Sphere<T>::getPoint(const Param<T> u, const Param<T> v) const
+{
+	return Point3d<T>(getPosition(u, v), getNormal(u, v), Vector2d<T>(u.get(), v.get()));
+}
 
 template<typename T>
 Sphere<T> Sphere<T>::getInnerOffset(const float offsetLength) const
@@ -148,16 +169,11 @@ template<typename T>
 Curve3d<T> Sphere<T>::toCurve3d(const int uNum, const int vNum) const
 {
 	Curve3d<T> curve(uNum, vNum);
-	const auto du = 360.0f / static_cast<T>(uNum);
-	const auto dv = 180.0f / static_cast<T>(vNum);
 	for (int i = 0; i < uNum; ++i) {
 		for (int j = 0; j < vNum; ++j) {
-			const Degree<T> uAngle(du * i);
-			const Degree<T> vAngle(dv * j - 90.0f);
-			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));
-			const auto& normal = getNormal(Angle<T>(uAngle), Angle<T>(vAngle));
-			Point3d<T> point(pos, normal);
-			curve.set(i, j, point);
+			const Param<T> u( i / static_cast<T>(uNum) );
+			const Param<T> v( j / static_cast<T>(vNum) );
+			curve.set(i, j, getPoint(u,v));
 		}
 	}
 	return curve;

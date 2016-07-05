@@ -4,6 +4,7 @@
 #include "Vector3d.h"
 #include "Angle.h"
 #include "Curve3d.h"
+#include "Param.h"
 
 #include <vector>
 #include <cassert>
@@ -34,7 +35,14 @@ public:
 
 	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
 
+	Vector3d<T> getPosition(const Param<T> u, const Param<T> v) const;
+
 	Vector3d<T> getNormal(const Angle<T> u, const Angle<T> v) const;
+
+	Vector3d<T> getNormal(const Param<T> u, const Param<T> v) const;
+
+	Point3d<T> getPoint(const Param<T> u, const Param<T> v) const;
+
 
 	Vector3d<T> getCenter() const { return center; }
 

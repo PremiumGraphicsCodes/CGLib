@@ -26,6 +26,7 @@ void FaceCollection_::clear()
 Face* FaceCollection_::create(Edge* e1, Edge* e2, Edge* e3)
 {
 	auto f = new Face({ e1,e2,e3 }, nextId++);
+	assert(f->getArea() > 0);
 	faces.push_back(f);
 	return f;
 }

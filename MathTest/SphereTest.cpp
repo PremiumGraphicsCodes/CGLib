@@ -52,18 +52,23 @@ TEST(SphereTest, TestIsOnStrictly)
 	EXPECT_TRUE(s.isOnStrictly(Vector3d<float>(1.0f, 0.0, 0.0f)));
 }
 
-TEST(SphereTest, TestGetPosition)
+TEST(SphereTest, TestGetPositionByAngle)
 {
 	const Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
-	{
-		const auto& actual = s.getPosition(Angle<float>::Zero(), Angle<float>::Zero());
-		const Vector3d<float>expected(1, 0, 0);
-		EXPECT_EQ(expected, actual);
-	}
-	{
-		const auto actual = s.getPosition(Angle<float>::PI(), Angle<float>::Zero());
-		const Vector3d<float>expected(-1, 0, 0);
-		EXPECT_EQ(expected, actual);
-	}
+	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Angle<float>::Zero(), Angle<float>::Zero()));
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), s.getPosition(Angle<float>::PI(),   Angle<float>::Zero()));
+	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Angle<float>::Zero(), Angle<float>::HalfPI()));
+	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Angle<float>::Zero(), -Angle<float>::HalfPI()));
+	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Angle<float>::DoublePI(), Angle<float>::Zero()));
+}
+
+TEST(SphereTest, TestGetPositionByParam)
+{
+	const Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
+	EXPECT_EQ(Vector3d<float>(0, 0, -1), s.getPosition(Param<float>(0),  Param<float>(0.0)));
+	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(0),  Param<float>(0.5)));
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), s.getPosition(Param<float>(0.5),Param<float>(0.5)));
+	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(1),  Param<float>(0.5)));
+	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(0),  Param<float>(1)));
 
 }
