@@ -27,7 +27,7 @@ public:
 
 	void renderAlphaBlend(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer, const int width);
 
 	void renderId(const Graphics::ICamera<float>& camera, const Graphics::LineIdBuffer& buffer);
 

@@ -141,7 +141,7 @@ void LegacyRenderer::renderAlphaBlend(const ICamera<float>& camera, const PointB
 }
 
 
-void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer)
+void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer, const int width)
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getColor().get();
@@ -151,6 +151,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buff
 		return;
 	}
 
+	glLineWidth(width);
 	glEnable(GL_DEPTH_TEST);
 
 	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
@@ -179,6 +180,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buff
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_DEPTH_TEST);
 
+	glLineWidth(1);
 }
 
 void LegacyRenderer::renderId(const ICamera<float>& camera, const LineIdBuffer& buffer)

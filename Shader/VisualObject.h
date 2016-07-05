@@ -37,7 +37,7 @@ public:
 
 	void renderLines(const Graphics::ICamera<float>& camera)
 	{
-		renderer.render(camera, lineBuffer);
+		renderer.render(camera, lineBuffer, 1);
 	}
 
 
