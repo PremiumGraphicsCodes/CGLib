@@ -38,7 +38,7 @@ public:
 
 	void add(const Core::Surface& surface, const DrawableID& did);
 
-	void add(const Core::Surface& surface);
+	void add(const Core::Surface& surface, const unsigned char groupId);
 
 	void clear();
 

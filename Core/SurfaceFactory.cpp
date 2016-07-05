@@ -115,6 +115,7 @@ Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int i
 Surface* SurfaceFactory::create(const int id)
 {
 	auto s = new Surface(nodes.get(), edges.get(), faces.get(), id);
+	surfaces.push_back(s);
 	return s;
 }
 

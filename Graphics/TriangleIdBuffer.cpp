@@ -33,7 +33,7 @@ void TriangleIdBuffer::add(const Surface& surface, const DrawableID& did)
 	nextIndex += surface.getNodes().size();
 }
 
-void TriangleIdBuffer::add(const Surface& surface)
+void TriangleIdBuffer::add(const Surface& surface, const unsigned char groupId)
 {
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
@@ -41,7 +41,7 @@ void TriangleIdBuffer::add(const Surface& surface)
 	}
 
 	for (const auto& f : surface.getFaces()) {
-		TriangleIdBlock block(f->getNodeIds(), DrawableID(f->getId(), surface.getId()));
+		TriangleIdBlock block(f->getNodeIds(), DrawableID(f->getId(), groupId));
 		blocks.push_back(block);
 	}
 	nextIndex += surface.getNodes().size();

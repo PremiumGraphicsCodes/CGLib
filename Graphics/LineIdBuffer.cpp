@@ -12,11 +12,11 @@ void LineIdBuffer::clear()
 	ids.clear();
 }
 
-void LineIdBuffer::add(const Surface& surface)
+void LineIdBuffer::add(const Surface& surface, const unsigned char groupId)
 {
 	const auto& edges = surface.getEdges();
 	for (auto e : edges) {
-		add(e->toLine(), DrawableID(e->getId(), surface.getId()));
+		add(e->toLine(), DrawableID(e->getId(), groupId));
 	}
 }
 

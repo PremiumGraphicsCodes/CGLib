@@ -25,7 +25,7 @@ class LineIdBuffer
 public:
 	void clear();
 
-	void add(const Core::Surface& surface);
+	void add(const Core::Surface& surface, const unsigned char groupId);
 
 	void add(const Core::Surface& surface, const DrawableID& did);
 
