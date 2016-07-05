@@ -66,7 +66,7 @@ TEST(NodeGrid1dTest, Test)
 	EXPECT_EQ(&n00, grid.getPrevU(0, 1));
 
 	const auto& cells = grid.toQuadCells();
-	EXPECT_EQ(2, cells.size());
+	EXPECT_EQ(1, cells.size());
 }
 
 TEST(NodeGrid2dTest, Test)

@@ -26,9 +26,9 @@ TEST(SurfaceTest, Test)
 
 	SurfaceFactory factory;
 	auto surface = factory.create(curve);
-	EXPECT_EQ(12, surface->getEdges().size());
+	EXPECT_EQ(6, surface->getEdges().size());
 	EXPECT_EQ(4, surface->getNodes().size());
-	EXPECT_EQ(4, surface->getFaces().size());
+	EXPECT_EQ(2, surface->getFaces().size());
 }
 
 TEST(SurfaceTest, TestConstructByTriangleCurve3d)
@@ -89,9 +89,9 @@ TEST(SurfaceTest, TestMerge)
 	SurfaceFactory factory2;
 	Surface* surface2 = factory2.create(curve);
 	surface1->merge(*surface2);
-	EXPECT_EQ(24, surface1->getEdges().size());
+	EXPECT_EQ(12, surface1->getEdges().size());
 	EXPECT_EQ(8, surface1->getNodes().size());
-	EXPECT_EQ(8, surface1->getFaces().size());
+	EXPECT_EQ(4, surface1->getFaces().size());
 
 	//EXPECT_TRUE(surface2->getEdges().empty());
 	//EXPECT_TRUE(surface2->getNodes().empty());
