@@ -26,6 +26,8 @@ public:
 
 	void remove(Edge* e);
 
+	Edge* findById(const int id) const;
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

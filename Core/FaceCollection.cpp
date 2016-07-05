@@ -45,3 +45,13 @@ void FaceCollection_::remove(Face* f)
 	delete f;
 	faces.remove(*found);
 }
+
+Face* FaceCollection_::findById(const int id) const
+{
+	for (auto e : faces) {
+		if (e->getId() == id) {
+			return e;
+		}
+	}
+	return nullptr;
+}

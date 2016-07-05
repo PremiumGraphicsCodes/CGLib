@@ -48,3 +48,13 @@ void EdgeCollection::remove(Edge* e)
 	delete e;
 	edges.remove(*found);
 }
+
+Edge* EdgeCollection::findById(const int id) const
+{
+	for (auto e : edges) {
+		if (e->getId() == id) {
+			return e;
+		}
+	}
+	return nullptr;
+}

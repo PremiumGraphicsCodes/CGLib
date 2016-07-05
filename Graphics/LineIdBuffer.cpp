@@ -12,6 +12,14 @@ void LineIdBuffer::clear()
 	ids.clear();
 }
 
+void LineIdBuffer::add(const Surface& surface)
+{
+	const auto& edges = surface.getEdges();
+	for (auto e : edges) {
+		add(e->toLine(), DrawableID(e->getId(), surface.getId()));
+	}
+}
+
 
 void LineIdBuffer::add(const Surface& surface, const DrawableID& did)
 {

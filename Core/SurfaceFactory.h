@@ -33,6 +33,13 @@ public:
 
 	void merge(SurfaceFactory& rhs);
 
+	Surface* findSurfaceById(const int id);
+
+	Edge* findEdgeById(const int id) const;
+
+	Node* findNodeById(const int id) const;
+
+	Face* findFaceById(const int id) const;
 
 private:
 
@@ -41,6 +48,7 @@ private:
 	NodeCollection nodes;
 	EdgeCollection edges;
 	FaceCollection_ faces;
+	std::list<Surface*> surfaces;
 };
 
 

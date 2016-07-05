@@ -23,6 +23,8 @@ public:
 
 	void remove(Face* f);
 
+	Face* findById(const int id) const;
+
 private:
 	int nextId;
 	std::list<Face*> faces;

@@ -25,6 +25,8 @@ public:
 
 	void remove(Node* n);
 
+	Node* findById(const int id) const;
+
 private:
 	std::list<Node*> nodes;
 

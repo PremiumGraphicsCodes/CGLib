@@ -47,3 +47,14 @@ void NodeCollection::remove(Node* n)
 	delete n;
 	nodes.remove(n);
 }
+
+Node* NodeCollection::findById(const int id) const
+{
+	for (auto e : nodes) {
+		if (e->getId() == id) {
+			return e;
+		}
+	}
+	return nullptr;
+
+}

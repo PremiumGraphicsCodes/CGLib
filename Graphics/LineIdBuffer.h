@@ -25,6 +25,8 @@ class LineIdBuffer
 public:
 	void clear();
 
+	void add(const Core::Surface& surface);
+
 	void add(const Core::Surface& surface, const DrawableID& did);
 
 	void add(const Math::Line3d<float>& line, const DrawableID& did);

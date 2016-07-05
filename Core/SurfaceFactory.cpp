@@ -133,4 +133,28 @@ void SurfaceFactory::merge(SurfaceFactory& rhs)
 	faces.merge(rhs.faces);
 }
 
+Surface* SurfaceFactory::findSurfaceById(const int id)
+{
+	for (auto s : surfaces) {
+		if (s->getId() == id) {
+			return s;
+		}
+	}
+	return nullptr;
+}
+
+Edge* SurfaceFactory::findEdgeById(const int id) const
+{
+	return edges.findById(id);
+}
+
+Node* SurfaceFactory::findNodeById(const int id) const
+{
+	return nodes.findById(id);
+}
+
+Face* SurfaceFactory::findFaceById(const int id) const
+{
+	return faces.findById(id);
+}
 
