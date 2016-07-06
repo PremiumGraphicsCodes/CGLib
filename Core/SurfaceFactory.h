@@ -27,7 +27,7 @@ public:
 
 	Surface* create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
-	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
+	//Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
 
 	//void remove(Node* n);
 
@@ -52,7 +52,7 @@ public:
 
 private:
 
-	Surface* create(int id);
+	Surface* create(int id, const std::vector<Node*>& nodes, const std::vector<Edge*>& edges, const std::vector<Face*>& faces);
 
 	NodeCollection nodes;
 	EdgeCollection edges;

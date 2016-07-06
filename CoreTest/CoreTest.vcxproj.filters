@@ -36,6 +36,9 @@
     <ClCompile Include="NodeCollectionTest.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
+    <ClCompile Include="BooleanAlgoTest.cpp">
+      <Filter>Graph\Algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -46,6 +49,9 @@
     </Filter>
     <Filter Include="Collection">
       <UniqueIdentifier>{5335422d-c4a9-4ef5-99e5-b29948d5bbcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graph\Algo">
+      <UniqueIdentifier>{78730bea-c13c-4472-a92c-6b8510ba5237}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -83,6 +83,9 @@
     <ClCompile Include="SurfaceSplittingAlgo.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
+    <ClCompile Include="BooleanAlgo.cpp">
+      <Filter>Graph\Algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -175,6 +178,9 @@
       <Filter>Graph\Algo</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceSplittingAlgo.h">
+      <Filter>Graph\Algo</Filter>
+    </ClInclude>
+    <ClInclude Include="BooleanAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
   </ItemGroup>
