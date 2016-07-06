@@ -232,37 +232,26 @@ TYPED_TEST(Vector3dTest, TestGetElevation)
 TYPED_TEST(Vector3dTest, TestLerp)
 {
 	using T = TypeParam;
-	{
-		Vector3d<T> v1(1, 0, 0);
-		Vector3d<T> v2(0, 1, 0);
-		EXPECT_EQ(Vector3d<T>(1, 0, 0), v1.lerp(v2, 0.0));
-		EXPECT_EQ(Vector3d<T>(0, 1, 0), v1.lerp(v2, 1.0));
-		EXPECT_EQ(Vector3d<T>(0.5, 0.5, 0), v1.lerp(v2, 0.5));
-
-	}
+	const Vector3d<T> v1(1, 0, 0);
+	const Vector3d<T> v2(0, 1, 0);
+	EXPECT_EQ(Vector3d<T>(1, 0, 0), v1.lerp(v2, 0.0));
+	EXPECT_EQ(Vector3d<T>(0, 1, 0), v1.lerp(v2, 1.0));
+	EXPECT_EQ(Vector3d<T>(0.5, 0.5, 0), v1.lerp(v2, 0.5));
 }
 
 TYPED_TEST(Vector3dTest, TestSlerp)
 {
 	using T = TypeParam;
-	{
-		Vector3d<T> v1(1, 0, 0);
-		Vector3d<T> v2(0, 1, 0);
-		EXPECT_EQ( Vector3d<T>(1,0,0), v1.slerp(v2, 0.0) );
-		EXPECT_EQ( Vector3d<T>(0,1,0), v1.slerp(v2, 1.0));
-		EXPECT_EQ( Vector3d<T>(1/std::sqrt(2), 1 / std::sqrt(2),0), v1.slerp(v2, 0.5));
-		EXPECT_EQ( Vector3d<T>(0, 1, 0), v2.slerp(v1, 0.0));
-
-	}
-
-	{
-		Vector3d<T> v1(1, 0, 0);
-		Vector3d<T> v2(0, 0, 1);
-		EXPECT_EQ(Vector3d<T>(1, 0, 0), v1.slerp(v2, 0.0));
-		EXPECT_EQ(Vector3d<T>(0, 0, 1), v1.slerp(v2, 1.0));
-
-		EXPECT_EQ(Vector3d<T>(1 / std::sqrt(2), 0, 1 / std::sqrt(2)), v1.slerp(v2, 0.5));
-	}
+	const Vector3d<T> x(1, 0, 0);
+	const Vector3d<T> y(0, 1, 0);
+	const Vector3d<T> z(0, 0, 1);
+	EXPECT_EQ( Vector3d<T>(1,0,0), x.slerp(y, 0.0) );
+	EXPECT_EQ( Vector3d<T>(0,1,0), x.slerp(y, 1.0));
+	EXPECT_EQ( Vector3d<T>(1/std::sqrt(2), 1 / std::sqrt(2),0), x.slerp(y, 0.5));
+	EXPECT_EQ( Vector3d<T>(0, 1, 0), y.slerp(x, 0.0));
+	EXPECT_EQ( Vector3d<T>(1, 0, 0), x.slerp(z, 0.0));
+	EXPECT_EQ( Vector3d<T>(0, 0, 1), x.slerp(z, 1.0));
+	EXPECT_EQ( Vector3d<T>(1 / std::sqrt(2), 0, 1 / std::sqrt(2)), x.slerp(z, 0.5));
 
 	{
 		Vector3d<T> v1(1, 0, 0);

@@ -29,8 +29,10 @@ Intersection3d<T>::Intersection3d(const Triangle3d<T>& lhs, const Triangle3d<T>&
 template<typename T>
 std::vector<Vector3d<T>> Intersection3d<T>::calculate(const Line3d<T>& lhs, const Line3d<T>& rhs)
 {
+	std::vector<Vector3d<T>> results;
+
 	if (lhs.isParallel(rhs)) {
-		return std::vector<Vector3d<T>>();
+		return results;
 	}
 	const auto ab = lhs.getVector();
 	const auto cd = rhs.getVector();
@@ -47,35 +49,45 @@ std::vector<Vector3d<T>> Intersection3d<T>::calculate(const Line3d<T>& lhs, cons
 	const auto d2 = (work1 * ac.getInnerProduct(n1) - ac.getInnerProduct(n2)) / work2;
 
 	if (d1 > 1 || d1 < 0) {
-		return std::vector<Vector3d<T>>();
+		return results;
 	}
 	auto pos1 = lhs.getStart() + d1 * n1;
 	//auto pos2 = rhs.getStart() + d2 * n2;
 
 	//if (pos1 == pos2) {
-	std::vector<Vector3d<T>> is;
-	is.push_back(pos1);
+	results.push_back(pos1);
 	intersections.push_back(pos1);
-	return is;
+	return results;
 
 	//}
 }
 
 
 template<typename T>
-void Intersection3d<T>::calculate(const Line3d<T>& line, const Triangle3d<T>& triangle)
+std::vector<Vector3d<T>> Intersection3d<T>::calculate(const Line3d<T>& line, const Triangle3d<T>& triangle)
 {
+	std::vector<Vector3d<T>> results;
+
+	if (triangle.isSamePlane(line)) {
+		const auto& lines = triangle.toLines();
+		for (const auto& l1 : lines) {
+			std::vector<Vector3d<T>> is = calculate(line, l1);
+			results.insert(results.end(), is.begin(), is.end());
+		}
+		return results;
+	}
+
 	const auto& n = triangle.getNormal();
 	const auto d = -n.getInnerProduct(triangle.getv0());
 	const auto denom = n.getInnerProduct(line.getVector());
 
 	if (Tolerance<T>::isEqualLoosely(denom)) {
-		return;
+		return results;
 	}
 
 	const auto param = -(d + n.getInnerProduct(line.getStart())) / denom;
 	if (param < 0 || param > 1) {
-		return;
+		return results;
 	}
 
 	const auto pos = line.getPosition(param);
@@ -92,10 +104,11 @@ void Intersection3d<T>::calculate(const Line3d<T>& line, const Triangle3d<T>& tr
 	const auto a3 = v3.getInnerProduct(v1);
 	const auto angle = Radian<T>(std::acos(a1) + std::acos(a2) + std::acos(a3));
 	if (::fabs(angle.get() - Tolerance<T>::getTwoPI()) > 0) {
-		return;
+		return results;
 	}
+	results.push_back(pos);
 	this->intersections.push_back(pos);
-
+	return results;
 }
 
 template<typename T>

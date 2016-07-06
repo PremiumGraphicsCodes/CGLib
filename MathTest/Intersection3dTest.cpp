@@ -34,16 +34,20 @@ TEST(Intersection3dTest, TestLineAndTriangle)
 {
 	using T = float;
 	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	Intersection3d<T> intersection;
+
 	{
 		Line3d<T> line(Vector3d<T>(0, 0, -1), Vector3d<T>(0, 0, 1));
-		Intersection3d<T> intersection(line, triangle);
-		EXPECT_TRUE(intersection.hasIntersection());
-		EXPECT_EQ(Vector3d<T>(0, 0, 0), intersection.getIntersections().front());
+		EXPECT_EQ(Vector3d<T>(0, 0, 0), intersection.calculate(line, triangle).front());
 	}
 	{
 		Line3d<T> line(Vector3d<T>(2, 0, -1), Vector3d<T>(2, 0, 1));
+		EXPECT_TRUE(intersection.calculate(line, triangle).empty());
+	}
+	{
+		Line3d<T> line(Vector3d<T>(0, -1, 0), Vector3d<T>(0, 2, 0));
 		Intersection3d<T> intersection(line, triangle);
-		EXPECT_FALSE(intersection.hasIntersection());
+		EXPECT_TRUE(intersection.hasIntersection());
 	}
 }
 
