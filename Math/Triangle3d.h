@@ -80,11 +80,11 @@ public:
 
 	bool isOutside(const Vector3d<T>& position) const;
 
-	bool isSamePlane(const Vector3d<T>& rhs) const;
+	bool isSamePlane(const Vector3d<T>& position) const;
 
 	bool isSamePlane(const Triangle3d<T>& rhs) const;
-	//Vector3d<T> getIntersection(const Line3d<T>& line) const;
 
+	bool isSamePlane(const Line3d<T>& line) const;
 
 private:
 	Vector3d<T> v0;

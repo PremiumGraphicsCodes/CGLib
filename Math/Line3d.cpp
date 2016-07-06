@@ -66,6 +66,12 @@ bool Line3d<T>::isSamePlane(const Line3d<T>& rhs) const
 	return getStart().isSamePlane(getEnd(), rhs.getStart(), rhs.getEnd());
 }
 
+template<typename T>
+bool Line3d<T>::isParallel(const Line3d<T>& rhs) const
+{
+	return getVector().getNormalized() == rhs.getVector().getNormalized();
+}
+
 
 /*
 template<typename T>

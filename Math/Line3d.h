@@ -48,6 +48,8 @@ public:
 
 	bool isSamePlane(const Line3d<T>& rhs) const;
 
+	bool isParallel(const Line3d<T>& rhs) const;
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> vector;
