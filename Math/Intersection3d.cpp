@@ -27,10 +27,10 @@ Intersection3d<T>::Intersection3d(const Triangle3d<T>& lhs, const Triangle3d<T>&
 }
 
 template<typename T>
-void Intersection3d<T>::calculate(const Line3d<T>& lhs, const Line3d<T>& rhs)
+std::vector<Vector3d<T>> Intersection3d<T>::calculate(const Line3d<T>& lhs, const Line3d<T>& rhs)
 {
 	if (lhs.isParallel(rhs)) {
-		return;
+		return std::vector<Vector3d<T>>();
 	}
 	const auto ab = lhs.getVector();
 	const auto cd = rhs.getVector();
@@ -47,13 +47,17 @@ void Intersection3d<T>::calculate(const Line3d<T>& lhs, const Line3d<T>& rhs)
 	const auto d2 = (work1 * ac.getInnerProduct(n1) - ac.getInnerProduct(n2)) / work2;
 
 	if (d1 > 1 || d1 < 0) {
-		return;
+		return std::vector<Vector3d<T>>();
 	}
 	auto pos1 = lhs.getStart() + d1 * n1;
 	//auto pos2 = rhs.getStart() + d2 * n2;
 
 	//if (pos1 == pos2) {
-		intersections.push_back(pos1);
+	std::vector<Vector3d<T>> is;
+	is.push_back(pos1);
+	intersections.push_back(pos1);
+	return is;
+
 	//}
 }
 
@@ -98,25 +102,13 @@ template<typename T>
 void Intersection3d<T>::calculate(const Triangle3d<T>& lhs, const Triangle3d<T>& rhs)
 {
 	if (lhs.isSamePlane(rhs)) {
-		Line3d<T> line1(lhs.getv0(), lhs.getv1());
-		Line3d<T> line2(lhs.getv1(), lhs.getv2());
-		Line3d<T> line3(lhs.getv2(), lhs.getv0());
-		Line3d<T> line4(rhs.getv0(), rhs.getv1());
-		Line3d<T> line5(rhs.getv1(), rhs.getv2());
-		Line3d<T> line6(rhs.getv2(), rhs.getv0());
-
-		calculate(line1, line4);
-		calculate(line2, line4);
-		calculate(line3, line4);
-
-		calculate(line1, line5);
-		calculate(line2, line5);
-		calculate(line3, line5);
-
-		calculate(line1, line6);
-		calculate(line2, line6);
-		calculate(line3, line6);
-
+		const auto& lines1 = lhs.toLines();
+		const auto& lines2 = rhs.toLines();
+		for (const auto& l1 : lines1) {
+			for (const auto& l2 : lines2) {
+				calculate(l1, l2);
+			}
+		}
 	}
 	else {
 		calculate(lhs, rhs);

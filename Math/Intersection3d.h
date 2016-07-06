@@ -20,7 +20,7 @@ public:
 
 	Intersection3d(const Triangle3d<T>& lhs, const Triangle3d<T>& rhs);
 
-	void calculate(const Line3d<T>& lhs, const Line3d<T>& rhs);
+	std::vector<Vector3d<T>> calculate(const Line3d<T>& lhs, const Line3d<T>& rhs);
 
 	void calculate(const Line3d<T>& line, const Triangle3d<T>& triangle);
 

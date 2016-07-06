@@ -115,6 +115,16 @@ bool Triangle3d<T>::isSamePlane(const Line3d<T>& line) const
 		isSamePlane(line.getEnd());
 }
 
+template<typename T>
+std::array< Line3d<T>, 3 > Triangle3d<T>::toLines() const
+{
+	Line3d<T> l1(v0, v1);
+	Line3d<T> l2(v1, v2);
+	Line3d<T> l3(v2, v0);
+	return{ l1,l2,l3 };
+}
+
+
 //template<typename T>
 //Vector3d<T> getIntersection
 

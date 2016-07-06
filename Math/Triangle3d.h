@@ -86,6 +86,8 @@ public:
 
 	bool isSamePlane(const Line3d<T>& line) const;
 
+	std::array< Line3d<T>, 3 > toLines() const;
+
 private:
 	Vector3d<T> v0;
 	Vector3d<T> v1;
