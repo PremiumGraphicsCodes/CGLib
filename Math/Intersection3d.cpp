@@ -35,8 +35,8 @@ std::vector<Vector3d<T>> Intersection3d<T>::calculate(const Line3d<T>& lhs, cons
 	const auto ab = lhs.getVector();
 	const auto cd = rhs.getVector();
 
-	const auto n1 = ab.getNormalized();
-	const auto n2 = cd.getNormalized();
+	const auto n1 = ab.normalized();
+	const auto n2 = cd.normalized();
 
 	const auto work1 = n1.getInnerProduct(n2);
 	const auto work2 = 1 - work1 * work1;

@@ -143,7 +143,7 @@ void PolygonMesh::add(const Box3d<float>& box)
 
 	std::array< Vector3d<float>, 8 > ns;
 	for (int i = 0; i < 8; ++i) {
-		ns[i] = Vector3d<float>(ps[i] - center).getNormalized();
+		ns[i] = Vector3d<float>(ps[i] - center).normalized();
 	}
 
 	for (int i = 0; i < 8; ++i) {

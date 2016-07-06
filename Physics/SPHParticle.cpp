@@ -87,7 +87,7 @@ void SPHParticle::solveSurfaceTension(const SPHParticle& rhs)
 		return;
 	}
 	const auto distance = this->getPosition().getDistance( rhs.getPosition() );
-	const auto n = this->normal.getNormalized();
+	const auto n = this->normal.normalized();
 	const float tensionCoe = (this->constant->getTensionCoe() + rhs.constant->getTensionCoe()) * 0.5f;;
 	this->force -= tensionCoe * kernel.getPoly6KernelLaplacian(distance, constant->getEffectLength()) * n;
 }

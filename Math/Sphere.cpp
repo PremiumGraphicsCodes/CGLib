@@ -85,7 +85,7 @@ Vector3d<T> Sphere<T>::getNormal(const Angle<T> u, const Angle<T> v) const
 {
 	const auto& pos = getPosition(u, v);
 	Vector3d<T> n( pos - center );
-	return n.getNormalized();
+	return n.normalized();
 }
 
 template<typename T>
@@ -93,7 +93,7 @@ Vector3d<T> Sphere<T>::getNormal(const Param<T> u, const Param<T> v) const
 {
 	const auto& pos = getPosition(u, v);
 	Vector3d<T> n(pos - center);
-	return n.getNormalized();
+	return n.normalized();
 }
 
 template<typename T>

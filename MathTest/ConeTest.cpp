@@ -47,6 +47,6 @@ TEST(ConeTest, TestGetPositionByParamAndParam)
 TEST(ConeTest, TestGetNormal)
 {
 	const Cone<float> cone(1, 1);
-	EXPECT_EQ(Vector3d<float>(1, 2.0f/3.0f, 0).getNormalized(), cone.getNormal(Angle<float>::Zero(), Param<float>(0)));
-	EXPECT_EQ(Vector3d<float>(-1, 2.0f/3.0f, 0).getNormalized(), cone.getNormal(Angle<float>::PI(), Param<float>(0)));
+	EXPECT_EQ(Vector3d<float>(1, 2.0f/3.0f, 0).normalized(), cone.getNormal(Angle<float>::Zero(), Param<float>(0)));
+	EXPECT_EQ(Vector3d<float>(-1, 2.0f/3.0f, 0).normalized(), cone.getNormal(Angle<float>::PI(), Param<float>(0)));
 }

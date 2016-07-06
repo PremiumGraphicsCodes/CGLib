@@ -95,7 +95,7 @@ PolygonMesh* OBJFile::toPolygonObject()
 
 		const auto v1 = positions[currentIndex+1] - positions[currentIndex];
 		const auto v2 = positions[currentIndex+2] - positions[currentIndex];
-		const auto normal = v1.getOuterProduct(v2).getNormalized();
+		const auto normal = v1.getOuterProduct(v2).normalized();
 		for (auto& v : vv) {
 			if (v->getNormal() == Vector3d<float>(0, 0, 0)) {
 				v->setNormal(-normal);

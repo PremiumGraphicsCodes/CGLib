@@ -68,7 +68,7 @@ Vector3d<T> Cone<T>::getNormal(const Angle<T> u, const Param<T> v) const
 	const auto x = pos.getX() / xz;
 	const auto y = xz / (height - pos.getY());
 	const auto z = pos.getZ() / xz;
-	return Vector3d<T>(x, y, z).getNormalized();
+	return Vector3d<T>(x, y, z).normalized();
 }
 
 template<typename T>

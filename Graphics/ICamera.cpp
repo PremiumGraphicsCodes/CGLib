@@ -21,8 +21,8 @@ ICamera<T>::ICamera() :
 template<typename T>
 Matrix3d<T> ICamera<T>::getRotationMatrix() const
 {
-	const auto z = Vector3d<T>(pos - lookat).getNormalized();
-	const auto x = getUpVector().getOuterProduct(z).getNormalized();
+	const auto z = Vector3d<T>(pos - lookat).normalized();
+	const auto x = getUpVector().getOuterProduct(z).normalized();
 	const auto y = z.getOuterProduct(x);
 /*	return Matrix3d<T>(
 		x.getX(), x.getY(), x.getZ(),
@@ -52,19 +52,19 @@ template<typename T>
 Vector3d<T> ICamera<T>::getForwardVector() const
 {
 	const auto v = lookat - pos;
-	return v.getNormalized();
+	return v.normalized();
 }
 
 template<typename T>
 Vector3d<T> ICamera<T>::getUpVector() const
 {
-	return up.getNormalized();
+	return up.normalized();
 }
 
 template<typename T>
 Vector3d<T> ICamera<T>::getRightVector() const
 {
-	return getForwardVector().getOuterProduct(getUpVector()).getNormalized();
+	return getForwardVector().getOuterProduct(getUpVector()).normalized();
 }
 
 template<typename T>

@@ -54,13 +54,13 @@ public:
 
 	Vector3d& scale(const T xFactor, const T yFactor, const T zFactor);
 
-	Vector3d getScaled(const T factor) const { return Vector3d(x * factor, y * factor, z * factor); }
+	Vector3d scaled(const T factor) const { return Vector3d(x * factor, y * factor, z * factor); }
 
-	Vector3d getScaled(const T xFactor, const T yFactor, const T zFactor) const { return Vector3d(x*xFactor, y*yFactor, z*zFactor); }
+	Vector3d scaled(const T xFactor, const T yFactor, const T zFactor) const { return Vector3d(x*xFactor, y*yFactor, z*zFactor); }
 
 	Vector3d normalize();
 
-	Vector3d getNormalized() const;
+	Vector3d normalized() const;
 
 	bool isNormalized() const { return Tolerance<T>::isEqualLoosely( getLength(), 1.0 ); }
 
@@ -156,10 +156,10 @@ private:
 };
 
 template<typename T>
-static Vector3d<T> operator*( T factor, const Vector3d<T>& rhs ) { return rhs.getScaled( factor ); }
+static Vector3d<T> operator*( T factor, const Vector3d<T>& rhs ) { return rhs.scaled( factor ); }
 
 template<typename T>
-static Vector3d<T> operator/( T factor, const Vector3d<T>& rhs ) { return rhs.getScaled( 1.0f / factor ); }
+static Vector3d<T> operator/( T factor, const Vector3d<T>& rhs ) { return rhs.scaled( 1.0f / factor ); }
 
 
 	}

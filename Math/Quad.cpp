@@ -23,8 +23,8 @@ Quad<T> Quad<T>::ZXPlane(const Vector3d<T>& origin)
 template<typename T>
 Vector3d<T> Quad<T>::getNormal() const
 {
-	const auto v1 = uVector.getNormalized();
-	const auto v2 = vVector.getNormalized();
+	const auto v1 = uVector.normalized();
+	const auto v2 = vVector.normalized();
 	return v1.getOuterProduct(v2);
 }
 

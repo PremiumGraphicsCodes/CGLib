@@ -270,7 +270,7 @@ Vector3d<T> Grid3d<T>::getLocalCoord(const Index3d index) const
 	const Vector3d<T> start(-0.5, -0.5, -0.5);
 
 	const Vector3d<T> lengths(T{ 1.0 } / this->getSizeX(), T{ 1.0 } / this->getSizeY(), T{ 1.0 } / this->getSizeZ());
-	const Vector3d<T> result = start + lengths.getScaled(
+	const Vector3d<T> result = start + lengths.scaled(
 		static_cast<T>(index[0]),
 		static_cast<T>(index[1]),
 		static_cast<T>(index[2]));

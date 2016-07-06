@@ -23,7 +23,7 @@ Vector3d<T> Triangle3d<T>::getNormal() const
 {
 	const Vector3d<T> v01 = v0 - v1;
 	const Vector3d<T> v02 = v1 - v2;
-	return v01.getOuterProduct(v02).getNormalized();
+	return v01.getOuterProduct(v02).normalized();
 }
 
 template<typename T>

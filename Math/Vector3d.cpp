@@ -84,7 +84,7 @@ Vector3d<T> Vector3d<T>::normalize()
 }
 
 template<typename T>
-Vector3d<T> Vector3d<T>::getNormalized() const
+Vector3d<T> Vector3d<T>::normalized() const
 {
 	Vector3d<T> vector = *(this);
 	return vector.normalize();
@@ -223,7 +223,7 @@ Angle<T> Vector3d<T>::getAzimuth() const
 template<typename T>
 Angle<T> Vector3d<T>::getElevation() const
 {
-	const auto& n = getNormalized();
+	const auto& n = normalized();
 	return -(n.getAngle(Vector3d<T>(0,1,0)) - Angle<T>(Degree<T>(90)));
 }
 

@@ -21,7 +21,7 @@ public:
 
 	Ray3d(const Vector3d<T>& origin, const Vector3d<T>& dir) :
 		origin(origin),
-		dir(dir.getNormalized())
+		dir(dir.normalized())
 	{}
 
 	bool isParallel(const Triangle3d<T>& triangle) const;
