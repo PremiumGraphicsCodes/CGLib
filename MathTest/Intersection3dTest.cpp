@@ -3,7 +3,23 @@
 
 using namespace Crystal::Math;
 
-TEST(Intersection3dTest, TestLineTriangle)
+
+TEST(Intersection3d, TestLineAndLine)
+{
+	using T = float;
+	Line3d<T> linex(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0));
+	Line3d<T> liney(Vector3d<T>(0, -1, 0), Vector3d<T>(0, 1, 0));
+	Line3d<T> linez(Vector3d<T>(0, 0, -1), Vector3d<T>(0, 0, 1));
+
+	EXPECT_EQ(Vector3d<T>(0, 0, 0), Intersection3d<T>(linex, liney).getIntersections().front() );
+	EXPECT_EQ(Vector3d<T>(0, 0, 0), Intersection3d<T>(linex, linez).getIntersections().front());
+	//EXPECT_EQ(Vector3d<T>(1, 0, 0), linex.getIntersection(Line3d<T>(Vector3d<T>(1, -1, 0), Vector3d<T>(1, 1, 0))));
+
+	//EXPECT_EQ(actual, 1.0);
+}
+
+
+TEST(Intersection3dTest, TestLineAndTriangle)
 {
 	using T = float;
 	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
@@ -19,3 +35,14 @@ TEST(Intersection3dTest, TestLineTriangle)
 		EXPECT_FALSE(intersection.hasIntersection());
 	}
 }
+
+/*
+TEST(Intersection3dTest, TestTriangleAndTriangle)
+{
+	using T = float;
+	Triangle3d<T> t1(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	Triangle3d<T> t2(Vector3d<T>(0, 0, 0), Vector3d<T>(2, 0, 0), Vector3d<T>(1, 2, 0));
+	Intersection3d<T> intersection(t1, t2);
+	EXPECT_EQ(1, intersection.getIntersections().size());
+}
+*/

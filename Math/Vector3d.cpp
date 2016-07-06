@@ -257,5 +257,20 @@ Vector3d<T> Vector3d<T>::slerp(const Vector3d<T>& rhs, const T param) const
 	return result;
 }
 
+template<typename T>
+bool Vector3d<T>::isSamePlane(const Vector3d<T>& a, const Vector3d<T>& b, const Vector3d<T>& c) const
+{
+	const auto& v0 = a - *this;
+	const auto& v1 = b - *this;
+	const auto& v2 = c - *this;
+	const Matrix3d<T> matrix(
+		v0.getX(), v0.getY(), v0.getZ(),
+		v1.getX(), v1.getY(), v1.getZ(),
+		v2.getX(), v2.getY(), v2.getZ()
+	);
+	return Tolerance<T>::isEqualLoosely(matrix.getDeterminant(), 0);
+}
+
+
 template class Vector3d<float>;
 template class Vector3d<double>;

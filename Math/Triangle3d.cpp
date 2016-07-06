@@ -92,6 +92,22 @@ bool Triangle3d<T>::isOutside(const Vector3d<T>& position) const
 	return !isInside(position);
 }
 
+template<typename T>
+bool Triangle3d<T>::isSamePlane(const Vector3d<T>& point) const
+{
+	return point.isSamePlane(v0, v1, v2);
+}
+
+template<typename T>
+bool Triangle3d<T>::isSamePlane(const Triangle3d<T>& rhs) const
+{
+	return
+		isSamePlane(rhs.v0) &&
+		isSamePlane(rhs.v1) &&
+		isSamePlane(rhs.v2);
+}
+
+
 //template<typename T>
 //Vector3d<T> getIntersection
 

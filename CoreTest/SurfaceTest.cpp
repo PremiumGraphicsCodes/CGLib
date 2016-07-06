@@ -161,7 +161,7 @@ TEST(SurfaceTest, TestGetIntersections)
 	EXPECT_EQ(2, actual.size());
 }
 
-#include "../Core/SurfaceSplitter.h"
+#include "../Core/SurfaceSplittingAlgo.h"
 
 TEST(SurfaceTest, TestSplit)
 {

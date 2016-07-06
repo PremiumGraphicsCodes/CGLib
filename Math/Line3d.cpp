@@ -61,6 +61,14 @@ std::vector<Vector3d<T>> Line3d<T>::toPositionsByNumber(const unsigned int howMa
 }
 
 template<typename T>
+bool Line3d<T>::isSamePlane(const Line3d<T>& rhs) const
+{
+	return getStart().isSamePlane(getEnd(), rhs.getStart(), rhs.getEnd());
+}
+
+
+/*
+template<typename T>
 bool Line3d<T>::hasIntersection(const Line3d<T>& rhs) const
 {
 	const auto v1 = this->getVector().getNormalized();
@@ -78,7 +86,7 @@ bool Line3d<T>::hasIntersection(const Line3d<T>& rhs) const
 	}
 	return false;
 }
-
+*/
 /*
 template<typename T>
 T Line3d<T>::getDistance(const Line3d<T>& rhs) const
@@ -93,25 +101,6 @@ T Line3d<T>::getDistance(const Line3d<T>& rhs) const
 }
 */
 
-template<typename T>
-Vector3d<T> Line3d<T>::getIntersection(const Line3d<T>& rhs) const
-{
-	const auto ab = this->getVector();
-	const auto cd = rhs.getVector();
-
-	const auto n1 = ab.getNormalized();
-	const auto n2 = cd.getNormalized();
-
-	const auto work1 = n1.getInnerProduct(n2);
-	const auto work2 = 1 - work1 * work1;
-
-	const auto ac = rhs.getStart() - this->getStart();
-
-	const auto d1 = (ac.getInnerProduct(n1) - work1 * ac.getInnerProduct(n2)) / work2;
-//	const auto d2 = (w1 * v3.getInnerProduct(v1) - v3.getInnerProduct(v2)) / w2;
-
-	return getStart() + d1 * n1;
-}
 
 
 template class Line3d<float>;

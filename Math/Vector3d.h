@@ -124,6 +124,8 @@ public:
 
 	Vector3d<T> slerp(const Vector3d<T>& rhs, const T param) const;
 
+	bool isSamePlane(const Vector3d<T>& a, const Vector3d<T>& b, const Vector3d<T>& c) const;
+
 public:
 	T getX() const { return x; }
 

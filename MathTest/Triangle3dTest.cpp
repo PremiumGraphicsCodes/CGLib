@@ -75,3 +75,11 @@ TYPED_TEST(Triangle3dTest, TestIsOutside)
 	EXPECT_TRUE( triangle.isOutside(Vector3d<T>(-2, 0, 0)));
 	EXPECT_TRUE( triangle.isOutside(Vector3d<T>(2, 0, 0)));
 }
+
+TYPED_TEST(Triangle3dTest, TestIsSamePlane)
+{
+	using T = TypeParam;
+	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	EXPECT_TRUE( triangle.isSamePlane(Vector3d<T>(2, 0, 0)));
+	EXPECT_FALSE(triangle.isSamePlane(Vector3d<T>(0, 0, 10)) );
+}

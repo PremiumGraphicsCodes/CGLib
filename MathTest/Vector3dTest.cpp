@@ -295,15 +295,17 @@ TYPED_TEST(Vector3dTest, TestSlerp)
 	}
 	*/
 }
-/*
-TYPED_TEST(Vector3dTest, TestToPolarCoord)
+
+TYPED_TEST(Vector3dTest, TestIsSamePlane)
 {
 	using T = TypeParam;
-	{
-		Vector3d<T> v1(1, 0, 0);
-		const auto actual = v1.toPolarCoord();
-		const PolarCoord3d<T> expected(1, Angle<T>(Degree<T>(0) ), Angle<T>(Degree<T>(0) ) );
-		EXPECT_EQ(expected, actual);
-	}
+	Vector3d<T> v0(1, 0, 4);
+	Vector3d<T> v1(-2, 1, 0);
+	Vector3d<T> v2(1, 1, 1);
+	Vector3d<T> v3(0, 0, 1);
+	Vector3d<T> v4(-8, 0, 1);
+
+	EXPECT_FALSE(v0.isSamePlane(v1, v2, v3) );
+	EXPECT_TRUE( v0.isSamePlane(v1, v2, v4) );
+
 }
-*/
