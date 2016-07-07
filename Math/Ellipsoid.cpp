@@ -5,7 +5,7 @@ using namespace Crystal::Math;
 
 template<typename T>
 Ellipsoid<T>::Ellipsoid() :
-	IPrimitive3d<T>(center),
+	IPrimitive3d<T>(Vector3d<T>(0,0,0)),
 	radii( 0.5, 0.5, 0.5 )
 {}
 
