@@ -18,7 +18,10 @@ bool LineIdRenderer::build()
 	const auto& fShader = getBuildinFragmentShaderSource();
 
 	bool result = ShaderHandler::getInstance()->build(shaderName, vShader, fShader);
-	set(ShaderHandler::getInstance()->get(shaderName));
+	if (result) {
+		set(ShaderHandler::getInstance()->get(shaderName));
+	}
+	this->shader = ShaderHandler::getInstance()->get(shaderName);
 
 	return result;
 }

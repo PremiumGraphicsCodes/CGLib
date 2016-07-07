@@ -35,6 +35,9 @@ public:
 
 	Math::Quaternion<float> getOrientation() const override { return orientation; }
 
+	Math::Ellipsoid<float> toEllipsoid() const override;
+
+
 private:
 	Math::Vector3d<float> radii;
 	Math::Quaternion<float> orientation;

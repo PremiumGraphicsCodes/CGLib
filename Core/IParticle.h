@@ -3,6 +3,7 @@
 
 #include "../Math/Vector3d.h"
 #include "../Math/Box3d.h"
+#include "../Math/Ellipsoid.h"
 
 namespace Crystal {
 	namespace Core {
@@ -41,6 +42,8 @@ public:
 	virtual Math::Vector3d<float> getRadii() const = 0;
 
 	virtual Math::Quaternion<float> getOrientation() const = 0;
+
+	virtual Math::Ellipsoid<float> toEllipsoid() const = 0;
 
 protected:
 	Math::Vector3d<float> position;

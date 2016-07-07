@@ -101,6 +101,11 @@ void AnisotoropicParticle::scale(const Vector3d<float>& s)
 
 AnisotoropicParticle* AnisotoropicParticle::clone(const int newId) const
 {
-	Ellipsoid<float> e(this->getPosition(), radii);
+	const auto& e = toEllipsoid();
 	return new AnisotoropicParticle(e, density, orientation, newId);
+}
+
+Ellipsoid<float> AnisotoropicParticle::toEllipsoid() const
+{
+	return Ellipsoid<float>(this->getPosition(), radii);
 }

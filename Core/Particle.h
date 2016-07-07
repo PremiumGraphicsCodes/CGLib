@@ -59,6 +59,7 @@ public:
 
 	Math::Quaternion<float> getOrientation() const override;
 
+	Math::Ellipsoid<float> toEllipsoid() const override;
 
 private:
 	float radius;

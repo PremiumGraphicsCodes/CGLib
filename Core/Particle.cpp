@@ -81,3 +81,8 @@ Quaternion<float> Particle::getOrientation() const
 {
 	return Quaternion<float>(0, 0, 0, 1);
 }
+
+Ellipsoid<float> Particle::toEllipsoid() const
+{
+	return Ellipsoid<float>(this->getPosition(), getRadii());
+}
