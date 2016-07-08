@@ -35,6 +35,9 @@ public:
 
 	void remove(Face* f);
 
+	void remove(Edge* e);
+
+	void remove(Node* n);
 
 	Surface* findSurfaceById(const int id);
 

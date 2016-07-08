@@ -85,6 +85,10 @@ public:
 
 	void remove(Face* f);
 
+	void remove(Edge* e);
+
+	void remove(Node* n);
+
 private:
 	int id;
 	std::list<Face*> faces;

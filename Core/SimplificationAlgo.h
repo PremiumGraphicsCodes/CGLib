@@ -22,13 +22,8 @@ public:
 	void execute(Edge* e);
 
 private:
-
 	Surface* surface;
 	SurfaceFactory* factory;
-
-	NodeCollection nodes;
-	EdgeCollection edges;
-	FaceCollection_ faces;
 };
 
 	}

@@ -5,6 +5,11 @@
 
 namespace Crystal {
 	namespace Math {
+		template<typename T>
+		class Point3d;
+		template<typename T>
+		class Curve3d;
+
 
 template<typename T>
 class Quad
@@ -26,6 +31,8 @@ public:
 
 	Vector3d<T> getPosition(const T u, const T v) const;
 
+	Point3d<T> getPoint(const T u, const T v) const;
+
 	std::array<Vector3d<T>, 4> getPositions() const;
 
 	bool equals(const Quad<T>& rhs) const;
@@ -36,7 +43,7 @@ public:
 
 	//Point2d toPoint(const T u, const T v) const;
 
-	//Curve2d<T> toCurve2d() const;
+	Curve3d<T> toCurve3d() const;
 
 private:
 	Vector3d<T> origin;

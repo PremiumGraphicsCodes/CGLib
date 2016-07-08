@@ -34,6 +34,7 @@
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PolygonMeshTest.cpp" />
+    <ClCompile Include="SimplificationAlgoTest.cpp" />
     <ClCompile Include="SmoothingAlgoTest.cpp" />
     <ClCompile Include="SpaceHashTest.cpp" />
     <ClCompile Include="stdafx.cpp">

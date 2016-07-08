@@ -188,6 +188,19 @@ void SurfaceFactory::remove(Face* f)
 	faces.remove(f);
 }
 
+void SurfaceFactory::remove(Edge* e)
+{
+	findSurface(e)->remove(e);
+	edges.remove(e);
+}
+
+void SurfaceFactory::remove(Node* n)
+{
+	findSurface(n)->remove(n);
+	nodes.remove(n);
+}
+
+
 Surface* SurfaceFactory::findSurfaceById(const int id)
 {
 	for (auto s : surfaces) {

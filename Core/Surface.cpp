@@ -209,3 +209,13 @@ void Surface::remove(Face* f)
 {
 	faces.remove(f);
 }
+
+void Surface::remove(Edge* e)
+{
+	edges.remove(e);
+}
+
+void Surface::remove(Node* n)
+{
+	nodes.remove(n);
+}
