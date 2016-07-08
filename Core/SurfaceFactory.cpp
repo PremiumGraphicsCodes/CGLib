@@ -65,6 +65,10 @@ Surface* SurfaceFactory::create(const Curve3d<float>& curve, const int id)
 		createEdges.push_back(e1);
 		createEdges.push_back(e2);
 		createEdges.push_back(e3);
+		e1->connect(e2);
+		e2->connect(e3);
+		e3->connect(e1);
+		assert(f->isConnected());
 		createFaces.push_back(f);
 	}
 	return create(id, createNodes, createEdges, createFaces);
@@ -96,6 +100,11 @@ Surface* SurfaceFactory::create(const CircularCurve3d<float>& curve, const int i
 		createEdges.push_back(e1);
 		createEdges.push_back(e2);
 		createEdges.push_back(e3);
+		e1->connect(e2);
+		e2->connect(e3);
+		e3->connect(e1);
+		assert(f->isConnected());
+
 		createFaces.push_back(f);
 	}
 	return create(id, createNodes, createEdges, createFaces);
@@ -134,6 +143,11 @@ Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int i
 			createEdges.push_back(e1);
 			createEdges.push_back(e2);
 			createEdges.push_back(e3);
+			e1->connect(e2);
+			e2->connect(e3);
+			e3->connect(e1);
+			assert(f->isConnected());
+
 			createFaces.push_back(f);
 		}
 	}
@@ -146,6 +160,11 @@ Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int i
 			auto e2 = edges.create(n1, n2);
 			auto e3 = edges.create(n2, n0);
 			auto f = faces.create(e1, e2, e3);
+			e1->connect(e2);
+			e2->connect(e3);
+			e3->connect(e1);
+			assert(f->isConnected());
+
 			createEdges.push_back(e1);
 			createEdges.push_back(e2);
 			createEdges.push_back(e3);

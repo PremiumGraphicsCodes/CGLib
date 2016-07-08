@@ -43,10 +43,9 @@ TEST(SurfaceSplittingAlgoTest, TestSplitByBottom)
 	SurfaceFactory factory;
 	Surface* surface = factory.create(curve);
 	auto f = surface->getFaces().front();
-	SurfaceSplittingAlgo splitter(surface, &factory);
-	splitter.splitByBottom(f);
+	SurfaceSplittingAlgo algo(surface, &factory);
+	algo.splitByBottom(f);
 	EXPECT_EQ(2, surface->getFaces().size());
 	EXPECT_EQ(4, surface->getNodes().size());
 	EXPECT_EQ(6, surface->getEdges().size());
-
 }

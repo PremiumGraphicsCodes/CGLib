@@ -22,6 +22,20 @@ TEST(EdgeTest, TestGetLength)
 	EXPECT_EQ(1, e.getLength());
 }
 
+TEST(EdgeTest, TestIsReverse)
+{
+	Node n1(Vector3d<float>(0, 0, 0), 0);
+	Node n2(Vector3d<float>(1, 0, 0), 1);
+	Node n3(Vector3d<float>(2, 0, 0), 2);
+	Edge e1(&n1, &n2, 0);
+	Edge e2(&n2, &n1, 0);
+	Edge e3(&n3, &n1, 0);
+	EXPECT_TRUE(e1.isReverse(e2));
+	EXPECT_TRUE(e2.isReverse(e1));
+	EXPECT_FALSE(e1.isReverse(e3));
+
+}
+
 TEST(EdgeTest, TestIsShared)
 {
 	Node n1(Vector3d<float>(0, 0, 0), 0);

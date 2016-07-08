@@ -79,3 +79,16 @@ bool Face::has(Edge* e) const
 {
 	return ( std::find(edges.begin(), edges.end(), e) != edges.end() );
 }
+
+bool Face::isConnected() const
+{
+	for(auto iter = edges.begin(); iter != edges.end()-1; ++iter) {
+		auto e1 = *(iter);
+		auto e2 = *(iter + 1);
+		if (e1->getNext() != e2) {
+			return false;
+		}
+	}
+	return true;
+}
+

@@ -89,6 +89,10 @@ public:
 
 	void remove(Node* n);
 
+	std::list<Edge*> findSharedEdges() const;
+
+	Edge* findShared(Edge* e) const;
+
 private:
 	int id;
 	std::list<Face*> faces;

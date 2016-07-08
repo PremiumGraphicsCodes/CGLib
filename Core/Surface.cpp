@@ -219,3 +219,29 @@ void Surface::remove(Node* n)
 {
 	nodes.remove(n);
 }
+
+std::list<Edge*> Surface::findSharedEdges() const
+{
+	std::list<Edge*> results;
+	for (auto e1 : edges) {
+		for(auto e2 : edges) {
+			if (e1 == e2) {
+				continue;
+			}
+			if (e1->isShared(*e2)) {
+				results.push_back(e1);
+			}
+		}
+	}
+	return results;
+}
+
+Edge* Surface::findShared(Edge* e) const
+{
+	for (auto e1 : edges) {
+		if (e1->isReverse(*e)) {
+			return e1;
+		}
+	}
+	return nullptr;
+}

@@ -15,9 +15,20 @@ void SimplificationAlgo::execute(Edge* e)
 			factory->remove(f);
 		}
 	}
+	auto e2 = surface->findShared(e);
 	factory->remove(e);
+	factory->remove(e2);
 	n1->moveTo(center.getPosition());
-	n2->moveTo(center.getPosition());
+	surface->remove(n1);
+	//n2->moveTo(center.getPosition());
+	/*
+	Edge* degeneratedEdge = nullptr;
+	for (auto e : surface->getEdges()) {
+		if (e->getLength() == 0.0f) {
+			degeneratedEdge = e;
+		}
+	}
+	*/
 	/*
 	for (auto f : fs) {
 		f-> remove(f);

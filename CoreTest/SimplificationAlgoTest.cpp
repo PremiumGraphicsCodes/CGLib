@@ -8,13 +8,18 @@ using namespace Crystal::Core;
 
 TEST(SimplificationAlgoTest, Test)
 {
-	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	const auto& curve = quad.toCurve3d();
+	const Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const TriangleCurve3d<float> curve = triangle.toCurve3d();
 
 	SurfaceFactory factory;
 	Surface* surface = factory.create(curve);
-	auto e = surface->getFaces().front()->getEdges().back();
+	auto f = surface->getFaces().front();
+	SurfaceSplittingAlgo splitter(surface, &factory);
+	splitter.splitByBottom(f);
 	SimplificationAlgo algo(surface, &factory);
+	auto e = surface->getFaces().front()->getEdges().back();
 	algo.execute(e);
 	EXPECT_EQ(1, surface->getFaces().size());
+	EXPECT_EQ(3, surface->getNodes().size());
+	//EXPECT_EQ(3, surface->getEdges().size());
 }

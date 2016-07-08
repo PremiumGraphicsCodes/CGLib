@@ -43,6 +43,8 @@ public:
 
 	bool has(Edge* e) const;
 
+	bool isConnected() const;
+
 private:
 	std::vector<Edge*> edges;
 	int id;
