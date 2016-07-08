@@ -8,7 +8,7 @@ using namespace Crystal::Core;
 
 TEST(SimplificationAlgoTest, Test)
 {
-	const Quad<float> quad(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	const auto& curve = quad.toCurve3d();
 
 	SurfaceFactory factory;
