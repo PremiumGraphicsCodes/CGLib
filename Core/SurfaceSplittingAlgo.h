@@ -23,6 +23,8 @@ public:
 
 	void splitByCenter(Face* f);
 
+	void splitByBottom(Face* f);
+
 private:
 	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
 
