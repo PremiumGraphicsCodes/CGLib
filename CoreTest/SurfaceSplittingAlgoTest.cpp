@@ -7,15 +7,8 @@ using namespace Crystal::Core;
 
 TEST(SurfaceSplittingAlgoTest, TestSplitByNode)
 {
-	TriangleCurve3d<float> curve(2);
-
-	Point3d<float> p1(Vector3d<float>(0, 1, 0));
-	Point3d<float> p2(Vector3d<float>(-1, 0, 0));
-	Point3d<float> p3(Vector3d<float>(1, 0, 0));
-
-	curve.set(0, 0, p1);
-	curve.set(1, 0, p2);
-	curve.set(1, 1, p3);
+	const Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const TriangleCurve3d<float> curve = triangle.toCurve3d();
 
 	SurfaceFactory factory;
 	Surface* surface = factory.create(curve);
@@ -23,8 +16,21 @@ TEST(SurfaceSplittingAlgoTest, TestSplitByNode)
 	SurfaceSplittingAlgo splitter(surface, &factory);
 	splitter.splitByNode(f);
 
-	//	EXPECT_EQ(surface->getNodes().size(), 3);
-	//	EXPECT_EQ(surface->getFaces().size(), 4);
-	//	EXPECT_EQ(surface->getEdges().size(), 12);
+	EXPECT_EQ(surface->getNodes().size(), 6);
+	EXPECT_EQ(surface->getFaces().size(), 4);
+	EXPECT_EQ(surface->getEdges().size(), 12);
+}
 
+TEST(SurfaceSplittingAlgoTest, TestSplitByCenter)
+{
+	const Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const TriangleCurve3d<float> curve = triangle.toCurve3d();
+
+	SurfaceFactory factory;
+	Surface* surface = factory.create(curve);
+	auto f = surface->getFaces().front();
+	SurfaceSplittingAlgo splitter(surface, &factory);
+	splitter.splitByCenter(f);
+	EXPECT_EQ(surface->getFaces().size(), 3);
+	EXPECT_EQ(surface->getNodes().size(), 4);
 }

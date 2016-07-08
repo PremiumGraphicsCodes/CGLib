@@ -182,6 +182,12 @@ void SurfaceFactory::merge(SurfaceFactory& rhs)
 	faces.merge(rhs.faces);
 }
 
+void SurfaceFactory::remove(Face* f)
+{
+	findSurface(f)->remove(f);
+	faces.remove(f);
+}
+
 Surface* SurfaceFactory::findSurfaceById(const int id)
 {
 	for (auto s : surfaces) {

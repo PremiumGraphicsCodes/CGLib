@@ -83,6 +83,8 @@ public:
 
 	bool has(const Face* face) const;
 
+	void remove(Face* f);
+
 private:
 	int id;
 	std::list<Face*> faces;

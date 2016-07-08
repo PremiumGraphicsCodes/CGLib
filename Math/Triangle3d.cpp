@@ -1,5 +1,6 @@
 #include "Triangle3d.h"
 #include "Line3d.h"
+#include "TriangleCurve3d.h"
 
 using namespace Crystal::Math;
 
@@ -124,6 +125,18 @@ std::array< Line3d<T>, 3 > Triangle3d<T>::toLines() const
 	return{ l1,l2,l3 };
 }
 
+template<typename T>
+TriangleCurve3d<T> Triangle3d<T>::toCurve3d() const
+{
+	Point3d<T> p1(v0, getNormal());
+	Point3d<T> p2(v1, getNormal());
+	Point3d<T> p3(v2, getNormal());
+	TriangleCurve3d<T> curve(2);
+	curve.set(0, 0, p1);
+	curve.set(1, 0, p2);
+	curve.set(1, 1, p3);
+	return curve;
+}
 
 //template<typename T>
 //Vector3d<T> getIntersection

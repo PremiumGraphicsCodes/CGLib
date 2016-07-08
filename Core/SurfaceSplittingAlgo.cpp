@@ -42,6 +42,7 @@ void SurfaceSplittingAlgo::splitByCenter(Face* f)
 	surface->add(this->edges.get());
 	SurfaceFactory fa(nodes, edges, faces);
 	factory->merge(fa);
+	factory->remove(f);
 }
 
 

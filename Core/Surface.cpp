@@ -204,3 +204,8 @@ bool Surface::has(const Face* face) const
 {
 	return std::find(faces.begin(), faces.end(), face) != faces.end();
 }
+
+void Surface::remove(Face* f)
+{
+	faces.remove(f);
+}

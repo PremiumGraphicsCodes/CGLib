@@ -10,6 +10,8 @@ namespace Crystal {
 	namespace Math {
 		template<typename T>
 		class Line3d;
+		template<typename T>
+		class TriangleCurve3d;
 
 template<typename T>
 class Triangle3d
@@ -87,6 +89,9 @@ public:
 	bool isSamePlane(const Line3d<T>& line) const;
 
 	std::array< Line3d<T>, 3 > toLines() const;
+
+	TriangleCurve3d<T> toCurve3d() const;
+
 
 private:
 	Vector3d<T> v0;

@@ -33,6 +33,9 @@ public:
 
 	void merge(SurfaceFactory& rhs);
 
+	void remove(Face* f);
+
+
 	Surface* findSurfaceById(const int id);
 
 	Edge* findEdgeById(const int id) const;
