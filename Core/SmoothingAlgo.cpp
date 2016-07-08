@@ -11,7 +11,7 @@ void SmoothingAlgo::execute(Node* center)
 	const auto& nodes = surface->getNodes();
 	Vector3d<float> position = center->getPosition();
 	for (auto& n : nodes) {
-		position += (center->getPosition() - center->getPosition()) / nodes.size();
+		position += (n->getPosition() - center->getPosition()) / nodes.size();
 	}
 	center->moveTo(position);
 }
