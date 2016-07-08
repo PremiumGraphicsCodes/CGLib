@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "FaceCollection.h"
 #include "Face.h"
+#include "Edge.h"
 
 using namespace Crystal::Core;
 
@@ -25,6 +26,9 @@ void FaceCollection_::clear()
 
 Face* FaceCollection_::create(Edge* e1, Edge* e2, Edge* e3)
 {
+	e1->connect(e2);
+	e2->connect(e3);
+	e3->connect(e1);
 	auto f = new Face({ e1,e2,e3 }, nextId++);
 	//assert(f->getArea() > 0);
 	faces.push_back(f);

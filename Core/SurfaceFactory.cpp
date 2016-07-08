@@ -209,7 +209,8 @@ void SurfaceFactory::remove(Face* f)
 
 void SurfaceFactory::remove(Edge* e)
 {
-	findSurface(e)->remove(e);
+	auto s = findSurface(e);
+	s->remove(e);
 	edges.remove(e);
 }
 

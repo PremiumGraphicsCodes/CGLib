@@ -27,6 +27,9 @@ void SurfaceSplittingAlgo::splitByNode(Face* f)
 	surface->add(this->faces.get());
 	surface->add(this->nodes.get());
 	surface->add(this->edges.get());
+	for (auto f : surface->getFaces()) {
+		assert(f->isConnected());
+	}
 	SurfaceFactory fa(nodes, edges, faces);
 	factory->merge(fa);
 }
@@ -43,6 +46,9 @@ void SurfaceSplittingAlgo::splitByCenter(Face* f)
 	SurfaceFactory fa(nodes, edges, faces);
 	factory->merge(fa);
 	factory->remove(f);
+	for (auto f : surface->getFaces()) {
+		assert(f->isConnected());
+	}
 }
 
 void SurfaceSplittingAlgo::splitByBottom(Face* f)
@@ -62,6 +68,10 @@ void SurfaceSplittingAlgo::splitByBottom(Face* f)
 	surface->add(edges.get());
 	SurfaceFactory fa(nodes, edges, faces);
 	factory->merge(fa);
+	for (auto f : surface->getFaces()) {
+		assert(f->isConnected());
+	}
+
 }
 
 

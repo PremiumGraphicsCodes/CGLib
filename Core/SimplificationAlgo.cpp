@@ -20,6 +20,10 @@ void SimplificationAlgo::execute(Edge* e)
 	factory->remove(e2);
 	n1->moveTo(center.getPosition());
 	surface->remove(n1);
+	for (auto f : surface->getFaces()) {
+		assert(f->isConnected());
+	}
+
 	//n2->moveTo(center.getPosition());
 	/*
 	Edge* degeneratedEdge = nullptr;

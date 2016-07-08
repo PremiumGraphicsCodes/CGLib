@@ -85,6 +85,9 @@ bool Face::isConnected() const
 	for(auto iter = edges.begin(); iter != edges.end()-1; ++iter) {
 		auto e1 = *(iter);
 		auto e2 = *(iter + 1);
+		if (e1 == nullptr || e2 == nullptr) {
+			return false;
+		}
 		if (e1->getNext() != e2) {
 			return false;
 		}
