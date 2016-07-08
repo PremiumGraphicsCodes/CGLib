@@ -50,3 +50,22 @@ void Edge::move(const Vector3d<float>& v)
 	this->start->move(v);
 	this->end->move(v);
 }
+
+bool Edge::isSame(const Edge& rhs) const
+{
+	return
+		this->start == rhs.start &&
+		this->end == rhs.end;
+}
+
+
+bool Edge::isShared(const Edge& rhs) const
+{
+	if (isSame(rhs)) {
+		return true;
+	}
+	if (isReverse(rhs)) {
+		return true;
+	}
+	return false;
+}

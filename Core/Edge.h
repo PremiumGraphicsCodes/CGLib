@@ -40,6 +40,10 @@ public:
 
 	void move(const Math::Vector3d<float>& v);
 
+	bool isShared(const Edge& rhs) const;
+
+	bool isSame(const Edge& rhs) const;
+
 private:
 	Node* start;
 	Node* end;
