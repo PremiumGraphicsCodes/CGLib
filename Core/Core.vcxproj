@@ -36,6 +36,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeCollection.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
+    <ClCompile Include="SimplificationAlgo.cpp" />
     <ClCompile Include="SmoothingAlgo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -73,6 +74,7 @@
     <ClInclude Include="Face.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="NodeCollection.h" />
+    <ClInclude Include="SimplificationAlgo.h" />
     <ClInclude Include="SmoothingAlgo.h" />
     <ClInclude Include="SurfaceFactory.h" />
     <ClInclude Include="SurfaceSplittingAlgo.h" />

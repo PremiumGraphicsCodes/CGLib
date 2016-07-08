@@ -50,6 +50,7 @@ public:
 
 	Surface* findSurface(Node* e) const;
 
+	std::list<Face*> findFaces(Edge* e) const;
 
 	std::list<Surface*> getSurfaces() const { return surfaces; }
 

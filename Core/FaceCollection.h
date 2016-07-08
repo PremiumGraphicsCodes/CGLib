@@ -25,6 +25,8 @@ public:
 
 	Face* findById(const int id) const;
 
+	std::list<Face*> findByEdge(Edge* e) const;
+
 private:
 	int nextId;
 	std::list<Face*> faces;

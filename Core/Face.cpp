@@ -74,3 +74,8 @@ std::vector<unsigned int> Face::getNodeIds() const
 	const unsigned int n3 = edges[2]->getStart()->getId();
 	return {n1, n2, n3};
 }
+
+bool Face::has(Edge* e) const
+{
+	return ( std::find(edges.begin(), edges.end(), e) != edges.end() );
+}

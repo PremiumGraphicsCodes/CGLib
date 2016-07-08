@@ -41,6 +41,8 @@ public:
 
 	std::vector<unsigned int> getNodeIds() const;
 
+	bool has(Edge* e) const;
+
 private:
 	std::vector<Edge*> edges;
 	int id;

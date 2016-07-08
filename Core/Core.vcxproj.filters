@@ -89,6 +89,9 @@
     <ClCompile Include="IParticle.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
+    <ClCompile Include="SimplificationAlgo.cpp">
+      <Filter>Graph\Algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -184,6 +187,9 @@
       <Filter>Graph\Algo</Filter>
     </ClInclude>
     <ClInclude Include="BooleanAlgo.h">
+      <Filter>Graph\Algo</Filter>
+    </ClInclude>
+    <ClInclude Include="SimplificationAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
   </ItemGroup>

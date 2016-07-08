@@ -56,3 +56,14 @@ Face* FaceCollection_::findById(const int id) const
 	}
 	return nullptr;
 }
+
+std::list<Face*> FaceCollection_::findByEdge(Edge* e) const
+{
+	std::list<Face*> results;
+	for (auto f : faces) {
+		if (f->has(e)) {
+			results.push_back(f);
+		}
+	}
+	return results;
+}

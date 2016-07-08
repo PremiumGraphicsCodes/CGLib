@@ -243,3 +243,7 @@ Surface* SurfaceFactory::findSurface(Node* e) const
 	return nullptr;
 }
 
+std::list<Face*> SurfaceFactory::findFaces(Edge* e) const
+{
+	return faces.findByEdge(e);
+}
