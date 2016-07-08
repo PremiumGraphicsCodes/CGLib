@@ -7,7 +7,7 @@
 
 using namespace Crystal::Core;
 
-void SurfaceSplittingAlgo::splited(Face* f)
+void SurfaceSplittingAlgo::splitByNode(Face* f)
 {
 	const auto& es = f->getEdges();
 	std::vector<Node*> startPoints;
@@ -24,6 +24,19 @@ void SurfaceSplittingAlgo::splited(Face* f)
 	createTriangleFace(midPoints[0], startPoints[1], midPoints[1]);
 	createTriangleFace(midPoints[1], startPoints[2], midPoints[2]);
 	createTriangleFace(midPoints[0], midPoints[1], midPoints[2]);
+	surface->add(this->faces.get());
+	surface->add(this->nodes.get());
+	surface->add(this->edges.get());
+	SurfaceFactory fa(nodes, edges, faces);
+	factory->merge(fa);
+}
+
+void SurfaceSplittingAlgo::splitByCenter(Face* f)
+{
+	Node* center = nodes.create( f->getCenterPoint() );
+	createTriangleFace(f->getEdges()[0]->getStart(), f->getEdges()[0]->getEnd(), center);
+	createTriangleFace(f->getEdges()[1]->getStart(), f->getEdges()[1]->getEnd(), center);
+	createTriangleFace(f->getEdges()[2]->getStart(), f->getEdges()[2]->getEnd(), center);
 	surface->add(this->faces.get());
 	surface->add(this->nodes.get());
 	surface->add(this->edges.get());

@@ -27,6 +27,8 @@ public:
 
 	Math::Vector3d<float> getCenter() const;
 
+	Math::Point3d<float> getCenterPoint() const;
+
 	Math::Triangle3d<float> toTriangle() const;
 
 	bool hasIntersection(const Math::Ray3d<float>& ray) const;

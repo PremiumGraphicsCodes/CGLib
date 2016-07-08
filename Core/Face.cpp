@@ -32,6 +32,21 @@ Vector3d<float> Face::getCenter() const
 	return pos;
 }
 
+Point3d<float> Face::getCenterPoint() const
+{
+	Vector3d<float> pos;
+	Vector3d<float> norm;
+	Vector2d<float> param;
+	for (auto e : edges) {
+		const auto n = e->getStart();
+		pos += n->getPosition() / static_cast<float>(edges.size());
+		norm += n->getNormal() / static_cast<float>(edges.size());
+		//param += n->getParameter() / static_cast<float>(edges.size());
+	}
+	return Point3d<float>(pos, norm, param);
+}
+
+
 Triangle3d<float> Face::toTriangle() const
 {
 	const auto v0 = edges[0]->getStart()->getPosition();

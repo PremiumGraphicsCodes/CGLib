@@ -19,7 +19,9 @@ public:
 		factory(f)
 	{}
 
-	void splited(Face* f);
+	void splitByNode(Face* f);
+
+	void splitByCenter(Face* f);
 
 private:
 	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);

@@ -39,6 +39,9 @@
     <ClCompile Include="BooleanAlgoTest.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceSplittingAlgoTest.cpp">
+      <Filter>Graph\Algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
