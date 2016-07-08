@@ -9,7 +9,8 @@ Edge::Edge(Node* start, Node* end, const int id) :
 	start(start),
 	end(end),
 	id(id),
-	next(nullptr)
+	next(nullptr),
+	prev(nullptr)
 {
 }
 

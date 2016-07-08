@@ -44,11 +44,17 @@ public:
 
 	bool isSame(const Edge& rhs) const;
 
-	void connect(Edge* next) { this->next = next; }
+	void connect(Edge* next) {
+		next->prev = this;
+		this->next = next;
+	}
 
 	Edge* getNext() const { return next; }
 
+	Edge* getPrev() const { return prev; }
+
 private:
+	Edge* prev;
 	Edge* next;
 
 	Node* start;

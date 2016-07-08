@@ -6,6 +6,7 @@ using namespace Crystal::Core;
 
 void SimplificationAlgo::execute(Edge* e)
 {
+	auto prev = e->getPrev();
 	auto n1 = e->getStart();
 	auto n2 = e->getEnd();
 	auto center = e->getMidPoint();
