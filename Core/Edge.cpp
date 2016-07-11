@@ -10,7 +10,8 @@ Edge::Edge(Node* start, Node* end, const int id) :
 	end(end),
 	id(id),
 	next(nullptr),
-	prev(nullptr)
+	prev(nullptr),
+	face(nullptr)
 {
 }
 
@@ -77,4 +78,9 @@ bool Edge::isCollapsed() const
 	return
 		start == nullptr ||
 		end == nullptr;
+}
+
+bool Edge::isIsolated() const
+{
+	return face == nullptr;
 }

@@ -45,8 +45,9 @@ void EdgeCollection::merge(EdgeCollection& rhs)
 void EdgeCollection::remove(Edge* e)
 {
 	auto found = std::find(edges.begin(), edges.end(), e);
-	delete e;
-	edges.remove(*found);
+	if (found != edges.end()) {
+		*found = nullptr;
+	}
 }
 
 Edge* EdgeCollection::findById(const int id) const
@@ -65,4 +66,10 @@ void EdgeCollection::renumber()
 	for (auto e : edges) {
 		e->setId(nextId++);
 	}
+}
+
+void EdgeCollection::cleaning()
+{
+	edges.remove(nullptr);
+	renumber();
 }

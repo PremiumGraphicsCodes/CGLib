@@ -105,3 +105,12 @@ TEST(SurfaceTest, TestGetIntersections)
 	EXPECT_EQ(2, actual.size());
 }
 
+TEST(SurfaceTest, TestCleaning)
+{
+	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	Curve3d<float> curve = quad.toCurve3d();
+	SurfaceFactory factory;
+	Surface* surface = factory.create(curve);
+	factory.remove(surface->getNodes().front());
+	surface->cleaning();
+}

@@ -8,6 +8,7 @@ namespace Crystal {
 	namespace Core {
 		class Edge;
 		class Node;
+		class Face;
 
 class EdgeCollection : private UnCopyable
 {
@@ -29,6 +30,8 @@ public:
 	Edge* findById(const int id) const;
 
 	void renumber();
+
+	void cleaning();
 
 private:
 	int nextId;

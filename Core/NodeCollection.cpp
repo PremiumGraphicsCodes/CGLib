@@ -44,8 +44,7 @@ void NodeCollection::merge(NodeCollection& rhs)
 void NodeCollection::remove(Node* n)
 {
 	auto found = std::find(nodes.begin(), nodes.end(), n);
-	delete n;
-	nodes.remove(n);
+	*found = nullptr;
 }
 
 Node* NodeCollection::findById(const int id) const
@@ -64,4 +63,10 @@ void NodeCollection::renumber()
 	for (auto n : nodes) {
 		n->setId(nextId++);
 	}
+}
+
+void NodeCollection::cleaning()
+{
+	nodes.remove(nullptr);
+	renumber();
 }

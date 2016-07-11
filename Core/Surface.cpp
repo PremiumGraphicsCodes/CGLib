@@ -245,3 +245,13 @@ Edge* Surface::findShared(Edge* e) const
 	}
 	return nullptr;
 }
+
+void Surface::cleaning()
+{
+	for (auto f : faces) {
+		if(f->isCollapsed()) {
+			delete f;
+			f = nullptr;
+		}
+	}
+}

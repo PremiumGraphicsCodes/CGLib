@@ -29,6 +29,8 @@ public:
 
 	void renumber();
 
+	void cleaning();
+
 private:
 	int nextId;
 	std::list<Face*> faces;

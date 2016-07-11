@@ -2,6 +2,7 @@
 
 #include "../Core/Node.h"
 #include "../Core/Edge.h"
+#include "../Core/Face.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -57,4 +58,14 @@ TEST(EdgeTest, TestIsCollapsed)
 	const Edge e2(&n1, nullptr, 0);
 	EXPECT_FALSE(e1.isCollapsed());
 	EXPECT_TRUE( e2.isCollapsed());
+}
+
+TEST(EdgeTest, TestIsIsolated)
+{
+	Node n1(Vector3d<float>(0, 0, 0), 0);
+	Node n2(Vector3d<float>(1, 0, 0), 1);
+	Edge e1(&n1, &n2, 0);
+	EXPECT_TRUE( e1.isIsolated() );
+	Face f({ &e1 }, 0);
+	EXPECT_FALSE(e1.isIsolated());
 }

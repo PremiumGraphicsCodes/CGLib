@@ -47,8 +47,8 @@ void FaceCollection_::merge(FaceCollection_& rhs)
 void FaceCollection_::remove(Face* f)
 {
 	auto found = std::find(faces.begin(), faces.end(), f);
-	delete f;
-	faces.remove(*found);
+	*found = nullptr;
+	//faces.remove(*found);
 }
 
 Face* FaceCollection_::findById(const int id) const
@@ -78,4 +78,10 @@ void FaceCollection_::renumber()
 	for (auto e : faces) {
 		e->setId(nextId++);
 	}
+}
+
+void FaceCollection_::cleaning()
+{
+	faces.remove(nullptr);
+	renumber();
 }

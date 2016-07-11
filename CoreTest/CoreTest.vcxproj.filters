@@ -51,6 +51,9 @@
     <ClCompile Include="SurfaceFactoryTest.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
+    <ClCompile Include="SurfaceRemoveAlgoTest.cpp">
+      <Filter>Graph\Algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">

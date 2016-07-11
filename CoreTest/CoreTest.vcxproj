@@ -44,6 +44,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SurfaceFactoryTest.cpp" />
+    <ClCompile Include="SurfaceRemoveAlgoTest.cpp" />
     <ClCompile Include="SurfaceSplittingAlgoTest.cpp" />
     <ClCompile Include="SurfaceTest.cpp" />
     <ClCompile Include="TriangleMeshTest.cpp" />

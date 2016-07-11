@@ -57,7 +57,14 @@ public:
 
 	std::list<Surface*> getSurfaces() const { return surfaces; }
 
+	std::list<Face*> getFaces() { return faces.get(); }
+
+	std::list<Edge*> getEdges() { return edges.get(); }
+
+
 	void renumber();
+
+	void cleaning();
 
 private:
 

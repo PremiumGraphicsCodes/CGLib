@@ -14,10 +14,7 @@ class Face : private UnCopyable
 public:
 	//Face() = default;
 
-	Face(const std::vector<Edge*>& edges, int id) :
-		edges(edges),
-		id( id)
-	{}
+	Face(const std::array<Edge*, 3>& edges, int id);
 
 	float getArea() const;
 
@@ -27,7 +24,7 @@ public:
 
 	Math::Vector3d<float> getNormal() const;
 
-	std::vector<Edge*> getEdges() const { return edges; }
+	std::array<Edge*, 3> getEdges() const { return edges; }
 
 	Math::Vector3d<float> getCenter() const;
 
@@ -54,7 +51,7 @@ public:
 	bool isDegenerated() const;
 
 private:
-	std::vector<Edge*> edges;
+	std::array<Edge*, 3> edges;
 	int id;
 };
 	}

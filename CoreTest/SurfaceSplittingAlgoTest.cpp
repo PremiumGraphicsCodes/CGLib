@@ -31,6 +31,7 @@ TEST(SurfaceSplittingAlgoTest, TestSplitByCenter)
 	auto f = surface->getFaces().front();
 	SurfaceSplittingAlgo splitter(surface, &factory);
 	splitter.splitByCenter(f);
+	factory.cleaning();
 	EXPECT_EQ(surface->getFaces().size(), 3);
 	EXPECT_EQ(surface->getNodes().size(), 4);
 }

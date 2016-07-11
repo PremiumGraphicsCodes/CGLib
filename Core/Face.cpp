@@ -8,6 +8,19 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+Face::Face(const std::array<Edge*, 3>& edges, int id) :
+	edges(edges),
+	id(id)
+{
+	for (auto e : edges) {
+		if (e == nullptr) {
+			continue;
+		}
+		e->setFace(this);
+	}
+}
+
+
 float Face::getArea() const
 {
 	const auto v1 = edges[0]->getVector();

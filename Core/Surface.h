@@ -95,6 +95,8 @@ public:
 
 	void setId(const int id) { this->id = id; }
 
+	void cleaning();
+
 private:
 	int id;
 	std::list<Face*> faces;

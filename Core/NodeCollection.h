@@ -29,6 +29,8 @@ public:
 
 	void renumber();
 
+	void cleaning();
+
 private:
 	std::list<Node*> nodes;
 

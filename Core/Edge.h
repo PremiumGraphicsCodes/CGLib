@@ -8,6 +8,7 @@ namespace Crystal {
 	namespace Core {
 
 class Node;
+class Face;
 
 class Edge : private UnCopyable
 {
@@ -55,12 +56,19 @@ public:
 
 	bool isCollapsed() const;
 
+	void setFace(Face* f) { this->face = f; }
+
+	Face* getFace() { return face; }
+
+	bool isIsolated() const;
+
 private:
 	Edge* prev;
 	Edge* next;
 
 	Node* start;
 	Node* end;
+	Face* face;
 	int id;
 };
 	}

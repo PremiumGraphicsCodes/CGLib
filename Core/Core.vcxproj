@@ -46,6 +46,7 @@
     </ClCompile>
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="SurfaceFactory.cpp" />
+    <ClCompile Include="SurfaceRemoveAlgo.cpp" />
     <ClCompile Include="SurfaceSplittingAlgo.cpp" />
     <ClCompile Include="TriFace.cpp" />
     <ClCompile Include="OctTree.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="SimplificationAlgo.h" />
     <ClInclude Include="SmoothingAlgo.h" />
     <ClInclude Include="SurfaceFactory.h" />
+    <ClInclude Include="SurfaceRemoveAlgo.h" />
     <ClInclude Include="SurfaceSplittingAlgo.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />
