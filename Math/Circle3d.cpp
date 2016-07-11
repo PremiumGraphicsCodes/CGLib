@@ -58,6 +58,16 @@ Vector3d<T> Circle3d<T>::getPosition(const Param<T> param) const
 }
 
 template<typename T>
+Point3d<T> Circle3d<T>::getPoint(const Param<T> param) const
+{
+	auto pos = getPosition(param);
+	Vector3d<T> norm(0, 0, 1);
+	Vector2d<T> p(0, 0);
+	return Point3d<T>(pos, norm, p);
+}
+
+
+template<typename T>
 Polyline3d<T> Circle3d<T>::toPolyline(const int number) const
 {
 	Polyline3d<T> polyline;
@@ -67,14 +77,19 @@ Polyline3d<T> Circle3d<T>::toPolyline(const int number) const
 	return polyline;
 }
 
-
-/*
 template<typename T>
-Curve3d<T> Circle3d<T>::toCurve3d() const
+CircularCurve3d<T> Circle3d<T>::toCurve(const int number) const
 {
-	;
+	//for (int i = 0; i < number; ++i) {
+	std::vector<Point3d<T>> positions;
+	for (int i = 0; i < number; ++i) {
+		positions.push_back(getPoint(Param<T>(i / (T)number)));
+	}
+
+	Point3d<T> centerPoint(getCenter(), Vector3d<T>(0, 0, 1));
+	CircularCurve3d<T> curve(centerPoint, positions);
+	return curve;
 }
-*/
 
 
 template class Circle3d<float>;

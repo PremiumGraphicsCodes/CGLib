@@ -23,6 +23,12 @@ Vertex* PolygonMesh::createVertex(Vector3d<float> position, Vector3d<float> norm
 	return vertices.create(position, normal, texCoord);
 }
 
+Vertex* PolygonMesh::createVertex(Point3d<float> point)
+{
+	return vertices.create(point.getPosition(), point.getNormal(), point.getParameter());
+}
+
+
 Vertex* PolygonMesh::findVertexById(const unsigned int id) const
 {
 	for (auto v : vertices) {
@@ -233,10 +239,9 @@ PolygonMesh* PolygonMesh::clone(const unsigned int id)
 	return newPolygon;
 }
 
-/*
 #include "NodeGrid.h"
 
-void PolygonMesh::create(const Curve3d<float>& curve, const int id = -1)
+void PolygonMesh::create(const Curve3d<float>& curve, const int id)
 {
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
@@ -252,8 +257,7 @@ void PolygonMesh::create(const Curve3d<float>& curve, const int id = -1)
 	const auto& cells = grid.toQuadCells();
 	std::vector<TriangleCell> triangleCells;
 	for (const auto& c : cells) {
-		const auto& tCells = c.toTriangleCells();
-		
+		const auto& tCells = c.toTriangleCells();	
 		triangleCells.insert(triangleCells.end(), tCells.begin(), tCells.end());
 	}
 
@@ -268,7 +272,23 @@ void PolygonMesh::create(const Curve3d<float>& curve, const int id = -1)
 
 }
 
-//void create(const Math::CircularCurve3d<float>& curve, const int id = -1);
+#include "../Math/CircularCurve3d.h"
+
+void PolygonMesh::create(const CircularCurve3d<float>& curve, const int id)
+{
+	Vertex* centerNode = createVertex(curve.getCenter().getPosition());
+
+	std::vector<Vertex*> createdNodes;
+	for (int i = 0; i < curve.getSize(); ++i) {
+		Vertex* node = createVertex(curve.get(i));
+		createdNodes.push_back(node);
+	}
+	for (int i = 0; i < createdNodes.size() - 1; ++i) {
+		auto n0 = centerNode;
+		auto n1 = createdNodes[i];
+		auto n2 = createdNodes[i + 1];
+		auto f = faces.create(n0, n1, n2);
+	}
+}
 
 //void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
-*/

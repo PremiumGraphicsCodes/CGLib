@@ -51,7 +51,7 @@ public:
 
 	void create(const Math::CircularCurve3d<float>& curve, const int id = -1);
 
-	void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
+	//void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
 
 	void merge(PolygonMesh* rhs);
@@ -59,6 +59,8 @@ public:
 	void removeOverlappedVertices() { vertices.sort(); }
 
 	Vertex* createVertex(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector2d<float> texCoord = Math::Vector2d<float>());
+
+	Vertex* createVertex(Math::Point3d<float> point);
 
 	Vertex* findVertexById(const unsigned int id) const;
 

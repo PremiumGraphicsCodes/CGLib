@@ -6,6 +6,7 @@
 #include "Param.h"
 #include "Quaternion.h"
 #include "IPrimitive3d.h"
+#include "CircularCurve3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -32,7 +33,11 @@ public:
 
 	Vector3d<T> getPosition(const Param<T> param) const;
 
+	Point3d<T> getPoint(const Param<T> param) const;
+
 	Polyline3d<T> toPolyline(const int number) const;
+
+	CircularCurve3d<T> toCurve(const int number) const;
 
 	//Curve3d<T> toCurve3d() const;
 

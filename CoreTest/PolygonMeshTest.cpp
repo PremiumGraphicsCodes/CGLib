@@ -4,6 +4,29 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+TEST(PolygonMeshTest, TestFromQuad)
+{
+	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	Curve3d<float> curve = quad.toCurve3d();
+
+	PolygonMesh mesh;
+	mesh.create(curve);
+	EXPECT_EQ(4, mesh.getVertices().size());
+	EXPECT_EQ(2, mesh.getFaces().size());
+}
+
+TEST(PolygonMeshTest, TestFromCircle)
+{
+	const Circle3d<float> circle(1.0, Vector3d<float>(0, 0, 0), Quaternion<float>());
+	CircularCurve3d<float> curve = circle.toCurve(3);
+
+	PolygonMesh mesh;
+	mesh.create(curve);
+	EXPECT_EQ(4, mesh.getVertices().size());
+	//EXPECT_EQ(2, mesh.getFaces().size());
+}
+
+
 TEST(PolygonMeshTest, TestCreateVertex)
 {
 	PolygonMesh object;
