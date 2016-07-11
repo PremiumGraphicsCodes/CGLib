@@ -65,7 +65,7 @@ PMDVertex::PMDVertex(const Vertex& v)
 Vertex PMDVertex::toVertex(const unsigned int id)
 {
 	Vector2d<float> t(this->texCoord.getX(), this->texCoord.getY());
-	return Vertex(id, this->pos, this->normal, t);
+	return Vertex(this->pos, this->normal, t, id);
 }
 
 PMDVertexCollection::PMDVertexCollection(const VertexCollection& vs)

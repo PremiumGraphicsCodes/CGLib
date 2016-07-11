@@ -5,7 +5,7 @@
 #include "Surface.h"
 #include "Face.h"
 #include "Edge.h"
-#include "Node.h"
+#include "Vertex.h"
 
 using namespace Crystal::Core;
 
@@ -23,7 +23,7 @@ void SurfaceRemoveAlgo::add(Edge* e)
 	edges.push_back(e);
 }
 
-void SurfaceRemoveAlgo::add(Node* n)
+void SurfaceRemoveAlgo::add(Vertex* n)
 {
 	nodes.push_back(n);
 }

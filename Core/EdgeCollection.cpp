@@ -25,7 +25,7 @@ void EdgeCollection::clear()
 
 }
 
-Edge* EdgeCollection::create(Node* start, Node* end)
+Edge* EdgeCollection::create(Vertex* start, Vertex* end)
 {
 	auto e = new Edge(start, end, nextId++);
 	edges.push_back(e);

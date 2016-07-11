@@ -10,7 +10,7 @@ Surface::Surface() :
 {
 }
 
-Surface::Surface(const std::list<Node*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id) :
+Surface::Surface(const std::list<Vertex*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id) :
 	nodes(nodes),
 	edges(edges),
 	faces(faces),
@@ -18,7 +18,7 @@ Surface::Surface(const std::list<Node*>& nodes, const std::list<Edge*>& edges, c
 {
 }
 
-void Surface::add(const std::list<Node*>& nodes)
+void Surface::add(const std::list<Vertex*>& nodes)
 {
 	this->nodes.insert(this->nodes.end(), nodes.begin(), nodes.end());
 }
@@ -147,7 +147,7 @@ std::vector<Vector3d<float>> Surface::getIntersections(const Ray3d<float>& ray) 
 	return intersections;
 }
 
-Node* Surface::findNodeById(const int id)
+Vertex* Surface::findNodeById(const int id)
 {
 	for (auto n : nodes) {
 		if (n->getId() == id) {
@@ -179,9 +179,9 @@ Edge* Surface::findEdgeById(const int id)
 }
 
 
-std::list<Node*> Surface::getNeighbor(Node* center, const float radius)
+std::list<Vertex*> Surface::getNeighbor(Vertex* center, const float radius)
 {
-	std::list<Node*> results;
+	std::list<Vertex*> results;
 	for (auto n : nodes) {
 		if (center->getPosition().getDistanceSquared(n->getPosition()) < radius * radius ) {
 			results.push_back(n);
@@ -190,7 +190,7 @@ std::list<Node*> Surface::getNeighbor(Node* center, const float radius)
 	return results;
 }
 
-bool Surface::has(const Node* node) const
+bool Surface::has(const Vertex* node) const
 {
 	return std::find(nodes.begin(), nodes.end(), node) != nodes.end();
 }
@@ -215,7 +215,7 @@ void Surface::remove(Edge* e)
 	edges.remove(e);
 }
 
-void Surface::remove(Node* n)
+void Surface::remove(Vertex* n)
 {
 	nodes.remove(n);
 }
@@ -256,7 +256,7 @@ void Surface::cleaning()
 	}
 }
 
-std::list<Edge*> Surface::getInflows(Node* node)
+std::list<Edge*> Surface::getInflows(Vertex* node)
 {
 	std::list<Edge*> results;
 	for (auto e : edges) {
@@ -267,7 +267,7 @@ std::list<Edge*> Surface::getInflows(Node* node)
 	return results;
 }
 
-std::list<Edge*> Surface::getOutflows(Node* node)
+std::list<Edge*> Surface::getOutflows(Vertex* node)
 {
 	std::list<Edge*> results;
 	for (auto e : edges) {

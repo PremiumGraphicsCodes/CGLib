@@ -36,17 +36,17 @@ namespace {
 	}
 }
 
-Vertex::Vertex(const unsigned int id, const Vector3d<float>& position) :
+Vertex::Vertex(const Vector3d<float>& position, const unsigned int id) :
 	Point3d<float>(position),
 	id(id)
 {}
 
-Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal) :
+Vertex::Vertex(const Vector3d<float>& position, const Vector3d<float>& normal, const unsigned int id) :
 	Point3d<float>(position, normal),
 	id(id)
 {}
 
-Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal, const Vector2d<float>& texCoord) :
+Vertex::Vertex(const Vector3d<float>& position, const Vector3d<float>& normal, const Vector2d<float>& texCoord, const unsigned int id) :
 	Point3d<float>(position, normal, texCoord),
 	id(id)
 {}
@@ -54,7 +54,7 @@ Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vec
 
 Vertex* Vertex::clone()
 {
-	return new Vertex(id, getPosition(), getNormal(), getParameter());
+	return new Vertex(getPosition(), getNormal(), getParameter(), id);
 }
 
 VertexCollection::VertexCollection() : nextId(0)
@@ -99,7 +99,7 @@ void VertexCollection::sort()
 
 Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
 {
-	auto v = new Vertex(nextId++, position, normal, texCoord);
+	auto v = new Vertex(position, normal, texCoord, nextId++);
 	vertices.push_back(v);
 	return v;
 }

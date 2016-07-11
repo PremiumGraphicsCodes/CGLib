@@ -27,9 +27,9 @@ public:
 
 	Surface* create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
-	//Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
+	//Face* createTriangleFace(Vertex* n1, Vertex* n2, Vertex* n3);
 
-	//void remove(Node* n);
+	//void remove(Vertex* n);
 
 	void merge(SurfaceFactory& rhs);
 
@@ -37,13 +37,13 @@ public:
 
 	void remove(Edge* e);
 
-	void remove(Node* n);
+	void remove(Vertex* n);
 
 	Surface* findSurfaceById(const int id);
 
 	Edge* findEdgeById(const int id) const;
 
-	Node* findNodeById(const int id) const;
+	Vertex* findNodeById(const int id) const;
 
 	Face* findFaceById(const int id) const;
 
@@ -51,7 +51,7 @@ public:
 
 	Surface* findSurface(Face* e) const;
 
-	Surface* findSurface(Node* e) const;
+	Surface* findSurface(Vertex* e) const;
 
 	std::list<Face*> findFaces(Edge* e) const;
 
@@ -72,7 +72,7 @@ public:
 
 private:
 
-	Surface* create(int id, const std::vector<Node*>& nodes, const std::vector<Edge*>& edges, const std::vector<Face*>& faces);
+	Surface* create(int id, const std::vector<Vertex*>& nodes, const std::vector<Edge*>& edges, const std::vector<Face*>& faces);
 
 	NodeCollection nodes;
 	EdgeCollection edges;

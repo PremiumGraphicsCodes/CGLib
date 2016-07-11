@@ -2,7 +2,7 @@
 
 #include "Face.h"
 
-#include "Node.h"
+#include "Vertex.h"
 #include "Edge.h"
 
 using namespace Crystal::Math;

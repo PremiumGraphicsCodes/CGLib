@@ -3,25 +3,25 @@
 
 namespace Crystal {
 	namespace Core {
-		class Node;
+		class Vertex;
 
 class TriangleCell
 {
 public:
-	TriangleCell(const std::array<Node*, 3>& nodes) :
+	TriangleCell(const std::array<Vertex*, 3>& nodes) :
 		nodes(nodes)
 	{}
 
-	std::array<Node*, 3> get() const { return nodes; }
+	std::array<Vertex*, 3> get() const { return nodes; }
 
 private:
-	std::array<Node*, 3> nodes;
+	std::array<Vertex*, 3> nodes;
 };
 
 class QuadCell
 {
 public:
-	QuadCell(const std::array<Node*, 4>& nodes) :
+	QuadCell(const std::array<Vertex*, 4>& nodes) :
 		nodes(nodes)
 	{}
 
@@ -31,7 +31,7 @@ public:
 		return{ c1, c2 };
 	}
 private:
-	std::array<Node*, 4> nodes;
+	std::array<Vertex*, 4> nodes;
 };
 
 	}

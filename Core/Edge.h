@@ -7,13 +7,13 @@
 namespace Crystal {
 	namespace Core {
 
-class Node;
+class Vertex;
 class Face;
 
 class Edge : private UnCopyable
 {
 public:
-	Edge(Node* start, Node* end, int id);
+	Edge(Vertex* start, Vertex* end, int id);
 
 	int getId() const { return id; }
 
@@ -21,13 +21,13 @@ public:
 
 	float getLength() const;
 
-	Node* getStart() const { return start; }
+	Vertex* getStart() const { return start; }
 
-	Node* getEnd() const { return end; }
+	Vertex* getEnd() const { return end; }
 
-	void changeStart(Node* n) { this->start = n; }
+	void changeStart(Vertex* n) { this->start = n; }
 
-	void changeEnd(Node* n) { this->end = n; }
+	void changeEnd(Vertex* n) { this->end = n; }
 
 	Math::Point3d<float> getMidPoint() const;
 
@@ -66,8 +66,8 @@ private:
 	Edge* prev;
 	Edge* next;
 
-	Node* start;
-	Node* end;
+	Vertex* start;
+	Vertex* end;
 	Face* face;
 	int id;
 };

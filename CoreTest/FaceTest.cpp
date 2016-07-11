@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../Core/Node.h"
+#include "../Core/Vertex.h"
 #include "../Core/Edge.h"
 #include "../Core/Face.h"
 
@@ -9,9 +9,9 @@ using namespace Crystal::Core;
 
 TEST(FaceTest, TestGetArea)
 {
-	Node n1(Vector3d<float>(0,0,0),0);
-	Node n2(Vector3d<float>(1,0,0),0);
-	Node n3(Vector3d<float>(1,1,0),0);
+	Vertex n1(Vector3d<float>(0,0,0),0);
+	Vertex n2(Vector3d<float>(1,0,0),0);
+	Vertex n3(Vector3d<float>(1,1,0),0);
 
 	Edge e1(&n1, &n2, 0);
 	Edge e2(&n2, &n3, 1);
@@ -26,9 +26,9 @@ TEST(FaceTest, TestGetArea)
 
 TEST(FaceTest, TestGetNormal)
 {
-	Node n1(Vector3d<float>(0, 0, 0), 0);
-	Node n2(Vector3d<float>(1, 0, 0), 0);
-	Node n3(Vector3d<float>(1, 1, 0), 0);
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 0);
+	Vertex n3(Vector3d<float>(1, 1, 0), 0);
 
 	Edge e1(&n1, &n2, 0);
 	Edge e2(&n2, &n3, 1);
@@ -40,9 +40,9 @@ TEST(FaceTest, TestGetNormal)
 
 TEST(FaceTest, TestIsCCW)
 {
-	Node n1(Vector3d<float>(0, 0, 0), 0);
-	Node n2(Vector3d<float>(1, 0, 0), 0);
-	Node n3(Vector3d<float>(1, 1, 0), 0);
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 0);
+	Vertex n3(Vector3d<float>(1, 1, 0), 0);
 
 	Edge e1(&n1, &n2, 0);
 	Edge e2(&n2, &n3, 1);
@@ -59,9 +59,9 @@ TEST(FaceTest, TestIsCCW)
 
 TEST(FaceTest, TestGetIntersection)
 {
-	Node n1(Vector3d<float>(0, 0, 0), 0);
-	Node n2(Vector3d<float>(1, 0, 0), 0);
-	Node n3(Vector3d<float>(1, 1, 0), 0);
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 0);
+	Vertex n3(Vector3d<float>(1, 1, 0), 0);
 
 	Edge e1(&n1, &n2, 0);
 	Edge e2(&n2, &n3, 1);
@@ -77,9 +77,9 @@ TEST(FaceTest, TestGetIntersection)
 
 TEST(FaceTest, TestIsCollapsed)
 {
-	Node n1(Vector3d<float>(0, 0, 0), 0);
-	Node n2(Vector3d<float>(1, 0, 0), 0);
-	Node n3(Vector3d<float>(1, 1, 0), 0);
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 0);
+	Vertex n3(Vector3d<float>(1, 1, 0), 0);
 
 	Edge e1(&n1, &n2, 0);
 	Edge e2(&n2, &n3, 1);

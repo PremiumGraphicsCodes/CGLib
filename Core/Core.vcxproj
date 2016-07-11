@@ -33,7 +33,6 @@
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeCollection.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="ReductionAlgo.cpp" />
@@ -87,7 +86,6 @@
     <ClInclude Include="IParticle.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="MarchingCubeTable.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="NodeGrid.h" />
     <ClInclude Include="OctTree.h" />
     <ClInclude Include="Particle.h" />

@@ -5,7 +5,7 @@
 
 namespace Crystal {
 	namespace Core {
-		class Node;
+		class Vertex;
 		class Edge;
 		class Face;
 		class Surface;
@@ -20,7 +20,7 @@ public:
 
 	void add(Edge* e);
 
-	void add(Node* n);
+	void add(Vertex* n);
 
 	void execute();
 
@@ -28,7 +28,7 @@ private:
 	SurfaceFactory* factory;
 	std::list<Face*> faces;
 	std::list<Edge*> edges;
-	std::list<Node*> nodes;
+	std::list<Vertex*> nodes;
 };
 	}
 }

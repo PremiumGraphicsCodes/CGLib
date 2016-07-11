@@ -6,20 +6,20 @@
 #include "../Math/CircularCurve3d.h"
 #include "../Math/TriangleCurve3d.h"
 #include "Edge.h"
-#include "Node.h"
+#include "Vertex.h"
 #include "Face.h"
 #include "NodeCollection.h"
 #include "EdgeCollection.h"
 #include "FaceCollection.h"
 
 #include <list>
-//#include "Node.h"
+//#include "Vertex.h"
 
 namespace Crystal {
 	namespace Core {
 		class Face;
 		class Edge;
-		class Node;
+		class Vertex;
 
 		class Surface;
 
@@ -29,11 +29,11 @@ class Surface
 public:
 	Surface();
 
-	Surface(const std::list<Node*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id);
+	Surface(const std::list<Vertex*>& nodes, const std::list<Edge*>& edges, const std::list<Face*>& faces, const int id);
 
 	~Surface();
 
-	void add(const std::list<Node*>& nodes);
+	void add(const std::list<Vertex*>& nodes);
 
 	void add(const std::list<Edge*>& edges);
 	
@@ -47,7 +47,7 @@ public:
 
 	std::list<Edge*> getEdges() const { return edges; }
 
-	std::list<Node*> getNodes() const { return nodes; }
+	std::list<Vertex*> getNodes() const { return nodes; }
 
 	std::vector<unsigned int> toIndices() const;
 
@@ -69,15 +69,15 @@ public:
 
 	void scale(const Math::Vector3d<float>& s);
 
-	Node* findNodeById(const int id);
+	Vertex* findNodeById(const int id);
 
 	Face* findFaceById(const int id);
 
 	Edge* findEdgeById(const int id);
 
-	std::list<Node*> getNeighbor(Node* center, const float radius);
+	std::list<Vertex*> getNeighbor(Vertex* center, const float radius);
 
-	bool has(const Node* node) const;
+	bool has(const Vertex* node) const;
 
 	bool has(const Edge* edge) const;
 
@@ -87,7 +87,7 @@ public:
 
 	void remove(Edge* e);
 
-	void remove(Node* n);
+	void remove(Vertex* n);
 
 	std::list<Edge*> findSharedEdges() const;
 
@@ -97,15 +97,15 @@ public:
 
 	void cleaning();
 
-	std::list<Edge*> getInflows(Node* node);
+	std::list<Edge*> getInflows(Vertex* node);
 
-	std::list<Edge*> getOutflows(Node* node);
+	std::list<Edge*> getOutflows(Vertex* node);
 
 private:
 	int id;
 	std::list<Face*> faces;
 	std::list<Edge*> edges;
-	std::list<Node*> nodes;
+	std::list<Vertex*> nodes;
 };
 
 	}

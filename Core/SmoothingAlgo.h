@@ -9,7 +9,7 @@
 
 namespace Crystal {
 	namespace Core {
-		class Node;
+		class Vertex;
 
 class SmoothingAlgo
 {
@@ -19,10 +19,10 @@ public:
 		factory(f)
 	{}
 
-	void execute(Node* n);
+	void execute(Vertex* n);
 
 private:
-	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
+	Face* createTriangleFace(Vertex* n1, Vertex* n2, Vertex* n3);
 
 	Surface* surface;
 	SurfaceFactory* factory;

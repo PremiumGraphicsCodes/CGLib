@@ -2,7 +2,7 @@
 #include "SurfaceSplittingAlgo.h"
 #include "Face.h"
 #include "Edge.h"
-#include "Node.h"
+#include "Vertex.h"
 #include "Surface.h"
 
 using namespace Crystal::Core;
@@ -10,8 +10,8 @@ using namespace Crystal::Core;
 void SurfaceSplittingAlgo::splitByNode(Face* f)
 {
 	const auto& es = f->getEdges();
-	std::vector<Node*> startPoints;
-	std::vector<Node*> midPoints;
+	std::vector<Vertex*> startPoints;
+	std::vector<Vertex*> midPoints;
 	for (const auto& e : es) {
 		startPoints.push_back(e->getStart());
 		midPoints.push_back(nodes.create(e->getMidPoint()));
@@ -36,7 +36,7 @@ void SurfaceSplittingAlgo::splitByNode(Face* f)
 
 void SurfaceSplittingAlgo::splitByCenter(Face* f)
 {
-	Node* center = nodes.create( f->getCenterPoint() );
+	Vertex* center = nodes.create( f->getCenterPoint() );
 	createTriangleFace(f->getEdges()[1]->getStart(), f->getEdges()[1]->getEnd(), center);
 	createTriangleFace(f->getEdges()[2]->getStart(), f->getEdges()[2]->getEnd(), center);
 
@@ -76,7 +76,7 @@ void SurfaceSplittingAlgo::splitByBottom(Face* f)
 }
 
 
-Face* SurfaceSplittingAlgo::createTriangleFace(Node* n1, Node* n2, Node* n3)
+Face* SurfaceSplittingAlgo::createTriangleFace(Vertex* n1, Vertex* n2, Vertex* n3)
 {
 	auto e1 = edges.create(n1, n2);
 	auto e2 = edges.create(n2, n3);

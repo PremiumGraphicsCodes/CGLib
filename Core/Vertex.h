@@ -17,11 +17,11 @@ class TriFace;
 class Vertex : public Math::Point3d<float>
 {
 public:
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position);
+	Vertex(const Math::Vector3d<float>& position, const unsigned int id );
 
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal);
+	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const unsigned int id);
 
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord);
+	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord, const unsigned int id);
 
 	//void normalize(const Vertex& rhs);
 
@@ -32,6 +32,8 @@ public:
 	//void transform(const Math::Matrix4d<float>& matrix);
 
 	Vertex* clone();
+
+	void setId(const int id) { this->id = id; }
 
 	unsigned int getId() const { return id; }
 	unsigned int id;

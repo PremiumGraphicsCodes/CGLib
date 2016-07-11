@@ -25,7 +25,7 @@ public:
 
 	float getCollapseCost(Edge* edge);
 
-	float getCost(Node* n);
+	float getCost(Vertex* n);
 
 private:
 	Surface* surface;

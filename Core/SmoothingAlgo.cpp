@@ -6,7 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-void SmoothingAlgo::execute(Node* center)
+void SmoothingAlgo::execute(Vertex* center)
 {
 	const auto& nodes = surface->getNodes();
 	Vector3d<float> position = center->getPosition();

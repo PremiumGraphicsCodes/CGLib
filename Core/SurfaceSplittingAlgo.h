@@ -26,7 +26,7 @@ public:
 	void splitByBottom(Face* f);
 
 private:
-	Face* createTriangleFace(Node* n1, Node* n2, Node* n3);
+	Face* createTriangleFace(Vertex* n1, Vertex* n2, Vertex* n3);
 
 	Surface* surface;
 	SurfaceFactory* factory;

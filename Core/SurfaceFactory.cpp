@@ -30,7 +30,7 @@ void SurfaceFactory::clear()
 
 Surface* SurfaceFactory::create(const Curve3d<float>& curve, const int id)
 {
-	std::vector<Node*> createNodes;
+	std::vector<Vertex*> createNodes;
 	std::vector<Edge*> createEdges;
 	std::vector<Face*> createFaces;
 
@@ -79,14 +79,14 @@ Surface* SurfaceFactory::create(const Curve3d<float>& curve, const int id)
 
 Surface* SurfaceFactory::create(const CircularCurve3d<float>& curve, const int id)
 {
-	Node* centerNode = nodes.create(curve.getCenter());
+	Vertex* centerNode = nodes.create(curve.getCenter());
 
-	std::vector<Node*> createNodes;
+	std::vector<Vertex*> createNodes;
 	std::vector<Edge*> createEdges;
 	std::vector<Face*> createFaces;
 
 	for (int i = 0; i < curve.getSize(); ++i) {
-		Node* node = nodes.create(curve.get(i));
+		Vertex* node = nodes.create(curve.get(i));
 		createNodes.push_back(node);
 	}
 	for (int i = 0; i < createNodes.size() - 1; ++i) {
@@ -114,17 +114,17 @@ Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int i
 {
 	std::vector< TriangleCell > cells;
 
-	std::vector<std::vector<Node*>> createdNodes;
+	std::vector<std::vector<Vertex*>> createdNodes;
 
-	std::vector<Node*> createNodes;
+	std::vector<Vertex*> createNodes;
 	std::vector<Edge*> createEdges;
 	std::vector<Face*> createFaces;
 
 	for (int i = 0; i < curve.getSize(); ++i) {
-		std::vector<Node*> ns;
+		std::vector<Vertex*> ns;
 		for (int j = 0; j <= i; ++j) {
 			auto p = curve.get(i, j);
-			Node* node = nodes.create(curve.get(i, j));
+			Vertex* node = nodes.create(curve.get(i, j));
 			ns.push_back(node);
 			createNodes.push_back(node);
 		}
@@ -174,9 +174,9 @@ Surface* SurfaceFactory::create(const TriangleCurve3d<float>& curve, const int i
 	return create(id, createNodes, createEdges, createFaces);
 }
 
-Surface* SurfaceFactory::create(const int id, const std::vector<Node*>& nodes, const std::vector<Edge*>& edges, const std::vector<Face*>& faces)
+Surface* SurfaceFactory::create(const int id, const std::vector<Vertex*>& nodes, const std::vector<Edge*>& edges, const std::vector<Face*>& faces)
 {
-	std::list<Node*> ns(nodes.begin(), nodes.end());
+	std::list<Vertex*> ns(nodes.begin(), nodes.end());
 	std::list<Edge*> es(edges.begin(), edges.end());
 	std::list<Face*> fs(faces.begin(), faces.end());
 	auto s = new Surface(ns, es, fs, id);
@@ -188,7 +188,7 @@ Surface* SurfaceFactory::create(const int id, const std::vector<Node*>& nodes, c
 }
 
 /*
-Face* SurfaceFactory::createTriangleFace(Node* n1, Node* n2, Node* n3)
+Face* SurfaceFactory::createTriangleFace(Vertex* n1, Vertex* n2, Vertex* n3)
 {
 	auto e1 = edges.create(n1, n2);
 	auto e2 = edges.create(n2, n3);
@@ -214,7 +214,7 @@ void SurfaceFactory::remove(Edge* e)
 	edges.remove(e);
 }
 
-void SurfaceFactory::remove(Node* n)
+void SurfaceFactory::remove(Vertex* n)
 {
 	nodes.remove(n);
 }
@@ -235,7 +235,7 @@ Edge* SurfaceFactory::findEdgeById(const int id) const
 	return edges.findById(id);
 }
 
-Node* SurfaceFactory::findNodeById(const int id) const
+Vertex* SurfaceFactory::findNodeById(const int id) const
 {
 	return nodes.findById(id);
 }
@@ -265,7 +265,7 @@ Surface* SurfaceFactory::findSurface(Face* f) const
 	return nullptr;
 }
 
-Surface* SurfaceFactory::findSurface(Node* e) const
+Surface* SurfaceFactory::findSurface(Vertex* e) const
 {
 	for (auto s : surfaces) {
 		if (s->has(e)) {

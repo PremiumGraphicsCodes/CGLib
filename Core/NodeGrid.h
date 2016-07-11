@@ -2,11 +2,12 @@
 #define __CRYSTAL_CORE_NODE_GRID_H__
 
 #include "../Util/Array2d.h"
+#include "Vertex.h"
 #include "TriangleCell.h"
 
 namespace Crystal {
 	namespace Core {
-		class Node;
+		class Vertex;
 
 class INodeGrid
 {
@@ -15,24 +16,24 @@ public:
 		grid(uSize, vSize)
 	{}
 
-	void set(const int u, const int v, Node* n) {
+	void set(const int u, const int v, Vertex* n) {
 		grid.set(u, v, n);
 	}
 
-	Node* get(const int u, const int v) { return grid.get(u, v); }
+	Vertex* get(const int u, const int v) { return grid.get(u, v); }
 
-	virtual Node* getNextU(const int u, const int v) const = 0;
+	virtual Vertex* getNextU(const int u, const int v) const = 0;
 
-	virtual Node* getPrevU(const int u, const int v) const = 0;
+	virtual Vertex* getPrevU(const int u, const int v) const = 0;
 
-	virtual Node* getNextV(const int u, const int v) const = 0;
+	virtual Vertex* getNextV(const int u, const int v) const = 0;
 
-	virtual Node* getPrevV(const int u, const int v) const = 0;
+	virtual Vertex* getPrevV(const int u, const int v) const = 0;
 
 	virtual std::vector<QuadCell> toQuadCells() const = 0;
 
 protected:
-	Array2d<Node*> grid;
+	Array2d<Vertex*> grid;
 
 };
 
@@ -43,13 +44,13 @@ public:
 		INodeGrid(uSize, vSize)
 	{}
 
-	virtual Node* getNextU(const int u, const int v) const override;
+	virtual Vertex* getNextU(const int u, const int v) const override;
 
-	virtual Node* getPrevU(const int u, const int v) const override;
+	virtual Vertex* getPrevU(const int u, const int v) const override;
 
-	virtual Node* getNextV(const int u, const int v) const override;
+	virtual Vertex* getNextV(const int u, const int v) const override;
 
-	virtual Node* getPrevV(const int u, const int v) const override;
+	virtual Vertex* getPrevV(const int u, const int v) const override;
 
 	std::vector<QuadCell> toQuadCells() const override;
 };
@@ -61,13 +62,13 @@ public:
 		INodeGrid(uSize, vSize)
 	{}
 
-	virtual Node* getNextU(const int u, const int v) const override;
+	virtual Vertex* getNextU(const int u, const int v) const override;
 
-	virtual Node* getPrevU(const int u, const int v) const override;
+	virtual Vertex* getPrevU(const int u, const int v) const override;
 
-	virtual Node* getNextV(const int u, const int v) const override;
+	virtual Vertex* getNextV(const int u, const int v) const override;
 
-	virtual Node* getPrevV(const int u, const int v) const override;
+	virtual Vertex* getPrevV(const int u, const int v) const override;
 
 	std::vector<QuadCell> toQuadCells() const override;
 };
@@ -79,13 +80,13 @@ public:
 		INodeGrid(uSize, vSize)
 	{}
 
-	virtual Node* getNextU(const int u, const int v) const override;
+	virtual Vertex* getNextU(const int u, const int v) const override;
 
-	virtual Node* getPrevU(const int u, const int v) const override;
+	virtual Vertex* getPrevU(const int u, const int v) const override;
 
-	virtual Node* getNextV(const int u, const int v) const override;
+	virtual Vertex* getNextV(const int u, const int v) const override;
 
-	virtual Node* getPrevV(const int u, const int v) const override;
+	virtual Vertex* getPrevV(const int u, const int v) const override;
 
 	std::vector<QuadCell> toQuadCells() const override;
 

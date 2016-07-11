@@ -11,7 +11,7 @@ class UID
 {
 public:
 	enum class Type {
-		Node,
+		Vertex,
 		Edge,
 		Face,
 		Surface,

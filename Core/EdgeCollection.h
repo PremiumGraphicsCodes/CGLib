@@ -7,7 +7,7 @@
 namespace Crystal {
 	namespace Core {
 		class Edge;
-		class Node;
+		class Vertex;
 		class Face;
 
 class EdgeCollection : private UnCopyable
@@ -19,7 +19,7 @@ public:
 
 	void clear();
 
-	Edge* create(Node* start, Node* end);
+	Edge* create(Vertex* start, Vertex* end);
 
 	std::list<Edge*> get() { return edges; }
 

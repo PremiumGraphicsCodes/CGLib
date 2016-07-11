@@ -25,9 +25,9 @@ void NodeCollection::clear()
 }
 
 
-Node* NodeCollection::create(const Point3d<float>& p)
+Vertex* NodeCollection::create(const Point3d<float>& p)
 {
-	auto n = new Node(p.getPosition(), p.getNormal(), nextId++);
+	auto n = new Vertex(p.getPosition(), p.getNormal(), nextId++);
 	nodes.push_back(n);
 	return n;
 }
@@ -41,13 +41,13 @@ void NodeCollection::merge(NodeCollection& rhs)
 	rhs.nodes.clear();
 }
 
-void NodeCollection::remove(Node* n)
+void NodeCollection::remove(Vertex* n)
 {
 	auto found = std::find(nodes.begin(), nodes.end(), n);
 	*found = nullptr;
 }
 
-Node* NodeCollection::findById(const int id) const
+Vertex* NodeCollection::findById(const int id) const
 {
 	for (auto e : nodes) {
 		if (e->getId() == id) {

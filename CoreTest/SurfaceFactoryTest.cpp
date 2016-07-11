@@ -8,7 +8,7 @@ using namespace Crystal::Core;
 TEST(SurfaceFactoryTest, TestRenumber)
 {
 	SurfaceFactory factory;
-	std::vector<Node*> nodes;
+	std::vector<Vertex*> nodes;
 	std::vector<Edge*> edges;
 	std::vector<Face*> faces;
 	Triangle3d<float> triangle;

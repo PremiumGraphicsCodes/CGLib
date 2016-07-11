@@ -3,7 +3,7 @@
 
 #include "../Util/UnCopyable.h"
 #include <list>
-#include "Node.h"
+#include "Vertex.h"
 
 namespace Crystal {
 	namespace Core {
@@ -15,24 +15,24 @@ public:
 
 	~NodeCollection();
 
-	Node* create(const Math::Point3d<float>& p);
+	Vertex* create(const Math::Point3d<float>& p);
 
 	void clear();
 
-	std::list<Node*> get() const { return nodes; }
+	std::list<Vertex*> get() const { return nodes; }
 
 	void merge(NodeCollection& rhs);
 
-	void remove(Node* n);
+	void remove(Vertex* n);
 
-	Node* findById(const int id) const;
+	Vertex* findById(const int id) const;
 
 	void renumber();
 
 	void cleaning();
 
 private:
-	std::list<Node*> nodes;
+	std::list<Vertex*> nodes;
 
 	int nextId;
 
