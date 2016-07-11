@@ -97,6 +97,10 @@ public:
 
 	void cleaning();
 
+	std::list<Edge*> getInflows(Node* node);
+
+	std::list<Edge*> getOutflows(Node* node);
+
 private:
 	int id;
 	std::list<Face*> faces;

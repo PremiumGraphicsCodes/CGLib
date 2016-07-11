@@ -39,6 +39,8 @@ public:
 
 	void transform(const Matrix3d<T>& m);
 
+	void transform(const Matrix4d<T>& m);
+
 	void scale(const Math::Vector3d<T>& m);
 
 	bool operator==(const Point3d<T>& rhs) const {
@@ -50,6 +52,8 @@ public:
 	Point3d lerp(const Point3d& rhs, const T param) const;
 
 	Point3d clone() const { return Point3d<T>(position, normal, parameter); }
+
+	void normalize(const Point3d& rhs);
 
 
 private:

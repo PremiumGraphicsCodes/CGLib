@@ -10,7 +10,8 @@ using namespace Crystal::Core;
 
 Face::Face(const std::array<Edge*, 3>& edges, int id) :
 	edges(edges),
-	id(id)
+	id(id),
+	surface(nullptr)
 {
 	for (auto e : edges) {
 		if (e == nullptr) {
@@ -135,6 +136,6 @@ bool Face::isCollapsed() const
 
 bool Face::isDegenerated() const
 {
-	return getArea() == Tolerance<float>::getLooseTolerance();
+	return Tolerance<float>::isEqualLoosely( getArea() );
 }
 

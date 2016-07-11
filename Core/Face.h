@@ -8,6 +8,7 @@ namespace Crystal {
 	namespace Core {
 
 class Edge;
+class Surface;
 
 class Face : private UnCopyable
 {
@@ -50,8 +51,13 @@ public:
 
 	bool isDegenerated() const;
 
+	void setSurface(Surface *s) { this->surface = s; }
+
+	Surface* getSurface() { return surface; }
+
 private:
 	std::array<Edge*, 3> edges;
+	Surface* surface;
 	int id;
 };
 	}

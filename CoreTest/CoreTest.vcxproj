@@ -47,7 +47,6 @@
     <ClCompile Include="SurfaceRemoveAlgoTest.cpp" />
     <ClCompile Include="SurfaceSplittingAlgoTest.cpp" />
     <ClCompile Include="SurfaceTest.cpp" />
-    <ClCompile Include="TriangleMeshTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
     <ClCompile Include="VolumeCellTest.cpp" />

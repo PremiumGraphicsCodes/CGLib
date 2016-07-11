@@ -41,7 +41,7 @@ void TriangleBuffer::add(const PolygonMesh& polygon)
 	for (const auto& v : vertices) {
 		this->positions.add(v->getPosition());
 		this->normals.add(v->getNormal());
-		this->texCoords.add(v->getTexCoord());
+		this->texCoords.add(v->getParameter());
 		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
 	}
 	const auto faces = polygon.getFaces();

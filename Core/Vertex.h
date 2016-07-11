@@ -1,6 +1,7 @@
 #ifndef __CRYSTAL_POLYGON_POLYGON_REDUCTION_H__
 #define __CRYSTAL_POLYGON_POLYGON_REDUCTION_H__
 
+#include "../Math/Point3d.h"
 #include "../Math/Vector3d.h"
 #include "../Math/Matrix4d.h"
 #include "../Util/UnCopyable.h"
@@ -13,30 +14,22 @@ namespace Crystal {
 class Vertex;
 class TriFace;
 
-class Vertex
+class Vertex : public Math::Point3d<float>
 {
 public:
 	Vertex(const unsigned int id, const Math::Vector3d<float>& position);
 
 	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal);
 
-	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector3d<float>& texCoord);
+	Vertex(const unsigned int id, const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord);
 
-	Math::Vector3d<float> getPosition() const { return position; }
-
-	void setNormal(const Math::Vector3d<float>& n) { this->normal = n; }
-
-	Math::Vector3d<float> getNormal() const { return normal; }
-
-	Math::Vector3d<float> getTexCoord() const { return texCoord; }
-
-	void normalize(const Vertex& rhs);
+	//void normalize(const Vertex& rhs);
 
 	void setFace(TriFace* f) { this->f = f; }
 
 	TriFace* getFace() const { return f; }
 
-	void transform(const Math::Matrix4d<float>& matrix);
+	//void transform(const Math::Matrix4d<float>& matrix);
 
 	Vertex* clone();
 
@@ -44,9 +37,6 @@ public:
 	unsigned int id;
 
 private:
-	Math::Vector3d<float> position;
-	Math::Vector3d<float> normal;
-	Math::Vector3d<float> texCoord;
 
 	TriFace* f;
 };
@@ -60,7 +50,7 @@ public:
 
 	~VertexCollection();
 
-	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector3d<float> texCoord = Math::Vector3d<float>());
+	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector2d<float> texCoord = Math::Vector2d<float>());
 
 	VertexCollection clone();
 

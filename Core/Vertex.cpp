@@ -37,40 +37,25 @@ namespace {
 }
 
 Vertex::Vertex(const unsigned int id, const Vector3d<float>& position) :
-	id(id),
-	position(position)
+	Point3d<float>(position),
+	id(id)
 {}
 
 Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal) :
-	id(id),
-	position(position),
-	normal(normal)
+	Point3d<float>(position, normal),
+	id(id)
 {}
 
-Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal, const Vector3d<float>& texCoord) :
-	id(id),
-	position(position),
-	normal(normal),
-	texCoord(texCoord)
+Vertex::Vertex(const unsigned int id, const Vector3d<float>& position, const Vector3d<float>& normal, const Vector2d<float>& texCoord) :
+	Point3d<float>(position, normal, texCoord),
+	id(id)
 {}
 
-void Vertex::normalize(const Vertex& rhs)
-{
-	this->normal = normal * 0.5f + rhs.normal * 0.5f;
-	this->normal.normalize();
-}
-
-void Vertex::transform(const Matrix4d<float>& matrix)
-{
-	this->position.transform(matrix);
-	this->normal.transform(matrix);
-}
 
 Vertex* Vertex::clone()
 {
-	return new Vertex(id, position, normal, texCoord);
+	return new Vertex(id, getPosition(), getNormal(), getParameter());
 }
-
 
 VertexCollection::VertexCollection() : nextId(0)
 {}
@@ -112,7 +97,7 @@ void VertexCollection::sort()
 	vertices = std::vector<Vertex*>(vlist.begin(), vlist.end());
 }
 
-Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
+Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
 {
 	auto v = new Vertex(nextId++, position, normal, texCoord);
 	vertices.push_back(v);

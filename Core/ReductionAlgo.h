@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_SIMPLIFICATION_ALGO_H__
-#define __CRYSTAL_CORE_SIMPLIFICATION_ALGO_H__
+#ifndef __CRYSTAL_CORE_REDUCTION_ALGO_H__
+#define __CRYSTAL_CORE_REDUCTION_ALGO_H__
 
 #include "SurfaceFactory.h"
 
@@ -10,11 +10,11 @@
 namespace Crystal {
 	namespace Core {
 
-class SimplificationAlgo
+class ReductionAlgo
 {
 public:
 
-	SimplificationAlgo(Surface* s, SurfaceFactory* f) :
+	ReductionAlgo(Surface* s, SurfaceFactory* f) :
 		surface(s),
 		factory(f)
 	{}
@@ -22,6 +22,10 @@ public:
 	void execute();
 
 	void execute(Edge* e);
+
+	float getCollapseCost(Edge* edge);
+
+	float getCost(Node* n);
 
 private:
 	Surface* surface;

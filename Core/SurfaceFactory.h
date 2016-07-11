@@ -61,10 +61,14 @@ public:
 
 	std::list<Edge*> getEdges() { return edges.get(); }
 
-
 	void renumber();
 
 	void cleaning();
+
+	void removeAndConnect(Edge* e);
+
+	void split(Edge* e);
+
 
 private:
 

@@ -95,6 +95,9 @@
     <ClCompile Include="SurfaceRemoveAlgo.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
+    <ClCompile Include="ReductionAlgo.cpp">
+      <Filter>Graph\Algo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -196,6 +199,9 @@
       <Filter>Graph\Algo</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceRemoveAlgo.h">
+      <Filter>Graph\Algo</Filter>
+    </ClInclude>
+    <ClInclude Include="ReductionAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
   </ItemGroup>

@@ -39,6 +39,14 @@ void Point3d<T>::transform(const Matrix3d<T>& matrix)
 }
 
 template<typename T>
+void Point3d<T>::transform(const Matrix4d<T>& m)
+{
+	position.transform(m);
+	normal.transform(m);
+}
+
+
+template<typename T>
 void Point3d<T>::scale(const Vector3d<T>& v)
 {
 	position.scale(v.getX(), v.getY(), v.getZ());
@@ -53,6 +61,12 @@ Point3d<T> Point3d<T>::lerp(const Point3d<T>& rhs, const T param) const
 	return Point3d<T>(pp, nn, p);
 }
 
+template<typename T>
+void Point3d<T>::normalize(const Point3d<T>& rhs)
+{
+	this->normal = normal * 0.5f + rhs.normal * 0.5f;
+	this->normal.normalize();
+}
 
 
 template class Point3d<float>;

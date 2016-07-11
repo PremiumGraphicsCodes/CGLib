@@ -69,7 +69,7 @@ void OBJFile::add(const PolygonMesh& polygon)
 	for (const auto& v : vertices) {
 		this->positions.push_back(v->getPosition());
 		this->normals.push_back(v->getNormal());
-		this->texCoords.push_back(v->getTexCoord());
+		this->texCoords.push_back(v->getParameter());
 	}
 	const auto& faces = polygon.getFaces();
 	for (const auto& f : faces) {
@@ -132,7 +132,7 @@ bool OBJFile::read(std::istream& stream)
 
 
 	std::vector< Math::Vector3d<float> > positionBuffer;
-	std::vector< Math::Vector3d<float> > texCoordBuffer;
+	std::vector< Math::Vector2d<float> > texCoordBuffer;
 	std::vector< Math::Vector3d<float> > normalBuffer;
 
 	while (!stream.eof()) {
@@ -146,7 +146,7 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "vt") {
 			std::getline(stream, str);
-			texCoordBuffer.push_back(readVector3d(str));
+			texCoordBuffer.push_back(readVector2d(str));
 		}
 		else if (header == "vn" || header == "-vn") {
 			std::getline(stream, str);
@@ -186,7 +186,7 @@ bool OBJFile::read(std::istream& stream)
 					texCoords.push_back(texCoordBuffer[texIndex-1]);
 				}
 				else {
-					texCoords.push_back(Vector3d<float>());
+					texCoords.push_back(Vector2d<float>());
 				}
 
 				if (splitted.size() >= 3) {
@@ -249,6 +249,16 @@ Vector3d<float> OBJFile::readVector3d(const std::string& str)
 		return Vector3d<float>(u, v, 0.0f);
 	}
 }
+
+Vector2d<float> OBJFile::readVector2d(const std::string& str)
+{
+	const std::vector< std::string >& strs = Helper::split(str, ' ');
+	//assert(strs.front() == "vt");
+	const float u = ::std::stof(strs[0]);
+	const float v = ::std::stof(strs[1]);
+	return Vector2d<float>(u, v);
+}
+
 
 bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonMesh& mesh)
 {

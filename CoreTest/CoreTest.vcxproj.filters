@@ -8,9 +8,7 @@
     <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
-    <ClCompile Include="PolygonMeshTest.cpp" />
     <ClCompile Include="SpaceHashTest.cpp" />
-    <ClCompile Include="TriangleMeshTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
     <ClCompile Include="VolumeCellTest.cpp" />
     <ClCompile Include="VolumeNodeTest.cpp" />
@@ -54,6 +52,9 @@
     <ClCompile Include="SurfaceRemoveAlgoTest.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
+    <ClCompile Include="PolygonMeshTest.cpp">
+      <Filter>PolygonMesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">
@@ -67,6 +68,9 @@
     </Filter>
     <Filter Include="Graph\Algo">
       <UniqueIdentifier>{78730bea-c13c-4472-a92c-6b8510ba5237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PolygonMesh">
+      <UniqueIdentifier>{f578aca5-515a-4d5a-abff-780bbef1bea9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

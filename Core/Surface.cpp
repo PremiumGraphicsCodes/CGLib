@@ -255,3 +255,25 @@ void Surface::cleaning()
 		}
 	}
 }
+
+std::list<Edge*> Surface::getInflows(Node* node)
+{
+	std::list<Edge*> results;
+	for (auto e : edges) {
+		if (e->getEnd() == node) {
+			results.push_back(e);
+		}
+	}
+	return results;
+}
+
+std::list<Edge*> Surface::getOutflows(Node* node)
+{
+	std::list<Edge*> results;
+	for (auto e : edges) {
+		if (e->getStart() == node) {
+			results.push_back(e);
+		}
+	}
+	return results;
+}

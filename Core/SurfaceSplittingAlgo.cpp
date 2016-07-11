@@ -81,5 +81,7 @@ Face* SurfaceSplittingAlgo::createTriangleFace(Node* n1, Node* n2, Node* n3)
 	auto e1 = edges.create(n1, n2);
 	auto e2 = edges.create(n2, n3);
 	auto e3 = edges.create(n3, n1);
-	return faces.create(e1, e2, e3);
+	auto f = faces.create(e1, e2, e3);
+	assert(f->isCCW());
+	return f;
 }

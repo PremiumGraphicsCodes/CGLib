@@ -15,6 +15,19 @@ TEST(PolygonMeshTest, TestCreateVertex)
 	EXPECT_EQ( v2, object.findVertexById(1) );
 }
 
+
+TEST(TriangleMeshTest, TestCreateFaces)
+{
+	PolygonMesh mesh;
+	auto p1 = mesh.createVertex(Vector3d<float>(0.0, 0.0, 0.0));
+	auto p2 = mesh.createVertex(Vector3d<float>(1.0, 0.0, 0.0));
+	auto p3 = mesh.createVertex(Vector3d<float>(1.0, 1.0, 0.0));
+	auto p4 = mesh.createVertex(Vector3d<float>(0.0, 1.0, 0.0));
+	std::vector<int> ids{ 0, 1, 2, 3 };
+	auto actual = mesh.createFaces(ids);
+	EXPECT_EQ(2, actual.size());
+}
+
 TEST(PolygonMeshTest, TestMerge)
 {
 	PolygonMesh object1;
@@ -58,3 +71,4 @@ TEST(PolygonMeshTest, TestAddBox)
 	EXPECT_EQ(Vector3d<float>( 0.0f, -1.0f, 0.0f), faces[11]->getNormal());
 
 }
+

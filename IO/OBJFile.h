@@ -115,9 +115,9 @@ public:
 
 	std::vector< Math::Vector3d<float> > getNormals() const { return normals; }
 
-	void setTexCoords(const std::vector< Math::Vector3d<float> >& texCoords) { this->texCoords = texCoords; }
+	void setTexCoords(const std::vector< Math::Vector2d<float> >& texCoords) { this->texCoords = texCoords; }
 
-	std::vector< Math::Vector3d<float> > getTexCoords() const { return texCoords; }
+	std::vector< Math::Vector2d<float> > getTexCoords() const { return texCoords; }
 
 	Core::PolygonMesh* toPolygonObject();
 
@@ -138,13 +138,15 @@ private:
 
 	std::vector< Math::Vector3d<float> > positions;
 	std::vector< Math::Vector3d<float> > normals;
-	std::vector< Math::Vector3d<float> > texCoords;
+	std::vector< Math::Vector2d<float> > texCoords;
 
 	std::vector< unsigned int > faceCounts;
 
 	Math::Vector3d<float> readVertices(const std::string& str);
 
 	Math::Vector3d<float> readVector3d(const std::string& str);
+
+	Math::Vector2d<float> readVector2d(const std::string& str);
 
 	//unsigned int readFaces(const std::string& str);
 

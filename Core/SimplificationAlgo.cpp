@@ -4,41 +4,36 @@
 
 using namespace Crystal::Core;
 
+void SimplificationAlgo::execute()
+{
+	const auto edges = surface->getEdges();
+	auto minEdge = edges.front();
+	for (auto e : edges) {
+		if (minEdge->getLength() > e->getLength()) {
+			minEdge = e;
+		}
+	}
+	execute(minEdge);
+}
+
 void SimplificationAlgo::execute(Edge* e)
 {
-	auto prev = e->getPrev();
 	auto n1 = e->getStart();
 	auto n2 = e->getEnd();
 	auto center = e->getMidPoint();
-	auto fs = surface->getFaces();
-	for (auto f : fs) {
-		if (f->has(e)) {
-			factory->remove(f);
-		}
-	}
-	auto e2 = surface->findShared(e);
-	factory->remove(e);
-	factory->remove(e2);
 	n1->moveTo(center.getPosition());
-	surface->remove(n1);
-	for (auto f : surface->getFaces()) {
-		assert(f->isConnected());
-	}
+	n2->moveTo(center.getPosition());
 
-	//n2->moveTo(center.getPosition());
-	/*
-	Edge* degeneratedEdge = nullptr;
-	for (auto e : surface->getEdges()) {
-		if (e->getLength() == 0.0f) {
-			degeneratedEdge = e;
+	for (auto f : surface->getFaces()) {
+		if (f->isDegenerated()) {
+			factory->remove(f);
+			factory->remove(f->getEdges()[0]);
+			factory->remove(f->getEdges()[1]);
+			factory->remove(f->getEdges()[2]);
 		}
 	}
-	*/
-	/*
-	for (auto f : fs) {
-		f-> remove(f);
-	}
-
+	factory->removeAndConnect(e);
 	factory->remove(n2);
-	*/
+	factory->remove(e);
+	factory->cleaning();
 }

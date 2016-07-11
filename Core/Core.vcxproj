@@ -36,6 +36,7 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NodeCollection.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
+    <ClCompile Include="ReductionAlgo.cpp" />
     <ClCompile Include="SimplificationAlgo.cpp" />
     <ClCompile Include="SmoothingAlgo.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -75,6 +76,7 @@
     <ClInclude Include="Face.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="NodeCollection.h" />
+    <ClInclude Include="ReductionAlgo.h" />
     <ClInclude Include="SimplificationAlgo.h" />
     <ClInclude Include="SmoothingAlgo.h" />
     <ClInclude Include="SurfaceFactory.h" />

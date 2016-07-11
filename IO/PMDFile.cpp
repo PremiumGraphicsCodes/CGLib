@@ -59,12 +59,12 @@ PMDVertex::PMDVertex(const Vertex& v)
 {
 	this->pos = v.getPosition();
 	this->normal = v.getNormal();
-	this->texCoord = Vector2d<float>( v.getTexCoord().getX(), v.getTexCoord().getY() );
+	this->texCoord = Vector2d<float>( v.getParameter().getX(), v.getParameter().getY() );
 }
 
 Vertex PMDVertex::toVertex(const unsigned int id)
 {
-	Vector3d<float> t(this->texCoord.getX(), this->texCoord.getY(), 0.0f);
+	Vector2d<float> t(this->texCoord.getX(), this->texCoord.getY());
 	return Vertex(id, this->pos, this->normal, t);
 }
 

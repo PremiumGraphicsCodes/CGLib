@@ -180,6 +180,9 @@ Surface* SurfaceFactory::create(const int id, const std::vector<Node*>& nodes, c
 	std::list<Edge*> es(edges.begin(), edges.end());
 	std::list<Face*> fs(faces.begin(), faces.end());
 	auto s = new Surface(ns, es, fs, id);
+	for (auto f : fs) {
+		f->setSurface(s);
+	}
 	surfaces.push_back(s);
 	return s;
 }
@@ -294,4 +297,38 @@ void SurfaceFactory::cleaning()
 	edges.cleaning();
 	faces.cleaning();
 	//renumber;
+}
+
+void SurfaceFactory::removeAndConnect(Edge* e)
+{
+	auto start = e->getStart();
+	auto end = e->getEnd();
+	auto surface = findSurface(e);// e->getFace()->getSurface();
+	{
+		auto inflows = surface->getInflows(start);
+		auto outflows = surface->getOutflows(end);
+		for (auto i : inflows) {
+			for (auto o : outflows) {
+				i->connect(o);
+			}
+		}
+	}
+	{
+		auto inflows = surface->getInflows(end);
+		auto outflows = surface->getOutflows(start);
+		for (auto i : inflows) {
+			for (auto o : outflows) {
+				i->connect(o);
+			}
+		}
+	}
+
+}
+
+void SurfaceFactory::split(Edge* e)
+{
+	auto midPoint = e->getMidPoint();
+	auto n = nodes.create(midPoint);
+	edges.create(e->getStart(), n);
+	edges.create(n, e->getEnd());
 }

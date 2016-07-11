@@ -18,7 +18,7 @@ PolygonMesh::~PolygonMesh()
 }
 
 
-Vertex* PolygonMesh::createVertex(Vector3d<float> position, Vector3d<float> normal, Vector3d<float> texCoord)
+Vertex* PolygonMesh::createVertex(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
 {
 	return vertices.create(position, normal, texCoord);
 }
@@ -225,10 +225,50 @@ PolygonMesh* PolygonMesh::clone(const unsigned int id)
 {
 	PolygonMesh* newPolygon = new PolygonMesh(id);
 	for (auto v : vertices) {
-		newPolygon->createVertex( v->getPosition(), v->getNormal(), v->getTexCoord());
+		newPolygon->createVertex( v->getPosition(), v->getNormal(), v->getParameter());
 	}
 	for (auto f : faces) {
 		newPolygon->createFace(f->getV1()->getId(), f->getV2()->getId(), f->getV3()->getId());
 	}
 	return newPolygon;
 }
+
+/*
+#include "NodeGrid.h"
+
+void PolygonMesh::create(const Curve3d<float>& curve, const int id = -1)
+{
+	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
+	for (int u = 0; u < curve.getUNumber(); ++u) {
+		for (int v = 0; v < curve.getVNumber(); ++v) {
+			const auto& pos = curve.get(u, v).getPosition();
+			const auto& normal = curve.get(u, v).getNormal();
+
+			auto n = createVertex(pos, normal);
+			grid.set(u, v, n);
+		}
+	}
+
+	const auto& cells = grid.toQuadCells();
+	std::vector<TriangleCell> triangleCells;
+	for (const auto& c : cells) {
+		const auto& tCells = c.toTriangleCells();
+		
+		triangleCells.insert(triangleCells.end(), tCells.begin(), tCells.end());
+	}
+
+	for (const auto& t : triangleCells) {
+		auto n0 = t.get()[0];
+		auto n1 = t.get()[1];
+		auto n2 = t.get()[2];
+		createFace(n0, n1, n2);
+		//TriFace face(n0, n1, n2);
+	}
+//	return create(id, createNodes, createEdges, createFaces);
+
+}
+
+//void create(const Math::CircularCurve3d<float>& curve, const int id = -1);
+
+//void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
+*/
