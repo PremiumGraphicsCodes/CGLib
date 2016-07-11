@@ -56,5 +56,12 @@ Node* NodeCollection::findById(const int id) const
 		}
 	}
 	return nullptr;
+}
 
+void NodeCollection::renumber()
+{
+	nextId = 0;
+	for (auto n : nodes) {
+		n->setId(nextId++);
+	}
 }

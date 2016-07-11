@@ -27,6 +27,8 @@ public:
 
 	std::list<Face*> findByEdge(Edge* e) const;
 
+	void renumber();
+
 private:
 	int nextId;
 	std::list<Face*> faces;

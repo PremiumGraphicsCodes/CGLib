@@ -57,6 +57,8 @@ public:
 
 	std::list<Surface*> getSurfaces() const { return surfaces; }
 
+	void renumber();
+
 private:
 
 	Surface* create(int id, const std::vector<Node*>& nodes, const std::vector<Edge*>& edges, const std::vector<Face*>& faces);

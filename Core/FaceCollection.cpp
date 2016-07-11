@@ -71,3 +71,11 @@ std::list<Face*> FaceCollection_::findByEdge(Edge* e) const
 	}
 	return results;
 }
+
+void FaceCollection_::renumber()
+{
+	nextId = 0;
+	for (auto e : faces) {
+		e->setId(nextId++);
+	}
+}

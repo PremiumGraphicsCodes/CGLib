@@ -93,6 +93,8 @@ public:
 
 	Edge* findShared(Edge* e) const;
 
+	void setId(const int id) { this->id = id; }
+
 private:
 	int id;
 	std::list<Face*> faces;

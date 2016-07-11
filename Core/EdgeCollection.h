@@ -28,6 +28,8 @@ public:
 
 	Edge* findById(const int id) const;
 
+	void renumber();
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

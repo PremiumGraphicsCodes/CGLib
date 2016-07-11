@@ -27,6 +27,8 @@ public:
 
 	Node* findById(const int id) const;
 
+	void renumber();
+
 private:
 	std::list<Node*> nodes;
 

@@ -204,6 +204,12 @@ void SurfaceFactory::merge(SurfaceFactory& rhs)
 void SurfaceFactory::remove(Face* f)
 {
 	findSurface(f)->remove(f);
+	/*
+	const auto edges = f->getEdges();
+	for (auto e : edges) {
+		remove(e);
+	}
+	*/
 	faces.remove(f);
 }
 
@@ -279,4 +285,15 @@ Surface* SurfaceFactory::findSurface(Node* e) const
 std::list<Face*> SurfaceFactory::findFaces(Edge* e) const
 {
 	return faces.findByEdge(e);
+}
+
+void SurfaceFactory::renumber()
+{
+	nodes.renumber();
+	edges.renumber();
+	faces.renumber();
+	int nextId = 0;
+	for (auto s : surfaces) {
+		s->setId(nextId++);
+	}
 }

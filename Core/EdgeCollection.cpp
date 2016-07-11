@@ -58,3 +58,11 @@ Edge* EdgeCollection::findById(const int id) const
 	}
 	return nullptr;
 }
+
+void EdgeCollection::renumber()
+{
+	nextId = 0;
+	for (auto e : edges) {
+		e->setId(nextId++);
+	}
+}
