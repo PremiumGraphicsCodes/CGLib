@@ -37,18 +37,19 @@ void SurfaceSplittingAlgo::splitByNode(Face* f)
 void SurfaceSplittingAlgo::splitByCenter(Face* f)
 {
 	Node* center = nodes.create( f->getCenterPoint() );
+	createTriangleFace(f->getEdges()[1]->getStart(), f->getEdges()[1]->getEnd(), center);
+	createTriangleFace(f->getEdges()[2]->getStart(), f->getEdges()[2]->getEnd(), center);
+
 	f->getEdges()[1]->changeEnd(center);
 	f->getEdges()[2]->changeStart(center);
 	//createTriangleFace(f->getEdges()[0]->getStart(), f->getEdges()[0]->getEnd(), center);
-	createTriangleFace(f->getEdges()[1]->getStart(), f->getEdges()[1]->getEnd(), center);
-	createTriangleFace(f->getEdges()[2]->getStart(), f->getEdges()[2]->getEnd(), center);
 	surface->add(this->faces.get());
 	surface->add(this->nodes.get());
 	surface->add(this->edges.get());
 	SurfaceFactory fa(nodes, edges, faces);
 	factory->merge(fa);
 	factory->cleaning();
-	f = nullptr;
+	//f = nullptr;
 }
 
 void SurfaceSplittingAlgo::splitByBottom(Face* f)
