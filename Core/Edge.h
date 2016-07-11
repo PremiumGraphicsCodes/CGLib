@@ -53,6 +53,8 @@ public:
 
 	Edge* getPrev() const { return prev; }
 
+	bool isCollapsed() const;
+
 private:
 	Edge* prev;
 	Edge* next;

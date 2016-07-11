@@ -71,3 +71,10 @@ bool Edge::isShared(const Edge& rhs) const
 	}
 	return false;
 }
+
+bool Edge::isCollapsed() const
+{
+	return
+		start == nullptr ||
+		end == nullptr;
+}

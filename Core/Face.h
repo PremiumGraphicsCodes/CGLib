@@ -21,6 +21,10 @@ public:
 
 	float getArea() const;
 
+	bool isCCW() const;
+
+	bool isCW() const;
+
 	Math::Vector3d<float> getNormal() const;
 
 	std::vector<Edge*> getEdges() const { return edges; }
@@ -44,6 +48,10 @@ public:
 	bool has(Edge* e) const;
 
 	bool isConnected() const;
+
+	bool isCollapsed() const;
+
+	bool isDegenerated() const;
 
 private:
 	std::vector<Edge*> edges;

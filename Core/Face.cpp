@@ -15,6 +15,16 @@ float Face::getArea() const
 	return v1.getOuterProduct(v2).getLength() * 0.5f;
 }
 
+bool Face::isCCW() const
+{
+	return getArea() > Tolerance<float>::getLooseTolerance();
+}
+
+bool Face::isCW() const
+{
+	return getArea() < -Tolerance<float>::getLooseTolerance();
+}
+
 Vector3d<float> Face::getNormal() const
 {
 	const auto v1 = edges[0]->getVector();
@@ -93,5 +103,25 @@ bool Face::isConnected() const
 		}
 	}
 	return true;
+}
+
+bool Face::isCollapsed() const
+{
+	for (auto e : edges) {
+		if (e == nullptr) {
+			return true;
+		}
+	}
+	for (auto e : edges) {
+		if (e->isCollapsed()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Face::isDegenerated() const
+{
+	return getArea() == Tolerance<float>::getLooseTolerance();
 }
 
