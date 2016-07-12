@@ -292,8 +292,7 @@ bool OBJFile::write(std::ostream& stream, const PolygonMesh& mesh)
 		stream << s << std::endl;
 	}
 
-	for (unsigned int i = 0; i < faces.size(); ++i ){
-		auto f = faces[i];
+	for (auto f : faces){
 		const auto i1 = f->getV1()->getId() + 1;
 		const auto i2 = f->getV2()->getId() + 1;
 		const auto i3 = f->getV3()->getId() + 1;

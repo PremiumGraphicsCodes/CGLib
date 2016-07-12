@@ -12,7 +12,7 @@ class FaceCollection
 public:
 	FaceCollection();
 
-	FaceCollection(const std::vector<Face*>& faces);
+	FaceCollection(const std::list<Face*>& faces);
 
 	~FaceCollection();
 
@@ -22,10 +22,16 @@ public:
 
 	void clear();
 
-	using iterator = std::vector<Face*>::iterator;
-	using const_iterator = std::vector<Face*>::const_iterator;
+	void cleaning();
+
+	void remove(Face* f);
+
+	using iterator = std::list<Face*>::iterator;
+	using const_iterator = std::list<Face*>::const_iterator;
 
 	iterator begin() { return faces.begin(); }
+
+	//iterator front() { return faces.front(); }
 
 	const_iterator begin() const { return faces.begin(); }
 
@@ -35,10 +41,12 @@ public:
 
 	size_t size() const { return faces.size(); }
 
-	Face* operator[](const int i) const { return faces[i]; }
+//	Face* operator[](const int i) const { return faces[i]; }
+
+	std::list<Face*> get() { return faces; }
 
 private:
-	std::vector<Face*> faces;
+	std::list<Face*> faces;
 
 };
 

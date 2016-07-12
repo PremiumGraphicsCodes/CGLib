@@ -109,3 +109,8 @@ float Edge::calculateCollapseCost() const
 	}
 	return length * curvature;
 }
+
+bool Edge::isDegenerated() const
+{
+	return getLength() < Tolerance<float>::getLooseTolerance();
+}

@@ -34,6 +34,7 @@ namespace {
 			}
 			v1->normalize(*v2);
 			delete v2;
+			//v2 = nullptr;
 			return true;
 		}
 		return false;

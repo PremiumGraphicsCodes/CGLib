@@ -102,6 +102,8 @@ public:
 
 	void smooth(Vertex* v);
 
+	void simplify(const Edge& e);
+
 private:
 	unsigned int nextIndexId;
 	const unsigned int id;

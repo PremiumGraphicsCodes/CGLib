@@ -7,7 +7,7 @@ using namespace Crystal::Core;
 FaceCollection::FaceCollection()
 {}
 
-FaceCollection::FaceCollection(const std::vector<Face*>& faces) :
+FaceCollection::FaceCollection(const std::list<Face*>& faces) :
 	faces(faces)
 {}
 
@@ -37,4 +37,23 @@ void FaceCollection::clear()
 		delete f;
 	}
 	faces.clear();
+}
+
+void FaceCollection::cleaning()
+{
+	std::list<Face*> shrinked;
+	for (auto f : faces) {
+		if (f->getArea() < Tolerance<float>::getLooseTolerance()) {
+			shrinked.push_back(f);
+		}
+	}
+	for (auto f : shrinked) {
+		remove(f);
+	}
+}
+
+void FaceCollection::remove(Face* f)
+{
+	faces.remove(f);
+	delete f;
 }

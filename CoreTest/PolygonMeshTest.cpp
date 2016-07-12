@@ -91,7 +91,7 @@ TEST(PolygonMeshTest, TestSplitByNode)
 	Curve3d<float> curve = quad.toCurve3d();
 	PolygonMesh polygon;
 	polygon.create(curve);
-	auto f = polygon.getFaces()[0];
+	auto f = polygon.getFaces().get().front();
 	polygon.splitByNode(f);
 	EXPECT_EQ(5, polygon.getFaces().size());
 	EXPECT_EQ(7, polygon.getVertices().size());
@@ -102,8 +102,23 @@ TEST(PolygonMeshTest, TestSplitByCenter)
 	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonMesh polygon;
 	polygon.create(triangle.toCurve3d());
-	auto f = polygon.getFaces()[0];
+	auto f = polygon.getFaces().get().front();
 	polygon.splitByCenter(f);
 	EXPECT_EQ(3, polygon.getFaces().size());
 	EXPECT_EQ(4, polygon.getVertices().size());
+}
+
+#include "../Core/Edge.h"
+
+TEST(PolygonMeshTest, TestSimplify)
+{
+	Quad<float> q(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonMesh polygon;
+	polygon.create( q.toCurve3d() );
+	auto v0 = polygon.getVertices()[0];
+	auto v1 = polygon.getVertices()[1];
+	Edge e(v0, v1, 0);
+	polygon.simplify(e);
+	auto faces = polygon.getFaces();
+	polygon.cleaning();
 }

@@ -232,7 +232,8 @@ void PolygonMesh::create(const TriangleCurve3d<float>& curve, const int id)
 
 void PolygonMesh::cleaning()
 {
-
+	removeOverlappedVertices();
+	faces.cleaning();
 }
 
 
@@ -307,4 +308,11 @@ void PolygonMesh::smooth(Vertex* center)
 		position += (n->getPosition() - center->getPosition()) / neighbors.size();
 	}
 	center->moveTo(position);
+}
+
+void PolygonMesh::simplify(const Edge& e)
+{
+	auto center = e.getMidPoint();
+	e.getStart()->moveTo(center.getPosition());
+	e.getEnd()->moveTo(center.getPosition());
 }

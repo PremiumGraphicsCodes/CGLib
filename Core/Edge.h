@@ -64,6 +64,9 @@ public:
 
 	float calculateCollapseCost() const;
 
+	bool isDegenerated() const;
+
+
 private:
 	Edge* prev;
 	Edge* next;
