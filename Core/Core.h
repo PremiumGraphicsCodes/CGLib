@@ -17,7 +17,7 @@
 #include "ParticleObject.h"
 #include "PolygonMesh.h"
 #include "SpaceHash.h"
-#include "TriFace.h"
+#include "Face.h"
 #include "Vertex.h"
 #include "Volume.h"
 #include "VolumeCell.h"

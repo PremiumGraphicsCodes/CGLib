@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "TriFace.h"
+#include "Face.h"
 #include "Vertex.h"
 #include "Edge.h"
 

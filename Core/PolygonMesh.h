@@ -3,7 +3,7 @@
 
 #include "../Util/UnCopyable.h"
 #include "Vertex.h"
-#include "TriFace.h"
+#include "Face.h"
 
 #include <list>
 

@@ -38,7 +38,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SurfaceSplittingAlgo.cpp" />
-    <ClCompile Include="TriFace.cpp" />
+    <ClCompile Include="Face.cpp" />
     <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleObject.cpp" />
@@ -73,7 +73,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TriFace.h" />
+    <ClInclude Include="Face.h" />
     <ClInclude Include="PolygonMesh.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />

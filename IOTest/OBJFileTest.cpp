@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
  
 #include "../Graphics/IBuffer.h"
-#include "../Core/TriFace.h"
+#include "../Core/Face.h"
 #include "../Core/Vertex.h"
 
 #include "../IO/OBJFile.h"

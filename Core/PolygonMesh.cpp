@@ -2,7 +2,7 @@
 #include "PolygonMesh.h"
 
 #include "Vertex.h"
-#include "TriFace.h"
+#include "Face.h"
 
 #include "../Math/Sphere.h"
 #include "../Math/Box3d.h"

@@ -3,7 +3,7 @@
 
 #include "../Util/UnCopyable.h"
 #include "NodeCollection.h"
-#include "TriFace.h"
+#include "Face.h"
 
 namespace Crystal {
 	namespace Core {
