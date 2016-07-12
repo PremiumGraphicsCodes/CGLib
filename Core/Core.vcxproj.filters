@@ -47,9 +47,6 @@
     <ClCompile Include="NodeGrid.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
-    <ClCompile Include="NodeCollection.cpp">
-      <Filter>Collection</Filter>
-    </ClCompile>
     <ClCompile Include="SmoothingAlgo.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
     <ClInclude Include="TriangleCell.h">
       <Filter>Graph</Filter>
     </ClInclude>
-    <ClInclude Include="NodeCollection.h">
-      <Filter>Collection</Filter>
-    </ClInclude>
     <ClInclude Include="SmoothingAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
@@ -157,9 +151,6 @@
     </Filter>
     <Filter Include="Graph">
       <UniqueIdentifier>{da07c0d0-f6ed-466d-b7ed-996156b254de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Collection">
-      <UniqueIdentifier>{af6e26f3-c339-41c6-ad9d-4142e254d3fd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Graph\Algo">
       <UniqueIdentifier>{fde1cded-4891-468e-839d-54ad09499dd5}</UniqueIdentifier>

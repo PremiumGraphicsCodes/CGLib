@@ -27,7 +27,6 @@
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
-    <ClCompile Include="NodeCollection.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="ReductionAlgo.cpp" />
     <ClCompile Include="SmoothingAlgo.cpp" />
@@ -58,7 +57,6 @@
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
-    <ClInclude Include="NodeCollection.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="ReductionAlgo.h" />
     <ClInclude Include="SmoothingAlgo.h" />

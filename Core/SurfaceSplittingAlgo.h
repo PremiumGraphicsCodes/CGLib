@@ -3,7 +3,6 @@
 
 #include "PolygonMesh.h"
 
-#include "NodeCollection.h"
 
 namespace Crystal {
 	namespace Core {

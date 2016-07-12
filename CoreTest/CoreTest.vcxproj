@@ -24,7 +24,6 @@
     <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="EdgeTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
-    <ClCompile Include="NodeCollectionTest.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
