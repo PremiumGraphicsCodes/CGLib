@@ -146,7 +146,7 @@ PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDe
 	}
 	PolygonMesh* result = new PolygonMesh();
 	for (const auto& t : triangles) {
-		result->add(t);
+		result->create(t.toCurve3d());
 	}
 	result->removeOverlappedVertices();
 	return result;

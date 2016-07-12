@@ -30,19 +30,6 @@ void LineBuffer::add(const Edge& edge, const ColorRGBA<float>& color)
 	this->ids.push_back( edge.getEnd()->getId() );
 }
 
-
-void LineBuffer::add(const Surface& surface, const ColorRGBA<float>& color)
-{
-	const auto& nodes = surface.getNodes();
-	for (auto n : nodes) {
-		add(*n, color);
-	}
-	const auto& edges = surface.getEdges();
-	for (auto e : edges) {
-		add(*e, color);
-	}
-}
-
 void LineBuffer::add(const Polyline3d<float>& polyline, const ColorRGBA<float>& color)
 {
 	const auto& lines = polyline.toLines();

@@ -12,8 +12,6 @@ namespace Crystal {
 	namespace Core {
 		class PolygonMesh;
 		class Actor;
-		class Surface;
-		class Edge;
 	}
 	namespace Graphics {
 
@@ -22,9 +20,6 @@ class LineBuffer
 public:
 	LineBuffer() = default;
 
-	LineBuffer(const Core::Surface& surface, const ColorRGBA<float>& color) {
-		add(surface, color);
-	}
 
 	LineBuffer(const Math::Line3d<float>& line, const ColorRGBA<float>& color) {
 		add(line, color);
@@ -39,8 +34,6 @@ public:
 	void add(const Math::Point3d<float>& point, const ColorRGBA<float>& color);
 
 	void add(const Core::Edge& edge, const ColorRGBA<float>& color);
-
-	void add(const Core::Surface& surface, const ColorRGBA<float>& color);
 
 	void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
 

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "../Graphics/TriangleBuffer.h"
-#include "../Core/Surface.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

@@ -93,23 +93,6 @@ std::list< TriFace* > PolygonMesh::createFaces(const std::vector<Vertex*>& verti
 	return fs;
 }
 
-
-void PolygonMesh::add(const Triangle3d<float>& triangle)
-{
-	auto n = triangle.getNormal();
-	auto p1 = triangle.getv0();
-	auto p2 = triangle.getv1();
-	auto p3 = triangle.getv2();
-
-	auto v1 = vertices.create( p1, n );
-	auto v2 = vertices.create( p2, n );
-	auto v3 = vertices.create( p3, n );
-	auto f = createFace(v1, v2, v3);
-	v1->addFace( f );
-	v2->addFace( f );
-	v3->addFace( f );
-}
-
 void PolygonMesh::add(const Box3d<float>& box)
 {
 	const auto& center = box.getCenter();
@@ -169,22 +152,7 @@ void PolygonMesh::add(const Box3d<float>& box)
 	//createFace(vertices)
 
 }
-
-void PolygonMesh::add(const Sphere<float>& sphere, const int udiv, const int vdiv)
-{
-	;
-}
-
 #include "../Math/Curve3d.h"
-
-void PolygonMesh::add(const Cone<float>& cone, const int div)
-{
-	const auto howMany = 360.0 / div;
-	for (int i = 0; i < howMany; ++i) {
-		;
-	}
-}
-
 
 void PolygonMesh::merge(PolygonMesh* rhs)
 {
@@ -274,10 +242,63 @@ void PolygonMesh::create(const CircularCurve3d<float>& curve, const int id)
 	}
 }
 
+
+
+void PolygonMesh::create(const TriangleCurve3d<float>& curve, const int id)
+{
+	std::vector< TriangleCell > cells;
+
+	std::vector<std::vector<Vertex*>> createdNodes;
+
+	std::vector<Vertex*> createNodes;
+	std::vector<TriFace*> createFaces;
+
+	for (int i = 0; i < curve.getSize(); ++i) {
+		std::vector<Vertex*> ns;
+		for (int j = 0; j <= i; ++j) {
+			auto p = curve.get(i, j);
+			Vertex* node = createVertex(curve.get(i, j));
+			ns.push_back(node);
+			createNodes.push_back(node);
+		}
+		createdNodes.push_back(ns);
+	}
+
+	for (int i = 1; i < createdNodes.size(); ++i) {
+		for (int j = 0; j < i; ++j) {
+			auto n0 = createdNodes[i - 1][j];
+			auto n1 = createdNodes[i][j];
+			auto n2 = createdNodes[i][j + 1];
+			auto f = faces.create(n0, n1, n2);
+			createFaces.push_back(f);
+		}
+	}
+	for (int i = 1; i < createdNodes.size(); ++i) {
+		for (int j = 0; j < i - 1; ++j) {
+			auto n0 = createdNodes[i - 1][j];
+			auto n1 = createdNodes[i][j + 1];
+			auto n2 = createdNodes[i - 1][j + 1];
+			auto f = faces.create(n0, n1, n2);
+			createFaces.push_back(f);
+		}
+	}
+}
+
+
+
 void PolygonMesh::cleaning()
 {
 
 }
 
+
+std::vector<int> PolygonMesh::toIndices() const
+{
+	std::vector<int> results;
+	for (auto v : vertices) {
+		results.push_back( v->getId() );
+	}
+	return results;
+}
 
 //void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);

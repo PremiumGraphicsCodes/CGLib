@@ -34,23 +34,13 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	void add(const Math::Triangle3d<float>& triangle);
-
 	void add(const Math::Box3d<float>& box);
-
-	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
-
-	//void add(const Math::Ellipsoid<float>& ellipsoid, const int udiv, const int vdiv);
-
-	void add(const Math::Cone<float>& cone, const int div);
-
 
 	void create(const Math::Curve3d<float>& curve, const int id = -1);
 
 	void create(const Math::CircularCurve3d<float>& curve, const int id = -1);
 
-	//void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
-
+	void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
 	void merge(PolygonMesh* rhs);
 
@@ -97,6 +87,8 @@ public:
 	//std::vector<Math::Vector3d<float>> getTexCoords() const { return texCoords; }
 
 	FaceCollection getFaces() const { return faces; }
+
+	std::vector<int> toIndices() const;
 
 	void clear();
 

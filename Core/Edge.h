@@ -10,7 +10,7 @@ namespace Crystal {
 class Vertex;
 class Face;
 
-class Edge : private UnCopyable
+class Edge
 {
 public:
 	Edge(Vertex* start, Vertex* end, int id);

@@ -40,7 +40,7 @@ public:
 
 	std::list<PolygonMesh*> getPolygons() const { return polygons; }
 
-	std::list<TriFace*> getFaces() { return faces.get(); }
+	//std::list<TriFace*> getFaces() { return faces.get(); }
 
 	void renumber();
 

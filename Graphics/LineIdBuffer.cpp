@@ -12,20 +12,26 @@ void LineIdBuffer::clear()
 	ids.clear();
 }
 
-void LineIdBuffer::add(const Surface& surface, const unsigned char groupId)
+void LineIdBuffer::add(const PolygonMesh& mesh, const unsigned char groupId)
 {
-	const auto& edges = surface.getEdges();
-	for (auto e : edges) {
-		add(e->toLine(), DrawableID(e->getId(), groupId));
+	const auto& faces = mesh.getFaces();
+	for (auto f : faces) {
+		const auto edges = f->toEdges();
+		for (auto e : edges) {
+			add(e.toLine(), DrawableID(e.getId(), groupId));
+		}
 	}
 }
 
 
-void LineIdBuffer::add(const Surface& surface, const DrawableID& did)
+void LineIdBuffer::add(const PolygonMesh& mesh, const DrawableID& did)
 {
-	const auto& edges = surface.getEdges();
-	for (auto e : edges) {
-		add(e->toLine(), did);
+	const auto& faces = mesh.getFaces();
+	for (auto f : faces) {
+		const auto edges = f->toEdges();
+		for (auto e : edges) {
+			add(e.toLine(), did);
+		}
 	}
 
 }
@@ -34,7 +40,6 @@ void LineIdBuffer::add(const Line3d<float>& line, const DrawableID& did)
 {
 	this->position.add(line.getStart());
 	this->position.add(line.getEnd());
-
 
 	this->idColors.add(did.toColor());
 	this->idColors.add(did.toColor());

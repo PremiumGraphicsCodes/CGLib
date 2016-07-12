@@ -1,11 +1,9 @@
 #ifndef __CRYSTAL_CORE_SMOOTHING_ALGO_H__
 #define __CRYSTAL_CORE_SMOOTHING_ALGO_H__
 
-#include "SurfaceFactory.h"
+#include "PolygonMesh.h"
 
 #include "NodeCollection.h"
-#include "EdgeCollection.h"
-#include "FaceCollection.h"
 
 namespace Crystal {
 	namespace Core {
@@ -14,22 +12,16 @@ namespace Crystal {
 class SmoothingAlgo
 {
 public:
-	SmoothingAlgo(Surface* s, SurfaceFactory* f) :
-		surface(s),
-		factory(f)
+	SmoothingAlgo(PolygonMesh* s) :
+		surface(s)
 	{}
 
 	void execute(Vertex* n);
 
 private:
-	Face* createTriangleFace(Vertex* n1, Vertex* n2, Vertex* n3);
 
-	Surface* surface;
-	SurfaceFactory* factory;
+	PolygonMesh* surface;
 
-	NodeCollection nodes;
-	EdgeCollection edges;
-	FaceCollection_ faces;
 };
 
 	}

@@ -21,22 +21,15 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AnisotoropicParticle.cpp" />
-    <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
-    <ClCompile Include="BooleanAlgo.cpp" />
-    <ClCompile Include="CircleArrow.cpp" />
     <ClCompile Include="Edge.cpp" />
-    <ClCompile Include="EdgeCollection.cpp" />
-    <ClCompile Include="Face.cpp" />
-    <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="NodeCollection.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="ReductionAlgo.cpp" />
-    <ClCompile Include="SimplificationAlgo.cpp" />
     <ClCompile Include="SmoothingAlgo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -44,9 +37,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Surface.cpp" />
-    <ClCompile Include="SurfaceFactory.cpp" />
-    <ClCompile Include="SurfaceRemoveAlgo.cpp" />
     <ClCompile Include="SurfaceSplittingAlgo.cpp" />
     <ClCompile Include="TriFace.cpp" />
     <ClCompile Include="OctTree.cpp" />
@@ -62,25 +52,16 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AnisotoropicParticle.h" />
-    <ClInclude Include="Arrow.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="BoneTree.h" />
-    <ClInclude Include="BooleanAlgo.h" />
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
-    <ClInclude Include="CircleArrow.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
-    <ClInclude Include="EdgeCollection.h" />
-    <ClInclude Include="Face.h" />
-    <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="NodeCollection.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="ReductionAlgo.h" />
-    <ClInclude Include="SimplificationAlgo.h" />
     <ClInclude Include="SmoothingAlgo.h" />
-    <ClInclude Include="SurfaceFactory.h" />
-    <ClInclude Include="SurfaceRemoveAlgo.h" />
     <ClInclude Include="SurfaceSplittingAlgo.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />
@@ -92,7 +73,6 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleObject.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Surface.h" />
     <ClInclude Include="TriFace.h" />
     <ClInclude Include="PolygonMesh.h" />
     <ClInclude Include="SpaceHash.h" />

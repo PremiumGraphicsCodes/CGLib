@@ -15,7 +15,6 @@ namespace Crystal {
 	namespace Core {
 		class PolygonMesh;
 		class Actor;
-		class Surface;
 		class Edge;
 	}
 	namespace Graphics {
@@ -25,9 +24,9 @@ class LineIdBuffer
 public:
 	void clear();
 
-	void add(const Core::Surface& surface, const unsigned char groupId);
+	void add(const Core::PolygonMesh& surface, const unsigned char groupId);
 
-	void add(const Core::Surface& surface, const DrawableID& did);
+	void add(const Core::PolygonMesh& surface, const DrawableID& did);
 
 	void add(const Math::Line3d<float>& line, const DrawableID& did);
 

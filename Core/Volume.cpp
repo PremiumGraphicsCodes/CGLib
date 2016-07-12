@@ -90,7 +90,7 @@ PolygonMesh* Volume::toPolygonObject(const float isolevel) const
 	const auto& triangles = toTriangles(isolevel);
 	PolygonMesh* newMesh = new PolygonMesh();
 	for (const auto& t : triangles) {
-		newMesh->add(t);
+		newMesh->create(t.toCurve3d());
 	}
 	newMesh->removeOverlappedVertices();
 	return newMesh;

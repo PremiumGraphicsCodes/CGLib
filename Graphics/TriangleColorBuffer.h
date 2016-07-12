@@ -21,7 +21,7 @@ namespace Crystal {
 		public:
 			TriangleColorBuffer();
 
-			void add(const Core::Surface& surface, const ColorRGBA<float>& color);
+			void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
 
 			void add(const Math::Point3d<float>& point, const ColorRGBA<float>& did);
 

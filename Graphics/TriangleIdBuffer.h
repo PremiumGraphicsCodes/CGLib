@@ -36,9 +36,9 @@ class TriangleIdBuffer
 public:
 	TriangleIdBuffer();
 
-	void add(const Core::Surface& surface, const DrawableID& did);
+	void add(const Core::PolygonMesh& surface, const DrawableID& did);
 
-	void add(const Core::Surface& surface, const unsigned char groupId);
+	void add(const Core::PolygonMesh& surface, const unsigned char groupId);
 
 	void clear();
 

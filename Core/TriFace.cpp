@@ -1,7 +1,9 @@
 #include "stdafx.h"
 #include "TriFace.h"
 #include "Vertex.h"
+#include "Edge.h"
 
+using namespace Crystal::Math;
 using namespace Crystal::Core;
 
 TriFace::TriFace(Vertex* v1, Vertex* v2, Vertex* v3) :
@@ -45,6 +47,21 @@ void TriFace::replace(Vertex* oldVertex, Vertex* newVertex)
 	}
 }
 
+Point3d<float> TriFace::getCenterPoint() const {
+	auto pos = (v1->getPosition() + v2->getPosition() + v3->getPosition()) / 3;
+	return Point3d<float>(pos);
+}
+
+
+std::array< Edge, 3 > TriFace::toEdges() const
+{
+	Edge e1(v1, v2, 0);
+	Edge e2(v2, v3, 0);
+	Edge e3(v3, v1, 0);
+	return { e1, e2, e3 };
+
+}
+
 FaceCollection::FaceCollection()
 {}
 
@@ -79,3 +96,6 @@ void FaceCollection::clear()
 	}
 	faces.clear();
 }
+
+
+

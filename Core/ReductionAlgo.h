@@ -1,11 +1,8 @@
 #ifndef __CRYSTAL_CORE_REDUCTION_ALGO_H__
 #define __CRYSTAL_CORE_REDUCTION_ALGO_H__
 
-#include "SurfaceFactory.h"
+#include "PolygonMesh.h"
 
-#include "NodeCollection.h"
-#include "EdgeCollection.h"
-#include "FaceCollection.h"
 
 namespace Crystal {
 	namespace Core {
@@ -14,9 +11,8 @@ class ReductionAlgo
 {
 public:
 
-	ReductionAlgo(Surface* s, SurfaceFactory* f) :
-		surface(s),
-		factory(f)
+	ReductionAlgo(PolygonMesh* s) :
+		surface(s)
 	{}
 
 	void execute();
@@ -28,8 +24,7 @@ public:
 	float getCost(Vertex* n);
 
 private:
-	Surface* surface;
-	SurfaceFactory* factory;
+	PolygonMesh* surface;
 };
 
 	}

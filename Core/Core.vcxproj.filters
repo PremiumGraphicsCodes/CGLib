@@ -43,35 +43,14 @@
     <ClCompile Include="TriFace.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
-    <ClCompile Include="Surface.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
     <ClCompile Include="Edge.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Face.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGrid.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
-    <ClCompile Include="Arrow.cpp">
-      <Filter>Glyph</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleArrow.cpp">
-      <Filter>Glyph</Filter>
-    </ClCompile>
     <ClCompile Include="NodeCollection.cpp">
-      <Filter>Collection</Filter>
-    </ClCompile>
-    <ClCompile Include="FaceCollection.cpp">
-      <Filter>Collection</Filter>
-    </ClCompile>
-    <ClCompile Include="EdgeCollection.cpp">
-      <Filter>Collection</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceFactory.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
     <ClCompile Include="SmoothingAlgo.cpp">
@@ -80,17 +59,8 @@
     <ClCompile Include="SurfaceSplittingAlgo.cpp">
       <Filter>Graph\Algo</Filter>
     </ClCompile>
-    <ClCompile Include="BooleanAlgo.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
     <ClCompile Include="IParticle.cpp">
       <Filter>Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="SimplificationAlgo.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceRemoveAlgo.cpp">
-      <Filter>Graph\Algo</Filter>
     </ClCompile>
     <ClCompile Include="ReductionAlgo.cpp">
       <Filter>Graph\Algo</Filter>
@@ -147,19 +117,10 @@
     <ClInclude Include="TriFace.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
-    <ClInclude Include="Face.h">
-      <Filter>Graph</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="NodeGrid.h">
       <Filter>Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>Glyph</Filter>
-    </ClInclude>
-    <ClInclude Include="CircleArrow.h">
-      <Filter>Glyph</Filter>
     </ClInclude>
     <ClInclude Include="UID.h" />
     <ClInclude Include="TriangleCell.h">
@@ -168,31 +129,10 @@
     <ClInclude Include="NodeCollection.h">
       <Filter>Collection</Filter>
     </ClInclude>
-    <ClInclude Include="FaceCollection.h">
-      <Filter>Collection</Filter>
-    </ClInclude>
-    <ClInclude Include="EdgeCollection.h">
-      <Filter>Collection</Filter>
-    </ClInclude>
-    <ClInclude Include="Surface.h">
-      <Filter>Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="SurfaceFactory.h">
-      <Filter>Collection</Filter>
-    </ClInclude>
     <ClInclude Include="SmoothingAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
     <ClInclude Include="SurfaceSplittingAlgo.h">
-      <Filter>Graph\Algo</Filter>
-    </ClInclude>
-    <ClInclude Include="BooleanAlgo.h">
-      <Filter>Graph\Algo</Filter>
-    </ClInclude>
-    <ClInclude Include="SimplificationAlgo.h">
-      <Filter>Graph\Algo</Filter>
-    </ClInclude>
-    <ClInclude Include="SurfaceRemoveAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
     <ClInclude Include="ReductionAlgo.h">
@@ -217,9 +157,6 @@
     </Filter>
     <Filter Include="Graph">
       <UniqueIdentifier>{da07c0d0-f6ed-466d-b7ed-996156b254de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Glyph">
-      <UniqueIdentifier>{9656ea0d-de33-4f1c-9d3a-0a995397ce8a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Collection">
       <UniqueIdentifier>{af6e26f3-c339-41c6-ad9d-4142e254d3fd}</UniqueIdentifier>

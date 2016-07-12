@@ -28,7 +28,6 @@
 #include "TriangleColorBuffer.h"
 #include "TriangleIdBuffer.h"
 #include "VisualPolygon.h"
-#include "VisualSurface.h"
 #include "WindowCoord2d.h"
 #include "Wireframe.h"
 

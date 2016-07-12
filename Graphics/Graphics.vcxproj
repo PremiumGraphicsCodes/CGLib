@@ -77,7 +77,6 @@
     <ClInclude Include="TriangleColorBuffer.h" />
     <ClInclude Include="TriangleIdBuffer.h" />
     <ClInclude Include="VisualPolygon.h" />
-    <ClInclude Include="VisualSurface.h" />
     <ClInclude Include="WindowCoord2d.h" />
     <ClInclude Include="Wireframe.h" />
   </ItemGroup>

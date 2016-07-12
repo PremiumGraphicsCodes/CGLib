@@ -6,7 +6,8 @@
 namespace Crystal {
 	namespace Core {
 
-class Vertex;
+		class Vertex;
+		class Edge;
 
 class TriFace
 {
@@ -23,9 +24,13 @@ public:
 
 	Vertex* getV3() const { return v3; }
 
+	Math::Point3d<float> getCenterPoint() const;
+
 	Math::Vector3d<float> getNormal() const { return normal; }
 
 	void replaceVertex(Vertex* v1, Vertex* v2);
+
+	std::array< Edge, 3 > toEdges() const;
 
 private:
 	Vertex* v1;

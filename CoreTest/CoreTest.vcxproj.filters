@@ -16,41 +16,11 @@
     <ClCompile Include="EdgeTest.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
-    <ClCompile Include="FaceTest.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceTest.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
-    <ClCompile Include="ArrowTest.cpp">
-      <Filter>Glyph</Filter>
-    </ClCompile>
-    <ClCompile Include="CircleArrowTest.cpp">
-      <Filter>Glyph</Filter>
-    </ClCompile>
     <ClCompile Include="NodeCollectionTest.cpp">
       <Filter>Collection</Filter>
-    </ClCompile>
-    <ClCompile Include="BooleanAlgoTest.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceSplittingAlgoTest.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="SmoothingAlgoTest.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="SimplificationAlgoTest.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceFactoryTest.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceRemoveAlgoTest.cpp">
-      <Filter>Graph\Algo</Filter>
     </ClCompile>
     <ClCompile Include="PolygonMeshTest.cpp">
       <Filter>PolygonMesh</Filter>
@@ -60,14 +30,8 @@
     <Filter Include="Graph">
       <UniqueIdentifier>{efddd844-a07d-4c32-aa45-3bd9ae91d635}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Glyph">
-      <UniqueIdentifier>{dd0b1525-a28b-415f-b2e6-fc2f9047ab8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Collection">
       <UniqueIdentifier>{5335422d-c4a9-4ef5-99e5-b29948d5bbcb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graph\Algo">
-      <UniqueIdentifier>{78730bea-c13c-4472-a92c-6b8510ba5237}</UniqueIdentifier>
     </Filter>
     <Filter Include="PolygonMesh">
       <UniqueIdentifier>{f578aca5-515a-4d5a-abff-780bbef1bea9}</UniqueIdentifier>

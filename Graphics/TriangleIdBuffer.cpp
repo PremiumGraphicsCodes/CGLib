@@ -18,8 +18,9 @@ void TriangleIdBuffer::clear()
 	nextIndex = 0;
 }
 
-void TriangleIdBuffer::add(const Surface& surface, const DrawableID& did)
+void TriangleIdBuffer::add(const PolygonMesh& surface, const DrawableID& did)
 {
+	/*
 	auto si = surface.toIndices();
 	for (auto& s : si) {
 		s += nextIndex;
@@ -31,10 +32,12 @@ void TriangleIdBuffer::add(const Surface& surface, const DrawableID& did)
 		positions.add(n->getPosition());
 	}
 	nextIndex += surface.getNodes().size();
+	*/
 }
 
-void TriangleIdBuffer::add(const Surface& surface, const unsigned char groupId)
+void TriangleIdBuffer::add(const PolygonMesh& surface, const unsigned char groupId)
 {
+	/*
 	const auto& nodes = surface.getNodes();
 	for (auto& n : nodes) {
 		positions.add(n->getPosition());
@@ -45,5 +48,6 @@ void TriangleIdBuffer::add(const Surface& surface, const unsigned char groupId)
 		blocks.push_back(block);
 	}
 	nextIndex += surface.getNodes().size();
+	*/
 }
 

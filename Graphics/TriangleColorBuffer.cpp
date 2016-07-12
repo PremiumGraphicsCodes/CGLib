@@ -19,18 +19,18 @@ void TriangleColorBuffer::clear()
 	nextId = 0;
 }
 
-void TriangleColorBuffer::add(const Surface& surface, const ColorRGBA<float>& color)
+void TriangleColorBuffer::add(const PolygonMesh& mesh, const ColorRGBA<float>& color)
 {
-	auto si = surface.toIndices();
+	auto si = mesh.toIndices();
 	for (auto& s : si) {
 		s += nextId;
 	}
 	this->indices.insert(indices.end(), si.begin(), si.end());
-	const auto& nodes = surface.getNodes();
+	const auto& nodes = mesh.getVertices();
 	for (auto& n : nodes) {
 		add(*n, color);
 	}
-	nextId += surface.getNodes().size();
+	nextId += mesh.getVertices().size();
 }
 
 

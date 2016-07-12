@@ -82,7 +82,6 @@
     <ClInclude Include="LineBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="VisualSurface.h" />
     <ClInclude Include="EllipsoidBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
