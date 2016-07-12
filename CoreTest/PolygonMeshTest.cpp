@@ -121,4 +121,7 @@ TEST(PolygonMeshTest, TestSimplify)
 	polygon.simplify(e);
 	auto faces = polygon.getFaces();
 	polygon.cleaning();
+	EXPECT_EQ(1, polygon.getFaces().size());
+	EXPECT_EQ(3, polygon.getVertices().size());
+
 }
