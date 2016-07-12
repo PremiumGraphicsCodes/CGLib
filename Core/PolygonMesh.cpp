@@ -180,6 +180,13 @@ void PolygonMesh::create(const CircularCurve3d<float>& curve, const int id)
 		auto n2 = createdNodes[i + 1];
 		auto f = faces.create(n0, n1, n2);
 	}
+	{
+		auto n0 = centerNode;
+		auto n1 = createdNodes.back();
+		auto n2 = createdNodes.front();
+		auto f = faces.create(n0, n1, n2);
+
+	}
 }
 
 

@@ -13,18 +13,14 @@
     <ClCompile Include="VolumeCellTest.cpp" />
     <ClCompile Include="VolumeNodeTest.cpp" />
     <ClCompile Include="VolumeObjectTest.cpp" />
-    <ClCompile Include="EdgeTest.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
     <ClCompile Include="NodeCollectionTest.cpp">
       <Filter>Collection</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonMeshTest.cpp">
-      <Filter>PolygonMesh</Filter>
-    </ClCompile>
+    <ClCompile Include="EdgeTest.cpp" />
+    <ClCompile Include="PolygonMeshTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graph">

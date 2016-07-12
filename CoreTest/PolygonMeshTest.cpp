@@ -23,7 +23,19 @@ TEST(PolygonMeshTest, TestFromCircle)
 	PolygonMesh mesh;
 	mesh.create(curve);
 	EXPECT_EQ(4, mesh.getVertices().size());
-	//EXPECT_EQ(2, mesh.getFaces().size());
+	EXPECT_EQ(3, mesh.getFaces().size());
+}
+
+TEST(PolygonMeshTest, TestFromTriangle)
+{
+	const Triangle3d<float> triangle;
+	auto curve = triangle.toCurve3d();
+
+	PolygonMesh mesh;
+	mesh.create(curve);
+	EXPECT_EQ(3, mesh.getVertices().size());
+	EXPECT_EQ(1, mesh.getFaces().size());
+
 }
 
 
