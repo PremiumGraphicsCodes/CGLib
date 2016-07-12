@@ -1,10 +1,11 @@
-#ifndef __CRYSTAL_POLYGON_POLYGON_OBJECT_H__
-#define __CRYSTAL_POLYGON_POLYGON_OBJECT_H__
+#ifndef __CRYSTAL_POLYGON_POLYGON_MESH_H__
+#define __CRYSTAL_POLYGON_POLYGON_MESH_H__
 
 #include "../Util/UnCopyable.h"
 #include "Vertex.h"
 #include "Face.h"
 #include "VertexCollection.h"
+#include "FaceCollection.h"
 
 #include <list>
 

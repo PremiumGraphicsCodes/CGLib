@@ -56,6 +56,9 @@
     <ClCompile Include="VertexCollection.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
+    <ClCompile Include="FaceCollection.cpp">
+      <Filter>PolygonMesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -121,6 +124,9 @@
       <Filter>PolygonMesh</Filter>
     </ClInclude>
     <ClInclude Include="VertexCollection.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceCollection.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
   </ItemGroup>
