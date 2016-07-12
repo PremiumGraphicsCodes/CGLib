@@ -53,12 +53,12 @@ Face* PolygonObject::findFaceById(const unsigned int id) const
 
 
 
-TriFace* PolygonMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+Face* PolygonMesh::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	return faces.create(v1, v2, v3);
 }
 
-TriFace* PolygonMesh::createFace(const int vindex1, const int vindex2, const int vindex3)
+Face* PolygonMesh::createFace(const int vindex1, const int vindex2, const int vindex3)
 {
 	auto v1 = vertices[vindex1];
 	auto v2 = vertices[vindex2];
@@ -66,9 +66,9 @@ TriFace* PolygonMesh::createFace(const int vindex1, const int vindex2, const int
 	return createFace(v1, v2, v3);
 }
 
-std::list< TriFace* > PolygonMesh::createFaces(const std::vector<int>& ids)
+std::list< Face* > PolygonMesh::createFaces(const std::vector<int>& ids)
 {
-	std::list< TriFace* > fs;
+	std::list< Face* > fs;
 	const auto origin = ids[0];
 	for (size_t i = 1; i < ids.size()-1; i++) {
 		auto id1 = ids[i];
@@ -79,9 +79,9 @@ std::list< TriFace* > PolygonMesh::createFaces(const std::vector<int>& ids)
 }
 
 
-std::list< TriFace* > PolygonMesh::createFaces(const std::vector<Vertex*>& vertices)
+std::list< Face* > PolygonMesh::createFaces(const std::vector<Vertex*>& vertices)
 {
-	std::list< TriFace* > fs;
+	std::list< Face* > fs;
 	auto origin = vertices[0];
 	for (size_t i = 1; i < vertices.size() - 1; i++) {
 		auto v1 = vertices[i];
@@ -198,7 +198,7 @@ void PolygonMesh::create(const TriangleCurve3d<float>& curve, const int id)
 	std::vector<std::vector<Vertex*>> createdNodes;
 
 	std::vector<Vertex*> createNodes;
-	std::vector<TriFace*> createFaces;
+	std::vector<Face*> createFaces;
 
 	for (int i = 0; i < curve.getSize(); ++i) {
 		std::vector<Vertex*> ns;
@@ -252,7 +252,7 @@ std::vector<int> PolygonMesh::toIndices() const
 
 #include "Edge.h"
 
-void PolygonMesh::splitByNode(TriFace* f)
+void PolygonMesh::splitByNode(Face* f)
 {
 	const auto& es = f->toEdges();
 	std::vector<Vertex*> startPoints;

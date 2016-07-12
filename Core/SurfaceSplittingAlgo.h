@@ -17,9 +17,9 @@ public:
 	{}
 
 
-	void splitByCenter(TriFace* f);
+	void splitByCenter(Face* f);
 
-	void splitByBottom(TriFace* f);
+	void splitByBottom(Face* f);
 
 private:
 

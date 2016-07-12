@@ -19,7 +19,7 @@ namespace Crystal {
 	namespace Core {
 
 class Vertex;
-class TriFace;
+class Face;
 
 
 class PolygonMesh : private UnCopyable
@@ -52,15 +52,15 @@ public:
 
 	//Face* findFaceById(const unsigned int id) const;
 
-	TriFace* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	TriFace* createFace(const int v1, const int v2, const int v3);
+	Face* createFace(const int v1, const int v2, const int v3);
 
 	PolygonMesh* clone(const unsigned int id = -1);
 
-	std::list< TriFace* > createFaces(const std::vector<int>& ids);
+	std::list< Face* > createFaces(const std::vector<int>& ids);
 
-	std::list< TriFace* > createFaces(const std::vector<Vertex*>& vertices);
+	std::list< Face* > createFaces(const std::vector<Vertex*>& vertices);
 
 	VertexCollection getVertices() const { return vertices; }
 
@@ -92,7 +92,7 @@ public:
 
 	void cleaning();
 
-	void splitByNode(TriFace* f);
+	void splitByNode(Face* f);
 
 private:
 	unsigned int nextIndexId;

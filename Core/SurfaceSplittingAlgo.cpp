@@ -6,14 +6,14 @@
 using namespace Crystal::Core;
 
 
-void SurfaceSplittingAlgo::splitByCenter(TriFace* f)
+void SurfaceSplittingAlgo::splitByCenter(Face* f)
 {
 	Vertex* center = surface->createVertex( f->getCenterPoint() );
 	surface->createFace(f->getV1(), f->getV2(), center);
 	surface->createFace(f->getV2(), f->getV1(), center);
 }
 
-void SurfaceSplittingAlgo::splitByBottom(TriFace* f)
+void SurfaceSplittingAlgo::splitByBottom(Face* f)
 {
 	/*
 	auto bottom = nodes.create(f->getEdges()[1]->getMidPoint());

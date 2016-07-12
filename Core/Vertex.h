@@ -12,7 +12,7 @@ namespace Crystal {
 	namespace Core {
 
 class Vertex;
-class TriFace;
+class Face;
 
 class Vertex : public Math::Point3d<float>
 {
@@ -25,13 +25,13 @@ public:
 
 	//void normalize(const Vertex& rhs);
 
-	void addFace(TriFace* f) {
+	void addFace(Face* f) {
 		this->faces.push_back( f );
 		this->faces.sort();
 		this->faces.unique();
 	}
 
-	std::list< TriFace* > getFaces() const { return faces; }
+	std::list< Face* > getFaces() const { return faces; }
 
 	//void transform(const Math::Matrix4d<float>& matrix);
 
@@ -43,7 +43,7 @@ public:
 	unsigned int id;
 
 private:
-	std::list<TriFace*> faces;
+	std::list<Face*> faces;
 };
 
 class VertexCollection

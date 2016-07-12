@@ -28,7 +28,7 @@ public:
 
 	void merge(PolygonFactory& rhs);
 
-	void remove(TriFace* f);
+	void remove(Face* f);
 
 	void remove(Vertex* n);
 
@@ -36,7 +36,7 @@ public:
 
 	Vertex* findNodeById(const int id) const;
 
-	TriFace* findFaceById(const int id) const;
+	Face* findFaceById(const int id) const;
 
 	std::list<PolygonMesh*> getPolygons() const { return polygons; }
 
@@ -48,7 +48,7 @@ public:
 
 
 private:
-	PolygonMesh* create(int id, const std::vector<Vertex*>& nodes, const std::vector<TriFace*>& faces);
+	PolygonMesh* create(int id, const std::vector<Vertex*>& nodes, const std::vector<Face*>& faces);
 
 	NodeCollection nodes;
 	FaceCollection faces;

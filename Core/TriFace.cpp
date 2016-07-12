@@ -6,7 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-TriFace::TriFace(Vertex* v1, Vertex* v2, Vertex* v3) :
+Face::Face(Vertex* v1, Vertex* v2, Vertex* v3) :
 	v1(v1),
 	v2(v2),
 	v3(v3)
@@ -15,7 +15,7 @@ TriFace::TriFace(Vertex* v1, Vertex* v2, Vertex* v3) :
 	this->normal.normalize();
 }
 
-Vertex* TriFace::find(Vertex* v)
+Vertex* Face::find(Vertex* v)
 {
 	if (v == v1) {
 		return v1;
@@ -31,7 +31,7 @@ Vertex* TriFace::find(Vertex* v)
 }
 
 
-void TriFace::replace(Vertex* oldVertex, Vertex* newVertex)
+void Face::replace(Vertex* oldVertex, Vertex* newVertex)
 {
 	if (oldVertex == v1) {
 		v1 = newVertex;
@@ -47,13 +47,13 @@ void TriFace::replace(Vertex* oldVertex, Vertex* newVertex)
 	}
 }
 
-Point3d<float> TriFace::getCenterPoint() const {
+Point3d<float> Face::getCenterPoint() const {
 	auto pos = (v1->getPosition() + v2->getPosition() + v3->getPosition()) / 3;
 	return Point3d<float>(pos);
 }
 
 
-std::array< Edge, 3 > TriFace::toEdges() const
+std::array< Edge, 3 > Face::toEdges() const
 {
 	Edge e1(v1, v2, 0);
 	Edge e2(v2, v3, 0);
@@ -65,7 +65,7 @@ std::array< Edge, 3 > TriFace::toEdges() const
 FaceCollection::FaceCollection()
 {}
 
-FaceCollection::FaceCollection(const std::vector<TriFace*>& faces) :
+FaceCollection::FaceCollection(const std::vector<Face*>& faces) :
 	faces(faces)
 {}
 
@@ -79,9 +79,9 @@ void FaceCollection::merge(FaceCollection& rhs)
 	rhs.faces.clear();
 }
 
-TriFace* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
+Face* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
 {
-	auto f = new TriFace(v1, v2, v3);
+	auto f = new Face(v1, v2, v3);
 	v1->addFace(f);
 	v2->addFace(f);
 	v3->addFace(f);

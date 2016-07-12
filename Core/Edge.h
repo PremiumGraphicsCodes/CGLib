@@ -8,7 +8,7 @@ namespace Crystal {
 	namespace Core {
 
 class Vertex;
-class TriFace;
+class Face;
 
 class Edge
 {
@@ -56,9 +56,9 @@ public:
 
 	bool isCollapsed() const;
 
-	void setFace(TriFace* f) { this->face = f; }
+	void setFace(Face* f) { this->face = f; }
 
-	TriFace* getFace() { return face; }
+	Face* getFace() { return face; }
 
 	bool isIsolated() const;
 
@@ -68,7 +68,7 @@ private:
 
 	Vertex* start;
 	Vertex* end;
-	TriFace* face;
+	Face* face;
 	int id;
 };
 	}

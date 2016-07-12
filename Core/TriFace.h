@@ -9,10 +9,10 @@ namespace Crystal {
 		class Vertex;
 		class Edge;
 
-class TriFace
+class Face
 {
 public:
-	TriFace(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	Vertex* find(Vertex* v);
 
@@ -45,18 +45,18 @@ class FaceCollection
 public:
 	FaceCollection();
 
-	FaceCollection(const std::vector<TriFace*>& faces);
+	FaceCollection(const std::vector<Face*>& faces);
 
 	~FaceCollection();
 
 	void merge(FaceCollection& rhs);
 
-	TriFace* create(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face* create(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	void clear();
 
-	using iterator = std::vector<TriFace*>::iterator;
-	using const_iterator = std::vector<TriFace*>::const_iterator;
+	using iterator = std::vector<Face*>::iterator;
+	using const_iterator = std::vector<Face*>::const_iterator;
 
 	iterator begin() { return faces.begin(); }
 
@@ -68,10 +68,10 @@ public:
 
 	size_t size() const { return faces.size(); }
 
-	TriFace* operator[](const int i) const { return faces[i]; }
+	Face* operator[](const int i) const { return faces[i]; }
 
 private:
-	std::vector<TriFace*> faces;
+	std::vector<Face*> faces;
 
 };
 	}
