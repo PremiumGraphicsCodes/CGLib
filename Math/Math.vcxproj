@@ -44,6 +44,7 @@
     <ClInclude Include="IPrimitive3d.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Orientation.h" />
     <ClInclude Include="Param.h" />
     <ClInclude Include="Point3d.h" />
     <ClInclude Include="Point2d.h" />

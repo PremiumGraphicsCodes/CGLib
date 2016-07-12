@@ -27,3 +27,37 @@ Vertex* Vertex::clone()
 	return new Vertex(getPosition(), getNormal(), getParameter(), id);
 }
 
+#include "Edge.h"
+
+float Vertex::calculateCollapseCost()
+{
+	float cost = FLT_MAX;
+	auto neighbors = getNeighbors();
+	for (auto n : neighbors) {
+		Edge e(this, n, 0);
+		auto c = e.calculateCollapseCost();
+		if (c < cost) {
+			cost = c;
+		}
+	}
+	return cost;
+}
+
+std::list<Vertex*> Vertex::getNeighbors() const
+{
+	std::list<Vertex*> neighbors;
+	for (auto f : faces) {
+		if (f->getV1() != this) {
+			neighbors.push_back(f->getV1());
+		}
+		if (f->getV2() != this) {
+			neighbors.push_back(f->getV2());
+		}
+		if (f->getV3() != this) {
+			neighbors.push_back(f->getV3());
+		}
+	}
+	neighbors.sort();
+	neighbors.unique();
+	return neighbors;
+}

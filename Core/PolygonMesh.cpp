@@ -4,9 +4,6 @@
 #include "Vertex.h"
 #include "Face.h"
 
-#include "../Math/Sphere.h"
-#include "../Math/Box3d.h"
-
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
@@ -304,15 +301,7 @@ void PolygonMesh::splitByBottom(Face* f)
 void PolygonMesh::smooth(Vertex* center)
 {
 	auto& fs = center->getFaces();
-	std::list<Vertex*> neighbors;
-	for (auto f : fs) {
-		neighbors.push_back( f->getV1() );
-		neighbors.push_back( f->getV2() );
-		neighbors.push_back( f->getV3() );
-	}
-	neighbors.sort();
-	neighbors.unique();
-	neighbors.remove(center);
+	std::list<Vertex*> neighbors = center->getNeighbors();
 	Vector3d<float> position = center->getPosition();
 	for (auto& n : neighbors) {
 		position += (n->getPosition() - center->getPosition()) / neighbors.size();

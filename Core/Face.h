@@ -28,6 +28,8 @@ public:
 
 	Math::Vector3d<float> getNormal() const;
 
+	Math::Orientation getOrientation(const Math::Vector3d<float>& pos) const;
+
 	std::array< Edge, 3 > toEdges() const;
 
 	bool has(Vertex* v) const;

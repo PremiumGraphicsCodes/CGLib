@@ -37,6 +37,10 @@ public:
 
 	unsigned int getId() const { return id; }
 
+	float calculateCollapseCost();
+
+	std::list<Vertex*> getNeighbors() const;
+
 private:
 	unsigned int id;
 	std::list<Face*> faces;

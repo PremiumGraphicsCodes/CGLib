@@ -72,8 +72,22 @@ bool Face::has(Vertex* v) const
 float Face::getArea() const
 {
 	auto v1 = (vertices[1]->getPosition() - vertices[0]->getPosition());
-	auto v2 = (vertices[2]->getPosition() - vertices[0]->getPosition());
+	auto v2 = (vertices[2]->getPosition() - vertices[1]->getPosition());
 	return v1.getOuterProduct(v2).getLength() / 2.0f;
+}
+
+Orientation Face::getOrientation(const Vector3d<float>& pos) const
+{
+	auto inner = pos.getInnerProduct(getNormal());
+	if (inner > Tolerance<float>::getLooseTolerance()) {
+		return Orientation::CCW;
+	}
+	else if (inner < -Tolerance<float>::getLooseTolerance()) {
+		return Orientation::CW;
+	}
+	else {
+		return Orientation::None;
+	}
 }
 
 

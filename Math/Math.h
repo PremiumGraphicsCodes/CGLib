@@ -27,6 +27,7 @@
 #include "Matrix2d.h"
 #include "Matrix3d.h"
 #include "Matrix4d.h"
+#include "Orientation.h"
 #include "Param.h"
 #include "Plane3d.h"
 #include "Point2d.h"

@@ -27,6 +27,16 @@ TEST(VertexCollectionTest, TestMerge)
 	EXPECT_EQ( 0, vertices2.size() );
 }
 
+#include "../Core/Face.h"
+
+TEST(VertexTest, TestComputeCollapseCost)
+{
+	Vertex v1(Vector3d<float>(-1, 0, 0), 0);
+	Vertex v2(Vector3d<float>( 1, 0, 0), 0);
+	Vertex v3(Vector3d<float>( 1, 1, 0), 0);
+	Face f(&v1, &v2, &v3);
+	v1.calculateCollapseCost();
+}
 
 
 //
