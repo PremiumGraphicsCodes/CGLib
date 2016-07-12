@@ -84,3 +84,28 @@ bool Edge::isIsolated() const
 {
 	return face == nullptr;
 }
+
+#include "Face.h"
+
+float Edge::calculateCollapseCost() const
+{
+	const auto length = getLength();
+	float curvature = 0;
+
+	std::list<Face*> sides;
+	for (auto f : start->getFaces()) {
+		if (f->has(end)) {
+			sides.push_back(f);
+		}
+	}
+
+	for (auto f1 : start->getFaces()) {
+		float minCurve = 1;
+		for (auto f2 : sides) {
+			float innerProduct = f1->getNormal().getInnerProduct(f2->getNormal());
+			minCurve = std::min(minCurve, (1 - innerProduct) / 2.0f);
+		}
+		curvature = std::max(curvature, minCurve);
+	}
+	return length * curvature;
+}

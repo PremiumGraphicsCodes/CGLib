@@ -40,9 +40,6 @@
     <ClCompile Include="ParticleObject.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Edge.cpp">
-      <Filter>Graph</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGrid.cpp">
       <Filter>Graph</Filter>
@@ -56,10 +53,10 @@
     <ClCompile Include="IParticle.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
-    <ClCompile Include="ReductionAlgo.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
     <ClCompile Include="Face.cpp">
+      <Filter>PolygonMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Edge.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
   </ItemGroup>
@@ -108,9 +105,6 @@
     <ClInclude Include="ParticleObject.h">
       <Filter>Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Edge.h">
-      <Filter>Graph</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="NodeGrid.h">
@@ -126,13 +120,13 @@
     <ClInclude Include="SurfaceSplittingAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
-    <ClInclude Include="ReductionAlgo.h">
-      <Filter>Graph\Algo</Filter>
-    </ClInclude>
     <ClInclude Include="PolygonFactory.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
     <ClInclude Include="Face.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Edge.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
   </ItemGroup>

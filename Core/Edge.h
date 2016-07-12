@@ -62,6 +62,8 @@ public:
 
 	bool isIsolated() const;
 
+	float calculateCollapseCost() const;
+
 private:
 	Edge* prev;
 	Edge* next;

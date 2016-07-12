@@ -58,3 +58,17 @@ TEST(EdgeTest, TestIsCollapsed)
 	EXPECT_FALSE(e1.isCollapsed());
 	EXPECT_TRUE( e2.isCollapsed());
 }
+
+#include "../Core/Face.h"
+
+TEST(EdgeTest, TestCalculateCollapseCost)
+{
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 1);
+	Vertex n3(Vector3d<float>(1, 1, 0), 1);
+
+	Face f(&n1, &n2, &n3);
+	const Edge e1(&n1, &n2, 0);
+	const Edge e2(&n2, &n3, 0);
+	auto actual = e1.calculateCollapseCost();
+}

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_POLYGON_TRI_FACE_H__
-#define __CRYSTAL_POLYGON_TRI_FACE_H__
+#ifndef __CRYSTAL_POLYGON_FACE_H__
+#define __CRYSTAL_POLYGON_FACE_H__
 
 #include "stdafx.h"
 
@@ -18,26 +18,24 @@ public:
 
 	void replace(Vertex* oldVertex, Vertex* newVertex);
 
-	Vertex* getV1() const { return v1; }
+	Vertex* getV1() const { return vertices[0]; }
 
-	Vertex* getV2() const { return v2; }
+	Vertex* getV2() const { return vertices[1]; }
 
-	Vertex* getV3() const { return v3; }
+	Vertex* getV3() const { return vertices[2]; }
 
 	Math::Point3d<float> getCenterPoint() const;
 
-	Math::Vector3d<float> getNormal() const { return normal; }
+	Math::Vector3d<float> getNormal() const;
 
 	void replaceVertex(Vertex* v1, Vertex* v2);
 
 	std::array< Edge, 3 > toEdges() const;
 
-private:
-	Vertex* v1;
-	Vertex* v2;
-	Vertex* v3;
+	bool has(Vertex* v) const;
 
-	Math::Vector3d<float> normal;
+private:
+	std::array< Vertex*, 3> vertices;
 };
 
 class FaceCollection
