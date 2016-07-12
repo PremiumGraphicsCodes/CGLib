@@ -16,7 +16,6 @@ public:
 		surface(s)
 	{}
 
-	void splitByNode(TriFace* f);
 
 	void splitByCenter(TriFace* f);
 

@@ -65,7 +65,7 @@ void SkyBoxRenderer::render(const CubeMapTextureObject& cubeMapTexture, const IC
 	//const Box3d<float> box(Vector3d<float>(-100.0, 0.0, -20.0), Vector3d<float>(100.0, 20.0, 20.0));
 	//polygon.add(box);
 	Crystal::Math::Box3d<float> box(Crystal::Math::Vector3d<float>(-100.0, -100.0, -100.0), Crystal::Math::Vector3d<float>(100.0, 100.0, 100.0));
-	polygon.add(box);
+	//polygon.add(box);
 	buffer.add(polygon);
 
 	const auto& indices = buffer.getIndices();

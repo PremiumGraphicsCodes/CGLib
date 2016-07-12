@@ -92,66 +92,6 @@ std::list< TriFace* > PolygonMesh::createFaces(const std::vector<Vertex*>& verti
 	}
 	return fs;
 }
-
-void PolygonMesh::add(const Box3d<float>& box)
-{
-	const auto& center = box.getCenter();
-	const auto minx = box.getMinX();
-	const auto miny = box.getMinY();
-	const auto minz = box.getMinZ();
-	const auto maxx = box.getMaxX();
-	const auto maxy = box.getMaxY();
-	const auto maxz = box.getMaxZ();
-
-	std::array< Vector3d<float>, 8 > ps = {
-		Vector3d<float>(minx, miny, minz),
-		Vector3d<float>(maxx, miny, minz),
-		Vector3d<float>(maxx, maxy, minz),
-		Vector3d<float>(minx, maxy, minz),
-		Vector3d<float>(minx, miny, maxz),
-		Vector3d<float>(maxx, miny, maxz),
-		Vector3d<float>(maxx, maxy, maxz),
-		Vector3d<float>(minx, maxy, maxz) };
-
-	std::array< Vector3d<float>, 8 > ns;
-	for (int i = 0; i < 8; ++i) {
-		ns[i] = Vector3d<float>(ps[i] - center).normalized();
-	}
-
-	for (int i = 0; i < 8; ++i) {
-		vertices.create(ps[i], ns[i]);
-	}
-
-	// near
-	createFace(vertices[2], vertices[1], vertices[0]);
-	createFace(vertices[0], vertices[3], vertices[2]);
-
-	// far
-	createFace(vertices[4], vertices[5], vertices[6]);
-	createFace(vertices[6], vertices[7], vertices[4]);
-
-	// right
-	createFace(vertices[5], vertices[1], vertices[6]);
-	createFace(vertices[6], vertices[1], vertices[2]);
-
-	// left
-	createFace(vertices[7], vertices[3], vertices[4]);
-	createFace(vertices[3], vertices[0], vertices[4]);
-
-
-	// top
-	createFace(vertices[6], vertices[2], vertices[3]);
-	createFace(vertices[7], vertices[6], vertices[3]);
-
-
-	// bottom
-	createFace(vertices[0], vertices[1], vertices[5]);
-	createFace(vertices[0], vertices[5], vertices[4]);
-
-
-	//createFace(vertices)
-
-}
 #include "../Math/Curve3d.h"
 
 void PolygonMesh::merge(PolygonMesh* rhs)
@@ -302,3 +242,21 @@ std::vector<int> PolygonMesh::toIndices() const
 }
 
 //void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
+
+#include "Edge.h"
+
+void PolygonMesh::splitByNode(TriFace* f)
+{
+	const auto& es = f->toEdges();
+	std::vector<Vertex*> startPoints;
+	std::vector<Vertex*> midPoints;
+	for (const auto& e : es) {
+		startPoints.push_back(e.getStart());
+		midPoints.push_back( createVertex(e.getMidPoint()) );
+	}
+	f->getV2()->moveTo(midPoints[0]->getPosition());
+	f->getV3()->moveTo(midPoints[1]->getPosition());
+	createFace(midPoints[0], startPoints[1], midPoints[1]);
+	createFace(midPoints[1], startPoints[2], midPoints[2]);
+	createFace(midPoints[0], startPoints[1], midPoints[2]);
+}

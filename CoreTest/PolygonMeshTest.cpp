@@ -73,25 +73,16 @@ TEST(PolygonMeshTest, TestClone)
 	delete actual;
 }
 
-TEST(PolygonMeshTest, TestAddBox)
+TEST(PolygonMeshTest, TestSplitByNode)
 {
-	PolygonMesh object;
-	Box3d<float> box(Vector3d<float>(0.0f, 0.0f, 0.0f), Vector3d<float>(1.0f, 1.0f, 1.0f));
-	object.add(box);
-	const auto faces = object.getFaces();
-	EXPECT_EQ(12, faces.size());
-	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f, -1.0f), faces[0]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f, -1.0f), faces[1]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f,  1.0f), faces[2]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f,  0.0f,  1.0f), faces[3]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 1.0f,  0.0f, 0.0f), faces[4]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 1.0f,  0.0f, 0.0f), faces[5]->getNormal());
-	EXPECT_EQ(Vector3d<float>(-1.0f,  0.0f, 0.0f), faces[6]->getNormal());
-	EXPECT_EQ(Vector3d<float>(-1.0f,  0.0f, 0.0f), faces[7]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f,  1.0f, 0.0f), faces[8]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f,  1.0f, 0.0f), faces[9]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f, -1.0f, 0.0f), faces[10]->getNormal());
-	EXPECT_EQ(Vector3d<float>( 0.0f, -1.0f, 0.0f), faces[11]->getNormal());
-
+	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	Curve3d<float> curve = quad.toCurve3d();
+	PolygonMesh polygon;
+	polygon.create(curve);
+	auto f = polygon.getFaces()[0];
+	polygon.splitByNode(f);
+	EXPECT_EQ(5, polygon.getFaces().size());
+	EXPECT_EQ(7, polygon.getVertices().size());
 }
+
 

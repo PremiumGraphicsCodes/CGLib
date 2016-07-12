@@ -34,8 +34,6 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	void add(const Math::Box3d<float>& box);
-
 	void create(const Math::Curve3d<float>& curve, const int id = -1);
 
 	void create(const Math::CircularCurve3d<float>& curve, const int id = -1);
@@ -93,6 +91,8 @@ public:
 	void clear();
 
 	void cleaning();
+
+	void splitByNode(TriFace* f);
 
 private:
 	unsigned int nextIndexId;

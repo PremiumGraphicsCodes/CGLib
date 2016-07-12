@@ -5,21 +5,6 @@
 
 using namespace Crystal::Core;
 
-void SurfaceSplittingAlgo::splitByNode(TriFace* f)
-{
-	const auto& es = f->toEdges();
-	std::vector<Vertex*> startPoints;
-	std::vector<Vertex*> midPoints;
-	for (const auto& e : es) {
-		startPoints.push_back(e.getStart());
-		surface->createVertex(e.getMidPoint());
-	}
-	f->getV2()->moveTo(midPoints[0]->getPosition());
-	f->getV3()->moveTo(midPoints[1]->getPosition());
-	surface->createFace(midPoints[0], startPoints[1], midPoints[1]);
-	surface->createFace(midPoints[1], startPoints[2], midPoints[2]);
-	surface->createFace(midPoints[0], startPoints[1], midPoints[2]);
-}
 
 void SurfaceSplittingAlgo::splitByCenter(TriFace* f)
 {
