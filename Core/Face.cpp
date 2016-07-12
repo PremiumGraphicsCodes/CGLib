@@ -69,6 +69,13 @@ bool Face::has(Vertex* v) const
 	return (f != vertices.end());
 }
 
+float Face::getArea() const
+{
+	auto v1 = (vertices[1]->getPosition() - vertices[0]->getPosition());
+	auto v2 = (vertices[2]->getPosition() - vertices[0]->getPosition());
+	return v1.getOuterProduct(v2).getLength();
+}
+
 
 FaceCollection::FaceCollection()
 {}

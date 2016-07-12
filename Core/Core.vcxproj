@@ -28,14 +28,12 @@
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
-    <ClCompile Include="SmoothingAlgo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SurfaceSplittingAlgo.cpp" />
     <ClCompile Include="Face.cpp" />
     <ClCompile Include="OctTree.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -43,6 +41,7 @@
     <ClCompile Include="PolygonMesh.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
+    <ClCompile Include="VertexCollection.cpp" />
     <ClCompile Include="VolumeCell.cpp" />
     <ClCompile Include="VolumeNode.cpp" />
     <ClCompile Include="Volume.cpp" />
@@ -57,8 +56,6 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="PolygonFactory.h" />
-    <ClInclude Include="SmoothingAlgo.h" />
-    <ClInclude Include="SurfaceSplittingAlgo.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="IParticle.h" />
@@ -73,6 +70,7 @@
     <ClInclude Include="PolygonMesh.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VertexCollection.h" />
     <ClInclude Include="VolumeCell.h" />
     <ClInclude Include="VolumeNode.h" />
     <ClInclude Include="Volume.h" />

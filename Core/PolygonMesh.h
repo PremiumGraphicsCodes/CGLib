@@ -4,6 +4,7 @@
 #include "../Util/UnCopyable.h"
 #include "Vertex.h"
 #include "Face.h"
+#include "VertexCollection.h"
 
 #include <list>
 
@@ -93,6 +94,12 @@ public:
 	void cleaning();
 
 	void splitByNode(Face* f);
+
+	void splitByCenter(Face* f);
+
+	void splitByBottom(Face* f);
+
+	void smooth(Vertex* v);
 
 private:
 	unsigned int nextIndexId;

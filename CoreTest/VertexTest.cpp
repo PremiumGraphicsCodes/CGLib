@@ -1,8 +1,19 @@
 #include "stdafx.h"
 #include "../Core/Vertex.h"
+#include "../Core/VertexCollection.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
+
+TEST(VertexCollectionTest, TestSort)
+{
+	VertexCollection vertices1;
+	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	vertices1.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
+	vertices1.sort();
+	EXPECT_EQ(2, vertices1.size());
+}
 
 
 TEST(VertexCollectionTest, TestMerge)

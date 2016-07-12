@@ -44,12 +44,6 @@
     <ClCompile Include="NodeGrid.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
-    <ClCompile Include="SmoothingAlgo.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
-    <ClCompile Include="SurfaceSplittingAlgo.cpp">
-      <Filter>Graph\Algo</Filter>
-    </ClCompile>
     <ClCompile Include="IParticle.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
@@ -57,6 +51,9 @@
       <Filter>PolygonMesh</Filter>
     </ClCompile>
     <ClCompile Include="Edge.cpp">
+      <Filter>PolygonMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexCollection.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,12 +111,6 @@
     <ClInclude Include="TriangleCell.h">
       <Filter>Graph</Filter>
     </ClInclude>
-    <ClInclude Include="SmoothingAlgo.h">
-      <Filter>Graph\Algo</Filter>
-    </ClInclude>
-    <ClInclude Include="SurfaceSplittingAlgo.h">
-      <Filter>Graph\Algo</Filter>
-    </ClInclude>
     <ClInclude Include="PolygonFactory.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
@@ -127,6 +118,9 @@
       <Filter>PolygonMesh</Filter>
     </ClInclude>
     <ClInclude Include="Edge.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexCollection.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
   </ItemGroup>
@@ -145,9 +139,6 @@
     </Filter>
     <Filter Include="Graph">
       <UniqueIdentifier>{da07c0d0-f6ed-466d-b7ed-996156b254de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Graph\Algo">
-      <UniqueIdentifier>{fde1cded-4891-468e-839d-54ad09499dd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

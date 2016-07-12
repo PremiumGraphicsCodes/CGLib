@@ -28,11 +28,11 @@ public:
 
 	Math::Vector3d<float> getNormal() const;
 
-	void replaceVertex(Vertex* v1, Vertex* v2);
-
 	std::array< Edge, 3 > toEdges() const;
 
 	bool has(Vertex* v) const;
+
+	float getArea() const;
 
 private:
 	std::array< Vertex*, 3> vertices;

@@ -97,4 +97,13 @@ TEST(PolygonMeshTest, TestSplitByNode)
 	EXPECT_EQ(7, polygon.getVertices().size());
 }
 
-
+TEST(PolygonMeshTest, TestSplitByCenter)
+{
+	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonMesh polygon;
+	polygon.create(triangle.toCurve3d());
+	auto f = polygon.getFaces()[0];
+	polygon.splitByCenter(f);
+	EXPECT_EQ(3, polygon.getFaces().size());
+	EXPECT_EQ(4, polygon.getVertices().size());
+}

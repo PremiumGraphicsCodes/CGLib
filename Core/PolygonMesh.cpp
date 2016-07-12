@@ -261,9 +261,61 @@ void PolygonMesh::splitByNode(Face* f)
 		startPoints.push_back(e.getStart());
 		midPoints.push_back( createVertex(e.getMidPoint()) );
 	}
-	f->getV2()->moveTo(midPoints[0]->getPosition());
-	f->getV3()->moveTo(midPoints[1]->getPosition());
 	createFace(midPoints[0], startPoints[1], midPoints[1]);
 	createFace(midPoints[1], startPoints[2], midPoints[2]);
 	createFace(midPoints[0], startPoints[1], midPoints[2]);
+	f->getV2()->moveTo(midPoints[0]->getPosition());
+	f->getV3()->moveTo(midPoints[1]->getPosition());
+}
+
+void PolygonMesh::splitByCenter(Face* f)
+{
+	Vertex* center = createVertex(f->getCenterPoint());
+	f->replace(f->getV2(), center);
+	createFace(f->getV1(), f->getV2(), center);
+	createFace(f->getV2(), f->getV1(), center);
+}
+
+void PolygonMesh::splitByBottom(Face* f)
+{
+	/*
+	auto bottom = nodes.create(f->getEdges()[1]->getMidPoint());
+	auto f2 = createTriangleFace(bottom, f->getEdges()[2]->getStart(), f->getEdges()[2]->getEnd());
+
+	f->getEdges()[1]->changeEnd(bottom);
+	f->getEdges()[2]->changeStart(bottom);
+	f->getEdges()[2]->changeEnd(f->getEdges()[0]->getStart());
+	assert(f->getArea() > 0);
+
+	assert( f2->getArea() > 0);
+
+	surface->add(faces.get());
+	surface->add(nodes.get());
+	surface->add(edges.get());
+	SurfaceFactory fa(nodes, edges, faces);
+	factory->merge(fa);
+	for (auto f : surface->getFaces()) {
+	assert(f->isConnected());
+	}
+	*/
+}
+
+
+void PolygonMesh::smooth(Vertex* center)
+{
+	auto& fs = center->getFaces();
+	std::list<Vertex*> neighbors;
+	for (auto f : fs) {
+		neighbors.push_back( f->getV1() );
+		neighbors.push_back( f->getV2() );
+		neighbors.push_back( f->getV3() );
+	}
+	neighbors.sort();
+	neighbors.unique();
+	neighbors.remove(center);
+	Vector3d<float> position = center->getPosition();
+	for (auto& n : neighbors) {
+		position += (n->getPosition() - center->getPosition()) / neighbors.size();
+	}
+	center->moveTo(position);
 }
