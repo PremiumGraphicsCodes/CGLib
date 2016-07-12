@@ -75,6 +75,7 @@
     <ClInclude Include="Face.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="NodeCollection.h" />
+    <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="ReductionAlgo.h" />
     <ClInclude Include="SimplificationAlgo.h" />
     <ClInclude Include="SmoothingAlgo.h" />

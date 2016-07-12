@@ -36,8 +36,6 @@ public:
 
 	void add(const Math::Triangle3d<float>& triangle);
 
-	void add(const Math::Quad<float>& quad);
-
 	void add(const Math::Box3d<float>& box);
 
 	void add(const Math::Sphere<float>& sphere, const int udiv, const int vdiv);
@@ -101,6 +99,8 @@ public:
 	FaceCollection getFaces() const { return faces; }
 
 	void clear();
+
+	void cleaning();
 
 private:
 	unsigned int nextIndexId;

@@ -87,8 +87,8 @@ std::list< TriFace* > PolygonMesh::createFaces(const std::vector<Vertex*>& verti
 		auto v1 = vertices[i];
 		auto v2 = vertices[i + 1];
 		fs.push_back(createFace(origin, v1, v2));
-		v1->setFace( fs.back() );
-		v2->setFace( fs.back() );
+		v1->addFace( fs.back() );
+		v2->addFace( fs.back() );
 	}
 	return fs;
 }
@@ -105,26 +105,9 @@ void PolygonMesh::add(const Triangle3d<float>& triangle)
 	auto v2 = vertices.create( p2, n );
 	auto v3 = vertices.create( p3, n );
 	auto f = createFace(v1, v2, v3);
-	v1->setFace( f );
-	v2->setFace( f );
-	v3->setFace( f );
-}
-
-
-
-void PolygonMesh::add(const Quad<float>& quad)
-{
-	auto n = quad.getNormal();
-	auto p1 = quad.getPositions()[0];
-	auto p2 = quad.getPositions()[1];
-	auto p3 = quad.getPositions()[2];
-	auto p4 = quad.getPositions()[3];
-
-	auto v1 = vertices.create(p1, n);
-	auto v2 = vertices.create(p2, n);
-	auto v3 = vertices.create(p3, n);
-	auto v4 = vertices.create(p4, n);
-	auto f = createFaces({ v1, v2, v3, v4 });
+	v1->addFace( f );
+	v2->addFace( f );
+	v3->addFace( f );
 }
 
 void PolygonMesh::add(const Box3d<float>& box)
@@ -290,5 +273,11 @@ void PolygonMesh::create(const CircularCurve3d<float>& curve, const int id)
 		auto f = faces.create(n0, n1, n2);
 	}
 }
+
+void PolygonMesh::cleaning()
+{
+
+}
+
 
 //void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);

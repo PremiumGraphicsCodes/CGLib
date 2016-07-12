@@ -65,6 +65,9 @@ void FaceCollection::merge(FaceCollection& rhs)
 TriFace* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	auto f = new TriFace(v1, v2, v3);
+	v1->addFace(f);
+	v2->addFace(f);
+	v3->addFace(f);
 	faces.push_back(f);
 	return f;
 }

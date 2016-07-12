@@ -26,8 +26,10 @@ namespace {
 	bool isSame(Vertex* v1, Vertex* v2)
 	{
 		if (v1->getPosition() == v2->getPosition()) {
-			auto face = v2->getFace();
-			face->replace(v2, v1);
+			auto faces = v2->getFaces();
+			for (auto f : faces) {
+				f->replace(v2, v1);
+			}
 			v1->normalize(*v2);
 			delete v2;
 			return true;

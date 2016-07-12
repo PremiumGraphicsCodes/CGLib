@@ -25,9 +25,13 @@ public:
 
 	//void normalize(const Vertex& rhs);
 
-	void setFace(TriFace* f) { this->f = f; }
+	void addFace(TriFace* f) {
+		this->faces.push_back( f );
+		this->faces.sort();
+		this->faces.unique();
+	}
 
-	TriFace* getFace() const { return f; }
+	std::list< TriFace* > getFaces() const { return faces; }
 
 	//void transform(const Math::Matrix4d<float>& matrix);
 
@@ -39,8 +43,7 @@ public:
 	unsigned int id;
 
 private:
-
-	TriFace* f;
+	std::list<TriFace*> faces;
 };
 
 class VertexCollection

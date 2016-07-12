@@ -198,6 +198,9 @@
     <ClInclude Include="ReductionAlgo.h">
       <Filter>Graph\Algo</Filter>
     </ClInclude>
+    <ClInclude Include="PolygonFactory.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
