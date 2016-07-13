@@ -12,7 +12,6 @@
 
 namespace Crystal {
 	namespace Core {
-		class Surface;
 		class PolygonMesh;
 		class Vertex;
 	}

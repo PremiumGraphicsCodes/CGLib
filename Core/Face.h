@@ -12,7 +12,7 @@ namespace Crystal {
 class Face
 {
 public:
-	Face(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face(Vertex* v1, Vertex* v2, Vertex* v3, const int id = -1);
 
 	Vertex* find(Vertex* v);
 
@@ -36,8 +36,13 @@ public:
 
 	float getArea() const;
 
+	int getId() const { return id; }
+
+	void changeId(const int id) { this->id = id; }
+
 private:
 	std::array< Vertex*, 3> vertices;
+	int id;
 };
 
 	}
