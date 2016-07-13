@@ -4,11 +4,13 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-FaceCollection::FaceCollection()
+FaceCollection::FaceCollection() :
+	nextId(0)
 {}
 
 FaceCollection::FaceCollection(const std::list<Face*>& faces) :
-	faces(faces)
+	faces(faces),
+	nextId(0)
 {}
 
 FaceCollection::~FaceCollection()
@@ -18,6 +20,7 @@ FaceCollection::~FaceCollection()
 void FaceCollection::merge(FaceCollection& rhs)
 {
 	this->faces.insert(this->faces.end(), rhs.faces.begin(), rhs.faces.end());
+	renumber();
 	rhs.faces.clear();
 }
 
@@ -50,6 +53,15 @@ void FaceCollection::cleaning()
 	for (auto f : shrinked) {
 		remove(f);
 	}
+}
+
+void FaceCollection::renumber()
+{
+	nextId = 0;
+	for (auto f : faces) {
+		f->changeId(nextId++);
+	}
+
 }
 
 void FaceCollection::remove(Face* f)

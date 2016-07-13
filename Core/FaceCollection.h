@@ -24,6 +24,8 @@ public:
 
 	void cleaning();
 
+	void renumber();
+
 	void remove(Face* f);
 
 	using iterator = std::list<Face*>::iterator;
@@ -46,6 +48,7 @@ public:
 	std::list<Face*> get() { return faces; }
 
 private:
+	int nextId;
 	std::list<Face*> faces;
 
 };

@@ -40,6 +40,8 @@ public:
 
 	void changeId(const int id) { this->id = id; }
 
+
+
 	//std::array< Vertex*, 3> getVertexIds() const;
 
 private:

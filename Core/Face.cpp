@@ -90,4 +90,3 @@ Orientation Face::getOrientation(const Vector3d<float>& pos) const
 		return Orientation::None;
 	}
 }
-
