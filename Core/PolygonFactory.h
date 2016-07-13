@@ -17,40 +17,32 @@ public:
 
 	~PolygonFactory();
 
-	void clear();
+	void add(const VertexCollection& vs) { this->vertices = vs; }
 
-	PolygonMesh* create(const Math::Curve3d<float>& curve);
+	void add(const Math::Curve3d<float>& curve);
 
-	PolygonMesh* create(const Math::CircularCurve3d<float>& curve);
+	void add(const Math::CircularCurve3d<float>& curve);
 
-	PolygonMesh* create(const Math::TriangleCurve3d<float>& curve);
-
-	void merge(PolygonFactory& rhs);
-
-	void remove(Face* f);
-
-	void remove(Vertex* n);
-
-	PolygonMesh* findSurfaceById(const int id);
-
-	Vertex* findNodeById(const int id) const;
-
-	Face* findFaceById(const int id) const;
-
-	std::list<PolygonMesh*> getPolygons() const { return polygons; }
-
-	//std::list<TriFace*> getFaces() { return faces.get(); }
+	void add(const Math::TriangleCurve3d<float>& curve);
 
 	void renumber();
 
 	void cleaning();
 
+	void splitByCenter(PolygonMesh* polygon, Face* f);
+
+	void splitByBottom(PolygonMesh* polygon, Face* f);
+
+	void splitByNode(PolygonMesh* polygon, Face* f);
+
+	PolygonMesh* create(const int id);
+
+	void createFaces(const std::vector<Vertex*>& vertices);
 
 private:
-	PolygonMesh* create(int id, const std::vector<Vertex*>& nodes, const std::vector<Face*>& faces);
+	VertexCollection vertices;
+	FaceCollection faces;
 
-	std::list<PolygonMesh*> polygons;
-	int nextId;
 };
 
 	}

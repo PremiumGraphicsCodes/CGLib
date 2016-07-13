@@ -37,17 +37,19 @@ void TriangleIdBuffer::add(const PolygonMesh& surface, const DrawableID& did)
 
 void TriangleIdBuffer::add(const PolygonMesh& surface, const unsigned char groupId)
 {
-	/*
-	const auto& nodes = surface.getNodes();
+	const auto& nodes = surface.getVertices();
 	for (auto& n : nodes) {
 		positions.add(n->getPosition());
 	}
 
 	for (const auto& f : surface.getFaces()) {
-		TriangleIdBlock block(f->getNodeIds(), DrawableID(f->getId(), groupId));
+		std::vector<unsigned int> ids(3);
+		ids[0] = f->getV1()->getId();
+		ids[1] = f->getV2()->getId();
+		ids[2] = f->getV3()->getId();
+		TriangleIdBlock block(ids, DrawableID(f->getId(), groupId));
 		blocks.push_back(block);
 	}
-	nextIndex += surface.getNodes().size();
-	*/
+	nextIndex += surface.getVertices().size();
 }
 

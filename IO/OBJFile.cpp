@@ -82,7 +82,9 @@ void OBJFile::add(const PolygonMesh& polygon)
 
 PolygonMesh* OBJFile::toPolygonObject()
 {
-	PolygonMesh* polygon = new PolygonMesh();
+	VertexCollection vertices;
+	FaceCollection faces;
+	PolygonFactory factory;
 	unsigned int currentIndex = 0;
 	for(const auto count : faceCounts) {
 		std::vector<Vertex*> vv;
@@ -90,7 +92,7 @@ PolygonMesh* OBJFile::toPolygonObject()
 			const auto position = positions[currentIndex + i];
 			const auto normal = normals[currentIndex + i];
 			const auto texCoord = texCoords[currentIndex + i];
-			vv.push_back(polygon->createVertex(position, normal, texCoord));
+			vv.push_back(vertices.create(position, normal, texCoord));
 		}
 
 		const auto v1 = positions[currentIndex+1] - positions[currentIndex];
@@ -103,9 +105,9 @@ PolygonMesh* OBJFile::toPolygonObject()
 		}
 
 		currentIndex += count;
-		polygon->createFaces(vv);
+		factory.createFaces(vv);
 	}
-	return polygon;
+	return factory.create(0);
 }
 
 bool OBJFile::read(const File& file)

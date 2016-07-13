@@ -84,14 +84,16 @@ VolumeCell Volume::toCell(const Index3d index) const
 	return VolumeCell(s, v);
 }
 
+#include "PolygonFactory.h"
 
 PolygonMesh* Volume::toPolygonObject(const float isolevel) const
 {
 	const auto& triangles = toTriangles(isolevel);
-	PolygonMesh* newMesh = new PolygonMesh();
+	PolygonFactory factory;
 	for (const auto& t : triangles) {
-		newMesh->create(t.toCurve3d());
+		factory.add(t.toCurve3d());
 	}
+	auto newMesh = factory.create(0);
 	newMesh->removeOverlappedVertices();
 	return newMesh;
 }

@@ -15,6 +15,7 @@
 #include "OctTree.h"
 #include "Particle.h"
 #include "ParticleObject.h"
+#include "PolygonCollection.h"
 #include "PolygonFactory.h"
 #include "PolygonMesh.h"
 #include "SpaceHash.h"

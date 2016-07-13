@@ -3,6 +3,7 @@
 #include "Particle.h"
 #include "Volume.h"
 #include "PolygonMesh.h"
+#include "PolygonFactory.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -144,10 +145,11 @@ PolygonMesh* ParticleObject::toPolygon(const float isolevel, const int levelOfDe
 		const auto& ts = cell.toTriangles(isolevel);
 		triangles.insert(triangles.end(), ts.begin(), ts.end());
 	}
-	PolygonMesh* result = new PolygonMesh();
+	PolygonFactory factory;
 	for (const auto& t : triangles) {
-		result->create(t.toCurve3d());
+		factory.add(t.toCurve3d());
 	}
+	auto result = factory.create(0);
 	result->removeOverlappedVertices();
 	return result;
 }

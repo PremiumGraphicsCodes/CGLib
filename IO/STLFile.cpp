@@ -28,15 +28,17 @@ void STLFile::add(const PolygonMesh& mesh)
 
 PolygonMesh* STLFile::toPolygonObject() const
 {
-	PolygonMesh* polygon = new PolygonMesh();
+	VertexCollection vertices;
+	FaceCollection faces;
 	for (const auto& c : cells) {
 		const auto& pos = c.getPositions();
 		const auto& normal = c.getNormal();
-		const auto v1 = polygon->createVertex(pos[0], normal);
-		const auto v2 = polygon->createVertex(pos[1], normal);
-		const auto v3 = polygon->createVertex(pos[2], normal);
-		polygon->createFace(v1, v2, v3);
+		const auto v1 = vertices.create(pos[0], normal);
+		const auto v2 = vertices.create(pos[1], normal);
+		const auto v3 = vertices.create(pos[2], normal);
+		faces.create(v1, v2, v3);
 	}
+	PolygonMesh* polygon = new PolygonMesh(vertices.get(), faces.get(), 0);
 	return polygon;
 }
 

@@ -45,7 +45,7 @@ namespace {
 VertexCollection::VertexCollection() : nextId(0)
 {}
 
-VertexCollection::VertexCollection(const std::vector<Vertex*>& vertices) :
+VertexCollection::VertexCollection(const std::list<Vertex*>& vertices) :
 	vertices(vertices),
 	nextId(0)
 {}
@@ -56,7 +56,7 @@ VertexCollection::~VertexCollection()
 
 VertexCollection VertexCollection::clone()
 {
-	std::vector<Vertex*> vs;
+	std::list<Vertex*> vs;
 	for (auto v : vertices) {
 		vs.push_back(v->clone());
 	}
@@ -79,7 +79,7 @@ void VertexCollection::sort()
 	for (auto v : vlist) {
 		v->setId( nextId++ );
 	}
-	vertices = std::vector<Vertex*>(vlist.begin(), vlist.end());
+	vertices = std::list<Vertex*>(vlist.begin(), vlist.end());
 }
 
 Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
@@ -88,6 +88,24 @@ Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> norma
 	vertices.push_back(v);
 	return v;
 }
+
+Vertex* VertexCollection::create(const Point3d<float>& point)
+{
+	auto v = new Vertex(point.getPosition(), point.getNormal(), point.getParameter(), nextId++);
+	vertices.push_back(v);
+	return v;
+}
+
+Vertex* VertexCollection::findById(const int id) const
+{
+	for (auto v : vertices) {
+		if (v->getId() == id) {
+			return v;
+		}
+	}
+	return nullptr;
+}
+
 
 void VertexCollection::merge(VertexCollection& rhs)
 {

@@ -916,16 +916,22 @@ void PMDFile::add(const ActorObject& actor)
 
 PolygonMesh* PMDFile::toPolygonObject() const
 {
-	PolygonMesh* object = new PolygonMesh();
 	auto vs = this->vertices.get();
+	VertexCollection vertices;
+	std::vector<Vertex*> createdVs;
 	for (size_t i = 0; i < vs.size(); ++i ) {
-		object->createVertex(vs[i].pos, vs[i].normal);
+	 	auto v = vertices.create(vs[i].pos, vs[i].normal);
+		createdVs.push_back(v);
 	}
 	auto is = this->faces.get();
+	FaceCollection faces;
 	for (size_t i = 0; i < is.size(); i+=3 ) {
-		object->createFace(is[i], is[i + 1], is[i + 2]);
+		auto v1 = createdVs[i];
+		auto v2 = createdVs[i + 1];
+		auto v3 = createdVs[i + 2];
+		faces.create(createdVs[i], createdVs[i + 1], createdVs[i + 2]);
 	}
-	return object;
+	return new PolygonMesh(vertices.get(), faces.get(), 0);
 }
 
 #include "File.h"

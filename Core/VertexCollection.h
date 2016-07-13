@@ -11,11 +11,15 @@ class VertexCollection
 public:
 	VertexCollection();
 
-	VertexCollection(const std::vector<Vertex*>& vertices);
+	VertexCollection(const std::list<Vertex*>& vertices);
 
 	~VertexCollection();
 
 	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector2d<float> texCoord = Math::Vector2d<float>());
+
+	Vertex* create(const Math::Point3d<float>& point);
+
+	Vertex* findById(const int id) const;
 
 	VertexCollection clone();
 
@@ -29,10 +33,10 @@ public:
 
 	void cleaning();
 
-	Vertex* operator[](int index) const { return vertices[index]; }
+	//Vertex* operator[](int index) const { return vertices[index]; }
 
-	using iterator = std::vector<Vertex*>::iterator;
-	using const_iterator = std::vector<Vertex*>::const_iterator;
+	using iterator = std::list<Vertex*>::iterator;
+	using const_iterator = std::list<Vertex*>::const_iterator;
 
 	iterator begin() { return vertices.begin(); }
 
@@ -44,8 +48,10 @@ public:
 
 	size_t size() const { return vertices.size(); }
 
+	std::list<Vertex*> get() { return vertices; }
+
 private:
-	std::vector<Vertex*> vertices;
+	std::list<Vertex*> vertices;
 	unsigned int nextId;
 };
 
