@@ -50,6 +50,8 @@ public:
 
 	std::list<Vertex*> get() { return vertices; }
 
+	void add(Vertex* v);
+
 private:
 	std::list<Vertex*> vertices;
 	unsigned int nextId;

@@ -65,6 +65,12 @@ public:
 
 	void cleaning();
 
+	void add(Face* f);
+
+	void add(Vertex* v);
+
+	bool has(Face* f);
+
 private:
 	unsigned int nextIndexId;
 	const unsigned int id;

@@ -162,9 +162,15 @@ PolygonMesh* PolygonFactory::create(const TriangleCurve3d<float>& curve)
 void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
 {
 	Vertex* center = vertices.create(f->getCenterPoint());
+	auto f1 = faces.create(f->getV1(), f->getV2(), center);
+	auto f2 = faces.create(f->getV2(), f->getV3(), center);
 	f->replace(f->getV2(), center);
-	faces.create(f->getV1(), f->getV2(), center);
-	faces.create(f->getV2(), f->getV1(), center);
+
+	polygon->add(center);
+	polygon->add(f1);
+	polygon->add(f2);
+	faces.renumber();
+	vertices.cleaning();
 }
 
 void PolygonFactory::splitByBottom(PolygonMesh* polygon,Face* f)
@@ -226,4 +232,24 @@ PolygonMesh* PolygonFactory::create(VertexCollection& vertices, FaceCollection& 
 	this->faces.merge(faces);
 	polygons.push_back(p);
 	return p;
+}
+
+PolygonMesh* PolygonFactory::findPolygonById(const int id)
+{
+	for (auto p : polygons) {
+		if (p->getId() == id) {
+			return p;
+		}
+	}
+	return nullptr;
+}
+
+PolygonMesh* PolygonFactory::find(Face* f)
+{
+	for (auto p : polygons) {
+		if (p->has(f)) {
+			return p;
+		}
+	}
+	return nullptr;
 }

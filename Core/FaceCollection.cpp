@@ -69,3 +69,18 @@ void FaceCollection::remove(Face* f)
 	faces.remove(f);
 	delete f;
 }
+
+Face* FaceCollection::findById(const int id)
+{
+	for (auto f : faces) {
+		if (id == f->getId()) {
+			return f;
+		}
+	}
+	return nullptr;
+}
+
+void FaceCollection::add(Face* f)
+{
+	faces.push_back(f);
+}

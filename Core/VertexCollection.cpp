@@ -129,3 +129,8 @@ void VertexCollection::cleaning()
 		v->setId(nextId++);
 	}
 }
+
+void VertexCollection::add(Vertex* v)
+{
+	vertices.push_back(v);
+}

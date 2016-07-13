@@ -49,6 +49,10 @@ public:
 
 	FaceCollection getFaces() { return faces; }
 
+	PolygonMesh* findPolygonById(const int id);
+
+	PolygonMesh* find(Face* f);
+
 private:
 	VertexCollection vertices;
 	FaceCollection faces;

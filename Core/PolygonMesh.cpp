@@ -77,3 +77,23 @@ void PolygonMesh::cleaning()
 	vertices.cleaning();
 	faces.cleaning();
 }
+
+void PolygonMesh::add(Face* f)
+{
+	faces.add(f);
+}
+
+void PolygonMesh::add(Vertex* v)
+{
+	vertices.add(v);
+}
+
+bool PolygonMesh::has(Face* f)
+{
+	for (auto f1 : faces) {
+		if (f1 == f) {
+			return true;
+		}
+	}
+	return false;
+}

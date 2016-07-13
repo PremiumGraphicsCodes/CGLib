@@ -47,6 +47,10 @@ public:
 
 	std::list<Face*> get() { return faces; }
 
+	Face* findById(const int id);
+
+	void add(Face* f);
+
 private:
 	int nextId;
 	std::list<Face*> faces;
