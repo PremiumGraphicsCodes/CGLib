@@ -6,13 +6,24 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-PolygonFactory::PolygonFactory()
+PolygonFactory::PolygonFactory() :
+	nextId(0)
 {
 }
 
 PolygonFactory::~PolygonFactory()
 {
+	clear();
 }
+
+void PolygonFactory::clear()
+{
+	for (auto p : polygons) {
+		delete p;
+	}
+	polygons.clear();
+}
+
 
 /*
 std::list< Face* > PolygonFactory::createFaces(const std::vector<int>& ids)
@@ -42,15 +53,17 @@ void PolygonFactory::createFaces(const std::vector<Vertex*>& vertices)
 }
 
 
-void PolygonFactory::add(const Curve3d<float>& curve)
+PolygonMesh* PolygonFactory::create(const Curve3d<float>& curve)
 {
+	std::list<Vertex*> createdVertices;
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
 			const auto& normal = curve.get(u, v).getNormal();
 
-			auto n = vertices.create(pos, normal);
+			auto n = new Vertex(pos, normal, -1);
+			createdVertices.push_back(n);
 			grid.set(u, v, n);
 		}
 	}
@@ -62,52 +75,62 @@ void PolygonFactory::add(const Curve3d<float>& curve)
 		triangleCells.insert(triangleCells.end(), tCells.begin(), tCells.end());
 	}
 
+	std::list<Face*> createdFaces;
 	for (const auto& t : triangleCells) {
 		auto n0 = t.get()[0];
 		auto n1 = t.get()[1];
 		auto n2 = t.get()[2];
-		faces.create(n0, n1, n2);
+		createdFaces.push_back( new Face(n0, n1, n2) );
 	}
+	return create(createdVertices, createdFaces);
 }
 
-void PolygonFactory::add(const CircularCurve3d<float>& curve)
+PolygonMesh* PolygonFactory::create(const CircularCurve3d<float>& curve)
 {
-	Vertex* centerNode = vertices.create(curve.getCenter().getPosition());
+	std::vector<Vertex*> createdVertices;
+	std::vector<Face*> createdFaces;
 
-	std::vector<Vertex*> createdNodes;
+	Vertex* centerNode = new Vertex(curve.getCenter().getPosition(), -1);
+
 	for (int i = 0; i < curve.getSize(); ++i) {
-		Vertex* node = vertices.create(curve.get(i));
-		createdNodes.push_back(node);
+		Vertex* node = new Vertex(curve.get(i));
+		createdVertices.push_back(node);
 	}
-	for (int i = 0; i < createdNodes.size() - 1; ++i) {
+	for (int i = 0; i < createdVertices.size() - 1; ++i) {
 		auto n0 = centerNode;
-		auto n1 = createdNodes[i];
-		auto n2 = createdNodes[i + 1];
-		auto f = faces.create(n0, n1, n2);
+		auto n1 = createdVertices[i];
+		auto n2 = createdVertices[i + 1];
+		auto f = new Face(n0, n1, n2);
+		createdFaces.push_back(f);
 	}
 	{
 		auto n0 = centerNode;
-		auto n1 = createdNodes.back();
-		auto n2 = createdNodes.front();
-		auto f = faces.create(n0, n1, n2);
-
+		auto n1 = createdVertices.back();
+		auto n2 = createdVertices.front();
+		auto f = new Face(n0, n1, n2);
+		createdFaces.push_back(f);
 	}
+	createdVertices.push_back(centerNode);
+	std::list<Vertex*> vs(createdVertices.begin(), createdVertices.end());
+	std::list<Face*> fs(createdFaces.begin(), createdFaces.end());
+	return create(vs, fs);
+
 }
 
-void PolygonFactory::add(const TriangleCurve3d<float>& curve)
+PolygonMesh* PolygonFactory::create(const TriangleCurve3d<float>& curve)
 {
 	std::vector< TriangleCell > cells;
 
 	std::vector<std::vector<Vertex*>> createdNodes;
 
-	std::vector<Vertex*> createNodes;
-	std::vector<Face*> createFaces;
+	std::list<Vertex*> createNodes;
+	std::list<Face*> createFaces;
 
 	for (int i = 0; i < curve.getSize(); ++i) {
 		std::vector<Vertex*> ns;
 		for (int j = 0; j <= i; ++j) {
 			auto p = curve.get(i, j);
-			Vertex* node = vertices.create(curve.get(i, j));
+			Vertex* node = new Vertex(curve.get(i, j), -1);
 			ns.push_back(node);
 			createNodes.push_back(node);
 		}
@@ -119,7 +142,7 @@ void PolygonFactory::add(const TriangleCurve3d<float>& curve)
 			auto n0 = createdNodes[i - 1][j];
 			auto n1 = createdNodes[i][j];
 			auto n2 = createdNodes[i][j + 1];
-			auto f = faces.create(n0, n1, n2);
+			auto f = new Face(n0, n1, n2);
 			createFaces.push_back(f);
 		}
 	}
@@ -128,10 +151,12 @@ void PolygonFactory::add(const TriangleCurve3d<float>& curve)
 			auto n0 = createdNodes[i - 1][j];
 			auto n1 = createdNodes[i][j + 1];
 			auto n2 = createdNodes[i - 1][j + 1];
-			auto f = faces.create(n0, n1, n2);
+			auto f = new Face(n0, n1, n2);
 			createFaces.push_back(f);
 		}
 	}
+	return create(createNodes, createFaces);
+
 }
 
 void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
@@ -185,7 +210,20 @@ void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)
 }
 
 
-PolygonMesh* PolygonFactory::create(const int id)
+PolygonMesh* PolygonFactory::create(std::list<Vertex*>& vertices, std::list<Face*>& faces)
 {
-	return new PolygonMesh(vertices.get(), faces.get(), id);
+	auto p = new PolygonMesh(vertices, faces, nextId++);
+	this->vertices.merge(VertexCollection(vertices));
+	this->faces.merge(FaceCollection(faces));
+	polygons.push_back(p);
+	return p;
+}
+
+PolygonMesh* PolygonFactory::create(VertexCollection& vertices, FaceCollection& faces)
+{
+	auto p = new PolygonMesh(vertices.get(), faces.get(), nextId++);
+	this->vertices.merge(vertices);
+	this->faces.merge(faces);
+	polygons.push_back(p);
+	return p;
 }

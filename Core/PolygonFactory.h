@@ -17,13 +17,15 @@ public:
 
 	~PolygonFactory();
 
+	void clear();
+
 	void add(const VertexCollection& vs) { this->vertices = vs; }
 
-	void add(const Math::Curve3d<float>& curve);
+	PolygonMesh* create(const Math::Curve3d<float>& curve);
 
-	void add(const Math::CircularCurve3d<float>& curve);
+	PolygonMesh* create(const Math::CircularCurve3d<float>& curve);
 
-	void add(const Math::TriangleCurve3d<float>& curve);
+	PolygonMesh* create(const Math::TriangleCurve3d<float>& curve);
 
 	void renumber();
 
@@ -35,14 +37,23 @@ public:
 
 	void splitByNode(PolygonMesh* polygon, Face* f);
 
-	PolygonMesh* create(const int id);
+	PolygonMesh* create(std::list<Vertex*>& vertices, std::list<Face*>& faces);
+
+	PolygonMesh* create(VertexCollection& vertices, FaceCollection& faces);
 
 	void createFaces(const std::vector<Vertex*>& vertices);
+
+	std::list<PolygonMesh*> getPolygons() { return polygons; }
+
+	VertexCollection getVertices() { return vertices; }
+
+	FaceCollection getFaces() { return faces; }
 
 private:
 	VertexCollection vertices;
 	FaceCollection faces;
-
+	std::list<PolygonMesh*> polygons;
+	int nextId;
 };
 
 	}

@@ -17,11 +17,13 @@ class Face;
 class Vertex : public Math::Point3d<float>
 {
 public:
-	Vertex(const Math::Vector3d<float>& position, const unsigned int id );
+	Vertex(const Math::Point3d<float>& point, const unsigned int id = -1);
 
-	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const unsigned int id);
+	Vertex(const Math::Vector3d<float>& position, const unsigned int id = -1);
 
-	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord, const unsigned int id);
+	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const unsigned int id = -1);
+
+	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord, const unsigned int id = -1);
 
 	void addFace(Face* f) {
 		this->faces.push_back( f );

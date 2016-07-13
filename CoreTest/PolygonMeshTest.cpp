@@ -12,8 +12,7 @@ TEST(PolygonMeshTest, TestFromQuad)
 	Curve3d<float> curve = quad.toCurve3d();
 
 	PolygonFactory factory;
-	factory.add(curve);
-	auto polygon = factory.create(0);
+	auto polygon = factory.create(curve);
 	EXPECT_EQ(4, polygon->getVertices().size());
 	EXPECT_EQ(2, polygon->getFaces().size());
 }
@@ -24,8 +23,7 @@ TEST(PolygonMeshTest, TestFromCircle)
 	CircularCurve3d<float> curve = circle.toCurve(3);
 
 	PolygonFactory factory;
-	factory.add(curve);
-	auto polygon = factory.create(0);
+	auto polygon = factory.create(curve);
 	EXPECT_EQ(4, polygon->getVertices().size());
 	EXPECT_EQ(3, polygon->getFaces().size());
 }
@@ -36,8 +34,7 @@ TEST(PolygonMeshTest, TestFromTriangle)
 	auto curve = triangle.toCurve3d();
 
 	PolygonFactory factory;
-	factory.add(curve);
-	auto polygon = factory.create(0);
+	auto polygon = factory.create(curve);
 	EXPECT_EQ(3, polygon->getVertices().size());
 	EXPECT_EQ(1, polygon->getFaces().size());
 }

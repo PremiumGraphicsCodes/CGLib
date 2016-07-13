@@ -29,7 +29,6 @@
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
-    <ClCompile Include="PolygonCollection.cpp" />
     <ClCompile Include="PolygonFactory.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -59,7 +58,6 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="FaceCollection.h" />
-    <ClInclude Include="PolygonCollection.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />

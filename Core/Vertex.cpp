@@ -5,6 +5,12 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+Vertex::Vertex(const Point3d<float>& point, const unsigned int id) :
+	Point3d<float>(point),
+	id(id)
+{
+}
+
 
 Vertex::Vertex(const Vector3d<float>& position, const unsigned int id) :
 	Point3d<float>(position),
