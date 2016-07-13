@@ -21,6 +21,8 @@ public:
 
 	void add(const VertexCollection& vs) { this->vertices = vs; }
 
+	void add(PolygonMesh* p);
+
 	PolygonMesh* create(const Math::Curve3d<float>& curve);
 
 	PolygonMesh* create(const Math::CircularCurve3d<float>& curve);

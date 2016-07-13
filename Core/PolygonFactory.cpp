@@ -16,6 +16,16 @@ PolygonFactory::~PolygonFactory()
 	clear();
 }
 
+void PolygonFactory::add(PolygonMesh* p)
+{
+	auto vs = p->getVertices();
+	this->vertices.merge(vs);
+	auto fs = p->getFaces();
+	this->faces.merge(fs);
+	polygons.push_back(p);
+}
+
+
 void PolygonFactory::clear()
 {
 	for (auto p : polygons) {
