@@ -39,6 +39,8 @@ public:
 
 	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color);
 
+	void add(const Core::PolygonFactory& factory);
+
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
 	Graphics::Buffer4d<float> getColor() const { return color; }

@@ -75,3 +75,20 @@ std::vector<unsigned int> TriangleBuffer::getIndices(const unsigned int startInd
 	}
 	return results;
 }
+
+void TriangleBuffer::add(const PolygonFactory& factory)
+{
+	const auto& vertices = factory.getVertices();
+	for (const auto& v : vertices) {
+		this->positions.add(v->getPosition());
+		this->normals.add(v->getNormal());
+		this->texCoords.add(v->getParameter());
+		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
+	}
+	const auto faces = factory.getFaces();
+	for (auto f : faces) {
+		this->indices.push_back(f->getV1()->getId());
+		this->indices.push_back(f->getV2()->getId());
+		this->indices.push_back(f->getV3()->getId());
+	}
+}

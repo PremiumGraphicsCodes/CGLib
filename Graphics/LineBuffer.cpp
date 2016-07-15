@@ -70,3 +70,22 @@ void LineBuffer::add(const PolygonMesh& polygon, const ColorRGBA<float>& color)
 	}
 }
 
+void LineBuffer::add(const PolygonFactory& factory)
+{
+	const auto& vertices = factory.getVertices();
+	for (const auto& v : vertices) {
+		this->position.add(v->getPosition());
+		this->color.add(ColorRGBA<float>(1, 0, 0, 1));
+	}
+	const auto& faces = factory.getFaces();
+	for (const auto& f : faces) {
+		this->ids.push_back(f->getV1()->getId());
+		this->ids.push_back(f->getV2()->getId());
+		this->ids.push_back(f->getV2()->getId());
+		this->ids.push_back(f->getV3()->getId());
+		this->ids.push_back(f->getV3()->getId());
+		this->ids.push_back(f->getV1()->getId());
+	}
+}
+
+

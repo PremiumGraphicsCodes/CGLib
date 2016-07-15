@@ -71,11 +71,13 @@ public:
 
 	bool has(Face* f);
 
+	void remove(Face* f);
+
 private:
 	unsigned int nextIndexId;
 	const unsigned int id;
 	VertexCollection vertices;
-	FaceCollection faces;
+	std::list<Face*> faces;
 };
 
 	}

@@ -75,12 +75,12 @@ void PolygonMesh::simplify(const Edge& e)
 void PolygonMesh::cleaning()
 {
 	vertices.cleaning();
-	faces.cleaning();
+	//faces.cleaning();
 }
 
 void PolygonMesh::add(Face* f)
 {
-	faces.add(f);
+	faces.push_back(f);
 }
 
 void PolygonMesh::add(Vertex* v)
@@ -96,4 +96,9 @@ bool PolygonMesh::has(Face* f)
 		}
 	}
 	return false;
+}
+
+void PolygonMesh::remove(Face* f)
+{
+	faces.remove(f);
 }

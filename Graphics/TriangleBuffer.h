@@ -43,6 +43,8 @@ public:
 
 	std::vector<unsigned int> getIndices(const unsigned int start, const unsigned int end) const;
 
+	void add(const Core::PolygonFactory& factory);
+
 private:
 	std::vector<unsigned int> indices;
 	Buffer3d<float> positions;

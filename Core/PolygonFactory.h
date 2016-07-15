@@ -47,9 +47,9 @@ public:
 
 	std::list<PolygonMesh*> getPolygons() { return polygons; }
 
-	VertexCollection getVertices() { return vertices; }
+	VertexCollection getVertices() const { return vertices; }
 
-	FaceCollection getFaces() { return faces; }
+	FaceCollection getFaces() const { return faces; }
 
 	PolygonMesh* findPolygonById(const int id);
 
