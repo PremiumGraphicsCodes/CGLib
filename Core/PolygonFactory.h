@@ -7,6 +7,7 @@
 
 namespace Crystal {
 	namespace Core {
+		class Volume;
 
 class PolygonFactory : private UnCopyable
 {
@@ -28,6 +29,8 @@ public:
 	PolygonMesh* create(const Math::CircularCurve3d<float>& curve);
 
 	PolygonMesh* create(const Math::TriangleCurve3d<float>& curve);
+
+	PolygonMesh* create(const Volume& volume, float isolevel);
 
 	void renumber();
 
@@ -54,6 +57,8 @@ public:
 	PolygonMesh* findPolygonById(const int id);
 
 	PolygonMesh* find(Face* f);
+
+	void merge(PolygonFactory& rhs);
 
 private:
 	VertexCollection vertices;

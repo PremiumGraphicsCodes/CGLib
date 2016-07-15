@@ -26,6 +26,8 @@ public:
 
 	~PolygonMesh();
 
+	void setId(const int id) { this->id = id; }
+
 	unsigned int getId() const { return id; }
 
 	void removeOverlappedVertices();
@@ -75,7 +77,7 @@ public:
 	PolygonMesh* clone(const int id);
 
 private:
-	const unsigned int id;
+	unsigned int id;
 	std::list<Vertex*> vertices;
 	std::list<Face*> faces;
 };

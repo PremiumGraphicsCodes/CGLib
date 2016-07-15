@@ -32,8 +32,6 @@ public:
 
 	std::vector<VolumeNode> toNodes() const;
 
-	PolygonMesh* toPolygonObject(const float isolevel) const;
-
 	Math::Vector3d<float> getUnitLength() const;
 
 	Math::Vector3d<float> toPosition(const Math::Index3d index) const;
@@ -54,11 +52,13 @@ public:
 
 	bool operator!=(const Volume& rhs) const;
 
+	std::vector< Math::Triangle3d<float> > toTriangles(const float isolevel) const;
+
+
 private:
 	const Math::Space3d<float> space;
 	const Math::Grid3d<float> grid;
 
-	std::vector< Math::Triangle3d<float> > toTriangles(const float isolevel) const;
 
 	VolumeCell toCell(const Math::Index3d index) const;
 };

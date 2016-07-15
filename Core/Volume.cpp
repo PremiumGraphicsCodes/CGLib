@@ -86,26 +86,6 @@ VolumeCell Volume::toCell(const Index3d index) const
 
 #include "PolygonFactory.h"
 
-PolygonMesh* Volume::toPolygonObject(const float isolevel) const
-{
-	const auto& triangles = toTriangles(isolevel);
-	std::list<Vertex*> vertices;
-	std::list<Face*> faces;
-	for (const auto& t : triangles) {
-		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
-		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
-		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
-		auto f = new Face(v1, v2, v3);
-		vertices.push_back(v1);
-		vertices.push_back(v2);
-		vertices.push_back(v3);
-		faces.push_back(f);
-		//factory.create(t.toCurve3d());
-	}
-	auto newMesh = new PolygonMesh(vertices, faces);
-	newMesh->removeOverlappedVertices();
-	return newMesh;
-}
 
 Vector3d<float> Volume::toPosition(const Index3d index) const
 {

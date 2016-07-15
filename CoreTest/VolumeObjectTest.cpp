@@ -83,13 +83,16 @@ TEST(VolumeObjectTest, TestToNodes)
 	EXPECT_EQ(8, actual.size());
 }
 
+#include "../Core\PolygonFactory.h"
+
 TEST(VolumeObjectTest, TestToPolygon)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(4, 4, 4));
 	Grid3d<float> grid(4, 4, 4);
 	grid.set(1, 0, 0, 1);
 	Volume object(space, grid);
-	std::unique_ptr<PolygonMesh> actual( object.toPolygonObject(0.5f) );
+	PolygonFactory factory;
+	auto actual( factory.create(object,0.5f) );
 	EXPECT_EQ( 4, actual->getVertices().size() );
 }
 

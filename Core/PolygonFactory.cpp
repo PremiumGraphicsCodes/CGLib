@@ -244,6 +244,30 @@ PolygonMesh* PolygonFactory::create(VertexCollection& vertices, FaceCollection& 
 	return p;
 }
 
+#include "Volume.h"
+
+PolygonMesh* PolygonFactory::create(const Volume& volume, float isolevel)
+{
+	const auto& triangles = volume.toTriangles(isolevel);
+	std::list<Vertex*> vertices;
+	std::list<Face*> faces;
+	for (const auto& t : triangles) {
+		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
+		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
+		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
+		auto f = new Face(v1, v2, v3);
+		vertices.push_back(v1);
+		vertices.push_back(v2);
+		vertices.push_back(v3);
+		faces.push_back(f);
+		//factory.create(t.toCurve3d());
+	}
+	auto newMesh = create(vertices, faces);
+	newMesh->removeOverlappedVertices();
+	return newMesh;
+}
+
+
 PolygonMesh* PolygonFactory::findPolygonById(const int id)
 {
 	for (auto p : polygons) {
@@ -262,4 +286,23 @@ PolygonMesh* PolygonFactory::find(Face* f)
 		}
 	}
 	return nullptr;
+}
+
+void PolygonFactory::merge(PolygonFactory& rhs)
+{
+	polygons.insert(polygons.end(), rhs.polygons.begin(), rhs.polygons.end());
+	faces.merge(rhs.faces);
+	vertices.merge(rhs.vertices);
+	renumber();
+	rhs.polygons.clear();
+	rhs.faces.clear();
+	rhs.vertices.clear();
+}
+
+void PolygonFactory::renumber()
+{
+	nextId = 0;
+	for (auto p : polygons) {
+		p->setId(nextId++);
+	}
 }
