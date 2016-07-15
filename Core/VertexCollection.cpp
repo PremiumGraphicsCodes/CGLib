@@ -134,3 +134,9 @@ void VertexCollection::add(Vertex* v)
 {
 	vertices.push_back(v);
 }
+
+void VertexCollection::remove(Vertex* v)
+{
+	vertices.remove(v);
+	delete v;
+}

@@ -52,6 +52,8 @@ public:
 
 	void add(Vertex* v);
 
+	void remove(Vertex* v);
+
 private:
 	std::list<Vertex*> vertices;
 	unsigned int nextId;

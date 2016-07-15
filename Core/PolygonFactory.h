@@ -60,6 +60,8 @@ public:
 
 	void merge(PolygonFactory& rhs);
 
+	void remove(PolygonMesh* p);
+
 private:
 	VertexCollection vertices;
 	FaceCollection faces;

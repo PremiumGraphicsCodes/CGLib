@@ -306,3 +306,21 @@ void PolygonFactory::renumber()
 		p->setId(nextId++);
 	}
 }
+
+void PolygonFactory::remove(PolygonMesh* p)
+{
+	if (p == nullptr) {
+		return;
+	}
+	auto vs = p->getVertices();
+	for (auto v : vs) {
+		vertices.remove(v);
+	}
+	auto fs = p->getFaces();
+	for (auto f : fs) {
+		faces.remove(f);
+	}
+	polygons.remove(p);
+	delete p;
+	renumber();
+}

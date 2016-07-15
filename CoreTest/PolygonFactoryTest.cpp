@@ -17,5 +17,15 @@ TEST(PolygonFactoryTest, TestMerge)
 	 EXPECT_EQ(0, f2.getFaces().size());
 	 EXPECT_EQ(6, f1.getVertices().size());
 	 EXPECT_EQ(0, f2.getVertices().size());
+}
 
+TEST(PolygonFactoryTest, TestRemove)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonFactory factory;
+	auto f = factory.create(t1.toCurve3d());
+	factory.remove(f);
+	EXPECT_EQ(0, factory.getFaces().size());
+	EXPECT_EQ(0, factory.getVertices().size());
+	EXPECT_EQ(0, factory.getPolygons().size());
 }
