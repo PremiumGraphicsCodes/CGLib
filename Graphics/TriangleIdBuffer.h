@@ -39,6 +39,8 @@ public:
 
 	void add(const Core::PolygonMesh& surface, const unsigned char groupId);
 
+	void add(const Core::PolygonFactory& factory, const unsigned char groupdId);
+
 	void clear();
 
 	Buffer3d<float> getPositions() const { return positions; }

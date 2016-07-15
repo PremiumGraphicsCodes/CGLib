@@ -55,3 +55,21 @@ void LineIdBuffer::add(const Polyline3d<float>& polyline, const DrawableID& did)
 		add(l, did);
 	}
 }
+
+void LineIdBuffer::add(const PolygonFactory& factory, const DrawableID& did)
+{
+	const auto& vertices = factory.getVertices();
+	for (const auto& v : vertices) {
+		this->position.add(v->getPosition());
+		this->idColors.add(did.toColor());
+	}
+	const auto& faces = factory.getFaces();
+	for (const auto& f : faces) {
+		this->ids.push_back(f->getV1()->getId());
+		this->ids.push_back(f->getV2()->getId());
+		this->ids.push_back(f->getV2()->getId());
+		this->ids.push_back(f->getV3()->getId());
+		this->ids.push_back(f->getV3()->getId());
+		this->ids.push_back(f->getV1()->getId());
+	}
+}
