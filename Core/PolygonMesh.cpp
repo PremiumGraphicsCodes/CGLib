@@ -71,10 +71,19 @@ void PolygonMesh::simplify(const Edge& e)
 	e.getEnd()->moveTo(center.getPosition());
 }
 
+void PolygonMesh::removeOverlappedVertices()
+{
+	VertexCollection vc(vertices);
+	vc.sort();
+	this->vertices = vc.get();
+}
+
 
 void PolygonMesh::cleaning()
 {
-	vertices.cleaning();
+	VertexCollection vc(vertices);
+	vc.cleaning();
+	this->vertices = vc.get();
 	//faces.cleaning();
 }
 
@@ -85,7 +94,7 @@ void PolygonMesh::add(Face* f)
 
 void PolygonMesh::add(Vertex* v)
 {
-	vertices.add(v);
+	vertices.push_back(v);
 }
 
 bool PolygonMesh::has(Face* f)
@@ -101,4 +110,9 @@ bool PolygonMesh::has(Face* f)
 void PolygonMesh::remove(Face* f)
 {
 	faces.remove(f);
+}
+
+PolygonMesh* PolygonMesh::clone(const int id)
+{
+	return new PolygonMesh(vertices, faces, id);
 }

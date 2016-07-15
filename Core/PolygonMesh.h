@@ -19,8 +19,7 @@ class PolygonMesh : private UnCopyable
 {
 public:
 	PolygonMesh(const unsigned int id = -1) :
-		id(id),
-		nextIndexId(0)
+		id(id)
 	{}
 
 	PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Face*>& faces, const unsigned int id = -1);
@@ -29,7 +28,7 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	void removeOverlappedVertices() { vertices.sort(); }
+	void removeOverlappedVertices();
 
 	VertexCollection getVertices() const { return vertices; }
 
@@ -73,10 +72,11 @@ public:
 
 	void remove(Face* f);
 
+	PolygonMesh* clone(const int id);
+
 private:
-	unsigned int nextIndexId;
 	const unsigned int id;
-	VertexCollection vertices;
+	std::list<Vertex*> vertices;
 	std::list<Face*> faces;
 };
 
