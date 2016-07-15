@@ -180,7 +180,7 @@ void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
 	polygon->add(f1);
 	polygon->add(f2);
 	faces.renumber();
-	vertices.cleaning();
+	vertices.renumber();
 }
 
 void PolygonFactory::splitByBottom(PolygonMesh* polygon,Face* f)
@@ -262,8 +262,81 @@ PolygonMesh* PolygonFactory::create(const Volume& volume, float isolevel)
 		faces.push_back(f);
 		//factory.create(t.toCurve3d());
 	}
-	auto newMesh = create(vertices, faces);
-	newMesh->removeOverlappedVertices();
+	VertexCollection vc(vertices);
+	vc.sort();
+	auto newMesh = create(vc.get(), faces);
+	return newMesh;
+}
+
+#include "OctTree.h"
+
+#include "VolumeCell.h"
+#include "ParticleObject.h"
+
+#include "../Math/SPHKernel.h"
+
+namespace {
+	Crystal::Math::SPHKernel<float> kernel;
+	float getPoly6Kernel(const float distance, const float effectLength) {
+		return kernel.getPoly6Kernel(distance, effectLength);
+	}
+}
+
+
+
+PolygonMesh* PolygonFactory::create(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Space3d<float>& space)
+{
+	OctTree tree(space);
+	const auto& particles = particle.getParticles();
+	for (auto& p : particles) {
+		tree.add(p);
+	}
+	std::vector<VolumeCell> cells;
+	const auto& children = tree.createChildren(levelOfDetail);//Vector3d<float>(effectLength,effectLength,effectLength));
+	for (const auto& c : children) {
+		const auto& box = c.getBoundingBox();
+		const auto& poss = box.toSpace().toArray();
+		std::array<float, 8> values;
+		values.fill(0.0f);
+		for (int i = 0; i < 8; ++i) {
+			for (const auto& particle : c.getParticles()) {
+				const auto dist2 = poss[i].getDistanceSquared(particle->getPosition());
+				const auto radiusSquared = particle->getBoundingRadius() * particle->getBoundingRadius();
+				if (dist2 < radiusSquared) {
+					//const auto value = kernel.getPoly6Kernel(std::sqrt(dist2), std::sqrt(radiusSquared)) * particle->getDensity();
+					const auto diff = poss[i] - particle->getPosition();
+					const auto& m = particle->getMatrix().getInverse(); //getScaled(1.0 / particle->getBoundingRadius());
+																		//				const auto mm = Matrix3d<float>(1.0 / particle->getRadii().getX(), 0, 0, 0, 1.0 / particle->getRadii().getY(), 0, 0, 0, 1.0 / particle->getRadii().getZ());
+					const auto value = kernel.getCubicSpline(diff, m) * particle->getDensity();
+					values[i] += value;
+				}
+			}
+		}
+		VolumeCell cell(c.getBoundingBox().toSpace(), values);
+		cells.emplace_back(cell);
+	}
+	std::vector<Triangle3d<float>> triangles;
+	for (const auto& cell : cells) {
+		const auto& ts = cell.toTriangles(isolevel);
+		triangles.insert(triangles.end(), ts.begin(), ts.end());
+	}
+	std::list<Vertex*> vertices;
+	std::list<Face*> faces;
+	for (const auto& t : triangles) {
+		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
+		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
+		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
+		auto f = new Face(v1, v2, v3);
+		vertices.push_back(v1);
+		vertices.push_back(v2);
+		vertices.push_back(v3);
+		faces.push_back(f);
+		//factory.create(t.toCurve3d());
+	}
+	VertexCollection vc(vertices);
+	vc.sort();
+	auto newMesh = create(vc.get(), faces);
+	//newMesh->removeOverlappedVertices();
 	return newMesh;
 }
 
@@ -305,6 +378,8 @@ void PolygonFactory::renumber()
 	for (auto p : polygons) {
 		p->setId(nextId++);
 	}
+	vertices.renumber();
+	faces.renumber();
 }
 
 void PolygonFactory::remove(PolygonMesh* p)

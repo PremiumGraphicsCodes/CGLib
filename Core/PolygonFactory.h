@@ -8,6 +8,7 @@
 namespace Crystal {
 	namespace Core {
 		class Volume;
+		class ParticleObject;
 
 class PolygonFactory : private UnCopyable
 {
@@ -31,6 +32,8 @@ public:
 	PolygonMesh* create(const Math::TriangleCurve3d<float>& curve);
 
 	PolygonMesh* create(const Volume& volume, float isolevel);
+
+	PolygonMesh* create(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Math::Space3d<float>& space);
 
 	void renumber();
 

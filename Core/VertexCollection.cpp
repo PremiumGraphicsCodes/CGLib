@@ -110,7 +110,7 @@ Vertex* VertexCollection::findById(const int id) const
 void VertexCollection::merge(VertexCollection& rhs)
 {
 	vertices.insert(vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
-	cleaning();
+	renumber();
 	rhs.vertices.clear();
 }
 
@@ -122,7 +122,7 @@ void VertexCollection::clear()
 	vertices.clear();
 }
 
-void VertexCollection::cleaning()
+void VertexCollection::renumber()
 {
 	int nextId = 0;
 	for (auto v : vertices) {

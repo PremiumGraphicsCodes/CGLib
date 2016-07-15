@@ -82,7 +82,7 @@ void PolygonMesh::removeOverlappedVertices()
 void PolygonMesh::cleaning()
 {
 	VertexCollection vc(vertices);
-	vc.cleaning();
+	vc.renumber();
 	this->vertices = vc.get();
 	//faces.cleaning();
 }
