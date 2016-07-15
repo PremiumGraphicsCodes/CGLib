@@ -4,13 +4,13 @@
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-bool FrameBuffer::build(int width, int height)
+void FrameBuffer::build(int width, int height)
 {
 	this->width = width;
 	this->height = height;
 	glGenFramebuffers(1, &frameBuffer);
 
-	return (GL_NO_ERROR == glGetError());
+	assert(GL_NO_ERROR == glGetError());
 }
 
 void FrameBuffer::setTexture(const TextureObject& texture)
@@ -24,17 +24,18 @@ void FrameBuffer::setTexture(const TextureObject& texture)
 
 }
 
-bool FrameBuffer::bind()
+void FrameBuffer::bind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	//glBindTexture(GL_TEXTURE_2D, texture.getId());
-	return (GL_NO_ERROR == glGetError());
+	assert(GL_NO_ERROR == glGetError());
 }
 
-bool FrameBuffer::unbind(){
+void FrameBuffer::unbind()
+{
 	//glBindTexture(GL_TEXTURE_2D, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	return (GL_NO_ERROR == glGetError());
+	assert(GL_NO_ERROR == glGetError());
 }
 
 #include <iostream>

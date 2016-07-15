@@ -18,13 +18,13 @@ public:
 		unbind();
 	}
 
-	bool build(int width, int height);
+	void build(int width, int height);
 
 	void setTexture(const TextureObject& texture);
 
-	bool bind();
+	void bind();
 
-	bool unbind();
+	void unbind();
 
 	Graphics::Image toImage() const;
 
