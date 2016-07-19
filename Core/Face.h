@@ -40,7 +40,7 @@ public:
 
 	void changeId(const int id) { this->id = id; }
 
-
+	bool isDegenerated() const;
 
 	//std::array< Vertex*, 3> getVertexIds() const;
 

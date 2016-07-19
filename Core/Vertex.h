@@ -43,6 +43,8 @@ public:
 
 	std::list<Vertex*> getNeighbors() const;
 
+	std::list<Vertex*> getNeighbors(const float length) const;
+
 private:
 	unsigned int id;
 	std::list<Face*> faces;

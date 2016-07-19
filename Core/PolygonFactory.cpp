@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PolygonFactory.h"
 #include "NodeGrid.h"
-
+#include "Edge.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -21,7 +21,7 @@ void PolygonFactory::add(PolygonMesh* p)
 	auto vs = p->getVertices();
 	this->vertices.merge(vs);
 	auto fs = p->getFaces();
-	this->faces.merge(fs);
+	this->faces.merge(FaceCollection(fs));
 	polygons.push_back(p);
 }
 
@@ -171,17 +171,25 @@ PolygonMesh* PolygonFactory::create(const TriangleCurve3d<float>& curve)
 
 void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
 {
-	Vertex* center = vertices.create(f->getCenterPoint());
-	auto f1 = faces.create(f->getV1(), f->getV2(), center);
-	auto f2 = faces.create(f->getV2(), f->getV3(), center);
-	f->replace(f->getV2(), center);
+	addVertex(f, f->getCenterPoint());
+}
 
-	polygon->add(center);
+void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
+{
+	auto v = vertices.create(point);
+	auto f1 = faces.create(f->getV1(), f->getV2(), v);
+	auto f2 = faces.create(f->getV2(), f->getV3(), v);
+	f->replace(f->getV2(), v);
+
+	auto polygon = find(f);
+	polygon->add(v);
 	polygon->add(f1);
 	polygon->add(f2);
 	faces.renumber();
 	vertices.renumber();
+
 }
+
 
 void PolygonFactory::splitByBottom(PolygonMesh* polygon,Face* f)
 {
@@ -398,4 +406,47 @@ void PolygonFactory::remove(PolygonMesh* p)
 	polygons.remove(p);
 	delete p;
 	renumber();
+}
+
+void PolygonFactory::remove(Face* f)
+{
+	auto polygon = find(f);
+	polygon->remove(f);
+	faces.remove(f);
+	//findPo
+}
+
+/*
+PolygonMesh* PolygonFactory::find(Face* f)
+{
+	for (auto p : polygons) {
+		if (p->has(f)) {
+			return p;
+		}
+	}
+	return nullptr;
+}
+*/
+void PolygonFactory::simplify(PolygonMesh* p, int howMany)
+{
+	for (int i = 0; i < howMany; ++i) {
+		auto edge = p->getShortestEdge();
+		p->simplify(edge);
+	}
+	cleaning();
+}
+
+void PolygonFactory::cleaning()
+{
+	std::list<Face*> degenerateds;
+	for (auto f : faces) {
+		if (f->isDegenerated()) {
+			degenerateds.push_back(f);
+		}
+	}
+	for (auto f : degenerateds) {
+		remove(f);
+	}
+
+	faces.renumber();
 }

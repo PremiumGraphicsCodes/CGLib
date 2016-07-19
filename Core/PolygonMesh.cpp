@@ -64,11 +64,28 @@ void PolygonMesh::smooth(Vertex* center)
 	center->moveTo(position);
 }
 
+Edge PolygonMesh::getShortestEdge()
+{
+	std::list<Edge> edges;
+	auto minEdge = faces.front()->toEdges().front();
+	for (auto f : faces) {
+		auto edges = f->toEdges();
+		for (auto e : edges) {
+			if (e.getLength() < minEdge.getLength()) {
+				minEdge = e;
+			}
+		}
+	}
+	return minEdge;
+}
+
+
 void PolygonMesh::simplify(const Edge& e)
 {
 	auto center = e.getMidPoint();
 	e.getStart()->moveTo(center.getPosition());
 	e.getEnd()->moveTo(center.getPosition());
+	removeOverlappedVertices();
 }
 
 void PolygonMesh::removeOverlappedVertices()
@@ -116,3 +133,4 @@ PolygonMesh* PolygonMesh::clone(const int id)
 {
 	return new PolygonMesh(vertices, faces, id);
 }
+

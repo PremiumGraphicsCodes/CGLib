@@ -275,20 +275,19 @@ bool OBJFile::write(const std::string& path, const std::string& filename, const 
 
 bool OBJFile::write(std::ostream& stream, const PolygonMesh& mesh)
 {
-	const auto& positions = mesh.getPositions();
-	const auto& normals = mesh.getNormals();
+	const auto& vertices = mesh.getVertices();
 	const auto& faces = mesh.getFaces();
 
 	//for (const auto& v : positions) {
-	for (unsigned int i = 0; i < positions.size(); ++i) {
-		const auto pos = positions[i];
+	for (const auto& v : vertices) {
+		const auto pos = v->getPosition();
 		char s[256];
 		sprintf_s(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
 		stream << s << std::endl;
 	}
 
-	for (unsigned int i = 0; i < normals.size(); ++i ){
-		const auto vn = normals[i];
+	for (const auto& v : vertices) {
+		const auto vn = v->getNormal();
 		char s[256];
 		sprintf_s(s, "vn %.4lf %.4lf %.4lf", vn.getX(), vn.getY(), vn.getZ());
 		stream << s << std::endl;

@@ -46,7 +46,7 @@ void FaceCollection::cleaning()
 {
 	std::list<Face*> shrinked;
 	for (auto f : faces) {
-		if (f->getArea() < Tolerance<float>::getLooseTolerance()) {
+		if (f->isDegenerated()) {
 			shrinked.push_back(f);
 		}
 	}

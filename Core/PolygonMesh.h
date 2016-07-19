@@ -36,25 +36,9 @@ public:
 
 	void transform(const Math::Matrix4d<float>& matrix);
 
-	std::vector<Math::Vector3d<float>> getPositions() const{
-		std::vector<Math::Vector3d<float>> positions;
-		for (auto p : vertices) {
-			positions.push_back(p->getPosition());
-		}
-		return positions;
-	}
-
-	std::vector<Math::Vector3d<float>> getNormals() const {
-		std::vector<Math::Vector3d<float>> positions;
-		for (auto p : vertices) {
-			positions.push_back(p->getNormal());
-		}
-		return positions;
-	}
-
 	//std::vector<Math::Vector3d<float>> getTexCoords() const { return texCoords; }
 
-	FaceCollection getFaces() const { return faces; }
+	std::list<Face*> getFaces() const { return faces; }
 
 	std::vector<int> toIndices() const;
 
@@ -75,6 +59,10 @@ public:
 	void remove(Face* f);
 
 	PolygonMesh* clone(const int id);
+
+	Edge getShortestEdge();
+
+	//std::list<Vertex*> getNeighbors(Vertex* v, const float length);
 
 private:
 	unsigned int id;

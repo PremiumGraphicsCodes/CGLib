@@ -45,6 +45,8 @@ public:
 
 	void splitByNode(PolygonMesh* polygon, Face* f);
 
+	void addVertex(Face* f, const Math::Point3d<float>& point);
+
 	PolygonMesh* create(std::list<Vertex*>& vertices, std::list<Face*>& faces);
 
 	PolygonMesh* create(VertexCollection& vertices, FaceCollection& faces);
@@ -64,6 +66,12 @@ public:
 	void merge(PolygonFactory& rhs);
 
 	void remove(PolygonMesh* p);
+
+	void remove(Face* f);
+
+	//PolygonMesh* find(Face* f);
+
+	void simplify(PolygonMesh* p, int howMany);
 
 private:
 	VertexCollection vertices;

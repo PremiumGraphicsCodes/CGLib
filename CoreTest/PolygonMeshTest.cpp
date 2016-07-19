@@ -99,21 +99,70 @@ TEST(PolygonMeshTest, TestSplitByCenter)
 */
 
 #include "../Core/Edge.h"
+
+TEST(PolygonMeshTest, TestGetShortestEdge)
+{
+	Quad<float> q(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonFactory factory;
+	auto polygon = factory.create(q.toCurve3d());
+	factory.splitByCenter(polygon, polygon->getFaces().front());
+	auto actual = polygon->getShortestEdge();
+	EXPECT_FLOAT_EQ(0.4714045, actual.getLength());
+}
+
 /*
 TEST(PolygonMeshTest, TestSimplify)
 {
 	Quad<float> q(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonFactory factory;
-	factory.add( q.toCurve3d() );
-	auto polygon = factory.create(0);
-	auto v0 = polygon->getVertices().get().front();
-	auto v1 = polygon->getVertices().get().front();
-	Edge e(v0, v1, 0);
-	polygon->simplify(e);
+	auto polygon = factory.create(q.toCurve3d());
+	factory.splitByCenter(polygon, polygon->getFaces().front());
+	auto edge = polygon->getShortestEdge();
+	polygon->simplify(edge);
 	auto faces = polygon->getFaces();
+	for (auto f : faces) {
+		if (f->getArea() < Tolerance<float>::getLooseTolerance()) {
+			factory.remove(f);
+		}
+	}
 	polygon->cleaning();
 	EXPECT_EQ(1, polygon->getFaces().size());
 	EXPECT_EQ(3, polygon->getVertices().size());
 
+}
+
+/*
+class PolygonReductionAlgo
+{
+public:
+	void collapse(Vertex* u, Vertex* v) {
+		if (!u) {
+			delete u;
+			return;
+		}
+		auto neighbors = u->getNeighbors();
+		auto faces = u->getFaces();
+		for (auto f : faces) {
+			if (f->has(v)) {
+				factory.remove(f);
+			}
+		}
+		auto faces = u->getFaces();
+		for (auto f : faces) {
+			f->replace(u, v);
+		}
+		delete u;
+
+	}
+
+	void reduce(PolygonMesh* polygon) {
+	}
+private:
+	PolygonFactory& factory;
+};
+
+TEST(PolygonReductionTest, Test)
+{
+	PolygonReductionAlgo algo;
 }
 */

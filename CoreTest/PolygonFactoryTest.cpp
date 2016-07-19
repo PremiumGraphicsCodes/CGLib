@@ -29,3 +29,11 @@ TEST(PolygonFactoryTest, TestRemove)
 	EXPECT_EQ(0, factory.getVertices().size());
 	EXPECT_EQ(0, factory.getPolygons().size());
 }
+
+TEST(PolygonFactoryTest, TestSimplify)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonFactory factory;
+	auto p = factory.create(t1.toCurve3d());
+	factory.simplify(p, 1);
+}

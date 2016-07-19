@@ -67,3 +67,16 @@ std::list<Vertex*> Vertex::getNeighbors() const
 	neighbors.unique();
 	return neighbors;
 }
+
+std::list<Vertex*> Vertex::getNeighbors(const float length) const
+{
+	auto neighbors = getNeighbors();
+	for (auto n : neighbors) {
+		if (n->getPosition().getDistanceSquared(this->getPosition()) < length * length) {
+			neighbors.push_back(n);
+		}
+	}
+	neighbors.sort();
+	neighbors.unique();
+	return neighbors;
+}

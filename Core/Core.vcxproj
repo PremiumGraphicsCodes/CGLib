@@ -24,6 +24,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="EdgeCollection.cpp" />
     <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="Joint.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="TriangleCell.h" />
