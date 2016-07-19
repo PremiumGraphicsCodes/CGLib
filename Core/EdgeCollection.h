@@ -12,6 +12,8 @@ class EdgeCollection
 public:
 	EdgeCollection();
 
+	EdgeCollection(const std::vector<Edge*>& edges);
+
 	EdgeCollection(const std::list<Edge*>& edges);
 
 	~EdgeCollection();

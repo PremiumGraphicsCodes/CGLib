@@ -2,6 +2,7 @@
 #include "../Core/VolumeNode.h"
 #include "../Core/Volume.h"
 #include "../Core/PolygonMesh.h"
+#include "../Core/PolygonBuilder.h"
 #include "../Core/ParticleObject.h"
 
 #include <memory>

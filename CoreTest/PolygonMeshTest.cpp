@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "../Core/PolygonMesh.h"
 #include "../Core/PolygonFactory.h"
-
+#include "../Core/PolygonBuilder.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

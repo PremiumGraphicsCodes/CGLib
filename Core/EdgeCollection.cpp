@@ -8,6 +8,14 @@ EdgeCollection::EdgeCollection() :
 	nextId(0)
 {}
 
+EdgeCollection::EdgeCollection(const std::vector<Edge*>& edges) :
+	edges(edges.begin(), edges.end()),
+	nextId(0)
+{
+
+}
+
+
 EdgeCollection::EdgeCollection(const std::list<Edge*>& edges) :
 	edges(edges),
 	nextId(0)

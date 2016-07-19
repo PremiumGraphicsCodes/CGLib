@@ -916,6 +916,7 @@ void PMDFile::add(const ActorObject& actor)
 
 PolygonMesh* PMDFile::toPolygonObject() const
 {
+	PolygonBuilder builder;
 	auto vs = this->vertices.get();
 	VertexCollection vertices;
 	std::vector<Vertex*> createdVs;
@@ -929,9 +930,9 @@ PolygonMesh* PMDFile::toPolygonObject() const
 		auto v1 = createdVs[i];
 		auto v2 = createdVs[i + 1];
 		auto v3 = createdVs[i + 2];
-		faces.create(createdVs[i], createdVs[i + 1], createdVs[i + 2]);
+		builder.createFace(createdVs[i], createdVs[i + 1], createdVs[i + 2]);
 	}
-	return new PolygonMesh(vertices.get(), faces.get(), 0);
+	return builder.build(0);
 }
 
 #include "File.h"

@@ -84,7 +84,7 @@ PolygonMesh* OBJFile::toPolygonObject()
 {
 	VertexCollection vertices;
 	FaceCollection faces;
-	PolygonFactory factory;
+	PolygonBuilder builder;
 	unsigned int currentIndex = 0;
 	for(const auto count : faceCounts) {
 		std::vector<Vertex*> vv;
@@ -105,9 +105,9 @@ PolygonMesh* OBJFile::toPolygonObject()
 		}
 
 		currentIndex += count;
-		factory.createFaces(vv);
+		builder.createFaces(vv);
 	}
-	return factory.create(0);
+	return builder.build(0);
 }
 
 bool OBJFile::read(const File& file)

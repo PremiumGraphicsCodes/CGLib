@@ -59,6 +59,7 @@ TEST(EdgeTest, TestIsCollapsed)
 	EXPECT_TRUE( e2.isCollapsed());
 }
 
+/*
 #include "../Core/Face.h"
 
 TEST(EdgeTest, TestCalculateCollapseCost)
@@ -79,3 +80,4 @@ TEST(EdgeTest, TestCalculateCollapseCost)
 	const Edge e4(&n3, &n4, 0);
 	EXPECT_FLOAT_EQ(e4.getLength(), e4.calculateCollapseCost());
 }
+*/

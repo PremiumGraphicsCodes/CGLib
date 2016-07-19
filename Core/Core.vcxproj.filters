@@ -65,6 +65,9 @@
     <ClCompile Include="EdgeCollection.cpp">
       <Filter>PolygonMesh</Filter>
     </ClCompile>
+    <ClCompile Include="PolygonBuilder.cpp">
+      <Filter>PolygonMesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -136,6 +139,9 @@
       <Filter>PolygonMesh</Filter>
     </ClInclude>
     <ClInclude Include="EdgeCollection.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonBuilder.h">
       <Filter>PolygonMesh</Filter>
     </ClInclude>
   </ItemGroup>
