@@ -19,9 +19,9 @@ Face::Face(const std::array<Edge*, 3>& edges, const int id) :
 	edges( edges ),
 	id(id)
 {
-	getV1()->addFace(this);
-	getV2()->addFace(this);
-	getV3()->addFace(this);
+	edges[0]->setFace(this);
+	edges[1]->setFace(this);
+	edges[2]->setFace(this);
 }
 
 Vertex* Face::find(Vertex* v)

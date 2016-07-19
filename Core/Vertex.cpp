@@ -52,16 +52,11 @@ float Vertex::calculateCollapseCost()
 std::list<Vertex*> Vertex::getNeighbors() const
 {
 	std::list<Vertex*> neighbors;
-	for (auto f : faces) {
-		if (f->getV1() != this) {
-			neighbors.push_back(f->getV1());
-		}
-		if (f->getV2() != this) {
-			neighbors.push_back(f->getV2());
-		}
-		if (f->getV3() != this) {
-			neighbors.push_back(f->getV3());
-		}
+	for (auto in : inEdges) {
+		neighbors.push_back(in->getStart());
+	}
+	for (auto out : outEdges) {
+		neighbors.push_back(out->getEnd());
 	}
 	neighbors.sort();
 	neighbors.unique();

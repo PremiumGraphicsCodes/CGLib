@@ -210,8 +210,8 @@ void PolygonBuilder::createFaces(const std::vector<Vertex*>& vertices)
 		Edge* e3 = new Edge(v2, origin);
 
 		fs.push_back(new Face(e1, e2, e3));
-		v1->addFace(fs.back());
-		v2->addFace(fs.back());
+		//v1->addFace(fs.back());
+		//v2->addFace(fs.back());
 	}
 }
 
@@ -224,9 +224,9 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	edges.push_back(e2);
 	edges.push_back(e3);
 	auto f = new Face(e1, e2, e3);
-	v1->addFace(f);
-	v2->addFace(f);
-	v3->addFace(f);
+	e1->setFace(f);
+	e2->setFace(f);
+	e3->setFace(f);
 	v1->addIn(e3);
 	v1->addOut(e2);
 	v2->addIn(e1);

@@ -89,6 +89,7 @@ bool Edge::isIsolated() const
 
 float Edge::calculateCollapseCost() const
 {
+	/*
 	const auto length = getLength();
 	float curvature = 0;
 
@@ -108,6 +109,8 @@ float Edge::calculateCollapseCost() const
 		curvature = std::max(curvature, minCurve);
 	}
 	return length * curvature;
+	*/
+	return 0.0f;
 }
 
 bool Edge::isDegenerated() const

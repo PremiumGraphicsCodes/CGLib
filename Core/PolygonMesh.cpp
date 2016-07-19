@@ -55,7 +55,7 @@ std::vector<int> PolygonMesh::toIndices() const
 
 void PolygonMesh::smooth(Vertex* center)
 {
-	auto& fs = center->getFaces();
+	//auto& fs = center->getFaces();
 	std::list<Vertex*> neighbors = center->getNeighbors();
 	Vector3d<float> position = center->getPosition();
 	for (auto& n : neighbors) {
