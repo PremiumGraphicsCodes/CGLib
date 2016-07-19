@@ -56,9 +56,11 @@ void Face::replace(Vertex* oldVertex, Vertex* newVertex)
 	else if (oldVertex == vertices[2]) {
 		vertices[2] = newVertex;
 	}
+	/*
 	else {
 		assert(false);
 	}
+	*/
 }
 
 Point3d<float> Face::getCenterPoint() const {

@@ -20,6 +20,7 @@
     <ClCompile Include="PolygonMeshTest.cpp" />
     <ClCompile Include="FaceTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
+    <ClCompile Include="PolygonBuilderTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

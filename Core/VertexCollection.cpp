@@ -32,6 +32,7 @@ namespace {
 			for (auto f : faces) {
 				f->replace(v2, v1);
 			}
+			v1->merge(v2);
 			v1->normalize(*v2);
 			delete v2;
 			//v2 = nullptr;

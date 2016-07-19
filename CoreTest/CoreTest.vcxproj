@@ -29,6 +29,7 @@
     <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
+    <ClCompile Include="PolygonBuilderTest.cpp" />
     <ClCompile Include="PolygonFactoryTest.cpp" />
     <ClCompile Include="PolygonMeshTest.cpp" />
     <ClCompile Include="SpaceHashTest.cpp" />

@@ -13,6 +13,7 @@ namespace Crystal {
 
 class Vertex;
 class Face;
+class Edge;
 
 class Vertex : public Math::Point3d<float>
 {
@@ -26,9 +27,17 @@ public:
 	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord, const unsigned int id = -1);
 
 	void addFace(Face* f) {
-		this->faces.push_back( f );
+		this->faces.push_back(f);
 		this->faces.sort();
 		this->faces.unique();
+	}
+
+	void addIn(Edge* e) {
+		this->inEdges.push_back(e);
+	}
+
+	void addOut(Edge* e) {
+		this->outEdges.push_back(e);
 	}
 
 	std::list< Face* > getFaces() const { return faces; }
@@ -45,8 +54,16 @@ public:
 
 	std::list<Vertex*> getNeighbors(const float length) const;
 
+	std::list<Edge*> getInEdges() const { return inEdges; }
+
+	std::list<Edge*> getOutEdges() const { return outEdges; }
+
+	void merge(Vertex* rhs);
+
 private:
 	unsigned int id;
+	std::list<Edge*> inEdges;
+	std::list<Edge*> outEdges;
 	std::list<Face*> faces;
 };
 

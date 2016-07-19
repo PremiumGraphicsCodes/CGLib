@@ -80,3 +80,16 @@ std::list<Vertex*> Vertex::getNeighbors(const float length) const
 	neighbors.unique();
 	return neighbors;
 }
+
+void Vertex::merge(Vertex* rhs)
+{
+	inEdges.insert(inEdges.end(), rhs->inEdges.begin(), rhs->inEdges.end());
+	outEdges.insert(outEdges.end(), rhs->outEdges.begin(), rhs->outEdges.end());
+	for (auto in : inEdges) {
+		in->changeEnd(this);
+	}
+	for (auto out : outEdges) {
+		out->changeStart(this);
+	}
+	
+}

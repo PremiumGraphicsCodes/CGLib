@@ -29,6 +29,14 @@ PolygonMesh* PolygonBuilder::build(int id)
 	return new PolygonMesh(vc.get(), fc.get(), id);
 }
 
+PolygonBuilder::PolygonBuilder(const std::vector<Vertex*>& vertices, const std::vector<Face*>& faces, const std::vector<Edge*>& edges) :
+	vertices(vertices),
+	faces(faces),
+	edges(edges)
+{
+}
+
+
 PolygonBuilder::PolygonBuilder(const Volume& volume, float isolevel)
 {
 	const auto& triangles = volume.toTriangles(isolevel);
@@ -96,7 +104,7 @@ PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isole
 		//factory.create(t.toCurve3d());
 	}
 	VertexCollection vc(vertices);
-	//vc.sort();
+	vc.sort();
 	this->vertices = std::vector<Vertex*>(vc.begin(), vc.end());
 	//newMesh->removeOverlappedVertices();
 }
@@ -216,5 +224,21 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	edges.push_back(e2);
 	edges.push_back(e3);
 	auto f = new Face(e1, e2, e3);
+	v1->addFace(f);
+	v2->addFace(f);
+	v3->addFace(f);
+	v1->addIn(e3);
+	v1->addOut(e2);
+	v2->addIn(e1);
+	v2->addOut(e3);
+	v3->addIn(e2);
+	v3->addOut(e1);
 	faces.push_back(f);
+}
+
+void PolygonBuilder::clean()
+{
+	VertexCollection vs(vertices);
+	vs.sort();
+	this->vertices = std::vector<Vertex*>(vs.begin(), vs.end());
 }
