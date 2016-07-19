@@ -13,6 +13,11 @@ EdgeCollection::EdgeCollection(const std::list<Edge*>& edges) :
 	nextId(0)
 {}
 
+EdgeCollection::~EdgeCollection()
+{
+	//clear();
+}
+
 void EdgeCollection::merge(EdgeCollection& rhs)
 {
 	this->edges.insert(this->edges.end(), rhs.edges.begin(), rhs.edges.end());

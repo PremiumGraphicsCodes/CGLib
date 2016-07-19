@@ -8,6 +8,13 @@ FaceCollection::FaceCollection() :
 	nextId(0)
 {}
 
+FaceCollection::FaceCollection(const std::vector<Face*>& faces) :
+	nextId(0),
+	faces(faces.begin(), faces.end())
+{
+}
+
+
 FaceCollection::FaceCollection(const std::list<Face*>& faces) :
 	faces(faces),
 	nextId(0)
@@ -24,12 +31,9 @@ void FaceCollection::merge(FaceCollection& rhs)
 	rhs.faces.clear();
 }
 
-Face* FaceCollection::create(Vertex* v1, Vertex* v2, Vertex* v3)
+Face* FaceCollection::create(Edge* v1, Edge* v2, Edge* v3)
 {
 	auto f = new Face(v1, v2, v3);
-	v1->addFace(f);
-	v2->addFace(f);
-	v3->addFace(f);
 	faces.push_back(f);
 	return f;
 }

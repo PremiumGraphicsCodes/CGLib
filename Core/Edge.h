@@ -13,7 +13,7 @@ class Face;
 class Edge
 {
 public:
-	Edge(Vertex* start, Vertex* end, int id);
+	Edge(Vertex* start, Vertex* end, int id = -1);
 
 	int getId() const { return id; }
 

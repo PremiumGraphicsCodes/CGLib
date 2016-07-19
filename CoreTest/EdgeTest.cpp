@@ -68,12 +68,14 @@ TEST(EdgeTest, TestCalculateCollapseCost)
 	Vertex n3(Vector3d<float>(1, 1, 0), 1);
 	Vertex n4(Vector3d<float>(-1, 1, 1), 1);
 
-	Face f(&n1, &n2, &n3);
-	const Edge e1(&n1, &n2, 0);
-	const Edge e2(&n2, &n3, 0);
-	auto actual = e1.calculateCollapseCost();
-	Face f2(&n1, &n3, &n4);
+	Edge e1(&n1, &n2);
+	Edge e2(&n2, &n3);
+	Edge e3(&n3, &n1);
 
-	const Edge e4(&n2, &n4, 0);
+	Face f1(&e1, &e2, &e3);
+	auto actual = e1.calculateCollapseCost();
+	//Edge e3(&n4, &n1);
+
+	const Edge e4(&n3, &n4, 0);
 	EXPECT_FLOAT_EQ(e4.getLength(), e4.calculateCollapseCost());
 }

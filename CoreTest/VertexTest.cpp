@@ -28,7 +28,7 @@ TEST(VertexCollectionTest, TestMerge)
 }
 
 #include "../Core/Face.h"
-
+/*
 TEST(VertexTest, TestComputeCollapseCost)
 {
 	Vertex v1(Vector3d<float>(-1, 0, 0), 0);
@@ -41,3 +41,4 @@ TEST(VertexTest, TestComputeCollapseCost)
 
 	v3.calculateCollapseCost();
 }
+*/

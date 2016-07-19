@@ -3,8 +3,46 @@
 #include "NodeGrid.h"
 #include "Edge.h"
 
+
+#include "Volume.h"
+#include "OctTree.h"
+
+#include "VolumeCell.h"
+#include "ParticleObject.h"
+
+#include "../Math/SPHKernel.h"
+
+
 using namespace Crystal::Math;
 using namespace Crystal::Core;
+
+PolygonMesh* PolygonBuilder::build(int id)
+{
+	std::list<Vertex*> vs(vertices.begin(), vertices.end());
+	std::list<Face*> fs(faces.begin(), faces.end());
+	return new PolygonMesh(vs, fs, id);
+}
+
+PolygonBuilder::PolygonBuilder(const Volume& volume, float isolevel)
+{
+	const auto& triangles = volume.toTriangles(isolevel);
+	std::list<Vertex*> vertices;
+	std::list<Face*> faces;
+	for (const auto& t : triangles) {
+		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
+		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
+		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
+		vertices.push_back(v1);
+		vertices.push_back(v2);
+		vertices.push_back(v3);
+		createFace(v1, v2, v3);
+	}
+	VertexCollection vc(vertices);
+	vc.sort();
+	auto vv = vc.get();
+	this->vertices = std::vector<Vertex*>( vv.begin(), vv.end());
+}
+
 
 PolygonFactory::PolygonFactory() :
 	nextId(0)
@@ -49,31 +87,33 @@ std::list< Face* > PolygonFactory::createFaces(const std::vector<int>& ids)
 }
 */
 
-void PolygonFactory::createFaces(const std::vector<Vertex*>& vertices)
+void PolygonBuilder::createFaces(const std::vector<Vertex*>& vertices)
 {
 	std::list< Face* > fs;
 	auto origin = vertices[0];
 	for (size_t i = 1; i < vertices.size() - 1; i++) {
 		auto v1 = vertices[i];
 		auto v2 = vertices[i + 1];
-		fs.push_back( faces.create(origin, v1, v2));
+		Edge* e1 = new Edge(origin, v1);
+		Edge* e2 = new Edge(v1, v2);
+		Edge* e3 = new Edge(v2, origin);
+
+		fs.push_back( new Face(e1, e2, e3));
 		v1->addFace( fs.back() );
 		v2->addFace( fs.back() );
 	}
 }
 
 
-PolygonMesh* PolygonFactory::create(const Curve3d<float>& curve)
+PolygonBuilder::PolygonBuilder(const Curve3d<float>& curve)
 {
-	std::list<Vertex*> createdVertices;
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
 			const auto& pos = curve.get(u, v).getPosition();
 			const auto& normal = curve.get(u, v).getNormal();
-
 			auto n = new Vertex(pos, normal, -1);
-			createdVertices.push_back(n);
+			vertices.push_back(n);
 			grid.set(u, v, n);
 		}
 	}
@@ -85,64 +125,50 @@ PolygonMesh* PolygonFactory::create(const Curve3d<float>& curve)
 		triangleCells.insert(triangleCells.end(), tCells.begin(), tCells.end());
 	}
 
-	std::list<Face*> createdFaces;
 	for (const auto& t : triangleCells) {
 		auto n0 = t.get()[0];
 		auto n1 = t.get()[1];
 		auto n2 = t.get()[2];
-		createdFaces.push_back( new Face(n0, n1, n2) );
+		createFace( n0, n1, n2 );
 	}
-	return create(createdVertices, createdFaces);
 }
 
-PolygonMesh* PolygonFactory::create(const CircularCurve3d<float>& curve)
+PolygonBuilder::PolygonBuilder(const CircularCurve3d<float>& curve)
 {
-	std::vector<Vertex*> createdVertices;
-	std::vector<Face*> createdFaces;
-
 	Vertex* centerNode = new Vertex(curve.getCenter().getPosition(), -1);
 
 	for (int i = 0; i < curve.getSize(); ++i) {
-		Vertex* node = new Vertex(curve.get(i));
-		createdVertices.push_back(node);
+		vertices.push_back( new Vertex(curve.get(i)) );
 	}
-	for (int i = 0; i < createdVertices.size() - 1; ++i) {
+	for (int i = 0; i < vertices.size() - 1; ++i) {
 		auto n0 = centerNode;
-		auto n1 = createdVertices[i];
-		auto n2 = createdVertices[i + 1];
-		auto f = new Face(n0, n1, n2);
-		createdFaces.push_back(f);
+		auto n1 = vertices[i];
+		auto n2 = vertices[i + 1];
+		createFace( n0, n1, n2);
 	}
 	{
 		auto n0 = centerNode;
-		auto n1 = createdVertices.back();
-		auto n2 = createdVertices.front();
-		auto f = new Face(n0, n1, n2);
-		createdFaces.push_back(f);
+		auto n1 = vertices.back();
+		auto n2 = vertices.front();
+		createFace(n0, n1, n2);
+		
 	}
-	createdVertices.push_back(centerNode);
-	std::list<Vertex*> vs(createdVertices.begin(), createdVertices.end());
-	std::list<Face*> fs(createdFaces.begin(), createdFaces.end());
-	return create(vs, fs);
+	vertices.push_back(centerNode);
 
 }
 
-PolygonMesh* PolygonFactory::create(const TriangleCurve3d<float>& curve)
+PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
 {
 	std::vector< TriangleCell > cells;
-
 	std::vector<std::vector<Vertex*>> createdNodes;
-
-	std::list<Vertex*> createNodes;
-	std::list<Face*> createFaces;
 
 	for (int i = 0; i < curve.getSize(); ++i) {
 		std::vector<Vertex*> ns;
 		for (int j = 0; j <= i; ++j) {
 			auto p = curve.get(i, j);
-			Vertex* node = new Vertex(curve.get(i, j), -1);
+			auto node = new Vertex( curve.get(i, j) );
+			vertices.push_back(node);
 			ns.push_back(node);
-			createNodes.push_back(node);
 		}
 		createdNodes.push_back(ns);
 	}
@@ -152,8 +178,8 @@ PolygonMesh* PolygonFactory::create(const TriangleCurve3d<float>& curve)
 			auto n0 = createdNodes[i - 1][j];
 			auto n1 = createdNodes[i][j];
 			auto n2 = createdNodes[i][j + 1];
-			auto f = new Face(n0, n1, n2);
-			createFaces.push_back(f);
+			createFace(n0, n1, n2);
+			//createFaces.push_back(f);
 		}
 	}
 	for (int i = 1; i < createdNodes.size(); ++i) {
@@ -161,12 +187,10 @@ PolygonMesh* PolygonFactory::create(const TriangleCurve3d<float>& curve)
 			auto n0 = createdNodes[i - 1][j];
 			auto n1 = createdNodes[i][j + 1];
 			auto n2 = createdNodes[i - 1][j + 1];
-			auto f = new Face(n0, n1, n2);
-			createFaces.push_back(f);
+			createFace(n0, n1, n2);
+			//createFaces.push_back(f);
 		}
 	}
-	return create(createNodes, createFaces);
-
 }
 
 void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
@@ -177,8 +201,8 @@ void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
 void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 {
 	auto v = vertices.create(point);
-	auto f1 = faces.create(f->getV1(), f->getV2(), v);
-	auto f2 = faces.create(f->getV2(), f->getV3(), v);
+	auto f1 = createFace(f->getV1(), f->getV2(), v);
+	auto f2 = createFace(f->getV2(), f->getV3(), v);
 	f->replace(f->getV2(), v);
 
 	auto polygon = find(f);
@@ -186,10 +210,9 @@ void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 	polygon->add(f1);
 	polygon->add(f2);
 	faces.renumber();
+	edges.renumber();
 	vertices.renumber();
-
 }
-
 
 void PolygonFactory::splitByBottom(PolygonMesh* polygon,Face* f)
 {
@@ -234,10 +257,11 @@ void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)
 }
 
 
-PolygonMesh* PolygonFactory::create(std::list<Vertex*>& vertices, std::list<Face*>& faces)
+PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
 {
-	auto p = new PolygonMesh(vertices, faces, nextId++);
-	this->vertices.merge(VertexCollection(vertices));
+	auto p = builder.build( nextId++);
+	this->vertices.merge(VertexCollection(builder.vertices));
+	this->edges.merge(EdgeCollection(edges));
 	this->faces.merge(FaceCollection(faces));
 	polygons.push_back(p);
 	return p;
@@ -252,37 +276,6 @@ PolygonMesh* PolygonFactory::create(VertexCollection& vertices, FaceCollection& 
 	return p;
 }
 
-#include "Volume.h"
-
-PolygonMesh* PolygonFactory::create(const Volume& volume, float isolevel)
-{
-	const auto& triangles = volume.toTriangles(isolevel);
-	std::list<Vertex*> vertices;
-	std::list<Face*> faces;
-	for (const auto& t : triangles) {
-		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
-		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
-		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
-		auto f = new Face(v1, v2, v3);
-		vertices.push_back(v1);
-		vertices.push_back(v2);
-		vertices.push_back(v3);
-		faces.push_back(f);
-		//factory.create(t.toCurve3d());
-	}
-	VertexCollection vc(vertices);
-	vc.sort();
-	auto newMesh = create(vc.get(), faces);
-	return newMesh;
-}
-
-#include "OctTree.h"
-
-#include "VolumeCell.h"
-#include "ParticleObject.h"
-
-#include "../Math/SPHKernel.h"
-
 namespace {
 	Crystal::Math::SPHKernel<float> kernel;
 	float getPoly6Kernel(const float distance, const float effectLength) {
@@ -292,7 +285,7 @@ namespace {
 
 
 
-PolygonMesh* PolygonFactory::create(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Space3d<float>& space)
+PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Space3d<float>& space)
 {
 	OctTree tree(space);
 	const auto& particles = particle.getParticles();
@@ -334,18 +327,16 @@ PolygonMesh* PolygonFactory::create(const ParticleObject& particle, const float 
 		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
 		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
 		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
-		auto f = new Face(v1, v2, v3);
+		createFace(v1, v2, v3);
 		vertices.push_back(v1);
 		vertices.push_back(v2);
 		vertices.push_back(v3);
-		faces.push_back(f);
 		//factory.create(t.toCurve3d());
 	}
 	VertexCollection vc(vertices);
 	vc.sort();
-	auto newMesh = create(vc.get(), faces);
+	this->vertices = std::vector<Vertex*>(vc.begin(), vc.end());
 	//newMesh->removeOverlappedVertices();
-	return newMesh;
 }
 
 
@@ -431,7 +422,7 @@ void PolygonFactory::simplify(PolygonMesh* p, int howMany)
 {
 	for (int i = 0; i < howMany; ++i) {
 		auto edge = p->getShortestEdge();
-		p->simplify(edge);
+		p->simplify(*edge);
 	}
 	cleaning();
 }
@@ -449,4 +440,25 @@ void PolygonFactory::cleaning()
 	}
 
 	faces.renumber();
+}
+
+void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+{
+	auto e1 = new Edge(v1, v2);
+	auto e2 = new Edge(v2, v3);
+	auto e3 = new Edge(v3, v1);
+	edges.push_back(e1);
+	edges.push_back(e2);
+	edges.push_back(e3);
+	auto f = new Face(e1, e2, e3);
+	faces.push_back(f);
+}
+
+Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+{
+	auto e1 = edges.create(v1, v2);
+	auto e2 = edges.create(v2, v3);
+	auto e3 = edges.create(v3, v1);
+	auto f = faces.create(e1, e2, e3);
+	return f;
 }

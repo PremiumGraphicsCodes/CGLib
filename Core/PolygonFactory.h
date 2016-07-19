@@ -4,11 +4,41 @@
 #include "../Util/UnCopyable.h"
 #include "PolygonMesh.h"
 #include "Face.h"
+#include "EdgeCollection.h"
 
 namespace Crystal {
 	namespace Core {
 		class Volume;
 		class ParticleObject;
+
+class PolygonBuilder
+{
+public:
+	PolygonBuilder() {}
+
+	PolygonBuilder(const Volume& volume, float isolevel);
+
+	PolygonBuilder(const Math::CircularCurve3d<float>& curve);
+
+	PolygonBuilder(const Math::Curve3d<float>& curve);
+
+	PolygonBuilder(const Math::TriangleCurve3d<float>& curve);
+
+	PolygonBuilder(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Math::Space3d<float>& space);
+
+	PolygonMesh* build(int id = -1);
+
+	void createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+
+
+public:
+	std::vector<Vertex*> vertices;
+	std::vector<Face*> faces;
+	std::vector<Edge*> edges;
+
+
+	void createFaces(const std::vector<Vertex*>& vertices);
+};
 
 class PolygonFactory : private UnCopyable
 {
@@ -25,16 +55,6 @@ public:
 
 	void add(PolygonMesh* p);
 
-	PolygonMesh* create(const Math::Curve3d<float>& curve);
-
-	PolygonMesh* create(const Math::CircularCurve3d<float>& curve);
-
-	PolygonMesh* create(const Math::TriangleCurve3d<float>& curve);
-
-	PolygonMesh* create(const Volume& volume, float isolevel);
-
-	PolygonMesh* create(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Math::Space3d<float>& space);
-
 	void renumber();
 
 	void cleaning();
@@ -47,11 +67,10 @@ public:
 
 	void addVertex(Face* f, const Math::Point3d<float>& point);
 
-	PolygonMesh* create(std::list<Vertex*>& vertices, std::list<Face*>& faces);
+	PolygonMesh* create(PolygonBuilder& builder);
 
 	PolygonMesh* create(VertexCollection& vertices, FaceCollection& faces);
 
-	void createFaces(const std::vector<Vertex*>& vertices);
 
 	std::list<PolygonMesh*> getPolygons() { return polygons; }
 
@@ -73,9 +92,12 @@ public:
 
 	void simplify(PolygonMesh* p, int howMany);
 
+	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+
 private:
 	VertexCollection vertices;
 	FaceCollection faces;
+	EdgeCollection edges;
 	std::list<PolygonMesh*> polygons;
 	int nextId;
 };

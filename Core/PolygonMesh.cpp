@@ -64,14 +64,14 @@ void PolygonMesh::smooth(Vertex* center)
 	center->moveTo(position);
 }
 
-Edge PolygonMesh::getShortestEdge()
+Edge* PolygonMesh::getShortestEdge()
 {
 	std::list<Edge> edges;
 	auto minEdge = faces.front()->toEdges().front();
 	for (auto f : faces) {
 		auto edges = f->toEdges();
 		for (auto e : edges) {
-			if (e.getLength() < minEdge.getLength()) {
+			if (e->getLength() < minEdge->getLength()) {
 				minEdge = e;
 			}
 		}

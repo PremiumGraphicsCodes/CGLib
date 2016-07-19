@@ -91,8 +91,9 @@ TEST(VolumeObjectTest, TestToPolygon)
 	Grid3d<float> grid(4, 4, 4);
 	grid.set(1, 0, 0, 1);
 	Volume object(space, grid);
+	PolygonBuilder builder(object, 0.5f);
 	PolygonFactory factory;
-	auto actual( factory.create(object,0.5f) );
+	auto actual = factory.create(builder);
 	EXPECT_EQ( 4, actual->getVertices().size() );
 }
 

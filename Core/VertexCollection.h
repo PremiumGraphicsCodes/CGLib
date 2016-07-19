@@ -2,6 +2,7 @@
 #define __CRYSTAL_CORE_VERTEX_COLLECTION_H__
 
 #include "Vertex.h"
+#include "vector"
 
 namespace Crystal {
 	namespace Core {
@@ -10,6 +11,8 @@ class VertexCollection
 {
 public:
 	VertexCollection();
+
+	VertexCollection(const std::vector<Vertex*>& vertices);
 
 	VertexCollection(const std::list<Vertex*>& vertices);
 

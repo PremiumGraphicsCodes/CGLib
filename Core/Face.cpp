@@ -6,17 +6,27 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Face::Face(Vertex* v1, Vertex* v2, Vertex* v3, const int id) :
-	vertices({ v1, v2, v3 }),
+Face::Face(Edge* e1, Edge* e2, Edge* e3, const int id) :
 	id(id)
 {
-	v1->addFace(this);
-	v2->addFace(this);
-	v3->addFace(this);
+	edges[0] = e1;
+	edges[1] = e2;
+	edges[2] = e3;
+}
+
+
+Face::Face(const std::array<Edge*, 3>& edges, const int id) :
+	edges( edges ),
+	id(id)
+{
+	getV1()->addFace(this);
+	getV2()->addFace(this);
+	getV3()->addFace(this);
 }
 
 Vertex* Face::find(Vertex* v)
 {
+	auto vertices = getVertices();
 	auto f = std::find(vertices.begin(), vertices.end(), v);
 	if (f != vertices.end()) {
 		return v;
@@ -27,6 +37,7 @@ Vertex* Face::find(Vertex* v)
 
 Vector3d<float> Face::getNormal() const
 {
+	auto vertices = getVertices();
 	auto normal = (vertices[1]->getPosition() - vertices[0]->getPosition()).getOuterProduct(vertices[2]->getPosition() - vertices[0]->getPosition());
 	normal.normalize();
 	return normal;
@@ -35,6 +46,7 @@ Vector3d<float> Face::getNormal() const
 
 void Face::replace(Vertex* oldVertex, Vertex* newVertex)
 {
+	auto vertices = getVertices();
 	if (oldVertex == vertices[0]) {
 		vertices[0] = newVertex;
 	}
@@ -50,28 +62,31 @@ void Face::replace(Vertex* oldVertex, Vertex* newVertex)
 }
 
 Point3d<float> Face::getCenterPoint() const {
+	auto vertices = getVertices();
 	auto pos = (vertices[0]->getPosition() + vertices[1]->getPosition() + vertices[2]->getPosition()) / 3;
 	return Point3d<float>(pos);
 }
 
-
-std::array< Edge, 3 > Face::toEdges() const
+std::array< Edge*, 3 > Face::toEdges() const
 {
-	Edge e1(vertices[0], vertices[1], 0);
-	Edge e2(vertices[1], vertices[2], 0);
-	Edge e3(vertices[2], vertices[0], 0);
-	return { e1, e2, e3 };
+	return edges;
+}
 
+std::array< Vertex*, 3 > Face::getVertices() const
+{
+	return{ edges[0]->getStart(), edges[1]->getStart(), edges[2]->getStart() };
 }
 
 bool Face::has(Vertex* v) const
 {
+	auto vertices = getVertices();
 	auto f = std::find(vertices.begin(), vertices.end(), v);
 	return (f != vertices.end());
 }
 
 float Face::getArea() const
 {
+	auto vertices = getVertices();
 	auto v1 = (vertices[1]->getPosition() - vertices[0]->getPosition());
 	auto v2 = (vertices[2]->getPosition() - vertices[1]->getPosition());
 	return v1.getOuterProduct(v2).getLength() / 2.0f;

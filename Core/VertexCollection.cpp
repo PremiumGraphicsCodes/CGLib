@@ -45,6 +45,12 @@ namespace {
 VertexCollection::VertexCollection() : nextId(0)
 {}
 
+VertexCollection::VertexCollection(const std::vector<Vertex*>& vertices):
+nextId(0),
+vertices(vertices.begin(), vertices.end())
+{
+}
+
 VertexCollection::VertexCollection(const std::list<Vertex*>& vertices) :
 	vertices(vertices),
 	nextId(0)

@@ -12,13 +12,15 @@ class FaceCollection
 public:
 	FaceCollection();
 
+	FaceCollection(const std::vector<Face*>& faces);
+
 	FaceCollection(const std::list<Face*>& faces);
 
 	~FaceCollection();
 
 	void merge(FaceCollection& rhs);
 
-	Face* create(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face* create(Edge* v1, Edge* v2, Edge* v3);
 
 	void clear();
 

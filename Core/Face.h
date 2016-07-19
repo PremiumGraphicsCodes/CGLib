@@ -2,27 +2,29 @@
 #define __CRYSTAL_POLYGON_FACE_H__
 
 #include "stdafx.h"
+#include "Edge.h"
 
 namespace Crystal {
 	namespace Core {
 
 		class Vertex;
-		class Edge;
 
 class Face
 {
 public:
-	Face(Vertex* v1, Vertex* v2, Vertex* v3, const int id = -1);
+	Face(Edge* e1, Edge* e2, Edge* e3, const int id = -1);
+
+	Face(const std::array<Edge*,3>& edges, const int id = -1);
 
 	Vertex* find(Vertex* v);
 
 	void replace(Vertex* oldVertex, Vertex* newVertex);
 
-	Vertex* getV1() const { return vertices[0]; }
+	Vertex* getV1() const { return edges[0]->getStart(); }
 
-	Vertex* getV2() const { return vertices[1]; }
+	Vertex* getV2() const { return edges[1]->getStart(); }
 
-	Vertex* getV3() const { return vertices[2]; }
+	Vertex* getV3() const { return edges[2]->getStart(); }
 
 	Math::Point3d<float> getCenterPoint() const;
 
@@ -30,7 +32,9 @@ public:
 
 	Math::Orientation getOrientation(const Math::Vector3d<float>& pos) const;
 
-	std::array< Edge, 3 > toEdges() const;
+	std::array< Edge*, 3 > toEdges() const;
+
+	std::array< Vertex*, 3 > getVertices() const;
 
 	bool has(Vertex* v) const;
 
@@ -45,7 +49,8 @@ public:
 	//std::array< Vertex*, 3> getVertexIds() const;
 
 private:
-	std::array< Vertex*, 3> vertices;
+	std::array< Edge*, 3 > edges;
+	//std::array< Vertex*, 3> vertices;
 	int id;
 };
 

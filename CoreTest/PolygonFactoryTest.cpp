@@ -5,6 +5,18 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
+TEST(PolygonFactoryTest, TestCreate)
+{
+	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(triangle.toCurve3d());
+	PolygonFactory factory;
+	auto actual = factory.create(builder);
+	EXPECT_EQ(1, actual->getFaces().size());
+	EXPECT_EQ(3, actual->getVertices().size());
+
+}
+
+/*
 TEST(PolygonFactoryTest, TestMerge)
 {
 	 Triangle3d<float> t1(Vector3d<float>(-1,0,0), Vector3d<float>(1,0,0), Vector3d<float>(0,1,0));
@@ -37,3 +49,4 @@ TEST(PolygonFactoryTest, TestSimplify)
 	auto p = factory.create(t1.toCurve3d());
 	factory.simplify(p, 1);
 }
+*/

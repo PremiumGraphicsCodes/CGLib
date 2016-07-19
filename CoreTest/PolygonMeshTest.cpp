@@ -9,10 +9,9 @@ using namespace Crystal::Core;
 TEST(PolygonMeshTest, TestFromQuad)
 {
 	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	Curve3d<float> curve = quad.toCurve3d();
-
+	PolygonBuilder builder(quad.toCurve3d());
 	PolygonFactory factory;
-	auto polygon = factory.create(curve);
+	auto polygon = factory.create(builder);
 	EXPECT_EQ(4, polygon->getVertices().size());
 	EXPECT_EQ(2, polygon->getFaces().size());
 }
@@ -20,10 +19,9 @@ TEST(PolygonMeshTest, TestFromQuad)
 TEST(PolygonMeshTest, TestFromCircle)
 {
 	const Circle3d<float> circle(1.0, Vector3d<float>(0, 0, 0), Quaternion<float>());
-	CircularCurve3d<float> curve = circle.toCurve(3);
-
+	PolygonBuilder builder(circle.toCurve(3));
 	PolygonFactory factory;
-	auto polygon = factory.create(curve);
+	auto polygon = factory.create(builder);
 	EXPECT_EQ(4, polygon->getVertices().size());
 	EXPECT_EQ(3, polygon->getFaces().size());
 }
@@ -31,10 +29,9 @@ TEST(PolygonMeshTest, TestFromCircle)
 TEST(PolygonMeshTest, TestFromTriangle)
 {
 	const Triangle3d<float> triangle;
-	auto curve = triangle.toCurve3d();
-
+	PolygonBuilder builder(triangle.toCurve3d());
 	PolygonFactory factory;
-	auto polygon = factory.create(curve);
+	auto polygon = factory.create(builder);
 	EXPECT_EQ(3, polygon->getVertices().size());
 	EXPECT_EQ(1, polygon->getFaces().size());
 }
@@ -103,11 +100,12 @@ TEST(PolygonMeshTest, TestSplitByCenter)
 TEST(PolygonMeshTest, TestGetShortestEdge)
 {
 	Quad<float> q(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(q.toCurve3d());
 	PolygonFactory factory;
-	auto polygon = factory.create(q.toCurve3d());
+	auto polygon = factory.create(builder);
 	factory.splitByCenter(polygon, polygon->getFaces().front());
 	auto actual = polygon->getShortestEdge();
-	EXPECT_FLOAT_EQ(0.4714045, actual.getLength());
+	EXPECT_FLOAT_EQ(0.4714045, actual->getLength());
 }
 
 /*

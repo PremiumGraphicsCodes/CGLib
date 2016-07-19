@@ -60,7 +60,7 @@ public:
 
 	PolygonMesh* clone(const int id);
 
-	Edge getShortestEdge();
+	Edge* getShortestEdge();
 
 	//std::list<Vertex*> getNeighbors(Vertex* v, const float length);
 
