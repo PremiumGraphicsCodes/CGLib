@@ -85,3 +85,13 @@ Edge* EdgeCollection::findById(const int id)
 	}
 	return nullptr;
 }
+
+Edge* EdgeCollection::findReverse(Edge* rhs)
+{
+	for (auto e : edges) {
+		if (e->isReverse(*rhs)) {
+			return e;
+		}
+	}
+	return nullptr;
+}

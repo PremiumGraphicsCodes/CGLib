@@ -43,7 +43,6 @@ public:
 
 	PolygonMesh* create(VertexCollection& vertices, FaceCollection& faces);
 
-
 	std::list<PolygonMesh*> getPolygons() { return polygons; }
 
 	VertexCollection getVertices() const { return vertices; }
@@ -65,6 +64,8 @@ public:
 	void simplify(PolygonMesh* p, int howMany);
 
 	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+
+	Edge* getShared(Edge* e);
 
 private:
 	VertexCollection vertices;

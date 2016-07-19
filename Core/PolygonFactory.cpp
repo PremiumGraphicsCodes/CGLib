@@ -143,7 +143,6 @@ PolygonMesh* PolygonFactory::create(VertexCollection& vertices, FaceCollection& 
 	return p;
 }
 
-
 PolygonMesh* PolygonFactory::findPolygonById(const int id)
 {
 	for (auto p : polygons) {
@@ -246,8 +245,6 @@ void PolygonFactory::cleaning()
 	faces.renumber();
 }
 
-
-
 Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	auto e1 = edges.create(v1, v2);
@@ -255,4 +252,9 @@ Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	auto e3 = edges.create(v3, v1);
 	auto f = faces.create(e1, e2, e3);
 	return f;
+}
+
+Edge* PolygonFactory::getShared(Edge* e)
+{
+	return edges.findReverse(e);
 }

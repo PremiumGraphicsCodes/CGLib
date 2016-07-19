@@ -156,10 +156,8 @@ PolygonBuilder::PolygonBuilder(const CircularCurve3d<float>& curve)
 		auto n1 = vertices.back();
 		auto n2 = vertices.front();
 		createFace(n0, n1, n2);
-
 	}
 	vertices.push_back(centerNode);
-
 }
 
 PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
@@ -184,7 +182,6 @@ PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
 			auto n1 = createdNodes[i][j];
 			auto n2 = createdNodes[i][j + 1];
 			createFace(n0, n1, n2);
-			//createFaces.push_back(f);
 		}
 	}
 	for (int i = 1; i < createdNodes.size(); ++i) {
@@ -193,25 +190,17 @@ PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
 			auto n1 = createdNodes[i][j + 1];
 			auto n2 = createdNodes[i - 1][j + 1];
 			createFace(n0, n1, n2);
-			//createFaces.push_back(f);
 		}
 	}
 }
 
 void PolygonBuilder::createFaces(const std::vector<Vertex*>& vertices)
 {
-	std::list< Face* > fs;
 	auto origin = vertices[0];
 	for (size_t i = 1; i < vertices.size() - 1; i++) {
 		auto v1 = vertices[i];
 		auto v2 = vertices[i + 1];
-		Edge* e1 = new Edge(origin, v1);
-		Edge* e2 = new Edge(v1, v2);
-		Edge* e3 = new Edge(v2, origin);
-
-		fs.push_back(new Face(e1, e2, e3));
-		//v1->addFace(fs.back());
-		//v2->addFace(fs.back());
+		createFace(origin, v1, v2);
 	}
 }
 
@@ -227,6 +216,7 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	e1->setFace(f);
 	e2->setFace(f);
 	e3->setFace(f);
+
 	v1->addIn(e3);
 	v1->addOut(e2);
 	v2->addIn(e1);

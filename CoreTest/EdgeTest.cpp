@@ -59,6 +59,15 @@ TEST(EdgeTest, TestIsCollapsed)
 	EXPECT_TRUE( e2.isCollapsed());
 }
 
+TEST(EdgeTest, TestIsDegenerated)
+{
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(0, 0, 0), 1);
+	const Edge e1(&n1, &n2, 0);
+	EXPECT_TRUE(e1.isDegenerated());
+	n2.moveTo(Vector3d<float>(1, 0, 0));
+	EXPECT_FALSE(e1.isDegenerated());
+}
 /*
 #include "../Core/Face.h"
 

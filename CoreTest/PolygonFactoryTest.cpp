@@ -17,14 +17,15 @@ TEST(PolygonFactoryTest, TestCreate)
 
 }
 
-/*
 TEST(PolygonFactoryTest, TestMerge)
 {
 	 Triangle3d<float> t1(Vector3d<float>(-1,0,0), Vector3d<float>(1,0,0), Vector3d<float>(0,1,0));
+	 PolygonBuilder builder(t1.toCurve3d());
+	 builder.build();
 	 PolygonFactory f1;
-	 f1.create(t1.toCurve3d());
+	 f1.create(builder);
 	 PolygonFactory f2;
-	 f2.create(t1.toCurve3d());
+	 f2.create(builder);
 	 f1.merge(f2);
 	 EXPECT_EQ(2, f1.getFaces().size());
 	 EXPECT_EQ(0, f2.getFaces().size());
@@ -35,8 +36,9 @@ TEST(PolygonFactoryTest, TestMerge)
 TEST(PolygonFactoryTest, TestRemove)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(t1.toCurve3d());
 	PolygonFactory factory;
-	auto f = factory.create(t1.toCurve3d());
+	auto f = factory.create(builder);
 	factory.remove(f);
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getVertices().size());
@@ -46,8 +48,8 @@ TEST(PolygonFactoryTest, TestRemove)
 TEST(PolygonFactoryTest, TestSimplify)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(t1.toCurve3d());
 	PolygonFactory factory;
-	auto p = factory.create(t1.toCurve3d());
+	auto p = factory.create(builder);
 	factory.simplify(p, 1);
 }
-*/
