@@ -47,6 +47,8 @@ public:
 
 	VertexCollection getVertices() const { return vertices; }
 
+	EdgeCollection getEdges() const { return edges; }
+
 	FaceCollection getFaces() const { return faces; }
 
 	PolygonMesh* findPolygonById(const int id);

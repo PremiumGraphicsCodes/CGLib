@@ -173,8 +173,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buff
 	assert(glGetError() == GL_NO_ERROR);
 
 	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
-	glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, indices.data());
-
+	glDrawElements(GL_LINES, static_cast<GLsizei>( indices.size() ), GL_UNSIGNED_INT, indices.data());
 
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
@@ -214,7 +213,7 @@ void LegacyRenderer::renderId(const ICamera<float>& camera, const LineIdBuffer& 
 	assert(glGetError() == GL_NO_ERROR);
 
 	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
-	glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	glDrawElements(GL_LINES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
 
 
 	glDisableClientState(GL_COLOR_ARRAY);
@@ -271,7 +270,7 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 	glNormalPointer(GL_FLOAT, 0, normals.data());
 
 	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size()) / 3);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size() ), GL_UNSIGNED_INT, indices.data());
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);

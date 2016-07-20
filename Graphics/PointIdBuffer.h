@@ -24,7 +24,6 @@ public:
 
 	Graphics::Buffer1d<float> getSize() const { return sizes; }
 
-
 private:
 	Graphics::Buffer3d<float> position;
 	Graphics::Buffer4d<float> idColor;

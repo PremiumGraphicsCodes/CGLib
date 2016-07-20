@@ -2,6 +2,7 @@
 #include "PointIdBuffer.h"
 
 using namespace Crystal::Math;
+using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
 void PointIdBuffer::clear()

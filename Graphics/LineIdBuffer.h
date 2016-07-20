@@ -32,7 +32,8 @@ public:
 
 	void add(const Math::Polyline3d<float>& polyline, const DrawableID& did);
 
-	void add(const Core::PolygonFactory& factory, const DrawableID& did);
+	void add(const Core::PolygonFactory& factory, const unsigned char groupId);
+
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
