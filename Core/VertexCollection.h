@@ -57,6 +57,10 @@ public:
 
 	void remove(Vertex* v);
 
+	void cleaning();
+
+	std::list<Vertex*> find(const Math::Vector3d<float>& position, const float effectLength);
+
 private:
 	std::list<Vertex*> vertices;
 	unsigned int nextId;

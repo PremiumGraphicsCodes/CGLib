@@ -9,8 +9,6 @@ Edge::Edge(Vertex* start, Vertex* end, const int id) :
 	start(start),
 	end(end),
 	id(id),
-	next(nullptr),
-	prev(nullptr),
 	face(nullptr)
 {
 }

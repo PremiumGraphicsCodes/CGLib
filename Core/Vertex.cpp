@@ -86,5 +86,6 @@ void Vertex::merge(Vertex* rhs)
 	for (auto out : outEdges) {
 		out->changeStart(this);
 	}
-	
+	rhs->inEdges.clear();
+	rhs->outEdges.clear();
 }

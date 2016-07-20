@@ -26,15 +26,9 @@ public:
 
 	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord, const unsigned int id = -1);
 
-	void addIn(Edge* e) {
-		this->inEdges.push_back(e);
-	}
+	void addIn(Edge* e) { this->inEdges.push_back(e); }
 
-	void addOut(Edge* e) {
-		this->outEdges.push_back(e);
-	}
-
-	//std::list< Face* > getFaces() const { return faces; }
+	void addOut(Edge* e) { this->outEdges.push_back(e); }
 
 	Vertex* clone();
 
@@ -53,6 +47,10 @@ public:
 	std::list<Edge*> getOutEdges() const { return outEdges; }
 
 	void merge(Vertex* rhs);
+
+	bool isIsolated() {
+		return inEdges.empty() && outEdges.empty();
+	}
 
 private:
 	unsigned int id;

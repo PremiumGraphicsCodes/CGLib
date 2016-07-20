@@ -32,13 +32,11 @@ public:
 
 	void removeOverlappedVertices();
 
-	VertexCollection getVertices() const { return vertices; }
-
 	void transform(const Math::Matrix4d<float>& matrix);
 
-	//std::vector<Math::Vector3d<float>> getTexCoords() const { return texCoords; }
-
 	std::list<Face*> getFaces() const { return faces; }
+
+	std::list<Vertex*> getVertices() const { return vertices; }
 
 	std::vector<int> toIndices() const;
 

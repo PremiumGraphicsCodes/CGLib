@@ -45,6 +45,7 @@ public:
 
 	bool isSame(const Edge& rhs) const;
 
+	/*
 	void connect(Edge* next) {
 		next->prev = this;
 		this->next = next;
@@ -53,6 +54,7 @@ public:
 	Edge* getNext() const { return next; }
 
 	Edge* getPrev() const { return prev; }
+	*/
 
 	bool isCollapsed() const;
 
@@ -68,9 +70,6 @@ public:
 
 
 private:
-	Edge* prev;
-	Edge* next;
-
 	Vertex* start;
 	Vertex* end;
 	Face* face;

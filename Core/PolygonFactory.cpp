@@ -28,7 +28,7 @@ PolygonFactory::~PolygonFactory()
 void PolygonFactory::add(PolygonMesh* p)
 {
 	auto vs = p->getVertices();
-	this->vertices.merge(vs);
+	this->vertices.merge(VertexCollection(vs));
 	auto fs = p->getFaces();
 	this->faces.merge(FaceCollection(fs));
 	polygons.push_back(p);

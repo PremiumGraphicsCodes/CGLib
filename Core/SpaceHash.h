@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_POLYGON_SPACE_HASH_H__
 #define __CRYSTAL_POLYGON_SPACE_HASH_H__
 
-#include "stdafx.h"
+#include "ISpaceHash.h"
 #include <vector>
 #include <list>
 
@@ -11,7 +11,8 @@ namespace Crystal {
 class Particle;
 class ParticleObject;
 
-class SpaceHash
+
+class SpaceHash : public ISpaceHash
 {
 public:
 	SpaceHash(const float divideLength, const int tableSize);
@@ -30,18 +31,6 @@ public:
 
 private:
 	std::vector< std::list<Particle*> > table;
-
-	int toHash(const Math::Vector3d<float>& pos);
-
-	int toHash(const Math::Index3d& index);
-
-	Math::Index3d toIndex(const Math::Vector3d<float>& pos);
-
-	const float divideLength;
-
-	const long int p1 = 73856093;
-	const long int p2 = 19349663;
-	const long int p3 = 83492791;
 
 };
 	}

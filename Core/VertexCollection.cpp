@@ -30,7 +30,7 @@ namespace {
 		if (v1->getPosition() == v2->getPosition()) {
 			v1->merge(v2);
 			v1->normalize(*v2);
-			delete v2;
+			//delete v2;
 			//v2 = nullptr;
 			return true;
 		}
@@ -82,7 +82,8 @@ void VertexCollection::sort()
 	for (auto v : vlist) {
 		v->setId( nextId++ );
 	}
-	vertices = std::list<Vertex*>(vlist.begin(), vlist.end());
+	cleaning();
+	//vertices = std::list<Vertex*>(vlist.begin(), vlist.end());
 }
 
 Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
@@ -133,6 +134,21 @@ void VertexCollection::renumber()
 	}
 }
 
+void VertexCollection::cleaning()
+{
+	std::list<Vertex*> isolateds;
+	for (auto v : vertices) {
+		if (v->isIsolated()) {
+			isolateds.push_back(v);
+		}
+	}
+	for (auto v : isolateds) {
+		remove(v);
+	}
+	renumber();
+}
+
+
 void VertexCollection::add(Vertex* v)
 {
 	vertices.push_back(v);
@@ -142,4 +158,17 @@ void VertexCollection::remove(Vertex* v)
 {
 	vertices.remove(v);
 	delete v;
+}
+
+#include "SpaceHash.h"
+
+std::list<Vertex*> VertexCollection::find(const Vector3d<float>& position, const float radius)
+{
+	/*
+	SpaceHash hash(radius*2, vertices.size());
+	for (auto v : vertices) {
+		hash.add(v);
+	}
+	*/
+	return std::list<Vertex*>();
 }

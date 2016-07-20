@@ -52,6 +52,7 @@ PolygonBuilder::PolygonBuilder(const Volume& volume, float isolevel)
 	}
 	VertexCollection vc(vertices);
 	vc.sort();
+	vc.cleaning();
 	auto vv = vc.get();
 	this->vertices = std::vector<Vertex*>(vv.begin(), vv.end());
 }
@@ -105,7 +106,9 @@ PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isole
 	}
 	VertexCollection vc(vertices);
 	vc.sort();
-	this->vertices = std::vector<Vertex*>(vc.begin(), vc.end());
+	//vc.cleaning();
+	auto vv = vc.get();
+	this->vertices = std::vector<Vertex*>(vv.begin(), vv.end());
 	//newMesh->removeOverlappedVertices();
 }
 

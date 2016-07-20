@@ -27,6 +27,7 @@
     <ClCompile Include="EdgeCollection.cpp" />
     <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="IParticle.cpp" />
+    <ClCompile Include="ISpaceHash.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
@@ -61,6 +62,7 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="FaceCollection.h" />
+    <ClInclude Include="ISpaceHash.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="TriangleCell.h" />
