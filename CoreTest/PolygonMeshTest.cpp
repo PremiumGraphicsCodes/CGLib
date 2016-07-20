@@ -82,19 +82,21 @@ TEST(PolygonMeshTest, TestSplitByNode)
 	EXPECT_EQ(5, polygon.getFaces().size());
 	EXPECT_EQ(7, polygon.getVertices().size());
 }
-
+*/
 TEST(PolygonMeshTest, TestSplitByCenter)
 {
 	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	PolygonMesh polygon;
-	polygon.create(triangle.toCurve3d());
-	auto f = polygon.getFaces().get().front();
-	polygon.splitByCenter(f);
-	EXPECT_EQ(3, polygon.getFaces().size());
-	EXPECT_EQ(4, polygon.getVertices().size());
+	PolygonBuilder builder(triangle.toCurve3d());
+	PolygonFactory factory;
+	auto polygon = factory.create(builder);
+	auto f = polygon->getFaces().front();
+	factory.splitByCenter(polygon, f);
+	EXPECT_EQ(3, polygon->getFaces().size());
+	EXPECT_EQ(4, polygon->getVertices().size());
+	EXPECT_EQ(9, polygon->getEdges().size());
 }
-*/
 
+/*
 #include "../Core/Edge.h"
 
 TEST(PolygonMeshTest, TestGetShortestEdge)

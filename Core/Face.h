@@ -18,8 +18,6 @@ public:
 
 	Vertex* find(Vertex* v);
 
-	void replace(Vertex* oldVertex, Vertex* newVertex);
-
 	Vertex* getV1() const { return edges[0]->getStart(); }
 
 	Vertex* getV2() const { return edges[1]->getStart(); }
@@ -32,7 +30,7 @@ public:
 
 	Math::Orientation getOrientation(const Math::Vector3d<float>& pos) const;
 
-	std::array< Edge*, 3 > toEdges() const;
+	std::array< Edge*, 3 > getEdges() const;
 
 	std::array< Vertex*, 3 > getVertices() const;
 

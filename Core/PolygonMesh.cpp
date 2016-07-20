@@ -69,9 +69,9 @@ void PolygonMesh::smooth(Vertex* center)
 Edge* PolygonMesh::getShortestEdge()
 {
 	std::list<Edge> edges;
-	auto minEdge = faces.front()->toEdges().front();
+	auto minEdge = faces.front()->getEdges().front();
 	for (auto f : faces) {
-		auto edges = f->toEdges();
+		auto edges = f->getEdges();
 		for (auto e : edges) {
 			if (e->getLength() < minEdge->getLength()) {
 				minEdge = e;
@@ -109,11 +109,19 @@ void PolygonMesh::cleaning()
 void PolygonMesh::add(Face* f)
 {
 	faces.push_back(f);
+	for (auto e : f->getEdges()) {
+		add(e);
+	}
 }
 
 void PolygonMesh::add(Vertex* v)
 {
 	vertices.push_back(v);
+}
+
+void PolygonMesh::add(Edge* e)
+{
+	edges.push_back(e);
 }
 
 bool PolygonMesh::has(Face* f)

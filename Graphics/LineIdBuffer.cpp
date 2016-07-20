@@ -16,7 +16,7 @@ void LineIdBuffer::add(const PolygonMesh& mesh, const unsigned char groupId)
 {
 	const auto& faces = mesh.getFaces();
 	for (auto f : faces) {
-		const auto edges = f->toEdges();
+		const auto edges = f->getEdges();
 		for (auto e : edges) {
 			add(e->toLine(), DrawableID(e->getId(), groupId));
 		}
@@ -28,7 +28,7 @@ void LineIdBuffer::add(const PolygonMesh& mesh, const DrawableID& did)
 {
 	const auto& faces = mesh.getFaces();
 	for (auto f : faces) {
-		const auto edges = f->toEdges();
+		const auto edges = f->getEdges();
 		for (auto e : edges) {
 			add(e->toLine(), did);
 		}

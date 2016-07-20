@@ -38,6 +38,8 @@ public:
 
 	std::list<Vertex*> getVertices() const { return vertices; }
 
+	std::list<Edge*> getEdges() const { return edges; }
+
 	std::vector<int> toIndices() const;
 
 	void clear();
@@ -51,6 +53,8 @@ public:
 	void add(Face* f);
 
 	void add(Vertex* v);
+
+	void add(Edge* e);
 
 	bool has(Face* f);
 

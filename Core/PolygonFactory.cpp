@@ -67,10 +67,16 @@ void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
 
 void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 {
+	auto e1 = f->getEdges()[1];
+	auto e2 = f->getEdges()[2];
 	auto v = vertices.create(point);
+
 	auto f1 = createFace(f->getV1(), f->getV2(), v);
 	auto f2 = createFace(f->getV2(), f->getV3(), v);
-	f->replace(f->getV2(), v);
+
+	e1->changeEnd(v);
+	e2->changeStart(v);
+
 
 	auto polygon = find(f);
 	polygon->add(v);

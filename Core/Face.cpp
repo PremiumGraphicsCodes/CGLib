@@ -44,32 +44,13 @@ Vector3d<float> Face::getNormal() const
 }
 
 
-void Face::replace(Vertex* oldVertex, Vertex* newVertex)
-{
-	auto vertices = getVertices();
-	if (oldVertex == vertices[0]) {
-		vertices[0] = newVertex;
-	}
-	else if (oldVertex == vertices[1]) {
-		vertices[1] = newVertex;
-	}
-	else if (oldVertex == vertices[2]) {
-		vertices[2] = newVertex;
-	}
-	/*
-	else {
-		assert(false);
-	}
-	*/
-}
-
 Point3d<float> Face::getCenterPoint() const {
 	auto vertices = getVertices();
 	auto pos = (vertices[0]->getPosition() + vertices[1]->getPosition() + vertices[2]->getPosition()) / 3;
 	return Point3d<float>(pos);
 }
 
-std::array< Edge*, 3 > Face::toEdges() const
+std::array< Edge*, 3 > Face::getEdges() const
 {
 	return edges;
 }
