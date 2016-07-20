@@ -34,6 +34,8 @@ public:
 
 	Edge* findReverse(Edge* e);
 
+	std::list<Edge*> get() const { return edges; }
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

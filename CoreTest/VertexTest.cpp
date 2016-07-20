@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "../Core/Vertex.h"
+#include "../Core/Edge.h"
+
 #include "../Core/VertexCollection.h"
 
 using namespace Crystal::Math;
@@ -7,12 +9,16 @@ using namespace Crystal::Core;
 
 TEST(VertexCollectionTest, TestSort)
 {
-	VertexCollection vertices1;
-	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
-	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
-	vertices1.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
-	vertices1.sort();
-	EXPECT_EQ(2, vertices1.size());
+	VertexCollection vertices;
+	auto v1 = vertices.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	auto v2 = vertices.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
+	auto v3 = vertices.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
+	Edge e1(v1, v2);
+	Edge e2(v2, v3);
+	Edge e3(v3, v1);
+	vertices.sort();
+	EXPECT_EQ(2, vertices.size());
+	vertices.clear();
 }
 
 
@@ -25,6 +31,8 @@ TEST(VertexCollectionTest, TestMerge)
 	vertices1.merge(vertices2);
 	EXPECT_EQ( 2, vertices1.size() );
 	EXPECT_EQ( 0, vertices2.size() );
+	vertices1.clear();
+	vertices2.clear();
 }
 
 #include "../Core/Face.h"

@@ -134,10 +134,11 @@ PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
 	return p;
 }
 
-PolygonMesh* PolygonFactory::create(VertexCollection& vertices, FaceCollection& faces)
+PolygonMesh* PolygonFactory::create(VertexCollection& vertices, EdgeCollection& edges, FaceCollection& faces)
 {
-	auto p = new PolygonMesh(vertices.get(), faces.get(), nextId++);
+	auto p = new PolygonMesh(vertices.get(), edges.get(), faces.get(), nextId++);
 	this->vertices.merge(vertices);
+	this->edges.merge(edges);
 	this->faces.merge(faces);
 	polygons.push_back(p);
 	return p;

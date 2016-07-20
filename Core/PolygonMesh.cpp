@@ -14,8 +14,9 @@ PolygonMesh::~PolygonMesh()
 	clear();
 }
 
-PolygonMesh::PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Face*>& faces, const unsigned int id) :
+PolygonMesh::PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Edge*>& edges, const std::list<Face*>& faces, const unsigned int id) :
 	vertices(vertices),
+	edges(edges),
 	faces(faces),
 	id(id)
 {}
@@ -28,6 +29,7 @@ void PolygonMesh::clear()
 	//normals.clear();
 	//texCoords.clear();
 	vertices.clear();
+	edges.clear();
 	faces.clear();
 }
 
@@ -131,6 +133,11 @@ void PolygonMesh::remove(Face* f)
 
 PolygonMesh* PolygonMesh::clone(const int id)
 {
-	return new PolygonMesh(vertices, faces, id);
+	return new PolygonMesh(vertices, edges, faces, id);
 }
 
+std::list<Vertex*> PolygonMesh::find(const Vector3d<float>& position, const float radius)
+{
+	VertexCollection vc(vertices);
+	return vc.find(position, radius);
+}

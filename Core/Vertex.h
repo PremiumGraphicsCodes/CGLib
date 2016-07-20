@@ -26,9 +26,17 @@ public:
 
 	Vertex(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Math::Vector2d<float>& texCoord, const unsigned int id = -1);
 
-	void addIn(Edge* e) { this->inEdges.push_back(e); }
+	void addIn(Edge* e) {
+		if (e) {
+			this->inEdges.push_back(e);
+		}
+	}
 
-	void addOut(Edge* e) { this->outEdges.push_back(e); }
+	void addOut(Edge* e) {
+		if (e) {
+			this->outEdges.push_back(e);
+		}
+	}
 
 	Vertex* clone();
 

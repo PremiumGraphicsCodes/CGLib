@@ -22,7 +22,7 @@ public:
 		id(id)
 	{}
 
-	PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Face*>& faces, const unsigned int id = -1);
+	PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Edge*>& edges, const std::list<Face*>& faces, const unsigned int id = -1);
 
 	~PolygonMesh();
 
@@ -60,11 +60,16 @@ public:
 
 	Edge* getShortestEdge();
 
+	std::list<Vertex*> find(const Math::Vector3d<float>& position, const float radius);
+
+	//std::list<Edge*> find(const Math::Vector3d<float>& position, const float radius);
+
 	//std::list<Vertex*> getNeighbors(Vertex* v, const float length);
 
 private:
 	unsigned int id;
 	std::list<Vertex*> vertices;
+	std::list<Edge*> edges;
 	std::list<Face*> faces;
 };
 

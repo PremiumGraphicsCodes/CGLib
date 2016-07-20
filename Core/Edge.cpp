@@ -11,6 +11,12 @@ Edge::Edge(Vertex* start, Vertex* end, const int id) :
 	id(id),
 	face(nullptr)
 {
+	if (start) {
+		start->addOut(this);
+	}
+	if (end) {
+		end->addIn(this);
+	}
 }
 
 

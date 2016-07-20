@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Vertex.h"
 #include "VertexCollection.h"
+#include "EdgeCollection.h"
 #include "PolygonBuilder.h"
 #include "ParticleObject.h"
 #include "PolygonMesh.h"
@@ -24,9 +25,11 @@ PolygonMesh* PolygonBuilder::build(int id)
 {
 	VertexCollection vc(vertices);
 	vc.renumber();
+	EdgeCollection ec(edges);
+	ec.renumber();
 	FaceCollection fc(faces);
 	fc.renumber();
-	return new PolygonMesh(vc.get(), fc.get(), id);
+	return new PolygonMesh(vc.get(), ec.get(), fc.get(), id);
 }
 
 PolygonBuilder::PolygonBuilder(const std::vector<Vertex*>& vertices, const std::vector<Face*>& faces, const std::vector<Edge*>& edges) :
@@ -220,12 +223,12 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	e2->setFace(f);
 	e3->setFace(f);
 
-	v1->addIn(e3);
-	v1->addOut(e2);
-	v2->addIn(e1);
-	v2->addOut(e3);
-	v3->addIn(e2);
-	v3->addOut(e1);
+	//v1->addIn(e3);
+	//v1->addOut(e2);
+	//v2->addIn(e1);
+	//v2->addOut(e3);
+	//v3->addIn(e2);
+	//v3->addOut(e1);
 	faces.push_back(f);
 }
 
