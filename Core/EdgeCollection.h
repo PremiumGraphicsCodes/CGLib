@@ -40,6 +40,20 @@ public:
 
 	std::list<Edge*> getDegenerateds();
 
+	using iterator = std::list<Edge*>::iterator;
+	using const_iterator = std::list<Edge*>::const_iterator;
+
+	iterator begin() { return edges.begin(); }
+
+	//iterator front() { return faces.front(); }
+
+	const_iterator begin() const { return edges.begin(); }
+
+	iterator end() { return edges.end(); }
+
+	const_iterator end() const { return edges.end(); }
+
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

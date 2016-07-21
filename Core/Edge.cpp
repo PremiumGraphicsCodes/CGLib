@@ -11,12 +11,6 @@ Edge::Edge(Vertex* start, Vertex* end, const int id) :
 	id(id),
 	face(nullptr)
 {
-	if (start) {
-		start->addOut(this);
-	}
-	if (end) {
-		end->addIn(this);
-	}
 }
 
 
@@ -120,12 +114,6 @@ float Edge::calculateCollapseCost() const
 bool Edge::isDegenerated() const
 {
 	return getLength() < Tolerance<float>::getLooseTolerance();
-}
-
-void Edge::remove()
-{
-	start->remove(this);
-	end->remove(this);
 }
 
 void Edge::toDenerate()

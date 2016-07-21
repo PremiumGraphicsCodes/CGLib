@@ -223,12 +223,6 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	e2->setFace(f);
 	e3->setFace(f);
 
-	//v1->addIn(e3);
-	//v1->addOut(e2);
-	//v2->addIn(e1);
-	//v2->addOut(e3);
-	//v3->addIn(e2);
-	//v3->addOut(e1);
 	faces.push_back(f);
 }
 

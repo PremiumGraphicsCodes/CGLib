@@ -70,8 +70,8 @@ bool Face::has(Vertex* v) const
 float Face::getArea() const
 {
 	auto vertices = getVertices();
-	auto v1 = (vertices[1]->getPosition() - vertices[0]->getPosition());
-	auto v2 = (vertices[2]->getPosition() - vertices[1]->getPosition());
+	auto v1 = (edges[0]->getEnd()->getPosition() - edges[0]->getStart()->getPosition());
+	auto v2 = (edges[1]->getEnd()->getPosition() - edges[1]->getStart()->getPosition());
 	return v1.getOuterProduct(v2).getLength() / 2.0f;
 }
 

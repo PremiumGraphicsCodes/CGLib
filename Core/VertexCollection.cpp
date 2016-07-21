@@ -28,7 +28,6 @@ namespace {
 	bool isSame(Vertex* v1, Vertex* v2)
 	{
 		if (v1->getPosition() == v2->getPosition()) {
-			v1->merge(v2);
 			v1->normalize(*v2);
 			//delete v2;
 			//v2 = nullptr;
@@ -82,8 +81,8 @@ void VertexCollection::sort()
 	for (auto v : vlist) {
 		v->setId( nextId++ );
 	}
+	vertices = std::list<Vertex*>(vlist.begin(), vlist.end());
 	cleaning();
-	//vertices = std::list<Vertex*>(vlist.begin(), vlist.end());
 }
 
 Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
@@ -134,24 +133,8 @@ void VertexCollection::renumber()
 	}
 }
 
-std::list<Vertex*> VertexCollection::getIsolateds() const
-{
-	std::list<Vertex*> isolateds;
-	for (auto v : vertices) {
-		if (v->isIsolated()) {
-			isolateds.push_back(v);
-		}
-	}
-	return isolateds;
-}
-
-
 void VertexCollection::cleaning()
 {
-	const auto& isolateds = getIsolateds();
-	for (auto v : isolateds) {
-		remove(v);
-	}
 	renumber();
 }
 

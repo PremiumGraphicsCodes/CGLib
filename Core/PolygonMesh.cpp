@@ -57,13 +57,14 @@ std::vector<int> PolygonMesh::toIndices() const
 
 void PolygonMesh::smooth(Vertex* center)
 {
-	//auto& fs = center->getFaces();
+	/*
 	std::list<Vertex*> neighbors = center->getNeighbors();
 	Vector3d<float> position = center->getPosition();
 	for (auto& n : neighbors) {
 		position += (n->getPosition() - center->getPosition()) / neighbors.size();
 	}
 	center->moveTo(position);
+	*/
 }
 
 Edge* PolygonMesh::getShortestEdge()

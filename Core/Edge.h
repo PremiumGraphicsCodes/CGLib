@@ -45,7 +45,6 @@ public:
 
 	bool isSame(const Edge& rhs) const;
 
-	/*
 	void connect(Edge* next) {
 		next->prev = this;
 		this->next = next;
@@ -54,7 +53,6 @@ public:
 	Edge* getNext() const { return next; }
 
 	Edge* getPrev() const { return prev; }
-	*/
 
 	bool isCollapsed() const;
 
@@ -68,14 +66,18 @@ public:
 
 	bool isDegenerated() const;
 
-	void remove();
-
 	void toDenerate();
+
+	bool has(Vertex* e) {
+		return (start == e) || (end == e);
+	}
 
 private:
 	Vertex* start;
 	Vertex* end;
 	Face* face;
+	Edge* prev;
+	Edge* next;
 	int id;
 };
 	}
