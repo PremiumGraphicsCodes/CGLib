@@ -61,6 +61,8 @@ public:
 
 	std::list<Vertex*> find(const Math::Vector3d<float>& position, const float effectLength);
 
+	std::list<Vertex*> getIsolateds() const;
+
 private:
 	std::list<Vertex*> vertices;
 	unsigned int nextId;

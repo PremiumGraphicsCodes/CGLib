@@ -270,6 +270,11 @@ void PolygonFactory::remove(Vertex* v)
 	for (auto f : fs) {
 		remove(f);
 	}
+	auto vs = vertices.getIsolateds();
+	for (auto v : vs) {
+		auto p = find(v);
+		p->remove(v);
+	}
 	vertices.cleaning();
 	//faces.cleaning();
 	//polygon->remove(v);

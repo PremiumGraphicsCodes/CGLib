@@ -134,7 +134,7 @@ void VertexCollection::renumber()
 	}
 }
 
-void VertexCollection::cleaning()
+std::list<Vertex*> VertexCollection::getIsolateds() const
 {
 	std::list<Vertex*> isolateds;
 	for (auto v : vertices) {
@@ -142,6 +142,13 @@ void VertexCollection::cleaning()
 			isolateds.push_back(v);
 		}
 	}
+	return isolateds;
+}
+
+
+void VertexCollection::cleaning()
+{
+	const auto& isolateds = getIsolateds();
 	for (auto v : isolateds) {
 		remove(v);
 	}
