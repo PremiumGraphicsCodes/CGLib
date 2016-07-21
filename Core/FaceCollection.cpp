@@ -48,12 +48,7 @@ void FaceCollection::clear()
 
 void FaceCollection::cleaning()
 {
-	std::list<Face*> shrinked;
-	for (auto f : faces) {
-		if (f->isDegenerated()) {
-			shrinked.push_back(f);
-		}
-	}
+	std::list<Face*> shrinked = getDegenerateds();
 	for (auto f : shrinked) {
 		remove(f);
 	}
@@ -87,4 +82,15 @@ Face* FaceCollection::findById(const int id)
 void FaceCollection::add(Face* f)
 {
 	faces.push_back(f);
+}
+
+std::list<Face*> FaceCollection::getDegenerateds()
+{
+	std::list<Face*> shrinked;
+	for (auto f : faces) {
+		if (f->isDegenerated()) {
+			shrinked.push_back(f);
+		}
+	}
+	return shrinked;
 }

@@ -170,6 +170,22 @@ PolygonMesh* PolygonFactory::find(Face* f)
 	return nullptr;
 }
 
+PolygonMesh* PolygonFactory::find(Vertex* v)
+{
+	for (auto p : polygons) {
+		if (p->has(v)) {
+			return p;
+		}
+	}
+	return nullptr;
+}
+
+PolygonMesh* PolygonFactory::find(Edge* e)
+{
+	return find(e->getFace());
+}
+
+
 void PolygonFactory::merge(PolygonFactory& rhs)
 {
 	polygons.insert(polygons.end(), rhs.polygons.begin(), rhs.polygons.end());
@@ -215,6 +231,42 @@ void PolygonFactory::remove(Face* f)
 	polygon->remove(f);
 	faces.remove(f);
 	//findPo
+}
+
+void PolygonFactory::remove(Edge* e)
+{
+	auto polygon = find(e);
+	polygon->remove(e);
+	edges.remove(e);
+}
+
+
+void PolygonFactory::remove(Vertex* v)
+{
+	auto polygon = find(v);
+	auto ins = v->getInEdges();
+	auto outs = v->getOutEdges();
+	for (auto i : ins) {
+		auto prev = i->getStart();
+		for (auto o : outs) {
+			auto next = o->getStart();
+			i->changeEnd(next);
+			o->changeStart(prev);
+		}
+	}
+	//edges.cleaning();
+	auto fs = faces.getDegenerateds();
+	for (auto f : fs) {
+		for (auto e : f->getEdges()) {
+			remove(e);
+		}
+	}
+	for (auto f : fs) {
+		remove(f);
+	}
+	//faces.cleaning();
+	//polygon->remove(v);
+	//vertices.remove(v);
 }
 
 /*

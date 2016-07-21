@@ -53,6 +53,8 @@ public:
 
 	void add(Face* f);
 
+	std::list<Face*> getDegenerateds();
+
 private:
 	int nextId;
 	std::list<Face*> faces;

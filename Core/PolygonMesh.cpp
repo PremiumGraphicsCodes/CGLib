@@ -126,17 +126,28 @@ void PolygonMesh::add(Edge* e)
 
 bool PolygonMesh::has(Face* f)
 {
-	for (auto f1 : faces) {
-		if (f1 == f) {
-			return true;
-		}
-	}
-	return false;
+	return std::find(faces.begin(), faces.end(), f) != faces.end();
 }
+
+bool PolygonMesh::has(Vertex* v)
+{
+	return std::find(vertices.begin(), vertices.end(), v) != vertices.end();
+}
+
 
 void PolygonMesh::remove(Face* f)
 {
 	faces.remove(f);
+}
+
+void PolygonMesh::remove(Vertex* v)
+{
+	vertices.remove(v);
+}
+
+void PolygonMesh::remove(Edge* e)
+{
+	edges.remove(e);
 }
 
 PolygonMesh* PolygonMesh::clone(const int id)

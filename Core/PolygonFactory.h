@@ -55,11 +55,19 @@ public:
 
 	PolygonMesh* find(Face* f);
 
+	PolygonMesh* find(Vertex* v);
+
+	PolygonMesh* find(Edge* e);
+
 	void merge(PolygonFactory& rhs);
 
 	void remove(PolygonMesh* p);
 
 	void remove(Face* f);
+
+	void remove(Vertex* v);
+
+	void remove(Edge* e);
 
 	//PolygonMesh* find(Face* f);
 

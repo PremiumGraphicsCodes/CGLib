@@ -58,7 +58,13 @@ public:
 
 	bool has(Face* f);
 
+	bool has(Vertex* v);
+
 	void remove(Face* f);
+
+	void remove(Vertex* v);
+
+	void remove(Edge* e);
 
 	PolygonMesh* clone(const int id);
 

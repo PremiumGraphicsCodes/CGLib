@@ -36,6 +36,8 @@ public:
 
 	std::list<Edge*> get() const { return edges; }
 
+	size_t size() const { return edges.size(); }
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

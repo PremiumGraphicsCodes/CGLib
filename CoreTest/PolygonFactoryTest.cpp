@@ -33,7 +33,7 @@ TEST(PolygonFactoryTest, TestMerge)
 	 EXPECT_EQ(0, f2.getVertices().size());
 }
 
-TEST(PolygonFactoryTest, TestRemove)
+TEST(PolygonFactoryTest, TestRemoveFace)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
@@ -43,6 +43,20 @@ TEST(PolygonFactoryTest, TestRemove)
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getVertices().size());
 	EXPECT_EQ(0, factory.getPolygons().size());
+}
+
+TEST(PolygonFactoryTest, TestRemoveVertex)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(t1.toCurve3d());
+	PolygonFactory factory;
+	auto f = factory.create(builder);
+	auto v = f->getVertices().back();
+	factory.remove(v);
+	EXPECT_EQ(0, factory.getFaces().size());
+	EXPECT_EQ(0, factory.getEdges().size());
+//	EXPECT_EQ(0, factory.getVertices().size());
+//	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
 TEST(PolygonFactoryTest, TestSimplify)
