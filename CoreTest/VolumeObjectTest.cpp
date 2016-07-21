@@ -95,7 +95,7 @@ TEST(VolumeObjectTest, TestToPolygon)
 	PolygonBuilder builder(object, 0.5f);
 	PolygonFactory factory;
 	auto actual = factory.create(builder);
-	EXPECT_EQ( 4, actual->getVertices().size() );
+	EXPECT_EQ( 6, actual->getVertices().size() );
 }
 
 TEST(VolumeObjectTest, TestToParticleObject)

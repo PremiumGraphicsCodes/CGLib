@@ -35,8 +35,6 @@ public:
 
 	void createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	void clean();
-
 public:
 	std::vector<Vertex*> vertices;
 	std::vector<Face*> faces;

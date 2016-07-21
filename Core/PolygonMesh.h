@@ -22,7 +22,7 @@ public:
 		id(id)
 	{}
 
-	PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Edge*>& edges, const std::list<Face*>& faces, const unsigned int id = -1);
+	PolygonMesh(const std::list<Face*>& faces, const unsigned int id = -1);
 
 	~PolygonMesh();
 
@@ -30,17 +30,11 @@ public:
 
 	unsigned int getId() const { return id; }
 
-	void removeOverlappedVertices();
-
-	void transform(const Math::Matrix4d<float>& matrix);
-
 	std::list<Face*> getFaces() const { return faces; }
 
-	std::list<Vertex*> getVertices() const { return vertices; }
+	std::list<Vertex*> getVertices();
 
-	std::list<Edge*> getEdges() const { return edges; }
-
-	std::vector<int> toIndices() const;
+	std::list<Edge*> getEdges();
 
 	void clear();
 
@@ -48,38 +42,18 @@ public:
 
 	void simplify(const Edge& e);
 
-	void cleaning();
-
 	void add(Face* f);
-
-	void add(Vertex* v);
-
-	void add(Edge* e);
 
 	bool has(Face* f);
 
-	bool has(Vertex* v);
-
 	void remove(Face* f);
-
-	void remove(Vertex* v);
-
-	void remove(Edge* e);
 
 	PolygonMesh* clone(const int id);
 
 	Edge* getShortestEdge();
 
-	std::list<Vertex*> find(const Math::Vector3d<float>& position, const float radius);
-
-	//std::list<Edge*> find(const Math::Vector3d<float>& position, const float radius);
-
-	//std::list<Vertex*> getNeighbors(Vertex* v, const float length);
-
 private:
 	unsigned int id;
-	std::list<Vertex*> vertices;
-	std::list<Edge*> edges;
 	std::list<Face*> faces;
 };
 

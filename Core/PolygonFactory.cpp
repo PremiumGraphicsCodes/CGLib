@@ -27,8 +27,6 @@ PolygonFactory::~PolygonFactory()
 
 void PolygonFactory::add(PolygonMesh* p)
 {
-	auto vs = p->getVertices();
-	this->vertices.merge(VertexCollection(vs));
 	auto fs = p->getFaces();
 	this->faces.merge(FaceCollection(fs));
 	polygons.push_back(p);
@@ -77,9 +75,7 @@ void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 	e1->changeEnd(v);
 	e2->changeStart(v);
 
-
 	auto polygon = find(f);
-	polygon->add(v);
 	polygon->add(f1);
 	polygon->add(f2);
 	faces.renumber();
@@ -140,11 +136,9 @@ PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
 	return p;
 }
 
-PolygonMesh* PolygonFactory::create(VertexCollection& vertices, EdgeCollection& edges, FaceCollection& faces)
+PolygonMesh* PolygonFactory::create(FaceCollection& faces)
 {
-	auto p = new PolygonMesh(vertices.get(), edges.get(), faces.get(), nextId++);
-	this->vertices.merge(vertices);
-	this->edges.merge(edges);
+	auto p = new PolygonMesh(faces.get(), nextId++);
 	this->faces.merge(faces);
 	polygons.push_back(p);
 	return p;
@@ -172,11 +166,13 @@ PolygonMesh* PolygonFactory::find(Face* f)
 
 PolygonMesh* PolygonFactory::find(Vertex* v)
 {
+	/*
 	for (auto p : polygons) {
 		if (p->has(v)) {
 			return p;
 		}
 	}
+	*/
 	return nullptr;
 }
 
@@ -212,25 +208,10 @@ void PolygonFactory::remove(PolygonMesh* p)
 	if (p == nullptr) {
 		return;
 	}
-	auto vs = p->getVertices();
-	for (auto v : vs) {
-		vertices.remove(v);
-	}
-	auto fs = p->getFaces();
-	for (auto f : fs) {
-		faces.remove(f);
-	}
 	polygons.remove(p);
 	delete p;
 	renumber();
 }
-
-void PolygonFactory::remove(Vertex* v)
-{
-	auto p = find(v);
-	p->remove(v);
-}
-
 
 void PolygonFactory::remove(Face* f)
 {
@@ -239,15 +220,6 @@ void PolygonFactory::remove(Face* f)
 		polygon->remove(f);
 	}
 	faces.remove(f);
-}
-
-void PolygonFactory::remove(Edge* e)
-{
-	auto polygon = find(e);
-	if (polygon) {
-		polygon->remove(e);
-	}
-	edges.remove(e);
 }
 
 
@@ -273,10 +245,9 @@ void PolygonFactory::destory(Face* f)
 {
 	auto e = f->getEdges().front();
 	auto polygon = find(f);
-	for (auto e : f->getEdges()) {
-		e->toDenerate();
+	if (polygon) {
+		polygon->remove(f);
 	}
-	remove(f);
 }
 
 void PolygonFactory::destory(PolygonMesh* polygon)
@@ -313,19 +284,6 @@ void PolygonFactory::cleaning()
 	auto df = faces.getDegenerateds();
 	for (auto f : df) {
 		this->destory(f);
-	}
-	auto de = edges.getDegenerateds();
-	for (auto e : de) {
-		this->remove(e);
-	}
-	for (auto iter = polygons.begin(); iter != polygons.end();) {
-		auto p = *(iter);
-		if (p->getFaces().empty()) {
-			delete p;
-			iter = polygons.erase(iter);
-			continue;
-		}
-		++iter;
 	}
 }
 

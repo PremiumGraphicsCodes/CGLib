@@ -41,7 +41,7 @@ public:
 
 	PolygonMesh* create(PolygonBuilder& builder);
 
-	PolygonMesh* create(VertexCollection& vertices, EdgeCollection& edges, FaceCollection& faces);
+	PolygonMesh* create(FaceCollection& faces);
 
 	std::list<PolygonMesh*> getPolygons() { return polygons; }
 
@@ -62,10 +62,6 @@ public:
 	void merge(PolygonFactory& rhs);
 
 	void remove(PolygonMesh* p);
-
-	void remove(Vertex* v);
-
-	void remove(Edge* e);
 
 	void remove(Face* f);
 

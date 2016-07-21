@@ -40,8 +40,6 @@ TEST(PolygonFactoryTest, TestRemoveFace)
 	PolygonFactory factory;
 	auto f = factory.create(builder);
 	factory.remove(f);
-	EXPECT_EQ(0, factory.getFaces().size());
-	EXPECT_EQ(0, factory.getVertices().size());
 	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
@@ -50,14 +48,14 @@ TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
 	PolygonFactory factory;
-	auto f = factory.create(builder);
-	auto v = f->getVertices().back();
+	auto polygon = factory.create(builder);
+	auto v = factory.getVertices().findById(2);
 	factory.destory(v);
 	factory.cleaning();
-	EXPECT_EQ(0, factory.getFaces().size());
-	EXPECT_EQ(0, factory.getEdges().size());
+	EXPECT_EQ(0, polygon->getFaces().size());
+	//EXPECT_EQ(0, factory.getEdges().size());
 	//EXPECT_EQ(0, factory.getVertices().size());
-	EXPECT_EQ(0, factory.getPolygons().size());
+	//EXPECT_EQ(0, factory.getPolygons().size());
 }
 
 TEST(PolygonFactoryTest, TestDestoryVertexQuad)
@@ -65,14 +63,11 @@ TEST(PolygonFactoryTest, TestDestoryVertexQuad)
 	Quad<float> q(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(q.toCurve3d());
 	PolygonFactory factory;
-	auto f = factory.create(builder);
+	auto polygon = factory.create(builder);
 	auto v = factory.getVertices().findById(2);
 	factory.destory(v);
 	factory.cleaning();
-	EXPECT_EQ(1, factory.getFaces().size());
-	EXPECT_EQ(3, factory.getEdges().size());
-	//EXPECT_EQ(3, factory.getVertices().size());
-	EXPECT_EQ(1, factory.getPolygons().size());
+	EXPECT_EQ(1, polygon->getFaces().size());
 }
 
 TEST(PolygonFactoryTest, TestDestoryFace)
@@ -80,13 +75,11 @@ TEST(PolygonFactoryTest, TestDestoryFace)
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
 	PolygonFactory factory;
-	auto f = factory.create(builder);
-	factory.destory(f->getFaces().front());
+	auto polygon = factory.create(builder);
+	factory.destory(polygon->getFaces().front());
 	factory.cleaning();
-	EXPECT_EQ(0, factory.getFaces().size());
-	EXPECT_EQ(0, factory.getEdges().size());
-	//EXPECT_EQ(0, factory.getVertices().size());
-	EXPECT_EQ(0, factory.getPolygons().size());
+	EXPECT_EQ(0, polygon->getFaces().size());
+	EXPECT_EQ(1, factory.getPolygons().size());
 }
 
 TEST(PolygonFactoryTest, TestDestoryEdge)
@@ -94,14 +87,11 @@ TEST(PolygonFactoryTest, TestDestoryEdge)
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
 	PolygonFactory factory;
-	factory.create(builder);
+	auto polygon = factory.create(builder);
 	auto e = factory.getEdges().findById(0);
 	factory.destory(e);
 	factory.cleaning();
-	EXPECT_EQ(0, factory.getFaces().size());
-	EXPECT_EQ(0, factory.getEdges().size());
-	//EXPECT_EQ(0, factory.getVertices().size());
-	EXPECT_EQ(0, factory.getPolygons().size());
+	EXPECT_EQ(0, polygon->getFaces().size());
 }
 
 TEST(PolygonFactoryTest, TestSimplify)

@@ -32,9 +32,8 @@ TEST(PolygonBuilderTest, TestClean)
 	PolygonBuilder builder(vertices);
 	builder.createFace(v1, v2, v3);
 	builder.createFace(v4, v2, v3);
-	builder.clean();
 	auto actual = builder.build();
 	EXPECT_EQ(2, actual->getFaces().size());
-	EXPECT_EQ(3, actual->getVertices().size());
+	EXPECT_EQ(4, actual->getVertices().size());
 	delete actual;
 }

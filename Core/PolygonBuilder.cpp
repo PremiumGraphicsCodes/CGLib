@@ -29,7 +29,7 @@ PolygonMesh* PolygonBuilder::build(int id)
 	ec.renumber();
 	FaceCollection fc(faces);
 	fc.renumber();
-	return new PolygonMesh(vc.get(), ec.get(), fc.get(), id);
+	return new PolygonMesh(fc.get(), id);
 }
 
 PolygonBuilder::PolygonBuilder(const std::vector<Vertex*>& vertices, const std::vector<Face*>& faces, const std::vector<Edge*>& edges) :
@@ -224,11 +224,4 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	e3->setFace(f);
 
 	faces.push_back(f);
-}
-
-void PolygonBuilder::clean()
-{
-	VertexCollection vs(vertices);
-	vs.sort();
-	this->vertices = std::vector<Vertex*>(vs.begin(), vs.end());
 }

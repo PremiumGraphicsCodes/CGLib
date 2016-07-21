@@ -8,47 +8,19 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 
 
-
 PolygonMesh::~PolygonMesh()
 {
 	clear();
 }
 
-PolygonMesh::PolygonMesh(const std::list<Vertex*>& vertices, const std::list<Edge*>& edges, const std::list<Face*>& faces, const unsigned int id) :
-	vertices(vertices),
-	edges(edges),
+PolygonMesh::PolygonMesh(const std::list<Face*>& faces, const unsigned int id) :
 	faces(faces),
 	id(id)
 {}
 
-#include "../Math/Curve3d.h"
-
 void PolygonMesh::clear()
 {
-	//positions.clear();
-	//normals.clear();
-	//texCoords.clear();
-	vertices.clear();
-	edges.clear();
 	faces.clear();
-}
-
-#include "../Math/Matrix4d.h"
-
-void PolygonMesh::transform(const Matrix4d<float>& matrix)
-{
-	for (auto v : vertices) {
-		v->transform(matrix);
-	}
-}
-
-std::vector<int> PolygonMesh::toIndices() const
-{
-	std::vector<int> results;
-	for (auto v : vertices) {
-		results.push_back( v->getId() );
-	}
-	return results;
 }
 
 //void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
@@ -88,41 +60,12 @@ void PolygonMesh::simplify(const Edge& e)
 	auto center = e.getMidPoint();
 	e.getStart()->moveTo(center.getPosition());
 	e.getEnd()->moveTo(center.getPosition());
-	removeOverlappedVertices();
 }
 
-void PolygonMesh::removeOverlappedVertices()
-{
-	VertexCollection vc(vertices);
-	vc.sort();
-	this->vertices = vc.get();
-}
-
-
-void PolygonMesh::cleaning()
-{
-	VertexCollection vc(vertices);
-	vc.renumber();
-	this->vertices = vc.get();
-	//faces.cleaning();
-}
 
 void PolygonMesh::add(Face* f)
 {
 	faces.push_back(f);
-	for (auto e : f->getEdges()) {
-		add(e);
-	}
-}
-
-void PolygonMesh::add(Vertex* v)
-{
-	vertices.push_back(v);
-}
-
-void PolygonMesh::add(Edge* e)
-{
-	edges.push_back(e);
 }
 
 bool PolygonMesh::has(Face* f)
@@ -130,34 +73,36 @@ bool PolygonMesh::has(Face* f)
 	return std::find(faces.begin(), faces.end(), f) != faces.end();
 }
 
-bool PolygonMesh::has(Vertex* v)
+std::list<Vertex*> PolygonMesh::getVertices()
 {
-	return std::find(vertices.begin(), vertices.end(), v) != vertices.end();
+	std::list<Vertex*> vertices;
+	for (auto f : faces) {
+		auto vs = f->getVertices();
+		vertices.insert(vertices.end(), vs.begin(), vs.end());
+	}
+	vertices.sort();
+	vertices.unique();
+	return vertices;
 }
 
+std::list<Edge*> PolygonMesh::getEdges()
+{
+	std::list<Edge*> edges;
+	for (auto f : faces) {
+		auto es = f->getEdges();
+		edges.insert(edges.end(), es.begin(), es.end());
+	}
+	edges.sort();
+	edges.unique();
+	return edges;
+}
 
 void PolygonMesh::remove(Face* f)
 {
 	faces.remove(f);
 }
 
-void PolygonMesh::remove(Vertex* v)
-{
-	vertices.remove(v);
-}
-
-void PolygonMesh::remove(Edge* e)
-{
-	edges.remove(e);
-}
-
 PolygonMesh* PolygonMesh::clone(const int id)
 {
-	return new PolygonMesh(vertices, edges, faces, id);
-}
-
-std::list<Vertex*> PolygonMesh::find(const Vector3d<float>& position, const float radius)
-{
-	VertexCollection vc(vertices);
-	return vc.find(position, radius);
+	return new PolygonMesh(faces, id);
 }
