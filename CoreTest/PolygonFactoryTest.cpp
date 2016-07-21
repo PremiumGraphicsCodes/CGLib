@@ -59,6 +59,21 @@ TEST(PolygonFactoryTest, TestRemoveVertex)
 	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
+TEST(PolygonFactoryTest, TestRemoveVertex2)
+{
+	Quad<float> q(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(q.toCurve3d());
+	PolygonFactory factory;
+	auto f = factory.create(builder);
+	auto v = factory.getVertices().findById(2);
+	factory.remove(v);
+	EXPECT_EQ(1, factory.getFaces().size());
+	EXPECT_EQ(3, factory.getEdges().size());
+	EXPECT_EQ(3, factory.getVertices().size());
+	EXPECT_EQ(1, factory.getPolygons().size());
+}
+
+
 TEST(PolygonFactoryTest, TestSimplify)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));

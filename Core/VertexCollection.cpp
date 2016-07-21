@@ -177,3 +177,13 @@ std::list<Vertex*> VertexCollection::find(const Vector3d<float>& position, const
 	}
 	return hash.getNeighbor(position);
 }
+
+Vertex* VertexCollection::findById(const int id)
+{
+	for (auto v : vertices) {
+		if (id == v->getId()) {
+			return v;
+		}
+	}
+	return nullptr;
+}
