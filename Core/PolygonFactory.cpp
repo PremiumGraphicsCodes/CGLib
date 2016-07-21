@@ -271,7 +271,6 @@ void PolygonFactory::destory(Vertex* v)
 void PolygonFactory::destory(Edge* e)
 {
 	auto v = e->getEnd();
-	//v->moveTo(e->getStart()->getPosition());
 	e->changeStart(v);
 	cleaning();
 }
@@ -279,6 +278,7 @@ void PolygonFactory::destory(Edge* e)
 
 void PolygonFactory::destory(Face* f)
 {
+	auto e = f->getEdges().front();
 	auto polygon = find(f);
 	for (auto e : f->getEdges()) {
 		remove(e);

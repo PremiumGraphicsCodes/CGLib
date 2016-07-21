@@ -46,6 +46,8 @@ public:
 
 	//std::array< Vertex*, 3> getVertexIds() const;
 
+	void toDegenerate();
+
 private:
 	std::array< Edge*, 3 > edges;
 	//std::array< Vertex*, 3> vertices;

@@ -93,3 +93,14 @@ bool Face::isDegenerated() const
 {
 	return getArea() < Tolerance<float>::getLooseTolerance();
 }
+
+void Face::toDegenerate()
+{
+	edges[0]->toDenerate();
+	edges[1]->changeStart(edges[0]->getEnd());
+	edges[1]->toDenerate();
+	edges[2]->changeStart(edges[0]->getEnd());
+	edges[2]->toDenerate();
+	//edges[1]->toDenerate();
+	//edges[2]->toDenerate();
+}

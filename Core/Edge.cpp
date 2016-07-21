@@ -127,3 +127,8 @@ void Edge::remove()
 	start->remove(this);
 	end->remove(this);
 }
+
+void Edge::toDenerate()
+{
+	end = start;
+}

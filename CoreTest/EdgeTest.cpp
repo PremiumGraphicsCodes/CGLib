@@ -68,6 +68,17 @@ TEST(EdgeTest, TestIsDegenerated)
 	n2.moveTo(Vector3d<float>(1, 0, 0));
 	EXPECT_FALSE(e1.isDegenerated());
 }
+
+TEST(EdgeTest, TestToDegenerate)
+{
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 1);
+	Edge e1(&n1, &n2, 0);
+	EXPECT_FALSE(e1.isDegenerated());
+	e1.toDenerate();
+	EXPECT_TRUE( e1.isDegenerated());
+}
+
 /*
 #include "../Core/Face.h"
 

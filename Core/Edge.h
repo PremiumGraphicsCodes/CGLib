@@ -70,6 +70,8 @@ public:
 
 	void remove();
 
+	void toDenerate();
+
 private:
 	Vertex* start;
 	Vertex* end;
