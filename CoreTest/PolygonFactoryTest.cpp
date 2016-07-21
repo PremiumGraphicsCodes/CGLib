@@ -55,8 +55,8 @@ TEST(PolygonFactoryTest, TestRemoveVertex)
 	factory.remove(v);
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getEdges().size());
-//	EXPECT_EQ(0, factory.getVertices().size());
-//	EXPECT_EQ(0, factory.getPolygons().size());
+	EXPECT_EQ(0, factory.getVertices().size());
+	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
 TEST(PolygonFactoryTest, TestSimplify)

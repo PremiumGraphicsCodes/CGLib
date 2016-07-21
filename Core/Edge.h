@@ -68,6 +68,7 @@ public:
 
 	bool isDegenerated() const;
 
+	void remove();
 
 private:
 	Vertex* start;

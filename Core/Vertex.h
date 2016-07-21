@@ -60,6 +60,8 @@ public:
 		return inEdges.empty() && outEdges.empty();
 	}
 
+	void remove(Edge* e);
+
 private:
 	unsigned int id;
 	std::list<Edge*> inEdges;

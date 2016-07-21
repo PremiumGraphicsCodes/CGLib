@@ -89,3 +89,9 @@ void Vertex::merge(Vertex* rhs)
 	rhs->inEdges.clear();
 	rhs->outEdges.clear();
 }
+
+void Vertex::remove(Edge* e)
+{
+	inEdges.remove(e);
+	outEdges.remove(e);
+}

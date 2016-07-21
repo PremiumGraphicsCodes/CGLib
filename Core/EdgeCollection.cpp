@@ -72,6 +72,7 @@ void EdgeCollection::renumber()
 
 void EdgeCollection::remove(Edge* e)
 {
+	e->remove();
 	edges.remove(e);
 	delete e;
 }

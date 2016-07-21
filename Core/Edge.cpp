@@ -121,3 +121,9 @@ bool Edge::isDegenerated() const
 {
 	return getLength() < Tolerance<float>::getLooseTolerance();
 }
+
+void Edge::remove()
+{
+	start->remove(this);
+	end->remove(this);
+}

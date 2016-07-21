@@ -252,9 +252,15 @@ void PolygonFactory::remove(Vertex* v)
 			auto next = o->getStart();
 			i->changeEnd(next);
 			o->changeStart(prev);
+			v->remove(i);
+			v->remove(o);
+	//		next->remove(i);
+	//		prev->remove(o);
 		}
 	}
 	//edges.cleaning();
+	//vertices.cleaning();
+
 	auto fs = faces.getDegenerateds();
 	for (auto f : fs) {
 		for (auto e : f->getEdges()) {
@@ -264,9 +270,14 @@ void PolygonFactory::remove(Vertex* v)
 	for (auto f : fs) {
 		remove(f);
 	}
+	vertices.cleaning();
 	//faces.cleaning();
 	//polygon->remove(v);
 	//vertices.remove(v);
+	if (polygon->getFaces().size() == 0) {
+		polygons.remove(polygon);
+		delete polygon;
+	}
 }
 
 /*
