@@ -45,34 +45,60 @@ TEST(PolygonFactoryTest, TestRemoveFace)
 	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
-TEST(PolygonFactoryTest, TestRemoveVertex)
+TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
 	PolygonFactory factory;
 	auto f = factory.create(builder);
 	auto v = f->getVertices().back();
-	factory.remove(v);
+	factory.destory(v);
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getEdges().size());
 	EXPECT_EQ(0, factory.getVertices().size());
 	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
-TEST(PolygonFactoryTest, TestRemoveVertex2)
+TEST(PolygonFactoryTest, TestDestoryVertexQuad)
 {
 	Quad<float> q(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(q.toCurve3d());
 	PolygonFactory factory;
 	auto f = factory.create(builder);
 	auto v = factory.getVertices().findById(2);
-	factory.remove(v);
+	factory.destory(v);
 	EXPECT_EQ(1, factory.getFaces().size());
 	EXPECT_EQ(3, factory.getEdges().size());
 	EXPECT_EQ(3, factory.getVertices().size());
 	EXPECT_EQ(1, factory.getPolygons().size());
 }
 
+TEST(PolygonFactoryTest, TestDestoryFace)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(t1.toCurve3d());
+	PolygonFactory factory;
+	auto f = factory.create(builder);
+	factory.destory(f->getFaces().front());
+	EXPECT_EQ(0, factory.getFaces().size());
+	EXPECT_EQ(0, factory.getEdges().size());
+	EXPECT_EQ(0, factory.getVertices().size());
+	EXPECT_EQ(0, factory.getPolygons().size());
+}
+
+TEST(PolygonFactoryTest, TestDestoryEdge)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder(t1.toCurve3d());
+	PolygonFactory factory;
+	factory.create(builder);
+	auto e = factory.getEdges().findById(0);
+	factory.destory(e);
+	EXPECT_EQ(0, factory.getFaces().size());
+	EXPECT_EQ(0, factory.getEdges().size());
+	EXPECT_EQ(0, factory.getVertices().size());
+	EXPECT_EQ(0, factory.getPolygons().size());
+}
 
 TEST(PolygonFactoryTest, TestSimplify)
 {

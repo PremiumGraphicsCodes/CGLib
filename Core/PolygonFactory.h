@@ -63,11 +63,19 @@ public:
 
 	void remove(PolygonMesh* p);
 
-	void remove(Face* f);
-
 	void remove(Vertex* v);
 
 	void remove(Edge* e);
+
+	void remove(Face* f);
+
+	void destory(Vertex* v);
+
+	void destory(Edge* e);
+
+	void destory(Face* f);
+
+	void destory(PolygonMesh* p);
 
 	//PolygonMesh* find(Face* f);
 

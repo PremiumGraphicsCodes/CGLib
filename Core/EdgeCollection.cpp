@@ -48,7 +48,7 @@ void EdgeCollection::clear()
 	edges.clear();
 }
 
-void EdgeCollection::cleaning()
+std::list<Edge*> EdgeCollection::getDegenerateds()
 {
 	std::list<Edge*> shrinked;
 	for (auto e : edges) {
@@ -56,9 +56,17 @@ void EdgeCollection::cleaning()
 			shrinked.push_back(e);
 		}
 	}
+	return shrinked;
+}
+
+
+void EdgeCollection::cleaning()
+{
+	auto shrinked = getDegenerateds();
 	for (auto f : shrinked) {
 		remove(f);
 	}
+	renumber();
 }
 
 void EdgeCollection::renumber()

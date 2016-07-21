@@ -38,6 +38,8 @@ public:
 
 	size_t size() const { return edges.size(); }
 
+	std::list<Edge*> getDegenerateds();
+
 private:
 	int nextId;
 	std::list<Edge*> edges;

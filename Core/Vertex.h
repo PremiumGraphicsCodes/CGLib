@@ -56,9 +56,7 @@ public:
 
 	void merge(Vertex* rhs);
 
-	bool isIsolated() {
-		return inEdges.empty() && outEdges.empty();
-	}
+	bool isIsolated();
 
 	void remove(Edge* e);
 

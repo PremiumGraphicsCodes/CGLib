@@ -225,6 +225,13 @@ void PolygonFactory::remove(PolygonMesh* p)
 	renumber();
 }
 
+void PolygonFactory::remove(Vertex* v)
+{
+	auto p = find(v);
+	p->remove(v);
+}
+
+
 void PolygonFactory::remove(Face* f)
 {
 	auto polygon = find(f);
@@ -241,49 +248,64 @@ void PolygonFactory::remove(Edge* e)
 }
 
 
-void PolygonFactory::remove(Vertex* v)
+void PolygonFactory::destory(Vertex* v)
 {
 	auto polygon = find(v);
 	auto ins = v->getInEdges();
 	auto outs = v->getOutEdges();
 	for (auto i : ins) {
+		v->remove(i);
 		auto prev = i->getStart();
 		for (auto o : outs) {
+			v->remove(o);
 			auto next = o->getStart();
 			i->changeEnd(next);
 			o->changeStart(prev);
-			v->remove(i);
-			v->remove(o);
-	//		next->remove(i);
-	//		prev->remove(o);
 		}
 	}
-	//edges.cleaning();
-	//vertices.cleaning();
 
-	auto fs = faces.getDegenerateds();
-	for (auto f : fs) {
-		for (auto e : f->getEdges()) {
-			remove(e);
-		}
+	cleaning();
+	
+}
+
+void PolygonFactory::destory(Edge* e)
+{
+	auto v = e->getEnd();
+	//v->moveTo(e->getStart()->getPosition());
+	e->changeStart(v);
+	cleaning();
+}
+
+
+void PolygonFactory::destory(Face* f)
+{
+	auto polygon = find(f);
+	for (auto e : f->getEdges()) {
+		remove(e);
 	}
-	for (auto f : fs) {
-		remove(f);
-	}
+	remove(f);
 	auto vs = vertices.getIsolateds();
 	for (auto v : vs) {
-		auto p = find(v);
-		p->remove(v);
+		remove(v);
 	}
 	vertices.cleaning();
-	//faces.cleaning();
-	//polygon->remove(v);
-	//vertices.remove(v);
+	cleaning();
+	/*
 	if (polygon->getFaces().size() == 0) {
 		polygons.remove(polygon);
 		delete polygon;
 	}
+	*/
 }
+
+void PolygonFactory::destory(PolygonMesh* polygon)
+{
+	auto faces = polygon->getFaces();
+	for (auto f : faces) {
+		destory(f);
+	}
+}
+
 
 /*
 PolygonMesh* PolygonFactory::find(Face* f)
@@ -307,17 +329,27 @@ void PolygonFactory::simplify(PolygonMesh* p, int howMany)
 
 void PolygonFactory::cleaning()
 {
-	std::list<Face*> degenerateds;
-	for (auto f : faces) {
-		if (f->isDegenerated()) {
-			degenerateds.push_back(f);
+	auto df = faces.getDegenerateds();
+	for (auto f : df) {
+		this->destory(f);
+	}
+	auto de = edges.getDegenerateds();
+	for (auto e : de) {
+		this->remove(e);
+	}
+	auto dv = vertices.getIsolateds();
+	for (auto v : dv) {
+		this->destory(v);
+	}
+	for (auto iter = polygons.begin(); iter != polygons.end();) {
+		auto p = *(iter);
+		if (p->getFaces().empty()) {
+			delete p;
+			iter = polygons.erase(iter);
+			continue;
 		}
+		++iter;
 	}
-	for (auto f : degenerateds) {
-		remove(f);
-	}
-
-	faces.renumber();
 }
 
 Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)

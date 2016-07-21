@@ -52,6 +52,7 @@ void FaceCollection::cleaning()
 	for (auto f : shrinked) {
 		remove(f);
 	}
+	renumber();
 }
 
 void FaceCollection::renumber()

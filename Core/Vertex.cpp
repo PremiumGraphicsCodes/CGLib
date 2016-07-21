@@ -95,3 +95,8 @@ void Vertex::remove(Edge* e)
 	inEdges.remove(e);
 	outEdges.remove(e);
 }
+
+bool Vertex::isIsolated()
+{
+	return inEdges.empty() || outEdges.empty();
+}
