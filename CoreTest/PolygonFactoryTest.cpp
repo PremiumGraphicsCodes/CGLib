@@ -53,6 +53,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
 	auto f = factory.create(builder);
 	auto v = f->getVertices().back();
 	factory.destory(v);
+	factory.cleaning();
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getEdges().size());
 	//EXPECT_EQ(0, factory.getVertices().size());
@@ -67,6 +68,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexQuad)
 	auto f = factory.create(builder);
 	auto v = factory.getVertices().findById(2);
 	factory.destory(v);
+	factory.cleaning();
 	EXPECT_EQ(1, factory.getFaces().size());
 	EXPECT_EQ(3, factory.getEdges().size());
 	//EXPECT_EQ(3, factory.getVertices().size());
@@ -80,6 +82,7 @@ TEST(PolygonFactoryTest, TestDestoryFace)
 	PolygonFactory factory;
 	auto f = factory.create(builder);
 	factory.destory(f->getFaces().front());
+	factory.cleaning();
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getEdges().size());
 	//EXPECT_EQ(0, factory.getVertices().size());
@@ -94,6 +97,7 @@ TEST(PolygonFactoryTest, TestDestoryEdge)
 	factory.create(builder);
 	auto e = factory.getEdges().findById(0);
 	factory.destory(e);
+	factory.cleaning();
 	EXPECT_EQ(0, factory.getFaces().size());
 	EXPECT_EQ(0, factory.getEdges().size());
 	//EXPECT_EQ(0, factory.getVertices().size());

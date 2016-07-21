@@ -235,15 +235,18 @@ void PolygonFactory::remove(Vertex* v)
 void PolygonFactory::remove(Face* f)
 {
 	auto polygon = find(f);
-	polygon->remove(f);
+	if(polygon) {
+		polygon->remove(f);
+	}
 	faces.remove(f);
-	//findPo
 }
 
 void PolygonFactory::remove(Edge* e)
 {
 	auto polygon = find(e);
-	polygon->remove(e);
+	if (polygon) {
+		polygon->remove(e);
+	}
 	edges.remove(e);
 }
 
@@ -256,9 +259,6 @@ void PolygonFactory::destory(Vertex* v)
 			e->toDenerate();
 		}
 	}
-
-	cleaning();
-	
 }
 
 void PolygonFactory::destory(Edge* e)
@@ -274,17 +274,9 @@ void PolygonFactory::destory(Face* f)
 	auto e = f->getEdges().front();
 	auto polygon = find(f);
 	for (auto e : f->getEdges()) {
-		remove(e);
+		e->toDenerate();
 	}
 	remove(f);
-	vertices.cleaning();
-	cleaning();
-	/*
-	if (polygon->getFaces().size() == 0) {
-		polygons.remove(polygon);
-		delete polygon;
-	}
-	*/
 }
 
 void PolygonFactory::destory(PolygonMesh* polygon)
