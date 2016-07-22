@@ -69,7 +69,7 @@ void LineIdRenderer::set(ShaderObject* shader)
 	shader->findAttribLocation("id");
 }
 
-void LineIdRenderer::render(const ICamera<float>& camera, const LineIdBuffer& buffer, const int width)
+void LineIdRenderer::render(const ICamera<float>& camera, const LineIdBuffer& buffer, const float width)
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPosition().get();

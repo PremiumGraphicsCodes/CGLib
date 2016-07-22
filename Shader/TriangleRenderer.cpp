@@ -102,12 +102,10 @@ void TriangleRenderer::render(const ICamera<float>& camera, const TriangleColorB
 	glEnableVertexAttribArray(1);
 	assert(GL_NO_ERROR == glGetError());
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
-
+	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-
 
 	glUseProgram(0);
 

@@ -218,7 +218,7 @@ void EllipsoidRenderer::render(const ICamera<float>& camera, const OrientedParti
 
 
 	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
 
 
 	//glDisableVertexAttribArray(4);

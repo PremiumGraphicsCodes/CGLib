@@ -95,7 +95,7 @@ void SkyBoxRenderer::render(const CubeMapTextureObject& cubeMapTexture, const IC
 	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glEnableVertexAttribArray(0);
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
 
 	glDisableVertexAttribArray(0);
 

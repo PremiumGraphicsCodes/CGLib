@@ -100,12 +100,12 @@ void BilateralFilter::render(const ITextureObject& texture)
 
 	texture.bind();
 	glUniform1i(shader.getUniformLocation("tex"), texture.getId());
-	glUniform1f(shader.getUniformLocation("width"), texture.getWidth());
-	glUniform1f(shader.getUniformLocation("height"), texture.getHeight());
+	glUniform1f(shader.getUniformLocation("width"), static_cast<GLfloat>(texture.getWidth()));
+	glUniform1f(shader.getUniformLocation("height"), static_cast<GLfloat>(texture.getHeight()));
 
 	glEnableVertexAttribArray(0);
 
-	glDrawArrays(GL_QUADS, 0, positions.size() / 2);
+	glDrawArrays(GL_QUADS, 0, static_cast<GLsizei>( positions.size() ) / 2);
 
 	glDisableVertexAttribArray(0);
 

@@ -95,7 +95,7 @@ void TriangleIdRenderer::render(const ICamera<float>& camera, const TriangleIdBu
 		const auto& indices = block.indices;
 		auto idColor = block.idColor.get();
 		glUniform4fv(shader->getUniformLocation("idColor"), 1, idColor.data());
-		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size() ), GL_UNSIGNED_INT, indices.data());
 	}
 
 	glDisableVertexAttribArray(0);
