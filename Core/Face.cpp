@@ -121,3 +121,22 @@ std::map<Vertex*, Vertex*> Face::findDouble(const Face& rhs, const float distanc
 	}
 	return map;
 }
+
+void Face::mergeDouble(const Face& rhs, float distance)
+{
+	auto vertices1 = this->getVertices();
+	auto doubles = findDouble(rhs, distance);
+	for (auto d : doubles) {
+		auto v1 = d.first;
+		auto v2 = d.second;
+		auto edges2 = rhs.getEdges();
+		for (auto e2 : edges2) {
+			if (e2->getStart() == v2) {
+				e2->changeStart(v1);
+			}
+			if (e2->getEnd() == v2) {
+				e2->changeEnd(v1);
+			}
+		}
+	}
+}

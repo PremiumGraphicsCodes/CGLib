@@ -51,6 +51,8 @@ public:
 
 	std::map<Vertex*, Vertex*> findDouble(const Face& rhs, const float distance);
 
+	void mergeDouble(const Face& rhs, float distance);
+
 private:
 	std::array< Edge*, 3 > edges;
 	//std::array< Vertex*, 3> vertices;

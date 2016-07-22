@@ -158,6 +158,9 @@
     <ClInclude Include="ISpaceHash.h">
       <Filter>Space</Filter>
     </ClInclude>
+    <ClInclude Include="FaceBuilder.h">
+      <Filter>PolygonMesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
