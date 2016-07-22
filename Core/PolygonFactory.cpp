@@ -308,40 +308,48 @@ Edge* PolygonFactory::getShared(Edge* e)
 }
 
 
-std::map<Vertex*, Vertex*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
+std::vector<std::map<Vertex*, Vertex*>> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
 {
-	auto vertices1 = lhs->getVertices();
-	auto vertices2 = rhs->getVertices();
-	std::map<Vertex*, Vertex*> map;
-	for (auto v1 : vertices1) {
-		for (auto v2 : vertices2) {
-			auto p1 = v1->getPosition();
-			auto p2 = v2->getPosition();
-			if (p1.getDistanceSquared(p2) < distance * distance) {
-				map[v1] = v2;
-			}
+	std::vector<std::map< Vertex*, Vertex*> > results;
+	auto faces1 = lhs->getFaces();
+	auto faces2 = rhs->getFaces();
+	for (auto f1 : faces1) {
+		for (auto f2 : faces2) {
+			std::map<Vertex*, Vertex*> map = f1->findDouble(*f2, distance);
+			results.insert(results.end(), map);
 		}
 	}
-	return map;
+	return results;
 }
 
 
 void PolygonFactory::mergeDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
 {
-	auto vertices1 = lhs->getVertices();
-	auto vertices2 = rhs->getVertices();
-	auto doubles = findDouble(lhs, rhs, distance);
-	for (auto d : doubles) {
-		auto v1 = d.first;
-		auto v2 = d.second;
-		auto edges2 = rhs->getEdges();
-		for (auto e2 : edges2) {
-			if (e2->getStart() == v2) {
-				e2->changeStart(v1);
-			}
-			if (e2->getEnd() == v2) {
-				e2->changeEnd(v1);
-			}
+	auto faces1 = lhs->getFaces();
+	auto faces2 = rhs->getFaces();
+	for (auto f1 : faces1) {
+		for (auto f2 : faces2) {
+			f1->mergeDouble(*f2, distance);
 		}
 	}
+}
+
+std::list<Vertex*> PolygonFactory::findIsolatedVertices()
+{
+	std::list<Vertex*> vs = vertices.get();
+	vs.sort();
+	std::list<Vertex*> collected;
+	for (auto p : polygons) {
+		auto v = p->getVertices();
+		collected.splice(collected.end(), v);
+	}
+	collected.sort();
+	collected.unique();
+	std::list<Vertex*> isolateds;
+	std::set_difference(
+		vs.begin(), vs.end(),
+		collected.begin(), collected.end(),
+		std::back_inserter(isolateds)
+	);
+	return isolateds;
 }

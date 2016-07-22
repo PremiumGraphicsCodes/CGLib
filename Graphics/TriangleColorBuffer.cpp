@@ -19,11 +19,14 @@ void TriangleColorBuffer::clear()
 	nextId = 0;
 }
 
+/*
 void TriangleColorBuffer::add(const PolygonMesh& mesh, const ColorRGBA<float>& color)
 {
-	auto si = mesh.toIndices();
-	for (auto& s : si) {
-		s += nextId;
+	auto fs = mesh.getFaces();// toIndices();
+	for (auto& f : fs) {
+		f->getV1()->getId();
+		f->getV2()->getId();
+		f->getV3()->getId();
 	}
 	this->indices.insert(indices.end(), si.begin(), si.end());
 	const auto& nodes = mesh.getVertices();
@@ -32,7 +35,7 @@ void TriangleColorBuffer::add(const PolygonMesh& mesh, const ColorRGBA<float>& c
 	}
 	nextId += mesh.getVertices().size();
 }
-
+*/
 
 void TriangleColorBuffer::add(const Point3d<float>& point, const ColorRGBA<float>& color)
 {

@@ -116,7 +116,9 @@ TEST(PolygonFactoryTest, TestFindDouble)
 	auto p2 = factory.create(builder2);
 
 	auto actual = factory.findDouble(p1, p2, 1.0e-6);
-	EXPECT_EQ(2, actual.size());
+	EXPECT_EQ(1, actual.size());
+	EXPECT_EQ(2, actual.front().size());
+
 }
 
 TEST(PolygonFactoryTest, TestMergeDouble)
@@ -136,5 +138,17 @@ TEST(PolygonFactoryTest, TestMergeDouble)
 	auto vertices2 = p2->getFaces().front()->getVertices();
 	EXPECT_EQ(0, vertices2.front()->getId());
 	EXPECT_EQ(1, vertices2.back()->getId());
+}
 
+TEST(PolygonFactoryTest, TestFindIsolatedVertices)
+{
+	VertexCollection vs;
+	vs.create(Vector3d<float>(0, 0, 0));
+	PolygonFactory factory(vs);
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder1(t1.toCurve3d());
+	factory.create(builder1);
+
+	auto actual = factory.findIsolatedVertices();
+	EXPECT_EQ(1, actual.size());
 }

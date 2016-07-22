@@ -73,7 +73,7 @@ bool PolygonMesh::has(Face* f)
 	return std::find(faces.begin(), faces.end(), f) != faces.end();
 }
 
-std::list<Vertex*> PolygonMesh::getVertices()
+std::list<Vertex*> PolygonMesh::getVertices() const
 {
 	std::list<Vertex*> vertices;
 	for (auto f : faces) {
@@ -85,7 +85,7 @@ std::list<Vertex*> PolygonMesh::getVertices()
 	return vertices;
 }
 
-std::list<Edge*> PolygonMesh::getEdges()
+std::list<Edge*> PolygonMesh::getEdges() const
 {
 	std::list<Edge*> edges;
 	for (auto f : faces) {

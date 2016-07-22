@@ -32,9 +32,9 @@ public:
 
 	std::list<Face*> getFaces() const { return faces; }
 
-	std::list<Vertex*> getVertices();
+	std::list<Vertex*> getVertices() const;
 
-	std::list<Edge*> getEdges();
+	std::list<Edge*> getEdges() const;
 
 	void clear();
 
