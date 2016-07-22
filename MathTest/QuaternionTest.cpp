@@ -85,29 +85,13 @@ TEST(QuaternionTest, TestToMatrix)
 
 TEST(QuaternionTest, TestSlerp)
 {
-	{
-		Quaternion<float> q1(Vector3d<float>(1, 0, 0), 0);
-		Quaternion<float> q2(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
-		const auto actual = q1.slerp(q2, 0.5);
-		Quaternion<float> expected(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI()*0.5);
-		EXPECT_EQ(expected, actual);
-	}
-	{
-		Quaternion<float> q2(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
-		Quaternion<float> q3(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI());
-		const auto actual = q2.slerp(q3, 0.5);
-		Quaternion<float> expected(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI()*0.75);
-		EXPECT_EQ(expected, actual);
-	}
+	const Quaternion<float> q1(Vector3d<float>(1, 0, 0), 0);
+	const Quaternion<float> q2(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI());
+	const Quaternion<float> q3(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI());
 
-	/*
-	{
-		Quaternion<float> q1(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI());
-		Quaternion<float> q2(Vector3d<float>(0, 1, 0), Tolerance<float>::getPI());
-		const auto actual = q1.slerp(q2, 0.5);
-		Quaternion<float> q3(Vector3d<float>(0, 0, 1), 0);
+	const Quaternion<float> expected1(Vector3d<float>(1, 0, 0), Tolerance<float>::getHalfPI()*0.5f);	
+	const Quaternion<float> expected2(Vector3d<float>(1, 0, 0), Tolerance<float>::getPI()*0.75f);
 
-	}
-	*/
-
+	EXPECT_EQ(expected1, q1.slerp(q2, 0.5));
+	EXPECT_EQ(expected2, q2.slerp(q3, 0.5));
 }
