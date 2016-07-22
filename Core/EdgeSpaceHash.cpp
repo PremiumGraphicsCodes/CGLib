@@ -22,20 +22,8 @@ void EdgeSpaceHash::add(Edge* edge)
 
 std::list<Edge*> EdgeSpaceHash::getNeighbor(const Vector3d<float>& pos)
 {
-	std::list<Edge*> neighbors;
 	Index3d index = toIndex(pos);
-	for (auto x = index.getX() - 1; x <= index.getX() + 1; ++x) {
-		for (auto y = index.getY() - 1; y <= index.getY() + 1; ++y) {
-			for (auto z = index.getZ() - 1; z <= index.getZ() + 1; ++z) {
-				auto& ns = table[toHash(Index3d{ x,y,z })];
-				neighbors.insert(neighbors.end(), ns.begin(), ns.end());
-			}
-		}
-	}
-	neighbors.sort();
-	neighbors.unique();
-
-	return neighbors;
+	return table[toHash(index)];
 }
 
 std::list<Edge*> EdgeSpaceHash::getNeighbor(const Index3d index)
