@@ -8,7 +8,6 @@
     <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
-    <ClCompile Include="SpaceHashTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
     <ClCompile Include="VolumeCellTest.cpp" />
     <ClCompile Include="VolumeNodeTest.cpp" />
@@ -30,6 +29,12 @@
     <ClCompile Include="PolygonBuilderTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="SpaceHashTest.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexSpaceHashTest.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -37,6 +42,9 @@
   <ItemGroup>
     <Filter Include="Polygon">
       <UniqueIdentifier>{76fe2495-f2cf-4e54-9c86-004a6f497431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Space">
+      <UniqueIdentifier>{13be619f-8dc8-4091-82db-8839e10d6c23}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -41,6 +41,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="UIDTest.cpp" />
+    <ClCompile Include="VertexSpaceHashTest.cpp" />
     <ClCompile Include="VertexTest.cpp" />
     <ClCompile Include="VolumeCellTest.cpp" />
     <ClCompile Include="VolumeNodeTest.cpp" />

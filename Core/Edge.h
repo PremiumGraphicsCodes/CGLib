@@ -72,6 +72,10 @@ public:
 		return (start == e) || (end == e);
 	}
 
+	Math::Line3d<float> getCurve() const {
+		return toLine();
+	}
+
 private:
 	Vertex* start;
 	Vertex* end;

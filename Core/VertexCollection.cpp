@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Vertex.h"
 #include "VertexCollection.h"
-
+#include "VertexSpaceHash.h"
 #include "Face.h"
 
 using namespace Crystal::Math;
@@ -150,11 +150,10 @@ void VertexCollection::remove(Vertex* v)
 	delete v;
 }
 
-#include "SpaceHash.h"
 
 std::list<Vertex*> VertexCollection::find(const Vector3d<float>& position, const float radius)
 {
-	VSpaceHash hash(radius*2, static_cast<int>(vertices.size()));
+	VertexSpaceHash hash(radius*2, static_cast<int>(vertices.size()));
 	for (auto v : vertices) {
 		hash.add(v);
 	}

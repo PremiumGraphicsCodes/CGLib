@@ -35,27 +35,6 @@ private:
 
 };
 
-class VSpaceHash : public ISpaceHash
-{
-public:
-	VSpaceHash(const float divideLength, const int tableSize);
-
-	void add(Vertex* particle);
-
-	std::list<Vertex*> getNeighbor(Vertex* object);
-
-	std::list<Vertex*> getNeighbor(const Math::Vector3d<float>& pos, const float length);
-
-	std::list<Vertex*> getNeighbor(const Math::Vector3d<float>& pos);
-
-	std::list<Vertex*> getNeighbor(const Math::Index3d index);
-
-	bool isEmpty() const { return table.empty(); }
-
-private:
-	std::vector< std::list<Vertex*> > table;
-
-};
 
 	}
 }

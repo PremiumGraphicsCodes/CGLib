@@ -25,6 +25,7 @@
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeCollection.cpp" />
+    <ClCompile Include="EdgeSpaceHash.cpp" />
     <ClCompile Include="FaceBuilder.cpp" />
     <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="IParticle.cpp" />
@@ -48,6 +49,7 @@
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexCollection.cpp" />
+    <ClCompile Include="VertexSpaceHash.cpp" />
     <ClCompile Include="VolumeCell.cpp" />
     <ClCompile Include="VolumeNode.cpp" />
     <ClCompile Include="Volume.cpp" />
@@ -62,6 +64,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeCollection.h" />
+    <ClInclude Include="EdgeSpaceHash.h" />
     <ClInclude Include="FaceBuilder.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="ISpaceHash.h" />
@@ -82,6 +85,7 @@
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexCollection.h" />
+    <ClInclude Include="VertexSpaceHash.h" />
     <ClInclude Include="VolumeCell.h" />
     <ClInclude Include="VolumeNode.h" />
     <ClInclude Include="Volume.h" />

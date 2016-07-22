@@ -78,6 +78,12 @@
     <ClCompile Include="FaceBuilder.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="VertexSpaceHash.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeSpaceHash.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -163,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="FaceBuilder.h">
       <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexSpaceHash.h">
+      <Filter>Space</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeSpaceHash.h">
+      <Filter>Space</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
