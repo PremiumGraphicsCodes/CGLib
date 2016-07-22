@@ -17,13 +17,26 @@
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
     <ClCompile Include="EdgeTest.cpp" />
-    <ClCompile Include="PolygonMeshTest.cpp" />
-    <ClCompile Include="FaceTest.cpp" />
-    <ClCompile Include="PolygonFactoryTest.cpp" />
-    <ClCompile Include="PolygonBuilderTest.cpp" />
     <ClCompile Include="EdgeCollectionTest.cpp" />
+    <ClCompile Include="FaceTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonMeshTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonFactoryTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonBuilderTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Polygon">
+      <UniqueIdentifier>{76fe2495-f2cf-4e54-9c86-004a6f497431}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

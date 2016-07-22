@@ -21,10 +21,10 @@
       <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="PolygonMesh.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="Vertex.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="Volume.cpp">
       <Filter>Volume</Filter>
@@ -46,25 +46,25 @@
       <Filter>Particle</Filter>
     </ClCompile>
     <ClCompile Include="Face.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="Edge.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="VertexCollection.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="FaceCollection.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="PolygonFactory.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="EdgeCollection.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="PolygonBuilder.cpp">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="SpaceHash.cpp">
       <Filter>Space</Filter>
@@ -74,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="ISpaceHash.cpp">
       <Filter>Space</Filter>
+    </ClCompile>
+    <ClCompile Include="FaceBuilder.cpp">
+      <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,10 +102,10 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="PolygonMesh.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="Vertex.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="Volume.h">
       <Filter>Volume</Filter>
@@ -129,25 +132,25 @@
       <Filter>Graph</Filter>
     </ClInclude>
     <ClInclude Include="PolygonFactory.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="Face.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="Edge.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="VertexCollection.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="FaceCollection.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="EdgeCollection.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="PolygonBuilder.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="SpaceHash.h">
       <Filter>Space</Filter>
@@ -159,7 +162,7 @@
       <Filter>Space</Filter>
     </ClInclude>
     <ClInclude Include="FaceBuilder.h">
-      <Filter>PolygonMesh</Filter>
+      <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -169,9 +172,6 @@
     <Filter Include="Volume">
       <UniqueIdentifier>{766bc7cf-55b5-42df-9f32-3d780a9269e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PolygonMesh">
-      <UniqueIdentifier>{faef21cc-daac-4e23-9b00-4756b8033c83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Particle">
       <UniqueIdentifier>{2aab52e0-62b7-4d8f-970b-4b61c2cd08a3}</UniqueIdentifier>
     </Filter>
@@ -180,6 +180,9 @@
     </Filter>
     <Filter Include="Space">
       <UniqueIdentifier>{05d3167a-4ebc-4b09-8b0b-48ffeec913e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Polygon">
+      <UniqueIdentifier>{faef21cc-daac-4e23-9b00-4756b8033c83}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -106,3 +106,14 @@ PolygonMesh* PolygonMesh::clone(const int id)
 {
 	return new PolygonMesh(faces, id);
 }
+
+void PolygonMesh::mergeDouble(PolygonMesh* rhs, float distance)
+{
+	auto faces1 = this->getFaces();
+	auto faces2 = rhs->getFaces();
+	for (auto f1 : faces1) {
+		for (auto f2 : faces2) {
+			f1->mergeDouble(*f2, distance);
+		}
+	}
+}

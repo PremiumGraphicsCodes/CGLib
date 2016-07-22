@@ -215,6 +215,9 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	auto e1 = new Edge(v1, v2);
 	auto e2 = new Edge(v2, v3);
 	auto e3 = new Edge(v3, v1);
+	e1->connect(e2);
+	e2->connect(e3);
+	e3->connect(e1);
 	edges.push_back(e1);
 	edges.push_back(e2);
 	edges.push_back(e3);

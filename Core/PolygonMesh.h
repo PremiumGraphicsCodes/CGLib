@@ -52,6 +52,9 @@ public:
 
 	Edge* getShortestEdge();
 
+	void mergeDouble(PolygonMesh* rhs, float distance);
+
+
 private:
 	unsigned int id;
 	std::list<Face*> faces;

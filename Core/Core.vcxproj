@@ -25,6 +25,7 @@
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeCollection.cpp" />
+    <ClCompile Include="FaceBuilder.cpp" />
     <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="ISpaceHash.cpp" />

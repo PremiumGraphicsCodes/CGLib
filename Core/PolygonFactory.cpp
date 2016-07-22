@@ -322,18 +322,6 @@ std::vector<std::map<Vertex*, Vertex*>> PolygonFactory::findDouble(PolygonMesh* 
 	return results;
 }
 
-
-void PolygonFactory::mergeDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
-{
-	auto faces1 = lhs->getFaces();
-	auto faces2 = rhs->getFaces();
-	for (auto f1 : faces1) {
-		for (auto f2 : faces2) {
-			f1->mergeDouble(*f2, distance);
-		}
-	}
-}
-
 std::list<Vertex*> PolygonFactory::findIsolatedVertices()
 {
 	std::list<Vertex*> vs = vertices.get();

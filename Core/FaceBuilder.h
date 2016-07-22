@@ -10,25 +10,13 @@ namespace Crystal {
 class FaceBuilder
 {
 public:
-	FaceBuilder(const std::vector<Vertex*>& vertices) :
-		vertices(vertices)
-	{}
+	FaceBuilder(const std::vector<Vertex*>& vertices);
 
-	Face* build(int i1, int i2, int i3) {
-		auto e1 = edges.create(vertices[i1], vertices[i2]);
-		auto e2 = edges.create(vertices[i2], vertices[i3]);
-		auto e3 = edges.create(vertices[i3], vertices[i1]);
-		return faces.create(e1, e2, e3);
-	}
+	~FaceBuilder();
 
-	~FaceBuilder() {
-		clear();
-	}
+	Face* build(int i1, int i2, int i3);
 
-	void clear() {
-		edges.clear();
-		faces.clear();
-	}
+	void clear();
 
 private:
 	std::vector<Vertex*> vertices;
