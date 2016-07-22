@@ -154,7 +154,7 @@ void VertexCollection::remove(Vertex* v)
 
 std::list<Vertex*> VertexCollection::find(const Vector3d<float>& position, const float radius)
 {
-	VSpaceHash hash(radius*2, vertices.size());
+	VSpaceHash hash(radius*2, static_cast<int>(vertices.size()));
 	for (auto v : vertices) {
 		hash.add(v);
 	}

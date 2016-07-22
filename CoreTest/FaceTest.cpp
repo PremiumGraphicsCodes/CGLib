@@ -75,7 +75,7 @@ TEST(FaceTest, TestFindDouble)
 	auto f1 = builder.build(0, 1, 2);
 	auto f2 = builder.build(3, 4, 5);
 
-	auto actual = f1->findDouble(*f2,1.0e-6);
+	auto actual = f1->findDouble(*f2,1.0e-6f);
 	EXPECT_EQ(2, actual.size());
 	auto found = actual.find(&v1);
 	EXPECT_EQ(&v4, (*found).second);
@@ -94,7 +94,7 @@ TEST(FaceTest, TestMergeDouble)
 	auto f1 = builder.build(0, 1, 2);
 	auto f2 = builder.build(3, 4, 5);
 
-	f1->mergeDouble(*f2, 1.0e-6);
+	f1->mergeDouble(*f2, 1.0e-6f);
 	auto edges = f2->getEdges();
 	EXPECT_EQ(&v1, edges.front()->getStart());
 	EXPECT_EQ(&v3, edges.back()->getStart());

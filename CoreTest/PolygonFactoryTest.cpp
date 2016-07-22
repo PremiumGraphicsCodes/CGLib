@@ -115,7 +115,7 @@ TEST(PolygonFactoryTest, TestFindDouble)
 	auto p1 = factory.create(builder1);
 	auto p2 = factory.create(builder2);
 
-	auto actual = factory.findDouble(p1, p2, 1.0e-6);
+	auto actual = factory.findDouble(p1, p2, 1.0e-6f);
 	EXPECT_EQ(1, actual.size());
 	EXPECT_EQ(2, actual.front().size());
 
@@ -133,7 +133,7 @@ TEST(PolygonFactoryTest, TestMergeDouble)
 	auto p1 = factory.create(builder1);
 	auto p2 = factory.create(builder2);
 
-	factory.mergeDouble(p1, p2, 1.0e-6);
+	factory.mergeDouble(p1, p2, 1.0e-6f);
 	auto vertices1 = p1->getVertices();
 	auto vertices2 = p2->getFaces().front()->getVertices();
 	EXPECT_EQ(0, vertices2.front()->getId());
