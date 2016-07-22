@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "Edge.h"
+#include <map>
 
 namespace Crystal {
 	namespace Core {
@@ -47,6 +48,8 @@ public:
 	//std::array< Vertex*, 3> getVertexIds() const;
 
 	void toDegenerate();
+
+	std::map<Vertex*, Vertex*> findDouble(const Face& rhs, const float distance);
 
 private:
 	std::array< Edge*, 3 > edges;

@@ -104,3 +104,20 @@ void Face::toDegenerate()
 	//edges[1]->toDenerate();
 	//edges[2]->toDenerate();
 }
+
+std::map<Vertex*, Vertex*> Face::findDouble(const Face& rhs, const float distance)
+{
+	const auto& vertices1 = this->getVertices();
+	const auto& vertices2 = rhs.getVertices();
+	std::map<Vertex*, Vertex*> map;
+	for (auto v1 : vertices1) {
+		for (auto v2 : vertices2) {
+			auto p1 = v1->getPosition();
+			auto p2 = v2->getPosition();
+			if (p1.getDistanceSquared(p2) < distance * distance) {
+				map[v1] = v2;
+			}
+		}
+	}
+	return map;
+}
