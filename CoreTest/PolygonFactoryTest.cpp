@@ -102,3 +102,39 @@ TEST(PolygonFactoryTest, TestSimplify)
 	auto p = factory.create(builder);
 	factory.simplify(p, 1);
 }
+
+TEST(PolygonFactoryTest, TestFindDouble)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	Triangle3d<float> t2(Vector3d<float>(-1, 0, 0), Vector3d<float>(0, -1, 0), Vector3d<float>(1, 0, 0));
+
+	PolygonBuilder builder1(t1.toCurve3d());
+	PolygonBuilder builder2(t2.toCurve3d());
+	PolygonFactory factory;
+
+	auto p1 = factory.create(builder1);
+	auto p2 = factory.create(builder2);
+
+	auto actual = factory.findDouble(p1, p2, 1.0e-6);
+	EXPECT_EQ(2, actual.size());
+}
+
+TEST(PolygonFactoryTest, TestMergeDouble)
+{
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	Triangle3d<float> t2(Vector3d<float>(-1, 0, 0), Vector3d<float>(0, -1, 0), Vector3d<float>(1, 0, 0));
+
+	PolygonBuilder builder1(t1.toCurve3d());
+	PolygonBuilder builder2(t2.toCurve3d());
+	PolygonFactory factory;
+
+	auto p1 = factory.create(builder1);
+	auto p2 = factory.create(builder2);
+
+	factory.mergeDouble(p1, p2, 1.0e-6);
+	auto vertices1 = p1->getVertices();
+	auto vertices2 = p2->getFaces().front()->getVertices();
+	EXPECT_EQ(0, vertices2.front()->getId());
+	EXPECT_EQ(1, vertices2.back()->getId());
+
+}

@@ -5,6 +5,7 @@
 #include "PolygonMesh.h"
 #include "Face.h"
 #include "EdgeCollection.h"
+#include <map>
 
 namespace Crystal {
 	namespace Core {
@@ -17,7 +18,7 @@ class PolygonFactory : private UnCopyable
 public:
 	PolygonFactory();
 
-	//PolygonFactory(NodeCollection& nodes, FaceCollection& faces);
+	PolygonFactory(VertexCollection& vertices);
 
 	~PolygonFactory();
 
@@ -80,6 +81,10 @@ public:
 	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	Edge* getShared(Edge* e);
+
+	std::map<Vertex*, Vertex*> findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance);
+
+	void mergeDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance);
 
 private:
 	VertexCollection vertices;

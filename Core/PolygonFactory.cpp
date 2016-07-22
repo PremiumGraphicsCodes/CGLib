@@ -25,6 +25,12 @@ PolygonFactory::~PolygonFactory()
 	clear();
 }
 
+PolygonFactory::PolygonFactory(VertexCollection& vertices)
+{
+	this->vertices.merge(vertices);
+}
+
+
 void PolygonFactory::add(PolygonMesh* p)
 {
 	auto fs = p->getFaces();
@@ -299,4 +305,43 @@ Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 Edge* PolygonFactory::getShared(Edge* e)
 {
 	return edges.findReverse(e);
+}
+
+
+std::map<Vertex*, Vertex*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
+{
+	auto vertices1 = lhs->getVertices();
+	auto vertices2 = rhs->getVertices();
+	std::map<Vertex*, Vertex*> map;
+	for (auto v1 : vertices1) {
+		for (auto v2 : vertices2) {
+			auto p1 = v1->getPosition();
+			auto p2 = v2->getPosition();
+			if (p1.getDistanceSquared(p2) < distance * distance) {
+				map[v1] = v2;
+			}
+		}
+	}
+	return map;
+}
+
+
+void PolygonFactory::mergeDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
+{
+	auto vertices1 = lhs->getVertices();
+	auto vertices2 = rhs->getVertices();
+	auto doubles = findDouble(lhs, rhs, distance);
+	for (auto d : doubles) {
+		auto v1 = d.first;
+		auto v2 = d.second;
+		auto edges2 = rhs->getEdges();
+		for (auto e2 : edges2) {
+			if (e2->getStart() == v2) {
+				e2->changeStart(v1);
+			}
+			if (e2->getEnd() == v2) {
+				e2->changeEnd(v1);
+			}
+		}
+	}
 }
