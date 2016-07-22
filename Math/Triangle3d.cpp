@@ -1,6 +1,7 @@
 #include "Triangle3d.h"
 #include "Line3d.h"
 #include "TriangleCurve3d.h"
+#include "Box3d.h"
 
 using namespace Crystal::Math;
 
@@ -137,6 +138,16 @@ TriangleCurve3d<T> Triangle3d<T>::toCurve3d() const
 	curve.set(1, 1, p3);
 	return curve;
 }
+
+template<typename T>
+Box3d<T> Triangle3d<T>::getBoundingBox() const
+{
+	Box3d<T> box(v0);
+	box.add(v1);
+	box.add(v2);
+	return box;
+}
+
 
 //template<typename T>
 //Vector3d<T> getIntersection

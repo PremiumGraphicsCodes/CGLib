@@ -140,3 +140,9 @@ void Face::mergeDouble(const Face& rhs, float distance)
 		}
 	}
 }
+
+Triangle3d<float> Face::toTriangle() const
+{
+	auto vertices = getVertices();
+	return Triangle3d<float>(vertices[0]->getPosition(), vertices[1]->getPosition(), vertices[2]->getPosition());
+}

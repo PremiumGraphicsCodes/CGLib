@@ -12,6 +12,8 @@ namespace Crystal {
 		class Line3d;
 		template<typename T>
 		class TriangleCurve3d;
+		template<typename T>
+		class Box3d;
 
 template<typename T>
 class Triangle3d
@@ -92,6 +94,7 @@ public:
 
 	TriangleCurve3d<T> toCurve3d() const;
 
+	Box3d<T> getBoundingBox() const;
 
 private:
 	Vector3d<T> v0;

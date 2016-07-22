@@ -38,6 +38,9 @@
     <ClCompile Include="EdgeSpaceHashTest.cpp">
       <Filter>Space</Filter>
     </ClCompile>
+    <ClCompile Include="FaceSpaceHashTest.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

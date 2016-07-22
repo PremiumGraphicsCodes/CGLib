@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 
 #include "../Math/Triangle3d.h"
+#include "../Math/Box3d.h"
 
 using namespace Crystal::Math;
 
@@ -82,4 +83,13 @@ TYPED_TEST(Triangle3dTest, TestIsSamePlane)
 	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
 	EXPECT_TRUE( triangle.isSamePlane(Vector3d<T>(2, 0, 0)));
 	EXPECT_FALSE(triangle.isSamePlane(Vector3d<T>(0, 0, 10)) );
+}
+
+TYPED_TEST(Triangle3dTest, TestGetBoundingBox)
+{
+	using T = TypeParam;
+	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	auto actual = triangle.getBoundingBox();
+	Box3d<T> expected(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 1, 0));
+	EXPECT_EQ(expected, actual);
 }

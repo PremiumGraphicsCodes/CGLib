@@ -84,6 +84,9 @@
     <ClCompile Include="EdgeSpaceHash.cpp">
       <Filter>Space</Filter>
     </ClCompile>
+    <ClCompile Include="FaceSpaceHash.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -174,6 +177,9 @@
       <Filter>Space</Filter>
     </ClInclude>
     <ClInclude Include="EdgeSpaceHash.h">
+      <Filter>Space</Filter>
+    </ClInclude>
+    <ClInclude Include="FaceSpaceHash.h">
       <Filter>Space</Filter>
     </ClInclude>
   </ItemGroup>

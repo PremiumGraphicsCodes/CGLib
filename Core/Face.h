@@ -53,6 +53,8 @@ public:
 
 	void mergeDouble(const Face& rhs, float distance);
 
+	Math::Triangle3d<float> toTriangle() const;
+
 private:
 	std::array< Edge*, 3 > edges;
 	//std::array< Vertex*, 3> vertices;
