@@ -35,6 +35,9 @@
     <ClCompile Include="VertexSpaceHashTest.cpp">
       <Filter>Space</Filter>
     </ClCompile>
+    <ClCompile Include="EdgeSpaceHashTest.cpp">
+      <Filter>Space</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
