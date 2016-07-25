@@ -20,6 +20,7 @@ class LineBuffer
 public:
 	LineBuffer() = default;
 
+	LineBuffer(const Core::PolygonFactory& factory);
 
 	LineBuffer(const Math::Line3d<float>& line, const ColorRGBA<float>& color) {
 		add(line, color);
@@ -35,11 +36,10 @@ public:
 
 	void add(const Core::Edge& edge, const ColorRGBA<float>& color);
 
-	void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
+	void add(const Core::PolygonMesh& polygon);
 
 	void add(const Math::Line3d<float>& line, const ColorRGBA<float>& color);
 
-	void add(const Core::PolygonFactory& factory);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 

@@ -17,7 +17,7 @@ using namespace Crystal::Core;
 VisualObject::VisualObject(const PolygonMesh& polygon)
 {
 	pointBuffer.add(polygon);
-	lineBuffer.add(polygon, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
+//	lineBuffer.add(polygon, ColorRGBA<float>(0.0, 0.0, 0.0, 1.0));
 	triangleBuffer.add(polygon);
 }
 

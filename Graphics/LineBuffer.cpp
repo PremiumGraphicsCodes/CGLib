@@ -6,6 +6,16 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
+LineBuffer::LineBuffer(const PolygonFactory& factory)
+{
+	const auto& vertices = factory.getVertices();
+	for (const auto& v : vertices) {
+		this->position.add(v->getPosition());
+		this->color.add(ColorRGBA<float>(1, 0, 0, 1));
+	}
+}
+
+
 LineBuffer::LineBuffer(const Polyline3d<float>& polyline, const ColorRGBA<float>& color)
 {
 	add(polyline, color);
@@ -39,8 +49,6 @@ void LineBuffer::add(const Polyline3d<float>& polyline, const ColorRGBA<float>& 
 
 }
 
-
-
 void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 {
 	position.add(line.getStart());
@@ -51,14 +59,8 @@ void LineBuffer::add(const Line3d<float>& line,const ColorRGBA<float>& color)
 	this->ids.push_back(this->ids.size());
 }
 
-void LineBuffer::add(const PolygonMesh& polygon, const ColorRGBA<float>& color)
+void LineBuffer::add(const PolygonMesh& polygon)
 {
-	const auto& vertices = polygon.getVertices();
-	for (const auto& v : vertices) {
-		this->position.add(v->getPosition());
-		this->color.add(color);
-		//this->idColors.add(ColorRGBA<unsigned char>(v->getId()));
-	}
 	const auto faces = polygon.getFaces();
 	for (auto f : faces) {
 		this->ids.push_back(f->getV1()->getId());
@@ -69,23 +71,3 @@ void LineBuffer::add(const PolygonMesh& polygon, const ColorRGBA<float>& color)
 		this->ids.push_back(f->getV1()->getId());
 	}
 }
-
-void LineBuffer::add(const PolygonFactory& factory)
-{
-	const auto& vertices = factory.getVertices();
-	for (const auto& v : vertices) {
-		this->position.add(v->getPosition());
-		this->color.add(ColorRGBA<float>(1, 0, 0, 1));
-	}
-	const auto& faces = factory.getFaces();
-	for (const auto& f : faces) {
-		this->ids.push_back(f->getV1()->getId());
-		this->ids.push_back(f->getV2()->getId());
-		this->ids.push_back(f->getV2()->getId());
-		this->ids.push_back(f->getV3()->getId());
-		this->ids.push_back(f->getV3()->getId());
-		this->ids.push_back(f->getV1()->getId());
-	}
-}
-
-

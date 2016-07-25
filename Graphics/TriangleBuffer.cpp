@@ -5,10 +5,19 @@ using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Core;
 
-TriangleBuffer::TriangleBuffer() :
-	nextIndex(0)
+TriangleBuffer::TriangleBuffer()
 {
+}
 
+TriangleBuffer::TriangleBuffer(const PolygonFactory& factory)
+{
+	const auto& vertices = factory.getVertices();
+	for (const auto& v : vertices) {
+		this->positions.add(v->getPosition());
+		this->normals.add(v->getNormal());
+		this->texCoords.add(v->getParameter());
+		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
+	}
 }
 
 
@@ -22,14 +31,7 @@ void TriangleBuffer::add(const Point3d<float>& point)
 
 void TriangleBuffer::add(const PolygonMesh& polygon)
 {
-	const auto& vertices = polygon.getVertices();
-	for (const auto& v : vertices) {
-		this->positions.add(v->getPosition());
-		this->normals.add(v->getNormal());
-		this->texCoords.add(v->getParameter());
-		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
-	}
-	const auto faces = polygon.getFaces();
+	const auto& faces = polygon.getFaces();
 	for (auto f : faces) {
 		this->indices.push_back(f->getV1()->getId());
 		this->indices.push_back(f->getV2()->getId());
@@ -45,22 +47,8 @@ void TriangleBuffer::add(const Vertex& vertex, const ColorRGBA<float>& color)
 	//this->idColors.add()
 }
 
-void TriangleBuffer::add(const Triangle3d<float>& triangle)
-{
-	positions.add(triangle.getv0());
-	positions.add(triangle.getv1());
-	positions.add(triangle.getv2());
-	normals.add(triangle.getNormal());
-	normals.add(triangle.getNormal());
-	normals.add(triangle.getNormal());
-	indices.push_back(nextIndex++);
-	indices.push_back(nextIndex++);
-	indices.push_back(nextIndex++);
-}
-
 void TriangleBuffer::clear()
 {
-	nextIndex = 0;
 	indices.clear();
 	positions.clear();
 	normals.clear();
@@ -74,21 +62,4 @@ std::vector<unsigned int> TriangleBuffer::getIndices(const unsigned int startInd
 		results.push_back(indices[i]);
 	}
 	return results;
-}
-
-void TriangleBuffer::add(const PolygonFactory& factory)
-{
-	const auto& vertices = factory.getVertices();
-	for (const auto& v : vertices) {
-		this->positions.add(v->getPosition());
-		this->normals.add(v->getNormal());
-		this->texCoords.add(v->getParameter());
-		this->colors.add(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 1.0f));
-	}
-	const auto faces = factory.getFaces();
-	for (auto f : faces) {
-		this->indices.push_back(f->getV1()->getId());
-		this->indices.push_back(f->getV2()->getId());
-		this->indices.push_back(f->getV3()->getId());
-	}
 }

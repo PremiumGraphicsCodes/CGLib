@@ -21,6 +21,8 @@ class TriangleBuffer
 public:
 	TriangleBuffer();
 
+	TriangleBuffer(const Core::PolygonFactory& factory);
+
 	void add(const Math::Point3d<float>& point);
 
 	void add(const Core::PolygonMesh& polygon);
@@ -43,16 +45,12 @@ public:
 
 	std::vector<unsigned int> getIndices(const unsigned int start, const unsigned int end) const;
 
-	void add(const Core::PolygonFactory& factory);
-
 private:
 	std::vector<unsigned int> indices;
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
 	Buffer4d<float> colors;
 	Buffer3d<float> texCoords;
-	unsigned int nextIndex;
-
 };
 
 	}
