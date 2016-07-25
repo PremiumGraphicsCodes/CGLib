@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="CameraTest.cpp" />
+    <ClCompile Include="ColorHSVTest.cpp" />
+    <ClCompile Include="ColorMapTest.cpp" />
+    <ClCompile Include="ColorRGBATest.cpp" />
+    <ClCompile Include="DrawableIDTest.cpp" />
+    <ClCompile Include="ImageTest.cpp" />
+    <ClCompile Include="LightTest.cpp" />
+    <ClCompile Include="OrthogonalCameraTest.cpp" />
+    <ClCompile Include="PerspectiveCameraTest.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="WireframeTest.cpp" />
+    <ClCompile Include="BufferTest.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleBufferTest.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleIdBufferTest.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="LineBufferTest.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Buffer">
+      <UniqueIdentifier>{1d35d116-8425-4fc7-83d1-ea6d7a0885b1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

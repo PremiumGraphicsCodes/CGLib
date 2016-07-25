@@ -1,13 +1,32 @@
 #include "stdafx.h"
 #include "../Graphics/LineBuffer.h"
 
-using namespace Crystal;
+using namespace Crystal::Math;
+using namespace Crystal::Core;
+using namespace Crystal::Graphics;
 
 TEST(LineBufferTest, TestAdd)
 {
-	Math::Line3d<float> line(Math::Vector3d<float>(0, 0, 0), Math::Vector3d<float>(1, 1, 1));
+	Line3d<float> line(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 1, 1));
 
-	Graphics::LineBuffer buffer;
-	buffer.add(line, Graphics::ColorRGBA<float>::Black());
+	LineBuffer buffer;
+	buffer.add(line, ColorRGBA<float>::Black());
 	EXPECT_EQ(6, buffer.getPosition().get().size());
+}
+
+TEST(LineBufferTest, TestAddPolygon)
+{
+	const Crystal::Math::Triangle3d<float> t(
+		Vector3d<float>(0.0, 0.0, 0.0),
+		Vector3d<float>(1.0, 0.0, 0.0),
+		Vector3d<float>(1.0, 1.0, 0.0)
+	);
+	PolygonFactory factory;
+	PolygonBuilder builder(t.toCurve3d());
+	auto polygon = factory.create(builder);
+	LineBuffer buffer(factory);
+	buffer.add(*polygon);
+	EXPECT_EQ(9, buffer.getPosition().get().size());
+	EXPECT_EQ(6, buffer.getIds().size());
+
 }

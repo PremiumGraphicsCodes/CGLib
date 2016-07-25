@@ -178,6 +178,7 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	glDisable(GL_DEPTH_TEST);
 }
 
+/*
 void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const std::vector<VisualMaterial>& materials)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
@@ -260,3 +261,4 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	glDisable(GL_DEPTH_TEST);
 }
+*/

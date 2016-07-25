@@ -23,15 +23,7 @@ public:
 
 	TriangleBuffer(const Core::PolygonFactory& factory);
 
-	void add(const Math::Point3d<float>& point);
-
 	void add(const Core::PolygonMesh& polygon);
-
-	void add(const Core::Vertex& vertex, const Graphics::ColorRGBA<float>& color);
-
-	void add(const Math::Triangle3d<float>& triangle);
-
-	void clear();
 
 	Buffer3d<float> getPositions() const { return positions; }
 
@@ -39,17 +31,12 @@ public:
 
 	Buffer3d<float> getTexCoords() const { return texCoords; }
 
-	Buffer4d<float> getColors() const { return colors; }
-
 	std::vector<unsigned int> getIndices() const { return indices; }
-
-	std::vector<unsigned int> getIndices(const unsigned int start, const unsigned int end) const;
 
 private:
 	std::vector<unsigned int> indices;
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
-	Buffer4d<float> colors;
 	Buffer3d<float> texCoords;
 };
 

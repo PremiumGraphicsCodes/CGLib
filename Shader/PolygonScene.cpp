@@ -26,5 +26,5 @@ void PolygonScene::setup(const VisualPolygon& vp)
 
 void PolygonScene::draw(const ICamera<float>& camera, const PointLight<float>& light)
 {
-	renderer.render(camera, triangleBuffer, light, materials);
+	//renderer.render(camera, triangleBuffer, light, materials);
 }
