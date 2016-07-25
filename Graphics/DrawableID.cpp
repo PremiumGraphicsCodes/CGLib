@@ -44,8 +44,8 @@ ColorRGBA<float> DrawableID::toColor() const
 {
 	const int id = this->id.to_ulong();
 	const float red = (id % 256) / 255.0f;
-	const float green = ((id / 255) % 256) / 255.0f;
-	const float blue = ((id / 255 / 255) % (265 * 256)) / 255.0f;
+	const float green = ((id / 256) % 256) / 255.0f;
+	const float blue = ((id / 256 / 256) % (265 * 256)) / 255.0f;
 	const float alpha = getType() / 255.0f;
 	return ColorRGBA<float>(red, green, blue, alpha);
 }

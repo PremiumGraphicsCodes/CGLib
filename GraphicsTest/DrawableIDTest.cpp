@@ -33,10 +33,11 @@ TEST(DrawableIDTest, TestToColor)
 {
 	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 0.0f, 0.0f), DrawableID(0,0).toColor());
 	EXPECT_EQ(ColorRGBA<float>(30.0f / 255.0f, 0.0f, 0.0f, 0.0f), DrawableID(30,0).toColor());
+	EXPECT_EQ(ColorRGBA<float>(1.0f, 0.0f, 0.0f, 0.0f), DrawableID(255, 0).toColor());
+
 	EXPECT_EQ(ColorRGBA<float>(0.0f, 1.0f / 255.0f, 0.0f, 0.0f), DrawableID(256,0).toColor());
 	EXPECT_EQ(ColorRGBA<float>(1.0f / 255.0f, 1.0f / 255.0f, 0.0f, 0.0f), DrawableID(257, 0).toColor());
-
-//	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 1.0f / 255.0f, 0.0f), DrawableID(256 * 256,0).toColor());
+	EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 1.0f / 255.0f, 0.0f), DrawableID(256 * 256,0).toColor());
 	//EXPECT_EQ(ColorRGBA<float>(0.0f, 0.0f, 0.0f, 1.0f / 256.0f), DrawableID(256 * 256 * 256).toColor());
 }
 
