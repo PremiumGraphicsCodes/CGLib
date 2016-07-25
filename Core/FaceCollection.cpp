@@ -26,7 +26,7 @@ FaceCollection::~FaceCollection()
 
 void FaceCollection::merge(FaceCollection& rhs)
 {
-	this->faces.insert(this->faces.end(), rhs.faces.begin(), rhs.faces.end());
+	this->faces.splice(this->faces.end(), rhs.faces);
 	renumber();
 	rhs.faces.clear();
 }

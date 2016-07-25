@@ -28,7 +28,7 @@ EdgeCollection::~EdgeCollection()
 
 void EdgeCollection::merge(EdgeCollection& rhs)
 {
-	this->edges.insert(this->edges.end(), rhs.edges.begin(), rhs.edges.end());
+	this->edges.splice(this->edges.end(), rhs.edges);
 	renumber();
 	rhs.edges.clear();
 }

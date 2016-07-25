@@ -44,7 +44,7 @@ public:
 
 	PolygonMesh* create(FaceCollection& faces);
 
-	std::list<PolygonMesh*> getPolygons() { return polygons; }
+	std::list<PolygonMesh*> getPolygons() const { return polygons; }
 
 	VertexCollection getVertices() const { return vertices; }
 

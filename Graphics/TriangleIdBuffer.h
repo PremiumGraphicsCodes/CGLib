@@ -35,11 +35,9 @@ class TriangleIdBuffer
 public:
 	TriangleIdBuffer();
 
-	void add(const Core::PolygonMesh& surface, const DrawableID& did);
+	TriangleIdBuffer(const Core::PolygonFactory& factory);
 
 	void add(const Core::PolygonMesh& surface, const unsigned char groupId);
-
-	void add(const Core::PolygonFactory& factory, const unsigned char groupdId);
 
 	void clear();
 
@@ -50,7 +48,6 @@ public:
 private:
 	Buffer3d<float> positions;
 	std::vector<TriangleIdBlock> blocks;
-	unsigned int nextIndex;
 };
 
 	}
