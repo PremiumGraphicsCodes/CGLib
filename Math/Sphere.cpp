@@ -168,9 +168,9 @@ Ellipsoid<T> Sphere<T>::toEllipsoid() const
 template<typename T>
 Curve3d<T> Sphere<T>::toCurve3d(const int uNum, const int vNum) const
 {
-	Curve3d<T> curve(uNum, vNum);
-	for (int i = 0; i < uNum; ++i) {
-		for (int j = 0; j < vNum; ++j) {
+	Curve3d<T> curve(uNum+1, vNum+1);
+	for (int i = 0; i <= uNum; ++i) {
+		for (int j = 0; j <= vNum; ++j) {
 			const Param<T> u( i / static_cast<T>(uNum) );
 			const Param<T> v( j / static_cast<T>(vNum) );
 			curve.set(i, j, getPoint(u,v));

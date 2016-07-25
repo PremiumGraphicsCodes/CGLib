@@ -12,7 +12,6 @@
     <ClCompile Include="VectorTest.cpp" />
     <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="AngleTest.cpp" />
-    <ClCompile Include="EllipsoidTest.cpp" />
     <ClCompile Include="SPHKernelTest.cpp" />
     <ClCompile Include="PolarCoord3dTest.cpp" />
     <ClCompile Include="Circle2dTest.cpp">
@@ -85,6 +84,9 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="QuadTest.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="EllipsoidTest.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
   </ItemGroup>

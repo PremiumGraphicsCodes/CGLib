@@ -61,11 +61,11 @@ Vector3d<T> Ellipsoid<T>::getPosition(const Angle<T> u, const Angle<T> v) const
 template<typename T>
 Curve3d<T> Ellipsoid<T>::toCurve3d(const int uNum, const int vNum) const
 {
-	Curve3d<T> curve(uNum, vNum);
+	Curve3d<T> curve(uNum+1, vNum+1);
 	const auto du = 360.0f / static_cast<T>(uNum);
 	const auto dv = 180.0f / static_cast<T>(vNum);
-	for (int i = 0; i < uNum; ++i){
-		for (int j = 0; j < vNum; ++j) {
+	for (int i = 0; i <= uNum; ++i){
+		for (int j = 0; j <= vNum; ++j) {
 			const Degree<T> uAngle(du * i);
 			const Degree<T> vAngle(dv * j - 90.0f);
 			const auto& pos = getPosition(Angle<T>(uAngle), Angle<T>(vAngle));

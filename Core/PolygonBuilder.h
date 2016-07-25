@@ -25,7 +25,7 @@ public:
 
 	PolygonBuilder(const Math::CircularCurve3d<float>& curve);
 
-	PolygonBuilder(const Math::Curve3d<float>& curve, const bool isClosed);
+	PolygonBuilder(const Math::Curve3d<float>& curve);
 
 	PolygonBuilder(const Math::TriangleCurve3d<float>& curve);
 

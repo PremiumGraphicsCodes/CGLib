@@ -101,23 +101,6 @@ std::vector<QuadCell> NodeGrid1d::toQuadCells() const
 	return cells;
 }
 
-std::vector<QuadCell> NodeGrid1d::toQuadCells(const bool isClosed) const
-{
-	auto cells = toQuadCells();
-	if(isClosed) {
-		const int u = grid.getSizeX()-1;
-		for (int v = 0; v < grid.getSizeY() - 1; ++v) {
-			std::array< Vertex*, 4 > c;
-			c[0] = grid.get(u, v);
-			c[1] = grid.get(0, v);
-			c[2] = grid.get(0, v + 1);
-			c[3] = grid.get(u, v + 1);
-			cells.push_back(c);
-		}
-	}
-	return cells;
-}
-
 
 Vertex* NodeGrid2d::getNextU(const int u, const int v) const
 {

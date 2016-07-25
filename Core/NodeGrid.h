@@ -72,8 +72,6 @@ public:
 
 	std::vector<QuadCell> toQuadCells() const override;
 
-	std::vector<QuadCell> toQuadCells(const bool isClosed) const;
-
 };
 
 class NodeGrid2d : public INodeGrid

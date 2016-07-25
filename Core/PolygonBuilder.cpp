@@ -91,7 +91,7 @@ PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isole
 }
 
 
-PolygonBuilder::PolygonBuilder(const Curve3d<float>& curve, const bool isClosed)
+PolygonBuilder::PolygonBuilder(const Curve3d<float>& curve)
 {
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
@@ -104,7 +104,7 @@ PolygonBuilder::PolygonBuilder(const Curve3d<float>& curve, const bool isClosed)
 		}
 	}
 
-	const auto& cells = grid.toQuadCells(isClosed);
+	const auto& cells = grid.toQuadCells();
 	std::vector<TriangleCell> triangleCells;
 	for (const auto& c : cells) {
 		const auto& tCells = c.toTriangleCells();
