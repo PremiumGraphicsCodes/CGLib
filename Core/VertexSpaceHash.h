@@ -22,6 +22,8 @@ public:
 
 	std::list<Vertex*> getNeighbor(const Math::Index3d index);
 
+	std::list<Vertex*> findSameStrictly(const Math::Vector3d<float>& pos);
+
 	bool isEmpty() const { return table.empty(); }
 
 private:

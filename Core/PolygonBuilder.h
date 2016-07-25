@@ -31,6 +31,8 @@ public:
 
 	PolygonBuilder(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Math::Space3d<float>& space);
 
+	void create(const std::vector< Math::Triangle3d<float> >& triangles);
+
 	PolygonMesh* build(int id = -1);
 
 	void createFace(Vertex* v1, Vertex* v2, Vertex* v3);

@@ -78,3 +78,16 @@ void VertexSpaceHash::add(Vertex* particle)
 	const auto hashIndex = toHash(particle->getPosition());
 	table[hashIndex].push_back(particle);
 }
+
+std::list<Vertex*> VertexSpaceHash::findSameStrictly(const Vector3d<float>& pos)
+{
+	const auto hashIndex = toHash(pos);
+	auto neighbors = table[hashIndex];
+	std::list<Vertex*> results;
+	for (auto n : neighbors) {
+		if (n->getPosition() == pos) {
+			results.push_back(n);
+		}
+	}
+	return results;
+}

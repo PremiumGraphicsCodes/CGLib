@@ -43,22 +43,10 @@ PolygonBuilder::PolygonBuilder(const std::vector<Vertex*>& vertices, const std::
 PolygonBuilder::PolygonBuilder(const Volume& volume, float isolevel)
 {
 	const auto& triangles = volume.toTriangles(isolevel);
-	std::list<Vertex*> vertices;
-	for (const auto& t : triangles) {
-		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
-		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
-		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
-		vertices.push_back(v1);
-		vertices.push_back(v2);
-		vertices.push_back(v3);
-		createFace(v1, v2, v3);
-	}
-	VertexCollection vc(vertices);
-	vc.sort();
-	vc.cleaning();
-	auto vv = vc.get();
-	this->vertices = std::vector<Vertex*>(vv.begin(), vv.end());
+	create(triangles);
 }
+
+#include "VertexSpaceHash.h"
 
 PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isolevel, const int levelOfDetail, const Space3d<float>& space)
 {
@@ -96,22 +84,7 @@ PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isole
 		const auto& ts = cell.toTriangles(isolevel);
 		triangles.insert(triangles.end(), ts.begin(), ts.end());
 	}
-	std::list<Vertex*> vertices;
-	for (const auto& t : triangles) {
-		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
-		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
-		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
-		createFace(v1, v2, v3);
-		vertices.push_back(v1);
-		vertices.push_back(v2);
-		vertices.push_back(v3);
-		//factory.create(t.toCurve3d());
-	}
-	VertexCollection vc(vertices);
-	vc.sort();
-	//vc.cleaning();
-	auto vv = vc.get();
-	this->vertices = std::vector<Vertex*>(vv.begin(), vv.end());
+	create(triangles);
 	//newMesh->removeOverlappedVertices();
 }
 
@@ -199,6 +172,33 @@ PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
 		}
 	}
 }
+
+void PolygonBuilder::create(const std::vector< Triangle3d<float> >& triangles)
+{
+	std::list<Vertex*> vertices;
+	VertexSpaceHash hash(1.0f, triangles.size());
+	for (const auto& t : triangles) {
+		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
+		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
+		auto v3 = new Vertex(t.getv2(), t.getNormal(), 0);
+		hash.add(v1);
+		hash.add(v2);
+		hash.add(v3);
+	}
+	for (const auto& t : triangles) {
+		auto v1 = hash.findSameStrictly(t.getv0());
+		auto v2 = hash.findSameStrictly(t.getv1());
+		auto v3 = hash.findSameStrictly(t.getv2());
+		vertices.push_back(v1.front());
+		vertices.push_back(v2.front());
+		vertices.push_back(v3.front());
+		createFace(v1.front(), v2.front(), v3.front());
+	}
+	vertices.sort();
+	vertices.unique();
+	this->vertices = std::vector<Vertex*>(vertices.begin(), vertices.end());
+}
+
 
 void PolygonBuilder::createFaces(const std::vector<Vertex*>& vertices)
 {

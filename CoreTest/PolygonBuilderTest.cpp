@@ -22,6 +22,19 @@ TEST(PolygonBuilderTest, TestBuild)
 	delete actual;
 }
 
+TEST(PolygonBuilderTest, TestBuildFromVolume)
+{
+	Space3d<float> space;
+	Grid3d<float> grid(2,2,2);
+	Volume v(space,grid);
+	PolygonBuilder builder(v, 0.5f);
+	auto actual = builder.build();
+	//EXPECT_EQ(1, actual->getFaces().size());
+	//EXPECT_EQ(3, actual->getVertices().size());
+	delete actual;
+}
+
+
 TEST(PolygonBuilderTest, TestClean)
 {
 	Vertex* v1 = new Vertex(Vector3d<float>(0, 0, 0));
