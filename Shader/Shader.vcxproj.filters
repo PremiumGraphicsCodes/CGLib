@@ -77,9 +77,6 @@
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
     <ClCompile Include="VisualMaterial.cpp" />
-    <ClCompile Include="PolygonScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="TextureHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
@@ -201,9 +198,6 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="VisualMaterial.h" />
-    <ClInclude Include="PolygonScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderHandler.h">
       <Filter>Handler</Filter>
     </ClInclude>
@@ -263,9 +257,6 @@
     </Filter>
     <Filter Include="Texture">
       <UniqueIdentifier>{7c2c28ba-3e23-47b2-b336-a04ba7496990}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
-      <UniqueIdentifier>{ef0bb0d9-b179-4630-a9d2-ef9d6cd5d176}</UniqueIdentifier>
     </Filter>
     <Filter Include="Handler">
       <UniqueIdentifier>{513a4b81-dabe-41b0-8a4b-cff23d588c3a}</UniqueIdentifier>

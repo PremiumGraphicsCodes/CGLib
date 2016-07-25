@@ -163,7 +163,6 @@
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="ShaderHandler.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
-    <ClCompile Include="PolygonScene.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
     <ClCompile Include="SmoothRenderer.cpp" />
     <ClCompile Include="SSAbsorptionRenderer.cpp" />
@@ -216,7 +215,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ShaderHandler.h" />
     <ClInclude Include="ShaderObject.h" />
-    <ClInclude Include="PolygonScene.h" />
     <ClInclude Include="SkyBoxRenderer.h" />
     <ClInclude Include="SmoothRenderer.h" />
     <ClInclude Include="SSAbsorptionRenderer.h" />
