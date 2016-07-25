@@ -22,16 +22,28 @@ TEST(PolygonBuilderTest, TestBuild)
 	delete actual;
 }
 
-TEST(PolygonBuilderTest, TestBuildFromVolume)
+TEST(PolygonBuilderTest, TestCreateTriangles)
 {
-	Space3d<float> space;
-	Grid3d<float> grid(2,2,2);
-	Volume v(space,grid);
-	PolygonBuilder builder(v, 0.5f);
-	auto actual = builder.build();
-	//EXPECT_EQ(1, actual->getFaces().size());
-	//EXPECT_EQ(3, actual->getVertices().size());
-	delete actual;
+	Triangle3d<float> triangle1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	Triangle3d<float> triangle2 = triangle1;
+	std::vector<Triangle3d<float>> triangles;
+	triangles.push_back(triangle1);
+	triangles.push_back(triangle2);
+	PolygonBuilder builder;
+	builder.create(triangles, 0.1f);
+	EXPECT_EQ(3, builder.getVertices().size());
+	EXPECT_EQ(6, builder.getEdges().size());
+}
+
+
+TEST(PolygonBuilderTest, TestFromVolume)
+{
+	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(4, 4, 4));
+	Grid3d<float> grid(4, 4, 4);
+	grid.set(1, 0, 0, 1);
+	Volume object(space, grid);
+	PolygonBuilder builder(object, 0.5f);
+	EXPECT_EQ(4, builder.getVertices().size());
 }
 
 

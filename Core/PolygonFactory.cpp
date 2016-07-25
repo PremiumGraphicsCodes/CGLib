@@ -135,9 +135,9 @@ void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)
 PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
 {
 	auto p = builder.build( nextId++);
-	this->vertices.merge(VertexCollection(builder.vertices));
-	this->edges.merge(EdgeCollection(builder.edges));
-	this->faces.merge(FaceCollection(builder.faces));
+	this->vertices.merge(VertexCollection(builder.getVertices()));
+	this->edges.merge(EdgeCollection(builder.getEdges()));
+	this->faces.merge(FaceCollection(builder.getFaces()));
 	polygons.push_back(p);
 	return p;
 }

@@ -84,20 +84,6 @@ TEST(VolumeObjectTest, TestToNodes)
 	EXPECT_EQ(8, actual.size());
 }
 
-#include "../Core\PolygonFactory.h"
-
-TEST(VolumeObjectTest, TestToPolygon)
-{
-	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(4, 4, 4));
-	Grid3d<float> grid(4, 4, 4);
-	grid.set(1, 0, 0, 1);
-	Volume object(space, grid);
-	PolygonBuilder builder(object, 0.5f);
-	PolygonFactory factory;
-	auto actual = factory.create(builder);
-	EXPECT_EQ( 6, actual->getVertices().size() );
-}
-
 TEST(VolumeObjectTest, TestToParticleObject)
 {
 	Space3d<float> space(Vector3d<float>(0, 0, 0), Vector3d<float>(4, 4, 4));

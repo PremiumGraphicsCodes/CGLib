@@ -43,7 +43,8 @@ PolygonBuilder::PolygonBuilder(const std::vector<Vertex*>& vertices, const std::
 PolygonBuilder::PolygonBuilder(const Volume& volume, float isolevel)
 {
 	const auto& triangles = volume.toTriangles(isolevel);
-	create(triangles);
+	const auto divideLength = volume.getUnitLength().getX();
+	create(triangles, divideLength);
 }
 
 #include "VertexSpaceHash.h"
@@ -84,7 +85,8 @@ PolygonBuilder::PolygonBuilder(const ParticleObject& particle, const float isole
 		const auto& ts = cell.toTriangles(isolevel);
 		triangles.insert(triangles.end(), ts.begin(), ts.end());
 	}
-	create(triangles);
+	const auto divideLength = space.getLengths().getX() / std::pow(2, levelOfDetail);
+	create(triangles, divideLength);
 	//newMesh->removeOverlappedVertices();
 }
 
@@ -173,10 +175,10 @@ PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
 	}
 }
 
-void PolygonBuilder::create(const std::vector< Triangle3d<float> >& triangles)
+void PolygonBuilder::create(const std::vector< Triangle3d<float> >& triangles, const float divideLength)
 {
 	std::list<Vertex*> vertices;
-	VertexSpaceHash hash(1.0f, triangles.size());
+	VertexSpaceHash hash(divideLength, triangles.size());
 	for (const auto& t : triangles) {
 		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
 		auto v2 = new Vertex(t.getv1(), t.getNormal(), 0);
