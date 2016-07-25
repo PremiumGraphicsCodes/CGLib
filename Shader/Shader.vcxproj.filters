@@ -24,7 +24,6 @@
     <ClCompile Include="LegacyRenderer.cpp">
       <Filter>Legacy</Filter>
     </ClCompile>
-    <ClCompile Include="VisualObject.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -145,7 +144,6 @@
     <ClInclude Include="LegacyRenderer.h">
       <Filter>Legacy</Filter>
     </ClInclude>
-    <ClInclude Include="VisualObject.h" />
     <ClInclude Include="BilateralFilter.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>

@@ -183,7 +183,6 @@
     <ClCompile Include="TriangleIdRenderer.cpp" />
     <ClCompile Include="TriangleRenderer.cpp" />
     <ClCompile Include="VisualMaterial.cpp" />
-    <ClCompile Include="VisualObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BilateralFilter.h" />
@@ -229,7 +228,6 @@
     <ClInclude Include="TriangleIdRenderer.h" />
     <ClInclude Include="TriangleRenderer.h" />
     <ClInclude Include="VisualMaterial.h" />
-    <ClInclude Include="VisualObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
