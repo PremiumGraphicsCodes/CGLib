@@ -54,6 +54,7 @@ public:
 
 	void mergeDouble(PolygonMesh* rhs, float distance);
 
+	Math::Vector3d<float> getCenter() const;
 
 private:
 	unsigned int id;

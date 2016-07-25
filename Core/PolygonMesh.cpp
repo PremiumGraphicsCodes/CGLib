@@ -117,3 +117,13 @@ void PolygonMesh::mergeDouble(PolygonMesh* rhs, float distance)
 		}
 	}
 }
+
+Vector3d<float> PolygonMesh::getCenter() const
+{
+	Vector3d<float> center;
+	const auto& vs = this->getVertices();
+	for (const auto& v : vs) {
+		center += v->getPosition() / vs.size();
+	}
+	return center;
+}
