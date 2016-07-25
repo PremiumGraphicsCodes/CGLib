@@ -45,7 +45,7 @@ public:
 
 	bool isDegenerated() const;
 
-	//std::array< Vertex*, 3> getVertexIds() const;
+	bool isDegenerated(const float area) const;
 
 	void toDegenerate();
 

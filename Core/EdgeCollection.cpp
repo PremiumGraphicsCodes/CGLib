@@ -48,7 +48,7 @@ void EdgeCollection::clear()
 	edges.clear();
 }
 
-std::list<Edge*> EdgeCollection::getDegenerateds()
+std::list<Edge*> EdgeCollection::findDegenerated()
 {
 	std::list<Edge*> shrinked;
 	for (auto e : edges) {
@@ -59,10 +59,32 @@ std::list<Edge*> EdgeCollection::getDegenerateds()
 	return shrinked;
 }
 
+std::list<Edge*> EdgeCollection::findDegenerated(const float length)
+{
+	std::list<Edge*> shrinked;
+	for (auto e : edges) {
+		if (e->isDegenerated(length)) {
+			shrinked.push_back(e);
+		}
+	}
+	return shrinked;
+}
+
+std::list<Edge*> EdgeCollection::findEdges(const Vertex* v)
+{
+	std::list<Edge*> results;
+	for (auto e : edges) {
+		if (e->getStart() == v) {
+			results.push_back(e);
+		}
+	}
+	return results;
+}
+
 
 void EdgeCollection::cleaning()
 {
-	auto shrinked = getDegenerateds();
+	auto shrinked = findDegenerated();
 	for (auto f : shrinked) {
 		remove(f);
 	}

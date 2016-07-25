@@ -63,6 +63,7 @@ public:
 
 	Vertex* findById(const int id);
 
+
 private:
 	std::list<Vertex*> vertices;
 	unsigned int nextId;

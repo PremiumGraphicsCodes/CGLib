@@ -66,6 +66,8 @@ public:
 
 	bool isDegenerated() const;
 
+	bool isDegenerated(const float length) const;
+
 	void toDenerate();
 
 	bool has(Vertex* e) {

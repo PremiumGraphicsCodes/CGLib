@@ -308,15 +308,18 @@ Edge* PolygonFactory::getShared(Edge* e)
 }
 
 
-std::vector<std::map<Vertex*, Vertex*>> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
+std::list<Edge*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
 {
-	std::vector<std::map< Vertex*, Vertex*> > results;
+	std::list<Edge*> results;
 	auto faces1 = lhs->getFaces();
 	auto faces2 = rhs->getFaces();
 	for (auto f1 : faces1) {
 		for (auto f2 : faces2) {
 			std::map<Vertex*, Vertex*> map = f1->findDouble(*f2, distance);
-			results.insert(results.end(), map);
+			for (auto m : map) {
+				auto e = edges.create(m.first, m.second);
+				results.push_back(e);
+			}
 		}
 	}
 	return results;

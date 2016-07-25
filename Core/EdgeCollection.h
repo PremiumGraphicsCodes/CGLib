@@ -38,7 +38,12 @@ public:
 
 	size_t size() const { return edges.size(); }
 
-	std::list<Edge*> getDegenerateds();
+	std::list<Edge*> findDegenerated();
+
+	std::list<Edge*> findDegenerated(const float length);
+
+	std::list<Edge*> findEdges(const Vertex* v);
+
 
 	using iterator = std::list<Edge*>::iterator;
 	using const_iterator = std::list<Edge*>::const_iterator;

@@ -82,7 +82,7 @@ public:
 
 	Edge* getShared(Edge* e);
 
-	std::vector<std::map<Vertex*, Vertex*>> findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance);
+	std::list<Edge*> findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance);
 
 	std::list<Vertex*> findIsolatedVertices();
 

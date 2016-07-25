@@ -116,6 +116,12 @@ bool Edge::isDegenerated() const
 	return getLength() < Tolerance<float>::getLooseTolerance();
 }
 
+bool Edge::isDegenerated(const float length) const
+{
+	return getLength() < length;
+}
+
+
 void Edge::toDenerate()
 {
 	end = start;
