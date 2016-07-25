@@ -88,8 +88,8 @@ Vertex* NodeGrid1d::getPrevV(const int u, const int v) const
 std::vector<QuadCell> NodeGrid1d::toQuadCells() const
 {
 	std::vector<QuadCell> cells;
-	for (int u = 0; u < grid.getSizeX()-1; ++u) {
-		for (int v = 0; v < grid.getSizeY()-1; ++v) {
+	for (int u = 0; u < grid.getSizeX() - 1; ++u) {
+		for (int v = 0; v < grid.getSizeY() - 1; ++v) {
 			std::array< Vertex*, 4 > c;
 			c[0] = grid.get(u, v);
 			c[1] = grid.get(u + 1, v);
@@ -98,8 +98,13 @@ std::vector<QuadCell> NodeGrid1d::toQuadCells() const
 			cells.push_back(c);
 		}
 	}
-	/*
-	{
+	return cells;
+}
+
+std::vector<QuadCell> NodeGrid1d::toQuadCells(const bool isClosed) const
+{
+	auto cells = toQuadCells();
+	if(isClosed) {
 		const int u = grid.getSizeX()-1;
 		for (int v = 0; v < grid.getSizeY() - 1; ++v) {
 			std::array< Vertex*, 4 > c;
@@ -110,7 +115,6 @@ std::vector<QuadCell> NodeGrid1d::toQuadCells() const
 			cells.push_back(c);
 		}
 	}
-	*/
 	return cells;
 }
 

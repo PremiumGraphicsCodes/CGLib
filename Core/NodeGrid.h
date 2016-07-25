@@ -71,6 +71,9 @@ public:
 	virtual Vertex* getPrevV(const int u, const int v) const override;
 
 	std::vector<QuadCell> toQuadCells() const override;
+
+	std::vector<QuadCell> toQuadCells(const bool isClosed) const;
+
 };
 
 class NodeGrid2d : public INodeGrid
