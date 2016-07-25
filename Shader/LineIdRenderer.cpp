@@ -73,7 +73,7 @@ void LineIdRenderer::render(const ICamera<float>& camera, const LineIdBuffer& bu
 {
 	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPosition().get();
-	const auto& ids = buffer.getIdColors().get();
+	const auto& ids = buffer.getIds().get();
 
 	if (positions.empty()) {
 		return;

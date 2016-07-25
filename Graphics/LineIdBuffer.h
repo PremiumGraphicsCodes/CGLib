@@ -12,17 +12,28 @@
 #include "DrawableID.h"
 
 namespace Crystal {
-	namespace Core {
-		class PolygonMesh;
-		class Actor;
-		class Edge;
-	}
 	namespace Graphics {
+
+class LineIdBlock
+{
+public:
+	LineIdBlock(const std::vector<unsigned int>& indices, const DrawableID& did) :
+		indices(indices)
+	{
+		idColor.add(did.toColor());
+	}
+
+	std::vector<unsigned int> indices;
+	Buffer4d<float> idColor;
+};
+
 
 class LineIdBuffer
 {
 public:
-	void clear();
+	LineIdBuffer() = default;
+
+	LineIdBuffer(const Core::PolygonFactory& factory, const unsigned char groupId);
 
 	void add(const Core::PolygonMesh& surface, const unsigned char groupId);
 
@@ -32,12 +43,11 @@ public:
 
 	void add(const Math::Polyline3d<float>& polyline, const DrawableID& did);
 
-	void add(const Core::PolygonFactory& factory, const unsigned char groupId);
-
+	void add(const Core::PolygonMesh& polygon);
 
 	Graphics::Buffer3d<float> getPosition() const { return position; }
 
-	Buffer4d<float> getIdColors() const { return idColors; }
+	Buffer4d<float> getIds() const { return idColors; }
 
 	std::vector<unsigned int> getIndices() const { return ids; }
 

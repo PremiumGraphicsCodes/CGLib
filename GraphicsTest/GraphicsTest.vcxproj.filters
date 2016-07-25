@@ -24,6 +24,9 @@
     <ClCompile Include="LineBufferTest.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="LineIdBufferTest.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

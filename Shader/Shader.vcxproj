@@ -182,7 +182,6 @@
     <ClCompile Include="TextureHandler.cpp" />
     <ClCompile Include="TriangleIdRenderer.cpp" />
     <ClCompile Include="TriangleRenderer.cpp" />
-    <ClCompile Include="VisualMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BilateralFilter.h" />
@@ -227,7 +226,6 @@
     <ClInclude Include="TextureHandler.h" />
     <ClInclude Include="TriangleIdRenderer.h" />
     <ClInclude Include="TriangleRenderer.h" />
-    <ClInclude Include="VisualMaterial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

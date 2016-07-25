@@ -75,7 +75,6 @@
     <ClCompile Include="SSThicknessRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="VisualMaterial.cpp" />
     <ClCompile Include="TextureHandler.cpp">
       <Filter>Handler</Filter>
     </ClCompile>
@@ -195,7 +194,6 @@
     <ClInclude Include="SSThicknessRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
-    <ClInclude Include="VisualMaterial.h" />
     <ClInclude Include="ShaderHandler.h">
       <Filter>Handler</Filter>
     </ClInclude>

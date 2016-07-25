@@ -5,11 +5,13 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
-void LineIdBuffer::clear()
+LineIdBuffer::LineIdBuffer(const PolygonFactory& factory, const unsigned char groupId)
 {
-	position.clear();
-	idColors.clear();
-	ids.clear();
+	const auto& vertices = factory.getVertices();
+	for (const auto& v : vertices) {
+		this->position.add(v->getPosition());
+		this->idColors.add(DrawableID(v->getId(), groupId).toColor());
+	}
 }
 
 void LineIdBuffer::add(const PolygonMesh& mesh, const unsigned char groupId)
@@ -57,14 +59,9 @@ void LineIdBuffer::add(const Polyline3d<float>& polyline, const DrawableID& did)
 }
 
 
-void LineIdBuffer::add(const PolygonFactory& factory, const unsigned char groupId)
+void LineIdBuffer::add(const PolygonMesh& polygon)
 {
-	const auto& vertices = factory.getVertices();
-	for (const auto& v : vertices) {
-		this->position.add(v->getPosition());
-		this->idColors.add(DrawableID(v->getId(), groupId).toColor());
-	}
-	const auto& faces = factory.getFaces();
+	const auto& faces = polygon.getFaces();
 	for (const auto& f : faces) {
 		this->ids.push_back(f->getV1()->getId());
 		this->ids.push_back(f->getV2()->getId());

@@ -2,7 +2,6 @@
 #include "SmoothRenderer.h"
 #include "../Graphics/Material.h"
 #include "../Graphics/VisualPolygon.h"
-#include "VisualMaterial.h"
 #include <sstream>
 
 #include "ShaderHandler.h"

@@ -28,6 +28,7 @@
     <ClCompile Include="ImageTest.cpp" />
     <ClCompile Include="LightTest.cpp" />
     <ClCompile Include="LineBufferTest.cpp" />
+    <ClCompile Include="LineIdBufferTest.cpp" />
     <ClCompile Include="OrthogonalCameraTest.cpp" />
     <ClCompile Include="PerspectiveCameraTest.cpp" />
     <ClCompile Include="stdafx.cpp">
