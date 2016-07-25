@@ -75,8 +75,8 @@ void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 	auto e2 = f->getEdges()[2];
 	auto v = vertices.create(point);
 
-	auto f1 = createFace(f->getV1(), f->getV2(), v);
-	auto f2 = createFace(f->getV2(), f->getV3(), v);
+	auto f1 = createFace(f->getV2(), f->getV3(), v);
+	auto f2 = createFace(f->getV3(), f->getV1(), v);
 
 	e1->changeEnd(v);
 	e2->changeStart(v);
