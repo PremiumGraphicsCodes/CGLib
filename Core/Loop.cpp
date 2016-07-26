@@ -40,8 +40,9 @@ bool Loop::isConvex(Edge* e)
 {
 	const auto& v1 = e->getVector().normalized();
 	const auto& v2 = e->getNext()->getVector().normalized();
-	const auto& angle = v1.getAngle(v2);
-	return angle.getRadian().get() > Tolerance<float>::getPI();
+	return (v1.getOuterProduct(v2).getZ() > 0);
+	//const auto& angle = v1.getAngle(v2);
+	//return angle.getRadian().get() > Tolerance<float>::getPI();
 }
 
 std::list<Vertex*> Loop::findConvex()

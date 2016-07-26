@@ -29,6 +29,6 @@ TEST(LoopTest, TestFindConvex)
 	positions.push_back(Vector3d<float>(0, 1, 0));
 
 	Loop loop(positions);
-	//const auto& actual = loop.findConvex();
-	//EXPECT_EQ(4, actual.size());
+	const auto& actual = loop.findConvex();
+	EXPECT_EQ(4, actual.size());
 }
