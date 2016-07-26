@@ -178,6 +178,7 @@ PolygonBuilder::PolygonBuilder(const TriangleCurve3d<float>& curve)
 void PolygonBuilder::create(const std::vector< Triangle3d<float> >& triangles, const float divideLength)
 {
 	std::list<Vertex*> vertices;
+	std::list<Vertex*> created;
 	VertexSpaceHash hash(divideLength, triangles.size());
 	for (const auto& t : triangles) {
 		auto v1 = new Vertex(t.getv0(), t.getNormal(), 0);
@@ -186,6 +187,9 @@ void PolygonBuilder::create(const std::vector< Triangle3d<float> >& triangles, c
 		hash.add(v1);
 		hash.add(v2);
 		hash.add(v3);
+		created.push_back(v1);
+		created.push_back(v2);
+		created.push_back(v3);
 	}
 	for (const auto& t : triangles) {
 		auto v1 = hash.findSameStrictly(t.getv0());
@@ -198,6 +202,15 @@ void PolygonBuilder::create(const std::vector< Triangle3d<float> >& triangles, c
 	}
 	vertices.sort();
 	vertices.unique();
+	created.sort();
+	created.unique();
+	std::list<Vertex*> garbages;
+	std::set_difference(created.begin(), created.end(),
+		vertices.begin(), vertices.end(),
+		std::back_inserter(garbages));
+	for (auto g : garbages) {
+		delete g;
+	}
 	this->vertices = std::vector<Vertex*>(vertices.begin(), vertices.end());
 }
 
