@@ -158,6 +158,18 @@ TYPED_TEST(Vector3dTest, TestGetAngle)
 		Vector3d<T> v2(0, 0, 1);
 		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getAngle(v2));
 	}
+	{
+		Vector3d<T> v1(1, 0, 0);
+		Vector3d<T> v2(0, -1, 0);
+		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getAngle(v2));
+	}
+	{
+		Vector3d<T> v1(0, -1, 0);
+		Vector3d<T> v2(1, 2, 0);
+		v2.normalize();
+//		EXPECT_EQ(Angle<T>(Degree<T>(90)), v1.getAngle(v2));
+	}
+
 }
 
 TYPED_TEST(Vector3dTest, TestGetSignedAngle)

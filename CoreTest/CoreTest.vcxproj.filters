@@ -41,6 +41,9 @@
     <ClCompile Include="FaceSpaceHashTest.cpp">
       <Filter>Space</Filter>
     </ClCompile>
+    <ClCompile Include="LoopTest.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -51,6 +54,9 @@
     </Filter>
     <Filter Include="Space">
       <UniqueIdentifier>{13be619f-8dc8-4091-82db-8839e10d6c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graph">
+      <UniqueIdentifier>{f395e760-1327-4424-9d9d-43270265aebb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

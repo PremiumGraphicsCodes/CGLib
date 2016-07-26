@@ -32,6 +32,7 @@
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="ISpaceHash.cpp" />
     <ClCompile Include="Joint.cpp" />
+    <ClCompile Include="Loop.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="FaceSpaceHash.h" />
     <ClInclude Include="ISpaceHash.h" />
+    <ClInclude Include="Loop.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="PolygonFactory.h" />
     <ClInclude Include="TriangleCell.h" />

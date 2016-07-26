@@ -48,7 +48,7 @@ bool Angle<T>::operator<(const Angle<T> rhs) const
 template<typename T>
 bool Angle<T>::operator>(const Angle<T> rhs) const
 {
-	return this->deg.get() < rhs.deg.get();
+	return this->deg.get() > rhs.deg.get();
 }
 
 template<typename T>

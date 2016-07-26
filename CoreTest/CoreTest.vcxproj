@@ -28,6 +28,7 @@
     <ClCompile Include="FaceSpaceHashTest.cpp" />
     <ClCompile Include="FaceTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
+    <ClCompile Include="LoopTest.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="OctTreeTest.cpp" />
     <ClCompile Include="ParticleObjectTest.cpp" />

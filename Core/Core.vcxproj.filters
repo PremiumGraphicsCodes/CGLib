@@ -87,6 +87,9 @@
     <ClCompile Include="FaceSpaceHash.cpp">
       <Filter>Space</Filter>
     </ClCompile>
+    <ClCompile Include="Loop.cpp">
+      <Filter>Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="FaceSpaceHash.h">
       <Filter>Space</Filter>
+    </ClInclude>
+    <ClInclude Include="Loop.h">
+      <Filter>Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
