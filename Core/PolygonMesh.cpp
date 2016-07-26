@@ -127,3 +127,22 @@ Vector3d<float> PolygonMesh::getCenter() const
 	}
 	return center;
 }
+
+void PolygonMesh::move(const Vector3d<float>& v)
+{
+	const auto& vs = getVertices();
+	for (auto& vert : vs) {
+		vert->move(v);
+	}
+}
+
+void PolygonMesh::scale(const Vector3d<float>& s)
+{
+	const auto& center = getCenter();
+	move(-center);
+	const auto& vs = getVertices();
+	for (auto& vert : vs) {
+		vert->scale(s);
+	}
+	move(center);
+}

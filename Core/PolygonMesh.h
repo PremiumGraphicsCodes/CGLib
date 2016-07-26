@@ -56,6 +56,10 @@ public:
 
 	Math::Vector3d<float> getCenter() const;
 
+	void move(const Math::Vector3d<float>& v);
+
+	void scale(const Math::Vector3d<float>& s);
+
 private:
 	unsigned int id;
 	std::list<Face*> faces;
