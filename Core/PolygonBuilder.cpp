@@ -130,13 +130,13 @@ PolygonBuilder::PolygonBuilder(const CircularCurve3d<float>& curve)
 		auto n0 = centerNode;
 		auto n1 = vertices[i];
 		auto n2 = vertices[i + 1];
-		createFace(n0, n1, n2);
+		createFace(n0, n2, n1);
 	}
 	{
 		auto n0 = centerNode;
 		auto n1 = vertices.back();
 		auto n2 = vertices.front();
-		createFace(n0, n1, n2);
+		createFace(n0, n2, n1);
 	}
 	vertices.push_back(centerNode);
 }
@@ -229,4 +229,11 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	e3->setFace(f);
 
 	faces.push_back(f);
+}
+
+void PolygonBuilder::merge(PolygonBuilder& rhs)
+{
+	vertices.insert(vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
+	faces.insert(faces.end(), rhs.faces.begin(), rhs.faces.end());
+	edges.insert(edges.end(), rhs.edges.begin(), rhs.edges.end());
 }

@@ -117,9 +117,9 @@ CircularCurve3d<T> Cylinder<T>::getBottomCurve(int number) const
 template<typename T>
 Curve3d<T> Cylinder<T>::getSideCurve(const int number) const
 {
-	Curve3d<T> sideCurve(2, number);
+	Curve3d<T> sideCurve(2, number+1);
 
-	for (int i = 0; i < number; ++i) {
+	for (int i = 0; i <= number; ++i) {
 		const auto param = Param<T>(i / (T)number);
 		const auto& v1 = getPoint(param, Param<T>(0));
 		const auto& v2 = getPoint(param, Param<T>(1));

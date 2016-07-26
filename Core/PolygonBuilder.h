@@ -45,6 +45,7 @@ public:
 
 	void createFaces(const std::vector<Vertex*>& vertices);
 
+	void merge(PolygonBuilder& rhs);
 
 private:
 	std::vector<Vertex*> vertices;
