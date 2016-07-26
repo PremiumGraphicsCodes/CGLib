@@ -60,6 +60,8 @@ public:
 
 	void scale(const Math::Vector3d<float>& s);
 
+	void rotate(const Math::Quaternion<float>& quaternion);
+		
 private:
 	unsigned int id;
 	std::list<Face*> faces;

@@ -146,3 +146,16 @@ void PolygonMesh::scale(const Vector3d<float>& s)
 	}
 	move(center);
 }
+
+void PolygonMesh::rotate(const Quaternion<float>& quaternion)
+{
+	const auto& center = getCenter();
+	move(-center);
+	const auto& vs = getVertices();
+	const auto& matrix = quaternion.toMatrix();
+	for (auto& vert : vs) {
+		vert->transform(matrix);
+	}
+	move(center);
+
+}
