@@ -46,6 +46,10 @@ public:
 
 	bool has(Face* f);
 
+	bool has(Edge* e);
+
+	bool has(Vertex* v);
+
 	void remove(Face* f);
 
 	PolygonMesh* clone(const int id);
@@ -61,6 +65,8 @@ public:
 	void scale(const Math::Vector3d<float>& s);
 
 	void rotate(const Math::Quaternion<float>& quaternion);
+
+	void merge(PolygonMesh& rhs);
 		
 private:
 	unsigned int id;

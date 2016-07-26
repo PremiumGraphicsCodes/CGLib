@@ -73,6 +73,18 @@ bool PolygonMesh::has(Face* f)
 	return std::find(faces.begin(), faces.end(), f) != faces.end();
 }
 
+bool PolygonMesh::has(Edge* e)
+{
+	const auto& edges = getEdges();
+	return std::find(edges.begin(), edges.end(), e) != edges.end();
+}
+
+bool PolygonMesh::has(Vertex* v)
+{
+	const auto& vertices = getVertices();
+	return std::find(vertices.begin(), vertices.end(), v) != vertices.end();
+}
+
 std::list<Vertex*> PolygonMesh::getVertices() const
 {
 	std::list<Vertex*> vertices;
@@ -158,4 +170,10 @@ void PolygonMesh::rotate(const Quaternion<float>& quaternion)
 	}
 	move(center);
 
+}
+
+void PolygonMesh::merge(PolygonMesh& rhs)
+{
+	faces.splice(faces.end(), rhs.faces);
+	rhs.clear();
 }

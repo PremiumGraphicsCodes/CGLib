@@ -115,20 +115,21 @@ void PolygonFactory::splitByBottom(PolygonMesh* polygon,Face* f)
 
 void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)
 {
-	/*
-	const auto& es = f->toEdges();
+	const auto& es = f->getEdges();
 	std::vector<Vertex*> startPoints;
 	std::vector<Vertex*> midPoints;
-	for (const auto& e : polygon->getE) {
-		startPoints.push_back(e.getStart());
-		midPoints.push_back(createVertex(e.getMidPoint()));
+	for (const auto& e : polygon->getEdges()) {
+		startPoints.push_back(e->getStart());
+		midPoints.push_back(vertices.create(e->getMidPoint()));
 	}
-	faces.create(midPoints[0], startPoints[1], midPoints[1]);
-	faces.create(midPoints[1], startPoints[2], midPoints[2]);
-	faces.create(midPoints[0], startPoints[1], midPoints[2]);
+	auto f1 = createFace(midPoints[0], startPoints[1], midPoints[1]);
+	auto f2 = createFace(midPoints[1], startPoints[2], midPoints[2]);
+	auto f3 = createFace(midPoints[0], startPoints[1], midPoints[2]);
+	polygon->add(f1);
+	polygon->add(f2);
+	polygon->add(f3);
 	f->getV2()->moveTo(midPoints[0]->getPosition());
 	f->getV3()->moveTo(midPoints[1]->getPosition());
-	*/
 }
 
 
@@ -172,13 +173,11 @@ PolygonMesh* PolygonFactory::find(Face* f)
 
 PolygonMesh* PolygonFactory::find(Vertex* v)
 {
-	/*
 	for (auto p : polygons) {
 		if (p->has(v)) {
 			return p;
 		}
 	}
-	*/
 	return nullptr;
 }
 
