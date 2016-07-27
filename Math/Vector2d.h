@@ -45,7 +45,7 @@ public:
 
 	Vector2d<T> normalize();
 
-	Vector2d<T> getNormalized() const;
+	Vector2d<T> normalized() const;
 
 	Angle<T> getAngle() const;
 

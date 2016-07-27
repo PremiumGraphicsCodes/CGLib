@@ -12,6 +12,16 @@ TEST(Quad2dTest, TestGetArea)
 	EXPECT_EQ(8.0f, q2.getArea());
 }
 
+TEST(Quad2dTest, TestGetPosition)
+{
+	const Quad2d<float> q1;
+	const Quad2d<float> q2(Vector2d<float>(0, 0), Vector2d<float>(2, 4));
+
+	EXPECT_EQ(Vector2d<float>(0,0), q1.getPosition(0,0));
+	EXPECT_EQ(Vector2d<float>(1,2), q2.getPosition(0.5, 0.5));
+}
+
+
 TEST(Quad2dTest, TestMoveStart)
 {
 	Quad2d<float> q1;

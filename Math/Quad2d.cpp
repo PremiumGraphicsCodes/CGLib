@@ -66,5 +66,14 @@ bool Quad2d<T>::operator!=(const Quad2d<T>& rhs) const
 	return !equals(rhs);
 }
 
+template<typename T>
+Vector2d<T> Quad2d<T>::getPosition(const T u, const T v) const
+{
+	const auto x = origin.getX() + length.getX() * u;
+	const auto y = origin.getY() + length.getY() * v;
+	return Vector2d<T>(x, y);
+}
+
+
 template class Quad2d<float>;
 template class Quad2d<double>;

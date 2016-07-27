@@ -76,7 +76,7 @@ Vector2d<T> Vector2d<T>::normalize()
 }
 
 template<typename T>
-Vector2d<T> Vector2d<T>::getNormalized() const
+Vector2d<T> Vector2d<T>::normalized() const
 {
 	Vector2d<T> vector = *(this);
 	return vector.normalize();

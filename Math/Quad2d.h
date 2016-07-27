@@ -30,6 +30,8 @@ public:
 
 	bool operator!=(const Quad2d<T>& rhs) const;
 
+	Vector2d<T> getPosition(const T u, const T v) const;
+
 private:
 	Vector2d<T> origin;
 	Vector2d<T> length;

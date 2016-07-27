@@ -32,7 +32,7 @@ template<typename T>
 Vector2d<T> Ellipse<T>::getNormal(const Angle<T> angle) const
 {
 	const auto v = getPosition(angle) - center;
-	return v.getNormalized();
+	return v.normalized();
 }
 
 template<typename T>
