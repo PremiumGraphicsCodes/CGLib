@@ -1,5 +1,6 @@
 #include "Quad.h"
 #include "Point3d.h"
+#include "PolyLine3d.h"
 
 using namespace Crystal::Math;
 
@@ -57,9 +58,9 @@ template<typename T>
 std::array<Vector3d<T>, 4> Quad<T>::getPositions() const
 {
 	const auto v1 = getPosition(0, 0);
-	const auto v2 = getPosition(0, 1);
-	const auto v3 = getPosition(1, 0);
-	const auto v4 = getPosition(1, 1);
+	const auto v2 = getPosition(1, 0);
+	const auto v3 = getPosition(1, 1);
+	const auto v4 = getPosition(0, 1);
 	return{ v1,v2,v3,v4 };
 }
 
@@ -94,6 +95,17 @@ Curve3d<T> Quad<T>::toCurve3d() const
 	curve.set(1, 0, getPoint(1, 0));
 	curve.set(1, 1, getPoint(1, 1));
 	return curve;
+}
+
+template<typename T>
+Polyline3d<T> Quad<T>::toPolyline() const
+{
+	Polyline3d<T> result;
+	const auto& positions = getPositions();
+	for (int i = 0; i < positions.size(); ++i) {
+		result.add(positions[i]);
+	}
+	return result;
 }
 
 

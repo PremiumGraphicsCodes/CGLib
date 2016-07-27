@@ -9,7 +9,8 @@ namespace Crystal {
 		class Point3d;
 		template<typename T>
 		class Curve3d;
-
+		template<typename T>
+		class Polyline3d;
 
 template<typename T>
 class Quad
@@ -44,6 +45,8 @@ public:
 	//Point2d toPoint(const T u, const T v) const;
 
 	Curve3d<T> toCurve3d() const;
+
+	Polyline3d<T> toPolyline() const;
 
 private:
 	Vector3d<T> origin;
