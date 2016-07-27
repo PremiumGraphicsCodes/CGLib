@@ -19,7 +19,11 @@ public:
 
 	std::list<Vertex*> findConvex();
 
-	bool isConvex(Edge* v);
+	std::list<Vertex*> findReflex();
+
+	bool isConvex(Edge* e);
+
+	bool isReflex(Edge* e);
 
 	//float getArea() const;
 
@@ -29,9 +33,20 @@ public:
 
 	std::vector<Vertex*> getVertices() const { return vertices; }
 
+	std::list<Vertex*> findEar();
+
+	std::array<Edge*, 3> getFace(Vertex* center);
+
+	void remove(Vertex* v);
+
+	Edge* findStartEdge(Vertex* v);
+
+	void split(Vertex* start, Vertex* end);
+
 private:
 	std::vector<Vertex*> vertices;
 	std::vector<Edge*> edges;
+	std::vector<Face*> faces;
 };
 	}
 }
