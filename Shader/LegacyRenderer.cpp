@@ -143,6 +143,16 @@ void LegacyRenderer::renderAlphaBlend(const ICamera<float>& camera, const PointB
 
 void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer, const int width)
 {
+	render(camera.getProjectionMatrix(), camera.getModelviewMatrix(), buffer, width);
+}
+
+void LegacyRenderer::render(const LineBuffer& buffer, const int width)
+{
+	render(Matrix4d<float>::Identity(), Matrix4d<float>::Identity(), buffer, width);
+}
+
+void LegacyRenderer::render(const Matrix4d<float>& projectionMatrix, const Matrix4d<float>& modelviewMatrix, const LineBuffer& buffer, const int width)
+{
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getColor().get();
 	const auto& indices = buffer.getIds();
@@ -153,9 +163,6 @@ void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buff
 
 	glLineWidth(width);
 	glEnable(GL_DEPTH_TEST);
-
-	Matrix4d<float> projectionMatrix = camera.getProjectionMatrix();
-	Matrix4d<float> modelviewMatrix = camera.getModelviewMatrix();;
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -173,14 +180,16 @@ void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buff
 	assert(glGetError() == GL_NO_ERROR);
 
 	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
-	glDrawElements(GL_LINES, static_cast<GLsizei>( indices.size() ), GL_UNSIGNED_INT, indices.data());
+	glDrawElements(GL_LINES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
 
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisable(GL_DEPTH_TEST);
 
 	glLineWidth(1);
+
 }
+
 
 void LegacyRenderer::renderId(const ICamera<float>& camera, const LineIdBuffer& buffer)
 {

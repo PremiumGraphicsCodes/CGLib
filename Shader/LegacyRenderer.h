@@ -29,6 +29,10 @@ public:
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer, const int width);
 
+	void render(const Graphics::LineBuffer& buffer, const int width);
+
+	void render(const Math::Matrix4d<float>& projectionMatrix, const Math::Matrix4d<float>& modelviewMatrix, const Graphics::LineBuffer& buffer, const int width);
+
 	void renderId(const Graphics::ICamera<float>& camera, const Graphics::LineIdBuffer& buffer);
 
 	void render(const Graphics::ICamera<float>& camera, const Graphics::PointLight<float>& light, const Graphics::TriangleBuffer& buffer);
