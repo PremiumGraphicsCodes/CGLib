@@ -32,6 +32,12 @@ public:
 
 	Vector2d<T> getPosition(const T u, const T v) const;
 
+	Vector2d<T> getLength() const { return length; }
+
+	Vector2d<T> getMin() const;
+
+	Vector2d<T> getMax() const;
+
 private:
 	Vector2d<T> origin;
 	Vector2d<T> length;

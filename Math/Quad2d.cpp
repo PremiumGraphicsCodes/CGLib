@@ -1,4 +1,5 @@
 #include "Quad2d.h"
+#include <algorithm>
 
 using namespace Crystal::Math;
 
@@ -71,6 +72,22 @@ Vector2d<T> Quad2d<T>::getPosition(const T u, const T v) const
 {
 	const auto x = origin.getX() + length.getX() * u;
 	const auto y = origin.getY() + length.getY() * v;
+	return Vector2d<T>(x, y);
+}
+
+template<typename T>
+Vector2d<T> Quad2d<T>::getMin() const
+{
+	const auto x = std::min<T>(getStart().getX(), getEnd().getX());
+	const auto y = std::min<T>(getStart().getY(), getEnd().getY());
+	return Vector2d<T>(x, y);
+}
+
+template<typename T>
+Vector2d<T> Quad2d<T>::getMax() const
+{
+	const auto x = std::max<T>(getStart().getX(), getEnd().getX());
+	const auto y = std::max<T>(getStart().getY(), getEnd().getY());
 	return Vector2d<T>(x, y);
 }
 
