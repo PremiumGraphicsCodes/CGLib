@@ -60,6 +60,16 @@ unsigned int DrawableID::getValue() const
 	return id.to_ulong();
 }
 
+bool DrawableID::operator<(const DrawableID& rhs) const
+{
+	return id.to_ulong() < rhs.id.to_ulong();
+}
+
+bool DrawableID::operator>(const DrawableID& rhs) const
+{
+	return id.to_ulong() > rhs.id.to_ulong();
+}
+
 
 /*
 ColorRGBA<unsigned char> DrawableID::toColorUC() const

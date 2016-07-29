@@ -37,6 +37,10 @@ public:
 
 	bool operator!=(const DrawableID& rhs) const { return !equals(rhs); }
 
+	bool operator<(const DrawableID& rhs) const;
+
+	bool operator>(const DrawableID& rhs) const;
+
 	unsigned char getType() const;
 
 	unsigned int getValue() const;
