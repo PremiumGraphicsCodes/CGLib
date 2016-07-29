@@ -43,7 +43,7 @@ public:
 
 	Point3d<T> getPoint(const Param<T> u, const Param<T> v) const;
 
-	Curve3d<T> toCurve3d() const;
+	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
 private:
 	const Math::Vector3d<T> basis1;

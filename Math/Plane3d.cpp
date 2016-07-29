@@ -77,13 +77,22 @@ Point3d<T> Plane3d<T>::getPoint(const Param<T> u, const Param<T> v) const
 }
 
 template<typename T>
-Curve3d<T> Plane3d<T>::toCurve3d() const
+Curve3d<T> Plane3d<T>::toCurve3d(const int uNum, const int vNum) const
 {
-	Curve3d<T> curve(2,2);
+	Curve3d<T> curve(uNum+1,vNum+1);
+	for (int i = 0; i <= uNum; ++i) {
+		for (int j = 0; j <= vNum; ++j) {
+			const auto paramU = Param<T>(i / T(uNum));
+			const auto paramV = Param<T>(j / T(vNum));
+			curve.set(i, j, getPoint(paramU, paramV));
+		}
+	}
+	/*
 	curve.set(0, 0, getPoint(Param<T>{0}, Param<T>{0}));
 	curve.set(0, 1, getPoint(Param<T>{0}, Param<T>{1}));
 	curve.set(1, 0, getPoint(Param<T>{1}, Param<T>{0}));
 	curve.set(1, 1, getPoint(Param<T>{1}, Param<T>{1}));
+	*/
 	return curve;
 }
 
