@@ -225,7 +225,7 @@ void PolygonBuilder::createFaces(const std::vector<Vertex*>& vertices)
 	}
 }
 
-void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+Face* PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	auto e1 = new Edge(v1, v2);
 	auto e2 = new Edge(v2, v3);
@@ -242,6 +242,7 @@ void PolygonBuilder::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	e3->setFace(f);
 
 	faces.push_back(f);
+	return f;
 }
 
 void PolygonBuilder::merge(PolygonBuilder& rhs)
@@ -249,4 +250,12 @@ void PolygonBuilder::merge(PolygonBuilder& rhs)
 	vertices.insert(vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
 	faces.insert(faces.end(), rhs.faces.begin(), rhs.faces.end());
 	edges.insert(edges.end(), rhs.edges.begin(), rhs.edges.end());
+}
+
+void PolygonBuilder::reverse(Face* f)
+{
+	auto& es = f->getEdges();
+	for (auto e : es) {
+		e->reverse();
+	}
 }

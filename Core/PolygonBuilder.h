@@ -35,7 +35,7 @@ public:
 
 	PolygonMesh* build(int id = -1);
 
-	void createFace(Vertex* v1, Vertex* v2, Vertex* v3);
+	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
 	std::vector<Vertex*> getVertices() const { return vertices; }
 
@@ -46,6 +46,8 @@ public:
 	void createFaces(const std::vector<Vertex*>& vertices);
 
 	void merge(PolygonBuilder& rhs);
+
+	void reverse(Face* f);
 
 private:
 	std::vector<Vertex*> vertices;

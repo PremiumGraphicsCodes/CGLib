@@ -8,7 +8,10 @@ using namespace Crystal::Math;
 TEST(Quad3dTest, TestGetArea)
 {
 	const Quad3d<float> q1(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const Quad3d<float> q2(Vector3d<float>(0, 0, 0), Vector3d<float>(-1, 0, 0), Vector3d<float>(0, 1, 0));
+
 	EXPECT_EQ(1, q1.getArea());
+	EXPECT_EQ(1, q2.getArea());
 }
 
 TEST(Quad3dTest, TestGetPosition)

@@ -121,8 +121,13 @@ bool Edge::isDegenerated(const float length) const
 	return getLength() < length;
 }
 
-
 void Edge::toDenerate()
 {
 	end = start;
+}
+
+void Edge::reverse()
+{
+	std::swap( start, end );
+	std::swap( prev, next );
 }

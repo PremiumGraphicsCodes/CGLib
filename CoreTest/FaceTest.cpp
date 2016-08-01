@@ -93,3 +93,18 @@ TEST(FaceTest, TestMergeDouble)
 	//auto found = actual.find(&v1);
 	//EXPECT_EQ(&v4, (*found).second);
 }
+
+TEST(FaceTest, TestReverse)
+{
+	Vertex v1(Vector3d<float>(-1, 0, 0), 0);
+	Vertex v2(Vector3d<float>(1, 0, 0), 1);
+	Vertex v3(Vector3d<float>(1, 1, 0), 2);
+
+	FaceBuilder builder({ &v1, &v2, &v3 });
+	auto f = builder.build(0, 1, 2);
+	f->reverse();
+	const auto& edges = f->getEdges();
+	EXPECT_EQ(&v1, edges.front()->getStart());
+	EXPECT_EQ(&v3, edges.front()->getEnd());
+
+}

@@ -78,6 +78,8 @@ public:
 		return toLine();
 	}
 
+	void reverse();
+
 private:
 	Vertex* start;
 	Vertex* end;

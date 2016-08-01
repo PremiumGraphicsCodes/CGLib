@@ -151,3 +151,13 @@ Triangle3d<float> Face::toTriangle() const
 	auto vertices = getVertices();
 	return Triangle3d<float>(vertices[0]->getPosition(), vertices[1]->getPosition(), vertices[2]->getPosition());
 }
+
+void Face::reverse()
+{
+	auto edges = getEdges();
+	for (auto& e : edges) {
+		e->reverse();
+	}
+	this->edges[0] = edges[2];
+	this->edges[2] = edges[1];
+}

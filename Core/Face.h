@@ -55,6 +55,8 @@ public:
 
 	Math::Triangle3d<float> toTriangle() const;
 
+	void reverse();
+
 private:
 	std::array< Edge*, 3 > edges;
 	//std::array< Vertex*, 3> vertices;

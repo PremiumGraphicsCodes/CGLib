@@ -62,3 +62,15 @@ TEST(PolygonBuilderTest, TestClean)
 	EXPECT_EQ(4, actual->getVertices().size());
 	delete actual;
 }
+
+TEST(PolygonBuilderTest, TestReverse)
+{
+	Vertex v1(Vector3d<float>(0, 0, 0));
+	Vertex v2(Vector3d<float>(1, 0, 0));
+	Vertex v3(Vector3d<float>(1, 1, 0));
+	std::vector<Vertex*> vertices = { &v1, &v2, &v3 };
+	PolygonBuilder builder(vertices);
+	auto face = builder.createFace(&v1, &v2, &v3);
+	auto polygon = builder.build();
+	builder.reverse(face);
+}
