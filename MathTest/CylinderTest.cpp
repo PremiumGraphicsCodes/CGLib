@@ -13,30 +13,20 @@ TEST(CylinderTest, TestGetVolume)
 
 TEST(CylinderTest, TestGetPosition)
 {
-	{
-		const Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0);
-		EXPECT_EQ(Vector3d<float>(1, -0.5, 0), cylinder.getPosition(Param<float>(0), Param<float>(0)));
-		EXPECT_EQ(Vector3d<float>(1, 0.5, 0), cylinder.getPosition(Param<float>(0), Param<float>(1)));
-	}
-	{
-		Quaternion<float> q(Vector3d<float>(0, 1, 0), Tolerance<float>::getPI());
-		const Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0, q);
-		EXPECT_EQ(Vector3d<float>(-1, -0.5, 0), cylinder.getPosition(Param<float>(0), Param<float>(0)));
+	const Cylinder<float> cylinder1(Vector3d<float>(0, 0, 0), 1.0, 1.0);
+	EXPECT_EQ(Vector3d<float>(1, -0.5, 0), cylinder1.getPosition(Param<float>(0), Param<float>(0)));
+	EXPECT_EQ(Vector3d<float>(1, 0.5, 0), cylinder1.getPosition(Param<float>(0), Param<float>(1)));
 
-	}
+	const Quaternion<float> q(Vector3d<float>(0, 1, 0), Tolerance<float>::getPI());
+	const Cylinder<float> cylinder2(Vector3d<float>(0, 0, 0), 1.0, 1.0, q);
+	EXPECT_EQ(Vector3d<float>(-1, -0.5, 0), cylinder2.getPosition(Param<float>(0), Param<float>(0)));
 }
 
 TEST(CylinderTest, TestGetNormal)
 {
-	Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0);
-	{
-		const auto normal = cylinder.getNormal(Param<float>(0), Param<float>(0));
-		EXPECT_EQ(Vector3d<float>(1, 0, 0), normal);
-	}
-	{
-		const auto normal = cylinder.getNormal(Param<float>(0.5), Param<float>(0));
-		EXPECT_EQ(Vector3d<float>(-1, 0, 0), normal);
-	}
+	const Cylinder<float> cylinder(Vector3d<float>(0, 0, 0), 1.0, 1.0);
+	EXPECT_EQ(Vector3d<float>(1, 0, 0), cylinder.getNormal(Param<float>(0), Param<float>(0)));
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), cylinder.getNormal(Param<float>(0.5), Param<float>(0)));
 }
 
 TEST(CylinderTest, TestToCurve3ds)

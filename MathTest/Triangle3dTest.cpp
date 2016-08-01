@@ -28,14 +28,6 @@ TYPED_TEST(Triangle3dTest, TestGetArea)
 	EXPECT_EQ( 0.5, Triangle3d<T>().getArea() );
 }
 
-/*
-TYPED_TEST(TriangleTest, TestIsShrinked)
-{
-	using T = TypeParam;
-	EXPECT_FALSE(Triangle<T>().isShrinked() );
-}
-*/
-
 TYPED_TEST(Triangle3dTest, TestGetNormal)
 {
 	using T = TypeParam;
@@ -57,11 +49,10 @@ TYPED_TEST(Triangle3dTest, TestIsCCW)
 	EXPECT_TRUE( Triangle3d<T>().isCCW() );
 }
 
-
 TYPED_TEST(Triangle3dTest, TestIsInside)
 {
 	using T = TypeParam;
-	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	const Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
 	EXPECT_TRUE( triangle.isInside(Vector3d<T>( 0, 0.5, 0)));
 	EXPECT_FALSE(triangle.isInside(Vector3d<T>(-2, 0, 0)));
 	EXPECT_FALSE(triangle.isInside(Vector3d<T>( 2, 0, 0)));
@@ -71,7 +62,7 @@ TYPED_TEST(Triangle3dTest, TestIsInside)
 TYPED_TEST(Triangle3dTest, TestIsOutside)
 {
 	using T = TypeParam;
-	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	const Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
 	EXPECT_FALSE(triangle.isOutside(Vector3d<T>(0, 0.5, 0)));
 	EXPECT_TRUE( triangle.isOutside(Vector3d<T>(-2, 0, 0)));
 	EXPECT_TRUE( triangle.isOutside(Vector3d<T>(2, 0, 0)));
@@ -80,7 +71,7 @@ TYPED_TEST(Triangle3dTest, TestIsOutside)
 TYPED_TEST(Triangle3dTest, TestIsSamePlane)
 {
 	using T = TypeParam;
-	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	const Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
 	EXPECT_TRUE( triangle.isSamePlane(Vector3d<T>(2, 0, 0)));
 	EXPECT_FALSE(triangle.isSamePlane(Vector3d<T>(0, 0, 10)) );
 }
@@ -88,8 +79,8 @@ TYPED_TEST(Triangle3dTest, TestIsSamePlane)
 TYPED_TEST(Triangle3dTest, TestGetBoundingBox)
 {
 	using T = TypeParam;
-	Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
-	auto actual = triangle.getBoundingBox();
-	Box3d<T> expected(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 1, 0));
+	const Triangle3d<T> triangle(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	const auto& actual = triangle.getBoundingBox();
+	const Box3d<T> expected(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 1, 0));
 	EXPECT_EQ(expected, actual);
 }
