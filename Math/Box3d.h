@@ -121,6 +121,8 @@ public:
 
 	Curve3d<T> toCurve3d() const;
 
+	Vector3d<T> getPosition(const Vector3d<T>& param) const;
+
 private:
 	Vector3d<T> start;
 	Vector3d<T> end;

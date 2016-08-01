@@ -221,7 +221,10 @@ Quad<T> Box3d<T>::getXMinusQuad() const
 template<typename T>
 Quad<T> Box3d<T>::getXPlusQuad() const
 {
-	return Quad<T>::YZPlane(Vector3d<T>(getMaxX(), getMinY(), getMinZ()));
+	const auto& origin = getPosition(Vector3d<T>(1, 0, 0));
+	const auto& dir1 = getPosition(Vector3d<T>(1, 0, 1));
+	const auto& dir2 = getPosition(Vector3d<T>(1, 1, 0));
+	return Quad<T>(origin, dir1, dir2);
 }
 
 template<typename T>
@@ -262,6 +265,16 @@ Curve3d<T> Box3d<T>::toCurve3d() const
 	Curve3d<T> curve(2,2);
 	//curve.set
 	return curve;
+}
+
+template<typename T>
+Vector3d<T> Box3d<T>::getPosition(const Vector3d<T>& param) const
+{
+	const auto& length = getLength();
+	const auto x = start.getX() + length.getX() * param.getX();
+	const auto y = start.getY() + length.getY() * param.getY();
+	const auto z = start.getZ() + length.getZ() * param.getZ();
+	return Vector3d<T>(x, y, z);
 }
 
 
