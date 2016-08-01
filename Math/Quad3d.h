@@ -46,6 +46,8 @@ public:
 
 	Polyline3d<T> toPolyline() const;
 
+	T getArea() const;
+
 private:
 	Vector3d<T> origin;
 	Vector3d<T> uVector;

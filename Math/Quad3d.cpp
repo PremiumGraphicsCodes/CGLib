@@ -121,6 +121,12 @@ Polyline3d<T> Quad3d<T>::toPolyline() const
 	return result;
 }
 
+template<typename T>
+T Quad3d<T>::getArea() const
+{
+	return uVector.getOuterProduct(vVector).getLength();
+}
+
 
 template class Quad3d<float>;
 template class Quad3d<double>;

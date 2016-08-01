@@ -242,10 +242,10 @@ Quad3d<T> Box3d<T>::getRightQuad() const
 template<typename T>
 Quad3d<T> Box3d<T>::getBottomQuad() const
 {
-	const auto& origin = getPosition(Vector3d<T>(0, 0, 0));
-	const auto& pos1 = getPosition(Vector3d<T>(0, 0, -1));
-	const auto& pos2 = getPosition(Vector3d<T>(0, 1, 0));
-	return Quad3d<T>(origin, pos1, pos2);
+	const auto& origin = getPosition(Vector3d<T>(1, 0, 1));
+	const auto& pos1 = getPosition(Vector3d<T>(1, 0, 0));
+	const auto& pos2 = getPosition(Vector3d<T>(0, 0, 1));
+	return Quad3d<T>::fromPositions(origin, pos1, pos2);
 }
 
 template<typename T>

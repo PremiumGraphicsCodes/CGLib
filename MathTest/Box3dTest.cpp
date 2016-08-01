@@ -186,14 +186,12 @@ TYPED_TEST(Box3dTest, TestGetTopQuad)
 	EXPECT_EQ(Vector3d<T>(0, -1, 0), actual.getNormal());
 }
 
-/*
 TYPED_TEST(Box3dTest, TestGetBottomQuad)
 {
 	using T = TypeParam;
-	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 2, 4));
 	const auto& actual = box.getBottomQuad();
-	const Quad3d<T> expected(Vector3d<T>(0, 1, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 0, 1));
+	const Quad3d<T> expected(Vector3d<T>(1, 0, 4), Vector3d<T>(0, 0, -4), Vector3d<T>(-1, 0, 0));
 	EXPECT_EQ(expected, actual);
-	EXPECT_EQ(Vector3d<T>(0, -1, 0), actual.getNormal());
+	EXPECT_EQ(Vector3d<T>(0, 1, 0), actual.getNormal());
 }
-*/
