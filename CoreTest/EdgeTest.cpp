@@ -79,25 +79,12 @@ TEST(EdgeTest, TestToDegenerate)
 	EXPECT_TRUE( e1.isDegenerated());
 }
 
-/*
-#include "../Core/Face.h"
-
-TEST(EdgeTest, TestCalculateCollapseCost)
+TEST(EdgeTest, TestReverse)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
-	Vertex n3(Vector3d<float>(1, 1, 0), 1);
-	Vertex n4(Vector3d<float>(-1, 1, 1), 1);
-
-	Edge e1(&n1, &n2);
-	Edge e2(&n2, &n3);
-	Edge e3(&n3, &n1);
-
-	Face f1(&e1, &e2, &e3);
-	auto actual = e1.calculateCollapseCost();
-	//Edge e3(&n4, &n1);
-
-	const Edge e4(&n3, &n4, 0);
-	EXPECT_FLOAT_EQ(e4.getLength(), e4.calculateCollapseCost());
+	Edge e1(&n1, &n2, 0);
+	e1.reverse();
+	EXPECT_EQ( &n2, e1.getStart() );
+	EXPECT_EQ( &n1, e1.getEnd() );
 }
-*/

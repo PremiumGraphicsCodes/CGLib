@@ -177,3 +177,14 @@ void PolygonMesh::merge(PolygonMesh& rhs)
 	faces.splice(faces.end(), rhs.faces);
 	rhs.clear();
 }
+
+void PolygonMesh::reverse()
+{
+	auto vs = getVertices();
+	for (auto v : vs) {
+		v->reverse();
+	}
+	for (auto f: faces) {
+		f->reverse();
+	}
+}

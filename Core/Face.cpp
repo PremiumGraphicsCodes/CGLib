@@ -159,5 +159,5 @@ void Face::reverse()
 		e->reverse();
 	}
 	this->edges[0] = edges[2];
-	this->edges[2] = edges[1];
+	this->edges[2] = edges[0];
 }

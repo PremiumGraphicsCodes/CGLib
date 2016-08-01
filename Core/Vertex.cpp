@@ -31,3 +31,8 @@ Vertex* Vertex::clone()
 {
 	return new Vertex(getPosition(), getNormal(), getParameter(), id);
 }
+
+void Vertex::reverse()
+{
+	this->setNormal(-getNormal());
+}

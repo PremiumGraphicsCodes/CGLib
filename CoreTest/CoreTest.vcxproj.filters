@@ -15,7 +15,6 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
-    <ClCompile Include="EdgeTest.cpp" />
     <ClCompile Include="EdgeCollectionTest.cpp" />
     <ClCompile Include="FaceTest.cpp">
       <Filter>Polygon</Filter>
@@ -43,6 +42,9 @@
     </ClCompile>
     <ClCompile Include="LoopTest.cpp">
       <Filter>Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeTest.cpp">
+      <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,8 @@ public:
 
 	unsigned int getId() const { return id; }
 
+	void reverse();
+
 private:
 	unsigned int id;
 	//std::list<Face*> faces;

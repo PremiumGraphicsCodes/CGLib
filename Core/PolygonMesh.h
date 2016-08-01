@@ -67,6 +67,8 @@ public:
 	void rotate(const Math::Quaternion<float>& quaternion);
 
 	void merge(PolygonMesh& rhs);
+
+	void reverse();
 		
 private:
 	unsigned int id;
