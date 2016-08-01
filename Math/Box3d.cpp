@@ -49,8 +49,16 @@ void Box3d<T>::add(const Vector3d<T>& v) {
 template<typename T>
 T Box3d<T>::getVolume() const
 {
-	return (end.getX() - getMinX()) * (end.getY() - getMinY()) * (end.getZ() - getMinZ());
+	const auto& length = getLength();
+	return length.getX() * length.getY() * length.getZ();
 }
+
+template<typename T>
+Vector3d<T> Box3d<T>::getLength() const
+{
+	return Vector3d<T>(end.getX() - getMinX(), end.getY() - getMinY(), end.getZ() - getMinZ());
+}
+
 
 template<typename T>
 bool Box3d<T>::isInterior(const Vector3d<T>& point) const
@@ -243,7 +251,10 @@ Quad3d<T> Box3d<T>::getYMinusQuad() const
 template<typename T>
 Quad3d<T> Box3d<T>::getYPlusQuad() const
 {
-	return Quad3d<T>::ZXPlane(Vector3d<T>(getMinX(), getMaxY(), getMinZ()));
+	const auto& origin = getPosition(Vector3d<T>(0, 1, 0));
+	const auto& pos1 = getPosition(Vector3d<T>(1, 1, 0));
+	const auto& pos2 = getPosition(Vector3d<T>(0, 1, 1));
+	return Quad3d<T>::fromPositions(origin, pos1, pos2);
 }
 
 template<typename T>

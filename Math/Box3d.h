@@ -80,9 +80,7 @@ public:
 
 	T getMinZ() const { return start.getZ(); }
 
-	Vector3d<T> getLength() const {
-		return Vector3d<T>(end.getX() - getMinX(), end.getY() - getMinY(), end.getZ() - getMinZ());
-	}
+	Vector3d<T> getLength() const;
 
 	bool isValid() const;
 

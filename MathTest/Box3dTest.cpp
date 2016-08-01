@@ -2,6 +2,7 @@
  
 #include "../Math/Box3d.h"
 #include "../Math/Quad3d.h"
+#include "../Math/Space3d.h"
 
 using namespace Crystal::Math;
  
@@ -42,7 +43,8 @@ TYPED_TEST( Box3dTest, TestGetVolume )
 TYPED_TEST( Box3dTest, TestGetLength )
 {
 	using T = TypeParam;
-	EXPECT_EQ( Vector3d<T>(0.0, 1.0, 2.0), Box3d<T>(Vector3d<T>(1.0f, 1.0f, 1.0f), Vector3d<T>(1.0f, 2.0f, 3.0f)).getLength());
+	Box3d<T> box(Vector3d<T>(1.0f, 1.0f, 1.0f), Vector3d<T>(1.0f, 2.0f, 3.0f));
+	EXPECT_EQ( Vector3d<T>(0.0, 1.0, 2.0), box.getLength());
 }
 
 TYPED_TEST( Box3dTest, TestOuterOffset )
@@ -63,7 +65,6 @@ TYPED_TEST( Box3dTest, TestIsShrinked )
 TYPED_TEST( Box3dTest, TestIsValid )
 {
 	using T = TypeParam;
-
 	EXPECT_TRUE(Box3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(0, 0, 0)).isValid());
 	EXPECT_TRUE(Box3d<T>(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1)).isValid());
 }
@@ -97,7 +98,6 @@ TYPED_TEST(Box3dTest, TestAdd)
 	EXPECT_EQ(expected, b1);
 }
 
-#include "../Math/Space3d.h"
 
 TYPED_TEST(Box3dTest, TestToSpace3d)
 {
@@ -154,6 +154,17 @@ TYPED_TEST(Box3dTest, TestGetZMinusQuad)
 	EXPECT_EQ(expected, actual);
 	EXPECT_EQ(Vector3d<T>(0, 0, 1), actual.getNormal());
 }
+
+TYPED_TEST(Box3dTest, TestGetYPlusQuad)
+{
+	using T = TypeParam;
+	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const auto& actual = box.getYPlusQuad();
+	const Quad3d<T> expected(Vector3d<T>(0, 1, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 0, 1));
+	EXPECT_EQ(expected, actual);
+	EXPECT_EQ(Vector3d<T>(0, -1, 0), actual.getNormal());
+}
+
 
 TYPED_TEST(Box3dTest, TestGetZPlusQuad)
 {
