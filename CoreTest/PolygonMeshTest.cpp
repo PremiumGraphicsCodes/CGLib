@@ -9,7 +9,7 @@ using namespace Crystal::Core;
 TEST(PolygonMeshTest, TestFromQuad)
 {
 	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	PolygonBuilder builder(quad.toCurve3d());
+	PolygonBuilder builder(quad.toCurve3d(1, 1));
 	PolygonFactory factory;
 	auto polygon = factory.create(builder);
 	EXPECT_EQ(4, polygon->getVertices().size());
@@ -39,7 +39,7 @@ TEST(PolygonMeshTest, TestFromTriangle)
 TEST(PolygonMeshTest, TestMerge)
 {
 	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	PolygonBuilder builder(quad.toCurve3d());
+	PolygonBuilder builder(quad.toCurve3d(1,1));
 	PolygonFactory factory;
 	auto p1 = factory.create(builder);
 	auto p2 = factory.create(builder);
@@ -51,7 +51,7 @@ TEST(PolygonMeshTest, TestMerge)
 TEST(PolygonMeshTest, TestSplitByNode)
 {
 	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	PolygonBuilder builder( quad.toCurve3d() );
+	PolygonBuilder builder( quad.toCurve3d(1, 1) );
 	PolygonFactory factory;
 	auto polygon = factory.create(builder);
 	auto f = polygon->getFaces().front();

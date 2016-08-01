@@ -61,7 +61,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
 TEST(PolygonFactoryTest, TestDestoryVertexQuad)
 {
 	Quad3d<float> q(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	PolygonBuilder builder(q.toCurve3d());
+	PolygonBuilder builder(q.toCurve3d(1,1));
 	PolygonFactory factory;
 	auto polygon = factory.create(builder);
 	auto v = factory.getVertices().findById(2);
