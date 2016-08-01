@@ -48,6 +48,9 @@ TEST(Quad3dTest, TestGetNormal)
 
 	const Quad3d<float> q2 = Quad3d<float>::YZPlane(Vector3d<float>(0, 0, 0));
 	EXPECT_EQ(Vector3d<float>(1, 0, 0), q2.getNormal());
+
+	const Quad3d<float> q3 = Quad3d<float>(Vector3d<float>(1, 0, 0), Vector3d<float>(0, 0, 1), Vector3d<float>(0, 1, 0));
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), q3.getNormal());
 }
 
 TEST(Quad3dTest, TestGetPoint)

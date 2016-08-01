@@ -1,5 +1,6 @@
 #include "Box3d.h"
 #include "Space3d.h"
+#include "Curve3d.h"
 
 using namespace Crystal::Math;
 
@@ -215,22 +216,28 @@ std::vector<Vector3d<T>> Box3d<T>::toSurfacePositions(const T divideLength) cons
 template<typename T>
 Quad3d<T> Box3d<T>::getXMinusQuad() const
 {
-	return Quad3d<T>::YZPlane(getMin());
+	const auto& origin = getPosition(Vector3d<T>(0, 0, 1));
+	const Vector3d<T> dir1(0, 0, -1);
+	const Vector3d<T> dir2(0, 1, 0);
+	return Quad3d<T>(origin, dir1, dir2);
 }
 
 template<typename T>
 Quad3d<T> Box3d<T>::getXPlusQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(1, 0, 0));
-	const auto& dir1 = getPosition(Vector3d<T>(1, 0, 1));
-	const auto& dir2 = getPosition(Vector3d<T>(1, 1, 0));
-	return Quad3d<T>(origin, dir1, dir2);
+	const auto& pos1 = getPosition(Vector3d<T>(1, 0, 1));
+	const auto& pos2 = getPosition(Vector3d<T>(1, 1, 0));
+	return Quad3d<T>::fromPositions(origin, pos1, pos2);
 }
 
 template<typename T>
 Quad3d<T> Box3d<T>::getYMinusQuad() const
 {
-	return Quad3d<T>::ZXPlane(getMin());
+	const auto& origin = getPosition(Vector3d<T>(0, 0, 0));
+	const Vector3d<T> dir1(0, 0, -1);
+	const Vector3d<T> dir2(0, 1, 0);
+	return Quad3d<T>(origin, dir1, dir2);
 }
 
 template<typename T>
@@ -238,22 +245,25 @@ Quad3d<T> Box3d<T>::getYPlusQuad() const
 {
 	return Quad3d<T>::ZXPlane(Vector3d<T>(getMinX(), getMaxY(), getMinZ()));
 }
-/*
 
 template<typename T>
-Quad<T> Box3d<T>::getZMinusQuad() const
+Quad3d<T> Box3d<T>::getZMinusQuad() const
 {
-
+	const auto& origin = getPosition(Vector3d<T>(0, 0, 0));
+	const Vector3d<T> dir1(1, 0, 0);
+	const Vector3d<T> dir2(0, 1, 0);
+	return Quad3d<T>(origin, dir1, dir2);
 }
 
 template<typename T>
-Quad<T> Box3d<T>::getZPlusQuad() const
+Quad3d<T> Box3d<T>::getZPlusQuad() const
 {
-
+	const auto& origin = getPosition(Vector3d<T>(1, 0, 1));
+	const auto& pos1 = getPosition(Vector3d<T>(0, 0, 1));
+	const auto& pos2 = getPosition(Vector3d<T>(1, 1, 1));
+	return Quad3d<T>::fromPositions(origin, pos1, pos2);
 }
-*/
 
-#include "Curve3d.h"
 
 template<typename T>
 Curve3d<T> Box3d<T>::toCurve3d() const

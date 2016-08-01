@@ -16,11 +16,11 @@ template<typename T>
 class Quad3d
 {
 public:
-	Quad3d(const Vector3d<T>& origin, const Vector3d<T>& uVector, const Vector3d<T>& vVector) :
-		origin(origin),
-		uVector(uVector),
-		vVector(vVector)
-	{}
+	Quad3d();
+
+	Quad3d(const Vector3d<T>& origin, const Vector3d<T>& uVector, const Vector3d<T>& vVector);
+
+	static Quad3d<T> fromPositions(const Vector3d<T>& origin, const Vector3d<T>& pos1, const Vector3d<T>& pos2);
 
 	static Quad3d<T> XYPlane(const Vector3d<T>& origin);
 
@@ -41,8 +41,6 @@ public:
 	bool operator==(const Quad3d<T>& rhs) const;
 
 	bool operator!=(const Quad3d<T>& rhs) const;
-
-	//Point2d toPoint(const T u, const T v) const;
 
 	Curve3d<T> toCurve3d() const;
 

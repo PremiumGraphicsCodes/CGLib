@@ -5,6 +5,27 @@
 using namespace Crystal::Math;
 
 template<typename T>
+Quad3d<T>::Quad3d() :
+	origin(Vector3d<T>(0,0,0)),
+	uVector(Vector3d<T>(1,0,0)),
+	vVector(Vector3d<T>(0,1,0))
+{
+}
+
+template<typename T>
+Quad3d<T>::Quad3d<T>(const Vector3d<T>& origin, const Vector3d<T>& uVector, const Vector3d<T>& vVector) :
+	origin(origin),
+	uVector(uVector),
+	vVector(vVector)
+{}
+
+template<typename T>
+Quad3d<T> Quad3d<T>::fromPositions(const Vector3d<T>& origin, const Vector3d<T>& pos1, const Vector3d<T>& pos2)
+{
+	return Quad3d<T>(origin, pos1 - origin, pos2 - origin);
+}
+
+template<typename T>
 Quad3d<T> Quad3d<T>::XYPlane(const Vector3d<T>& origin)
 {
 	return Quad3d<T>(origin, Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
@@ -27,16 +48,8 @@ Vector3d<T> Quad3d<T>::getNormal() const
 {
 	const auto v1 = uVector.normalized();
 	const auto v2 = vVector.normalized();
-	return v1.getOuterProduct(v2);
+	return v1.getOuterProduct(v2).normalized();
 }
-
-/*
-template<typename T>
-std::vector< Vector3d<T> > Quad<T>::toInnerPoints() const
-{
-	const auto startx = 
-}
-*/
 
 template<typename T>
 Vector3d<T> Quad3d<T>::getPosition(const T u, const T v) const
@@ -53,7 +66,6 @@ Point3d<T> Quad3d<T>::getPoint(const T u, const T v) const
 	return Point3d<T>(pos, norm, param);
 }
 
-
 template<typename T>
 std::array<Vector3d<T>, 4> Quad3d<T>::getPositions() const
 {
@@ -67,7 +79,8 @@ std::array<Vector3d<T>, 4> Quad3d<T>::getPositions() const
 template<typename T>
 bool Quad3d<T>::equals(const Quad3d<T>& rhs) const
 {
-	return origin == rhs.origin &&
+	return
+		origin == rhs.origin &&
 		uVector == rhs.uVector &&
 		vVector == rhs.vVector;
 }

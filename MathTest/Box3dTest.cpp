@@ -140,6 +140,27 @@ TYPED_TEST(Box3dTest, TestGetXPlusQuad)
 	using T = TypeParam;
 	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
 	const auto& actual = box.getXPlusQuad();
-	const Quad3d<T> expected(Vector3d<T>(1, 0, 0), Vector3d<T>(1, 0, 1), Vector3d<T>(1, 1, 0));
+	const Quad3d<T> expected(Vector3d<T>(1, 0, 0), Vector3d<T>(0, 0, 1), Vector3d<T>(0, 1, 0));
 	EXPECT_EQ(expected, actual);
+	EXPECT_EQ(Vector3d<T>(-1, 0, 0), actual.getNormal());
+}
+
+TYPED_TEST(Box3dTest, TestGetZMinusQuad)
+{
+	using T = TypeParam;
+	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const auto& actual = box.getZMinusQuad();
+	const Quad3d<T> expected(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	EXPECT_EQ(expected, actual);
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), actual.getNormal());
+}
+
+TYPED_TEST(Box3dTest, TestGetZPlusQuad)
+{
+	using T = TypeParam;
+	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
+	const auto& actual = box.getZPlusQuad();
+	const Quad3d<T> expected(Vector3d<T>(1, 0, 1), Vector3d<T>(-1, 0, 0), Vector3d<T>(0, 1, 0));
+	EXPECT_EQ(expected, actual);
+	EXPECT_EQ(Vector3d<T>(0, 0, -1), actual.getNormal());
 }

@@ -110,12 +110,9 @@ public:
 
 	Quad3d<T> getYPlusQuad() const;
 
-	/*
+	Quad3d<T> getZMinusQuad() const;
 
-	Quad<T> getZMinusQuad() const;
-
-	Quad<T> getZPlusQuad() const;
-	*/
+	Quad3d<T> getZPlusQuad() const;
 
 	//std::array< Quad<T>, 6 > toQuads() const;
 
