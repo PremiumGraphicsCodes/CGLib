@@ -8,7 +8,7 @@ using namespace Crystal::Core;
 
 TEST(PolygonMeshTest, TestFromQuad)
 {
-	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(quad.toCurve3d());
 	PolygonFactory factory;
 	auto polygon = factory.create(builder);
@@ -38,7 +38,7 @@ TEST(PolygonMeshTest, TestFromTriangle)
 
 TEST(PolygonMeshTest, TestMerge)
 {
-	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(quad.toCurve3d());
 	PolygonFactory factory;
 	auto p1 = factory.create(builder);
@@ -50,7 +50,7 @@ TEST(PolygonMeshTest, TestMerge)
 
 TEST(PolygonMeshTest, TestSplitByNode)
 {
-	const Quad<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder( quad.toCurve3d() );
 	PolygonFactory factory;
 	auto polygon = factory.create(builder);

@@ -63,7 +63,7 @@
     <ClInclude Include="Matrix3d.h" />
     <ClInclude Include="Matrix4d.h" />
     <ClInclude Include="Plane3d.h" />
-    <ClInclude Include="Quad.h" />
+    <ClInclude Include="Quad3d.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Space2d.h" />
     <ClInclude Include="Space3d.h" />
@@ -108,7 +108,7 @@
     <ClCompile Include="Point2d.cpp" />
     <ClCompile Include="PolarCoord3d.cpp" />
     <ClCompile Include="PolyLine3d.cpp" />
-    <ClCompile Include="Quad.cpp" />
+    <ClCompile Include="Quad3d.cpp" />
     <ClCompile Include="Quad2d.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Radian.cpp" />

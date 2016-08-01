@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
  
 #include "../Math/Box3d.h"
-#include "../Math/Quad.h"
+#include "../Math/Quad3d.h"
 
 using namespace Crystal::Math;
  
@@ -139,7 +139,7 @@ TYPED_TEST(Box3dTest, TestGetXPlusQuad)
 {
 	using T = TypeParam;
 	const Box3d<T> box(Vector3d<T>(0, 0, 0), Vector3d<T>(1, 1, 1));
-	const auto actual = box.getXPlusQuad();
-	const Quad<T> expected(Vector3d<T>(1, 0, 0), Vector3d<T>(1, 0, 1), Vector3d<T>(1, 1, 0));
+	const auto& actual = box.getXPlusQuad();
+	const Quad3d<T> expected(Vector3d<T>(1, 0, 0), Vector3d<T>(1, 0, 1), Vector3d<T>(1, 1, 0));
 	EXPECT_EQ(expected, actual);
 }

@@ -83,14 +83,14 @@
     <ClCompile Include="SphereTest.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
-    <ClCompile Include="QuadTest.cpp">
-      <Filter>Primitive3d</Filter>
-    </ClCompile>
     <ClCompile Include="EllipsoidTest.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Quad2dTest.cpp">
       <Filter>Primitive2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad3dTest.cpp">
+      <Filter>Primitive3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

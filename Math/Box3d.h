@@ -9,7 +9,7 @@ namespace Crystal{
 		template<typename>
 		class Space3d;
 		template<typename>
-		class Quad;
+		class Quad3d;
 template<typename T>
 class Box3d final
 {
@@ -102,13 +102,13 @@ public:
 
 	std::vector<Math::Vector3d<T>> toSurfacePositions(const T divideLength) const;
 
-	Quad<T> getXMinusQuad() const;
+	Quad3d<T> getXMinusQuad() const;
 
-	Quad<T> getXPlusQuad() const;
+	Quad3d<T> getXPlusQuad() const;
 
-	Quad<T> getYMinusQuad() const;
+	Quad3d<T> getYMinusQuad() const;
 
-	Quad<T> getYPlusQuad() const;
+	Quad3d<T> getYPlusQuad() const;
 
 	/*
 

@@ -210,33 +210,33 @@ std::vector<Vector3d<T>> Box3d<T>::toSurfacePositions(const T divideLength) cons
 	return results;
 }
 
-#include "Quad.h"
+#include "Quad3d.h"
 
 template<typename T>
-Quad<T> Box3d<T>::getXMinusQuad() const
+Quad3d<T> Box3d<T>::getXMinusQuad() const
 {
-	return Quad<T>::YZPlane(getMin());
+	return Quad3d<T>::YZPlane(getMin());
 }
 
 template<typename T>
-Quad<T> Box3d<T>::getXPlusQuad() const
+Quad3d<T> Box3d<T>::getXPlusQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(1, 0, 0));
 	const auto& dir1 = getPosition(Vector3d<T>(1, 0, 1));
 	const auto& dir2 = getPosition(Vector3d<T>(1, 1, 0));
-	return Quad<T>(origin, dir1, dir2);
+	return Quad3d<T>(origin, dir1, dir2);
 }
 
 template<typename T>
-Quad<T> Box3d<T>::getYMinusQuad() const
+Quad3d<T> Box3d<T>::getYMinusQuad() const
 {
-	return Quad<T>::ZXPlane(getMin());
+	return Quad3d<T>::ZXPlane(getMin());
 }
 
 template<typename T>
-Quad<T> Box3d<T>::getYPlusQuad() const
+Quad3d<T> Box3d<T>::getYPlusQuad() const
 {
-	return Quad<T>::ZXPlane(Vector3d<T>(getMinX(), getMaxY(), getMinZ()));
+	return Quad3d<T>::ZXPlane(Vector3d<T>(getMinX(), getMaxY(), getMinZ()));
 }
 /*
 

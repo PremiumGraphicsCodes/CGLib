@@ -95,9 +95,6 @@
     <ClCompile Include="Point3d.cpp">
       <Filter>Curve</Filter>
     </ClCompile>
-    <ClCompile Include="Quad.cpp">
-      <Filter>Primitive3d</Filter>
-    </ClCompile>
     <ClCompile Include="Quad2d.cpp">
       <Filter>Primitive2d</Filter>
     </ClCompile>
@@ -125,6 +122,9 @@
     </ClCompile>
     <ClCompile Include="Intersection3d.cpp" />
     <ClCompile Include="Plane3d.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad3d.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
   </ItemGroup>
@@ -230,9 +230,6 @@
     <ClInclude Include="Point3d.h">
       <Filter>Curve</Filter>
     </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>Primitive3d</Filter>
-    </ClInclude>
     <ClInclude Include="Quad2d.h">
       <Filter>Primitive2d</Filter>
     </ClInclude>
@@ -271,6 +268,9 @@
       <Filter>Primitive3d</Filter>
     </ClInclude>
     <ClInclude Include="Orientation.h" />
+    <ClInclude Include="Quad3d.h">
+      <Filter>Primitive3d</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

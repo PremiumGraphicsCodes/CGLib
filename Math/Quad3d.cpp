@@ -1,29 +1,29 @@
-#include "Quad.h"
+#include "Quad3d.h"
 #include "Point3d.h"
 #include "PolyLine3d.h"
 
 using namespace Crystal::Math;
 
 template<typename T>
-Quad<T> Quad<T>::XYPlane(const Vector3d<T>& origin)
+Quad3d<T> Quad3d<T>::XYPlane(const Vector3d<T>& origin)
 {
-	return Quad<T>(origin, Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
+	return Quad3d<T>(origin, Vector3d<T>(1, 0, 0), Vector3d<T>(0, 1, 0));
 }
 
 template<typename T>
-Quad<T> Quad<T>::YZPlane(const Vector3d<T>& origin)
+Quad3d<T> Quad3d<T>::YZPlane(const Vector3d<T>& origin)
 {
-	return Quad<T>(origin, Vector3d<T>(0, 1, 0), Vector3d<T>(0, 0, 1));
+	return Quad3d<T>(origin, Vector3d<T>(0, 1, 0), Vector3d<T>(0, 0, 1));
 }
 
 template<typename T>
-Quad<T> Quad<T>::ZXPlane(const Vector3d<T>& origin)
+Quad3d<T> Quad3d<T>::ZXPlane(const Vector3d<T>& origin)
 {
-	return Quad<T>(origin, Vector3d<T>(0, 0, 1), Vector3d<T>(1, 0, 0));
+	return Quad3d<T>(origin, Vector3d<T>(0, 0, 1), Vector3d<T>(1, 0, 0));
 }
 
 template<typename T>
-Vector3d<T> Quad<T>::getNormal() const
+Vector3d<T> Quad3d<T>::getNormal() const
 {
 	const auto v1 = uVector.normalized();
 	const auto v2 = vVector.normalized();
@@ -39,13 +39,13 @@ std::vector< Vector3d<T> > Quad<T>::toInnerPoints() const
 */
 
 template<typename T>
-Vector3d<T> Quad<T>::getPosition(const T u, const T v) const
+Vector3d<T> Quad3d<T>::getPosition(const T u, const T v) const
 {
 	return origin + (uVector * u) + (vVector * v);	
 }
 
 template<typename T>
-Point3d<T> Quad<T>::getPoint(const T u, const T v) const
+Point3d<T> Quad3d<T>::getPoint(const T u, const T v) const
 {
 	const auto& pos = getPosition(u, v);
 	const auto& norm = getNormal();
@@ -55,7 +55,7 @@ Point3d<T> Quad<T>::getPoint(const T u, const T v) const
 
 
 template<typename T>
-std::array<Vector3d<T>, 4> Quad<T>::getPositions() const
+std::array<Vector3d<T>, 4> Quad3d<T>::getPositions() const
 {
 	const auto v1 = getPosition(0, 0);
 	const auto v2 = getPosition(1, 0);
@@ -65,7 +65,7 @@ std::array<Vector3d<T>, 4> Quad<T>::getPositions() const
 }
 
 template<typename T>
-bool Quad<T>::equals(const Quad<T>& rhs) const
+bool Quad3d<T>::equals(const Quad3d<T>& rhs) const
 {
 	return origin == rhs.origin &&
 		uVector == rhs.uVector &&
@@ -73,13 +73,13 @@ bool Quad<T>::equals(const Quad<T>& rhs) const
 }
 
 template<typename T>
-bool Quad<T>::operator==(const Quad<T>& rhs) const
+bool Quad3d<T>::operator==(const Quad3d<T>& rhs) const
 {
 	return equals(rhs);
 }
 
 template<typename T>
-bool Quad<T>::operator!=(const Quad<T>& rhs) const
+bool Quad3d<T>::operator!=(const Quad3d<T>& rhs) const
 {
 	return !equals(rhs);
 }
@@ -87,7 +87,7 @@ bool Quad<T>::operator!=(const Quad<T>& rhs) const
 #include "Curve3d.h"
 
 template<typename T>
-Curve3d<T> Quad<T>::toCurve3d() const
+Curve3d<T> Quad3d<T>::toCurve3d() const
 {
 	Curve3d<T> curve(2, 2);
 	curve.set(0, 0, getPoint(0, 0));
@@ -98,7 +98,7 @@ Curve3d<T> Quad<T>::toCurve3d() const
 }
 
 template<typename T>
-Polyline3d<T> Quad<T>::toPolyline() const
+Polyline3d<T> Quad3d<T>::toPolyline() const
 {
 	Polyline3d<T> result;
 	const auto& positions = getPositions();
@@ -109,5 +109,5 @@ Polyline3d<T> Quad<T>::toPolyline() const
 }
 
 
-template class Quad<float>;
-template class Quad<double>;
+template class Quad3d<float>;
+template class Quad3d<double>;
