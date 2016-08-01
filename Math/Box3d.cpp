@@ -222,16 +222,16 @@ std::vector<Vector3d<T>> Box3d<T>::toSurfacePositions(const T divideLength) cons
 #include "Quad3d.h"
 
 template<typename T>
-Quad3d<T> Box3d<T>::getXMinusQuad() const
+Quad3d<T> Box3d<T>::getLeftQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(0, 0, 1));
-	const Vector3d<T> dir1(0, 0, -1);
-	const Vector3d<T> dir2(0, 1, 0);
-	return Quad3d<T>(origin, dir1, dir2);
+	const auto& pos1 = getPosition(Vector3d<T>(0, 0, 0));
+	const auto& pos2 = getPosition(Vector3d<T>(0, 1, 1));
+	return Quad3d<T>::fromPositions(origin, pos1, pos2);
 }
 
 template<typename T>
-Quad3d<T> Box3d<T>::getXPlusQuad() const
+Quad3d<T> Box3d<T>::getRightQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(1, 0, 0));
 	const auto& pos1 = getPosition(Vector3d<T>(1, 0, 1));
@@ -240,16 +240,16 @@ Quad3d<T> Box3d<T>::getXPlusQuad() const
 }
 
 template<typename T>
-Quad3d<T> Box3d<T>::getYMinusQuad() const
+Quad3d<T> Box3d<T>::getBottomQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(0, 0, 0));
-	const Vector3d<T> dir1(0, 0, -1);
-	const Vector3d<T> dir2(0, 1, 0);
-	return Quad3d<T>(origin, dir1, dir2);
+	const auto& pos1 = getPosition(Vector3d<T>(0, 0, -1));
+	const auto& pos2 = getPosition(Vector3d<T>(0, 1, 0));
+	return Quad3d<T>(origin, pos1, pos2);
 }
 
 template<typename T>
-Quad3d<T> Box3d<T>::getYPlusQuad() const
+Quad3d<T> Box3d<T>::getTopQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(0, 1, 0));
 	const auto& pos1 = getPosition(Vector3d<T>(1, 1, 0));
@@ -258,16 +258,16 @@ Quad3d<T> Box3d<T>::getYPlusQuad() const
 }
 
 template<typename T>
-Quad3d<T> Box3d<T>::getZMinusQuad() const
+Quad3d<T> Box3d<T>::getNearQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(0, 0, 0));
-	const Vector3d<T> dir1(1, 0, 0);
-	const Vector3d<T> dir2(0, 1, 0);
-	return Quad3d<T>(origin, dir1, dir2);
+	const auto& pos1 = getPosition(Vector3d<T>(1, 0, 0));
+	const auto& pos2 = getPosition(Vector3d<T>(0, 1, 0));
+	return Quad3d<T>(origin, pos1, pos2);
 }
 
 template<typename T>
-Quad3d<T> Box3d<T>::getZPlusQuad() const
+Quad3d<T> Box3d<T>::getFarQuad() const
 {
 	const auto& origin = getPosition(Vector3d<T>(1, 0, 1));
 	const auto& pos1 = getPosition(Vector3d<T>(0, 0, 1));

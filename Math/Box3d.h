@@ -100,17 +100,17 @@ public:
 
 	std::vector<Math::Vector3d<T>> toSurfacePositions(const T divideLength) const;
 
-	Quad3d<T> getXMinusQuad() const;
+	Quad3d<T> getLeftQuad() const;
 
-	Quad3d<T> getXPlusQuad() const;
+	Quad3d<T> getRightQuad() const;
 
-	Quad3d<T> getYMinusQuad() const;
+	Quad3d<T> getBottomQuad() const;
 
-	Quad3d<T> getYPlusQuad() const;
+	Quad3d<T> getTopQuad() const;
 
-	Quad3d<T> getZMinusQuad() const;
+	Quad3d<T> getNearQuad() const;
 
-	Quad3d<T> getZPlusQuad() const;
+	Quad3d<T> getFarQuad() const;
 
 	//std::array< Quad<T>, 6 > toQuads() const;
 
