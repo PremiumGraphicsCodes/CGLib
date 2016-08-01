@@ -100,13 +100,16 @@ bool Quad3d<T>::operator!=(const Quad3d<T>& rhs) const
 #include "Curve3d.h"
 
 template<typename T>
-Curve3d<T> Quad3d<T>::toCurve3d() const
+Curve3d<T> Quad3d<T>::toCurve3d(const int uNum, const int vNum) const
 {
-	Curve3d<T> curve(2, 2);
-	curve.set(0, 0, getPoint(0, 0));
-	curve.set(0, 1, getPoint(0, 1));
-	curve.set(1, 0, getPoint(1, 0));
-	curve.set(1, 1, getPoint(1, 1));
+	Curve3d<T> curve(uNum + 1, vNum + 1);
+	for (int i = 0; i <= uNum; ++i) {
+		for (int j = 0; j <= vNum; ++j) {
+			const auto paramU = i / T(uNum);
+			const auto paramV = j / T(vNum);
+			curve.set(i, j, getPoint(paramU, paramV));
+		}
+	}
 	return curve;
 }
 

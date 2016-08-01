@@ -42,7 +42,7 @@ public:
 
 	bool operator!=(const Quad3d<T>& rhs) const;
 
-	Curve3d<T> toCurve3d() const;
+	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
 	Polyline3d<T> toPolyline() const;
 

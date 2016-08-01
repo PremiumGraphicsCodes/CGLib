@@ -112,9 +112,9 @@ public:
 
 	Quad3d<T> getFarQuad() const;
 
-	//std::array< Quad<T>, 6 > toQuads() const;
+	std::array< Quad3d<T>, 6 > toQuads(const Math::Vector3d<T>& divides) const;
 
-	Curve3d<T> toCurve3d() const;
+	std::array< Curve3d<T>, 6 > toCurve3d(const int xdiv, const int ydiv, const int zdiv) const;
 
 	Vector3d<T> getPosition(const Vector3d<T>& param) const;
 

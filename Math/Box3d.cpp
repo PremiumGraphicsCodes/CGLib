@@ -1,6 +1,7 @@
 #include "Box3d.h"
 #include "Space3d.h"
 #include "Curve3d.h"
+#include "Quad3d.h"
 
 using namespace Crystal::Math;
 
@@ -275,17 +276,27 @@ Quad3d<T> Box3d<T>::getFarQuad() const
 	return Quad3d<T>::fromPositions(origin, pos1, pos2);
 }
 
+template<typename T>
+std::array< Quad3d<T>, 6 > Box3d<T>::toQuads(const Vector3d<T>& divides) const
+{
+	const auto& left = getLeftQuad();
+	const auto& right = getRightQuad();
+	Curve3d<T> curve(2, 2);
+	//curve.set
+	std::array<Quad3d<T>, 6> quads;
+	return quads;
+}
 
 template<typename T>
-Curve3d<T> Box3d<T>::toCurve3d() const
+std::array<Curve3d<T>,6> Box3d<T>::toCurve3d(const int xdiv, const int ydiv, const int zdiv) const
 {
-	/*
-	getXMinusQuad().toCurve2d();
-	getXPlusQuad().toCurve2d();
-	*/
-	Curve3d<T> curve(2,2);
-	//curve.set
-	return curve;
+	const auto& left = getLeftQuad().toCurve3d(ydiv, zdiv);
+	const auto& right = getRightQuad().toCurve3d(ydiv, zdiv);
+	const auto& near = getNearQuad().toCurve3d(xdiv, ydiv);
+	const auto& far = getFarQuad().toCurve3d(xdiv, ydiv);
+	const auto& top = getTopQuad().toCurve3d(xdiv, zdiv);
+	const auto& bottom = getBottomQuad().toCurve3d(xdiv, zdiv);
+	return{left, near, right, far, top, bottom};
 }
 
 template<typename T>
