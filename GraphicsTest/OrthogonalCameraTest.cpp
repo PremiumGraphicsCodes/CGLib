@@ -15,3 +15,10 @@ TEST(OrthogonalCameraTest, TestGetProjectionMatrix)
 	EXPECT_EQ(2, m.getX00());
 	EXPECT_EQ(2, m.getX11());
 }
+
+TEST(OrthogonalCameraTest, TestGetPosition)
+{
+	OrthogonalCamera<float> c;
+	c.setRect(-0.5, 0.5, -0.5, 0.5);
+	c.getPosition(Vector3d<float>(1, 1, 1));
+}

@@ -1,9 +1,6 @@
 #ifndef __CRYSTAL_GRAPHICS_CAMERA_H__
 #define __CRYSTAL_GRAPHICS_CAMERA_H__
 
-#include "../Math/Matrix4d.h"
-#include "../Math/Vector3d.h"
-
 namespace Crystal {
 	namespace Graphics {
 
@@ -63,6 +60,10 @@ public:
 	void setUpVector(const Math::Vector3d<T>& v) { this->up = v; }
 
 	Math::Matrix4d<T> getBillboardMatrix() const;
+
+	Math::Vector3d<T> getPosition(const Math::Vector3d<T>& position) const;
+
+	Math::Vector3d<T> getPosition(const Math::Vector2d<T>& screenCoord, const float depth) const;
 
 	//Math::Ray3d<T> getRay(const T x, const T y) const;
 

@@ -100,6 +100,26 @@ Ray3d<T> ICamera<T>::getRay(const T x, const T y) const
 }
 */
 
+template<typename T>
+Vector3d<T> ICamera<T>::getPosition(const Vector3d<T>& position) const
+{
+	auto m1 = getModelviewMatrix();
+	auto m2 = getProjectionMatrix();
+	m1.multiple(m2);
+	return m1.multiple(position);
+}
+
+template<typename T>
+Vector3d<T> ICamera<T>::getPosition(const Vector2d<T>& screenCoord, const float depth) const
+{
+	auto& m1 = getProjectionMatrix().transposed();
+	const auto& m2 = getModelviewMatrix().transposed();
+	const auto v = Vector3d<T>(screenCoord.getX(), screenCoord.getY(), depth);
+	m1.multiple(m2);
+	return m1.multiple(v);
+}
+
+
 
 template class ICamera<float>;
 template class ICamera<double>;
