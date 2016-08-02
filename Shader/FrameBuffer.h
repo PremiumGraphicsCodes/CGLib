@@ -30,6 +30,9 @@ public:
 
 	Graphics::ColorRGBA<unsigned char> getColor(const int x, const int y) const;
 
+	Graphics::ColorRGBA<float> getColorf(const int x, const int y) const;
+
+
 	std::vector<Graphics::ColorRGBA<unsigned char>> getColors(const int x, const int y, const int width, const int height) const;
 
 	int getWidth() const { return width; }

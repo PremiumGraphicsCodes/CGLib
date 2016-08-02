@@ -68,6 +68,22 @@ ColorRGBA<unsigned char> FrameBuffer::getColor(const int x, const int y) const
 	return ColorRGBA<unsigned char>(values[0], values[1], values[2], values[3]);
 }
 
+ColorRGBA<float> FrameBuffer::getColorf(const int x, const int y) const
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	std::vector<float> values(4);
+
+	glReadPixels(x, y, 1, 1, GL_RGBA, GL_FLOAT, values.data());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	return ColorRGBA<float>(values[0], values[1], values[2], values[3]);
+
+}
+
+
 std::vector<ColorRGBA<unsigned char>> FrameBuffer::getColors(const int x, const int y, const int width, const int height) const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
