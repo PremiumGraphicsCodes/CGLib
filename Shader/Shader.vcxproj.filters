@@ -115,6 +115,9 @@
     <ClCompile Include="TriangleRenderer.cpp">
       <Filter>Renderer\Color</Filter>
     </ClCompile>
+    <ClCompile Include="Position3dRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -236,6 +239,9 @@
     </ClInclude>
     <ClInclude Include="TriangleRenderer.h">
       <Filter>Renderer\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Position3dRenderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
