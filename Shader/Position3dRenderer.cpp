@@ -60,7 +60,6 @@ std::string Position3dRenderer::getBuildinFragmentShaderSource()
 		<< "		fragColor = vec4(0.0, 0.0, 0.0, 0.0);" << std::endl
 		<< "		return;" << std::endl
 		<< "	}" << std::endl
-		<< "	vec3 normal = texture2D(normalTex, texCoord).rgb;" << std::endl
 		<< "    vec3 eyePosition = getEyePosition(texCoord);" << std::endl
 		<< "	fragColor.rgb = eyePosition;" << std::endl
 		<< "	fragColor.a = 1.0;" << std::endl
@@ -87,16 +86,22 @@ void Position3dRenderer::render(const ITextureObject& depthTexture, const ICamer
 
 	glEnable(GL_DEPTH_TEST);
 	//glDisable(GL_DEPTH_TEST);
+	assert(GL_NO_ERROR == glGetError());
 
 	glUseProgram(shader.getId());
+	assert(GL_NO_ERROR == glGetError());
 
 	depthTexture.bind();
+	assert(GL_NO_ERROR == glGetError());
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
-	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, renderedCamera.getPosition().toArray3().data());
+	assert(GL_NO_ERROR == glGetError());
+
 	glUniform1i(shader.getUniformLocation("depthTex"), depthTexture.getId());
 
 	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
+	assert(GL_NO_ERROR == glGetError());
+
 
 	glEnableVertexAttribArray(0);
 	glDrawArrays(GL_QUADS, 0, positions.size() / 2);
@@ -106,6 +111,8 @@ void Position3dRenderer::render(const ITextureObject& depthTexture, const ICamer
 
 	depthTexture.unbind();
 	glDisable(GL_DEPTH_TEST);
+
+	assert(GL_NO_ERROR == glGetError());
 
 	glUseProgram(0);
 }
