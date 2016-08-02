@@ -71,6 +71,7 @@ std::string Position3dRenderer::getBuildinFragmentShaderSource()
 
 void Position3dRenderer::findLocation()
 {
+	//shader.findUniformLocation("modelviewMatrix");
 	shader.findUniformLocation("projectionMatrix");
 	shader.findUniformLocation("depthTex");
 	shader.findAttribLocation("position");
@@ -86,16 +87,12 @@ void Position3dRenderer::render(const ITextureObject& depthTexture, const ICamer
 
 	glEnable(GL_DEPTH_TEST);
 	//glDisable(GL_DEPTH_TEST);
-	assert(GL_NO_ERROR == glGetError());
 
 	glUseProgram(shader.getId());
-	assert(GL_NO_ERROR == glGetError());
 
 	depthTexture.bind();
-	assert(GL_NO_ERROR == glGetError());
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
-	assert(GL_NO_ERROR == glGetError());
 
 	glUniform1i(shader.getUniformLocation("depthTex"), depthTexture.getId());
 

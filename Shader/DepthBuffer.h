@@ -22,10 +22,6 @@ public:
 
 	bool unbind() const;
 
-	Graphics::Imagef toImage() const;
-
-	Graphics::ColorRGBA<float> getColor(const int x, const int y) const;
-
 	int getWidth() const { return width; }
 
 	int getHeight() const { return height; }
