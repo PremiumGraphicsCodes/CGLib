@@ -127,7 +127,7 @@ void VertexCollection::clear()
 
 void VertexCollection::renumber()
 {
-	int nextId = 0;
+	nextId = 0;
 	for (auto v : vertices) {
 		v->setId(nextId++);
 	}

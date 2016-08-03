@@ -76,38 +76,52 @@ void OBJFile::add(const PolygonMesh& polygon)
 		const auto index1 = f->getV1()->getId();
 		const auto index2 = f->getV2()->getId();
 		const auto index3 = f->getV3()->getId();
-		this->faceCounts.push_back(3);
+		OBJFace face;
+		face.positionIndex.push_back( index1 );
+		face.positionIndex.push_back( index2 );
+		face.positionIndex.push_back( index3 );
+		face.normalIndex.push_back(index1);
+		face.normalIndex.push_back(index2);
+		face.normalIndex.push_back(index3);
+		face.texCoordIndex.push_back(index1);
+		face.texCoordIndex.push_back(index2);
+		face.texCoordIndex.push_back(index3);
+
+		this->faces.push_back(face);
 	}
 }
 
+#include "../Core/FaceBuilder.h"
+
 PolygonMesh* OBJFile::toPolygonObject()
 {
-	VertexCollection vertices;
-	FaceCollection faces;
-	PolygonBuilder builder;
-	unsigned int currentIndex = 0;
-	for(const auto count : faceCounts) {
-		std::vector<Vertex*> vv;
-		for (unsigned int i = 0; i < count; ++i) {
-			const auto position = positions[currentIndex + i];
-			const auto normal = normals[currentIndex + i];
-			const auto texCoord = texCoords[currentIndex + i];
-			vv.push_back(vertices.create(position, normal, texCoord));
-		}
+	std::vector<Vertex*> vertices;
+	int currentIndex = 0;
+	std::vector<std::vector<Vertex*>> faceVertex;
 
-		const auto v1 = positions[currentIndex+1] - positions[currentIndex];
-		const auto v2 = positions[currentIndex+2] - positions[currentIndex];
-		const auto normal = v1.getOuterProduct(v2).normalized();
-		for (auto& v : vv) {
-			if (v->getNormal() == Vector3d<float>(0, 0, 0)) {
-				v->setNormal(-normal);
+	for(const auto face : this->faces) {
+		std::vector<Vertex*> vs;
+		for (int i = 0; i < face.positionIndex.size(); ++i) {
+			Vector3d<float> pos = positions[face.positionIndex[i] - 1];
+			Vector3d<float> normal;
+			if (face.normalIndex[i] != -1) {
+				normal = normals[face.normalIndex[i] - 1];
 			}
+			Vector2d<float> texCoord;
+			if (face.texCoordIndex[i] != -1) {
+				texCoord = texCoords[face.texCoordIndex[i] - 1];
+			}
+			vertices.push_back(new Vertex(pos, normal, texCoord));
+			vs.push_back(vertices.back());
 		}
+		faceVertex.push_back(vs);
 
-		currentIndex += count;
-		builder.createFaces(vv);
 	}
-	return builder.build(0);
+	PolygonBuilder builder(vertices);
+	for (auto fv : faceVertex) {
+		builder.createFaces(fv);
+	}
+	return builder.build();
 }
 
 bool OBJFile::read(const File& file)
@@ -132,11 +146,6 @@ bool OBJFile::read(std::istream& stream)
 	std::string currentMtllibName;
 	std::pair< std::string, unsigned int > currentUseMtl;
 
-
-	std::vector< Math::Vector3d<float> > positionBuffer;
-	std::vector< Math::Vector2d<float> > texCoordBuffer;
-	std::vector< Math::Vector3d<float> > normalBuffer;
-
 	while (!stream.eof()) {
 		if (header == "#") {
 			std::getline(stream, str);
@@ -144,15 +153,15 @@ bool OBJFile::read(std::istream& stream)
 		}
 		else if (header == "v") {
 			std::getline(stream, str);
-			positionBuffer.push_back(readVertices(str));
+			positions.push_back(readVertices(str));
 		}
 		else if (header == "vt") {
 			std::getline(stream, str);
-			texCoordBuffer.push_back(readVector2d(str));
+			texCoords.push_back(readVector2d(str));
 		}
 		else if (header == "vn" || header == "-vn") {
 			std::getline(stream, str);
-			normalBuffer.push_back(readVector3d(str));
+			normals.push_back(readVector3d(str));
 		}
 		else if (header == "mtllib") {
 			currentMtllibName = Helper::read<std::string>(stream);
@@ -169,6 +178,8 @@ bool OBJFile::read(std::istream& stream)
 
 			std::vector< std::string >& strs = Helper::split(str, ' ');
 
+			OBJFace face;
+
 			//assert(strs.front() == "f");
 			for (unsigned int i = 0; i < strs.size(); ++i) {
 				if (strs[i].empty()) {
@@ -181,27 +192,27 @@ bool OBJFile::read(std::istream& stream)
 
 				std::vector<std::string>& splitted = Helper::split(strs[i], '/');
 				const int positionIndex = std::stoi(splitted[0]);
-				positions.push_back(positionBuffer[positionIndex-1]);
+				face.positionIndex.push_back(positionIndex);
 
 				if (splitted.size() >= 2 && splitted[1] != " ") {
 					const int texIndex = std::stoi(splitted[1]);
-					texCoords.push_back(texCoordBuffer[texIndex-1]);
+					face.texCoordIndex.push_back(texIndex);
 				}
 				else {
-					texCoords.push_back(Vector2d<float>());
+					face.texCoordIndex.push_back(-1);
 				}
 
 				if (splitted.size() >= 3) {
 					const int normalIndex = std::stoi(splitted[2]);
-					normals.push_back(normalBuffer[normalIndex-1]);
+					face.normalIndex.push_back(normalIndex);
 				}
 				else {
-					normals.push_back(Vector3d<float>(0.0, 0.0, 0.0));
+					face.normalIndex.push_back(-1);
 				}
 			}
 
+			faces.push_back(face);
 			const auto count = static_cast<unsigned int>(strs.size());
-			faceCounts.push_back( count );
 			currentGroup.second += count;
 			//groupMap.insert(std::make_pair(currentGroupName, f));
 			currentUseMtl.second += count;

@@ -5,6 +5,7 @@
 
 #include "../Graphics/Buffer3d.h"
 #include "../Core/PolygonMesh.h"
+#include "../Core/PolygonFactory.h"
 
 #include "../IO/MTLFile.h"
 #include "../IO/File.h"
@@ -85,6 +86,15 @@ private:
 	std::multimap<std::string, OBJFace> map;
 };
 */
+
+class OBJFace
+{
+public:
+	std::vector<int> positionIndex;
+	std::vector<int> normalIndex;
+	std::vector<int> texCoordIndex;
+};
+
 class OBJFile
 {
 public:
@@ -94,10 +104,6 @@ public:
 	void add(const Core::PolygonMesh& polygon);
 
 	std::string getComment() const { return comment; }
-
-	std::vector< unsigned int > getFaceCounts() { return faceCounts; }
-
-	void setFaceCounts(const std::vector< unsigned int >& counts) { faceCounts = counts; }
 
 	bool read(const File& filename);
 
@@ -133,6 +139,8 @@ public:
 
 	//std::vector<OBJFace> getFaces(const std::string& str) 
 
+	std::vector< OBJFace > getFaces() const { return faces; }
+
 private:
 	std::string comment;
 
@@ -140,7 +148,7 @@ private:
 	std::vector< Math::Vector3d<float> > normals;
 	std::vector< Math::Vector2d<float> > texCoords;
 
-	std::vector< unsigned int > faceCounts;
+	std::vector< OBJFace > faces;
 
 	Math::Vector3d<float> readVertices(const std::string& str);
 

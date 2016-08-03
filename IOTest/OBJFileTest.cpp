@@ -48,8 +48,9 @@ TEST(OBJFileTest, TestExampleCube)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(24, file.getPositions().size());
-	EXPECT_EQ(6, file.getFaceCounts().size());
+	EXPECT_EQ(8, file.getPositions().size());
+	EXPECT_EQ(0, file.getNormals().size());
+	EXPECT_EQ(6, file.getFaces().size());
 }
 
 /*
@@ -102,7 +103,7 @@ TEST(OBJFileTest, TestExampleGroups)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ( 6, file.getFaceCounts().size() );
+	EXPECT_EQ( 6, file.getFaces().size() );
 }
 
 TEST(OBJFileTest, TestExampleSmoothingGroup)
@@ -124,8 +125,8 @@ TEST(OBJFileTest, TestExampleSmoothingGroup)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(2, file.getFaceCounts().size());
-	EXPECT_EQ(8, file.getPositions().size());
+	EXPECT_EQ(2, file.getFaces().size());
+	EXPECT_EQ(6, file.getPositions().size());
 }
 
 TEST(OBJFileTest, TestExampleTextureMappedSquare)
@@ -148,7 +149,33 @@ TEST(OBJFileTest, TestExampleTextureMappedSquare)
 
 	OBJFile file;
 	file.read(stream);
-	EXPECT_EQ(1, file.getFaceCounts().size());
+	EXPECT_EQ(1, file.getFaces().size());
 	EXPECT_EQ(4, file.getPositions().size());
 	EXPECT_EQ(4, file.getTexCoords().size());
+}
+
+TEST(OBJFileTest, TestToPolygonObject)
+{
+	std::stringstream stream;
+	stream
+		<< "v 0.000000 2.000000 2.000000" << std::endl
+		<< "v 0.000000 0.000000 2.000000" << std::endl
+		<< "v 2.000000 0.000000 2.000000" << std::endl
+		<< "v 2.000000 2.000000 2.000000" << std::endl
+		<< "v 0.000000 2.000000 0.000000" << std::endl
+		<< "v 0.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 0.000000 0.000000" << std::endl
+		<< "v 2.000000 2.000000 0.000000" << std::endl
+		<< "f 1 2 3 4" << std::endl
+		<< "f 8 7 6 5" << std::endl
+		<< "f 4 3 7 8" << std::endl
+		<< "f 5 1 4 8" << std::endl
+		<< "f 5 6 2 1" << std::endl
+		<< "f 2 6 7 3" << std::endl;
+
+	OBJFile file;
+	file.read(stream);
+	auto actual = file.toPolygonObject();
+	EXPECT_EQ(12, actual->getFaces().size());
+	delete actual;
 }

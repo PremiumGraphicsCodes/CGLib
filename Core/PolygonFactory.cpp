@@ -33,6 +33,8 @@ PolygonFactory::PolygonFactory(VertexCollection& vertices)
 
 void PolygonFactory::add(PolygonMesh* p)
 {
+	const auto vs = p->getVertices();
+	this->vertices.merge(VertexCollection(vs));
 	auto fs = p->getFaces();
 	this->faces.merge(FaceCollection(fs));
 	polygons.push_back(p);
