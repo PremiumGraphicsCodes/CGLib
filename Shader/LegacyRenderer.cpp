@@ -141,17 +141,23 @@ void LegacyRenderer::renderAlphaBlend(const ICamera<float>& camera, const PointB
 }
 
 
-void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer, const int width)
+void LegacyRenderer::render(const ICamera<float>& camera, const LineBuffer& buffer, const GLfloat width)
 {
 	render(camera.getProjectionMatrix(), camera.getModelviewMatrix(), buffer, width);
 }
 
-void LegacyRenderer::render(const LineBuffer& buffer, const int width)
+void LegacyRenderer::render(const ICamera<float>& camera, const Line2dBuffer& buffer, const GLfloat width)
+{
+	render(camera.getProjectionMatrix(), camera.getModelviewMatrix(), buffer, width);
+}
+
+
+void LegacyRenderer::render(const LineBuffer& buffer, const GLfloat width)
 {
 	render(Matrix4d<float>::Identity(), Matrix4d<float>::Identity(), buffer, width);
 }
 
-void LegacyRenderer::render(const Matrix4d<float>& projectionMatrix, const Matrix4d<float>& modelviewMatrix, const LineBuffer& buffer, const int width)
+void LegacyRenderer::render(const Matrix4d<float>& projectionMatrix, const Matrix4d<float>& modelviewMatrix, const LineBuffer& buffer, const GLfloat width)
 {
 	const auto& positions = buffer.getPosition().get();// buffers[0].get();
 	const auto& colors = buffer.getColor().get();
@@ -187,7 +193,44 @@ void LegacyRenderer::render(const Matrix4d<float>& projectionMatrix, const Matri
 	glDisable(GL_DEPTH_TEST);
 
 	glLineWidth(1);
+}
 
+void LegacyRenderer::render(const Matrix4d<float>& projectionMatrix, const Matrix4d<float>& modelviewMatrix, const Line2dBuffer& buffer, const GLfloat width)
+{
+	const auto& positions = buffer.getPosition().get();// buffers[0].get();
+	const auto& colors = buffer.getColor().get();
+	const auto& indices = buffer.getIds();
+
+	if (positions.empty()) {
+		return;
+	}
+
+	glLineWidth(width);
+	glEnable(GL_DEPTH_TEST);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glLoadMatrixf(projectionMatrix.toArray().data());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf(modelviewMatrix.toArray().data());
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(2, GL_FLOAT, 0, positions.data());
+
+	glEnableClientState(GL_COLOR_ARRAY);
+	glColorPointer(4, GL_FLOAT, 0, colors.data());
+	assert(glGetError() == GL_NO_ERROR);
+
+	//glDrawArrays(GL_LINES, 0, static_cast<GLsizei>(positions.size()) / 3);
+	glDrawElements(GL_LINES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisable(GL_DEPTH_TEST);
+
+	glLineWidth(1);
 }
 
 

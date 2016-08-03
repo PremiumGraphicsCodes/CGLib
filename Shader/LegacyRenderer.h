@@ -27,11 +27,15 @@ public:
 
 	void renderAlphaBlend(const Graphics::ICamera<float>& camera, const Graphics::PointBuffer& buffer);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer, const int width);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::LineBuffer& buffer, const GLfloat width);
 
-	void render(const Graphics::LineBuffer& buffer, const int width);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::Line2dBuffer& buffer, const GLfloat width);
 
-	void render(const Math::Matrix4d<float>& projectionMatrix, const Math::Matrix4d<float>& modelviewMatrix, const Graphics::LineBuffer& buffer, const int width);
+	void render(const Graphics::LineBuffer& buffer, const GLfloat width);
+
+	void render(const Math::Matrix4d<float>& projectionMatrix, const Math::Matrix4d<float>& modelviewMatrix, const Graphics::LineBuffer& buffer, const GLfloat width);
+
+	void render(const Math::Matrix4d<float>& projectionMatrix, const Math::Matrix4d<float>& modelviewMatrix, const Graphics::Line2dBuffer& buffer, const GLfloat width);
 
 	void renderId(const Graphics::ICamera<float>& camera, const Graphics::LineIdBuffer& buffer);
 
