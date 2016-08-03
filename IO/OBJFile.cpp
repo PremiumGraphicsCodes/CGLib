@@ -262,7 +262,7 @@ Vector2d<float> OBJFile::readVector2d(const std::string& str)
 }
 
 
-bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonMesh& mesh)
+bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonFactory& factory)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -270,22 +270,18 @@ bool OBJFile::write(const std::string& path, const std::string& filename, const 
 	if (!stream.is_open()) {
 		return false;
 	}
-	return write(stream, mesh);
+	return write(stream, factory);
 }
 
-bool OBJFile::write(std::ostream& stream, const PolygonMesh& mesh)
+bool OBJFile::write(std::ostream& stream, const PolygonFactory& factory)
 {
-	const auto& vertices = mesh.getVertices();
-	const auto& faces = mesh.getFaces();
-
-	//for (const auto& v : positions) {
+	const auto& vertices = factory.getVertices();
 	for (const auto& v : vertices) {
 		const auto pos = v->getPosition();
 		char s[256];
 		sprintf_s(s, "v %.4lf %.4lf %.4lf", pos.getX(), pos.getY(), pos.getZ());
 		stream << s << std::endl;
 	}
-
 	for (const auto& v : vertices) {
 		const auto vn = v->getNormal();
 		char s[256];
@@ -293,16 +289,20 @@ bool OBJFile::write(std::ostream& stream, const PolygonMesh& mesh)
 		stream << s << std::endl;
 	}
 
-	for (auto f : faces){
-		const auto i1 = f->getV1()->getId() + 1;
-		const auto i2 = f->getV2()->getId() + 1;
-		const auto i3 = f->getV3()->getId() + 1;
 
-		stream
-			<< "f "
-			<< i1 << "/" << "/" << i1 << " "
-			<< i2 << "/" << "/" << i2 << " "
-			<< i3 << "/" << "/" << i3 << std::endl;
+	for(auto p : factory.getPolygons()) {
+		const auto& faces = p->getFaces();
+		for (auto f : faces) {
+			const auto i1 = f->getV1()->getId() + 1;
+			const auto i2 = f->getV2()->getId() + 1;
+			const auto i3 = f->getV3()->getId() + 1;
+
+			stream
+				<< "f "
+				<< i1 << "/" << "/" << i1 << " "
+				<< i2 << "/" << "/" << i2 << " "
+				<< i3 << "/" << "/" << i3 << std::endl;
+		}
 	}
 	return stream.good();
 }
@@ -315,7 +315,7 @@ VisualPolygon OBJFile::load(const File& file)
 	auto polygon = toPolygonObject();
 	auto visualPolygon = VisualPolygon(polygon);
 	for (auto lib : mtllibs) {
-		std::string mtlFileName = file.getFolerPath() + lib;
+		std::string mtlFileName = file.getFolderPath() + lib;
 		MTLFile mtlFile;
 		mtlFile.read(mtlFileName);
 
@@ -324,7 +324,7 @@ VisualPolygon OBJFile::load(const File& file)
 			if (n.first.empty()) {
 				continue;
 			}
-			auto mat = mtlFile.find(n.first).toMaterial(file.getFolerPath());
+			auto mat = mtlFile.find(n.first).toMaterial(file.getFolderPath());
 			auto count =  (n.second - 2) *3;
 			auto endIndex = startIndex + count;
 			//mat.setDirectory(file.getFolerPath());

@@ -942,7 +942,7 @@ VisualPolygon PMDFile::toVisualPolygon() const
 	auto p = toPolygonObject();
 	VisualPolygon visualPolygon(p);
 	Crystal::IO::File f(filename);
-	auto mm = materials.toMaterialMap(f.getFolerPath());
+	auto mm = materials.toMaterialMap(f.getFolderPath());
 	for (const auto& m : mm) {
 		visualPolygon.setMaterial(m);
 	}

@@ -103,9 +103,9 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(const std::string& path, const std::string& filename, const Core::PolygonMesh& mesh);
+	bool write(const std::string& path, const std::string& filename, const Core::PolygonFactory& factory);
 
-	bool write(std::ostream& stream, const Core::PolygonMesh& mesh);
+	bool write(std::ostream& stream, const Core::PolygonFactory& factory);
 
 	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 

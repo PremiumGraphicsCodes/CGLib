@@ -12,7 +12,7 @@ public:
 	explicit File(const std::string& fullpath) : fullpath(fullpath)
 	{}
 
-	std::string getFolerPath() const;
+	std::string getFolderPath() const;
 
 	std::string getFileName() const;
 

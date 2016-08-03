@@ -4,7 +4,7 @@
 
 using namespace Crystal::IO;
 
-std::string File::getFolerPath() const
+std::string File::getFolderPath() const
 {
 	size_t pos = fullpath.rfind('\\');
 	if (pos != std::string::npos) {

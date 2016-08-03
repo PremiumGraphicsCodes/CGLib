@@ -20,11 +20,11 @@ TEST(FileTest, TestGetFolderPath)
 {
 	{
 		const File file("../Sample/Test.txt");
-		EXPECT_EQ("../Sample/", file.getFolerPath());
+		EXPECT_EQ("../Sample/", file.getFolderPath());
 	}
 	{
 		const File file("..\\Sample\\Test.txt");
-		EXPECT_EQ("..\\Sample\\", file.getFolerPath());
+		EXPECT_EQ("..\\Sample\\", file.getFolderPath());
 	}
 
 }
