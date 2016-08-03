@@ -22,6 +22,7 @@
 #include "Index2d.h"
 #include "Index3d.h"
 #include "Kernel.h"
+#include "Line2d.h"
 #include "Line3d.h"
 #include "Matrix.h"
 #include "Matrix2d.h"

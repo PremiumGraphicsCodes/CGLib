@@ -127,6 +127,9 @@
     <ClCompile Include="Quad3d.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="Line2d.cpp">
+      <Filter>Primitive2d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quaternion.h" />
@@ -270,6 +273,9 @@
     <ClInclude Include="Orientation.h" />
     <ClInclude Include="Quad3d.h">
       <Filter>Primitive3d</Filter>
+    </ClInclude>
+    <ClInclude Include="Line2d.h">
+      <Filter>Primitive2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@
 #include "Image.h"
 #include "Light.h"
 #include "LineBuffer.h"
+#include "Line2dBuffer.h"
 #include "LineIdBuffer.h"
 #include "Material.h"
 #include "MaterialMap.h"

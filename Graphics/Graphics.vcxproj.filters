@@ -47,6 +47,9 @@
     <ClCompile Include="TriangleColorBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="Line2dBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -112,6 +115,9 @@
       <Filter>Buffer</Filter>
     </ClInclude>
     <ClInclude Include="TriangleColorBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Line2dBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
