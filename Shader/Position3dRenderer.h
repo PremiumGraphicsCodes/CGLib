@@ -11,7 +11,7 @@ namespace Crystal {
 class Position3dRenderer
 {
 public:
-	void render(const ITextureObject& depthTexture, const Graphics::ICamera<float>& renderedCamera);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer);
 
 	bool build();
 
