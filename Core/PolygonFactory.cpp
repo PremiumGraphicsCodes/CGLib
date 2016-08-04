@@ -345,3 +345,13 @@ std::list<Vertex*> PolygonFactory::findIsolatedVertices()
 	);
 	return isolateds;
 }
+
+void PolygonFactory::divide(PolygonMesh* polygon, const float area)
+{
+	auto faces = polygon->getFaces();
+	for (auto f : faces) {
+		if (f->getArea() > area) {
+			splitByCenter(polygon, f);
+		}
+	}
+}

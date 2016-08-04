@@ -47,7 +47,9 @@ Vector3d<float> Face::getNormal() const
 Point3d<float> Face::getCenterPoint() const {
 	auto vertices = getVertices();
 	auto pos = (vertices[0]->getPosition() + vertices[1]->getPosition() + vertices[2]->getPosition()) / 3;
-	return Point3d<float>(pos);
+	auto norm = (vertices[0]->getNormal() + vertices[1]->getNormal() + vertices[2]->getNormal()) / 3;
+	//auto param = (vertices[0]->getParameter() + vertices[1]->getParameter() + vertices[2]->getParameter()) / 3;
+	return Point3d<float>(pos, norm);
 }
 
 std::array< Edge*, 3 > Face::getEdges() const

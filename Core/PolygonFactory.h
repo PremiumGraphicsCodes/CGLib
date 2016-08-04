@@ -86,6 +86,8 @@ public:
 
 	std::list<Vertex*> findIsolatedVertices();
 
+	void divide(PolygonMesh* polygon,const float area);
+
 private:
 	VertexCollection vertices;
 	EdgeCollection edges;

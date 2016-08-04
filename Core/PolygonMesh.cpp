@@ -29,14 +29,23 @@ void PolygonMesh::clear()
 
 void PolygonMesh::smooth(Vertex* center)
 {
-	/*
-	std::list<Vertex*> neighbors = center->getNeighbors();
+	std::list<Vertex*> neighbors;
+	auto fs = getFaces();
+	for (auto f : fs) {
+		for (auto e : f->getEdges()) {
+			if (e->getStart() == center) {
+				neighbors.push_back(e->getEnd());
+			}
+		}
+	}
+	neighbors.sort();
+	neighbors.unique();
+	//std::list<Vertex*> neighbors = center->getNeighbors();
 	Vector3d<float> position = center->getPosition();
 	for (auto& n : neighbors) {
 		position += (n->getPosition() - center->getPosition()) / neighbors.size();
 	}
 	center->moveTo(position);
-	*/
 }
 
 Edge* PolygonMesh::getShortestEdge()
