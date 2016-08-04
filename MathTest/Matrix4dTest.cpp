@@ -82,8 +82,8 @@ TYPED_TEST(Matrix4dTest, TestGetDeterminent)
 {
 	using T = TypeParam;
 
-	const Matrix4d<T> m = Matrix4d<T>::Identity();
-	EXPECT_EQ(1, m.getDeterminent());
+	const Matrix4d<T> m1 = Matrix4d<T>::Identity();
+	EXPECT_EQ(1, m1.getDeterminent());
 
 	const Matrix4d<T> m2(
 		 1, 1, 1,-1,
@@ -98,5 +98,26 @@ TYPED_TEST(Matrix4dTest, TestGetDeterminent)
 		0, -1, 3, 0,
 		2, 4, 4, 5);
 	EXPECT_EQ(-16, m2.getDeterminent());
+}
+
+TYPED_TEST(Matrix4dTest, TestGetInverse)
+{
+	using T = TypeParam;
+
+	const Matrix4d<T> m1 = Matrix4d<T>::Identity();
+	EXPECT_EQ(Matrix4d<T>::Identity(), m1.getInverse());
+
+	const Matrix4d<T> m2(
+		1, 1, 1, -1,
+		1, 1, -1, 1,
+		1, -1, 1, 1,
+		-1, 1, 1, 1);
+	const Matrix4d<T> expected2(
+		0.25, 0.25, 0.25, -0.25,
+		0.25, 0.25, -0.25, 0.25,
+		0.25, -0.25, 0.25, 0.25,
+		-0.25, 0.25, 0.25, 0.25
+	);
+	EXPECT_EQ(expected2, m2.getInverse());
 
 }

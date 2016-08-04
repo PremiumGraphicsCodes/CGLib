@@ -145,6 +145,7 @@ T Matrix4d<T>::getDeterminent() const
 template<typename T>
 Matrix4d<T> Matrix4d<T>::getInverse() const
 {
+	const auto det = getDeterminent();
 	const auto a11 = getX00(); const auto a12 = getX01(); const auto a13 = getX02(); const auto a14 = getX03();
 	const auto a21 = getX10(); const auto a22 = getX11(); const auto a23 = getX12(); const auto a24 = getX13();
 	const auto a31 = getX20(); const auto a32 = getX21(); const auto a33 = getX22(); const auto a34 = getX23();
@@ -167,7 +168,7 @@ Matrix4d<T> Matrix4d<T>::getInverse() const
 
 	const auto b41 = (a21 * a33 * a42) + (a22 * a31 * a43) + (a23 * a32 * a41) - (a21 * a32 * a43) - (a22 * a33 * a41) - (a23 * a31 * a42);
 	const auto b42 = (a11 * a32 * a43) + (a12 * a33 * a41) + (a13 * a31 * a42) - (a11 * a33 * a42) - (a12 * a31 * a43) - (a13 * a32 * a41);
-	const auto b43 = (a11 * a23 * a42) + (a13 * a22 * a41) + (a13 * a22 * a41) - (a11 * a22 * a43) - (a12 * a23 * a41) - (a13 * a21 * a42);
+	const auto b43 = (a11 * a23 * a42) + (a12 * a21 * a43) + (a13 * a22 * a41) - (a11 * a22 * a43) - (a12 * a23 * a41) - (a13 * a21 * a42);
 	const auto b44 = (a11 * a22 * a33) + (a12 * a23 * a31) + (a13 * a21 * a32) - (a11 * a23 * a32) - (a12 * a21 * a33) - (a13 * a22 * a31);
 
 	return Matrix4d(
@@ -175,9 +176,20 @@ Matrix4d<T> Matrix4d<T>::getInverse() const
 		b21, b22, b23, b24,
 		b31, b32, b33, b34,
 		b41, b42, b43, b44
-	);
+	).scaled(1 / det);
 }
 
+template<typename T>
+Matrix4d<T> Matrix4d<T>::scaled(const T scale) const
+{
+	std::array<T, 16> s;
+	for (int i = 0; i < 16; ++i) {
+		s[i] = x[i] * scale;
+	}
+	Matrix4d<T> result;
+	result.x=s;
+	return result;
+}
 
 template class Matrix4d<float>;
 template class Matrix4d<double>;

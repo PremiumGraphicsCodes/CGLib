@@ -166,6 +166,8 @@ public:
 
 	T operator[](int index) { return x[index]; }
 
+	Matrix4d<T> scaled(const T scale) const;
+
 private:
 	std::array< T, 16 > x;
 };
