@@ -14,6 +14,12 @@ Matrix4d<T>::Matrix4d(void)
 }
 
 template<typename T>
+Matrix4d<T>::Matrix4d(const std::array<T, 16>& x) :
+	x(x)
+{
+}
+
+template<typename T>
 Matrix4d<T>::Matrix4d(
 	const T x00, const T x01, const T x02, const T x03,
 	const T x10, const T x11, const T x12, const T x13,
@@ -47,6 +53,49 @@ Matrix4d<T> Matrix4d<T>::Zero() {
 	);
 }
 
+template<typename T>
+Matrix4d<T> Matrix4d<T>::Identity() {
+	return Matrix4d<T>
+	(
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	);
+}
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::RotateX(const T angle) {
+	return Matrix4d<T>
+	(
+		1, 0, 0, 0,
+		0, ::cos(angle), ::sin(angle), 0,
+		0, -::sin(angle), ::cos(angle), 0,
+		0, 0, 0, 1
+	);
+}
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::RotateY(const T angle) {
+	return Matrix4d<T>
+	(
+		::cos(angle), 0.0, -::sin(angle), 0.0,
+		0.0, 1.0, 0.0, 0.0,
+		::sin(angle), 0.0, ::cos(angle), 0.0,
+		0.0, 0.0, 0.0, 1.0
+	);
+}
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::RotateZ(const T angle) {
+	return Matrix4d<T>
+	(
+		::cos(angle), ::sin(angle), 0, 0,
+		-::sin(angle), ::cos(angle), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	);
+}
 
 template<typename T>
 void Matrix4d<T>::multiple(const Matrix4d<T>& rhs)
@@ -62,6 +111,20 @@ void Matrix4d<T>::multiple(const Matrix4d<T>& rhs)
 		this->x[i] = y[i];
 	}
 }
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::multipled(const Matrix4d<T>& rhs)
+{
+	std::array<T,16> y;
+	for (int i = 0; i < 4; ++i) {
+		y[0 + i] = x[0 + i] * rhs.x[0] + x[4 + i] * rhs.x[1] + x[8 + i] * rhs.x[2] + x[12 + i] * rhs.x[3];
+		y[4 + i] = x[0 + i] * rhs.x[4] + x[4 + i] * rhs.x[5] + x[8 + i] * rhs.x[6] + x[12 + i] * rhs.x[7];
+		y[8 + i] = x[0 + i] * rhs.x[8] + x[4 + i] * rhs.x[9] + x[8 + i] * rhs.x[10] + x[12 + i] * rhs.x[11];
+		y[12 + i] = x[0 + i] * rhs.x[12] + x[4 + i] * rhs.x[13] + x[8 + i] * rhs.x[14] + x[12 + i] * rhs.x[15];
+	}
+	return Matrix4d<T>(y);
+}
+
 
 template<typename T>
 bool Matrix4d<T>::equals(const Matrix4d<T>& rhs) const {
@@ -186,10 +249,48 @@ Matrix4d<T> Matrix4d<T>::scaled(const T scale) const
 	for (int i = 0; i < 16; ++i) {
 		s[i] = x[i] * scale;
 	}
-	Matrix4d<T> result;
-	result.x=s;
-	return result;
+	return Matrix4d<T>(s);
 }
+
+template<typename T>
+void Matrix4d<T>::add(const Matrix4d<T>& rhs)
+{
+	for (int i = 0; i < 16; ++i) {
+		x[i] += rhs.x[i];
+	}
+}
+
+template<typename T>
+void Matrix4d<T>::operator+=(const Matrix4d<T>& rhs)
+{
+	this->add(rhs);
+}
+
+template<typename T>
+void Matrix4d<T>::operator-=(const Matrix4d<T>& rhs)
+{
+	this->add(rhs.scaled(-1));
+}
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::operator*(const Matrix4d<T>& rhs)
+{
+	return this->multipled(rhs);
+}
+
+
+template<typename T>
+Matrix4d<T> Matrix4d<T>::operator-()
+{
+	return scaled(-1);
+}
+
+template<typename T>
+Vector4d<T> Matrix4d<T>::operator*(const Vector4d<T>& v)
+{
+	return this->multiple(v);
+}
+
 
 template class Matrix4d<float>;
 template class Matrix4d<double>;

@@ -21,6 +21,8 @@ class Matrix4d
 public:
 	Matrix4d(void);
 
+	Matrix4d(const std::array<T,16>& x);
+
 	Matrix4d(
 		const T x00, const T x01, const T x02, const T x03,
 		const T x10, const T x11, const T x12, const T x13,
@@ -34,51 +36,21 @@ public:
 
 	static Matrix4d Zero();
 
-	static Matrix4d Identity() {
-		return Matrix4d
-			(
-				1, 0, 0, 0,
-				0, 1, 0, 0,
-				0, 0, 1, 0,
-				0, 0, 0, 1
-				);
-	}
+	static Matrix4d Identity();
 
-	static Matrix4d RotateX(const T angle) {
-		return Matrix4d
-			(
-				1, 0, 0, 0,
-				0, ::cos(angle), ::sin(angle), 0,
-				0, -::sin(angle), ::cos(angle), 0,
-				0, 0, 0, 1
-				);
-	}
+	static Matrix4d RotateX(const T angle);
 
-	static Matrix4d RotateY(const T angle) {
-		return Matrix4d
-			(
-				::cos(angle), 0.0, -::sin(angle), 0.0,
-				0.0, 1.0, 0.0, 0.0,
-				::sin(angle), 0.0, ::cos(angle), 0.0,
-				0.0, 0.0, 0.0, 1.0
-				);
-	}
+	static Matrix4d RotateY(const T angle);
 
-	static Matrix4d RotateZ(const T angle) {
-		return Matrix4d
-			(
-				::cos(angle), ::sin(angle), 0, 0,
-				-::sin(angle), ::cos(angle), 0, 0,
-				0, 0, 1, 0,
-				0, 0, 0, 1
-				);
-	}
+	static Matrix4d RotateZ(const T angle);
 
 	void translate(const T x, const T y, const T z);
 
 	void setScale(const T x, const T y, const T z);
 
 	void multiple(const Matrix4d& rhs);
+
+	Matrix4d<T> multipled(const Matrix4d<T>& rhs);
 
 	Vector3d<T> multiple(const Vector3d<T>& v);
 
@@ -167,6 +139,18 @@ public:
 	T operator[](int index) { return x[index]; }
 
 	Matrix4d<T> scaled(const T scale) const;
+
+	void add(const Matrix4d<T>& rhs);
+
+	void operator+=(const Matrix4d<T>& rhs);
+
+	void operator-=(const Matrix4d<T>& rhs);
+
+	Matrix4d<T> operator*(const Matrix4d<T>& rhs);
+
+	Vector4d<T> operator*(const Vector4d<T>& v);
+
+	Matrix4d<T> operator-();
 
 private:
 	std::array< T, 16 > x;
