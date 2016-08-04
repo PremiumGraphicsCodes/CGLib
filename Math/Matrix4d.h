@@ -162,6 +162,8 @@ public:
 
 	T getDeterminent() const;
 
+	Matrix4d<T> getInverse() const;
+
 	T operator[](int index) { return x[index]; }
 
 private:

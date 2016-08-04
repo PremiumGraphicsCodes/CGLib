@@ -142,6 +142,42 @@ T Matrix4d<T>::getDeterminent() const
 		(a14 * a21 * a32 * a43) - (a14 * a22 * a33 * a41) - (a14 * a23 * a31 * a42);
 }
 
+template<typename T>
+Matrix4d<T> Matrix4d<T>::getInverse() const
+{
+	const auto a11 = getX00(); const auto a12 = getX01(); const auto a13 = getX02(); const auto a14 = getX03();
+	const auto a21 = getX10(); const auto a22 = getX11(); const auto a23 = getX12(); const auto a24 = getX13();
+	const auto a31 = getX20(); const auto a32 = getX21(); const auto a33 = getX22(); const auto a34 = getX23();
+	const auto a41 = getX30(); const auto a42 = getX31(); const auto a43 = getX32(); const auto a44 = getX33();
+
+	const auto b11 = (a22 * a33 * a44) + (a23 * a34 * a42) + (a24 * a32 * a43) - (a22 * a34 * a43) - (a23 * a32 * a44) - (a24 * a33 * a42);
+	const auto b12 = (a12 * a34 * a43) + (a13 * a32 * a44) + (a14 * a33 * a42) - (a12 * a33 * a44) - (a13 * a34 * a42) - (a14 * a32 * a43);
+	const auto b13 = (a12 * a23 * a44) + (a13 * a24 * a42) + (a14 * a22 * a43) - (a12 * a24 * a43) - (a13 * a22 * a44) - (a14 * a23 * a42);
+	const auto b14 = (a12 * a24 * a33) + (a13 * a22 * a34) + (a14 * a23 * a32) - (a12 * a23 * a34) - (a13 * a24 * a32) - (a14 * a22 * a33);
+
+	const auto b21 = (a21 * a34 * a43) + (a23 * a31 * a44) + (a24 * a33 * a41) - (a21 * a33 * a44) - (a23 * a34 * a41) - (a24 * a31 * a43);
+	const auto b22 = (a11 * a33 * a44) + (a13 * a34 * a41) + (a14 * a31 * a43) - (a11 * a34 * a43) - (a13 * a31 * a44) - (a14 * a33 * a41);
+	const auto b23 = (a11 * a24 * a43) + (a13 * a21 * a44) + (a14 * a23 * a41) - (a11 * a23 * a44) - (a13 * a24 * a41) - (a14 * a21 * a43);
+	const auto b24 = (a11 * a23 * a34) + (a13 * a24 * a31) + (a14 * a21 * a33) - (a11 * a24 * a33) - (a13 * a21 * a34) - (a14 * a23 * a31);
+
+	const auto b31 = (a21 * a32 * a44) + (a22 * a34 * a41) + (a24 * a31 * a42) - (a12 * a34 * a42) - (a22 * a31 * a44) - (a24 * a32 * a41);
+	const auto b32 = (a11 * a34 * a42) + (a12 * a31 * a44) + (a14 * a32 * a41) - (a11 * a32 * a44) - (a12 * a34 * a41) - (a14 * a32 * a41);
+	const auto b33 = (a11 * a22 * a44) + (a12 * a24 * a41) + (a14 * a21 * a42) - (a11 * a24 * a42) - (a12 * a21 * a44) - (a14 * a22 * a41);
+	const auto b34 = (a11 * a24 * a32) + (a12 * a21 * a34) + (a14 * a22 * a31) - (a11 * a22 * a34) - (a12 * a24 * a31) - (a14 * a21 * a32);
+
+	const auto b41 = (a21 * a33 * a42) + (a22 * a31 * a43) + (a23 * a32 * a41) - (a21 * a32 * a43) - (a22 * a33 * a41) - (a23 * a31 * a42);
+	const auto b42 = (a11 * a32 * a43) + (a12 * a33 * a41) + (a13 * a31 * a42) - (a11 * a33 * a42) - (a12 * a31 * a43) - (a13 * a32 * a41);
+	const auto b43 = (a11 * a23 * a42) + (a13 * a22 * a41) + (a13 * a22 * a41) - (a11 * a22 * a43) - (a12 * a23 * a41) - (a13 * a21 * a42);
+	const auto b44 = (a11 * a22 * a33) + (a12 * a23 * a31) + (a13 * a21 * a32) - (a11 * a23 * a32) - (a12 * a21 * a33) - (a13 * a22 * a31);
+
+	return Matrix4d(
+		b11, b12, b13, b14,
+		b21, b22, b23, b24,
+		b31, b32, b33, b34,
+		b41, b42, b43, b44
+	);
+}
+
 
 template class Matrix4d<float>;
 template class Matrix4d<double>;
