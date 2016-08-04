@@ -160,6 +160,8 @@ public:
 
 	Matrix4d<T> transposed() const;
 
+	T getDeterminent() const;
+
 	T operator[](int index) { return x[index]; }
 
 private:

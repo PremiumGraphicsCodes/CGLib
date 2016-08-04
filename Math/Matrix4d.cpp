@@ -123,5 +123,25 @@ void Matrix4d<T>::setScale(const T x, const T y, const T z)
 	this->x[10] = z;
 }
 
+template<typename T>
+T Matrix4d<T>::getDeterminent() const
+{
+	const auto a11 = getX00(); const auto a12 = getX01(); const auto a13 = getX02(); const auto a14 = getX03();
+	const auto a21 = getX10(); const auto a22 = getX11(); const auto a23 = getX12(); const auto a24 = getX13();
+	const auto a31 = getX20(); const auto a32 = getX21(); const auto a33 = getX22(); const auto a34 = getX23();
+	const auto a41 = getX30(); const auto a42 = getX31(); const auto a43 = getX32(); const auto a44 = getX33();
+
+	return
+		(a11 * a22 * a33 * a44) + (a11 * a23 * a34 * a42) + (a11 * a24 * a32 * a43) +
+		(a12 * a21 * a34 * a43) + (a12 * a23 * a31 * a44) + (a12 * a24 * a33 * a41) +
+		(a13 * a21 * a32 * a44) + (a13 * a22 * a34 * a41) + (a13 * a24 * a31 * a42) +
+		(a14 * a21 * a33 * a42) + (a14 * a22 * a31 * a43) + (a14 * a23 * a32 * a41) -
+		(a11 * a22 * a34 * a43) - (a11 * a23 * a32 * a44) - (a11 * a24 * a33 * a42) -
+		(a12 * a21 * a33 * a44) - (a12 * a23 * a34 * a41) - (a12 * a24 * a31 * a43) -
+		(a13 * a21 * a34 * a42) - (a13 * a22 * a31 * a44) - (a13 * a24 * a32 * a41) -
+		(a14 * a21 * a32 * a43) - (a14 * a22 * a33 * a41) - (a14 * a23 * a31 * a42);
+}
+
+
 template class Matrix4d<float>;
 template class Matrix4d<double>;
