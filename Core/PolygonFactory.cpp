@@ -120,18 +120,22 @@ void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)
 	const auto& es = f->getEdges();
 	std::vector<Vertex*> startPoints;
 	std::vector<Vertex*> midPoints;
-	for (const auto& e : polygon->getEdges()) {
+	for (const auto& e : f->getEdges()) {
 		startPoints.push_back(e->getStart());
 		midPoints.push_back(vertices.create(e->getMidPoint()));
 	}
 	auto f1 = createFace(midPoints[0], startPoints[1], midPoints[1]);
 	auto f2 = createFace(midPoints[1], startPoints[2], midPoints[2]);
-	auto f3 = createFace(midPoints[0], startPoints[1], midPoints[2]);
+	auto f3 = createFace(midPoints[0], midPoints[1], midPoints[2]);
 	polygon->add(f1);
 	polygon->add(f2);
 	polygon->add(f3);
-	f->getV2()->moveTo(midPoints[0]->getPosition());
-	f->getV3()->moveTo(midPoints[1]->getPosition());
+	es[0]->changeEnd(midPoints[0]);
+	es[1]->changeStart(midPoints[0]);
+	es[1]->changeEnd(midPoints[2]);
+	es[2]->changeStart(midPoints[2]);
+	//f->getV2()->moveTo(midPoints[0]->getPosition());
+	//f->getV3()->moveTo(midPoints[1]->getPosition());
 }
 
 
@@ -351,7 +355,7 @@ void PolygonFactory::divide(PolygonMesh* polygon, const float area)
 	auto faces = polygon->getFaces();
 	for (auto f : faces) {
 		if (f->getArea() > area) {
-			splitByCenter(polygon, f);
+			splitByNode(polygon, f);
 		}
 	}
 }
