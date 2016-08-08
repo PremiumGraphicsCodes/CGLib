@@ -13,7 +13,7 @@ namespace Crystal {
 
 class Vertex;
 class Face;
-class Edge;
+class HalfEdge;
 
 class Vertex : public Math::Point3d<float>
 {

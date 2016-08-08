@@ -93,7 +93,7 @@ TEST(PolygonMeshTest, TestMergeDouble)
 }
 
 /*
-#include "../Core/Edge.h"
+#include "../Core/HalfEdge.h"
 
 TEST(PolygonMeshTest, TestGetShortestEdge)
 {

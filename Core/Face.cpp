@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Face.h"
 #include "Vertex.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Face::Face(Edge* e1, Edge* e2, Edge* e3, const int id) :
+Face::Face(HalfEdge* e1, HalfEdge* e2, HalfEdge* e3, const int id) :
 	id(id)
 {
 	edges[0] = e1;
@@ -15,7 +15,7 @@ Face::Face(Edge* e1, Edge* e2, Edge* e3, const int id) :
 }
 
 
-Face::Face(const std::array<Edge*, 3>& edges, const int id) :
+Face::Face(const std::array<HalfEdge*, 3>& edges, const int id) :
 	edges( edges ),
 	id(id)
 {
@@ -52,7 +52,7 @@ Point3d<float> Face::getCenterPoint() const {
 	return Point3d<float>(pos, norm);
 }
 
-std::array< Edge*, 3 > Face::getEdges() const
+std::array< HalfEdge*, 3 > Face::getEdges() const
 {
 	return edges;
 }

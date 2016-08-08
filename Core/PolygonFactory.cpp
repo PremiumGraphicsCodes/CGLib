@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "PolygonFactory.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 #include "PolygonBuilder.h"
 
 
@@ -187,7 +187,7 @@ PolygonMesh* PolygonFactory::find(Vertex* v)
 	return nullptr;
 }
 
-PolygonMesh* PolygonFactory::find(Edge* e)
+PolygonMesh* PolygonFactory::find(HalfEdge* e)
 {
 	return find(e->getFace());
 }
@@ -244,7 +244,7 @@ void PolygonFactory::destory(Vertex* v)
 	}
 }
 
-void PolygonFactory::destory(Edge* e)
+void PolygonFactory::destory(HalfEdge* e)
 {
 	auto v = e->getEnd();
 	e->changeStart(v);
@@ -307,15 +307,15 @@ Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	return f;
 }
 
-Edge* PolygonFactory::getShared(Edge* e)
+HalfEdge* PolygonFactory::getShared(HalfEdge* e)
 {
 	return edges.findReverse(e);
 }
 
 
-std::list<Edge*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
+std::list<HalfEdge*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
 {
-	std::list<Edge*> results;
+	std::list<HalfEdge*> results;
 	auto faces1 = lhs->getFaces();
 	auto faces2 = rhs->getFaces();
 	for (auto f1 : faces1) {

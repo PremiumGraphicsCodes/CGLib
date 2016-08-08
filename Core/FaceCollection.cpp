@@ -31,7 +31,7 @@ void FaceCollection::merge(FaceCollection& rhs)
 	rhs.faces.clear();
 }
 
-Face* FaceCollection::create(Edge* v1, Edge* v2, Edge* v3)
+Face* FaceCollection::create(HalfEdge* v1, HalfEdge* v2, HalfEdge* v3)
 {
 	auto f = new Face(v1, v2, v3);
 	faces.push_back(f);

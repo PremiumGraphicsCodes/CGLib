@@ -34,19 +34,19 @@ public:
 
 	std::list<Vertex*> getVertices() const;
 
-	std::list<Edge*> getEdges() const;
+	std::list<HalfEdge*> getEdges() const;
 
 	void clear();
 
 	void smooth(Vertex* v);
 
-	void simplify(const Edge& e);
+	void simplify(const HalfEdge& e);
 
 	void add(Face* f);
 
 	bool has(Face* f);
 
-	bool has(Edge* e);
+	bool has(HalfEdge* e);
 
 	bool has(Vertex* v);
 
@@ -54,7 +54,7 @@ public:
 
 	PolygonMesh* clone(const int id);
 
-	Edge* getShortestEdge();
+	HalfEdge* getShortestEdge();
 
 	void mergeDouble(PolygonMesh* rhs, float distance);
 

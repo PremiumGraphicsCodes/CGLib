@@ -58,7 +58,7 @@ public:
 
 	PolygonMesh* find(Vertex* v);
 
-	PolygonMesh* find(Edge* e);
+	PolygonMesh* find(HalfEdge* e);
 
 	void merge(PolygonFactory& rhs);
 
@@ -68,7 +68,7 @@ public:
 
 	void destory(Vertex* v);
 
-	void destory(Edge* e);
+	void destory(HalfEdge* e);
 
 	void destory(Face* f);
 
@@ -80,9 +80,9 @@ public:
 
 	Face* createFace(Vertex* v1, Vertex* v2, Vertex* v3);
 
-	Edge* getShared(Edge* e);
+	HalfEdge* getShared(HalfEdge* e);
 
-	std::list<Edge*> findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance);
+	std::list<HalfEdge*> findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance);
 
 	std::list<Vertex*> findIsolatedVertices();
 

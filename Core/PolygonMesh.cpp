@@ -25,7 +25,7 @@ void PolygonMesh::clear()
 
 //void create(const Math::TriangleCurve3d<float>& curve, const int id = -1);
 
-#include "Edge.h"
+#include "HalfEdge.h"
 
 void PolygonMesh::smooth(Vertex* center)
 {
@@ -48,9 +48,9 @@ void PolygonMesh::smooth(Vertex* center)
 	center->moveTo(position);
 }
 
-Edge* PolygonMesh::getShortestEdge()
+HalfEdge* PolygonMesh::getShortestEdge()
 {
-	std::list<Edge> edges;
+	std::list<HalfEdge> edges;
 	auto minEdge = faces.front()->getEdges().front();
 	for (auto f : faces) {
 		auto edges = f->getEdges();
@@ -64,7 +64,7 @@ Edge* PolygonMesh::getShortestEdge()
 }
 
 
-void PolygonMesh::simplify(const Edge& e)
+void PolygonMesh::simplify(const HalfEdge& e)
 {
 	auto center = e.getMidPoint();
 	e.getStart()->moveTo(center.getPosition());
@@ -82,7 +82,7 @@ bool PolygonMesh::has(Face* f)
 	return std::find(faces.begin(), faces.end(), f) != faces.end();
 }
 
-bool PolygonMesh::has(Edge* e)
+bool PolygonMesh::has(HalfEdge* e)
 {
 	const auto& edges = getEdges();
 	return std::find(edges.begin(), edges.end(), e) != edges.end();
@@ -106,9 +106,9 @@ std::list<Vertex*> PolygonMesh::getVertices() const
 	return vertices;
 }
 
-std::list<Edge*> PolygonMesh::getEdges() const
+std::list<HalfEdge*> PolygonMesh::getEdges() const
 {
-	std::list<Edge*> edges;
+	std::list<HalfEdge*> edges;
 	for (auto f : faces) {
 		auto es = f->getEdges();
 		edges.insert(edges.end(), es.begin(), es.end());

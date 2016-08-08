@@ -23,7 +23,7 @@
     <ClCompile Include="AnisotoropicParticle.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
-    <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="EdgeCollection.cpp" />
     <ClCompile Include="EdgeSpaceHash.cpp" />
     <ClCompile Include="FaceBuilder.cpp" />
@@ -64,7 +64,7 @@
     <ClInclude Include="CGModel.h" />
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="Edge.h" />
+    <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="EdgeSpaceHash.h" />
     <ClInclude Include="FaceBuilder.h" />

@@ -1,58 +1,59 @@
 #include "stdafx.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 #include "Vertex.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-Edge::Edge(Vertex* start, Vertex* end, const int id) :
+HalfEdge::HalfEdge(Vertex* start, Vertex* end, const int id) :
 	start(start),
 	end(end),
 	id(id),
-	face(nullptr)
+	face(nullptr),
+	pair(nullptr)
 {
 }
 
 
-Vector3d<float> Edge::getVector() const
+Vector3d<float> HalfEdge::getVector() const
 {
 	return end->getPosition() - start->getPosition();
 }
 
-float Edge::getLength() const
+float HalfEdge::getLength() const
 {
 	return getVector().getLength();
 }
 
-Line3d<float> Edge::toLine() const
+Line3d<float> HalfEdge::toLine() const
 {
 	return Line3d<float>(start->getPosition(), end->getPosition());
 }
 
-Point3d<float> Edge::getMidPoint() const
+Point3d<float> HalfEdge::getMidPoint() const
 {
 	return start->lerp(*end, 0.5f);
 }
 
-Edge* Edge::createReverse(const int id) const
+HalfEdge* HalfEdge::createReverse(const int id) const
 {
-	return new Edge(end, start, id);
+	return new HalfEdge(end, start, id);
 }
 
-bool Edge::isReverse(const Edge& rhs) const
+bool HalfEdge::isReverse(const HalfEdge& rhs) const
 {
 	return
 		this->start == rhs.end &&
 		this->end == rhs.start;
 }
 
-void Edge::move(const Vector3d<float>& v)
+void HalfEdge::move(const Vector3d<float>& v)
 {
 	this->start->move(v);
 	this->end->move(v);
 }
 
-bool Edge::isSame(const Edge& rhs) const
+bool HalfEdge::isSame(const HalfEdge& rhs) const
 {
 	return
 		this->start == rhs.start &&
@@ -60,7 +61,7 @@ bool Edge::isSame(const Edge& rhs) const
 }
 
 
-bool Edge::isShared(const Edge& rhs) const
+bool HalfEdge::isShared(const HalfEdge& rhs) const
 {
 	if (isSame(rhs)) {
 		return true;
@@ -71,21 +72,21 @@ bool Edge::isShared(const Edge& rhs) const
 	return false;
 }
 
-bool Edge::isCollapsed() const
+bool HalfEdge::isCollapsed() const
 {
 	return
 		start == nullptr ||
 		end == nullptr;
 }
 
-bool Edge::isIsolated() const
+bool HalfEdge::isIsolated() const
 {
 	return face == nullptr;
 }
 
 #include "Face.h"
 
-float Edge::calculateCollapseCost() const
+float HalfEdge::calculateCollapseCost() const
 {
 	/*
 	const auto length = getLength();
@@ -111,22 +112,22 @@ float Edge::calculateCollapseCost() const
 	return 0.0f;
 }
 
-bool Edge::isDegenerated() const
+bool HalfEdge::isDegenerated() const
 {
 	return getLength() < Tolerance<float>::getLooseTolerance();
 }
 
-bool Edge::isDegenerated(const float length) const
+bool HalfEdge::isDegenerated(const float length) const
 {
 	return getLength() < length;
 }
 
-void Edge::toDenerate()
+void HalfEdge::toDenerate()
 {
 	end = start;
 }
 
-void Edge::reverse()
+void HalfEdge::reverse()
 {
 	std::swap( start, end );
 	std::swap( prev, next );

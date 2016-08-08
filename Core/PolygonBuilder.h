@@ -5,7 +5,7 @@ namespace Crystal {
 	namespace Core {
 		class Vertex;
 		class Face;
-		class Edge;
+		class HalfEdge;
 		class Volume;
 		class ParticleObject;
 		class PolygonMesh;
@@ -19,7 +19,7 @@ public:
 		vertices(vertices)
 	{}
 
-	PolygonBuilder(const std::vector<Vertex*>& vertices, const std::vector<Face*>& faces, const std::vector<Edge*>& edges);
+	PolygonBuilder(const std::vector<Vertex*>& vertices, const std::vector<Face*>& faces, const std::vector<HalfEdge*>& edges);
 
 	PolygonBuilder(const Volume& volume, float isolevel);
 
@@ -41,7 +41,7 @@ public:
 
 	std::vector<Face*> getFaces() const { return faces; }
 
-	std::vector<Edge*> getEdges() const { return edges; }
+	std::vector<HalfEdge*> getEdges() const { return edges; }
 
 	void createFaces(const std::vector<Vertex*>& vertices);
 
@@ -52,7 +52,7 @@ public:
 private:
 	std::vector<Vertex*> vertices;
 	std::vector<Face*> faces;
-	std::vector<Edge*> edges;
+	std::vector<HalfEdge*> edges;
 
 };
 

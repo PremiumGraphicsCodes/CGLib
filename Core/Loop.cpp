@@ -13,13 +13,13 @@ Loop::Loop(const std::vector<Vector3d<float>>& positions)
 	for (int i = 0; i < vertices.size() - 1; ++i) {
 		Vertex* v1 = vertices[i];
 		Vertex* v2 = vertices[i + 1];
-		auto e = new Edge(v1, v2);
+		auto e = new HalfEdge(v1, v2);
 		edges.push_back(e);
 	}
-	edges.push_back(new Edge(vertices.back(), vertices.front()));
+	edges.push_back(new HalfEdge(vertices.back(), vertices.front()));
 	for (int i = 0; i < edges.size() - 1; ++i) {
-		Edge* e1 = edges[i];
-		Edge* e2 = edges[i + 1];
+		HalfEdge* e1 = edges[i];
+		HalfEdge* e2 = edges[i + 1];
 		e1->connect(e2);
 	}
 	edges.back()->connect(edges.front());
@@ -41,7 +41,7 @@ void Loop::clear()
 	faces.clear();
 }
 
-bool Loop::isConvex(Edge* e)
+bool Loop::isConvex(HalfEdge* e)
 {
 	const auto& v1 = e->getVector().normalized();
 	const auto& v2 = e->getNext()->getVector().normalized();
@@ -50,7 +50,7 @@ bool Loop::isConvex(Edge* e)
 	//return angle.getRadian().get() > Tolerance<float>::getPI();
 }
 
-bool Loop::isReflex(Edge* e)
+bool Loop::isReflex(HalfEdge* e)
 {
 	return !isConvex(e);
 }
@@ -109,7 +109,7 @@ void Loop::remove(Vertex* v)
 	*/
 }
 
-Edge* Loop::findStartEdge(Vertex* v)
+HalfEdge* Loop::findStartEdge(Vertex* v)
 {
 	for (auto e : edges) {
 		if (e->getStart() == v) {
@@ -119,12 +119,12 @@ Edge* Loop::findStartEdge(Vertex* v)
 	return nullptr;
 }
 
-std::array<Edge*, 3> Loop::getFace(Vertex* center)
+std::array<HalfEdge*, 3> Loop::getFace(Vertex* center)
 {
 	//std::array<Edge*, 3> face;
 	auto e1 = findStartEdge(center);
 	auto e0 = e1->getPrev();
-	auto e2 = new Edge(e1->getEnd(), e0->getStart());
+	auto e2 = new HalfEdge(e1->getEnd(), e0->getStart());
 	edges.push_back(e2);
 	return{ e0, e1, e2 };
 }
@@ -132,13 +132,13 @@ std::array<Edge*, 3> Loop::getFace(Vertex* center)
 
 void Loop::split(Vertex* start, Vertex* end)
 {
-	auto e1 = new Edge(end, start);
+	auto e1 = new HalfEdge(end, start);
 	edges.push_back(e1);
 	auto e2 = findStartEdge(start);
 	auto e3 = e2->getNext();
 	auto f = new Face(e1, e2, e3);
 	faces.push_back(f);
-	auto e4 = new Edge(start, end);
+	auto e4 = new HalfEdge(start, end);
 	edges.push_back(e4);
 	auto prev = e2->getPrev();
 	auto next = e3->getNext();

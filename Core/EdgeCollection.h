@@ -2,7 +2,7 @@
 #define __CRYSTAL_CORE_EDGE_COLLECTION_H__
 
 #include "Vertex.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 
 namespace Crystal {
 	namespace Core {
@@ -12,15 +12,15 @@ class EdgeCollection
 public:
 	EdgeCollection();
 
-	EdgeCollection(const std::vector<Edge*>& edges);
+	EdgeCollection(const std::vector<HalfEdge*>& edges);
 
-	EdgeCollection(const std::list<Edge*>& edges);
+	EdgeCollection(const std::list<HalfEdge*>& edges);
 
 	~EdgeCollection();
 
 	void merge(EdgeCollection& rhs);
 
-	Edge* create(Vertex* v1, Vertex* v2);
+	HalfEdge* create(Vertex* v1, Vertex* v2);
 
 	void clear();
 
@@ -28,25 +28,25 @@ public:
 
 	void renumber();
 
-	void remove(Edge* e);
+	void remove(HalfEdge* e);
 
-	Edge* findById(const int id);
+	HalfEdge* findById(const int id);
 
-	Edge* findReverse(Edge* e);
+	HalfEdge* findReverse(HalfEdge* e);
 
-	std::list<Edge*> get() const { return edges; }
+	std::list<HalfEdge*> get() const { return edges; }
 
 	size_t size() const { return edges.size(); }
 
-	std::list<Edge*> findDegenerated();
+	std::list<HalfEdge*> findDegenerated();
 
-	std::list<Edge*> findDegenerated(const float length);
+	std::list<HalfEdge*> findDegenerated(const float length);
 
-	std::list<Edge*> findEdges(const Vertex* v);
+	std::list<HalfEdge*> findEdges(const Vertex* v);
 
 
-	using iterator = std::list<Edge*>::iterator;
-	using const_iterator = std::list<Edge*>::const_iterator;
+	using iterator = std::list<HalfEdge*>::iterator;
+	using const_iterator = std::list<HalfEdge*>::const_iterator;
 
 	iterator begin() { return edges.begin(); }
 
@@ -61,7 +61,7 @@ public:
 
 private:
 	int nextId;
-	std::list<Edge*> edges;
+	std::list<HalfEdge*> edges;
 };
 
 	}

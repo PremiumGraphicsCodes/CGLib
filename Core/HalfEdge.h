@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_EDGE_H__
-#define __CRYSTAL_CORE_EDGE_H__
+#ifndef __CRYSTAL_CORE_HALF_EDGE_H__
+#define __CRYSTAL_CORE_HALF_EDGE_H__
 
 #include "../Util/UnCopyable.h"
 #include "../Math/Vector3d.h"
@@ -10,10 +10,10 @@ namespace Crystal {
 class Vertex;
 class Face;
 
-class Edge
+class HalfEdge
 {
 public:
-	Edge(Vertex* start, Vertex* end, int id = -1);
+	HalfEdge(Vertex* start, Vertex* end, int id = -1);
 
 	int getId() const { return id; }
 
@@ -35,24 +35,24 @@ public:
 
 	void setId(const int id) { this->id = id; }
 
-	Edge* createReverse(const int id) const;
+	HalfEdge* createReverse(const int id) const;
 
-	bool isReverse(const Edge& rhs) const;
+	bool isReverse(const HalfEdge& rhs) const;
 
 	void move(const Math::Vector3d<float>& v);
 
-	bool isShared(const Edge& rhs) const;
+	bool isShared(const HalfEdge& rhs) const;
 
-	bool isSame(const Edge& rhs) const;
+	bool isSame(const HalfEdge& rhs) const;
 
-	void connect(Edge* next) {
+	void connect(HalfEdge* next) {
 		next->prev = this;
 		this->next = next;
 	}
 
-	Edge* getNext() const { return next; }
+	HalfEdge* getNext() const { return next; }
 
-	Edge* getPrev() const { return prev; }
+	HalfEdge* getPrev() const { return prev; }
 
 	bool isCollapsed() const;
 
@@ -84,8 +84,9 @@ private:
 	Vertex* start;
 	Vertex* end;
 	Face* face;
-	Edge* prev;
-	Edge* next;
+	HalfEdge* prev;
+	HalfEdge* next;
+	HalfEdge* pair;
 	int id;
 };
 	}

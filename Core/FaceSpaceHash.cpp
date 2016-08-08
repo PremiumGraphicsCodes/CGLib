@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FaceSpaceHash.h"
 #include "Vertex.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

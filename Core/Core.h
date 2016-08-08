@@ -7,7 +7,7 @@
 #include "BoneTree.h"
 #include "CGModel.h"
 #include "CGWorld.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 #include "IParticle.h"
 #include "Joint.h"
 #include "MarchingCubeTable.h"

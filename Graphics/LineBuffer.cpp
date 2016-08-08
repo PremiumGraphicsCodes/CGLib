@@ -34,7 +34,7 @@ void LineBuffer::add(const Point3d<float>& point, const ColorRGBA<float>& color)
 	this->color.add(color);
 }
 
-void LineBuffer::add(const Edge& edge, const ColorRGBA<float>& color)
+void LineBuffer::add(const HalfEdge& edge, const ColorRGBA<float>& color)
 {
 	this->ids.push_back( edge.getStart()->getId() );
 	this->ids.push_back( edge.getEnd()->getId() );

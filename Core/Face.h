@@ -2,7 +2,7 @@
 #define __CRYSTAL_POLYGON_FACE_H__
 
 #include "stdafx.h"
-#include "Edge.h"
+#include "HalfEdge.h"
 #include <map>
 
 namespace Crystal {
@@ -13,9 +13,9 @@ namespace Crystal {
 class Face
 {
 public:
-	Face(Edge* e1, Edge* e2, Edge* e3, const int id = -1);
+	Face(HalfEdge* e1, HalfEdge* e2, HalfEdge* e3, const int id = -1);
 
-	Face(const std::array<Edge*,3>& edges, const int id = -1);
+	Face(const std::array<HalfEdge*,3>& edges, const int id = -1);
 
 	Vertex* find(Vertex* v);
 
@@ -31,7 +31,7 @@ public:
 
 	Math::Orientation getOrientation(const Math::Vector3d<float>& pos) const;
 
-	std::array< Edge*, 3 > getEdges() const;
+	std::array< HalfEdge*, 3 > getEdges() const;
 
 	std::array< Vertex*, 3 > getVertices() const;
 
@@ -58,7 +58,7 @@ public:
 	void reverse();
 
 private:
-	std::array< Edge*, 3 > edges;
+	std::array< HalfEdge*, 3 > edges;
 	//std::array< Vertex*, 3> vertices;
 	int id;
 };

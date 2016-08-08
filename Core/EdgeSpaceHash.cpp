@@ -10,7 +10,7 @@ EdgeSpaceHash::EdgeSpaceHash(const float divideLength, const int hashTableSize) 
 {
 }
 
-void EdgeSpaceHash::add(Edge* edge)
+void EdgeSpaceHash::add(HalfEdge* edge)
 {
 	auto curve = edge->getCurve();
 	auto positions = curve.toPositionsByLength(divideLength);
@@ -20,13 +20,13 @@ void EdgeSpaceHash::add(Edge* edge)
 	}
 }
 
-std::list<Edge*> EdgeSpaceHash::getNeighbor(const Vector3d<float>& pos)
+std::list<HalfEdge*> EdgeSpaceHash::getNeighbor(const Vector3d<float>& pos)
 {
 	Index3d index = toIndex(pos);
 	return table[toHash(index)];
 }
 
-std::list<Edge*> EdgeSpaceHash::getNeighbor(const Index3d index)
+std::list<HalfEdge*> EdgeSpaceHash::getNeighbor(const Index3d index)
 {
 	auto hash = toHash(index);
 	return table[hash];

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "../Core/Vertex.h"
-#include "../Core/Edge.h"
+#include "../Core/HalfEdge.h"
 
 #include "../Core/VertexCollection.h"
 
@@ -13,9 +13,9 @@ TEST(VertexCollectionTest, TestSort)
 	auto v1 = vertices.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
 	auto v2 = vertices.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
 	auto v3 = vertices.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
-	Edge e1(v1, v2);
-	Edge e2(v2, v3);
-	Edge e3(v3, v1);
+	HalfEdge e1(v1, v2);
+	HalfEdge e2(v2, v3);
+	HalfEdge e3(v3, v1);
 	vertices.sort();
 	EXPECT_EQ(2, vertices.size());
 	vertices.clear();

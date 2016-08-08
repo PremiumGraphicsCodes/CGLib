@@ -20,7 +20,7 @@ public:
 
 	void merge(FaceCollection& rhs);
 
-	Face* create(Edge* v1, Edge* v2, Edge* v3);
+	Face* create(HalfEdge* v1, HalfEdge* v2, HalfEdge* v3);
 
 	void clear();
 
