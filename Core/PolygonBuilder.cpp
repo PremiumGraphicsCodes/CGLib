@@ -25,7 +25,7 @@ PolygonMesh* PolygonBuilder::build(int id)
 {
 	VertexCollection vc(vertices);
 	vc.renumber();
-	EdgeCollection ec(edges);
+	HalfEdgeCollection ec(edges);
 	ec.renumber();
 	FaceCollection fc(faces);
 	fc.renumber();

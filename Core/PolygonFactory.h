@@ -48,7 +48,7 @@ public:
 
 	VertexCollection getVertices() const { return vertices; }
 
-	EdgeCollection getEdges() const { return edges; }
+	HalfEdgeCollection getEdges() const { return edges; }
 
 	FaceCollection getFaces() const { return faces; }
 
@@ -90,7 +90,7 @@ public:
 
 private:
 	VertexCollection vertices;
-	EdgeCollection edges;
+	HalfEdgeCollection edges;
 	FaceCollection faces;
 	std::list<PolygonMesh*> polygons;
 	int nextId;

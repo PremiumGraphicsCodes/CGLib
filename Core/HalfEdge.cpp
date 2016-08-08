@@ -132,3 +132,24 @@ void HalfEdge::reverse()
 	std::swap( start, end );
 	std::swap( prev, next );
 }
+
+HalfEdge* HalfEdge::split(Vertex* v)
+{
+	auto next = clone(-1);
+	this->changeEnd(v);
+	next->changeStart(v);
+	this->connect(next);
+	return next;
+}
+
+HalfEdge* HalfEdge::clone(const int id) const
+{
+	HalfEdge* e = new HalfEdge(start, end, id);
+	e->start = start;
+	e->end = end;
+	e->face = face;
+	e->prev = prev;
+	e->next = next;
+	e->pair = pair;
+	return e;
+}

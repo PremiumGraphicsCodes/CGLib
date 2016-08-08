@@ -16,13 +16,13 @@ public:
 
 	Face* build(int i1, int i2, int i3);
 
-	EdgeCollection getEdge() { return edges; }
+	HalfEdgeCollection getEdge() { return edges; }
 
 	void clear();
 
 private:
 	std::vector<Vertex*> vertices;
-	EdgeCollection edges;
+	HalfEdgeCollection edges;
 	FaceCollection faces;
 };
 

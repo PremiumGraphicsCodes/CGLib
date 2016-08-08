@@ -10,6 +10,7 @@ namespace Crystal {
 class Vertex;
 class Face;
 
+
 class HalfEdge
 {
 public:
@@ -80,6 +81,10 @@ public:
 
 	void reverse();
 
+	HalfEdge* split(Vertex* v);
+
+	HalfEdge* clone(const int id) const;
+
 private:
 	Vertex* start;
 	Vertex* end;
@@ -89,6 +94,8 @@ private:
 	HalfEdge* pair;
 	int id;
 };
+
+
 	}
 }
 

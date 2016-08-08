@@ -6,7 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-TEST(EdgeTest, TestGetVector)
+TEST(HalfEdgeTest, TestGetVector)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
@@ -14,7 +14,7 @@ TEST(EdgeTest, TestGetVector)
 	EXPECT_EQ(Vector3d<float>(1,0,0), e.getVector());
 }
 
-TEST(EdgeTest, TestGetLength)
+TEST(HalfEdgeTest, TestGetLength)
 {
 	Vertex n1(Vector3d<float>(0,0,0),0);
 	Vertex n2(Vector3d<float>(1,0,0),1);
@@ -22,7 +22,7 @@ TEST(EdgeTest, TestGetLength)
 	EXPECT_EQ(1, e.getLength());
 }
 
-TEST(EdgeTest, TestIsReverse)
+TEST(HalfEdgeTest, TestIsReverse)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
@@ -33,10 +33,9 @@ TEST(EdgeTest, TestIsReverse)
 	EXPECT_TRUE(e1.isReverse(e2));
 	EXPECT_TRUE(e2.isReverse(e1));
 	EXPECT_FALSE(e1.isReverse(e3));
-
 }
 
-TEST(EdgeTest, TestIsShared)
+TEST(HalfEdgeTest, TestIsShared)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
@@ -49,7 +48,7 @@ TEST(EdgeTest, TestIsShared)
 	EXPECT_FALSE(e1.isShared(e3));
 }
 
-TEST(EdgeTest, TestIsCollapsed)
+TEST(HalfEdgeTest, TestIsCollapsed)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
@@ -59,7 +58,7 @@ TEST(EdgeTest, TestIsCollapsed)
 	EXPECT_TRUE( e2.isCollapsed());
 }
 
-TEST(EdgeTest, TestIsDegenerated)
+TEST(HalfEdgeTest, TestIsDegenerated)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(0, 0, 0), 1);
@@ -69,7 +68,7 @@ TEST(EdgeTest, TestIsDegenerated)
 	EXPECT_FALSE(e1.isDegenerated());
 }
 
-TEST(EdgeTest, TestToDegenerate)
+TEST(HalfEdgeTest, TestToDegenerate)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
@@ -79,7 +78,7 @@ TEST(EdgeTest, TestToDegenerate)
 	EXPECT_TRUE( e1.isDegenerated());
 }
 
-TEST(EdgeTest, TestReverse)
+TEST(HalfEdgeTest, TestReverse)
 {
 	Vertex n1(Vector3d<float>(0, 0, 0), 0);
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
@@ -87,4 +86,22 @@ TEST(EdgeTest, TestReverse)
 	e1.reverse();
 	EXPECT_EQ( &n2, e1.getStart() );
 	EXPECT_EQ( &n1, e1.getEnd() );
+}
+
+
+TEST(HalfEdgeTest, TestSplit)
+{
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 1);
+	Vertex n3(Vector3d<float>(2, 0, 0), 2);
+	HalfEdge e1(&n1, &n3, 0);
+	//const HalfEdge e2(&n2, &n1, 0);
+	//const HalfEdge e3(&n3, &n1, 0);
+	HalfEdge* e2 = e1.split(&n2);
+	EXPECT_EQ(&n1, e1.getStart());
+	EXPECT_EQ(&n2, e1.getEnd());
+	EXPECT_EQ(&n2, e2->getStart());
+	EXPECT_EQ(&n3, e2->getEnd());
+
+	delete e2;
 }

@@ -143,7 +143,7 @@ PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
 {
 	auto p = builder.build( nextId++);
 	this->vertices.merge(VertexCollection(builder.getVertices()));
-	this->edges.merge(EdgeCollection(builder.getEdges()));
+	this->edges.merge(HalfEdgeCollection(builder.getEdges()));
 	this->faces.merge(FaceCollection(builder.getFaces()));
 	polygons.push_back(p);
 	return p;

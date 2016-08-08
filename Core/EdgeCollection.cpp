@@ -4,43 +4,41 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-EdgeCollection::EdgeCollection() :
+HalfEdgeCollection::HalfEdgeCollection() :
 	nextId(0)
 {}
 
-EdgeCollection::EdgeCollection(const std::vector<HalfEdge*>& edges) :
+HalfEdgeCollection::HalfEdgeCollection(const std::vector<HalfEdge*>& edges) :
 	edges(edges.begin(), edges.end()),
 	nextId(0)
 {
-
 }
 
-
-EdgeCollection::EdgeCollection(const std::list<HalfEdge*>& edges) :
+HalfEdgeCollection::HalfEdgeCollection(const std::list<HalfEdge*>& edges) :
 	edges(edges),
 	nextId(0)
 {}
 
-EdgeCollection::~EdgeCollection()
+HalfEdgeCollection::~HalfEdgeCollection()
 {
 	//clear();
 }
 
-void EdgeCollection::merge(EdgeCollection& rhs)
+void HalfEdgeCollection::merge(HalfEdgeCollection& rhs)
 {
 	this->edges.splice(this->edges.end(), rhs.edges);
 	renumber();
 	rhs.edges.clear();
 }
 
-HalfEdge* EdgeCollection::create(Vertex* start, Vertex* end)
+HalfEdge* HalfEdgeCollection::create(Vertex* start, Vertex* end)
 {
 	auto e = new HalfEdge(start, end, nextId++);
 	edges.push_back(e);
 	return e;
 }
 
-void EdgeCollection::clear()
+void HalfEdgeCollection::clear()
 {
 	for (auto e : edges) {
 		delete e;
@@ -48,7 +46,7 @@ void EdgeCollection::clear()
 	edges.clear();
 }
 
-std::list<HalfEdge*> EdgeCollection::findDegenerated()
+std::list<HalfEdge*> HalfEdgeCollection::findDegenerated()
 {
 	std::list<HalfEdge*> shrinked;
 	for (auto e : edges) {
@@ -59,7 +57,7 @@ std::list<HalfEdge*> EdgeCollection::findDegenerated()
 	return shrinked;
 }
 
-std::list<HalfEdge*> EdgeCollection::findDegenerated(const float length)
+std::list<HalfEdge*> HalfEdgeCollection::findDegenerated(const float length)
 {
 	std::list<HalfEdge*> shrinked;
 	for (auto e : edges) {
@@ -70,7 +68,7 @@ std::list<HalfEdge*> EdgeCollection::findDegenerated(const float length)
 	return shrinked;
 }
 
-std::list<HalfEdge*> EdgeCollection::findEdges(const Vertex* v)
+std::list<HalfEdge*> HalfEdgeCollection::findEdges(const Vertex* v)
 {
 	std::list<HalfEdge*> results;
 	for (auto e : edges) {
@@ -82,7 +80,7 @@ std::list<HalfEdge*> EdgeCollection::findEdges(const Vertex* v)
 }
 
 
-void EdgeCollection::cleaning()
+void HalfEdgeCollection::cleaning()
 {
 	auto shrinked = findDegenerated();
 	for (auto f : shrinked) {
@@ -91,7 +89,7 @@ void EdgeCollection::cleaning()
 	renumber();
 }
 
-void EdgeCollection::renumber()
+void HalfEdgeCollection::renumber()
 {
 	nextId = 0;
 	for (auto e : edges) {
@@ -100,13 +98,13 @@ void EdgeCollection::renumber()
 
 }
 
-void EdgeCollection::remove(HalfEdge* e)
+void HalfEdgeCollection::remove(HalfEdge* e)
 {
 	edges.remove(e);
 	delete e;
 }
 
-HalfEdge* EdgeCollection::findById(const int id)
+HalfEdge* HalfEdgeCollection::findById(const int id)
 {
 	for (auto f : edges) {
 		if (id == f->getId()) {
@@ -116,7 +114,7 @@ HalfEdge* EdgeCollection::findById(const int id)
 	return nullptr;
 }
 
-HalfEdge* EdgeCollection::findReverse(HalfEdge* rhs)
+HalfEdge* HalfEdgeCollection::findReverse(HalfEdge* rhs)
 {
 	for (auto e : edges) {
 		if (e->isReverse(*rhs)) {

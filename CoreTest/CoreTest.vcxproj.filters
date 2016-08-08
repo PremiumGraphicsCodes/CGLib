@@ -43,7 +43,7 @@
     <ClCompile Include="LoopTest.cpp">
       <Filter>Graph</Filter>
     </ClCompile>
-    <ClCompile Include="EdgeTest.cpp">
+    <ClCompile Include="HalfEdgeTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_EDGE_COLLECTION_H__
-#define __CRYSTAL_CORE_EDGE_COLLECTION_H__
+#ifndef __CRYSTAL_CORE_HALF_EDGE_COLLECTION_H__
+#define __CRYSTAL_CORE_HALF_EDGE_COLLECTION_H__
 
 #include "Vertex.h"
 #include "HalfEdge.h"
@@ -7,18 +7,18 @@
 namespace Crystal {
 	namespace Core {
 
-class EdgeCollection
+class HalfEdgeCollection
 {
 public:
-	EdgeCollection();
+	HalfEdgeCollection();
 
-	EdgeCollection(const std::vector<HalfEdge*>& edges);
+	HalfEdgeCollection(const std::vector<HalfEdge*>& edges);
 
-	EdgeCollection(const std::list<HalfEdge*>& edges);
+	HalfEdgeCollection(const std::list<HalfEdge*>& edges);
 
-	~EdgeCollection();
+	~HalfEdgeCollection();
 
-	void merge(EdgeCollection& rhs);
+	void merge(HalfEdgeCollection& rhs);
 
 	HalfEdge* create(Vertex* v1, Vertex* v2);
 
@@ -44,20 +44,16 @@ public:
 
 	std::list<HalfEdge*> findEdges(const Vertex* v);
 
-
 	using iterator = std::list<HalfEdge*>::iterator;
 	using const_iterator = std::list<HalfEdge*>::const_iterator;
 
 	iterator begin() { return edges.begin(); }
-
-	//iterator front() { return faces.front(); }
 
 	const_iterator begin() const { return edges.begin(); }
 
 	iterator end() { return edges.end(); }
 
 	const_iterator end() const { return edges.end(); }
-
 
 private:
 	int nextId;
