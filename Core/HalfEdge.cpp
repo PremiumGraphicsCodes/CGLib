@@ -9,6 +9,7 @@ HalfEdge::HalfEdge(Vertex* start, Vertex* end, const int id) :
 	start(start),
 	end(end),
 	id(id),
+	next(nullptr),
 	face(nullptr),
 	pair(nullptr)
 {

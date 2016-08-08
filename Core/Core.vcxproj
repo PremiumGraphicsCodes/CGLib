@@ -24,6 +24,7 @@
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="BoneTree.cpp" />
     <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="EdgeCollection.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
     <ClCompile Include="HalfEdgeCollection.cpp" />
     <ClCompile Include="EdgeSpaceHash.cpp" />
@@ -66,6 +67,7 @@
     <ClInclude Include="CGWorld.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Edge.h" />
+    <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="HalfEdge.h" />
     <ClInclude Include="HalfEdgeCollection.h" />
     <ClInclude Include="EdgeSpaceHash.h" />

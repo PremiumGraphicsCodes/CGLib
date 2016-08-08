@@ -4,20 +4,23 @@
 
 using namespace Crystal::Core;
 
-Edge::Edge() :
+Edge::Edge(const int id) :
 	left(nullptr),
-	right(nullptr)
+	right(nullptr),
+	id(id)
 {
 }
 
-Edge::Edge(HalfEdge* e1) :
+Edge::Edge(HalfEdge* e1, const int id) :
 	left(e1),
-	right(nullptr)
+	right(nullptr),
+	id(id)
 {}
 
-Edge::Edge(HalfEdge* e1, HalfEdge* e2) :
+Edge::Edge(HalfEdge* e1, HalfEdge* e2, const int id) :
 	left(e1),
-	right(e2)
+	right(e2),
+	id(id)
 {}
 
 void Edge::connect(Edge& next)

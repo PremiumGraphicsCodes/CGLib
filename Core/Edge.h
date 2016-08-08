@@ -11,11 +11,11 @@ namespace Crystal {
 class Edge
 {
 public:
-	Edge();
+	Edge(const int id = -1);
 
-	Edge(HalfEdge* e1);
+	Edge(HalfEdge* e1, const int id = -1);
 
-	Edge(HalfEdge* e1, HalfEdge* e2);
+	Edge(HalfEdge* e1, HalfEdge* e2, const int id = -1);
 
 	void connect(Edge& next);
 
@@ -33,9 +33,14 @@ public:
 
 	HalfEdge* getRight() { return right; }
 
+	void setId(const int id) { this->id = id; }
+
+	int getId() const { return id; }
+
 private:
 	HalfEdge* left;
 	HalfEdge* right;
+	int id;
 };
 
 	}

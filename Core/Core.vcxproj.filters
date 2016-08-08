@@ -93,6 +93,9 @@
     <ClCompile Include="HalfEdgeCollection.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="EdgeCollection.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -192,6 +195,9 @@
       <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="HalfEdgeCollection.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="EdgeCollection.h">
       <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>

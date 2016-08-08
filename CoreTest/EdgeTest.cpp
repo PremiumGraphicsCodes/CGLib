@@ -35,7 +35,12 @@ TEST(EdgeTest, TestConnect)
 	Edge e2(&hf3, &hf4);
 
 	e1.connect(e2);
+	EXPECT_EQ(nullptr, e1.getRight()->getNext());
+
 	EXPECT_EQ(&hf3, e1.getLeft()->getNext());
+	EXPECT_EQ(&hf2, e2.getRight()->getNext());
+
+	//EXPECT_EQ(&hf1, e2.getRight()->getNext());
 
 }
 
