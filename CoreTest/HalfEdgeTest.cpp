@@ -88,6 +88,7 @@ TEST(HalfEdgeTest, TestReverse)
 	EXPECT_EQ( &n1, e1.getEnd() );
 }
 
+#include "../Core/Edge.h"
 
 TEST(HalfEdgeTest, TestSplit)
 {
@@ -95,13 +96,14 @@ TEST(HalfEdgeTest, TestSplit)
 	Vertex n2(Vector3d<float>(1, 0, 0), 1);
 	Vertex n3(Vector3d<float>(2, 0, 0), 2);
 	HalfEdge e1(&n1, &n3, 0);
+	HalfEdge e2(&n3, &n1, 1);
+	e1.setPair(&e2);
 	//const HalfEdge e2(&n2, &n1, 0);
 	//const HalfEdge e3(&n3, &n1, 0);
-	HalfEdge* e2 = e1.split(&n2);
+	HalfEdge* e3 = e1.split(&n2);
 	EXPECT_EQ(&n1, e1.getStart());
 	EXPECT_EQ(&n2, e1.getEnd());
-	EXPECT_EQ(&n2, e2->getStart());
-	EXPECT_EQ(&n3, e2->getEnd());
-
-	delete e2;
+	EXPECT_EQ(&n2, e3->getStart());
+	EXPECT_EQ(&n3, e3->getEnd());
+	delete e3;
 }

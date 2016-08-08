@@ -25,9 +25,15 @@ public:
 
 	//Edge clone();
 
+	bool isShared() const;
+
+	HalfEdge* getLeft() { return left; }
+
+	HalfEdge* getRight() { return right; }
+
 private:
-	HalfEdge* e1;
-	HalfEdge* e2;
+	HalfEdge* left;
+	HalfEdge* right;
 };
 
 	}

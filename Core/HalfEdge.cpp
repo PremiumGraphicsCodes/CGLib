@@ -53,6 +53,12 @@ void HalfEdge::move(const Vector3d<float>& v)
 	this->end->move(v);
 }
 
+void HalfEdge::connect(HalfEdge* next)
+{
+	next->prev = this;
+	this->next = next;
+}
+
 bool HalfEdge::isSame(const HalfEdge& rhs) const
 {
 	return
@@ -153,3 +159,14 @@ HalfEdge* HalfEdge::clone(const int id) const
 	e->pair = pair;
 	return e;
 }
+
+bool HalfEdge::has(Vertex* e)
+{
+	return (start == e) || (end == e);
+}
+
+Line3d<float> HalfEdge::getCurve() const
+{
+	return toLine();
+}
+

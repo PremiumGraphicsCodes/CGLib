@@ -24,6 +24,7 @@
     <ClCompile Include="BoneTest.cpp" />
     <ClCompile Include="EdgeCollectionTest.cpp" />
     <ClCompile Include="EdgeSpaceHashTest.cpp" />
+    <ClCompile Include="EdgeTest.cpp" />
     <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="FaceSpaceHashTest.cpp" />
     <ClCompile Include="FaceTest.cpp" />

@@ -5,25 +5,25 @@
 using namespace Crystal::Core;
 
 Edge::Edge() :
-	e1(nullptr),
-	e2(nullptr)
+	left(nullptr),
+	right(nullptr)
 {
 }
 
 Edge::Edge(HalfEdge* e1) :
-	e1(e1),
-	e2(nullptr)
+	left(e1),
+	right(nullptr)
 {}
 
 Edge::Edge(HalfEdge* e1, HalfEdge* e2) :
-	e1(e1),
-	e2(e2)
+	left(e1),
+	right(e2)
 {}
 
 std::vector<Edge> Edge::split(Vertex* v)
 {
-	auto v1 = e1->getStart();
-	auto v2 = e2->getEnd();
+	auto v1 = left->getStart();
+	auto v2 = right->getEnd();
 	return createEdges(std::vector<Vertex*>{ v1, v, v2 });
 }
 
@@ -44,4 +44,9 @@ std::vector<Edge> Edge::createEdges(std::vector<Vertex*> vertices)
 		results.push_back(e);
 	}
 	return results;
+}
+
+bool Edge::isShared() const
+{
+	return left && right;
 }

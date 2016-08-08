@@ -10,7 +10,6 @@ namespace Crystal {
 class Vertex;
 class Face;
 
-
 class HalfEdge
 {
 public:
@@ -46,10 +45,7 @@ public:
 
 	bool isSame(const HalfEdge& rhs) const;
 
-	void connect(HalfEdge* next) {
-		next->prev = this;
-		this->next = next;
-	}
+	void connect(HalfEdge* next);
 
 	HalfEdge* getNext() const { return next; }
 
@@ -71,19 +67,19 @@ public:
 
 	void toDenerate();
 
-	bool has(Vertex* e) {
-		return (start == e) || (end == e);
-	}
+	bool has(Vertex* e);
 
-	Math::Line3d<float> getCurve() const {
-		return toLine();
-	}
+	Math::Line3d<float> getCurve() const;
 
 	void reverse();
 
 	HalfEdge* split(Vertex* v);
 
 	HalfEdge* clone(const int id) const;
+
+	void setPair(HalfEdge* pair) { this->pair = pair; }
+
+	HalfEdge* getPair() const { return pair; }
 
 private:
 	Vertex* start;
