@@ -195,5 +195,6 @@ HalfEdge* HalfEdge::getPair() const
 	else if (this->parent->isRight(this)) {
 		return this->parent->getRight();
 	}
+	return nullptr;
 }
 

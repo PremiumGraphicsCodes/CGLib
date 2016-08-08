@@ -29,6 +29,7 @@
     <ClCompile Include="HalfEdgeTest.cpp" />
     <ClCompile Include="FaceSpaceHashTest.cpp" />
     <ClCompile Include="FaceTest.cpp" />
+    <ClCompile Include="IndexPolygonSourceTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
     <ClCompile Include="LoopTest.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />

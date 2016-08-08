@@ -16,6 +16,18 @@ public:
 		texCoordIndex(-1)
 	{}
 
+	explicit IndexedVertex(const int positionIndex) :
+		positionIndex(positionIndex),
+		normalIndex(-1),
+		texCoordIndex(-1)
+	{}
+
+	IndexedVertex(const int positionIndex, const int normalIndex) :
+		positionIndex(positionIndex),
+		normalIndex(normalIndex),
+		texCoordIndex(-1)
+	{}
+
 	int positionIndex;
 	int normalIndex;
 	int texCoordIndex;

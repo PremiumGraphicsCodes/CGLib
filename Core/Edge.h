@@ -43,6 +43,10 @@ public:
 
 	bool isRight(const HalfEdge* e) const;
 
+	void setRight(HalfEdge* e) { this->right = e; }
+
+	void setLeft(HalfEdge* e) { this->left = e; }
+
 private:
 	HalfEdge* left;
 	HalfEdge* right;
