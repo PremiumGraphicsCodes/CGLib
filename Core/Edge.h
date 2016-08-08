@@ -17,6 +17,8 @@ public:
 
 	Edge(HalfEdge* e1, HalfEdge* e2);
 
+	void connect(Edge& next);
+
 	std::vector<Edge> split(Vertex* v);
 
 	Edge build(Vertex* v1, Vertex* v2);

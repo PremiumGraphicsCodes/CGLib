@@ -20,10 +20,17 @@ Edge::Edge(HalfEdge* e1, HalfEdge* e2) :
 	right(e2)
 {}
 
+void Edge::connect(Edge& next)
+{
+	left->connect(next.left);
+	next.right->connect(right);
+}
+
+
 std::vector<Edge> Edge::split(Vertex* v)
 {
 	auto v1 = left->getStart();
-	auto v2 = right->getEnd();
+	auto v2 = left->getEnd();
 	return createEdges(std::vector<Vertex*>{ v1, v, v2 });
 }
 
@@ -36,14 +43,19 @@ Edge Edge::build(Vertex* v1, Vertex* v2)
 
 std::vector<Edge> Edge::createEdges(std::vector<Vertex*> vertices)
 {
-	std::vector<Edge> results;
+	std::vector<Edge> edges;
 	for (int i = 0; i < vertices.size() - 1; ++i) {
 		auto v1 = vertices[i];
 		auto v2 = vertices[i + 1];
 		auto e = build(v1, v2);
-		results.push_back(e);
+		edges.push_back(e);
 	}
-	return results;
+	for (int i = 0; i < edges.size() - 1; ++i) {
+		auto e1 = edges[i];
+		auto e2 = edges[i + 1];
+		e1.connect(e2);
+	}
+	return edges;
 }
 
 bool Edge::isShared() const
