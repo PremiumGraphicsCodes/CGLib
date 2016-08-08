@@ -22,7 +22,7 @@
     <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="AnisotoropicParticleTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
-    <ClCompile Include="EdgeCollectionTest.cpp" />
+    <ClCompile Include="HalfEdgeCollectionTest.cpp" />
     <ClCompile Include="EdgeSpaceHashTest.cpp" />
     <ClCompile Include="EdgeTest.cpp" />
     <ClCompile Include="HalfEdgeTest.cpp" />
