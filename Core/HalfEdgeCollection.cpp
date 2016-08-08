@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "EdgeCollection.h"
+#include "HalfEdgeCollection.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

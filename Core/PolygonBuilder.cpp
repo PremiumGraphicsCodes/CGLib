@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Vertex.h"
 #include "VertexCollection.h"
-#include "EdgeCollection.h"
+#include "HalfEdgeCollection.h"
 #include "PolygonBuilder.h"
 #include "ParticleObject.h"
 #include "PolygonMesh.h"

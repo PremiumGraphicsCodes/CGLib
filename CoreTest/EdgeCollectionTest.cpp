@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../Core/EdgeCollection.h"
+#include "../Core/HalfEdgeCollection.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

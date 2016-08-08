@@ -4,7 +4,7 @@
 #include "../Util/UnCopyable.h"
 #include "PolygonMesh.h"
 #include "Face.h"
-#include "EdgeCollection.h"
+#include "HalfEdgeCollection.h"
 #include <map>
 
 namespace Crystal {

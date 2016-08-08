@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_CORE_FACE_BUILDER_H__
 #define __CRYSTAL_CORE_FACE_BUILDER_H__
 
-#include "EdgeCollection.h"
+#include "HalfEdgeCollection.h"
 #include "FaceCollection.h"
 
 namespace Crystal {
