@@ -96,6 +96,9 @@
     <ClCompile Include="EdgeCollection.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="IndexedPolygonSource.cpp">
+      <Filter>Polygon\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -200,6 +203,9 @@
     <ClInclude Include="EdgeCollection.h">
       <Filter>Polygon</Filter>
     </ClInclude>
+    <ClInclude Include="IndexedPolygonSource.h">
+      <Filter>Polygon\Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -219,6 +225,9 @@
     </Filter>
     <Filter Include="Polygon">
       <UniqueIdentifier>{faef21cc-daac-4e23-9b00-4756b8033c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Polygon\Source">
+      <UniqueIdentifier>{32bda1ce-c91c-49dc-8657-41c62029ef4f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

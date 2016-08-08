@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "HalfEdge.h"
 #include "Vertex.h"
+#include "Edge.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -11,10 +12,9 @@ HalfEdge::HalfEdge(Vertex* start, Vertex* end, const int id) :
 	id(id),
 	next(nullptr),
 	face(nullptr),
-	pair(nullptr)
+	parent(nullptr)
 {
 }
-
 
 Vector3d<float> HalfEdge::getVector() const
 {
@@ -157,7 +157,7 @@ HalfEdge* HalfEdge::clone(const int id) const
 	e->face = face;
 	e->prev = prev;
 	e->next = next;
-	e->pair = pair;
+	e->parent = parent;
 	return e;
 }
 
@@ -169,5 +169,31 @@ bool HalfEdge::has(Vertex* e)
 Line3d<float> HalfEdge::getCurve() const
 {
 	return toLine();
+}
+
+void HalfEdge::setPair(HalfEdge* pair)
+{
+	if (!this->parent) {
+		return;
+	}
+	if (this->parent->isLeft(this)) {
+		this->parent->setRight(pair);
+	}
+	else if (this->parent->isRight(this)) {
+		this->parent->setLeft(pair);
+	}
+}
+
+HalfEdge* HalfEdge::getPair() const
+{
+	if (!this->parent) {
+		return nullptr;
+	}
+	if (this->parent->isLeft(this)) {
+		return this->parent->getLeft();
+	}
+	else if (this->parent->isRight(this)) {
+		return this->parent->getRight();
+	}
 }
 

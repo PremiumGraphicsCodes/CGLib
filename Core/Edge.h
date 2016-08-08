@@ -37,6 +37,12 @@ public:
 
 	int getId() const { return id; }
 
+	void set(HalfEdge* left, HalfEdge* right);
+
+	bool isLeft(const HalfEdge* e) const;
+
+	bool isRight(const HalfEdge* e) const;
+
 private:
 	HalfEdge* left;
 	HalfEdge* right;

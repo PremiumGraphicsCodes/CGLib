@@ -9,6 +9,7 @@ namespace Crystal {
 
 class Vertex;
 class Face;
+class Edge;
 
 class HalfEdge
 {
@@ -77,9 +78,9 @@ public:
 
 	HalfEdge* clone(const int id) const;
 
-	void setPair(HalfEdge* pair) { this->pair = pair; }
+	void setPair(HalfEdge* pair);
 
-	HalfEdge* getPair() const { return pair; }
+	HalfEdge* getPair() const;
 
 private:
 	Vertex* start;
@@ -87,7 +88,7 @@ private:
 	Face* face;
 	HalfEdge* prev;
 	HalfEdge* next;
-	HalfEdge* pair;
+	Edge* parent;
 	int id;
 };
 

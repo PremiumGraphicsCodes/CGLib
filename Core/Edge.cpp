@@ -65,3 +65,19 @@ bool Edge::isShared() const
 {
 	return left && right;
 }
+
+void Edge::set(HalfEdge* left, HalfEdge* right)
+{
+	this->left = left;
+	this->right = right;
+}
+
+bool Edge::isLeft(const HalfEdge* e) const
+{
+	return (e == left);
+}
+
+bool Edge::isRight(const HalfEdge* e) const
+{
+	return (e == right);
+}

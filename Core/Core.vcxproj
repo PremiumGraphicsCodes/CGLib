@@ -31,6 +31,7 @@
     <ClCompile Include="FaceBuilder.cpp" />
     <ClCompile Include="FaceCollection.cpp" />
     <ClCompile Include="FaceSpaceHash.cpp" />
+    <ClCompile Include="IndexedPolygonSource.cpp" />
     <ClCompile Include="IParticle.cpp" />
     <ClCompile Include="ISpaceHash.cpp" />
     <ClCompile Include="Joint.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="FaceBuilder.h" />
     <ClInclude Include="FaceCollection.h" />
     <ClInclude Include="FaceSpaceHash.h" />
+    <ClInclude Include="IndexedPolygonSource.h" />
     <ClInclude Include="ISpaceHash.h" />
     <ClInclude Include="Loop.h" />
     <ClInclude Include="PolygonBuilder.h" />

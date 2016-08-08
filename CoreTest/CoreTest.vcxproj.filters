@@ -51,6 +51,9 @@
     <ClCompile Include="HalfEdgeCollectionTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="EdgeCollectionTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
