@@ -164,5 +164,9 @@ TEST(PolygonFactoryTest, TestSplit)
 	EXPECT_EQ(Vector3d<float>(-1, 0, 0), f1->getEdges().front()->getStart()->getPosition());
 	EXPECT_EQ(Vector3d<float>(1, 0, 0), f1->getEdges().front()->getNext()->getStart()->getPosition());
 	EXPECT_EQ(Vector3d<float>(0.5, 0.5, 0), f1->getEdges().front()->getNext()->getNext()->getStart()->getPosition());
-
+	
+	auto f2 = factory.getFaces().get().back();
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), f2->getEdges().front()->getStart()->getPosition());
+	EXPECT_EQ(Vector3d<float>(0.5, 0.5, 0), f2->getEdges().front()->getNext()->getStart()->getPosition());
+	EXPECT_EQ(Vector3d<float>(0, 1, 0), f2->getEdges().front()->getNext()->getNext()->getStart()->getPosition());
 }
