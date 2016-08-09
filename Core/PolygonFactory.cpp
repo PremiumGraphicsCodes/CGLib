@@ -91,28 +91,26 @@ void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 	vertices.renumber();
 }
 
-void PolygonFactory::splitByBottom(PolygonMesh* polygon,Face* f)
+void PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
 {
-	/*
-	auto bottom = nodes.create(f->getEdges()[1]->getMidPoint());
-	auto f2 = createTriangleFace(bottom, f->getEdges()[2]->getStart(), f->getEdges()[2]->getEnd());
+	auto f = e->getFace();
+	auto prev = e->getPrev();
+	auto next = e->getNext();
+	const auto& midPoint = e->getMidPoint();
+	auto newV = vertices.create(midPoint);
+	e->changeEnd(newV);
+	auto newE1 = edges.create(newV, prev->getStart() );
+	e->connect(newE1);
+	newE1->connect(next);
+	newE1->setFace(f);
 
-	f->getEdges()[1]->changeEnd(bottom);
-	f->getEdges()[2]->changeStart(bottom);
-	f->getEdges()[2]->changeEnd(f->getEdges()[0]->getStart());
-	assert(f->getArea() > 0);
-
-	assert( f2->getArea() > 0);
-
-	surface->add(faces.get());
-	surface->add(nodes.get());
-	surface->add(edges.get());
-	SurfaceFactory fa(nodes, edges, faces);
-	factory->merge(fa);
-	for (auto f : surface->getFaces()) {
-	assert(f->isConnected());
-	}
-	*/
+	auto newE2 = edges.create(prev->getStart(), newV);
+	auto newE3 = edges.create(newV, next->getStart());
+	newE2->connect(newE3);
+	newE3->connect(next);
+	next->connect(newE2);
+	auto newFace = faces.create(newE2, newE3, next);
+	polygon->add(newFace);
 }
 
 void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)

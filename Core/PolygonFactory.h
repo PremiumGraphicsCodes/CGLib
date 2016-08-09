@@ -34,7 +34,7 @@ public:
 
 	void splitByCenter(PolygonMesh* polygon, Face* f);
 
-	void splitByBottom(PolygonMesh* polygon, Face* f);
+	void split(PolygonMesh* polygon, HalfEdge* e);
 
 	void splitByNode(PolygonMesh* polygon, Face* f);
 

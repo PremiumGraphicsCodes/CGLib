@@ -147,3 +147,22 @@ TEST(PolygonFactoryTest, TestFindIsolatedVertices)
 	auto actual = factory.findIsolatedVertices();
 	EXPECT_EQ(1, actual.size());
 }
+
+TEST(PolygonFactoryTest, TestSplit)
+{
+	PolygonFactory factory;
+	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
+	PolygonBuilder builder1(t1.toCurve3d());
+	auto polygon = factory.create(builder1);
+	auto f = polygon->getFaces().front();
+	auto e = f->getEdges()[1];
+	factory.split(polygon, e);
+	EXPECT_EQ(2, factory.getFaces().size());
+	EXPECT_EQ(6, factory.getEdges().size());
+	EXPECT_EQ(4, factory.getVertices().size());
+	auto f1 = factory.getFaces().get().front();
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), f1->getEdges().front()->getStart()->getPosition());
+	EXPECT_EQ(Vector3d<float>(1, 0, 0), f1->getEdges().front()->getNext()->getStart()->getPosition());
+	EXPECT_EQ(Vector3d<float>(0.5, 0.5, 0), f1->getEdges().front()->getNext()->getNext()->getStart()->getPosition());
+
+}

@@ -19,11 +19,11 @@ public:
 
 	Vertex* find(Vertex* v);
 
-	Vertex* getV1() const { return edges[0]->getStart(); }
+	Vertex* getV1() const { return start->getStart(); }
 
-	Vertex* getV2() const { return edges[1]->getStart(); }
+	Vertex* getV2() const { return start->getNext()->getStart(); }
 
-	Vertex* getV3() const { return edges[2]->getStart(); }
+	Vertex* getV3() const { return start->getNext()->getNext()->getStart(); }
 
 	Math::Point3d<float> getCenterPoint() const;
 
@@ -58,7 +58,7 @@ public:
 	void reverse();
 
 private:
-	std::array< HalfEdge*, 3 > edges;
+	HalfEdge* start;
 	//std::array< Vertex*, 3> vertices;
 	int id;
 };

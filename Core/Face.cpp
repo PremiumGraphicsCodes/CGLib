@@ -9,19 +9,22 @@ using namespace Crystal::Core;
 Face::Face(HalfEdge* e1, HalfEdge* e2, HalfEdge* e3, const int id) :
 	id(id)
 {
-	edges[0] = e1;
-	edges[1] = e2;
-	edges[2] = e3;
+	e1->connect(e2);
+	e2->connect(e3);
+	e3->connect(e1);
+	e1->setFace(this);
+	e2->setFace(this);
+	e3->setFace(this);
+	this->start = (e1);
 }
 
-
 Face::Face(const std::array<HalfEdge*, 3>& edges, const int id) :
-	edges( edges ),
 	id(id)
 {
 	edges[0]->setFace(this);
 	edges[1]->setFace(this);
 	edges[2]->setFace(this);
+	this->start = edges[0];
 }
 
 Vertex* Face::find(Vertex* v)
@@ -43,7 +46,6 @@ Vector3d<float> Face::getNormal() const
 	return normal;
 }
 
-
 Point3d<float> Face::getCenterPoint() const {
 	auto vertices = getVertices();
 	auto pos = (vertices[0]->getPosition() + vertices[1]->getPosition() + vertices[2]->getPosition()) / 3;
@@ -54,12 +56,12 @@ Point3d<float> Face::getCenterPoint() const {
 
 std::array< HalfEdge*, 3 > Face::getEdges() const
 {
-	return edges;
+	return{ start, start->getNext(), start->getNext()->getNext() };
 }
 
 std::array< Vertex*, 3 > Face::getVertices() const
 {
-	return{ edges[0]->getStart(), edges[1]->getStart(), edges[2]->getStart() };
+	return{ getV1(), getV2(), getV3() };
 }
 
 bool Face::has(Vertex* v) const
@@ -71,7 +73,7 @@ bool Face::has(Vertex* v) const
 
 float Face::getArea() const
 {
-	auto vertices = getVertices();
+	const auto& edges = getEdges();
 	auto v1 = (edges[0]->getEnd()->getPosition() - edges[0]->getStart()->getPosition());
 	auto v2 = (edges[1]->getEnd()->getPosition() - edges[1]->getStart()->getPosition());
 	return v1.getOuterProduct(v2).getLength() / 2.0f;
@@ -103,6 +105,11 @@ bool Face::isDegenerated(const float area) const
 
 void Face::toDegenerate()
 {
+	const auto& edges = getEdges();
+	for (auto e : edges) {
+		e->toDenerate();
+	}
+	/*
 	edges[0]->toDenerate();
 	edges[1]->changeStart(edges[0]->getEnd());
 	edges[1]->toDenerate();
@@ -110,6 +117,7 @@ void Face::toDegenerate()
 	edges[2]->toDenerate();
 	//edges[1]->toDenerate();
 	//edges[2]->toDenerate();
+	*/
 }
 
 std::map<Vertex*, Vertex*> Face::findDouble(const Face& rhs, const float distance)
@@ -156,10 +164,13 @@ Triangle3d<float> Face::toTriangle() const
 
 void Face::reverse()
 {
-	auto edges = getEdges();
-	for (auto& e : edges) {
+	const auto edges = getEdges();
+	for (auto iter = edges.rbegin(); iter != edges.rend(); ++iter) {
+		auto e = *(iter);
+		auto next = (*iter + 1);
 		e->reverse();
+		e->connect(next);
 	}
-	this->edges[0] = edges[2];
-	this->edges[2] = edges[0];
+	edges.back()->connect(edges.front());
+	this->start = edges.back();
 }
