@@ -104,6 +104,6 @@ TEST(FaceTest, TestReverse)
 	auto f = builder.build(0, 1, 2);
 	f->reverse();
 	const auto& edges = f->getEdges();
-	EXPECT_EQ(&v1, edges.front()->getStart());
-	EXPECT_EQ(&v3, edges.front()->getEnd());
+	EXPECT_EQ(0, edges.front()->getStart()->getId());
+	EXPECT_EQ(2, edges.front()->getEnd()->getId());
 }

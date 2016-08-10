@@ -165,12 +165,21 @@ Triangle3d<float> Face::toTriangle() const
 void Face::reverse()
 {
 	const auto edges = getEdges();
-	for (auto iter = edges.rbegin(); iter != edges.rend(); ++iter) {
+
+	/*
+	for (auto iter = edges.rbegin(); iter != edges.rend()-1; ++iter) {
 		auto e = *(iter);
-		auto next = (*iter + 1);
+		auto next = *(iter + 1);
 		e->reverse();
 		e->connect(next);
 	}
 	edges.back()->connect(edges.front());
+	*/
+	edges[2]->reverse();
+	edges[1]->reverse();
+	edges[0]->reverse();
+	edges[2]->connect(edges[1]);
+	edges[1]->connect(edges[0]);
+	edges[0]->connect(edges[2]);
 	this->start = edges.back();
 }
