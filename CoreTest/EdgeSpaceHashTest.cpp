@@ -16,6 +16,6 @@ TEST(EdgeSpaceHashTest, TestGetNeighbor)
 	hash.add(&e1);
 	hash.add(&e2);
 	EXPECT_EQ(1, hash.getNeighbor(Vector3d<float>(0.0, 0.0, 0.0)).size());
-	EXPECT_EQ(1, hash.getNeighbor(Vector3d<float>(2.0, 0.0, 0.0)).size());
+	EXPECT_EQ(0, hash.getNeighbor(Vector3d<float>(2.0, 0.0, 0.0)).size());
 	EXPECT_EQ(0, hash.getNeighbor(Vector3d<float>(10.0, 0.0, 0.0)).size());
 }

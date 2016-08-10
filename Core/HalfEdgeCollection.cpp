@@ -145,6 +145,7 @@ void HalfEdgeCollection::findPair()
 		for (auto n : neighbors) {
 			if (n->isReverse(*e)) {
 				e->setPair(n);
+				n->setPair(e);
 			}
 		}
 	}

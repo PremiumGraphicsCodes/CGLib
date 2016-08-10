@@ -57,6 +57,8 @@ public:
 
 	void reverse();
 
+	void setStart(HalfEdge* start) { this->start = start; }
+
 private:
 	HalfEdge* start;
 	//std::array< Vertex*, 3> vertices;

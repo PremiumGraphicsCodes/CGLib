@@ -106,9 +106,13 @@ Vertex* PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
 	auto newV = vertices.create(midPoint);
 	e->changeEnd(newV);
 	auto newE1 = edges.create(newV, prev->getStart() );
+	prev->connect(e);
 	e->connect(newE1);
-	newE1->connect(next);
+	newE1->connect(prev);
 	newE1->setFace(f);
+	f->setStart(prev);
+	auto area = f->getArea();
+	assert(f->getArea() > 0);
 
 	auto newE2 = edges.create(prev->getStart(), newV);
 	auto newE3 = edges.create(newV, next->getStart());
@@ -117,6 +121,7 @@ Vertex* PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
 	next->connect(newE2);
 	auto newFace = faces.create(newE2, newE3, next);
 	polygon->add(newFace);
+	assert(newFace->getArea() > 0);
 	return newV;
 }
 
@@ -369,4 +374,12 @@ void PolygonFactory::divide(PolygonMesh* polygon, const float area)
 			split(polygon, f);
 		}
 	}
+/*
+	auto edges = polygon->getEdges();
+	for (auto e : edges) {
+		if (e->getLength() > 0.2) {
+			split(polygon,e);
+		}
+	}
+	*/
 }
