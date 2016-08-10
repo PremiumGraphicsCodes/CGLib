@@ -3,6 +3,7 @@
 
 #include "Vertex.h"
 #include "HalfEdge.h"
+#include "EdgeCollection.h"
 
 namespace Crystal {
 	namespace Core {
@@ -54,6 +55,8 @@ public:
 	iterator end() { return edges.end(); }
 
 	const_iterator end() const { return edges.end(); }
+
+	void findPair();
 
 private:
 	int nextId;

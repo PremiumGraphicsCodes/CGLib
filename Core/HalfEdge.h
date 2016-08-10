@@ -88,7 +88,7 @@ private:
 	Face* face;
 	HalfEdge* prev;
 	HalfEdge* next;
-	Edge* parent;
+	HalfEdge* pair;
 	int id;
 };
 

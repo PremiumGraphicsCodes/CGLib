@@ -4,11 +4,13 @@
 #include "../Util/UnCopyable.h"
 #include "PolygonMesh.h"
 #include "Face.h"
+#include "Edge.h"
 #include "HalfEdgeCollection.h"
 #include <map>
 
 namespace Crystal {
 	namespace Core {
+		class Edge;
 		class Volume;
 		class ParticleObject;
 		class PolygonBuilder;
@@ -34,9 +36,11 @@ public:
 
 	void splitByCenter(PolygonMesh* polygon, Face* f);
 
-	void split(PolygonMesh* polygon, HalfEdge* e);
+	void split(PolygonMesh* polygon, Edge& e);
 
-	void splitByNode(PolygonMesh* polygon, Face* f);
+	Vertex* split(PolygonMesh* polygon, HalfEdge* e);
+
+	void split(PolygonMesh* polygon, Face* f);
 
 	void addVertex(Face* f, const Math::Point3d<float>& point);
 

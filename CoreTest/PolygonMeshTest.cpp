@@ -55,8 +55,8 @@ TEST(PolygonMeshTest, TestSplitByNode)
 	PolygonFactory factory;
 	auto polygon = factory.create(builder);
 	auto f = polygon->getFaces().front();
-	factory.splitByNode(polygon, f);
-	EXPECT_EQ(5, polygon->getFaces().size());
+	factory.split(polygon, f);
+	EXPECT_EQ(6, polygon->getFaces().size());
 	EXPECT_EQ(7, polygon->getVertices().size());
 }
 

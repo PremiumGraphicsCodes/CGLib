@@ -91,7 +91,13 @@ void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 	vertices.renumber();
 }
 
-void PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
+void PolygonFactory::split(PolygonMesh* polygon, Edge& e)
+{
+	split(polygon, e.getRight());
+	split(polygon, e.getLeft());
+}
+
+Vertex* PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
 {
 	auto f = e->getFace();
 	auto prev = e->getPrev();
@@ -111,16 +117,23 @@ void PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
 	next->connect(newE2);
 	auto newFace = faces.create(newE2, newE3, next);
 	polygon->add(newFace);
+	return newV;
 }
 
-void PolygonFactory::splitByNode(PolygonMesh* polygon, Face* f)
+void PolygonFactory::split(PolygonMesh* polygon, Face* f)
 {
-	const auto& es = f->getEdges();
-	std::vector<Vertex*> startPoints;
+ 	std::vector<Vertex*> startPoints;
 	std::vector<Vertex*> midPoints;
-	for (const auto& e : f->getEdges()) {
+	const auto& es = f->getEdges();
+	for (auto e : es) {
 		startPoints.push_back(e->getStart());
-		midPoints.push_back(vertices.create(e->getMidPoint()));
+		auto pair = e->getPair();
+		if (pair) {
+			midPoints.push_back( split(polygon, pair));
+		}
+		else {
+			midPoints.push_back(vertices.create(e->getMidPoint()));
+		}
 	}
 	auto f1 = createFace(midPoints[0], startPoints[1], midPoints[1]);
 	auto f2 = createFace(midPoints[1], startPoints[2], midPoints[2]);
@@ -353,7 +366,7 @@ void PolygonFactory::divide(PolygonMesh* polygon, const float area)
 	auto faces = polygon->getFaces();
 	for (auto f : faces) {
 		if (f->getArea() > area) {
-			splitByNode(polygon, f);
+			split(polygon, f);
 		}
 	}
 }

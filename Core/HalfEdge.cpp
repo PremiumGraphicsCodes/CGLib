@@ -12,7 +12,7 @@ HalfEdge::HalfEdge(Vertex* start, Vertex* end, const int id) :
 	id(id),
 	next(nullptr),
 	face(nullptr),
-	parent(nullptr)
+	pair(nullptr)
 {
 }
 
@@ -157,7 +157,7 @@ HalfEdge* HalfEdge::clone(const int id) const
 	e->face = face;
 	e->prev = prev;
 	e->next = next;
-	e->parent = parent;
+	e->pair = pair;
 	return e;
 }
 
@@ -173,28 +173,11 @@ Line3d<float> HalfEdge::getCurve() const
 
 void HalfEdge::setPair(HalfEdge* pair)
 {
-	if (!this->parent) {
-		return;
-	}
-	if (this->parent->isLeft(this)) {
-		this->parent->setRight(pair);
-	}
-	else if (this->parent->isRight(this)) {
-		this->parent->setLeft(pair);
-	}
+	this->pair = pair;
 }
 
 HalfEdge* HalfEdge::getPair() const
 {
-	if (!this->parent) {
-		return nullptr;
-	}
-	if (this->parent->isLeft(this)) {
-		return this->parent->getLeft();
-	}
-	else if (this->parent->isRight(this)) {
-		return this->parent->getRight();
-	}
-	return nullptr;
+	return pair;
 }
 

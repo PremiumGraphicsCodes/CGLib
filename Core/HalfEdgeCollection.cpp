@@ -12,12 +12,15 @@ HalfEdgeCollection::HalfEdgeCollection(const std::vector<HalfEdge*>& edges) :
 	edges(edges.begin(), edges.end()),
 	nextId(0)
 {
+	findPair();
 }
 
 HalfEdgeCollection::HalfEdgeCollection(const std::list<HalfEdge*>& edges) :
 	edges(edges),
 	nextId(0)
-{}
+{
+	findPair();
+}
 
 HalfEdgeCollection::~HalfEdgeCollection()
 {
@@ -29,6 +32,7 @@ void HalfEdgeCollection::merge(HalfEdgeCollection& rhs)
 	this->edges.splice(this->edges.end(), rhs.edges);
 	renumber();
 	rhs.edges.clear();
+	findPair();
 }
 
 HalfEdge* HalfEdgeCollection::create(Vertex* start, Vertex* end)
@@ -122,4 +126,26 @@ HalfEdge* HalfEdgeCollection::findReverse(HalfEdge* rhs)
 		}
 	}
 	return nullptr;
+}
+
+#include "EdgeSpaceHash.h"
+
+void HalfEdgeCollection::findPair()
+{
+	float averagedLength = 0.0f;
+	for (auto e : edges) {
+		averagedLength += (e->getLength() / static_cast<float>(edges.size()));
+	}
+	EdgeSpaceHash hash(averagedLength, edges.size());
+	for (auto e : edges) {
+		hash.add(e);
+	}
+	for (auto e : edges) {
+		const auto& neighbors = hash.getNeighbor(e->getEnd()->getPosition());
+		for (auto n : neighbors) {
+			if (n->isReverse(*e)) {
+				e->setPair(n);
+			}
+		}
+	}
 }
