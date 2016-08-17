@@ -82,6 +82,8 @@ public:
 
 	HalfEdge* getPair() const;
 
+	int getHashKey() const;
+
 private:
 	Vertex* start;
 	Vertex* end;

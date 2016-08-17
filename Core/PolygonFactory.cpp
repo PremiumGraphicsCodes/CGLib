@@ -151,7 +151,7 @@ void PolygonFactory::split(PolygonMesh* polygon, Face* f)
 	es[1]->changeEnd(midPoints[2]);
 	es[2]->changeStart(midPoints[2]);
 
-	edges.findPair();
+	edges.setPairs();
 	//f->getV2()->moveTo(midPoints[0]->getPosition());
 	//f->getV3()->moveTo(midPoints[1]->getPosition());
 }

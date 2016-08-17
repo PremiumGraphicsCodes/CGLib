@@ -26,6 +26,6 @@ TEST(HalfEdgeCollectionTest, TestFindPair)
 	HalfEdge e2(&v2, &v1);
 	std::list<HalfEdge*> es = { &e1, &e2 };
 	HalfEdgeCollection edges(es);
-	edges.findPair();
+	edges.setPairs();
 	EXPECT_EQ(&e2, e1.getPair());
 }

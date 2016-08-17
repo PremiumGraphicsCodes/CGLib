@@ -181,3 +181,12 @@ HalfEdge* HalfEdge::getPair() const
 	return pair;
 }
 
+int HalfEdge::getHashKey() const
+{
+	auto id1 = start->getId();
+	auto id2 = end->getId();
+	if (id1 > id2) {
+		std::swap(id1, id2);
+	}
+	return (id1 | (id2 << 16));
+}

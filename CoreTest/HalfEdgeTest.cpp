@@ -107,3 +107,20 @@ TEST(HalfEdgeTest, TestSplit)
 	EXPECT_EQ(&n3, e3->getEnd());
 	delete e3;
 }
+
+TEST(HalfEdgeTest, TestGetHashKey)
+{
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 1);
+	Vertex n3(Vector3d<float>(2, 0, 0), 2);
+	HalfEdge e1(&n1, &n2, 0);
+	HalfEdge e2(&n2, &n1, 1);
+	HalfEdge e3(&n1, &n3, 2);
+	HalfEdge e4(&n3, &n1, 3);
+
+	EXPECT_EQ(65536, e1.getHashKey());
+	EXPECT_EQ(65536, e2.getHashKey());
+	EXPECT_EQ(131072, e3.getHashKey());
+	EXPECT_EQ(131072, e4.getHashKey());
+
+}

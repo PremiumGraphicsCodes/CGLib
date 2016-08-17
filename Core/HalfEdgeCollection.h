@@ -56,7 +56,7 @@ public:
 
 	const_iterator end() const { return edges.end(); }
 
-	void findPair();
+	void setPairs();
 
 private:
 	int nextId;
