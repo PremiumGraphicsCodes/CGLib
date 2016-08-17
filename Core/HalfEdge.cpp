@@ -197,3 +197,13 @@ float HalfEdge::getEndAngle() const
 	const auto& v2 = next->getVector();
 	return v1.getAngle(v2).getRadian().get();
 }
+
+bool HalfEdge::isInner() const
+{
+	return pair != nullptr;
+}
+
+bool HalfEdge::isBoundary() const
+{
+	return pair == nullptr;
+}

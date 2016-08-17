@@ -86,6 +86,10 @@ public:
 
 	float getEndAngle() const;
 
+	bool isInner() const;
+
+	bool isBoundary() const;
+
 private:
 	Vertex* start;
 	Vertex* end;

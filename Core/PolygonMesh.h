@@ -71,6 +71,12 @@ public:
 	void merge(PolygonMesh& rhs);
 
 	void reverse();
+
+	std::list<Vertex*> findInnerVertices();
+
+	std::list<Vertex*> findBoundaryVertices();
+
+	std::list<HalfEdge*> findBoundaryEdges();
 		
 private:
 	unsigned int id;

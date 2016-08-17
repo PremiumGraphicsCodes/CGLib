@@ -29,11 +29,9 @@ void PolygonMesh::clear()
 
 void PolygonMesh::smooth(const float angle)
 {
-	auto edges = getEdges();
+	auto edges = findInnerVertices();
 	for (auto e : edges) {
-		if (e->getEndAngle() > angle) {
-			smooth(e->getEnd());
-		}
+		smooth(e);
 	}
 }
 
@@ -207,4 +205,42 @@ void PolygonMesh::reverse()
 	for (auto f: faces) {
 		f->reverse();
 	}
+}
+
+std::list<Vertex*> PolygonMesh::findBoundaryVertices()
+{
+	const auto& bEdges = findBoundaryEdges();
+	std::list<Vertex*> results;
+	for (const auto& b : bEdges) {
+		results.push_back( b->getStart() );
+	}
+	results.sort();
+	results.unique();
+	return results;
+}
+
+std::list<Vertex*> PolygonMesh::findInnerVertices()
+{
+	auto all = getVertices();
+	auto boundaries = findBoundaryVertices();
+	std::list<Vertex*> inners;
+	std::set_difference(
+		all.begin(), all.end(),
+		boundaries.begin(), boundaries.end(),
+		std::back_inserter(inners)
+	);
+	return inners;
+}
+
+
+std::list<HalfEdge*> PolygonMesh::findBoundaryEdges()
+{
+	std::list<HalfEdge*> results;
+	const auto& edges = getEdges();
+	for (auto e : edges) {
+		if (e->isBoundary()) {
+			results.push_back(e);
+		}
+	}
+	return results;
 }
