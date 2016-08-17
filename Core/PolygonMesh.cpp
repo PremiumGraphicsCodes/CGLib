@@ -27,6 +27,17 @@ void PolygonMesh::clear()
 
 #include "HalfEdge.h"
 
+void PolygonMesh::smooth(const float angle)
+{
+	auto edges = getEdges();
+	for (auto e : edges) {
+		if (e->getEndAngle() > angle) {
+			smooth(e->getEnd());
+		}
+	}
+}
+
+
 void PolygonMesh::smooth(Vertex* center)
 {
 	std::list<Vertex*> neighbors;

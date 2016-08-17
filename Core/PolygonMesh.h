@@ -38,6 +38,8 @@ public:
 
 	void clear();
 
+	void smooth(const float angle);
+
 	void smooth(Vertex* v);
 
 	void simplify(const HalfEdge& e);

@@ -84,6 +84,8 @@ public:
 
 	int getHashKey() const;
 
+	float getEndAngle() const;
+
 private:
 	Vertex* start;
 	Vertex* end;

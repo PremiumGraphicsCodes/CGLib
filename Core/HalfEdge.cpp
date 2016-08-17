@@ -190,3 +190,10 @@ int HalfEdge::getHashKey() const
 	}
 	return (id1 | (id2 << 16));
 }
+
+float HalfEdge::getEndAngle() const
+{
+	const auto& v1 = getVector();
+	const auto& v2 = next->getVector();
+	return v1.getAngle(v2).getRadian().get();
+}

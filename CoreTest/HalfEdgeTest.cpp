@@ -122,5 +122,16 @@ TEST(HalfEdgeTest, TestGetHashKey)
 	EXPECT_EQ(65536, e2.getHashKey());
 	EXPECT_EQ(131072, e3.getHashKey());
 	EXPECT_EQ(131072, e4.getHashKey());
+}
 
+TEST(HalfEdgeTest, TestGetAngle)
+{
+	Vertex n1(Vector3d<float>(0, 0, 0), 0);
+	Vertex n2(Vector3d<float>(1, 0, 0), 1);
+	Vertex n3(Vector3d<float>(1, 1, 0), 2);
+
+	HalfEdge e1(&n1, &n2, 0);
+	HalfEdge e2(&n2, &n3, 0);
+	e1.connect(&e2);
+	EXPECT_EQ(Tolerance<float>::getHalfPI(), e1.getEndAngle());
 }
