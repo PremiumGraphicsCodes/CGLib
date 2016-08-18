@@ -17,7 +17,7 @@ public:
 
 	DepthTextureObject(const Graphics::Imagef& image, const int id = 0);
 
-	bool create(const Graphics::Imagef& image, const int id = 0);
+	void create(const Graphics::Imagef& image, const int id = 0);
 
 	void bind() const override;
 

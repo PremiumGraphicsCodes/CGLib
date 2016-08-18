@@ -10,7 +10,7 @@ DepthTextureObject::DepthTextureObject(const Imagef& image, const int id)
 	create(image, id);
 }
 
-bool DepthTextureObject::create(const Imagef& image, const int id)
+void DepthTextureObject::create(const Imagef& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -29,7 +29,7 @@ bool DepthTextureObject::create(const Imagef& image, const int id)
 	auto error = glGetError();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	return (GL_NO_ERROR == glGetError());
+	assert(GL_NO_ERROR == glGetError());
 }
 
 void DepthTextureObject::bind() const

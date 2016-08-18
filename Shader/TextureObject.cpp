@@ -9,7 +9,7 @@ TextureObject::TextureObject(const Image& image, const int id)
 	create(image, id);
 }
 
-bool TextureObject::create(const Image& image, const int id)
+void TextureObject::create(const Image& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -28,7 +28,7 @@ bool TextureObject::create(const Image& image, const int id)
 
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	return (GL_NO_ERROR == glGetError());
+	assert(GL_NO_ERROR == glGetError());
 }
 
 
@@ -51,7 +51,7 @@ TextureObject::TextureObject(const Imagef& image, const int id)
 	create(image, id);
 }
 
-bool TextureObject::create(const Imagef& image, const int id)
+void TextureObject::create(const Imagef& image, const int id)
 {
 	this->id = id;
 	this->width = image.getWidth();
@@ -70,5 +70,5 @@ bool TextureObject::create(const Imagef& image, const int id)
 
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-	return (GL_NO_ERROR == glGetError());
+	assert(GL_NO_ERROR == glGetError());
 }
