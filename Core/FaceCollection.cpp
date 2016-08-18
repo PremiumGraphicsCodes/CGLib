@@ -33,7 +33,7 @@ void FaceCollection::merge(FaceCollection& rhs)
 
 Face* FaceCollection::create(HalfEdge* v1, HalfEdge* v2, HalfEdge* v3)
 {
-	auto f = new Face(v1, v2, v3);
+	auto f = new Face(v1, v2, v3, nextId++);
 	faces.push_back(f);
 	return f;
 }
