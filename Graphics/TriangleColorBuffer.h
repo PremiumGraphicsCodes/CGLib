@@ -9,35 +9,31 @@
 #include "DrawableID.h"
 
 namespace Crystal {
-	namespace Core {
-		class PolygonMesh;
-		class Vertex;
-	}
 	namespace Graphics {
 
-		class TriangleColorBuffer
-		{
-		public:
-			TriangleColorBuffer();
+class TriangleColorBuffer
+{
+public:
+	TriangleColorBuffer();
 
-			//void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
+	//void add(const Core::PolygonMesh& polygon, const ColorRGBA<float>& color);
 
-			void add(const Math::Point3d<float>& point, const ColorRGBA<float>& did);
+	void add(const Math::Point3d<float>& point, const ColorRGBA<float>& did);
 
-			void clear();
+	void clear();
 
-			Buffer3d<float> getPositions() const { return positions; }
+	Buffer3d<float> getPositions() const { return positions; }
 
-			Buffer4d<float> getColors() const { return colors; }
+	Buffer4d<float> getColors() const { return colors; }
 
-			std::vector<unsigned int> getIndices() const { return indices; }
+	std::vector<unsigned int> getIndices() const { return indices; }
 
-		private:
-			std::vector<unsigned int> indices;
-			Buffer3d<float> positions;
-			Buffer4d<float> colors;
-			int nextId;
-		};
+private:
+	std::vector<unsigned int> indices;
+	Buffer3d<float> positions;
+	Buffer4d<float> colors;
+	int nextId;
+};
 
 	}
 }
