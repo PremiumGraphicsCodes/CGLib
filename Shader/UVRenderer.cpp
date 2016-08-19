@@ -50,7 +50,7 @@ std::string UVRenderer::getBuildinFragmentShaderSource()
 		<< "in vec3 vTexCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "void main(void) {" << std::endl
-		<< "	fragColor = vec4(vColor,1.0);" << std::endl
+		<< "	fragColor = vec4(vTexCoord,1.0);" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }

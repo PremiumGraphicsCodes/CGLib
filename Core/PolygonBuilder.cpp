@@ -96,9 +96,7 @@ PolygonBuilder::PolygonBuilder(const Curve3d<float>& curve)
 	NodeGrid1d grid(curve.getUNumber(), curve.getVNumber());
 	for (int u = 0; u < curve.getUNumber(); ++u) {
 		for (int v = 0; v < curve.getVNumber(); ++v) {
-			const auto& pos = curve.get(u, v).getPosition();
-			const auto& normal = curve.get(u, v).getNormal();
-			auto n = new Vertex(pos, normal, -1);
+			auto n = new Vertex(curve.get(u,v));
 			vertices.push_back(n);
 			grid.set(u, v, n);
 		}
