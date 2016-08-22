@@ -20,7 +20,7 @@ public:
 
 	void build(int width, int height);
 
-	void setTexture(const TextureObject& texture);
+	void setTexture(const ITextureObject& texture);
 
 	void bind();
 
