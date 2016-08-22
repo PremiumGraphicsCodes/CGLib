@@ -50,6 +50,7 @@
     <ClCompile Include="Line2dBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
+    <ClCompile Include="MaterialRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="Line2dBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="MaterialRepository.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">
