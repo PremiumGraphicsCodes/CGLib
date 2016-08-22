@@ -31,3 +31,8 @@ void TriangleBuffer::add(const PolygonMesh& polygon, Material* mat)
 	TriangleBufferBlock block(indices, mat);
 	blocks.push_back(block);
 }
+
+void TriangleBuffer::add(const ColoredPolygon& polygon)
+{
+	add(*polygon.getPolygon(), polygon.getMaterial());
+}

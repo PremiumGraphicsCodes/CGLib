@@ -6,6 +6,7 @@
 #include "../Core/PolygonMesh.h"
 #include "DrawableID.h"
 #include "Material.h"
+#include "ColoredPolygon.h"
 
 #include "Buffer3d.h"
 #include "Buffer4d.h"
@@ -42,6 +43,8 @@ public:
 	TriangleBuffer(const Core::PolygonFactory& factory);
 
 	void add(const Core::PolygonMesh& polygon, Material* mat = nullptr);
+
+	void add(const ColoredPolygon& polygon);
 
 	Buffer3d<float> getPositions() const { return positions; }
 

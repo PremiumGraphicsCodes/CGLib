@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ColoredPolygon.cpp" />
     <ClCompile Include="ColorHSV.cpp" />
     <ClCompile Include="ColorMap.cpp" />
     <ClCompile Include="ColorRGBA.cpp" />
@@ -51,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer1d.h" />
+    <ClInclude Include="ColoredPolygon.h" />
     <ClInclude Include="ColorMap.h" />
     <ClInclude Include="DrawableID.h" />
     <ClInclude Include="EllipsoidBuffer.h" />

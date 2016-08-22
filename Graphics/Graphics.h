@@ -8,6 +8,7 @@
 #include "ColorHSV.h"
 #include "ColorMap.h"
 #include "ColorRGBA.h"
+#include "ColoredPolygon.h"
 #include "DrawableID.h"
 #include "EllipsoidBuffer.h"
 #include "IBuffer.h"
