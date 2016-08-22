@@ -68,7 +68,6 @@ void SkyBoxRenderer::render(const CubeMapTextureObject& cubeMapTexture, const IC
 	//polygon.add(box);
 	buffer.add(polygon);
 
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
 	if (positions.empty()) {
@@ -95,7 +94,10 @@ void SkyBoxRenderer::render(const CubeMapTextureObject& cubeMapTexture, const IC
 	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glEnableVertexAttribArray(0);
 
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 
 	glDisableVertexAttribArray(0);
 

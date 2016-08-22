@@ -61,7 +61,6 @@ void GeometryRenderer::render(const int width, const int height, const ICamera<f
 {
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();
 	const auto& normals = buffer.getNormals().get();
 
@@ -73,7 +72,10 @@ void GeometryRenderer::render(const int width, const int height, const ICamera<f
 	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 
 	glEnableVertexAttribArray(0);
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size() ), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");

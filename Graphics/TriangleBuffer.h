@@ -16,6 +16,23 @@ namespace Crystal {
 	}
 	namespace Graphics {
 
+class TriangleBufferBlock
+{
+public:
+	TriangleBufferBlock(const std::vector<unsigned int>& indices, int texId) :
+		indices(indices),
+		texId(texId)
+	{}
+
+	std::vector<unsigned int> getIndices() const { return indices; }
+
+	int getTexId() const { return texId; }
+
+private:
+	std::vector<unsigned int> indices;
+	int texId;
+};
+
 class TriangleBuffer
 {
 public:
@@ -23,7 +40,7 @@ public:
 
 	TriangleBuffer(const Core::PolygonFactory& factory);
 
-	void add(const Core::PolygonMesh& polygon);
+	void add(const Core::PolygonMesh& polygon, const int texId = -1);
 
 	Buffer3d<float> getPositions() const { return positions; }
 
@@ -31,13 +48,13 @@ public:
 
 	Buffer3d<float> getTexCoords() const { return texCoords; }
 
-	std::vector<unsigned int> getIndices() const { return indices; }
+	std::vector<TriangleBufferBlock> getBlocks() const { return blocks; }
 
 private:
-	std::vector<unsigned int> indices;
 	Buffer3d<float> positions;
 	Buffer3d<float> normals;
 	Buffer3d<float> texCoords;
+	std::vector<TriangleBufferBlock> blocks;
 };
 
 	}

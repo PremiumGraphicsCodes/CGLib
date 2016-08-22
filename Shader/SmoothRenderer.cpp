@@ -114,7 +114,6 @@ void SmoothRenderer::set(ShaderObject* shader)
 
 void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const Material& material)
 {
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
 	if (positions.empty()) {
@@ -162,7 +161,11 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 
 	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size()), GL_UNSIGNED_INT, indices.data());
+	//glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size()), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 
 
 	glDisableVertexAttribArray(0);

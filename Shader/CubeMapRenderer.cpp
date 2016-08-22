@@ -77,7 +77,6 @@ void CubeMapRenderer::findLocation()
 
 void CubeMapRenderer::render(const CubeMapTextureObject& cubeMapTexture, const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
 	if (positions.empty()) {
@@ -119,7 +118,10 @@ void CubeMapRenderer::render(const CubeMapTextureObject& cubeMapTexture, const I
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

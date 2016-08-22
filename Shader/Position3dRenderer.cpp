@@ -60,7 +60,6 @@ void Position3dRenderer::findLocation()
 
 void Position3dRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	if (positions.empty()) {
 		return;
@@ -89,7 +88,10 @@ void Position3dRenderer::render(const ICamera<float>& camera, const TriangleBuff
 
 
 	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size() / 3));
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 
 
 	glDisableVertexAttribArray(0);

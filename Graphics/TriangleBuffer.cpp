@@ -19,12 +19,15 @@ TriangleBuffer::TriangleBuffer(const PolygonFactory& factory)
 	}
 }
 
-void TriangleBuffer::add(const PolygonMesh& polygon)
+void TriangleBuffer::add(const PolygonMesh& polygon, const int texId)
 {
 	const auto& faces = polygon.getFaces();
+	std::vector<unsigned int> indices;
 	for (auto f : faces) {
-		this->indices.push_back(f->getV1()->getId());
-		this->indices.push_back(f->getV2()->getId());
-		this->indices.push_back(f->getV3()->getId());
+		indices.push_back(f->getV1()->getId());
+		indices.push_back(f->getV2()->getId());
+		indices.push_back(f->getV3()->getId());
 	}
+	TriangleBufferBlock block(indices, texId);
+	blocks.push_back(block);
 }

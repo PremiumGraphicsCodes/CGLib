@@ -62,7 +62,6 @@ void SSNormalRenderer::render(const ICamera<float>& camera, const TriangleBuffer
 {
 	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();
 	const auto& normals = buffer.getNormals().get();
 
@@ -76,7 +75,13 @@ void SSNormalRenderer::render(const ICamera<float>& camera, const TriangleBuffer
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	//glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
+
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 

@@ -69,7 +69,6 @@ void UVRenderer::set(ShaderObject* shader)
 
 void UVRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer)
 {
-	const auto& indices = buffer.getIndices();
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& texCoords = buffer.getTexCoords().get();//buffers[1].get();
 	if (positions.empty()) {
@@ -102,7 +101,10 @@ void UVRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buff
 	glEnableVertexAttribArray(1);
 	assert(GL_NO_ERROR == glGetError());
 
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

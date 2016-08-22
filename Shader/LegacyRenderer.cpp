@@ -284,7 +284,6 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
-	const auto& indices = buffer.getIndices();
 
 	if (positions.empty()) {
 		return;
@@ -322,7 +321,10 @@ void LegacyRenderer::render(const ICamera<float>& camera, const PointLight<float
 	glNormalPointer(GL_FLOAT, 0, normals.data());
 
 	//glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(positions.size()) / 3);
-	glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size() ), GL_UNSIGNED_INT, indices.data());
+	for (const auto& b : buffer.getBlocks()) {
+		const auto& indices = b.getIndices();
+		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+	}
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
