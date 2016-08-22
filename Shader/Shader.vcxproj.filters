@@ -39,9 +39,6 @@
     <ClCompile Include="FluidRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
-    <ClCompile Include="OnScreenRenderer.cpp">
-      <Filter>Renderer\Fluid</Filter>
-    </ClCompile>
     <ClCompile Include="CubeMapRenderer.cpp">
       <Filter>Renderer\Fluid</Filter>
     </ClCompile>
@@ -124,6 +121,9 @@
     <ClCompile Include="UVRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="OnScreenRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -165,9 +165,6 @@
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="FluidRenderer.h">
-      <Filter>Renderer\Fluid</Filter>
-    </ClInclude>
-    <ClInclude Include="OnScreenRenderer.h">
       <Filter>Renderer\Fluid</Filter>
     </ClInclude>
     <ClInclude Include="CubeMapRenderer.h">
@@ -253,6 +250,9 @@
       <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="UVRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="OnScreenRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>

@@ -80,9 +80,7 @@ ColorRGBA<float> FrameBuffer::getColorf(const int x, const int y) const
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	return ColorRGBA<float>(values[0], values[1], values[2], values[3]);
-
 }
-
 
 std::vector<ColorRGBA<unsigned char>> FrameBuffer::getColors(const int x, const int y, const int width, const int height) const
 {
@@ -96,11 +94,28 @@ std::vector<ColorRGBA<unsigned char>> FrameBuffer::getColors(const int x, const 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	std::vector<ColorRGBA<unsigned char>> results;
-	for (int i = 0; i < values.size(); i+=4) {
+	for (int i = 0; i < values.size(); i += 4) {
 		results.push_back(ColorRGBA<unsigned char>(values[i + 0], values[i + 1], values[i + 2], values[i + 3]));
 	}
 
 	return results;
-
 }
 
+std::vector<ColorRGBA<float>> FrameBuffer::getColorsf(const int x, const int y, const int width, const int height) const
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	std::vector<float> values(width * height * 4);
+
+	glReadPixels(x, y, width, height, GL_RGBA, GL_FLOAT, values.data());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	std::vector<ColorRGBA<float>> results;
+	for (int i = 0; i < values.size(); i += 4) {
+		results.push_back(ColorRGBA<float>(values[i + 0], values[i + 1], values[i + 2], values[i + 3]));
+	}
+
+	return results;
+}
