@@ -5,6 +5,7 @@
 
 #include "../Core/PolygonMesh.h"
 #include "DrawableID.h"
+#include "Material.h"
 
 #include "Buffer3d.h"
 #include "Buffer4d.h"
@@ -19,18 +20,18 @@ namespace Crystal {
 class TriangleBufferBlock
 {
 public:
-	TriangleBufferBlock(const std::vector<unsigned int>& indices, int texId) :
+	TriangleBufferBlock(const std::vector<unsigned int>& indices, Material* material) :
 		indices(indices),
-		texId(texId)
+		material(material)
 	{}
 
 	std::vector<unsigned int> getIndices() const { return indices; }
 
-	int getTexId() const { return texId; }
+	Material* getMaterial() const { return material; }
 
 private:
 	std::vector<unsigned int> indices;
-	int texId;
+	Material* material;
 };
 
 class TriangleBuffer
@@ -40,7 +41,7 @@ public:
 
 	TriangleBuffer(const Core::PolygonFactory& factory);
 
-	void add(const Core::PolygonMesh& polygon, const int texId = -1);
+	void add(const Core::PolygonMesh& polygon, Material* mat = nullptr);
 
 	Buffer3d<float> getPositions() const { return positions; }
 

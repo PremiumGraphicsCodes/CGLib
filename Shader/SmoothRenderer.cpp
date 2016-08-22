@@ -33,12 +33,14 @@ std::string SmoothRenderer::getBuildinVertexShaderSource()
 		<< "in vec3 normal;" << std::endl
 		<< "in vec3 texCoord;" << std::endl
 		<< "out vec3 vNormal;" << std::endl
+		<< "out vec3 vPosition;" << std::endl
 		<< "out vec3 vTexCoord;" << std::endl
 		<< "uniform mat4 projectionMatrix;"
 		<< "uniform mat4 modelviewMatrix;"
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "	vNormal = normalize(normal);" << std::endl
+		<< "	vPosition = position;" << std::endl
 		<< "	vTexCoord = texCoord;" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
@@ -50,6 +52,7 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource()
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 vNormal;" << std::endl
+		<< "in vec3 vPosition;" << std::endl
 		<< "in vec3 vTexCoord;" << std::endl
 		<< "out vec4 fragColor;" << std::endl
 		<< "uniform vec3 eyePosition;" << std::endl
@@ -69,8 +72,8 @@ std::string SmoothRenderer::getBuildinFragmentShaderSource()
 		<< "};"
 		<< "uniform MaterialInfo material;"
 		<< "vec3 getPhongShadedColor( vec3 position, vec3 normal) {"
-		<< "	vec3 s = normalize(light.position - position);" << std::endl
-		<< "	vec3 v = normalize(position - eyePosition);" << std::endl
+		<< "	vec3 s = normalize(light.position - vPosition);" << std::endl
+		<< "	vec3 v = normalize(vPosition - eyePosition);" << std::endl
 		<< "	vec3 r = reflect( -s, normal );" << std::endl
 		<< "	vec3 ambient = light.La * material.Ka;" << std::endl
 		<< "	float innerProduct = max( dot(s,normal), 0.0);" << std::endl
@@ -112,7 +115,7 @@ void SmoothRenderer::set(ShaderObject* shader)
 }
 
 
-void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, const Material& material)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
@@ -137,10 +140,6 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	glUniform3fv(shader->getUniformLocation("light.Ld"), 1, light.getDiffuse().toArray3().data());
 	glUniform3fv(shader->getUniformLocation("light.Ls"), 1, light.getSpecular().toArray3().data());
 
-	glUniform3fv(shader->getUniformLocation("material.Ka"), 1, material.getAmbient().toArray3().data());
-	glUniform3fv(shader->getUniformLocation("material.Kd"), 1, material.getDiffuse().toArray3().data());
-	glUniform3fv(shader->getUniformLocation("material.Ks"), 1, material.getSpecular().toArray3().data());
-	glUniform1f(shader->getUniformLocation("material.shininess"), material.getShininess());
 
 	glBindFragDataLocation(shader->getId(), 0, "fragColor");
 
@@ -164,6 +163,13 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 	//glDrawElements(GL_TRIANGLES, static_cast<GLsizei>( indices.size()), GL_UNSIGNED_INT, indices.data());
 	for (const auto& b : buffer.getBlocks()) {
 		const auto& indices = b.getIndices();
+		const auto material = b.getMaterial();
+		assert(material != nullptr);
+		glUniform3fv(shader->getUniformLocation("material.Ka"), 1, material->getAmbient().toArray3().data());
+		glUniform3fv(shader->getUniformLocation("material.Kd"), 1, material->getDiffuse().toArray3().data());
+		glUniform3fv(shader->getUniformLocation("material.Ks"), 1, material->getSpecular().toArray3().data());
+		glUniform1f(shader->getUniformLocation("material.shininess"), material->getShininess());
+
 		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
 	}
 
