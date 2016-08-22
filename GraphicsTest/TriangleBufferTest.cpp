@@ -18,7 +18,8 @@ TEST(TriangleBufferTest, TestAddPolygon)
 	auto polygon = factory.create(builder);
 	TriangleBuffer buffer(factory);
 	buffer.add(*polygon);
-	EXPECT_EQ(3, buffer.getIndices().size());
+	EXPECT_EQ(1, buffer.getBlocks().size());
+	EXPECT_EQ(3, buffer.getBlocks().front().getIndices().size());
 	EXPECT_EQ(9, buffer.getPositions().get().size());
 	EXPECT_EQ(9, buffer.getNormals().get().size());
 	EXPECT_EQ(9, buffer.getTexCoords().get().size());
