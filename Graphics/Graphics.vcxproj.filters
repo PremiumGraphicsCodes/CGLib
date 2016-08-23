@@ -6,8 +6,6 @@
     <ClCompile Include="ColorRGBA.cpp" />
     <ClCompile Include="DrawableID.cpp" />
     <ClCompile Include="IBuffer.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="VisualPolygon.cpp" />
     <ClCompile Include="WindowCoord2d.cpp" />
     <ClCompile Include="PointBuffer.cpp">
@@ -50,9 +48,22 @@
     <ClCompile Include="Line2dBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialRepository.cpp" />
     <ClCompile Include="ColoredPolygon.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Image.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageRepository.cpp">
+      <Filter>Image</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialRepository.cpp">
+      <Filter>Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -60,9 +71,6 @@
     <ClInclude Include="IBuffer.h" />
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGBA.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialMap.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="VisualPolygon.h" />
     <ClInclude Include="WindowCoord2d.h" />
@@ -123,9 +131,25 @@
     <ClInclude Include="Line2dBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialRepository.h" />
     <ClInclude Include="ColoredPolygon.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Image.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageRepository.h">
+      <Filter>Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialMap.h">
+      <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialRepository.h">
+      <Filter>Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">
@@ -136,6 +160,15 @@
     </Filter>
     <Filter Include="Light">
       <UniqueIdentifier>{0f6a21de-55f9-437e-b03c-5a9ae6787361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Image">
+      <UniqueIdentifier>{edc860e3-e434-4358-af28-7462750ea570}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{03bb48ea-c2aa-43ae-a2bf-2c11884411d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Material">
+      <UniqueIdentifier>{505f124e-ebda-43da-8b66-994a4973bec9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

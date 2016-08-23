@@ -6,10 +6,11 @@
 #include <memory>
 
 #include "ColorRGBA.h"
+#include "Texture.h"
 
 namespace Crystal {
 	namespace Graphics {
-		class Texture;
+
 
 class Material
 {
@@ -46,9 +47,9 @@ public:
 
 	float getTransparent() const { return transparent; }
 
-	Texture* getTexture() const { return texture; }
+	Texture getTexture() const { return texture; }
 
-	void setTexture(const Texture* textures) { this->texture = texture; }
+	void setTexture(const Texture textures) { this->texture = texture; }
 
 	unsigned int getId() const { return id; }
 
@@ -63,8 +64,11 @@ private:
 
 	const unsigned int id;
 
-	Texture* texture;
+	Texture texture;
 };
+
+using PolygonMaterialMap = std::map<Core::PolygonMesh*, Material*>;
+
 	}
 }
 

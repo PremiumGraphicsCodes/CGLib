@@ -28,6 +28,7 @@
     <ClCompile Include="IBuffer.cpp" />
     <ClCompile Include="ICamera.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageRepository.cpp" />
     <ClCompile Include="Line2dBuffer.cpp" />
     <ClCompile Include="LineBuffer.cpp" />
     <ClCompile Include="LineIdBuffer.cpp" />
@@ -66,6 +67,7 @@
     <ClInclude Include="ColorHSV.h" />
     <ClInclude Include="ColorRGBA.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageRepository.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Line2dBuffer.h" />
     <ClInclude Include="LineBuffer.h" />

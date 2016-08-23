@@ -21,14 +21,16 @@ enum class ImageFileFormat
 class IImage
 {
 public:
-	IImage() :
+	IImage(const int id = -1) :
 		width(0),
-		height(0)
+		height(0),
+		id(id)
 	{}
 
-	IImage(const int width, const int height) :
+	IImage(const int width, const int height,const int id = -1) :
 		width(width),
-		height(height)
+		height(height),
+		id(id)
 	{}
 
 	virtual void read(const std::string& filename) = 0;
@@ -46,23 +48,26 @@ public:
 
 	int getIndex1d(const int x, const int y) const { return (y * width + x) * 4; }
 
+	int getId() const { return id; }
+
 private:
 	int width;
 	int height;
+	int id;
 };
 
 class Image : public IImage
 {
 public:
-	Image() : IImage()
+	Image(const int id = -1) : IImage(id)
 	{}
 
-	Image( const int width, const int height ) : IImage(width, height),
+	Image( const int width, const int height, const int id = -1) : IImage(width, height, id),
 		values( width * height * 4 )
 	{}
 
-	Image( const int width, const int height, const std::vector< unsigned char >& values ) :
-		IImage(width, height),
+	Image( const int width, const int height, const std::vector< unsigned char >& values,const int id = -1) :
+		IImage(width, height,id),
 		values( values )
 	{
 		assert( isValid() );
@@ -193,23 +198,23 @@ private:
 class Imagef : public IImage
 {
 public:
-	Imagef() : IImage()
+	Imagef(const int id = -1) : IImage(id)
 	{}
 
-	Imagef(const int width, const int height) :
-		IImage(width, height),
+	Imagef(const int width, const int height,const int id = -1) :
+		IImage(width, height, id),
 		values(width * height * 4)
 	{}
 
-	Imagef(const int width, const int height, const std::vector< float >& values) :
-		IImage(width, height),
+	Imagef(const int width, const int height, const std::vector< float >& values, const int id = -1) :
+		IImage(width, height, id),
 		values(values)
 	{
 		assert(isValid());
 	}
 
-	Imagef(const int width, const int height, const float v) :
-		IImage(width, height)
+	Imagef(const int width, const int height, const float v, const int id = -1) :
+		IImage(width, height, id)
 	{
 		values.resize(width * height * 4);
 		std::fill(values.begin(), values.end(), v);

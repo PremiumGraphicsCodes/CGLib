@@ -25,6 +25,8 @@ public:
 
 	DepthTextureObject* createDepth(const Graphics::Imagef& image);
 
+	std::list<TextureObject*> create(const Graphics::Texture& tex);
+
 private:
 	std::list<ITextureObject*> textures;
 	int nextId;
