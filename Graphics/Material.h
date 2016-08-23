@@ -49,7 +49,7 @@ public:
 
 	Texture getTexture() const { return texture; }
 
-	void setTexture(const Texture textures) { this->texture = texture; }
+	void setTexture(const Texture texture) { this->texture = texture; }
 
 	unsigned int getId() const { return id; }
 

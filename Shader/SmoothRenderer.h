@@ -10,6 +10,7 @@
 #include "../Graphics/Light.h"
 
 #include "IRenderer.h"
+#include "TextureObjectCollection.h"
 
 namespace Crystal {
 	namespace Graphics {
@@ -28,7 +29,7 @@ public:
 
 	void set(ShaderObject* shader);
 
-	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light);
+	void render(const Graphics::ICamera<float>& camera, const Graphics::TriangleBuffer& buffer, const Graphics::PointLight<float>& light, TextureObjectCollection& textureRep);
 
 	bool build();
 

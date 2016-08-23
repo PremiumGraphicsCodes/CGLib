@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "ShaderHandler.h"
+#include "TextureObject.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
@@ -115,10 +116,11 @@ void SmoothRenderer::set(ShaderObject* shader)
 }
 
 
-void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, TextureObjectCollection& textureRep)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
+	const auto& texCoords = buffer.getTexCoords().get();
 	if (positions.empty()) {
 		return;
 	}
@@ -151,11 +153,14 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 
 	glVertexAttribPointer(shader->getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glVertexAttribPointer(shader->getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
+	glVertexAttribPointer(shader->getAttribLocation("texCoord"), 3, GL_FLOAT, GL_FALSE, 0, texCoords.data());
+
 	//glVertexAttribPointer(location.)
 	assert(GL_NO_ERROR == glGetError());
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	assert(GL_NO_ERROR == glGetError());
 
 
@@ -170,12 +175,20 @@ void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& 
 		glUniform3fv(shader->getUniformLocation("material.Ks"), 1, material->getSpecular().toArray3().data());
 		glUniform1f(shader->getUniformLocation("material.shininess"), material->getShininess());
 
+		auto tex = material->getTexture().getDiffuse();
+		assert(tex);
+		auto texObject = textureRep.find(tex);
+		texObject->bind();
+
+		glUniform1i(shader->getUniformLocation("diffuseTex"), texObject->getId());
 		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, indices.data());
+		texObject->unbind();
 	}
 
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 
 
 	glUseProgram(0);
