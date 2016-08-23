@@ -3,6 +3,7 @@
 
 #include "../Math/Math.h"
 #include "../Core/Core.h"
+#include "../Graphics/Graphics.h"
 
 #define _CRT_SECURE_NO_DEPRECATE
 

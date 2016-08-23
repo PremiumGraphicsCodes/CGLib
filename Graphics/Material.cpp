@@ -1,20 +1,9 @@
 #include "stdafx.h"
 #include "Material.h"
+#include "Texture.h"
 
 using namespace Crystal::Graphics;
 
-Imagef Texture::toImagef() const
-{
-	if (filename.empty()) {
-		Imagef image(1, 1);
-		image.setColor(0, 0, ColorRGBA<float>(1.0, 1.0, 1.0, 1.0));
-		return image;
-	}
-	else {
-		Imagef image(filename);
-		return image;
-	}
-}
 
 Material::Material(const unsigned int id) :
 	diffuse(Graphics::ColorRGBA<float>::Black()),

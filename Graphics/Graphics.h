@@ -26,6 +26,7 @@
 #include "PointBuffer.h"
 #include "PointIdBuffer.h"
 //#include "stb_image.h"
+#include "Texture.h"
 #include "TriangleBuffer.h"
 #include "TriangleColorBuffer.h"
 #include "TriangleIdBuffer.h"

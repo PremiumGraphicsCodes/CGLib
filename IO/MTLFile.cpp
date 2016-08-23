@@ -175,11 +175,14 @@ Material OBJMaterial::toMaterial(const std::string& directory) const
 	m.setSpecular(this->specular);
 	m.setShininess(this->specularExponent);
 
-	Texture t;
+	Texture* texture = new Texture();
 	if (!this->diffuseTexture.empty()) {
-		t.setFileName(directory + this->diffuseTexture);
+		File file(directory + this->diffuseTexture);
+		Imagef* texImage = new Imagef();
+		texImage->read(file.getFullPath());
+		texture->setDiffuse(texImage);
 	}
-	m.setTexture(t);
+	m.setTexture(texture);
 	//t.setDirectory(directory);
 
 	return m;

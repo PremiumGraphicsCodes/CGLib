@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "PMDFile.h"
 
-
+#include "File.h"
 #include "../Graphics/Material.h"
 #include "../Graphics/VisualPolygon.h"
 
@@ -257,9 +257,12 @@ Material PMDMaterial::toMaterial(const std::string& folderName) const
 	material.setDiffuse(this->diffuse);
 	material.setSpecular(this->specular);
 	material.setShininess(this->specularity);
-	Texture texture;
+	Texture* texture = new Texture();
 	if (!std::string(textureFileName).empty()) {
-		Texture diffuseTex(folderName + this->textureFileName);
+		File file(folderName + this->textureFileName);
+		Imagef* texImage = new Imagef;
+		texImage->read(file.getFullPath());
+		texture->setDiffuse(texImage);
 	}
 	material.setTexture(texture);
 	return material;

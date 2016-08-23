@@ -52,6 +52,7 @@
     </ClCompile>
     <ClCompile Include="MaterialRepository.cpp" />
     <ClCompile Include="ColoredPolygon.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -124,6 +125,7 @@
     </ClInclude>
     <ClInclude Include="MaterialRepository.h" />
     <ClInclude Include="ColoredPolygon.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Buffer">

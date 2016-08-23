@@ -44,6 +44,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TriangleBuffer.cpp" />
     <ClCompile Include="TriangleColorBuffer.cpp" />
     <ClCompile Include="TriangleIdBuffer.cpp" />
@@ -79,6 +80,7 @@
     <ClInclude Include="PointIdBuffer.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TriangleBuffer.h" />
     <ClInclude Include="TriangleColorBuffer.h" />
     <ClInclude Include="TriangleIdBuffer.h" />

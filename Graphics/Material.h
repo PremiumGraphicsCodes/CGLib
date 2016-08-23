@@ -5,30 +5,11 @@
 #include <string>
 #include <memory>
 
-#include "Image.h"
 #include "ColorRGBA.h"
 
 namespace Crystal {
 	namespace Graphics {
-
-class Texture
-{
-public:
-	Texture() = default;
-
-	Texture(const std::string& filename) { this->filename = filename; }
-
-	void setDirectory(const std::string& str) { filename = str + "\\" + filename; }
-
-	bool hasFileName() const { return filename.empty(); }
-
-	void setFileName(const std::string& filename) { this->filename = filename; }
-
-	Imagef toImagef() const;
-
-private:
-	std::string filename;
-};
+		class Texture;
 
 class Material
 {
@@ -65,9 +46,9 @@ public:
 
 	float getTransparent() const { return transparent; }
 
-	Texture getTexture() const { return texture; }
+	Texture* getTexture() const { return texture; }
 
-	void setTexture(const Texture& textures) { this->texture = texture; }
+	void setTexture(const Texture* textures) { this->texture = texture; }
 
 	unsigned int getId() const { return id; }
 
@@ -82,7 +63,7 @@ private:
 
 	const unsigned int id;
 
-	Texture texture;
+	Texture* texture;
 };
 	}
 }
