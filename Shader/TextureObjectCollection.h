@@ -4,6 +4,7 @@
 #include "ITextureObject.h"
 #include <list>
 #include "../Util/UnCopyable.h"
+#include "ImageTextureMap.h"
 
 namespace Crystal {
 	namespace Shader {
@@ -23,14 +24,22 @@ public:
 
 	TextureObject* create(const Graphics::Imagef& image);
 
+	TextureObject* create(Graphics::Image* image);
+
+	TextureObject* create(Graphics::Imagef* image);
+
 	DepthTextureObject* createDepth(const Graphics::Imagef& image);
 
-	std::list<TextureObject*> create(const Graphics::Texture& tex);
+	bool has(Graphics::IImage* image);
+
+	TextureObject* find(Graphics::IImage* image);
 
 private:
 	std::list<ITextureObject*> textures;
+	ImageTextureMap imageTexMap;
 	int nextId;
 };
+
 	}
 }
 

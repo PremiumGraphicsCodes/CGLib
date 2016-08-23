@@ -201,6 +201,7 @@
     <ClInclude Include="FrameBufferHandler.h" />
     <ClInclude Include="GeometryRenderer.h" />
     <ClInclude Include="GLee.h" />
+    <ClInclude Include="ImageTextureMap.h" />
     <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ITextureObject.h" />
     <ClInclude Include="LegacyRenderer.h" />

@@ -255,6 +255,7 @@
     <ClInclude Include="OnScreenRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="ImageTextureMap.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">
