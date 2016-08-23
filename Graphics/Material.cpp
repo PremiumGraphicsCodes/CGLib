@@ -11,6 +11,7 @@ Material::Material(const unsigned int id) :
 	ambient(Graphics::ColorRGBA<float>::Black()),
 	shininess(1.0f),
 	transparent(0.0f),
-	id(id)
+	id(id),
+	texture(nullptr)
 {
 }

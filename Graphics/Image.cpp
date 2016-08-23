@@ -32,8 +32,7 @@ void Image::read(const std::string& filename)
 		}
 	}
 	*/
-	this->width = width;
-	this->height = height;
+	changeSize(width, height);
 	this->values =values;
 }
 
@@ -41,10 +40,10 @@ void Image::save(const std::string& filename, const ImageFileFormat format) cons
 	std::vector<unsigned char> data = values;
 	int comp = 4;
 	if (format == ImageFileFormat::PNG) {
-		stb::stbi_write_png(filename.c_str(), width, height, comp, data.data(), width * comp);
+		stb::stbi_write_png(filename.c_str(), getWidth(), getHeight(), comp, data.data(), getWidth() * comp);
 	}
 	else if (format == ImageFileFormat::BMP) {
-		stb::stbi_write_bmp(filename.c_str(), width, height, comp, data.data());
+		stb::stbi_write_bmp(filename.c_str(), getWidth(), getHeight(), comp, data.data());
 	}
 	else {
 		assert(false);
@@ -54,10 +53,9 @@ void Image::save(const std::string& filename, const ImageFileFormat format) cons
 void Image::changeSize(const int sizeX, const int sizeY)
 {
 	std::vector<unsigned char> dest(sizeX * sizeY * 4);
-	stb::stbir_resize_uint8(values.data(), width, height, 0, dest.data(), sizeX, sizeY, 0, 4);
+	stb::stbir_resize_uint8(values.data(), getWidth(), getHeight(), 0, dest.data(), sizeX, sizeY, 0, 4);
 
-	this->width = sizeX;
-	this->height = sizeY;
+	IImage::changeSize(sizeX, sizeY);
 	this->values = dest;
 }
 
@@ -77,8 +75,7 @@ void Imagef::read(const std::string& filename)
 		values[i * 4 + 2] = loaded[i * 4 + 2] / 255.0f;
 		values[i * 4 + 3] = loaded[i * 4 + 3] / 255.0f;
 	}
-	this->width = width;
-	this->height = height;
+	changeSize(width, height);
 	this->values = values;
 }
 
@@ -86,10 +83,10 @@ void Imagef::save(const std::string& filename, const ImageFileFormat format) con
 	std::vector<float> data = values;
 	int comp = 4;
 	if (format == ImageFileFormat::PNG) {
-		stb::stbi_write_png(filename.c_str(), width, height, comp, data.data(), width * comp);
+		stb::stbi_write_png(filename.c_str(), getWidth(), getHeight(), comp, data.data(), getWidth() * comp);
 	}
 	else if (format == ImageFileFormat::BMP) {
-		stb::stbi_write_bmp(filename.c_str(), width, height, comp, data.data());
+		stb::stbi_write_bmp(filename.c_str(), getWidth(), getHeight(), comp, data.data());
 	}
 	else {
 		assert(false);
@@ -99,9 +96,8 @@ void Imagef::save(const std::string& filename, const ImageFileFormat format) con
 void Imagef::changeSize(const int sizeX, const int sizeY)
 {
 	std::vector<float> dest(sizeX * sizeY * 4);
-	stb::stbir_resize_float(values.data(), width, height, 0, dest.data(), sizeX, sizeY, 0, 4);
+	stb::stbir_resize_float(values.data(), getWidth(), getHeight(), 0, dest.data(), sizeX, sizeY, 0, 4);
 
-	this->width = sizeX;
-	this->height = sizeY;
+	IImage::changeSize(sizeX, sizeY);
 	this->values = dest;
 }

@@ -18,31 +18,58 @@ enum class ImageFileFormat
 	JPG,
 };
 
-
-class Image {
+class IImage
+{
 public:
-	Image() :
-		width( 0 ),
-		height( 0 )
+	IImage() :
+		width(0),
+		height(0)
 	{}
 
-	Image( const int width, const int height ) :
-		width( width ),
-		height( height ),
+	IImage(const int width, const int height) :
+		width(width),
+		height(height)
+	{}
+
+	virtual void read(const std::string& filename) = 0;
+
+	virtual void save(const std::string& filename, const ImageFileFormat format) const = 0;
+
+	int getWidth() const { return width; }
+
+	int getHeight() const { return height; }
+
+	void changeSize(const int width, const int height) {
+		this->width = width;
+		this->height = height;
+	}
+
+	int getIndex1d(const int x, const int y) const { return (y * width + x) * 4; }
+
+private:
+	int width;
+	int height;
+};
+
+class Image : public IImage
+{
+public:
+	Image() : IImage()
+	{}
+
+	Image( const int width, const int height ) : IImage(width, height),
 		values( width * height * 4 )
 	{}
 
 	Image( const int width, const int height, const std::vector< unsigned char >& values ) :
-		width( width ),
-		height( height ),
+		IImage(width, height),
 		values( values )
 	{
 		assert( isValid() );
 	}
 
 	Image(const int width, const int height, const unsigned char v) :
-		width(width),
-		height(height)
+		IImage(width, height)
 	{
 		values.resize(width * height * 4);
 		std::fill(values.begin(), values.end(), v);
@@ -103,13 +130,10 @@ public:
 		return Image(width, height, values);
 	}
 
-	int getWidth() const { return width; }
-
-	int getHeight() const { return height; }
 
 	//std::vector< T > getValues() const { return values; }
 
-	bool isValid() const { return ((width * height * 4) == values.size()); }
+	bool isValid() const { return ((getWidth() * getHeight() * 4) == values.size()); }
 
 	void setColor(const int i, const int j, const ColorRGBA<unsigned char>& c) {
 		const auto index = getIndex1d(i, j);
@@ -119,7 +143,6 @@ public:
 		values[index+3] = c.getAlpha();
 	}
 
-	int getIndex1d(const int x, const int y) const { return (y * width + x) * 4; }
 
 	ColorRGBA<unsigned char> getColor(const int x, const int y) const {
 		const auto index = getIndex1d(x, y);
@@ -136,8 +159,8 @@ public:
 
 	bool equals(const Image& rhs) const {
 		return
-			(width == rhs.width) &&
-			(height == rhs.height) &&
+			(getWidth() == rhs.getWidth()) &&
+			(getHeight() == rhs.getHeight()) &&
 			(values == rhs.values);
 	}
 
@@ -145,10 +168,9 @@ public:
 
 	bool operator!=(const Image& rhs) const { return !equals(rhs); }
 
-	void read(const std::string& filename);
+	void read(const std::string& filename) override;
 
-	void save(const std::string& filename, const ImageFileFormat format) const;
-
+	void save(const std::string& filename, const ImageFileFormat format) const override;
 
 	Image reversed()
 		{
@@ -165,36 +187,29 @@ public:
 
 
 private:
-	int width;
-	int height;
 	std::vector< unsigned char > values;
 };
 
-class Imagef
+class Imagef : public IImage
 {
 public:
-	Imagef() :
-		width(0),
-		height(0)
+	Imagef() : IImage()
 	{}
 
 	Imagef(const int width, const int height) :
-		width(width),
-		height(height),
+		IImage(width, height),
 		values(width * height * 4)
 	{}
 
 	Imagef(const int width, const int height, const std::vector< float >& values) :
-		width(width),
-		height(height),
+		IImage(width, height),
 		values(values)
 	{
 		assert(isValid());
 	}
 
 	Imagef(const int width, const int height, const float v) :
-		width(width),
-		height(height)
+		IImage(width, height)
 	{
 		values.resize(width * height * 4);
 		std::fill(values.begin(), values.end(), v);
@@ -253,13 +268,7 @@ public:
 		return Imagef(width, height, values);
 	}
 
-	int getWidth() const { return width; }
-
-	int getHeight() const { return height; }
-
-	//std::vector< T > getValues() const { return values; }
-
-	bool isValid() const { return ((width * height * 4) == values.size()); }
+	bool isValid() const { return ((getWidth() * getHeight() * 4) == values.size()); }
 
 	void setColor(const int i, const int j, const ColorRGBA<float>& c) {
 		const auto index = getIndex1d(i, j);
@@ -268,8 +277,6 @@ public:
 		values[index + 2] = c.getBlue();
 		values[index + 3] = c.getAlpha();
 	}
-
-	int getIndex1d(const int x, const int y) const { return (y * width + x) * 4; }
 
 	ColorRGBA<float> getColor(const int x, const int y) const {
 		const auto index = getIndex1d(x, y);
@@ -286,8 +293,8 @@ public:
 
 	bool equals(const Imagef& rhs) const {
 		return
-			(width == rhs.width) &&
-			(height == rhs.height) &&
+			(getWidth() == rhs.getWidth()) &&
+			(getHeight() == rhs.getHeight()) &&
 			(values == rhs.values);
 	}
 
@@ -315,8 +322,6 @@ public:
 
 
 private:
-	int width;
-	int height;
 	std::vector< float > values;
 };
 	}
