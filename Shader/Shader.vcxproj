@@ -181,7 +181,7 @@
     <ClCompile Include="TextureObject.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
     <ClCompile Include="TextureHandler.cpp" />
-    <ClCompile Include="TextureObjectCollection.cpp" />
+    <ClCompile Include="TextureObjectRepository.cpp" />
     <ClCompile Include="TriangleIdRenderer.cpp" />
     <ClCompile Include="TriangleRenderer.cpp" />
     <ClCompile Include="UVRenderer.cpp" />
@@ -229,7 +229,7 @@
     <ClInclude Include="TextureObject.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="TextureHandler.h" />
-    <ClInclude Include="TextureObjectCollection.h" />
+    <ClInclude Include="TextureObjectRepository.h" />
     <ClInclude Include="TriangleIdRenderer.h" />
     <ClInclude Include="TriangleRenderer.h" />
     <ClInclude Include="UVRenderer.h" />

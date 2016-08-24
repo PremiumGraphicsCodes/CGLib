@@ -115,14 +115,14 @@
     <ClCompile Include="Position3dRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="TextureObjectCollection.cpp">
-      <Filter>Texture</Filter>
-    </ClCompile>
     <ClCompile Include="UVRenderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="OnScreenRenderer.cpp">
       <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureObjectRepository.cpp">
+      <Filter>Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,9 +246,6 @@
     <ClInclude Include="Position3dRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="TextureObjectCollection.h">
-      <Filter>Texture</Filter>
-    </ClInclude>
     <ClInclude Include="UVRenderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
@@ -256,6 +253,9 @@
       <Filter>Renderer</Filter>
     </ClInclude>
     <ClInclude Include="ImageTextureMap.h" />
+    <ClInclude Include="TextureObjectRepository.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_SHADER_TEXTURE_OBJECT_COLLECTION_H__
-#define __CRYSTAL_SHADER_TEXTURE_OBJECT_COLLECTION_H__
+#ifndef __CRYSTAL_SHADER_TEXTURE_OBJECT_REPOSITORY_H__
+#define __CRYSTAL_SHADER_TEXTURE_OBJECT_REPOSITORY_H__
 
 #include "ITextureObject.h"
 #include <list>
@@ -11,12 +11,12 @@ namespace Crystal {
 		class TextureObject;
 		class DepthTextureObject;
 
-class TextureObjectCollection : private UnCopyable
+class TextureObjectRepository : private UnCopyable
 {
 public:
-	TextureObjectCollection();
+	TextureObjectRepository();
 
-	~TextureObjectCollection();
+	~TextureObjectRepository();
 
 	void clear();
 

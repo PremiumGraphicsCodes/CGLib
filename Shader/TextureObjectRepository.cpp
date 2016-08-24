@@ -1,22 +1,22 @@
 #include "stdafx.h"
-#include "TextureObjectCollection.h"
+#include "TextureObjectRepository.h"
 #include "TextureObject.h"
 #include "DepthTextureObject.h"
 
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-TextureObjectCollection::TextureObjectCollection() :
+TextureObjectRepository::TextureObjectRepository() :
 	nextId(0)
 {
 }
 
-TextureObjectCollection::~TextureObjectCollection()
+TextureObjectRepository::~TextureObjectRepository()
 {
 	clear();
 }
 
-void TextureObjectCollection::clear()
+void TextureObjectRepository::clear()
 {
 	for (auto tex : textures) {
 		delete tex;
@@ -25,14 +25,14 @@ void TextureObjectCollection::clear()
 	nextId = 0;
 }
 
-TextureObject* TextureObjectCollection::create(const Image& image)
+TextureObject* TextureObjectRepository::create(const Image& image)
 {
 	auto tex = new TextureObject(image, nextId++);
 	textures.push_back(tex);
 	return tex;
 }
 
-TextureObject* TextureObjectCollection::create(const Imagef& image)
+TextureObject* TextureObjectRepository::create(const Imagef& image)
 {
 	auto tex = new TextureObject(image, nextId++);
 	textures.push_back(tex);
@@ -40,7 +40,7 @@ TextureObject* TextureObjectCollection::create(const Imagef& image)
 }
 
 
-TextureObject* TextureObjectCollection::create(Image* image)
+TextureObject* TextureObjectRepository::create(Image* image)
 {
 	if (has(image)) {
 		return find(image);
@@ -51,7 +51,7 @@ TextureObject* TextureObjectCollection::create(Image* image)
 	return tex;
 }
 
-TextureObject* TextureObjectCollection::create(Imagef* image)
+TextureObject* TextureObjectRepository::create(Imagef* image)
 {
 	if (has(image)) {
 		return find(image);
@@ -63,20 +63,20 @@ TextureObject* TextureObjectCollection::create(Imagef* image)
 	return tex;
 }
 
-DepthTextureObject* TextureObjectCollection::createDepth(const Imagef& image)
+DepthTextureObject* TextureObjectRepository::createDepth(const Imagef& image)
 {
 	auto tex = new DepthTextureObject(image, nextId++);
 	textures.push_back(tex);
 	return tex;
 }
 
-bool TextureObjectCollection::has(IImage* image)
+bool TextureObjectRepository::has(IImage* image)
 {
 	return imageTexMap.find(image) != imageTexMap.end();
 }
 
 
-TextureObject* TextureObjectCollection::find(IImage* image)
+TextureObject* TextureObjectRepository::find(IImage* image)
 {
 	if (has(image)){
 		return imageTexMap[image];

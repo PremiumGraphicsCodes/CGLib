@@ -116,7 +116,7 @@ void SmoothRenderer::set(ShaderObject* shader)
 }
 
 
-void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, TextureObjectCollection& textureRep)
+void SmoothRenderer::render(const ICamera<float>& camera, const TriangleBuffer& buffer, const PointLight<float>& light, TextureObjectRepository& textureRep)
 {
 	const auto& positions = buffer.getPositions().get();// buffers[0].get();
 	const auto& normals = buffer.getNormals().get();//buffers[1].get();
