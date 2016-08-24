@@ -162,6 +162,7 @@
     <ClCompile Include="PointIDRenderer.cpp" />
     <ClCompile Include="PointRenderer.cpp" />
     <ClCompile Include="Position3dRenderer.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderHandler.cpp" />
     <ClCompile Include="ShaderObject.cpp" />
     <ClCompile Include="SkyBoxRenderer.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="PointIDRenderer.h" />
     <ClInclude Include="PointRenderer.h" />
     <ClInclude Include="Position3dRenderer.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ShaderHandler.h" />
     <ClInclude Include="ShaderObject.h" />

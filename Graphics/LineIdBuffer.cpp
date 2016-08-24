@@ -5,7 +5,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
-LineIdBuffer::LineIdBuffer(const PolygonFactory& factory, const unsigned char groupId)
+LineIdBuffer::LineIdBuffer(const PolygonRepository& factory, const unsigned char groupId)
 {
 	const auto& vertices = factory.getVertices();
 	for (const auto& v : vertices) {

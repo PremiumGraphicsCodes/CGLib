@@ -33,7 +33,7 @@ class LineIdBuffer
 public:
 	LineIdBuffer() = default;
 
-	LineIdBuffer(const Core::PolygonFactory& factory, const unsigned char groupId);
+	LineIdBuffer(const Core::PolygonRepository& factory, const unsigned char groupId);
 
 	void add(const Core::PolygonMesh& surface, const unsigned char groupId);
 

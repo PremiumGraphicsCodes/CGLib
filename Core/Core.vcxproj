@@ -39,7 +39,7 @@
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
-    <ClCompile Include="PolygonFactory.cpp" />
+    <ClCompile Include="PolygonRepository.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -79,7 +79,7 @@
     <ClInclude Include="ISpaceHash.h" />
     <ClInclude Include="Loop.h" />
     <ClInclude Include="PolygonBuilder.h" />
-    <ClInclude Include="PolygonFactory.h" />
+    <ClInclude Include="PolygonRepository.h" />
     <ClInclude Include="TriangleCell.h" />
     <ClInclude Include="UID.h" />
     <ClInclude Include="IParticle.h" />

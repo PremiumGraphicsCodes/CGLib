@@ -5,7 +5,7 @@
 
 #include "../Graphics/Buffer3d.h"
 #include "../Core/PolygonMesh.h"
-#include "../Core/PolygonFactory.h"
+#include "../Core/PolygonRepository.h"
 
 #include "../IO/MTLFile.h"
 #include "../IO/File.h"
@@ -109,9 +109,9 @@ public:
 
 	bool read(std::istream& stream);
 
-	bool write(const std::string& path, const std::string& filename, const Core::PolygonFactory& factory);
+	bool write(const std::string& path, const std::string& filename, const Core::PolygonRepository& factory);
 
-	bool write(std::ostream& stream, const Core::PolygonFactory& factory);
+	bool write(std::ostream& stream, const Core::PolygonRepository& factory);
 
 	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
 

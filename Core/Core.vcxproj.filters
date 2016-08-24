@@ -54,9 +54,6 @@
     <ClCompile Include="FaceCollection.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonFactory.cpp">
-      <Filter>Polygon</Filter>
-    </ClCompile>
     <ClCompile Include="PolygonBuilder.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
@@ -98,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="IndexedPolygonSource.cpp">
       <Filter>Polygon\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonRepository.cpp">
+      <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +152,6 @@
     <ClInclude Include="TriangleCell.h">
       <Filter>Graph</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonFactory.h">
-      <Filter>Polygon</Filter>
-    </ClInclude>
     <ClInclude Include="Face.h">
       <Filter>Polygon</Filter>
     </ClInclude>
@@ -205,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="IndexedPolygonSource.h">
       <Filter>Polygon\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonRepository.h">
+      <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

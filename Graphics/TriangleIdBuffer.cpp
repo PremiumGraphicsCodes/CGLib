@@ -10,7 +10,7 @@ TriangleIdBuffer::TriangleIdBuffer()
 {
 }
 
-TriangleIdBuffer::TriangleIdBuffer(const PolygonFactory& factory)
+TriangleIdBuffer::TriangleIdBuffer(const PolygonRepository& factory)
 {
 	const auto& vertices = factory.getVertices();
 	for (const auto& v : vertices) {

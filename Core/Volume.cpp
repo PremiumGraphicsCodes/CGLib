@@ -5,6 +5,8 @@
 #include "VolumeCell.h"
 #include "Particle.h"
 #include "ParticleObject.h"
+#include "PolygonRepository.h"
+
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -84,7 +86,6 @@ VolumeCell Volume::toCell(const Index3d index) const
 	return VolumeCell(s, v);
 }
 
-#include "PolygonFactory.h"
 
 
 Vector3d<float> Volume::toPosition(const Index3d index) const

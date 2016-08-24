@@ -3,12 +3,10 @@
 #include "Particle.h"
 #include "Volume.h"
 #include "PolygonMesh.h"
-#include "PolygonFactory.h"
+#include "PolygonRepository.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
-
-
 
 void ParticleObject::add(const Sphere<float>& sphere, const float diameter, const float charge)
 {

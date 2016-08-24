@@ -13,7 +13,7 @@ TEST(TriangleBufferTest, TestAddPolygon)
 		Vector3d<float>(1.0, 0.0, 0.0),
 		Vector3d<float>(1.0, 1.0, 0.0)
 		);
-	PolygonFactory factory;
+	PolygonRepository factory;
 	PolygonBuilder builder(t.toCurve3d());
 	auto polygon = factory.create(builder);
 	TriangleBuffer buffer(factory);

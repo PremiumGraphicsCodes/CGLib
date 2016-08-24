@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_POLYGON_FACTORY_H__
-#define __CRYSTAL_CORE_POLYGON_FACTORY_H__
+#ifndef __CRYSTAL_CORE_POLYGON_REPOSITORY_H__
+#define __CRYSTAL_CORE_POLYGON_REPOSITORY_H__
 
 #include "../Util/UnCopyable.h"
 #include "PolygonMesh.h"
@@ -15,14 +15,14 @@ namespace Crystal {
 		class ParticleObject;
 		class PolygonBuilder;
 
-class PolygonFactory : private UnCopyable
+class PolygonRepository : private UnCopyable
 {
 public:
-	PolygonFactory();
+	PolygonRepository();
 
-	PolygonFactory(VertexCollection& vertices);
+	PolygonRepository(VertexCollection& vertices);
 
-	~PolygonFactory();
+	~PolygonRepository();
 
 	void clear();
 
@@ -64,7 +64,7 @@ public:
 
 	PolygonMesh* find(HalfEdge* e);
 
-	void merge(PolygonFactory& rhs);
+	void merge(PolygonRepository& rhs);
 
 	void remove(PolygonMesh* p);
 

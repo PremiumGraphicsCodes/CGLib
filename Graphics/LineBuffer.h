@@ -20,7 +20,7 @@ class LineBuffer
 public:
 	LineBuffer() = default;
 
-	LineBuffer(const Core::PolygonFactory& factory);
+	LineBuffer(const Core::PolygonRepository& factory);
 
 	LineBuffer(const Math::Line3d<float>& line, const ColorRGBA<float>& color) {
 		add(line, color);

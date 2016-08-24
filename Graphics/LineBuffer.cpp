@@ -6,7 +6,7 @@ using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Graphics;
 
-LineBuffer::LineBuffer(const PolygonFactory& factory)
+LineBuffer::LineBuffer(const PolygonRepository& factory)
 {
 	const auto& vertices = factory.getVertices();
 	for (const auto& v : vertices) {

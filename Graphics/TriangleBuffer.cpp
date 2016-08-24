@@ -9,7 +9,7 @@ TriangleBuffer::TriangleBuffer()
 {
 }
 
-TriangleBuffer::TriangleBuffer(const PolygonFactory& factory)
+TriangleBuffer::TriangleBuffer(const PolygonRepository& factory)
 {
 	const auto& vertices = factory.getVertices();
 	for (const auto& v : vertices) {

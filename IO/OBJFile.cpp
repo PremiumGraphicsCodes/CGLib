@@ -273,7 +273,7 @@ Vector2d<float> OBJFile::readVector2d(const std::string& str)
 }
 
 
-bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonFactory& factory)
+bool OBJFile::write(const std::string& path, const std::string& filename, const PolygonRepository& factory)
 {
 	const std::string fullPathName = path + "/" + filename;
 	std::ofstream stream(fullPathName.c_str());
@@ -284,7 +284,7 @@ bool OBJFile::write(const std::string& path, const std::string& filename, const 
 	return write(stream, factory);
 }
 
-bool OBJFile::write(std::ostream& stream, const PolygonFactory& factory)
+bool OBJFile::write(std::ostream& stream, const PolygonRepository& factory)
 {
 	const auto& vertices = factory.getVertices();
 	for (const auto& v : vertices) {

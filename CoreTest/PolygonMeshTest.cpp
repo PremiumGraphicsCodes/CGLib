@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "../Core/PolygonMesh.h"
-#include "../Core/PolygonFactory.h"
+#include "../Core/PolygonRepository.h"
 #include "../Core/PolygonBuilder.h"
 
 using namespace Crystal::Math;
@@ -10,7 +10,7 @@ TEST(PolygonMeshTest, TestFromQuad)
 {
 	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(quad.toCurve3d(1, 1));
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	EXPECT_EQ(4, polygon->getVertices().size());
 	EXPECT_EQ(2, polygon->getFaces().size());
@@ -20,7 +20,7 @@ TEST(PolygonMeshTest, TestFromCircle)
 {
 	const Circle3d<float> circle(1.0, Vector3d<float>(0, 0, 0), Quaternion<float>());
 	PolygonBuilder builder(circle.toCurve(3));
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	EXPECT_EQ(4, polygon->getVertices().size());
 	EXPECT_EQ(3, polygon->getFaces().size());
@@ -30,7 +30,7 @@ TEST(PolygonMeshTest, TestFromTriangle)
 {
 	const Triangle3d<float> triangle;
 	PolygonBuilder builder(triangle.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	EXPECT_EQ(3, polygon->getVertices().size());
 	EXPECT_EQ(1, polygon->getFaces().size());
@@ -40,7 +40,7 @@ TEST(PolygonMeshTest, TestMerge)
 {
 	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(quad.toCurve3d(1,1));
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto p1 = factory.create(builder);
 	auto p2 = factory.create(builder);
 	p1->merge(*p2);
@@ -52,7 +52,7 @@ TEST(PolygonMeshTest, TestSplitByNode)
 {
 	const Quad3d<float> quad(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder( quad.toCurve3d(1, 1) );
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	auto f = polygon->getFaces().front();
 	factory.split(polygon, f);
@@ -64,7 +64,7 @@ TEST(PolygonMeshTest, TestSplitByCenter)
 {
 	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(triangle.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	auto f = polygon->getFaces().front();
 	factory.splitByCenter(polygon, f);
@@ -80,7 +80,7 @@ TEST(PolygonMeshTest, TestMergeDouble)
 
 	PolygonBuilder builder1(t1.toCurve3d());
 	PolygonBuilder builder2(t2.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 
 	auto p1 = factory.create(builder1);
 	auto p2 = factory.create(builder2);

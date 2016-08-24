@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../Core/PolygonFactory.h"
+#include "../Core/PolygonRepository.h"
 #include "../Core/PolygonBuilder.h"
 
 using namespace Crystal::Math;
@@ -10,7 +10,7 @@ TEST(PolygonFactoryTest, TestCreate)
 {
 	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(triangle.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto actual = factory.create(builder);
 	EXPECT_EQ(1, actual->getFaces().size());
 	EXPECT_EQ(3, actual->getVertices().size());
@@ -22,9 +22,9 @@ TEST(PolygonFactoryTest, TestMerge)
 	 Triangle3d<float> t1(Vector3d<float>(-1,0,0), Vector3d<float>(1,0,0), Vector3d<float>(0,1,0));
 	 PolygonBuilder builder(t1.toCurve3d());
 	 builder.build();
-	 PolygonFactory f1;
+	 PolygonRepository f1;
 	 f1.create(builder);
-	 PolygonFactory f2;
+	 PolygonRepository f2;
 	 f2.create(builder);
 	 f1.merge(f2);
 	 EXPECT_EQ(2, f1.getFaces().size());
@@ -37,7 +37,7 @@ TEST(PolygonFactoryTest, TestRemoveFace)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto f = factory.create(builder);
 	factory.remove(f);
 	EXPECT_EQ(0, factory.getPolygons().size());
@@ -47,7 +47,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	auto v = factory.getVertices().findById(2);
 	factory.destory(v);
@@ -62,7 +62,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexQuad)
 {
 	Quad3d<float> q(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(q.toCurve3d(1,1));
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	auto v = factory.getVertices().findById(2);
 	factory.destory(v);
@@ -74,7 +74,7 @@ TEST(PolygonFactoryTest, TestDestoryFace)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	factory.destory(polygon->getFaces().front());
 	factory.cleaning();
@@ -86,7 +86,7 @@ TEST(PolygonFactoryTest, TestDestoryEdge)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto polygon = factory.create(builder);
 	auto e = factory.getEdges().findById(0);
 	factory.destory(e);
@@ -98,7 +98,7 @@ TEST(PolygonFactoryTest, TestSimplify)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 	auto p = factory.create(builder);
 	factory.simplify(p, 1);
 }
@@ -110,7 +110,7 @@ TEST(PolygonFactoryTest, TestFindDouble)
 
 	PolygonBuilder builder1(t1.toCurve3d());
 	PolygonBuilder builder2(t2.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 
 	auto p1 = factory.create(builder1);
 	auto p2 = factory.create(builder2);
@@ -126,7 +126,7 @@ TEST(PolygonFactoryTest, TestReConnect)
 
 	PolygonBuilder builder1(t1.toCurve3d());
 	PolygonBuilder builder2(t2.toCurve3d());
-	PolygonFactory factory;
+	PolygonRepository factory;
 
 	auto p1 = factory.create(builder1);
 	auto p2 = factory.create(builder2);
@@ -139,7 +139,7 @@ TEST(PolygonFactoryTest, TestFindIsolatedVertices)
 {
 	VertexCollection vs;
 	vs.create(Vector3d<float>(0, 0, 0));
-	PolygonFactory factory(vs);
+	PolygonRepository factory(vs);
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder1(t1.toCurve3d());
 	factory.create(builder1);
@@ -150,7 +150,7 @@ TEST(PolygonFactoryTest, TestFindIsolatedVertices)
 
 TEST(PolygonFactoryTest, TestSplit)
 {
-	PolygonFactory factory;
+	PolygonRepository factory;
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder1(t1.toCurve3d());
 	auto polygon = factory.create(builder1);

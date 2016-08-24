@@ -124,6 +124,7 @@
     <ClCompile Include="TextureObjectRepository.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GLee.h" />
@@ -256,6 +257,7 @@
     <ClInclude Include="TextureObjectRepository.h">
       <Filter>Texture</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renderer">

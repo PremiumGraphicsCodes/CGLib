@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "PolygonFactory.h"
+#include "PolygonRepository.h"
 #include "HalfEdge.h"
 #include "PolygonBuilder.h"
 
@@ -15,23 +15,23 @@ using namespace Crystal::Core;
 
 
 
-PolygonFactory::PolygonFactory() :
+PolygonRepository::PolygonRepository() :
 	nextId(0)
 {
 }
 
-PolygonFactory::~PolygonFactory()
+PolygonRepository::~PolygonRepository()
 {
 	clear();
 }
 
-PolygonFactory::PolygonFactory(VertexCollection& vertices)
+PolygonRepository::PolygonRepository(VertexCollection& vertices)
 {
 	this->vertices.merge(vertices);
 }
 
 
-void PolygonFactory::add(PolygonMesh* p)
+void PolygonRepository::add(PolygonMesh* p)
 {
 	const auto vs = p->getVertices();
 	this->vertices.merge(VertexCollection(vs));
@@ -41,7 +41,7 @@ void PolygonFactory::add(PolygonMesh* p)
 }
 
 
-void PolygonFactory::clear()
+void PolygonRepository::clear()
 {
 	for (auto p : polygons) {
 		delete p;
@@ -66,12 +66,12 @@ std::list< Face* > PolygonFactory::createFaces(const std::vector<int>& ids)
 
 
 
-void PolygonFactory::splitByCenter(PolygonMesh* polygon,Face* f)
+void PolygonRepository::splitByCenter(PolygonMesh* polygon,Face* f)
 {
 	addVertex(f, f->getCenterPoint());
 }
 
-void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
+void PolygonRepository::addVertex(Face* f, const Point3d<float>& point)
 {
 	auto e1 = f->getEdges()[1];
 	auto e2 = f->getEdges()[2];
@@ -91,13 +91,13 @@ void PolygonFactory::addVertex(Face* f, const Point3d<float>& point)
 	vertices.renumber();
 }
 
-void PolygonFactory::split(PolygonMesh* polygon, Edge& e)
+void PolygonRepository::split(PolygonMesh* polygon, Edge& e)
 {
 	split(polygon, e.getRight());
 	split(polygon, e.getLeft());
 }
 
-Vertex* PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
+Vertex* PolygonRepository::split(PolygonMesh* polygon, HalfEdge *e)
 {
 	auto f = e->getFace();
 	auto prev = e->getPrev();
@@ -125,7 +125,7 @@ Vertex* PolygonFactory::split(PolygonMesh* polygon, HalfEdge *e)
 	return newV;
 }
 
-void PolygonFactory::split(PolygonMesh* polygon, Face* f)
+void PolygonRepository::split(PolygonMesh* polygon, Face* f)
 {
  	std::vector<Vertex*> startPoints;
 	std::vector<Vertex*> midPoints;
@@ -157,7 +157,7 @@ void PolygonFactory::split(PolygonMesh* polygon, Face* f)
 }
 
 
-PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
+PolygonMesh* PolygonRepository::create(PolygonBuilder& builder)
 {
 	auto p = builder.build( nextId++);
 	this->vertices.merge(VertexCollection(builder.getVertices()));
@@ -167,7 +167,7 @@ PolygonMesh* PolygonFactory::create(PolygonBuilder& builder)
 	return p;
 }
 
-PolygonMesh* PolygonFactory::create(FaceCollection& faces)
+PolygonMesh* PolygonRepository::create(FaceCollection& faces)
 {
 	auto p = new PolygonMesh(faces.get(), nextId++);
 	this->faces.merge(faces);
@@ -175,7 +175,7 @@ PolygonMesh* PolygonFactory::create(FaceCollection& faces)
 	return p;
 }
 
-PolygonMesh* PolygonFactory::findPolygonById(const int id)
+PolygonMesh* PolygonRepository::findPolygonById(const int id)
 {
 	for (auto p : polygons) {
 		if (p->getId() == id) {
@@ -185,7 +185,7 @@ PolygonMesh* PolygonFactory::findPolygonById(const int id)
 	return nullptr;
 }
 
-PolygonMesh* PolygonFactory::find(Face* f)
+PolygonMesh* PolygonRepository::find(Face* f)
 {
 	for (auto p : polygons) {
 		if (p->has(f)) {
@@ -195,7 +195,7 @@ PolygonMesh* PolygonFactory::find(Face* f)
 	return nullptr;
 }
 
-PolygonMesh* PolygonFactory::find(Vertex* v)
+PolygonMesh* PolygonRepository::find(Vertex* v)
 {
 	for (auto p : polygons) {
 		if (p->has(v)) {
@@ -205,13 +205,13 @@ PolygonMesh* PolygonFactory::find(Vertex* v)
 	return nullptr;
 }
 
-PolygonMesh* PolygonFactory::find(HalfEdge* e)
+PolygonMesh* PolygonRepository::find(HalfEdge* e)
 {
 	return find(e->getFace());
 }
 
 
-void PolygonFactory::merge(PolygonFactory& rhs)
+void PolygonRepository::merge(PolygonRepository& rhs)
 {
 	polygons.insert(polygons.end(), rhs.polygons.begin(), rhs.polygons.end());
 	faces.merge(rhs.faces);
@@ -222,7 +222,7 @@ void PolygonFactory::merge(PolygonFactory& rhs)
 	rhs.vertices.clear();
 }
 
-void PolygonFactory::renumber()
+void PolygonRepository::renumber()
 {
 	nextId = 0;
 	for (auto p : polygons) {
@@ -232,7 +232,7 @@ void PolygonFactory::renumber()
 	faces.renumber();
 }
 
-void PolygonFactory::remove(PolygonMesh* p)
+void PolygonRepository::remove(PolygonMesh* p)
 {
 	if (p == nullptr) {
 		return;
@@ -242,7 +242,7 @@ void PolygonFactory::remove(PolygonMesh* p)
 	renumber();
 }
 
-void PolygonFactory::remove(Face* f)
+void PolygonRepository::remove(Face* f)
 {
 	auto polygon = find(f);
 	if(polygon) {
@@ -252,7 +252,7 @@ void PolygonFactory::remove(Face* f)
 }
 
 
-void PolygonFactory::destory(Vertex* v)
+void PolygonRepository::destory(Vertex* v)
 {
 	auto polygon = find(v);
 	for (auto e : edges) {
@@ -262,7 +262,7 @@ void PolygonFactory::destory(Vertex* v)
 	}
 }
 
-void PolygonFactory::destory(HalfEdge* e)
+void PolygonRepository::destory(HalfEdge* e)
 {
 	auto v = e->getEnd();
 	e->changeStart(v);
@@ -270,7 +270,7 @@ void PolygonFactory::destory(HalfEdge* e)
 }
 
 
-void PolygonFactory::destory(Face* f)
+void PolygonRepository::destory(Face* f)
 {
 	auto e = f->getEdges().front();
 	auto polygon = find(f);
@@ -279,7 +279,7 @@ void PolygonFactory::destory(Face* f)
 	}
 }
 
-void PolygonFactory::destory(PolygonMesh* polygon)
+void PolygonRepository::destory(PolygonMesh* polygon)
 {
 	auto faces = polygon->getFaces();
 	for (auto f : faces) {
@@ -299,7 +299,7 @@ PolygonMesh* PolygonFactory::find(Face* f)
 	return nullptr;
 }
 */
-void PolygonFactory::simplify(PolygonMesh* p, int howMany)
+void PolygonRepository::simplify(PolygonMesh* p, int howMany)
 {
 	for (int i = 0; i < howMany; ++i) {
 		auto edge = p->getShortestEdge();
@@ -308,7 +308,7 @@ void PolygonFactory::simplify(PolygonMesh* p, int howMany)
 	cleaning();
 }
 
-void PolygonFactory::cleaning()
+void PolygonRepository::cleaning()
 {
 	auto df = faces.getDegenerateds();
 	for (auto f : df) {
@@ -316,7 +316,7 @@ void PolygonFactory::cleaning()
 	}
 }
 
-Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
+Face* PolygonRepository::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 {
 	auto e1 = edges.create(v1, v2);
 	auto e2 = edges.create(v2, v3);
@@ -325,13 +325,13 @@ Face* PolygonFactory::createFace(Vertex* v1, Vertex* v2, Vertex* v3)
 	return f;
 }
 
-HalfEdge* PolygonFactory::getShared(HalfEdge* e)
+HalfEdge* PolygonRepository::getShared(HalfEdge* e)
 {
 	return edges.findReverse(e);
 }
 
 
-std::list<HalfEdge*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
+std::list<HalfEdge*> PolygonRepository::findDouble(PolygonMesh* lhs, PolygonMesh* rhs, float distance)
 {
 	std::list<HalfEdge*> results;
 	auto faces1 = lhs->getFaces();
@@ -348,7 +348,7 @@ std::list<HalfEdge*> PolygonFactory::findDouble(PolygonMesh* lhs, PolygonMesh* r
 	return results;
 }
 
-std::list<Vertex*> PolygonFactory::findIsolatedVertices()
+std::list<Vertex*> PolygonRepository::findIsolatedVertices()
 {
 	std::list<Vertex*> vs = vertices.get();
 	vs.sort();
@@ -368,7 +368,7 @@ std::list<Vertex*> PolygonFactory::findIsolatedVertices()
 	return isolateds;
 }
 
-void PolygonFactory::divide(PolygonMesh* polygon, const float area)
+void PolygonRepository::divide(PolygonMesh* polygon, const float area)
 {
 	auto faces = polygon->getFaces();
 	for (auto f : faces) {

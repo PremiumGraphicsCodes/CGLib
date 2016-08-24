@@ -40,7 +40,7 @@ class TriangleBuffer
 public:
 	TriangleBuffer();
 
-	TriangleBuffer(const Core::PolygonFactory& factory);
+	TriangleBuffer(const Core::PolygonRepository& factory);
 
 	void add(const Core::PolygonMesh& polygon, Material* mat = nullptr);
 
