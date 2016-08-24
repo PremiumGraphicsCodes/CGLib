@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-TEST(HalfEdgeCollectionTest, TestNumber)
+TEST(HalfEdgeRepositoryTest, TestFindReverse)
 {
 	Vertex v1(Vector3d<float>(0,0,0));
 	Vertex v2(Vector3d<float>(1,0,0));
@@ -17,7 +17,7 @@ TEST(HalfEdgeCollectionTest, TestNumber)
 	EXPECT_EQ( &e2, edges.findReverse(&e1) );
 }
 
-TEST(HalfEdgeCollectionTest, TestFindPair)
+TEST(HalfEdgeRepositoryTest, TestFindPair)
 {
 	Vertex v1(Vector3d<float>(0, 0, 0));
 	Vertex v2(Vector3d<float>(1, 0, 0));

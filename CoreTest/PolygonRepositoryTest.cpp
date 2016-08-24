@@ -6,7 +6,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-TEST(PolygonFactoryTest, TestCreate)
+TEST(PolygonRepositoryTest, TestCreate)
 {
 	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(triangle.toCurve3d());
@@ -17,7 +17,7 @@ TEST(PolygonFactoryTest, TestCreate)
 
 }
 
-TEST(PolygonFactoryTest, TestMerge)
+TEST(PolygonRepositoryTest, TestMerge)
 {
 	 Triangle3d<float> t1(Vector3d<float>(-1,0,0), Vector3d<float>(1,0,0), Vector3d<float>(0,1,0));
 	 PolygonBuilder builder(t1.toCurve3d());
@@ -33,7 +33,7 @@ TEST(PolygonFactoryTest, TestMerge)
 	 EXPECT_EQ(0, f2.getVertices().size());
 }
 
-TEST(PolygonFactoryTest, TestRemoveFace)
+TEST(PolygonRepositoryTest, TestRemoveFace)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
@@ -43,7 +43,7 @@ TEST(PolygonFactoryTest, TestRemoveFace)
 	EXPECT_EQ(0, factory.getPolygons().size());
 }
 
-TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
+TEST(PolygonRepositoryTest, TestDestoryVertexTriangle)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
@@ -58,7 +58,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexTriangle)
 	//EXPECT_EQ(0, factory.getPolygons().size());
 }
 
-TEST(PolygonFactoryTest, TestDestoryVertexQuad)
+TEST(PolygonRepositoryTest, TestDestoryVertexQuad)
 {
 	Quad3d<float> q(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(q.toCurve3d(1,1));
@@ -70,7 +70,7 @@ TEST(PolygonFactoryTest, TestDestoryVertexQuad)
 	EXPECT_EQ(1, polygon->getFaces().size());
 }
 
-TEST(PolygonFactoryTest, TestDestoryFace)
+TEST(PolygonRepositoryTest, TestDestoryFace)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
@@ -82,7 +82,7 @@ TEST(PolygonFactoryTest, TestDestoryFace)
 	EXPECT_EQ(1, factory.getPolygons().size());
 }
 
-TEST(PolygonFactoryTest, TestDestoryEdge)
+TEST(PolygonRepositoryTest, TestDestoryEdge)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
@@ -94,7 +94,7 @@ TEST(PolygonFactoryTest, TestDestoryEdge)
 	EXPECT_EQ(0, polygon->getFaces().size());
 }
 
-TEST(PolygonFactoryTest, TestSimplify)
+TEST(PolygonRepositoryTest, TestSimplify)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(t1.toCurve3d());
@@ -103,7 +103,7 @@ TEST(PolygonFactoryTest, TestSimplify)
 	factory.simplify(p, 1);
 }
 
-TEST(PolygonFactoryTest, TestFindDouble)
+TEST(PolygonRepositoryTest, TestFindDouble)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	Triangle3d<float> t2(Vector3d<float>(-1, 0, 0), Vector3d<float>(0, -1, 0), Vector3d<float>(1, 0, 0));
@@ -119,7 +119,7 @@ TEST(PolygonFactoryTest, TestFindDouble)
 	EXPECT_EQ(2, actual.size());
 }
 
-TEST(PolygonFactoryTest, TestReConnect)
+TEST(PolygonRepositoryTest, TestReConnect)
 {
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	Triangle3d<float> t2(Vector3d<float>(-1, 0, 0), Vector3d<float>(0, -1, 0), Vector3d<float>(1, 0, 0));
@@ -135,7 +135,7 @@ TEST(PolygonFactoryTest, TestReConnect)
 	//factory.reconnect(face);
 }
 
-TEST(PolygonFactoryTest, TestFindIsolatedVertices)
+TEST(PolygonRepositoryTest, TestFindIsolatedVertices)
 {
 	VertexRepository vs;
 	vs.create(Vector3d<float>(0, 0, 0));
@@ -148,7 +148,7 @@ TEST(PolygonFactoryTest, TestFindIsolatedVertices)
 	EXPECT_EQ(1, actual.size());
 }
 
-TEST(PolygonFactoryTest, TestSplit)
+TEST(PolygonRepositoryTest, TestSplit)
 {
 	PolygonRepository factory;
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));

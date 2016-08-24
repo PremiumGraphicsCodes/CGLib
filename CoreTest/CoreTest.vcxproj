@@ -22,8 +22,8 @@
     <ClCompile Include="ActorTest.cpp" />
     <ClCompile Include="AnisotoropicParticleTest.cpp" />
     <ClCompile Include="BoneTest.cpp" />
-    <ClCompile Include="EdgeCollectionTest.cpp" />
-    <ClCompile Include="HalfEdgeCollectionTest.cpp" />
+    <ClCompile Include="EdgeRepositoryTest.cpp" />
+    <ClCompile Include="HalfEdgeRepositoryTest.cpp" />
     <ClCompile Include="EdgeSpaceHashTest.cpp" />
     <ClCompile Include="EdgeTest.cpp" />
     <ClCompile Include="HalfEdgeTest.cpp" />
@@ -37,7 +37,7 @@
     <ClCompile Include="ParticleObjectTest.cpp" />
     <ClCompile Include="ParticleTest.cpp" />
     <ClCompile Include="PolygonBuilderTest.cpp" />
-    <ClCompile Include="PolygonFactoryTest.cpp" />
+    <ClCompile Include="PolygonRepositoryTest.cpp" />
     <ClCompile Include="PolygonMeshTest.cpp" />
     <ClCompile Include="SpaceHashTest.cpp" />
     <ClCompile Include="stdafx.cpp">

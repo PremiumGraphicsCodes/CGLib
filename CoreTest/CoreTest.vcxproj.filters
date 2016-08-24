@@ -1,17 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ActorTest.cpp" />
-    <ClCompile Include="AnisotoropicParticleTest.cpp" />
-    <ClCompile Include="BoneTest.cpp" />
-    <ClCompile Include="JointTest.cpp" />
     <ClCompile Include="OctTreeTest.cpp" />
-    <ClCompile Include="ParticleObjectTest.cpp" />
-    <ClCompile Include="ParticleTest.cpp" />
-    <ClCompile Include="VertexTest.cpp" />
-    <ClCompile Include="VolumeCellTest.cpp" />
-    <ClCompile Include="VolumeNodeTest.cpp" />
-    <ClCompile Include="VolumeObjectTest.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="UIDTest.cpp" />
@@ -19,9 +9,6 @@
       <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="PolygonMeshTest.cpp">
-      <Filter>Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="PolygonFactoryTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="PolygonBuilderTest.cpp">
@@ -48,13 +35,46 @@
     <ClCompile Include="EdgeTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
-    <ClCompile Include="HalfEdgeCollectionTest.cpp">
-      <Filter>Polygon</Filter>
-    </ClCompile>
-    <ClCompile Include="EdgeCollectionTest.cpp">
-      <Filter>Polygon</Filter>
-    </ClCompile>
     <ClCompile Include="IndexPolygonSourceTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonRepositoryTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorTest.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneTest.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="JointTest.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="VolumeCellTest.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="VolumeNodeTest.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="VolumeObjectTest.cpp">
+      <Filter>Volume</Filter>
+    </ClCompile>
+    <ClCompile Include="HalfEdgeRepositoryTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleObjectTest.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleTest.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="AnisotoropicParticleTest.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="EdgeRepositoryTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
@@ -70,6 +90,15 @@
     </Filter>
     <Filter Include="Graph">
       <UniqueIdentifier>{f395e760-1327-4424-9d9d-43270265aebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{30411a78-21fd-4fe5-8fe7-91970b85ae99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Volume">
+      <UniqueIdentifier>{88465f6d-0c6e-4059-a5ac-8f1bc372fecf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{a19c3a8b-6ad3-4202-abf4-de867a9606dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
