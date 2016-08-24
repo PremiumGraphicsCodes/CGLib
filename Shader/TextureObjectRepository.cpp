@@ -83,3 +83,15 @@ TextureObject* TextureObjectRepository::find(IImage* image)
 	}
 	return nullptr;
 }
+
+void TextureObjectRepository::update(Image* image)
+{
+	assert(has(image));
+	find(image)->send(*image);
+}
+
+void TextureObjectRepository::update(Imagef* image)
+{
+	assert(has(image));
+	find(image)->send(*image);
+}

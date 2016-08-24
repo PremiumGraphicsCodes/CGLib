@@ -34,6 +34,10 @@ public:
 
 	TextureObject* find(Graphics::IImage* image);
 
+	void update(Graphics::Image* image);
+
+	void update(Graphics::Imagef* image);
+
 private:
 	std::list<ITextureObject*> textures;
 	ImageTextureMap imageTexMap;

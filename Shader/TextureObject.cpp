@@ -17,21 +17,8 @@ void TextureObject::create(const Image& image, const int id)
 
 	glActiveTexture(GL_TEXTURE0 + id);
 	glGenTextures(1, &texHandle);
-	glBindTexture(GL_TEXTURE_2D, texHandle);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getValues().data());
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-	assert(GL_NO_ERROR == glGetError());
+	send(image);
 }
-
-
 
 void TextureObject::bind() const
 {
@@ -59,6 +46,29 @@ void TextureObject::create(const Imagef& image, const int id)
 
 	glActiveTexture(GL_TEXTURE0 + id);
 	glGenTextures(1, &texHandle);
+	send(image);
+}
+
+void TextureObject::send(const Image& image)
+{
+	glBindTexture(GL_TEXTURE_2D, texHandle);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getValues().data());
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	assert(GL_NO_ERROR == glGetError());
+
+}
+
+
+void TextureObject::send(const Imagef& image)
+{
 	glBindTexture(GL_TEXTURE_2D, texHandle);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_FLOAT, image.getValues().data());
 
@@ -67,7 +77,6 @@ void TextureObject::create(const Imagef& image, const int id)
 
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	assert(GL_NO_ERROR == glGetError());

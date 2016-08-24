@@ -24,10 +24,13 @@ public:
 
 	void create(const Graphics::Imagef& image, const int id = 0);
 
+	void send(const Graphics::Image& image);
+
+	void send(const Graphics::Imagef& image);
+
 	void bind() const override;
 
 	void unbind() const override;
-
 
 private:
 };
