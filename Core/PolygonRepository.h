@@ -5,7 +5,8 @@
 #include "PolygonMesh.h"
 #include "Face.h"
 #include "Edge.h"
-#include "HalfEdgeCollection.h"
+#include "HalfEdgeRepository.h"
+#include "FaceRepository.h"
 #include <map>
 
 namespace Crystal {
@@ -52,7 +53,7 @@ public:
 
 	VertexCollection getVertices() const { return vertices; }
 
-	HalfEdgeCollection getEdges() const { return edges; }
+	HalfEdgeRepository getEdges() const { return edges; }
 
 	FaceRepository getFaces() const { return faces; }
 
@@ -94,7 +95,7 @@ public:
 
 private:
 	VertexCollection vertices;
-	HalfEdgeCollection edges;
+	HalfEdgeRepository edges;
 	FaceRepository faces;
 	std::list<PolygonMesh*> polygons;
 	int nextId;

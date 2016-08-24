@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Vertex.h"
 #include "VertexCollection.h"
-#include "HalfEdgeCollection.h"
+#include "HalfEdgeRepository.h"
 #include "PolygonBuilder.h"
 #include "ParticleObject.h"
 #include "PolygonMesh.h"
@@ -25,7 +25,7 @@ PolygonMesh* PolygonBuilder::build(int id)
 {
 	VertexCollection vc(vertices);
 	vc.renumber();
-	HalfEdgeCollection ec(edges);
+	HalfEdgeRepository ec(edges);
 	ec.renumber();
 	FaceRepository fc(faces);
 	fc.renumber();

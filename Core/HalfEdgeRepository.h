@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_HALF_EDGE_COLLECTION_H__
-#define __CRYSTAL_CORE_HALF_EDGE_COLLECTION_H__
+#ifndef __CRYSTAL_CORE_HALF_EDGE_REPOSITORY_H__
+#define __CRYSTAL_CORE_HALF_EDGE_REPOSITORY_H__
 
 #include "Vertex.h"
 #include "HalfEdge.h"
@@ -8,18 +8,18 @@
 namespace Crystal {
 	namespace Core {
 
-class HalfEdgeCollection
+class HalfEdgeRepository
 {
 public:
-	HalfEdgeCollection();
+	HalfEdgeRepository();
 
-	HalfEdgeCollection(const std::vector<HalfEdge*>& edges);
+	HalfEdgeRepository(const std::vector<HalfEdge*>& edges);
 
-	HalfEdgeCollection(const std::list<HalfEdge*>& edges);
+	HalfEdgeRepository(const std::list<HalfEdge*>& edges);
 
-	~HalfEdgeCollection();
+	~HalfEdgeRepository();
 
-	void merge(HalfEdgeCollection& rhs);
+	void merge(HalfEdgeRepository& rhs);
 
 	HalfEdge* create(Vertex* v1, Vertex* v2);
 

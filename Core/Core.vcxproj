@@ -26,7 +26,7 @@
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="EdgeCollection.cpp" />
     <ClCompile Include="HalfEdge.cpp" />
-    <ClCompile Include="HalfEdgeCollection.cpp" />
+    <ClCompile Include="HalfEdgeRepository.cpp" />
     <ClCompile Include="EdgeSpaceHash.cpp" />
     <ClCompile Include="FaceBuilder.cpp" />
     <ClCompile Include="FaceRepository.cpp" />
@@ -70,7 +70,7 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="HalfEdge.h" />
-    <ClInclude Include="HalfEdgeCollection.h" />
+    <ClInclude Include="HalfEdgeRepository.h" />
     <ClInclude Include="EdgeSpaceHash.h" />
     <ClInclude Include="FaceBuilder.h" />
     <ClInclude Include="FaceRepository.h" />

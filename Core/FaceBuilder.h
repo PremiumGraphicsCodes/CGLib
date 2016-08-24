@@ -1,7 +1,7 @@
 #ifndef __CRYSTAL_CORE_FACE_BUILDER_H__
 #define __CRYSTAL_CORE_FACE_BUILDER_H__
 
-#include "HalfEdgeCollection.h"
+#include "HalfEdgeRepository.h"
 #include "FaceRepository.h"
 
 namespace Crystal {
@@ -16,13 +16,13 @@ public:
 
 	Face* build(int i1, int i2, int i3);
 
-	HalfEdgeCollection getEdge() { return edges; }
+	HalfEdgeRepository getEdge() { return edges; }
 
 	void clear();
 
 private:
 	std::vector<Vertex*> vertices;
-	HalfEdgeCollection edges;
+	HalfEdgeRepository edges;
 	FaceRepository faces;
 };
 

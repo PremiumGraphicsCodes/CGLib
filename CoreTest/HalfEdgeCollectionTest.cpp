@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "../Core/HalfEdgeCollection.h"
+#include "../Core/HalfEdgeRepository.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -13,7 +13,7 @@ TEST(HalfEdgeCollectionTest, TestNumber)
 	HalfEdge e1(&v1, &v2);
 	HalfEdge e2(&v2, &v1);
 	std::list<HalfEdge*> es = { &e1, &e2 };
-	HalfEdgeCollection edges(es);
+	HalfEdgeRepository edges(es);
 	EXPECT_EQ( &e2, edges.findReverse(&e1) );
 }
 
@@ -25,7 +25,7 @@ TEST(HalfEdgeCollectionTest, TestFindPair)
 	HalfEdge e1(&v1, &v2);
 	HalfEdge e2(&v2, &v1);
 	std::list<HalfEdge*> es = { &e1, &e2 };
-	HalfEdgeCollection edges(es);
+	HalfEdgeRepository edges(es);
 	edges.setPairs();
 	EXPECT_EQ(&e2, e1.getPair());
 }

@@ -161,7 +161,7 @@ PolygonMesh* PolygonRepository::create(PolygonBuilder& builder)
 {
 	auto p = builder.build( nextId++);
 	this->vertices.merge(VertexCollection(builder.getVertices()));
-	this->edges.merge(HalfEdgeCollection(builder.getEdges()));
+	this->edges.merge(HalfEdgeRepository(builder.getEdges()));
 	this->faces.merge(FaceRepository(builder.getFaces()));
 	polygons.push_back(p);
 	return p;
