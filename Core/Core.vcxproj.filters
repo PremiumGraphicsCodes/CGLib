@@ -206,6 +206,9 @@
     <ClInclude Include="VertexRepository.h">
       <Filter>Polygon</Filter>
     </ClInclude>
+    <ClInclude Include="HalfEdgeBuilder.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">

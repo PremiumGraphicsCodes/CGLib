@@ -70,6 +70,7 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="EdgeCollection.h" />
     <ClInclude Include="HalfEdge.h" />
+    <ClInclude Include="HalfEdgeBuilder.h" />
     <ClInclude Include="HalfEdgeRepository.h" />
     <ClInclude Include="EdgeSpaceHash.h" />
     <ClInclude Include="FaceBuilder.h" />

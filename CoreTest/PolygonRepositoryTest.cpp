@@ -10,8 +10,8 @@ TEST(PolygonRepositoryTest, TestCreate)
 {
 	Triangle3d<float> triangle(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
 	PolygonBuilder builder(triangle.toCurve3d());
-	PolygonRepository factory;
-	auto actual = factory.create(builder);
+	PolygonRepository rep;
+	auto actual = rep.create(builder);
 	EXPECT_EQ(1, actual->getFaces().size());
 	EXPECT_EQ(3, actual->getVertices().size());
 
@@ -22,15 +22,15 @@ TEST(PolygonRepositoryTest, TestMerge)
 	 Triangle3d<float> t1(Vector3d<float>(-1,0,0), Vector3d<float>(1,0,0), Vector3d<float>(0,1,0));
 	 PolygonBuilder builder(t1.toCurve3d());
 	 builder.build();
-	 PolygonRepository f1;
-	 f1.create(builder);
-	 PolygonRepository f2;
-	 f2.create(builder);
-	 f1.merge(f2);
-	 EXPECT_EQ(2, f1.getFaces().size());
-	 EXPECT_EQ(0, f2.getFaces().size());
-	 EXPECT_EQ(6, f1.getVertices().size());
-	 EXPECT_EQ(0, f2.getVertices().size());
+	 PolygonRepository rep1;
+	 rep1.create(builder);
+	 PolygonRepository rep2;
+	 rep2.create(builder);
+	 rep1.merge(rep2);
+	 EXPECT_EQ(2, rep1.getFaces().size());
+	 EXPECT_EQ(0, rep2.getFaces().size());
+	 EXPECT_EQ(6, rep1.getVertices().size());
+	 EXPECT_EQ(0, rep2.getVertices().size());
 }
 
 TEST(PolygonRepositoryTest, TestRemoveFace)
@@ -117,22 +117,6 @@ TEST(PolygonRepositoryTest, TestFindDouble)
 
 	auto actual = factory.findDouble(p1, p2, 1.0e-6f);
 	EXPECT_EQ(2, actual.size());
-}
-
-TEST(PolygonRepositoryTest, TestReConnect)
-{
-	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));
-	Triangle3d<float> t2(Vector3d<float>(-1, 0, 0), Vector3d<float>(0, -1, 0), Vector3d<float>(1, 0, 0));
-
-	PolygonBuilder builder1(t1.toCurve3d());
-	PolygonBuilder builder2(t2.toCurve3d());
-	PolygonRepository factory;
-
-	auto p1 = factory.create(builder1);
-	auto p2 = factory.create(builder2);
-
-	auto actual = factory.findDouble(p1, p2, 1.0e-6f);
-	//factory.reconnect(face);
 }
 
 TEST(PolygonRepositoryTest, TestFindIsolatedVertices)
