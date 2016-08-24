@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_VERTEX_COLLECTION_H__
-#define __CRYSTAL_CORE_VERTEX_COLLECTION_H__
+#ifndef __CRYSTAL_CORE_VERTEX_REPOSITORY_H__
+#define __CRYSTAL_CORE_VERTEX_REPOSITORY_H__
 
 #include "Vertex.h"
 #include "vector"
@@ -7,16 +7,16 @@
 namespace Crystal {
 	namespace Core {
 
-class VertexCollection
+class VertexRepository
 {
 public:
-	VertexCollection();
+	VertexRepository();
 
-	VertexCollection(const std::vector<Vertex*>& vertices);
+	VertexRepository(const std::vector<Vertex*>& vertices);
 
-	VertexCollection(const std::list<Vertex*>& vertices);
+	VertexRepository(const std::list<Vertex*>& vertices);
 
-	~VertexCollection();
+	~VertexRepository();
 
 	Vertex* create(Math::Vector3d<float> position, Math::Vector3d<float> normal = Math::Vector3d<float>(), Math::Vector2d<float> texCoord = Math::Vector2d<float>());
 
@@ -24,9 +24,9 @@ public:
 
 	Vertex* findById(const int id) const;
 
-	VertexCollection clone();
+	VertexRepository clone();
 
-	void merge(VertexCollection& rhs);
+	void merge(VertexRepository& rhs);
 
 	void clear();
 
@@ -35,8 +35,6 @@ public:
 	void sort();
 
 	void renumber();
-
-	//Vertex* operator[](int index) const { return vertices[index]; }
 
 	using iterator = std::list<Vertex*>::iterator;
 	using const_iterator = std::list<Vertex*>::const_iterator;
@@ -62,7 +60,6 @@ public:
 	std::list<Vertex*> find(const Math::Vector3d<float>& position, const float effectLength);
 
 	Vertex* findById(const int id);
-
 
 private:
 	std::list<Vertex*> vertices;

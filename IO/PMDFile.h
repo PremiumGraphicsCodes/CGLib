@@ -8,7 +8,7 @@
 namespace Crystal {
 	namespace Core {
 		class Vertex;
-		class VertexCollection;
+		class VertexRepository;
 		class PolygonMesh;
 		class Actor;
 		class Bone;
@@ -79,7 +79,7 @@ class PMDVertexCollection
 public:
 	PMDVertexCollection() = default;
 
-	PMDVertexCollection(const Core::VertexCollection& vs);
+	PMDVertexCollection(const Core::VertexRepository& vs);
 
 	bool read(std::istream& stream);
 

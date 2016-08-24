@@ -2,14 +2,14 @@
 #include "../Core/Vertex.h"
 #include "../Core/HalfEdge.h"
 
-#include "../Core/VertexCollection.h"
+#include "../Core/VertexRepository.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
 TEST(VertexCollectionTest, TestSort)
 {
-	VertexCollection vertices;
+	VertexRepository vertices;
 	auto v1 = vertices.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
 	auto v2 = vertices.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
 	auto v3 = vertices.create(Vector3d<float>(1.0f, 0.0f, 0.0f));
@@ -24,9 +24,9 @@ TEST(VertexCollectionTest, TestSort)
 
 TEST(VertexCollectionTest, TestMerge)
 {
-	VertexCollection vertices1;
+	VertexRepository vertices1;
 	vertices1.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
-	VertexCollection vertices2;
+	VertexRepository vertices2;
 	vertices2.create(Vector3d<float>(0.0f, 0.0f, 0.0f));
 	vertices1.merge(vertices2);
 	EXPECT_EQ( 2, vertices1.size() );

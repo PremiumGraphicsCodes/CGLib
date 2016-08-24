@@ -4,8 +4,6 @@
 #include "../Util/UnCopyable.h"
 #include "Vertex.h"
 #include "Face.h"
-#include "VertexCollection.h"
-#include "FaceRepository.h"
 
 #include <list>
 

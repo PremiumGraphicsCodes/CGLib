@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "IndexedPolygonSource.h"
 #include "PolygonMesh.h"
-#include "VertexCollection.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;

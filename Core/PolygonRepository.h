@@ -5,6 +5,7 @@
 #include "PolygonMesh.h"
 #include "Face.h"
 #include "Edge.h"
+#include "VertexRepository.h"
 #include "HalfEdgeRepository.h"
 #include "FaceRepository.h"
 #include <map>
@@ -21,13 +22,13 @@ class PolygonRepository : private UnCopyable
 public:
 	PolygonRepository();
 
-	PolygonRepository(VertexCollection& vertices);
+	PolygonRepository(VertexRepository& vertices);
 
 	~PolygonRepository();
 
 	void clear();
 
-	void add(const VertexCollection& vs) { this->vertices = vs; }
+	void add(const VertexRepository& vs) { this->vertices = vs; }
 
 	void add(PolygonMesh* p);
 
@@ -51,7 +52,7 @@ public:
 
 	std::list<PolygonMesh*> getPolygons() const { return polygons; }
 
-	VertexCollection getVertices() const { return vertices; }
+	VertexRepository getVertices() const { return vertices; }
 
 	HalfEdgeRepository getEdges() const { return edges; }
 
@@ -94,7 +95,7 @@ public:
 	void divide(PolygonMesh* polygon,const float area);
 
 private:
-	VertexCollection vertices;
+	VertexRepository vertices;
 	HalfEdgeRepository edges;
 	FaceRepository faces;
 	std::list<PolygonMesh*> polygons;

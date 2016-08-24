@@ -28,7 +28,7 @@ void STLFile::add(const PolygonMesh& mesh)
 
 PolygonMesh* STLFile::toPolygonObject() const
 {
-	VertexCollection vertices;
+	VertexRepository vertices;
 	PolygonBuilder builder;
 	for (const auto& c : cells) {
 		const auto& pos = c.getPositions();

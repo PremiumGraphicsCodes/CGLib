@@ -25,7 +25,7 @@ PolygonRepository::~PolygonRepository()
 	clear();
 }
 
-PolygonRepository::PolygonRepository(VertexCollection& vertices)
+PolygonRepository::PolygonRepository(VertexRepository& vertices)
 {
 	this->vertices.merge(vertices);
 }
@@ -34,7 +34,7 @@ PolygonRepository::PolygonRepository(VertexCollection& vertices)
 void PolygonRepository::add(PolygonMesh* p)
 {
 	const auto vs = p->getVertices();
-	this->vertices.merge(VertexCollection(vs));
+	this->vertices.merge(VertexRepository(vs));
 	auto fs = p->getFaces();
 	this->faces.merge(FaceRepository(fs));
 	polygons.push_back(p);
@@ -160,7 +160,7 @@ void PolygonRepository::split(PolygonMesh* polygon, Face* f)
 PolygonMesh* PolygonRepository::create(PolygonBuilder& builder)
 {
 	auto p = builder.build( nextId++);
-	this->vertices.merge(VertexCollection(builder.getVertices()));
+	this->vertices.merge(VertexRepository(builder.getVertices()));
 	this->edges.merge(HalfEdgeRepository(builder.getEdges()));
 	this->faces.merge(FaceRepository(builder.getFaces()));
 	polygons.push_back(p);

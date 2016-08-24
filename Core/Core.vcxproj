@@ -53,7 +53,7 @@
     <ClCompile Include="PolygonMesh.cpp" />
     <ClCompile Include="SpaceHash.cpp" />
     <ClCompile Include="Vertex.cpp" />
-    <ClCompile Include="VertexCollection.cpp" />
+    <ClCompile Include="VertexRepository.cpp" />
     <ClCompile Include="VertexSpaceHash.cpp" />
     <ClCompile Include="VolumeCell.cpp" />
     <ClCompile Include="VolumeNode.cpp" />
@@ -94,7 +94,7 @@
     <ClInclude Include="PolygonMesh.h" />
     <ClInclude Include="SpaceHash.h" />
     <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VertexCollection.h" />
+    <ClInclude Include="VertexRepository.h" />
     <ClInclude Include="VertexSpaceHash.h" />
     <ClInclude Include="VolumeCell.h" />
     <ClInclude Include="VolumeNode.h" />

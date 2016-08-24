@@ -137,7 +137,7 @@ TEST(PolygonFactoryTest, TestReConnect)
 
 TEST(PolygonFactoryTest, TestFindIsolatedVertices)
 {
-	VertexCollection vs;
+	VertexRepository vs;
 	vs.create(Vector3d<float>(0, 0, 0));
 	PolygonRepository factory(vs);
 	Triangle3d<float> t1(Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(0, 1, 0));

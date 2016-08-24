@@ -48,9 +48,6 @@
     <ClCompile Include="Face.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
-    <ClCompile Include="VertexCollection.cpp">
-      <Filter>Polygon</Filter>
-    </ClCompile>
     <ClCompile Include="PolygonBuilder.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
@@ -97,6 +94,9 @@
       <Filter>Polygon</Filter>
     </ClCompile>
     <ClCompile Include="HalfEdgeRepository.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexRepository.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,9 +155,6 @@
     <ClInclude Include="Face.h">
       <Filter>Polygon</Filter>
     </ClInclude>
-    <ClInclude Include="VertexCollection.h">
-      <Filter>Polygon</Filter>
-    </ClInclude>
     <ClInclude Include="PolygonBuilder.h">
       <Filter>Polygon</Filter>
     </ClInclude>
@@ -204,6 +201,9 @@
       <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="HalfEdgeRepository.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexRepository.h">
       <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>

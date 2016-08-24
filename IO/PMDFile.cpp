@@ -68,7 +68,7 @@ Vertex PMDVertex::toVertex(const unsigned int id)
 	return Vertex(this->pos, this->normal, t, id);
 }
 
-PMDVertexCollection::PMDVertexCollection(const VertexCollection& vs)
+PMDVertexCollection::PMDVertexCollection(const VertexRepository& vs)
 {
 	for (auto v : vs) {
 		PMDVertex pmdv(*v);
@@ -921,7 +921,7 @@ PolygonMesh* PMDFile::toPolygonObject() const
 {
 	PolygonBuilder builder;
 	auto vs = this->vertices.get();
-	VertexCollection vertices;
+	VertexRepository vertices;
 	std::vector<Vertex*> createdVs;
 	for (size_t i = 0; i < vs.size(); ++i ) {
 	 	auto v = vertices.create(vs[i].pos, vs[i].normal);

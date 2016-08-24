@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Vertex.h"
-#include "VertexCollection.h"
+#include "VertexRepository.h"
 #include "VertexSpaceHash.h"
 #include "Face.h"
 
@@ -38,41 +38,41 @@ namespace {
 }
 
 
-VertexCollection::VertexCollection() : nextId(0)
+VertexRepository::VertexRepository() : nextId(0)
 {}
 
-VertexCollection::VertexCollection(const std::vector<Vertex*>& vertices):
+VertexRepository::VertexRepository(const std::vector<Vertex*>& vertices):
 nextId(0),
 vertices(vertices.begin(), vertices.end())
 {
 }
 
-VertexCollection::VertexCollection(const std::list<Vertex*>& vertices) :
+VertexRepository::VertexRepository(const std::list<Vertex*>& vertices) :
 	vertices(vertices),
 	nextId(0)
 {}
 
-VertexCollection::~VertexCollection()
+VertexRepository::~VertexRepository()
 {
 }
 
-VertexCollection VertexCollection::clone()
+VertexRepository VertexRepository::clone()
 {
 	std::list<Vertex*> vs;
 	for (auto v : vertices) {
 		vs.push_back(v->clone());
 	}
-	return VertexCollection(vs);
+	return VertexRepository(vs);
 }
 
 
-bool VertexCollection::hasVertex(Vertex* v)
+bool VertexRepository::hasVertex(Vertex* v)
 {
 	return (std::find(vertices.begin(), vertices.end(), v) != vertices.end());
 }
 
 
-void VertexCollection::sort()
+void VertexRepository::sort()
 {
 	std::list<Vertex*> vlist(vertices.begin(), vertices.end());
 	vlist.sort(::comp);
@@ -85,21 +85,21 @@ void VertexCollection::sort()
 	cleaning();
 }
 
-Vertex* VertexCollection::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
+Vertex* VertexRepository::create(Vector3d<float> position, Vector3d<float> normal, Vector2d<float> texCoord)
 {
 	auto v = new Vertex(position, normal, texCoord, nextId++);
 	vertices.push_back(v);
 	return v;
 }
 
-Vertex* VertexCollection::create(const Point3d<float>& point)
+Vertex* VertexRepository::create(const Point3d<float>& point)
 {
 	auto v = new Vertex(point.getPosition(), point.getNormal(), point.getParameter(), nextId++);
 	vertices.push_back(v);
 	return v;
 }
 
-Vertex* VertexCollection::findById(const int id) const
+Vertex* VertexRepository::findById(const int id) const
 {
 	for (auto v : vertices) {
 		if (v->getId() == id) {
@@ -110,14 +110,14 @@ Vertex* VertexCollection::findById(const int id) const
 }
 
 
-void VertexCollection::merge(VertexCollection& rhs)
+void VertexRepository::merge(VertexRepository& rhs)
 {
 	vertices.insert(vertices.end(), rhs.vertices.begin(), rhs.vertices.end());
 	renumber();
 	rhs.vertices.clear();
 }
 
-void VertexCollection::clear()
+void VertexRepository::clear()
 {
 	for (auto v : vertices) {
 		delete v;
@@ -125,7 +125,7 @@ void VertexCollection::clear()
 	vertices.clear();
 }
 
-void VertexCollection::renumber()
+void VertexRepository::renumber()
 {
 	nextId = 0;
 	for (auto v : vertices) {
@@ -133,25 +133,25 @@ void VertexCollection::renumber()
 	}
 }
 
-void VertexCollection::cleaning()
+void VertexRepository::cleaning()
 {
 	renumber();
 }
 
 
-void VertexCollection::add(Vertex* v)
+void VertexRepository::add(Vertex* v)
 {
 	vertices.push_back(v);
 }
 
-void VertexCollection::remove(Vertex* v)
+void VertexRepository::remove(Vertex* v)
 {
 	vertices.remove(v);
 	delete v;
 }
 
 
-std::list<Vertex*> VertexCollection::find(const Vector3d<float>& position, const float radius)
+std::list<Vertex*> VertexRepository::find(const Vector3d<float>& position, const float radius)
 {
 	VertexSpaceHash hash(radius*2, static_cast<int>(vertices.size()));
 	for (auto v : vertices) {
@@ -160,7 +160,7 @@ std::list<Vertex*> VertexCollection::find(const Vector3d<float>& position, const
 	return hash.getNeighbor(position);
 }
 
-Vertex* VertexCollection::findById(const int id)
+Vertex* VertexRepository::findById(const int id)
 {
 	for (auto v : vertices) {
 		if (id == v->getId()) {
