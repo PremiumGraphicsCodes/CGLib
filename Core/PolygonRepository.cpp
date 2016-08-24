@@ -36,7 +36,7 @@ void PolygonRepository::add(PolygonMesh* p)
 	const auto vs = p->getVertices();
 	this->vertices.merge(VertexCollection(vs));
 	auto fs = p->getFaces();
-	this->faces.merge(FaceCollection(fs));
+	this->faces.merge(FaceRepository(fs));
 	polygons.push_back(p);
 }
 
@@ -162,12 +162,12 @@ PolygonMesh* PolygonRepository::create(PolygonBuilder& builder)
 	auto p = builder.build( nextId++);
 	this->vertices.merge(VertexCollection(builder.getVertices()));
 	this->edges.merge(HalfEdgeCollection(builder.getEdges()));
-	this->faces.merge(FaceCollection(builder.getFaces()));
+	this->faces.merge(FaceRepository(builder.getFaces()));
 	polygons.push_back(p);
 	return p;
 }
 
-PolygonMesh* PolygonRepository::create(FaceCollection& faces)
+PolygonMesh* PolygonRepository::create(FaceRepository& faces)
 {
 	auto p = new PolygonMesh(faces.get(), nextId++);
 	this->faces.merge(faces);

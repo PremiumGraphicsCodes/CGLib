@@ -46,7 +46,7 @@ public:
 
 	PolygonMesh* create(PolygonBuilder& builder);
 
-	PolygonMesh* create(FaceCollection& faces);
+	PolygonMesh* create(FaceRepository& faces);
 
 	std::list<PolygonMesh*> getPolygons() const { return polygons; }
 
@@ -54,7 +54,7 @@ public:
 
 	HalfEdgeCollection getEdges() const { return edges; }
 
-	FaceCollection getFaces() const { return faces; }
+	FaceRepository getFaces() const { return faces; }
 
 	PolygonMesh* findPolygonById(const int id);
 
@@ -95,7 +95,7 @@ public:
 private:
 	VertexCollection vertices;
 	HalfEdgeCollection edges;
-	FaceCollection faces;
+	FaceRepository faces;
 	std::list<PolygonMesh*> polygons;
 	int nextId;
 };

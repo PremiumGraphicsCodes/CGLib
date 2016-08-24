@@ -97,7 +97,7 @@ class PMDFaceCollection
 public:
 	PMDFaceCollection() = default;
 
-	PMDFaceCollection(const Core::FaceCollection& faces);
+	PMDFaceCollection(const Core::FaceRepository& faces);
 
 	bool read(std::istream& stream);
 

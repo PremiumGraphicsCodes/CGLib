@@ -27,7 +27,7 @@ PolygonMesh* PolygonBuilder::build(int id)
 	vc.renumber();
 	HalfEdgeCollection ec(edges);
 	ec.renumber();
-	FaceCollection fc(faces);
+	FaceRepository fc(faces);
 	fc.renumber();
 	return new PolygonMesh(fc.get(), id);
 }

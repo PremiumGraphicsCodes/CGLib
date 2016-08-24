@@ -1,44 +1,44 @@
 #include "stdafx.h"
-#include "FaceCollection.h"
+#include "FaceRepository.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-FaceCollection::FaceCollection() :
+FaceRepository::FaceRepository() :
 	nextId(0)
 {}
 
-FaceCollection::FaceCollection(const std::vector<Face*>& faces) :
+FaceRepository::FaceRepository(const std::vector<Face*>& faces) :
 	nextId(0),
 	faces(faces.begin(), faces.end())
 {
 }
 
 
-FaceCollection::FaceCollection(const std::list<Face*>& faces) :
+FaceRepository::FaceRepository(const std::list<Face*>& faces) :
 	faces(faces),
 	nextId(0)
 {}
 
-FaceCollection::~FaceCollection()
+FaceRepository::~FaceRepository()
 {
 }
 
-void FaceCollection::merge(FaceCollection& rhs)
+void FaceRepository::merge(FaceRepository& rhs)
 {
 	this->faces.splice(this->faces.end(), rhs.faces);
 	renumber();
 	rhs.faces.clear();
 }
 
-Face* FaceCollection::create(HalfEdge* v1, HalfEdge* v2, HalfEdge* v3)
+Face* FaceRepository::create(HalfEdge* v1, HalfEdge* v2, HalfEdge* v3)
 {
 	auto f = new Face(v1, v2, v3, nextId++);
 	faces.push_back(f);
 	return f;
 }
 
-void FaceCollection::clear()
+void FaceRepository::clear()
 {
 	for (auto f : faces) {
 		delete f;
@@ -46,7 +46,7 @@ void FaceCollection::clear()
 	faces.clear();
 }
 
-void FaceCollection::cleaning()
+void FaceRepository::cleaning()
 {
 	std::list<Face*> shrinked = getDegenerateds();
 	for (auto f : shrinked) {
@@ -55,7 +55,7 @@ void FaceCollection::cleaning()
 	renumber();
 }
 
-void FaceCollection::renumber()
+void FaceRepository::renumber()
 {
 	nextId = 0;
 	for (auto f : faces) {
@@ -64,13 +64,13 @@ void FaceCollection::renumber()
 
 }
 
-void FaceCollection::remove(Face* f)
+void FaceRepository::remove(Face* f)
 {
 	faces.remove(f);
 	delete f;
 }
 
-Face* FaceCollection::findById(const int id)
+Face* FaceRepository::findById(const int id)
 {
 	for (auto f : faces) {
 		if (id == f->getId()) {
@@ -80,12 +80,12 @@ Face* FaceCollection::findById(const int id)
 	return nullptr;
 }
 
-void FaceCollection::add(Face* f)
+void FaceRepository::add(Face* f)
 {
 	faces.push_back(f);
 }
 
-std::list<Face*> FaceCollection::getDegenerateds()
+std::list<Face*> FaceRepository::getDegenerateds()
 {
 	std::list<Face*> shrinked;
 	for (auto f : faces) {

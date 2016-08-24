@@ -2,7 +2,7 @@
 #define __CRYSTAL_CORE_FACE_BUILDER_H__
 
 #include "HalfEdgeCollection.h"
-#include "FaceCollection.h"
+#include "FaceRepository.h"
 
 namespace Crystal {
 	namespace Core {
@@ -23,7 +23,7 @@ public:
 private:
 	std::vector<Vertex*> vertices;
 	HalfEdgeCollection edges;
-	FaceCollection faces;
+	FaceRepository faces;
 };
 
 	}

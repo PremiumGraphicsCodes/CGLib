@@ -5,7 +5,7 @@
 #include "Vertex.h"
 #include "Face.h"
 #include "VertexCollection.h"
-#include "FaceCollection.h"
+#include "FaceRepository.h"
 
 #include <list>
 

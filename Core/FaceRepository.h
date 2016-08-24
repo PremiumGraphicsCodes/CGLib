@@ -1,5 +1,5 @@
-#ifndef __CRYSTAL_CORE_FACE_COLLECTION_H__
-#define __CRYSTAL_CORE_FACE_COLLECTION_H__
+#ifndef __CRYSTAL_CORE_FACE_REPOSITORY_H__
+#define __CRYSTAL_CORE_FACE_REPOSITORY_H__
 
 #include "Vertex.h"
 #include "Face.h"
@@ -7,18 +7,18 @@
 namespace Crystal {
 	namespace Core {
 
-class FaceCollection
+class FaceRepository
 {
 public:
-	FaceCollection();
+	FaceRepository();
 
-	FaceCollection(const std::vector<Face*>& faces);
+	FaceRepository(const std::vector<Face*>& faces);
 
-	FaceCollection(const std::list<Face*>& faces);
+	FaceRepository(const std::list<Face*>& faces);
 
-	~FaceCollection();
+	~FaceRepository();
 
-	void merge(FaceCollection& rhs);
+	void merge(FaceRepository& rhs);
 
 	Face* create(HalfEdge* v1, HalfEdge* v2, HalfEdge* v3);
 
@@ -35,8 +35,6 @@ public:
 
 	iterator begin() { return faces.begin(); }
 
-	//iterator front() { return faces.front(); }
-
 	const_iterator begin() const { return faces.begin(); }
 
 	iterator end() { return faces.end(); }
@@ -44,8 +42,6 @@ public:
 	const_iterator end() const { return faces.end(); }
 
 	size_t size() const { return faces.size(); }
-
-//	Face* operator[](const int i) const { return faces[i]; }
 
 	std::list<Face*> get() { return faces; }
 

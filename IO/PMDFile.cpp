@@ -151,7 +151,7 @@ bool PMDVertexCollection::write(std::ostream& stream) const
 	return stream.good();
 }
 
-PMDFaceCollection::PMDFaceCollection(const FaceCollection& fs)
+PMDFaceCollection::PMDFaceCollection(const FaceRepository& fs)
 {
 	for (auto f : fs) {
 		faces.push_back(f->getV1()->getId());
@@ -928,7 +928,7 @@ PolygonMesh* PMDFile::toPolygonObject() const
 		createdVs.push_back(v);
 	}
 	auto is = this->faces.get();
-	FaceCollection faces;
+	FaceRepository faces;
 	for (size_t i = 0; i < is.size(); i+=3 ) {
 		auto v1 = createdVs[i];
 		auto v2 = createdVs[i + 1];
