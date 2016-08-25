@@ -96,6 +96,8 @@ public:
 
 	Box3d<T> getBoundingBox() const;
 
+	T getInscribedCircleRadius() const;
+
 private:
 	Vector3d<T> v0;
 	Vector3d<T> v1;

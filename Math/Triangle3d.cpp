@@ -148,6 +148,16 @@ Box3d<T> Triangle3d<T>::getBoundingBox() const
 	return box;
 }
 
+template<typename T>
+T Triangle3d<T>::getInscribedCircleRadius() const
+{
+	const auto area = getArea();
+	const auto a = v1.getDistance(v0);
+	const auto b = v2.getDistance(v1);
+	const auto c = v0.getDistance(v2);
+	return T{ 2 } * area / (a + b + c);
+}
+
 
 //template<typename T>
 //Vector3d<T> getIntersection

@@ -108,7 +108,6 @@
       <Filter>Primitive3d</Filter>
     </ClCompile>
     <ClCompile Include="Ray3d.cpp" />
-    <ClCompile Include="Triangle3d.cpp" />
     <ClCompile Include="TriangleCurve3d.cpp" />
     <ClCompile Include="Line3d.cpp">
       <Filter>Primitive3d</Filter>
@@ -129,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="Line2d.cpp">
       <Filter>Primitive2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle3d.cpp">
+      <Filter>Primitive3d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +249,6 @@
     </ClInclude>
     <ClInclude Include="Math.h" />
     <ClInclude Include="Ray3d.h" />
-    <ClInclude Include="Triangle3d.h" />
     <ClInclude Include="IPrimitive3d.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
@@ -276,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="Line2d.h">
       <Filter>Primitive2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle3d.h">
+      <Filter>Primitive3d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

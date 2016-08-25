@@ -84,3 +84,11 @@ TYPED_TEST(Triangle3dTest, TestGetBoundingBox)
 	const Box3d<T> expected(Vector3d<T>(-1, 0, 0), Vector3d<T>(1, 1, 0));
 	EXPECT_EQ(expected, actual);
 }
+
+TYPED_TEST(Triangle3dTest, TestGetInscribedCircleRadius)
+{
+	using T = TypeParam;
+	const Triangle3d<T> triangle1(Vector3d<T>(0, 0, 0), Vector3d<T>(3, 0, 0), Vector3d<T>(0, 4, 0));
+	const auto actual1 = triangle1.getInscribedCircleRadius();
+	EXPECT_FLOAT_EQ(actual1, 1);
+}
