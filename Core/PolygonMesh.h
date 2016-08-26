@@ -75,6 +75,8 @@ public:
 	std::list<Vertex*> findBoundaryVertices();
 
 	std::list<HalfEdge*> findBoundaryEdges();
+
+	void updateNormals();
 		
 private:
 	unsigned int id;

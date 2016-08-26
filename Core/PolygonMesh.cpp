@@ -249,3 +249,26 @@ std::list<HalfEdge*> PolygonMesh::findBoundaryEdges()
 	}
 	return results;
 }
+
+void PolygonMesh::updateNormals()
+{
+	for (auto f : faces) {
+		for (auto v : f->getVertices()) {
+			v->setNormal(Vector3d<float>(0, 0, 0));
+		}
+	}
+	for (auto f : faces) {
+		const auto area = f->getArea() * 1.0e+6f;
+		//assert(area > 0);
+		const auto& normal = f->getNormal();
+		for (auto v : f->getVertices()) {
+			v->setNormal(v->getNormal() + area * normal);
+		}
+	}
+	for (auto f : faces) {
+		for (auto v : f->getVertices()) {
+			auto n = v->getNormal();
+			v->setNormal(n.normalized());
+		}
+	}
+}
