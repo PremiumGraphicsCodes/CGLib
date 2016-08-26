@@ -34,14 +34,14 @@ std::string NormalRenderer::getBuildinVertexShaderSource() const
 		<< "in vec3 position;" << std::endl
 		<< "in vec3 normal;" << std::endl
 		<< "in vec4 color;" << std::endl
-		<< "out vec3 vNormal;" << std::endl
+		<< "out vec4 vNormal;" << std::endl
 		<< "out vec4 vColor;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
 		<< "void main(void) {" << std::endl
 		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
 		<< "	vColor = color;" << std::endl
-		<< "	vNormal = normal;" << std::endl
+		<< "	vNormal = projectionMatrix * modelviewMatrix * vec4(normal,1.0);" << std::endl
 		<< "}" << std::endl;
 	return stream.str();
 }
@@ -53,7 +53,7 @@ std::string NormalRenderer::getBuildinGeometryShaderSource() const
 		<< "#version 330" << std::endl
 		<< "layout(points) in;" << std::endl
 		<< "layout(line_strip, max_vertices = 2) out;" << std::endl
-		<< "in vec3 vNormal[];" << std::endl
+		<< "in vec4 vNormal[];" << std::endl
 		<< "in vec4 vColor[];" << std::endl
 		<< "out vec4 gColor;" << std::endl
 		<< "void main(void) {" << std::endl
