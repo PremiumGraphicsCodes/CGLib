@@ -12,6 +12,7 @@
 #include "Joint.h"
 #include "MarchingCubeTable.h"
 #include "Vertex.h"
+#include "VertexSpaceHash.h"
 #include "OctTree.h"
 #include "Particle.h"
 #include "ParticleObject.h"
