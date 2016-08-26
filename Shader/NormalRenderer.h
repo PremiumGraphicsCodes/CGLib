@@ -1,40 +1,55 @@
 #ifndef __CRYSTAL_SHADER_NORMAL_RENDERER_H__
 #define __CRYSTAL_SHADER_NORMAL_RENDERER_H__
 
-#include <map>
-#include <vector>
-
-#include "ShaderObject.h"
-
 #include "../Graphics/ICamera.h"
-
+#include "../Graphics/PointBuffer.h"
 #include "IRenderer.h"
-
-#include <memory>
 
 namespace Crystal {
 	namespace Shader {
 
-template<typename GeomType>
-class NormalRenderer : public IRenderer{
+class NormalBuffer
+{
 public:
+	NormalBuffer() {};
 
-	NormalRenderer() : scale(1)
-	{}
+	void add(const Math::Vector3d<float>& position, const Math::Vector3d<float>& normal, const Graphics::ColorRGBA<float>& color);
 
-	NormalRenderer(const ShaderObject& shader) :
-		IRenderer(shader)
-	{}
+	Graphics::Buffer3d<float> getPosition() const { return position; }
 
-	~NormalRenderer() = default;
+	Graphics::Buffer3d<float> getNormal() const { return normal; }
 
-	void findLocation() override {}
+	Graphics::Buffer4d<float> getColor() const { return color; }
 
-	void render(const Graphics::ICamera<GeomType>& camera);
-
-	float scale;
+private:
+	Graphics::Buffer3d<float> position;
+	Graphics::Buffer3d<float> normal;
+	Graphics::Buffer4d<float> color;
 };
 
+namespace v330 {
+
+class NormalRenderer
+{
+public:
+	void findLocation();
+
+	void render(const Graphics::ICamera<float>& camera, const NormalBuffer& buffer);
+
+	bool build();
+
+private:
+
+	std::string getBuildinVertexShaderSource() const;
+
+	std::string getBuildinGeometryShaderSource() const;
+
+	std::string getBuildinFragmentShaderSource() const;
+
+private:
+	ShaderObject shader;
+};
+		}
 	}
 }
 

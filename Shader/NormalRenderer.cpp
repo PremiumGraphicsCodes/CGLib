@@ -1,74 +1,146 @@
 #include "stdafx.h"
 #include "NormalRenderer.h"
 
+#include <sstream>
+
+using namespace Crystal::Math;
 using namespace Crystal::Graphics;
 using namespace Crystal::Shader;
 
-namespace {
-	struct Location {
-		GLuint projectionMatrix;
-		GLuint modelviewMatrix;
-		GLuint scale;
-		GLuint position;
-		GLuint vector;
-		
-		Location(const GLuint id) {
-			projectionMatrix = glGetUniformLocation(id, "projectionMatrix");
-			modelviewMatrix = glGetUniformLocation(id, "modelviewMatrix");
-			assert(projectionMatrix != -1);
-			assert(modelviewMatrix != -1);
-			scale = glGetUniformLocation(id, "scale");
-			assert(scale != -1);
-			position = glGetAttribLocation(id, "position");
-			vector = glGetAttribLocation(id, "vector");
-			assert(position != -1);
-			assert(vector != -1);
-		}
-	};
+void NormalBuffer::add(const Vector3d<float>& position, const Vector3d<float>& normal, const ColorRGBA<float>& color)
+{
+	this->position.add(position);
+	this->normal.add(normal);
+	this->color.add(color);
 }
 
-template<typename GeomType>
-void NormalRenderer<GeomType>::render(const ICamera<GeomType>& camera)
+using namespace Crystal::Shader::v330;
+
+bool NormalRenderer::build()
 {
-	if (buffers.size() < 2) {
+	const auto vsSource = getBuildinVertexShaderSource();
+	const auto gsSource = getBuildinGeometryShaderSource();
+	const auto fsSource = getBuildinFragmentShaderSource();
+	bool b = shader.build(vsSource, gsSource, fsSource);
+	findLocation();
+	return b;
+}
+
+std::string NormalRenderer::getBuildinVertexShaderSource() const
+{
+	std::ostringstream stream;
+	stream
+		<< "#version 330" << std::endl
+		<< "in vec3 position;" << std::endl
+		<< "in vec3 normal;" << std::endl
+		<< "in vec4 color;" << std::endl
+		<< "out vec3 vNormal;" << std::endl
+		<< "out vec4 vColor;" << std::endl
+		<< "uniform mat4 projectionMatrix;" << std::endl
+		<< "uniform mat4 modelviewMatrix;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	gl_Position = projectionMatrix * modelviewMatrix * vec4(position, 1.0);" << std::endl
+		<< "	vColor = color;" << std::endl
+		<< "	vNormal = normal;" << std::endl
+		<< "}" << std::endl;
+	return stream.str();
+}
+
+std::string NormalRenderer::getBuildinGeometryShaderSource() const
+{
+	std::ostringstream stream;
+	stream
+		<< "#version 330" << std::endl
+		<< "layout(points) in;" << std::endl
+		<< "layout(line_strip, max_vertices = 2) out;" << std::endl
+		<< "in vec3 vNormal[];" << std::endl
+		<< "in vec4 vColor[];" << std::endl
+		<< "out vec4 gColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	gl_Position = gl_in[0].gl_Position;" << std::endl
+		<< "	gColor = vColor[0];" << std::endl
+		<< "	EmitVertex();" << std::endl
+		<< "	gl_Position = gl_in[0].gl_Position + vNormal[0];" << std::endl
+		<< "	gColor = vColor[0];" << std::endl
+		<< "	EmitVertex();" << std::endl
+		<< "	EndPrimitive();" << std::endl
+		<< "}" << std::endl;
+	return stream.str();
+
+}
+
+
+std::string NormalRenderer::getBuildinFragmentShaderSource() const
+{
+	std::ostringstream stream;
+	stream
+		<< "#version 330" << std::endl
+		<< "in vec4 gColor;" << std::endl
+		<< "out vec4 fragColor;" << std::endl
+		<< "void main(void) {" << std::endl
+		<< "	fragColor.rgba = gColor;" << std::endl
+		<< "}" << std::endl;
+	return stream.str();
+}
+
+void NormalRenderer::findLocation()
+{
+	shader.findUniformLocation("projectionMatrix");
+	shader.findUniformLocation("modelviewMatrix");
+
+	shader.findAttribLocation("position");
+	shader.findAttribLocation("color");
+	shader.findAttribLocation("normal");
+}
+
+
+void NormalRenderer::render(const ICamera<float>& camera, const NormalBuffer& buffer)
+{
+	const auto positions = buffer.getPosition().get();
+	const auto colors = buffer.getColor().get();
+	const auto normals = buffer.getNormal().get();
+
+	if (positions.empty()) {
 		return;
 	}
-	const auto& positions = buffers[0].get();
-	const auto& normals = buffers[1].get();
-	if (positions.empty() || normals.empty()) {
-		return;
-	}
 
-	const auto& location = Location(shader.getId());
+	const auto& projectionMatrix = camera.getProjectionMatrix().toArray();
+	const auto& modelviewMatrix = camera.getModelviewMatrix().toArray();
 
-	const auto& perspectiveMatrix = camera.getProjectionMatrix();
-	const auto& modelviewMatrix = camera.getModelviewMatrix();
+	glEnable(GL_DEPTH_TEST);
 
-	assert(GL_NO_ERROR == glGetError());
+	//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//glEnable(GL_POINT_SPRITE);
 
-	glLineWidth(1.0f);
+	//glEnable(GL_DEPTH_TEST);
 
 	glUseProgram(shader.getId());
 
-	glUniformMatrix4fv(location.projectionMatrix, 1, GL_FALSE, &(perspectiveMatrix.toArray().front()));
-	glUniformMatrix4fv(location.modelviewMatrix, 1, GL_FALSE, &(modelviewMatrix.toArray().front()));
-	glUniform1f(location.scale, scale);
+	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, projectionMatrix.data());
+	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, modelviewMatrix.data());
 
-	glVertexAttribPointer(location.position, 3, GL_FLOAT, GL_FALSE, 0, &(positions.front()));
-	glVertexAttribPointer(location.vector, 3, GL_FLOAT, GL_FALSE, 0, &(normals.front()));
+	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("color"), 4, GL_FLOAT, GL_FALSE, 0, colors.data());
+	glVertexAttribPointer(shader.getAttribLocation("normal"), 3, GL_FLOAT, GL_FALSE, 0, normals.data());
 
+
+	//const auto positions = buffer.getPositions();
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>( positions.size() / 3) );
-	glDisableVertexAttribArray(0);
+	glEnableVertexAttribArray(2);
+
+	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(positions.size() / 3));
+
+	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
+	glDisable(GL_DEPTH_TEST);
+
+	//glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//glDisable(GL_POINT_SPRITE);
+
 	glUseProgram(0);
-
-
-	assert(GL_NO_ERROR == glGetError());
 }
-
-template class NormalRenderer<float>;

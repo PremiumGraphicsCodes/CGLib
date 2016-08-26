@@ -50,11 +50,16 @@ void PolygonMesh::smooth(Vertex* center)
 	neighbors.sort();
 	neighbors.unique();
 	//std::list<Vertex*> neighbors = center->getNeighbors();
-	Vector3d<float> position = center->getPosition();
+	Vector3d<float> diff(0,0,0);
 	for (auto& n : neighbors) {
-		position += (n->getPosition() - center->getPosition()) / neighbors.size();
+		diff += (n->getPosition() - center->getPosition()) / neighbors.size();
 	}
-	center->moveTo(position);
+	const auto& normal = center->getNormal();
+	const auto length = normal.getInnerProduct(-diff);
+	diff += length * normal;
+	//diff *= normal.getInnerProduct(diff);
+	
+	center->move(diff);
 }
 
 HalfEdge* PolygonMesh::getShortestEdge()
