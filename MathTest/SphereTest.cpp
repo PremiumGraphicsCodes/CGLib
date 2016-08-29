@@ -16,11 +16,6 @@ TEST( SphereTest, TestConstruct )
 	//EXPECT_TRUE( s.isShrinked() );
 }
 
-TEST( SphereTest, ShrinkTest )
-{
-
-}
-
 TEST( SphereTest, BoundingBoxTest )
 {
 	Sphere<float> s;
@@ -54,21 +49,45 @@ TEST(SphereTest, TestIsOnStrictly)
 
 TEST(SphereTest, TestGetPositionByAngle)
 {
-	const Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
-	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Angle<float>::Zero(), Angle<float>::Zero()));
-	EXPECT_EQ(Vector3d<float>(-1, 0, 0), s.getPosition(Angle<float>::PI(),   Angle<float>::Zero()));
-	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Angle<float>::Zero(), Angle<float>::HalfPI()));
-	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Angle<float>::Zero(), -Angle<float>::HalfPI()));
-	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Angle<float>::DoublePI(), Angle<float>::Zero()));
+	using T = float;
+	const Sphere<T> s(Vector3d<T>(0.0, 0.0, 0.0), 1.0f);
+	EXPECT_EQ(Vector3d<T>(0, 0,-1), s.getPosition(Angle<T>::Zero(), -Angle<T>::HalfPI()));
+	EXPECT_EQ(Vector3d<T>(1, 0, 0), s.getPosition(Angle<T>::Zero(), Angle<T>::Zero()));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), s.getPosition(Angle<T>::Zero(), Angle<T>::HalfPI()));
+
+	EXPECT_EQ(Vector3d<T>(0, 0,-1), s.getPosition(Angle<T>::HalfPI(), -Angle<T>::HalfPI()));
+	EXPECT_EQ(Vector3d<T>(0, 1, 0), s.getPosition(Angle<T>::HalfPI(), Angle<T>::Zero()));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), s.getPosition(Angle<T>::HalfPI(), Angle<T>::HalfPI()));
+
+	EXPECT_EQ(Vector3d<T>( 0, 0,-1), s.getPosition(Angle<T>::PI(),-Angle<T>::HalfPI()));
+	EXPECT_EQ(Vector3d<T>(-1, 0, 0), s.getPosition(Angle<T>::PI(), Angle<T>::Zero()));
+	EXPECT_EQ(Vector3d<T>( 0, 0, 1), s.getPosition(Angle<T>::PI(), Angle<T>::HalfPI()));
+
+	EXPECT_EQ(Vector3d<T>(0, 0,-1), s.getPosition(Angle<T>::HalfPI()*3, -Angle<T>::HalfPI()));
+	EXPECT_EQ(Vector3d<T>(0,-1, 0), s.getPosition(Angle<T>::HalfPI()*3, Angle<T>::Zero()));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), s.getPosition(Angle<T>::HalfPI()*3, Angle<T>::HalfPI()));
+
+	EXPECT_EQ(Vector3d<T>( 0, 0,-1), s.getPosition(Angle<T>::DoublePI(),-Angle<T>::HalfPI()));
+	EXPECT_EQ(Vector3d<T>( 1, 0, 0), s.getPosition(Angle<T>::DoublePI(), Angle<T>::Zero()));
+	EXPECT_EQ(Vector3d<T>( 0, 0, 1), s.getPosition(Angle<T>::DoublePI(), Angle<T>::HalfPI()));
 }
 
 TEST(SphereTest, TestGetPositionByParam)
 {
 	const Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
-	EXPECT_EQ(Vector3d<float>(0, 0, -1), s.getPosition(Param<float>(0),  Param<float>(0.0)));
-	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(0),  Param<float>(0.5)));
-	EXPECT_EQ(Vector3d<float>(-1, 0, 0), s.getPosition(Param<float>(0.5),Param<float>(0.5)));
-	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(1),  Param<float>(0.5)));
-	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(0),  Param<float>(1)));
+	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Param<float>(0.0), Param<float>(0.0)));
+	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(0.0), Param<float>(0.5)));
+	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(0.0), Param<float>(1.0)));
+
+	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Param<float>(0.5), Param<float>(0.0)));
+	EXPECT_EQ(Vector3d<float>(-1, 0, 0), s.getPosition(Param<float>(0.5), Param<float>(0.5)));
+	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(0.5), Param<float>(1.0)));
+
+	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Param<float>(1.0), Param<float>(0.0)));
+	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(1.0), Param<float>(0.5)));
+	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(1.0), Param<float>(1.0)));
+
+
+	//EXPECT_EQ(Vector3d<float>(1, 0, 0), s.getPosition(Param<float>(0.0), Param<float>(0.5)));
 
 }
