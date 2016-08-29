@@ -74,20 +74,25 @@ TEST(SphereTest, TestGetPositionByAngle)
 
 TEST(SphereTest, TestGetPositionByParam)
 {
-	const Sphere<float> s(Vector3d<float>(0.0, 0.0, 0.0), 1.0f);
-	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Param<float>(0.0), Param<float>(0.0)));
-	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(0.0), Param<float>(0.5)));
-	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(0.0), Param<float>(1.0)));
+	using T = float;
+	const Sphere<T> s(Vector3d<T>(0.0, 0.0, 0.0), 1.0f);
+	EXPECT_EQ(Vector3d<T>( 0, 0,-1), s.getPosition(Param<T>(0.0), Param<T>(0.0)));
+	EXPECT_EQ(Vector3d<T>( 1, 0, 0), s.getPosition(Param<T>(0.0), Param<T>(0.5)));
+	EXPECT_EQ(Vector3d<T>( 0, 0, 1), s.getPosition(Param<T>(0.0), Param<T>(1.0)));
 
-	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Param<float>(0.5), Param<float>(0.0)));
-	EXPECT_EQ(Vector3d<float>(-1, 0, 0), s.getPosition(Param<float>(0.5), Param<float>(0.5)));
-	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(0.5), Param<float>(1.0)));
+	EXPECT_EQ(Vector3d<T>(0, 0,-1), s.getPosition(Param<T>(0.25), Param<T>(0.0)));
+	EXPECT_EQ(Vector3d<T>(0, 1, 0), s.getPosition(Param<T>(0.25), Param<T>(0.5)));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), s.getPosition(Param<T>(0.25), Param<T>(1.0)));
 
-	EXPECT_EQ(Vector3d<float>( 0, 0,-1), s.getPosition(Param<float>(1.0), Param<float>(0.0)));
-	EXPECT_EQ(Vector3d<float>( 1, 0, 0), s.getPosition(Param<float>(1.0), Param<float>(0.5)));
-	EXPECT_EQ(Vector3d<float>( 0, 0, 1), s.getPosition(Param<float>(1.0), Param<float>(1.0)));
+	EXPECT_EQ(Vector3d<T>( 0, 0,-1), s.getPosition(Param<T>(0.5), Param<T>(0.0)));
+	EXPECT_EQ(Vector3d<T>(-1, 0, 0), s.getPosition(Param<T>(0.5), Param<T>(0.5)));
+	EXPECT_EQ(Vector3d<T>( 0, 0, 1), s.getPosition(Param<T>(0.5), Param<T>(1.0)));
 
+	EXPECT_EQ(Vector3d<T>(0, 0,-1), s.getPosition(Param<T>(0.75), Param<T>(0.0)));
+	EXPECT_EQ(Vector3d<T>(0,-1, 0), s.getPosition(Param<T>(0.75), Param<T>(0.5)));
+	EXPECT_EQ(Vector3d<T>(0, 0, 1), s.getPosition(Param<T>(0.75), Param<T>(1.0)));
 
-	//EXPECT_EQ(Vector3d<float>(1, 0, 0), s.getPosition(Param<float>(0.0), Param<float>(0.5)));
-
+	EXPECT_EQ(Vector3d<T>( 0, 0,-1), s.getPosition(Param<T>(1.0), Param<T>(0.0)));
+	EXPECT_EQ(Vector3d<T>( 1, 0, 0), s.getPosition(Param<T>(1.0), Param<T>(0.5)));
+	EXPECT_EQ(Vector3d<T>( 0, 0, 1), s.getPosition(Param<T>(1.0), Param<T>(1.0)));
 }
