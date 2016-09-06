@@ -13,12 +13,18 @@ Vector2d<T>::Vector2d(const T x, const T y) :
 {}
 
 template<typename T>
-void Vector2d<T>::scale(const T scale)
+Vector2d<T>& Vector2d<T>::scale(const T scale)
 {
 	x *= scale;
 	y *= scale;
+	return *this;
 }
 
+template<typename T>
+Vector2d<T> Vector2d<T>::scaled(const T scale) const
+{
+	return Vector2d<T>(x*scale, y*scale);
+}
 
 template<typename T>
 T Vector2d<T>::getDistanceSquared(const Vector2d& rhs) const
@@ -64,7 +70,6 @@ T Vector2d<T>::getInnerProduct(const Vector2d<T>& rhs) const
 {
 	return x*rhs.x + y * rhs.y;
 }
-
 
 template<typename T>
 Vector2d<T> Vector2d<T>::normalize()

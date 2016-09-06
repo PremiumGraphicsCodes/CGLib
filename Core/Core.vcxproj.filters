@@ -99,6 +99,9 @@
     <ClCompile Include="VertexRepository.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -207,6 +210,9 @@
       <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="HalfEdgeBuilder.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
       <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>

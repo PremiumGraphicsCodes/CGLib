@@ -10,7 +10,7 @@ namespace Crystal {
 	namespace Math {
 
 template<typename T>
-class Vector2d final
+class Vector2d
 {
 public:
 	Vector2d();
@@ -27,7 +27,9 @@ public:
 
 	T getLength() const;
 
-	void scale(const T scale);
+	Vector2d& scale(const T scale);
+
+	Vector2d scaled(const T scale) const;
 
 	bool equals(const Vector2d& rhs) const;
 
@@ -42,6 +44,10 @@ public:
 	Vector2d& operator+=(const Vector2d& rhs);
 
 	Vector2d& operator-=(const Vector2d& rhs);
+
+	Vector2d operator/(const T factor) const { return scaled(T(1) / factor); }
+
+	Vector2d operator/=(const T factor) { return scale(T(1) / factor); }
 
 	Vector2d<T> normalize();
 

@@ -10,7 +10,7 @@ template<class T>
 class Vector3dTest : public testing::Test {
 };
 
-typedef ::testing::Types<float> TestTypes;
+typedef ::testing::Types<float, double> TestTypes;
 
 TYPED_TEST_CASE(Vector3dTest, TestTypes);
 
@@ -251,9 +251,9 @@ TYPED_TEST(Vector3dTest, TestLerp)
 	EXPECT_EQ(Vector3d<T>(0.5, 0.5, 0), v1.lerp(v2, 0.5));
 }
 
-TYPED_TEST(Vector3dTest, TestSlerp)
+TEST(Vector3dTest, TestSlerp)
 {
-	using T = TypeParam;
+	using T = float;
 	const Vector3d<T> x(1, 0, 0);
 	const Vector3d<T> y(0, 1, 0);
 	const Vector3d<T> z(0, 0, 1);
