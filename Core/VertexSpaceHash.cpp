@@ -10,10 +10,23 @@ VertexSpaceHash::VertexSpaceHash(const float divideLength, const int hashTableSi
 {
 }
 
+void VertexSpaceHash::add(Vertex* v)
+{
+	const auto hashIndex = toHash(v->getPosition());
+	table[hashIndex].push_back(v);
+}
+
+void VertexSpaceHash::remove(Vertex* v)
+{
+	const auto hashIndex = toHash(v->getPosition());
+	table[hashIndex].remove(v);
+}
+
 std::list<Vertex*> VertexSpaceHash::getNeighbor(Vertex* object)
 {
 	return getNeighbor(object->getPosition());
 }
+
 
 std::list<Vertex*> VertexSpaceHash::getNeighbor(const Vector3d<float>& pos)
 {
@@ -71,12 +84,6 @@ std::list<Vertex*> VertexSpaceHash::getNeighbor(const Index3d index)
 {
 	auto hash = toHash(index);
 	return table[hash];
-}
-
-void VertexSpaceHash::add(Vertex* particle)
-{
-	const auto hashIndex = toHash(particle->getPosition());
-	table[hashIndex].push_back(particle);
 }
 
 std::list<Vertex*> VertexSpaceHash::findSameStrictly(const Vector3d<float>& pos)

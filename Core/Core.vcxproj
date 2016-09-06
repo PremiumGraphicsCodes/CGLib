@@ -38,7 +38,9 @@
     <ClCompile Include="Loop.cpp" />
     <ClCompile Include="MarchingCubeTable.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="NodeBuilder.cpp" />
     <ClCompile Include="NodeGrid.cpp" />
+    <ClCompile Include="NodeRepository.cpp" />
     <ClCompile Include="PolygonBuilder.cpp" />
     <ClCompile Include="PolygonRepository.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -81,6 +83,8 @@
     <ClInclude Include="ISpaceHash.h" />
     <ClInclude Include="Loop.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeBuilder.h" />
+    <ClInclude Include="NodeRepository.h" />
     <ClInclude Include="PolygonBuilder.h" />
     <ClInclude Include="PolygonRepository.h" />
     <ClInclude Include="TriangleCell.h" />

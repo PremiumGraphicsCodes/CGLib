@@ -80,6 +80,9 @@
     <ClCompile Include="FaceRepositoryTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="NodeTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

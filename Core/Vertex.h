@@ -39,6 +39,12 @@ private:
 	//std::list<Face*> faces;
 };
 
+
+class Util {
+public:
+	static Math::Box3d<float> getBoundingBox(const std::list<Vertex*>& vertices);
+};
+
 	}
 }
 #endif

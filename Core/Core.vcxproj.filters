@@ -102,6 +102,12 @@
     <ClCompile Include="Node.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="NodeRepository.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeBuilder.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGModel.h" />
@@ -213,6 +219,12 @@
       <Filter>Polygon</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeRepository.h">
+      <Filter>Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeBuilder.h">
       <Filter>Polygon</Filter>
     </ClInclude>
   </ItemGroup>

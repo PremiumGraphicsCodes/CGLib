@@ -11,7 +11,6 @@ Vertex::Vertex(const Point3d<float>& point, const unsigned int id) :
 {
 }
 
-
 Vertex::Vertex(const Vector3d<float>& position, const unsigned int id) :
 	Point3d<float>(position),
 	id(id)
@@ -35,4 +34,13 @@ Vertex* Vertex::clone()
 void Vertex::reverse()
 {
 	this->setNormal(-getNormal());
+}
+
+Box3d<float> Util::getBoundingBox(const std::list<Vertex*>& vertices)
+{
+	Box3d<float> box(vertices.front()->getPosition());
+	for (auto v : vertices) {
+		box.add(v->getPosition());
+	}
+	return box;
 }

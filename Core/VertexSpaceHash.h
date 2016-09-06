@@ -12,7 +12,9 @@ class VertexSpaceHash : public ISpaceHash
 public:
 	VertexSpaceHash(const float divideLength, const int tableSize);
 
-	void add(Vertex* particle);
+	void add(Vertex* v);
+
+	void remove(Vertex* v);
 
 	std::list<Vertex*> getNeighbor(Vertex* object);
 
