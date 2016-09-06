@@ -61,16 +61,28 @@ std::list<Node*> NodeBuilder::build(const float distance)
 		node->add(v);
 
 		const auto& neighbors = space.getNeighbor(v);
+		std::list<Vertex*> removes;
 		for (auto n : neighbors) {
+			if (n == v) {
+				continue;
+			}
 			if (v->getPosition().getDistanceSquared(n->getPosition()) < distance * distance) {
 				node->add(n);
-				auto i = std::find(vertices.begin(), vertices.end(), n);
+				removes.push_back(n);
+				continue;
+			}
+		}
+		if (removes.empty()) {
+			++iter;
+		}
+		else {
+			for (auto v : removes) {
+				auto i = std::find(vertices.begin(), vertices.end(), v);
 				iter = vertices.erase(i);
-				space.remove(n);
+				space.remove(v);
 			}
 		}
 		nodes.push_back(node);
-		++iter;
 	}
 	return nodes;
 }

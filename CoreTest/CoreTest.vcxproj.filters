@@ -83,6 +83,9 @@
     <ClCompile Include="NodeTest.cpp">
       <Filter>Polygon</Filter>
     </ClCompile>
+    <ClCompile Include="NodeBuilderTest.cpp">
+      <Filter>Polygon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

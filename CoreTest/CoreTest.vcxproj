@@ -33,6 +33,7 @@
     <ClCompile Include="IndexPolygonSourceTest.cpp" />
     <ClCompile Include="JointTest.cpp" />
     <ClCompile Include="LoopTest.cpp" />
+    <ClCompile Include="NodeBuilderTest.cpp" />
     <ClCompile Include="NodeGridTest.cpp" />
     <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="OctTreeTest.cpp" />
