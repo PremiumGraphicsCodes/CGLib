@@ -4,6 +4,7 @@
 #include "../Math/Point3d.h"
 #include "../Math/Vector3d.h"
 #include "../Math/Matrix4d.h"
+#include "../Math/Box3d.h"
 #include "../Util/UnCopyable.h"
 #include <list>
 #include <array>
