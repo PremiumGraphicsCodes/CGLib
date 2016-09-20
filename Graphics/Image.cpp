@@ -32,7 +32,8 @@ void Image::read(const std::string& filename)
 		}
 	}
 	*/
-	changeSize(width, height);
+	//changeSize(width, height);
+	IImage::changeSize(width, height);
 	this->values =values;
 }
 
