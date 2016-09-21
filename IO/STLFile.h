@@ -1,8 +1,7 @@
 #ifndef __CRYSTAL_IO_STL_FILE_H__
 #define __CRYSTAL_IO_STL_FILE_H__
 
-#include "../Math/Vector3d.h"
-#include "../Core/PolygonMesh.h"
+#include "STLCell.h"
 
 #include <fstream>
 
@@ -10,42 +9,6 @@
 
 namespace Crystal {
 	namespace IO {
-
-struct STLCell
-{
-public:
-	STLCell()
-	{}
-
-	STLCell(const std::vector< Math::Vector3d<float> >& positions, const Math::Vector3d<float>& normal) :
-		positions(positions),
-		normal(normal)
-	{}
-
-
-	std::vector< Math::Vector3d<float> > getPositions() const { return positions; }
-
-	void setPositions(const std::vector< Math::Vector3d<float> >& positions) { this->positions = positions; }
-
-	void addPosition(const Math::Vector3d<float>& pos) { this->positions.push_back(pos); }
-
-	void setNormal(const Math::Vector3d<float>& normal) { this->normal = normal; }
-
-	Math::Vector3d<float> getNormal() const { return normal; }
-
-	bool operator==(const STLCell& rhs) const {
-		return
-			positions == rhs.positions &&
-			normal == rhs.normal;
-	}
-
-
-private:
-	std::vector< Math::Vector3d<float> > positions;
-	Math::Vector3d<float> normal;
-};
-
-typedef std::vector< STLCell > STLCellVector;
 
 class STLFile {
 public:
@@ -56,8 +19,11 @@ public:
 		 cells( cells ),
 		title( title )
 	{
-
 	}
+
+	bool isBinary(std::istream& stream);
+
+	bool isAscii(std::istream& stream);
 
 	void add(const Core::PolygonMesh& mesh);
 
@@ -73,7 +39,6 @@ public:
 
 	bool writeBinary(const std::string& filename);
 
-
 	bool operator==(const STLFile& rhs) const {
 		return
 			title == rhs.title &&
@@ -82,13 +47,15 @@ public:
 
 	Core::PolygonMesh* toPolygonObject() const;
 
+	bool readASCII(std::istream& stream);
+
+	bool readBinary(std::istream& stream);
+
+
 private:
 	STLCellVector cells;
 	std::string title;
 
-	bool readASCII(std::istream& stream);
-
-	bool readBinary(std::istream& stream);
 };
 	}
 }

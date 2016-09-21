@@ -1,5 +1,7 @@
 #include "gtest/gtest.h"
- 
+
+#include "../Math/Vector3d.h"
+#include "../Core/PolygonMesh.h"
 #include "../IO/STLFile.h"
 
 using namespace Crystal::Math;
@@ -7,26 +9,40 @@ using namespace Crystal::IO;
 
 using T = float;
 
+namespace {
+	std::stringstream getSampleAscii() {
+		std::stringstream stream;
+		stream
+			<< "solid cube-ascii" << std::endl
+			<< "facet normal  0.0  0.0 1.0" << std::endl
+			<< "	outer loop" << std::endl
+			<< "		vertex  0.0  0.0  1.0" << std::endl
+			<< "		vertex  1.0  0.0  1.0" << std::endl
+			<< "		vertex  0.0  1.0  1.0" << std::endl
+			<< "endloop" << std::endl
+			<< "endfacet" << std::endl
+			<< "facet normal 0.0 0.0 1.0" << std::endl
+			<< "	outer loop" << std::endl
+			<< "		vertex  1.0  1.0  1.0" << std::endl
+			<< "		vertex  0.0  1.0  1.0" << std::endl
+			<< "		vertex  1.0  0.0  1.0" << std::endl
+			<< "	endloop" << std::endl
+			<< "endfacet" << std::endl
+			<< "endsolid" << std::endl;
+		return stream;
+	}
+}
+
+TEST(STLFileTest, TestIsAscii)
+{
+	std::stringstream stream = getSampleAscii();
+	STLFile file;
+	EXPECT_TRUE( file.isAscii(stream) );
+}
+
 TEST( STLFileTest, TestReadAscii )
 {
-	std::stringstream stream;
-	stream
-		<< "solid cube-ascii" << std::endl
-		<< "facet normal  0.0  0.0 1.0" << std::endl
-		<< "	outer loop" << std::endl
-		<< "		vertex  0.0  0.0  1.0" << std::endl
-		<< "		vertex  1.0  0.0  1.0" << std::endl
-		<< "		vertex  0.0  1.0  1.0" << std::endl
-		<< "endloop" << std::endl
-		<< "endfacet" << std::endl
-		<< "facet normal 0.0 0.0 1.0" << std::endl
-		<< "	outer loop" << std::endl
-		<< "		vertex  1.0  1.0  1.0" << std::endl
-		<< "		vertex  0.0  1.0  1.0" << std::endl
-		<< "		vertex  1.0  0.0  1.0" << std::endl
-		<< "	endloop" << std::endl
-		<< "endfacet" << std::endl
-		<< "endsolid" << std::endl;
+	std::stringstream stream = getSampleAscii();
 
 	STLFile file;
 	file.read(stream);

@@ -2,15 +2,49 @@
 #include "STLFile.h"
 
 #include "Helper.h"
+#include <string>
+#include <cassert>
+
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::IO;
 
-#include <string>
-#include <cassert>
-#include "../Core/Face.h"
-#include "../Core/Vertex.h"
+
+namespace {
+	size_t getStreamSize(std::istream& stream)
+	{
+		stream.seekg(0, std::ios::end);
+		std::fstream::pos_type pos_end = stream.tellg();
+
+		stream.seekg(0, std::ios::beg);
+		std::fstream::pos_type pos_beg = stream.tellg();
+
+		return pos_end - pos_beg;
+	}
+}
+
+
+bool STLFile::isBinary(std::istream& stream)
+{
+	const size_t actualSize = getStreamSize(stream);
+
+	char str[80];
+	stream.read(str, 80);
+
+	unsigned int numFaces;
+	stream.read((char*)&numFaces, sizeof(unsigned int));
+
+	const size_t expectedSize = numFaces * 50 + 84;
+	stream.seekg(0, std::ios::beg);
+
+	return expectedSize == actualSize;
+}
+
+bool STLFile::isAscii(std::istream& stream)
+{
+	return !isBinary(stream);
+}
 
 
 void STLFile::add(const PolygonMesh& mesh)
@@ -51,19 +85,12 @@ bool STLFile::read(const std::string& filename) {
 
 bool STLFile::read(std::istream& stream)
 {
-	std::string str0, str1, str2;
-	stream >> str0;
-	stream >> str1;
-	stream >> str2;
-	stream.seekg(0, std::ios_base::beg);
-
-	if (str0 == "solid" && str2 == "facet") {
+	if (isAscii(stream)) {
 		return readASCII(stream);
 	}
 	else {
 		return readBinary(stream);
 	}
-
 }
 
 

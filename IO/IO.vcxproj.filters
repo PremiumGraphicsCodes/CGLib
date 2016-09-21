@@ -4,7 +4,6 @@
     <ClCompile Include="DXFFile.cpp" />
     <ClCompile Include="PLYFile.cpp" />
     <ClCompile Include="POVFile.cpp" />
-    <ClCompile Include="STLFile.cpp" />
     <ClCompile Include="OBJFile.cpp">
       <Filter>OBJ</Filter>
     </ClCompile>
@@ -25,13 +24,18 @@
       <Filter>CGS</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="STLFile.cpp">
+      <Filter>STL</Filter>
+    </ClCompile>
+    <ClCompile Include="STLCell.cpp">
+      <Filter>STL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXFFile.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="PLYFile.h" />
     <ClInclude Include="POVFile.h" />
-    <ClInclude Include="STLFile.h" />
     <ClInclude Include="OBJFile.h">
       <Filter>OBJ</Filter>
     </ClInclude>
@@ -53,6 +57,12 @@
     </ClInclude>
     <ClInclude Include="IO.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="STLFile.h">
+      <Filter>STL</Filter>
+    </ClInclude>
+    <ClInclude Include="STLCell.h">
+      <Filter>STL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="OBJ">
@@ -63,6 +73,9 @@
     </Filter>
     <Filter Include="CGS">
       <UniqueIdentifier>{b8c42dc3-48a0-4dc1-ab34-fd651be4e79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="STL">
+      <UniqueIdentifier>{0754abb1-79bb-4cb8-9a82-a58a7226a5b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
