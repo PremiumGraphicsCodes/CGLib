@@ -6,6 +6,7 @@
 
 #include "../Core/SpaceHash.h"
 #include "../Math/Matrix.h"
+#include "../Math/JacobiSolver.h"
 
 
 using namespace Crystal::Math;

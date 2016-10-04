@@ -2,6 +2,7 @@
 
 #include "../Physics/SurfaceBuilder.h"
 #include "../Math/Matrix.h"
+#include "../Math/JacobiSolver.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
