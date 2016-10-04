@@ -60,30 +60,3 @@ TYPED_TEST(MatrixTest, Test)
 	Matrix3d<TypeParam> m3 = m1.transposed();
 	auto a = m3 * m2 * m1;
 }
-
-TYPED_TEST(MatrixTest, TestSymmetric)
-{
-	Matrix<3, 3, TypeParam> m({ 1,0,1,0,1,-1,1,-1,0 });
-	JacobiSolver<3, 3, TypeParam> solver(m);
-
-	auto actual = solver.solve(0.0000001);
-	EXPECT_TRUE(Tolerance<TypeParam>::isEqualLoosely(2.0, actual[0]));
-	EXPECT_TRUE(Tolerance<TypeParam>::isEqualLoosely(1.0, actual[1]));
-	EXPECT_TRUE(Tolerance<TypeParam>::isEqualLoosely(-1.0, actual[2]));
-
-	auto p = solver.getOrthogonalMatrix();
-
-	Matrix3d<TypeParam> m1(p.a);
-	Matrix3d<TypeParam> m2(m.a);
-	auto m3 = m1.getInverse();
-
-	auto pap = m3 * m2 * m1;
-
-	Matrix3d<TypeParam> expected(2, 0, 0, 0, 1, 0, 0, 0, -1);
-	EXPECT_EQ(expected, pap);
-
-	//EXPECT_TRUE(Tolerance<double>::isEqualLoosely(3.0, m.a[4]));
-	//EXPECT_TRUE(Tolerance<double>::isEqualLoosely(0.0, m.a[8]));
-	//m.clear(0.001);
-
-}

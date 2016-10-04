@@ -281,6 +281,9 @@
     <ClInclude Include="Triangle3d.h">
       <Filter>Primitive3d</Filter>
     </ClInclude>
+    <ClInclude Include="JacobiSolver.h">
+      <Filter>Matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Primitive3d">

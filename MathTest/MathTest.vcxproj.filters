@@ -10,7 +10,6 @@
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="VectorTest.cpp" />
-    <ClCompile Include="MatrixTest.cpp" />
     <ClCompile Include="AngleTest.cpp" />
     <ClCompile Include="SPHKernelTest.cpp" />
     <ClCompile Include="PolarCoord3dTest.cpp" />
@@ -91,6 +90,12 @@
     </ClCompile>
     <ClCompile Include="Quad3dTest.cpp">
       <Filter>Primitive3d</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixTest.cpp">
+      <Filter>Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="JacobiSolverTest.cpp">
+      <Filter>Matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

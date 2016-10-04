@@ -35,6 +35,7 @@
     <ClCompile Include="Grid2dTest.cpp" />
     <ClCompile Include="Grid3dTest.cpp" />
     <ClCompile Include="Intersection3dTest.cpp" />
+    <ClCompile Include="JacobiSolverTest.cpp" />
     <ClCompile Include="KernelTest.cpp" />
     <ClCompile Include="Line3dTest.cpp" />
     <ClCompile Include="Matrix3dTest.cpp" />

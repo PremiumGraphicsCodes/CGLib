@@ -30,6 +30,7 @@
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="NeighborFinder.h" />
+    <ClInclude Include="OrientedParticle.h" />
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="SPHParticle.h" />
     <ClInclude Include="ParticlePair.h" />
@@ -50,6 +51,7 @@
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="NeighborFinder.cpp" />
+    <ClCompile Include="OrientedParticle.cpp" />
     <ClCompile Include="SPHParticle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />

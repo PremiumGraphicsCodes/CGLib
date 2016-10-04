@@ -42,6 +42,7 @@
     <ClInclude Include="Index2d.h" />
     <ClInclude Include="Intersection3d.h" />
     <ClInclude Include="IPrimitive3d.h" />
+    <ClInclude Include="JacobiSolver.h" />
     <ClInclude Include="Line2d.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Matrix.h" />
