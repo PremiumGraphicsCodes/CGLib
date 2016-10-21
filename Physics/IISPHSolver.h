@@ -10,6 +10,10 @@ namespace Crystal {
 class IISPHSolver
 {
 public:
+	IISPHSolver(const std::list<IISPHParticle*>& particles) :
+		particles(particles)
+	{}
+
 	void simulate(const double dt, const double effectRadius);
 
 private:

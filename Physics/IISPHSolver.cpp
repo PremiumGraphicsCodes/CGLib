@@ -1,5 +1,6 @@
 #include "IISPHSolver.h"
 #include "IISPHParticle.h"
+#include "IISPHSpaceHash.h"
 
 #include "IndexedFinder.h"
 #include "../Core/SpaceHash.h"
@@ -12,7 +13,7 @@ using namespace Crystal::Physics;
 void IISPHSolver::simulate(const double dt, const double effectRadius)
 {
 	const int tableSize = static_cast<int>(particles.size());
-	SpaceHash<IISPHParticle> space(effectRadius, tableSize);
+	IISPHSpaceHash<IISPHParticle> space(effectRadius, tableSize);
 	for (auto p : particles) {
 		space.add(p);
 	}

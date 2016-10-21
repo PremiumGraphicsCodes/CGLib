@@ -82,13 +82,10 @@ public:
 
 	void solveDensity();
 
-	void predictVelocity(const Math::Vector3d<float>& externalForce, const float dt);
-
-	void solveDisplace(const float dt);
-
-	void evaluatePressure();
-
 private:
+
+	Math::Vector3d<float> getDij(IISPHParticle* rhs, const float dt) const;
+
 
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
@@ -100,7 +97,7 @@ private:
 	float advDensity;
 	float coe;
 	float aii;
-	Math::Vector3d<float> dp;
+	Math::Vector3d<float> dijp;
 	float pressure;
 };
 

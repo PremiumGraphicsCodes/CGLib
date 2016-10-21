@@ -8,18 +8,21 @@ using namespace Crystal::Physics;
 
 IISPHParticle::IISPHParticle(const int id) :
 	constant(nullptr),
-	Particle(id)
+	Particle(id),
+	pressure(0.0f)
 {
 }
 
 IISPHParticle::IISPHParticle(const Particle& particle, SPHConstant* constant) :
 	Particle(particle),
-	constant(constant)
+	constant(constant),
+	pressure(0.0f)
 {}
 
 IISPHParticle::IISPHParticle(const Vector3d<float>& center, float radius, SPHConstant* constant, const int id) :
 	Particle(center, constant->getDensity(), radius, id),
-	constant(constant)
+	constant(constant),
+	pressure(0.0f)
 {
 	this->density = constant->getDensity();
 }
@@ -27,6 +30,7 @@ IISPHParticle::IISPHParticle(const Vector3d<float>& center, float radius, SPHCon
 void IISPHParticle::setNeighbors(const std::list<IISPHParticle*>& neighbors)
 {
 	this->neighbors = neighbors;
+	this->neighbors.remove(this);
 }
 
 void IISPHParticle::init()
@@ -107,8 +111,12 @@ void IISPHParticle::addDensity(const IISPHParticle& rhs)
 void IISPHParticle::predictAdvection1(const Vector3d<float>& externalForce, const float dt)
 {
 	solveDensity();
-	predictVelocity(externalForce, dt);
-	solveDisplace(dt);
+	this->advVelocity = this->velocity + dt * externalForce / getMass();
+	for (auto n : neighbors) {
+		const auto diff = this->getPosition() - n->getPosition();
+		const auto disp = -(n->getMass() / n->getDensity()) * kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
+		this->dii += (dt * dt * disp);
+	}
 }
 
 void IISPHParticle::predictAdvection2(const float dt)
@@ -120,12 +128,11 @@ void IISPHParticle::predictAdvection2(const float dt)
 		advDensity += dt * n->getMass() * (n->advVelocity - this->advVelocity).getInnerProduct(kernelGrad);
 	}
 	pressure = 0.5 * pressure;
-	this->coe = 0.0;
 	this->aii = 0.0;
 	for (auto n : neighbors) {
-		const auto& diff = n->getPosition() - this->getPosition();
+		const auto diff = this->getPosition() - n->getPosition();
 		const auto& kernelGrad = kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
-		auto dji = -dt * dt * n->getMass() / std::pow(n->constant->getDensity(), 2) * kernelGrad;
+		const auto& dji = -dt * dt * n->getMass() / std::pow(n->constant->getDensity(), 2) * kernelGrad;
 		aii += (dii - dji).getInnerProduct(kernelGrad);
 	}
 }
@@ -134,16 +141,26 @@ void IISPHParticle::solvePressure(const float dt)
 {
 	int i = 0;
 	const float relaxation = 0.5f;
-	while ((advDensity - constant->getDensity() > 0.01) || i < 2) {
+	while (i < 2) {
 		for (auto n : neighbors) {
 			const auto diff = this->getPosition() - n->getPosition();
-			this->dp += dt * dt * -n->getMass() / n->getDensity() / n->getDensity() * n->getPressure() * kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
+			this->dijp += dt * dt * -n->getMass() / n->getDensity() / n->getDensity() * n->getPressure() * kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
 		}
+		const float relaxation = 0.5f;
+		float p = 0.0f;
+		for (auto n : neighbors) {
+			const auto diff = this->getPosition() - n->getPosition();
+			const auto& kernelGrad = kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
+			p += n->getMass() *(this->dijp - n->dii * n->pressure - n->dijp).getInnerProduct(kernelGrad);
+		}
+		this->pressure += (1.0f - relaxation) * pressure + relaxation * p;
+		i++;
 	}
 }
 
 void IISPHParticle::integrate(const float dt)
 {
+	this->force = (this->dii * pressure + dijp) / (dt * dt) * getMass();
 	this->velocity = this->advVelocity + dt * this->force / this->getMass();
 	this->position = this->position + dt * this->velocity;
 }
@@ -156,29 +173,10 @@ void IISPHParticle::solveDensity()
 	addSelfDensity();
 }
 
-void IISPHParticle::predictVelocity(const Vector3d<float>& externalForce, const float dt)
-{
-	this->advVelocity = this->velocity + dt * externalForce / getMass();
-}
 
-void IISPHParticle::solveDisplace(const float dt)
+Vector3d<float> IISPHParticle::getDij(IISPHParticle* rhs, const float dt) const
 {
-	for (auto n : neighbors) {
-		const auto& diff = n->getPosition() - this->getPosition();
-		const auto disp = -(n->getMass() / n->getDensity()) * kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
-		this->dii += (dt * dt * disp);
-	}
+	const auto diff = this->getPosition() - rhs->getPosition();
+	const auto& kernelGrad = kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
+	return -dt * dt * rhs->getMass() / (rhs->getDensity() * rhs->getDensity()) * kernelGrad;
 }
-
-void IISPHParticle::evaluatePressure()
-{
-	double prevPressure;
-	const float relaxation = 0.5f;
-	for (auto n : neighbors) {
-		const auto& diff = n->getPosition() - this->getPosition();
-		const auto& kernelGrad = kernel.getPoly6KernelGradient(diff, constant->getEffectLength());
-		const auto& p = n->getMass() *( this->dp - n->dii * n->pressure - n->dp ).getInnerProduct(kernelGrad);
-	}
-	double nextPressure = constant->getDensity() - advDensity;
-}
-

@@ -22,6 +22,7 @@
     <ClCompile Include="BulletConverterTest.cpp" />
     <ClCompile Include="BulletInteractionTest.cpp" />
     <ClCompile Include="BulletRigidTest.cpp" />
+    <ClCompile Include="IISPHSolverTest.cpp" />
     <ClCompile Include="IndexedFinderTest.cpp" />
     <ClCompile Include="IndexedParticleTest.cpp" />
     <ClCompile Include="OrientedParticleTest.cpp" />

@@ -31,6 +31,7 @@
     <ClCompile Include="OrientedParticle.cpp" />
     <ClCompile Include="IISPHSolver.cpp" />
     <ClCompile Include="IISPHParticle.cpp" />
+    <ClCompile Include="IISPHSpaceHash.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -67,6 +68,7 @@
     <ClInclude Include="OrientedParticle.h" />
     <ClInclude Include="IISPHSolver.h" />
     <ClInclude Include="IISPHParticle.h" />
+    <ClInclude Include="IISPHSpaceHash.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
