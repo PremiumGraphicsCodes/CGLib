@@ -13,7 +13,7 @@ Quad3d<T>::Quad3d() :
 }
 
 template<typename T>
-Quad3d<T>::Quad3d<T>(const Vector3d<T>& origin, const Vector3d<T>& uVector, const Vector3d<T>& vVector) :
+Quad3d<T>::Quad3d(const Vector3d<T>& origin, const Vector3d<T>& uVector, const Vector3d<T>& vVector) :
 	origin(origin),
 	uVector(uVector),
 	vVector(vVector)

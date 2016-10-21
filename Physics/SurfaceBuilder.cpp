@@ -111,7 +111,7 @@ void SurfaceBuilder::clear()
 
 void SurfaceBuilder::updatePosition(const float effectLength)
 {
-	SpaceHash hash(effectLength, static_cast<int>(aniParticles.size()));
+	SpaceHash<Particle> hash(effectLength, static_cast<int>(aniParticles.size()));
 	for (auto& p : aniParticles) {
 		hash.add(p);
 	}

@@ -27,6 +27,8 @@
     <ClInclude Include="BulletRigid.h" />
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Fluid.h" />
+    <ClInclude Include="IISPHParticle.h" />
+    <ClInclude Include="IISPHSolver.h" />
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="NeighborFinder.h" />
@@ -48,6 +50,8 @@
     <ClCompile Include="BulletRigid.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Fluid.cpp" />
+    <ClCompile Include="IISPHParticle.cpp" />
+    <ClCompile Include="IISPHSolver.cpp" />
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="NeighborFinder.cpp" />

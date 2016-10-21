@@ -8,21 +8,23 @@
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 
-
-SpaceHash::SpaceHash(const float divideLength, const int hashTableSize) :
+template<typename T>
+SpaceHash<T>::SpaceHash(const float divideLength, const int hashTableSize) :
 	ISpaceHash(divideLength, hashTableSize),
 	table(hashTableSize)
 {
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(Particle* object)
+template<typename T>
+std::list<T*> SpaceHash<T>::getNeighbor(T* object)
 {
 	return getNeighbor(object->getPosition());
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
+template<typename T>
+std::list<T*> SpaceHash<T>::getNeighbor(const Vector3d<float>& pos)
 {
-	std::list<Particle*> neighbors;
+	std::list<T*> neighbors;
 	Index3d index = toIndex(pos);
 	for (auto x = index.getX() - 1; x <= index.getX()+1; ++x) {
 		for (auto y = index.getY() - 1; y <= index.getY()+1; ++y) {
@@ -46,9 +48,10 @@ std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos)
 	return results;
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos, const float length)
+template<typename T>
+std::list<T*> SpaceHash<T>::getNeighbor(const Vector3d<float>& pos, const float length)
 {
-	std::list<Particle*> neighbors;
+	std::list<T*> neighbors;
 	Index3d index = toIndex(pos);
 	for (auto x = index.getX() - 1; x <= index.getX() + 1; ++x) {
 		for (auto y = index.getY() - 1; y <= index.getY() + 1; ++y) {
@@ -72,14 +75,18 @@ std::list<Particle*> SpaceHash::getNeighbor(const Vector3d<float>& pos, const fl
 	return std::move(neighbors);
 }
 
-std::list<Particle*> SpaceHash::getNeighbor(const Index3d index)
+template<typename T>
+std::list<T*> SpaceHash<T>::getNeighbor(const Index3d index)
 {
 	auto hash = toHash(index);
 	return table[hash];
 }
 
-void SpaceHash::add(Particle* particle)
+template<typename T>
+void SpaceHash<T>::add(T* particle)
 {
 	const auto hashIndex = toHash(particle->getPosition());
 	table[hashIndex].push_back(particle);
 }
+
+template class SpaceHash<Particle>;

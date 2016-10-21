@@ -29,6 +29,8 @@
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="SurfaceBuilder.cpp" />
     <ClCompile Include="OrientedParticle.cpp" />
+    <ClCompile Include="IISPHSolver.cpp" />
+    <ClCompile Include="IISPHParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -63,6 +65,8 @@
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="OrientedParticle.h" />
+    <ClInclude Include="IISPHSolver.h" />
+    <ClInclude Include="IISPHParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">

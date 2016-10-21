@@ -8,7 +8,7 @@ using namespace Crystal::Core;
 
 TEST(SpaceHashTest, TestCenter)
 {
-	SpaceHash hash(1.0f, 100);
+	SpaceHash<Particle> hash(1.0f, 100);
 	Particle p1(Vector3d<float>(0.0f, 0.0f, 0.0f), 1.0f, 1.0f);
 	Particle p2(Vector3d<float>(0.5f, 0.0f, 0.0f), 1.0f, 1.0f);
 	Particle p3(Vector3d<float>(-0.5f, 0.0f, 0.0f), 1.0f, 1.0f);
@@ -35,7 +35,7 @@ TEST(SpaceHashTest, TestCenter)
 
 TEST(SpaceHashTest, TestAxisX)
 {
-	SpaceHash hash(1.0f, 100);
+	SpaceHash<Particle> hash(1.0f, 100);
 	Particle p1(Vector3d<float>(4.5f, 0.0f, 0.0f), 1.0f, 0.5f);
 	Particle p2(Vector3d<float>(5.0f, 0.0f, 0.0f), 1.0f, 0.5f);
 	Particle p3(Vector3d<float>(5.6f, 0.0f, 0.0f), 1.0f, 0.5f);
@@ -61,7 +61,7 @@ TEST(SpaceHashTest, TestAxisX)
 
 TEST(SpaceHashTest, TestAxisY)
 {
-	SpaceHash hash(1.0f, 100);
+	SpaceHash<Particle> hash(1.0f, 100);
 	Particle p1(Vector3d<float>(0.0f, 4.5f, 0.0f), 1.0f, 0.5f);
 	Particle p2(Vector3d<float>(0.0f, 5.0f, 0.0f), 1.0f, 0.5f);
 	Particle p3(Vector3d<float>(0.0f, 5.6f, 0.0f), 1.0f, 0.5f);
@@ -86,7 +86,7 @@ TEST(SpaceHashTest, TestAxisY)
 
 TEST(SpaceHashTest, TestAxisZ)
 {
-	SpaceHash hash(1.0f, 100);
+	SpaceHash<Particle> hash(1.0f, 100);
 	Particle p1(Vector3d<float>(0.0f, 0.0f, 4.5f), 1.0f, 0.5f);
 	Particle p2(Vector3d<float>(0.0f, 0.0f, 5.0f), 1.0f, 0.5f);
 	Particle p3(Vector3d<float>(0.0f, 0.0f, 5.6f), 1.0f, 0.5f);
