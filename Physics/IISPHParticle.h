@@ -72,7 +72,9 @@ public:
 
 	bool isBoundary() const { return constant->isBoundary; }
 
-	void predictAdvection(const Math::Vector3d<float>& externalForce, const float dt);
+	void predictAdvection1(const Math::Vector3d<float>& externalForce, const float dt);
+
+	void predictAdvection2(const float dt);
 
 	void solvePressure(const float dt);
 
@@ -84,15 +86,22 @@ public:
 
 	void solveDisplace(const float dt);
 
+	void evaluatePressure();
+
 private:
+
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> normal;
 	SPHConstant* constant;
 	std::list<IISPHParticle*> neighbors;
 	Math::Vector3d<float> advVelocity;
-	Math::Vector3d<float> dispacement;
+	Math::Vector3d<float> dii;
 	float advDensity;
+	float coe;
+	float aii;
+	Math::Vector3d<float> dp;
+	float pressure;
 };
 
 	}
