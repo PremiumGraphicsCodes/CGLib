@@ -55,6 +55,30 @@ T SPHKernel<T,DIM>::getCubicSpline(const T q)
 }
 
 template<typename T, typename int DIM>
+Vector3d<T> SPHKernel<T,DIM>::getCubicSplineGradient(const Vector3d<T>& distanceVector)
+{
+	const auto coe = T{ 3 } / Tolerance<T>::getTwoPI();
+	const auto q = distanceVector.getLength();
+	if (q < 1) {
+		const auto x = -T{ 2 }*distanceVector.getX() + T{ 3 } / T{ 2 } * distanceVector.getX();
+		const auto y = -T{ 2 }*distanceVector.getY() + T{ 3 } / T{ 2 } * distanceVector.getY();
+		const auto z = -T{ 2 }*distanceVector.getZ() + T{ 3 } / T{ 2 } * distanceVector.getZ();
+		return coe * Vector3d<T>(x, y, z);
+	}
+	else if (q < 2) {
+		const auto x = -T{ 0.5 } * T(2.0 - distanceVector.getX());
+		const auto y = -T{ 0.5 } * T(2.0 - distanceVector.getY());
+		const auto z = -T{ 0.5 } *T(2.0 - distanceVector.getZ());
+		return coe * Vector3d<T>(x, y, z);
+	}
+	else {
+		return Vector3d<T>(0,0,0);
+	}
+
+}
+
+
+template<typename T, typename int DIM>
 T SPHKernel<T,DIM>::getCubicSpline(const Vector3d<T>& v, const T effectLength)
 {
 	const auto q = v.getLength() / effectLength;

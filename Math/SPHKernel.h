@@ -25,6 +25,8 @@ public:
 
 	T getCubicSpline(const T q);
 
+	Vector3d<T> getCubicSplineGradient(const Math::Vector3d<T>& distanceVector);
+
 	T getCubicSpline(const Vector3d<T>& v, const T effectLength);
 
 	T getCubicSpline(const Vector3d<T>& v, const Matrix3d<T>& m);
