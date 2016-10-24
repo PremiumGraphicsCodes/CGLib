@@ -111,7 +111,7 @@ void IISPHParticle::addDensity(const IISPHParticle& rhs)
 void IISPHParticle::predictAdvection1(const Vector3d<float>& externalForce, const float dt)
 {
 	solveDensity();
-	this->advVelocity = this->velocity + dt * externalForce / getMass();
+	this->advVelocity = this->velocity + dt * externalForce;// / getMass();
 	for (auto n : neighbors) {
 		this->dii += getDii(n, dt);
 	}
@@ -159,7 +159,13 @@ void IISPHParticle::solvePressure(const float dt)
 
 void IISPHParticle::integrate(const float dt)
 {
-	this->force = (this->dii * pressure + dijp) / (dt * dt) * getMass();
+
+	//this->force = (this->dii * pressure + dijp) / (dt * dt) * getMass();
+	for (auto n : neighbors) {
+		const auto diff = this->getPosition() - n->getPosition();
+		const auto& kernelGrad = kernel.getCubicSplineGradient(diff, constant->getEffectLength());
+		this->force += this->getMass() * n->getMass()  * (this->pressure / this->density / this->density + n->pressure / n->density / n->density) * kernelGrad;
+	}
 	this->velocity = this->advVelocity + dt * this->force / this->getMass();
 	this->position = this->position + dt * this->velocity;
 }
