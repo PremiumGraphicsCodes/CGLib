@@ -58,18 +58,15 @@ template<typename T, typename int DIM>
 Vector3d<T> SPHKernel<T,DIM>::getCubicSplineGradient(const Vector3d<T>& distanceVector)
 {
 	const auto coe = T{ 3 } / Tolerance<T>::getTwoPI();
-	const auto q = distanceVector.getLength();
-	if (q < 1) {
-		const auto x = -T{ 2 }*distanceVector.getX() + T{ 3 } / T{ 2 } * distanceVector.getX();
-		const auto y = -T{ 2 }*distanceVector.getY() + T{ 3 } / T{ 2 } * distanceVector.getY();
-		const auto z = -T{ 2 }*distanceVector.getZ() + T{ 3 } / T{ 2 } * distanceVector.getZ();
-		return coe * Vector3d<T>(x, y, z);
+	const auto length = distanceVector.getLength();
+	const auto lengthSquared = distanceVector.getLengthSquared();
+	if (length < 1) {
+		const auto var = -T{ 2 } *length + T{ 1.5 } * lengthSquared;
+		return coe * var * distanceVector.normalized();
 	}
-	else if (q < 2) {
-		const auto x = -T{ 0.5 } * T(2.0 - distanceVector.getX());
-		const auto y = -T{ 0.5 } * T(2.0 - distanceVector.getY());
-		const auto z = -T{ 0.5 } *T(2.0 - distanceVector.getZ());
-		return coe * Vector3d<T>(x, y, z);
+	else if (length < 2) {
+		const auto var = -T{ 0.5 } *std::pow( T(2.0 - length), 2 );
+		return coe * var * distanceVector.normalized();
 	}
 	else {
 		return Vector3d<T>(0,0,0);

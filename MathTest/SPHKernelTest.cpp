@@ -69,3 +69,60 @@ TEST(SPHKernelTest, TestGetCubicSpilineByMatrix)
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
 	}
 }
+
+TEST(SPHKernelTest, TestGetCubicSplineGradient)
+{
+	using T = float;
+	SPHKernel<T> kernel;
+
+	{
+		Vector3d<T> v(0, 0, 0);
+		const auto& grad = kernel.getCubicSplineGradient(v);
+	}
+	
+	{
+		Vector3d<T> v(0.25, 0, 0);
+		const auto& grad = kernel.getCubicSplineGradient(v);
+		std::cout << grad.getX() << std::endl;
+		const auto v1 = kernel.getCubicSpline(0.25);
+		const auto v2 = kernel.getCubicSpline(0.25 + 1.0e-4);
+		const auto diff = (v2 - v1) / 1.0e-4;
+
+		EXPECT_TRUE(::fabs(diff - grad.getX()<1.0e-3));
+
+	}
+
+	{
+		Vector3d<T> v(0.5, 0, 0);
+		const auto& grad = kernel.getCubicSplineGradient(v);
+		std::cout << grad.getX() << std::endl;
+		const auto v1 = kernel.getCubicSpline(0.5);
+		const auto v2 = kernel.getCubicSpline(0.5 + 1.0e-4);
+		const auto diff = (v2 - v1) / 1.0e-4;
+		EXPECT_TRUE(::fabs(diff - grad.getX()<1.0e-3));
+
+	}
+
+	{
+		Vector3d<T> v(0.75, 0, 0);
+		const auto& grad = kernel.getCubicSplineGradient(v);
+		const auto v1 = kernel.getCubicSpline(0.75);
+		const auto v2 = kernel.getCubicSpline(0.75 + 1.0e-4);
+		const auto diff = (v2 - v1) / 1.0e-4;
+		EXPECT_TRUE(::fabs(diff - grad.getX()<1.0e-3));
+
+	}
+
+	{
+		Vector3d<T> v(1, 0, 0);
+		const auto& grad = kernel.getCubicSplineGradient(v);
+
+		const auto v1 = kernel.getCubicSpline(1);
+		const auto v2 = kernel.getCubicSpline(1 + 1.0e-4);
+		const auto diff = (v2 - v1) / 1.0e-4;
+		std::cout << diff << std::endl;
+
+	}
+
+
+}
