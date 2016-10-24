@@ -25,7 +25,7 @@ float SPHKernel<T,DIM>::getPoly6KernelLaplacian(const T distance, const T effect
 }
 
 template<typename T, typename int DIM>
-Vector3d<T> SPHKernel<T,DIM>::getSpikyKernelGradient(const Vector3d<T> &distanceVector, const float effectLength)
+Vector3d<T> SPHKernel<T,DIM>::getSpikyKernelGradient(const Vector3d<T> &distanceVector, const T effectLength)
 {
 	const auto constant = 45.0f / (Math::Tolerance<T>::getPI() * pow(effectLength, 6));
 	const auto distance = distanceVector.getLength();
@@ -55,6 +55,13 @@ T SPHKernel<T,DIM>::getCubicSpline(const T q)
 }
 
 template<typename T, typename int DIM>
+T SPHKernel<T, DIM>::getCubicSpline(const T distance, const T effectRadius)
+{
+	const auto q = distance * 2 / (effectRadius);
+	return getCubicSpline(q);
+}
+
+template<typename T, typename int DIM>
 Vector3d<T> SPHKernel<T,DIM>::getCubicSplineGradient(const Vector3d<T>& distanceVector)
 {
 	const auto coe = T{ 3 } / Tolerance<T>::getTwoPI();
@@ -71,9 +78,14 @@ Vector3d<T> SPHKernel<T,DIM>::getCubicSplineGradient(const Vector3d<T>& distance
 	else {
 		return Vector3d<T>(0,0,0);
 	}
-
 }
 
+template<typename T, typename int DIM>
+Vector3d<T> SPHKernel<T, DIM>::getCubicSplineGradient(const Vector3d<T>& distanceVector, const T effectRadius)
+{
+	const auto scale = distanceVector.getLength() * T { 2 } / effectRadius;
+	return getCubicSplineGradient(distanceVector.scaled(scale));
+}
 
 template<typename T, typename int DIM>
 T SPHKernel<T,DIM>::getCubicSpline(const Vector3d<T>& v, const T effectLength)

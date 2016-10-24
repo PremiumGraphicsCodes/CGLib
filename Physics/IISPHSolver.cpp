@@ -31,8 +31,16 @@ void IISPHSolver::simulate(const double dt, const double effectRadius)
 		p->predictAdvection2(dt);
 	}
 
-	for (auto p : particles) {
-		p->solvePressure(dt);
+	int i = 0;
+	const float relaxation = 0.5f;
+	while (i < 2) {
+		for (auto p : particles) {
+			p->solveDijPj(dt);
+		}
+		for (auto p : particles) {
+			p->solvePressure(dt);
+		}
+		++i;
 	}
 	for (auto p : particles) {
 		p->integrate(dt);

@@ -24,6 +24,8 @@ public:
 
 	void setNeighbors(const std::list<IISPHParticle*>& neighbors);
 
+	std::list<IISPHParticle*> getNeighbors() const { return neighbors; }
+
 	float getDensityRatio() const;
 
 	float getPressure() const;
@@ -76,13 +78,16 @@ public:
 
 	void predictAdvection2(const float dt);
 
+	void solveDijPj(const float dt);
+
 	void solvePressure(const float dt);
 
 	void integrate(const float dt);
 
 	void solveDensity();
 
-private:
+public:
+	Math::Vector3d<float> getDii(IISPHParticle* rhs, const float dt) const;
 
 	Math::Vector3d<float> getDij(IISPHParticle* rhs, const float dt) const;
 

@@ -19,13 +19,17 @@ public:
 
 	float getPoly6KernelLaplacian(const T distance, const T effectLength);
 
-	Math::Vector3d<T> getSpikyKernelGradient(const Math::Vector3d<T> &distanceVector, const float effectLength);
+	Math::Vector3d<T> getSpikyKernelGradient(const Math::Vector3d<T> &distanceVector, const T effectLength);
 
 	float getViscosityKernelLaplacian(const T distance, const T effectLength);
 
 	T getCubicSpline(const T q);
 
+	T getCubicSpline(const T distance, const T effectRadius);
+
 	Vector3d<T> getCubicSplineGradient(const Math::Vector3d<T>& distanceVector);
+
+	Vector3d<T> getCubicSplineGradient(const Math::Vector3d<T>& distanceVector, const T effectRadius);
 
 	T getCubicSpline(const Vector3d<T>& v, const T effectLength);
 
