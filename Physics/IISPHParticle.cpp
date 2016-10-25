@@ -40,16 +40,6 @@ void IISPHParticle::init()
 	force = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
 }
 
-float IISPHParticle::getDensityRatio() const
-{
-	return density / constant->getDensity();
-}
-
-float IISPHParticle::getPressure() const
-{
-	return constant->getPressureCoe() * (std::pow(getDensityRatio(), 1) - 1.0f);
-}
-
 float IISPHParticle::getMass() const
 {
 	return constant->getDensity() * std::pow(getDiameter(), 3);
@@ -65,28 +55,13 @@ float IISPHParticle::getRestVolume() const
 	return getMass() / constant->getDensity();
 }
 
-void IISPHParticle::forwardTime(const float timeStep)
-{
-	const auto& acc = getAccelaration();
-	this->velocity += (acc* timeStep);
-	this->move(this->velocity * timeStep);
-}
-
 void IISPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
-	this->force += externalForce * getDensity();
+	this->force += externalForce * getMass();
 }
 
 namespace {
 	SPHKernel<float> kernel;
-}
-
-void IISPHParticle::solvePressureForce(const IISPHParticle& rhs)
-{
-	const auto pressure = (this->getPressure() + rhs.getPressure()) * 0.5f;
-	const auto& distanceVector = (this->getPosition() - rhs.getPosition());
-	const auto& f = kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength()) * pressure * rhs.getVolume();
-	this->force += f;
 }
 
 void IISPHParticle::solveViscosityForce(const IISPHParticle& rhs)
@@ -99,19 +74,19 @@ void IISPHParticle::solveViscosityForce(const IISPHParticle& rhs)
 
 void IISPHParticle::addSelfDensity()
 {
-	this->addDensity(kernel.getPoly6Kernel(0.0, constant->getEffectLength()) * this->getMass());
+	this->addDensity(kernel.getCubicSpline(0.0, constant->getEffectLength()) * this->getMass());
 }
 
 void IISPHParticle::addDensity(const IISPHParticle& rhs)
 {
 	const float distance = this->getPosition().getDistance(rhs.getPosition());
-	this->addDensity(kernel.getPoly6Kernel(distance, constant->getEffectLength()) * rhs.getMass());
+	this->addDensity(kernel.getCubicSpline(distance, constant->getEffectLength()) * rhs.getMass());
 }
 
-void IISPHParticle::predictAdvection1(const Vector3d<float>& externalForce, const float dt)
+void IISPHParticle::predictAdvection1(const float dt)
 {
 	solveDensity();
-	this->advVelocity = this->velocity + dt * externalForce;// / getMass();
+	this->advVelocity = this->velocity + dt * force;// / getMass();
 	for (auto n : neighbors) {
 		this->dii += getDii(n, dt);
 	}
@@ -125,8 +100,8 @@ void IISPHParticle::predictAdvection2(const float dt)
 		const auto kernelGrad = kernel.getCubicSplineGradient(diff, constant->getEffectLength());
 		advDensity += dt * n->getMass() * (n->advVelocity - this->advVelocity).getInnerProduct(kernelGrad);
 	}
-	pressure = 0.5 * pressure;
-	this->aii = 0.0;
+	pressure = 0.5f * pressure;
+	this->aii = 0.0f;
 	for (auto n : neighbors) {
 		const auto diff = this->getPosition() - n->getPosition();
 		const auto kernelGrad = kernel.getCubicSplineGradient(diff, constant->getEffectLength());
@@ -150,10 +125,12 @@ void IISPHParticle::solvePressure(const float dt)
 	for (auto n : neighbors) {
 		const auto diff = this->getPosition() - n->getPosition();
 		const auto& kernelGrad = kernel.getCubicSplineGradient(diff, constant->getEffectLength());
-		p += n->getMass() *(this->dijp - (n->dii * n->pressure) - (n->dijp - n->getDij(this, dt) * n->getPressure() )).getInnerProduct(kernelGrad);
+		p += n->getMass() *(this->dijp - (n->dii * n->pressure) - (n->dijp - n->getDij(this, dt) * n->pressure )).getInnerProduct(kernelGrad);
 	}
 	const auto pp = constant->getDensity() - this->advDensity - p;
-	this->pressure += (1.0f - relaxation) * pressure + relaxation / aii * pp;
+	float nextPressure = 0.0f;
+	nextPressure += (1.0f - relaxation) * pressure + relaxation / aii * pp;
+	this->pressure = nextPressure;
 }
 
 
@@ -166,7 +143,7 @@ void IISPHParticle::integrate(const float dt)
 		const auto& kernelGrad = kernel.getCubicSplineGradient(diff, constant->getEffectLength());
 		this->force += this->getMass() * n->getMass()  * (this->pressure / this->density / this->density + n->pressure / n->density / n->density) * kernelGrad;
 	}
-	this->velocity = this->advVelocity + dt * this->force / this->getMass();
+	this->velocity = this->advVelocity + dt * this->force;
 	this->position = this->position + dt * this->velocity;
 }
 

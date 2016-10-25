@@ -27,6 +27,7 @@
     <ClInclude Include="BulletRigid.h" />
     <ClInclude Include="BulletWorld.h" />
     <ClInclude Include="Fluid.h" />
+    <ClInclude Include="IISPHBoundarySolver.h" />
     <ClInclude Include="IISPHParticle.h" />
     <ClInclude Include="IISPHSolver.h" />
     <ClInclude Include="IISPHSpaceHash.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="BulletRigid.cpp" />
     <ClCompile Include="BulletWorld.cpp" />
     <ClCompile Include="Fluid.cpp" />
+    <ClCompile Include="IISPHBoundarySolver.cpp" />
     <ClCompile Include="IISPHParticle.cpp" />
     <ClCompile Include="IISPHSolver.cpp" />
     <ClCompile Include="IISPHSpaceHash.cpp" />

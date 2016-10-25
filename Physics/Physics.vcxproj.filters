@@ -29,9 +29,18 @@
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="SurfaceBuilder.cpp" />
     <ClCompile Include="OrientedParticle.cpp" />
-    <ClCompile Include="IISPHSolver.cpp" />
-    <ClCompile Include="IISPHParticle.cpp" />
-    <ClCompile Include="IISPHSpaceHash.cpp" />
+    <ClCompile Include="IISPHParticle.cpp">
+      <Filter>IISPH</Filter>
+    </ClCompile>
+    <ClCompile Include="IISPHSolver.cpp">
+      <Filter>IISPH</Filter>
+    </ClCompile>
+    <ClCompile Include="IISPHSpaceHash.cpp">
+      <Filter>IISPH</Filter>
+    </ClCompile>
+    <ClCompile Include="IISPHBoundarySolver.cpp">
+      <Filter>IISPH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -66,13 +75,25 @@
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="OrientedParticle.h" />
-    <ClInclude Include="IISPHSolver.h" />
-    <ClInclude Include="IISPHParticle.h" />
-    <ClInclude Include="IISPHSpaceHash.h" />
+    <ClInclude Include="IISPHParticle.h">
+      <Filter>IISPH</Filter>
+    </ClInclude>
+    <ClInclude Include="IISPHSolver.h">
+      <Filter>IISPH</Filter>
+    </ClInclude>
+    <ClInclude Include="IISPHSpaceHash.h">
+      <Filter>IISPH</Filter>
+    </ClInclude>
+    <ClInclude Include="IISPHBoundarySolver.h">
+      <Filter>IISPH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
       <UniqueIdentifier>{ff1ddc0c-a2c0-49e4-8e47-11382907778a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IISPH">
+      <UniqueIdentifier>{bfe07c1c-6f58-4479-ab7d-d94982b50b51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

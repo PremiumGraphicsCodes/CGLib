@@ -26,10 +26,6 @@ public:
 
 	std::list<IISPHParticle*> getNeighbors() const { return neighbors; }
 
-	float getDensityRatio() const;
-
-	float getPressure() const;
-
 	float getMass() const;
 
 	float getVolume() const;
@@ -58,11 +54,7 @@ public:
 
 	void addVelocity(const Math::Vector3d<float>& velocity) { this->velocity += velocity; }
 
-	void forwardTime(const float timeStep);
-
 	void addExternalForce(const Math::Vector3d<float>& force);
-
-	void solvePressureForce(const IISPHParticle& rhs);
 
 	void solveViscosityForce(const IISPHParticle& rhs);
 
@@ -74,7 +66,7 @@ public:
 
 	bool isBoundary() const { return constant->isBoundary; }
 
-	void predictAdvection1(const Math::Vector3d<float>& externalForce, const float dt);
+	void predictAdvection1(const float dt);
 
 	void predictAdvection2(const float dt);
 
@@ -90,7 +82,6 @@ public:
 	Math::Vector3d<float> getDii(IISPHParticle* rhs, const float dt) const;
 
 	Math::Vector3d<float> getDij(IISPHParticle* rhs, const float dt) const;
-
 
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
