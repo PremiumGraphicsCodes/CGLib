@@ -79,6 +79,8 @@ public:
 	void solveDensity();
 
 public:
+	Math::Vector3d<float> getDiff(const IISPHParticle* rhs) const;
+
 	Math::Vector3d<float> getDii(IISPHParticle* rhs, const float dt) const;
 
 	Math::Vector3d<float> getDij(IISPHParticle* rhs, const float dt) const;
@@ -94,6 +96,7 @@ public:
 	float coe;
 	float aii;
 	Math::Vector3d<float> dijp;
+	float prevPressure;
 	float pressure;
 };
 
