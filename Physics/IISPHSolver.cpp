@@ -29,8 +29,8 @@ void IISPHSolver::simulate(const float dt, const float effectRadius)
 	}
 
 
-	IISPHBoundarySolver boundarySolver(dt, Box3d<float>(Vector3d<float>(-10.0, 0.0, -10.0), Vector3d<float>(10.0, 10.0, 10.0)));
-	boundarySolver.solve(particles);
+	//IISPHBoundarySolver boundarySolver(dt, Box3d<float>(Vector3d<float>(-10.0, 0.0, -10.0), Vector3d<float>(10.0, 10.0, 10.0)));
+	//boundarySolver.solve(particles);
 
 	Vector3d<float> externalForce(0.0, -9.8f, 0.0f);
 	//Vector3d<float> externalForce(0.0f, 0.0f, 0.0f);
