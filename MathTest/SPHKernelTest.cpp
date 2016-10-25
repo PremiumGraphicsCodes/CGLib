@@ -151,6 +151,10 @@ TEST(SPHKernelTest, TestGetCubicSplineGradientWithEffectRadius)
 	{
 		Vector3d<T> v(0, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v);
+		const auto v1 = kernel.getCubicSpline(0.0, effectRadius);
+		const auto v2 = kernel.getCubicSpline(0.0 + 1.0e-4, effectRadius);
+		const auto diff = (v2 - v1) / 1.0e-4;
+		std::cout << diff << std::endl;
 	}
 
 	{

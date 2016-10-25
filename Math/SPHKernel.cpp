@@ -67,7 +67,10 @@ Vector3d<T> SPHKernel<T,DIM>::getCubicSplineGradient(const Vector3d<T>& distance
 	const auto coe = T{ 3 } / Tolerance<T>::getTwoPI();
 	const auto length = distanceVector.getLength();
 	const auto lengthSquared = distanceVector.getLengthSquared();
-	if (length < 1) {
+	if (Tolerance<T>::isEqualStrictly(length)) {
+		return Vector3d<T>(0, 0, 0);
+	}
+	else if (length < 1) {
 		const auto var = -T{ 2 } *length + T{ 1.5 } * lengthSquared;
 		return coe * var * distanceVector.normalized();
 	}
