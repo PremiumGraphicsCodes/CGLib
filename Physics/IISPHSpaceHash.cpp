@@ -1,6 +1,7 @@
 #include "IISPHSpaceHash.h"
 
 #include "IISPHParticle.h"
+#include "PBSPHParticle.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -88,3 +89,4 @@ void IISPHSpaceHash<T>::add(T* particle)
 }
 
 template class IISPHSpaceHash<IISPHParticle>;
+template class IISPHSpaceHash<PBSPHParticle>;

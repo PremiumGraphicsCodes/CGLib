@@ -17,10 +17,10 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 	}
 
 
-	Vector3d<float> externalForce(0.0, -9.8f, 0.0f);
+	//Vector3d<float> externalForce(0.0, -9.8f, 0.0f);
 	//Vector3d<float> externalForce(0.0f, 0.0f, 0.0f);
 	for (auto p : particles) {
-		p->addExternalForce(externalForce);
+		//p->addExternalForce(externalForce);
 		p->predictPosition(dt);
 	}
 
@@ -35,8 +35,29 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		p->setNeighbors(neighbors);
 	}
 
-	//for (auto p : particles) {
+	for (int iter = 0; iter < 3; ++iter) {
+		for (auto p : particles) {
+			p->solveDensity();
+		}
+		for (auto p : particles) {
+			p->solveConstrantGradient();
+		}
+		for (auto p : particles) {
+			p->solveDensityConstraint();
+		}
+
+		for (auto p : particles) {
+			p->solvePositionCorrection();
+		}
+		for (auto p : particles) {
+			p->updatePredictPosition(dt);
+		}
+	} 
+
+	for (auto p : particles) {
+		p->updateVelocity(dt);
+		p->updatePosition();
 	//	p->integrate(dt);
-	//}
+	}
 
 }

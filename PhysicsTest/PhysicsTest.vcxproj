@@ -27,6 +27,7 @@
     <ClCompile Include="IndexedParticleTest.cpp" />
     <ClCompile Include="OrientedParticleTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
+    <ClCompile Include="PBSPHSolverTest.cpp" />
     <ClCompile Include="SPHParticleTest.cpp" />
     <ClCompile Include="PhysicsObjectTest.cpp" />
     <ClCompile Include="SpringTest.cpp" />

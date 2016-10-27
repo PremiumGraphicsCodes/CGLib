@@ -25,7 +25,7 @@ public:
 
 	virtual ~PBSPHParticle() {};
 
-	void setNeighbors(const std::list<PBSPHParticle*>& neighbors) { this->neighbors = neighbors; }
+	void setNeighbors(const std::list<PBSPHParticle*>& neighbors);
 
 	float getDensityRatio() const;
 
@@ -85,11 +85,20 @@ public:
 
 	void solveDensityConstraint();
 
+	void solveDensity();
+
+	void updatePredictPosition(const float dt);
+
+	void updateVelocity(const float dt);
+
+	void updatePosition();
+
+	void solvePositionCorrection();
 
 private:
 	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
 
-	Math::Vector3d<float> calulcatePositionCorrection(const PBSPHParticle& rhs);
+	Math::Vector3d<float> getPositionCorrection(const PBSPHParticle& rhs);
 
 
 	float densityConstraint;

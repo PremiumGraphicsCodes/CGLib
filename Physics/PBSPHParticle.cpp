@@ -24,6 +24,13 @@ PBSPHParticle::PBSPHParticle(const Vector3d<float>& center, float radius, SPHCon
 	this->density = constant->getDensity();
 }
 
+void PBSPHParticle::setNeighbors(const std::list<PBSPHParticle*>& neighbors)
+{
+	this->neighbors = neighbors;
+	this->neighbors.remove(this);
+}
+
+
 void PBSPHParticle::init()
 {
 	density = 0.0;
@@ -128,7 +135,7 @@ void PBSPHParticle::solveConstrantGradient()
 {
 	this->constraintGrad = Vector3d<float>(0, 0, 0);
 	for (auto n : neighbors) {
-		this->constraintGrad += n->getConstraintGradient(*n);
+		this->constraintGrad += this->getConstraintGradient(*n);
 	}
 }
 
@@ -146,12 +153,44 @@ void PBSPHParticle::solveDensityConstraint()
 	this->densityConstraint += this->constraintGrad.getLengthSquared();
 }
 
-Vector3d<float> PBSPHParticle::calulcatePositionCorrection(const PBSPHParticle& rhs)
+void PBSPHParticle::solvePositionCorrection()
 {
 	this->positionCorrection = Vector3d<float>(0, 0, 0);
 	for (auto n : neighbors) {
-		const auto& distanceVector = this->getPosition() - rhs.getPosition();
-		this->positionCorrection += 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+		this->positionCorrection += getPositionCorrection(*n);
 	}
-	return positionCorrection;
 }
+
+
+Vector3d<float> PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
+{
+	const auto& distanceVector = this->getPosition() - rhs.getPosition();
+	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+}
+
+void PBSPHParticle::solveDensity()
+{
+	this->density = 0.0f;
+	for (auto n : neighbors) {
+		addDensity(*n);
+	}
+	addSelfDensity();
+}
+
+void PBSPHParticle::updatePredictPosition(const float dt)
+{
+	this->position = this->position + positionCorrection;
+}
+
+void PBSPHParticle::updateVelocity(const float dt)
+{
+	this->velocity = (this->position - this->prevPosition) / dt;
+}
+
+void PBSPHParticle::updatePosition()
+{
+	this->prevPosition = this->position;
+}
+
+
+
