@@ -32,6 +32,14 @@ void PBSPHBoundarySolver::solveConstraintGradient(const std::vector<PBSPHParticl
 	}
 }
 
+void PBSPHBoundarySolver::solveViscosity(const std::vector<PBSPHParticle*>& particles)
+{
+	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+		const auto v = getOverVector(particles[i]->getPosition());
+		particles[i]->solveViscosity(v.getLength());
+	}
+}
+
 
 void PBSPHBoundarySolver::solveCorrectPosition(const std::vector<PBSPHParticle*>& particles)
 {

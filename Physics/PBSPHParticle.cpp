@@ -107,12 +107,12 @@ void PBSPHParticle::solvePressureForce(const PBSPHParticle& rhs)
 
 void PBSPHParticle::solveViscosity()
 {
-	Vector3d<float> viscVelocity(0,0,0);
-	const auto scale = 0.01f;
+	viscVelocity = Vector3d<float>(0,0,0);
+	const auto scale = 10.0f;
 	for (auto n : neighbors) {
 		viscVelocity += scale * solveViscosity(*n);
 	}
-	this->velocity += viscVelocity;
+	//this->velocity += viscVelocity;
 }
 
 
@@ -122,6 +122,13 @@ Vector3d<float> PBSPHParticle::solveViscosity(const PBSPHParticle& rhs)
 	const auto distance = getPosition().getDistance(rhs.getPosition());
 	const auto weight = kernel.getPoly6Kernel(distance, constant->getEffectLength());
 	return velocityDiff * weight;
+}
+
+void PBSPHParticle::solveViscosity(const float distance)
+{
+	const auto& velocityDiff = (-this->velocity);
+	const auto weight = kernel.getPoly6Kernel(distance, constant->getEffectLength());
+	this->viscVelocity += 0.1f * velocityDiff * weight;
 }
 
 void PBSPHParticle::addSelfDensity()
@@ -158,14 +165,16 @@ void PBSPHParticle::solveConstrantGradient()
 
 void PBSPHParticle::addConstrantGradient(const Vector3d<float>& distanceVector)
 {
-	this->constraintGrad +=
-		1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	if (distanceVector.getLength() > 1.0e-3) {
+		this->constraintGrad +=
+			getMass() * 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	}
 }
 
 Vector3d<float> PBSPHParticle::getConstraintGradient(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
-	return 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	return getMass() * 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
 
 void PBSPHParticle::solveDensityConstraint()
@@ -193,7 +202,7 @@ Vector3d<float> PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
 	const auto densityCorrection = getDensityConstraintCorrection(rhs);
-	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + densityCorrection) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	return getMass() * 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + densityCorrection) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
 
 void PBSPHParticle::solveDensity()

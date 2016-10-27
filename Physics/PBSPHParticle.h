@@ -102,6 +102,10 @@ public:
 
 	void solveViscosity();
 
+	void solveViscosity(const float distance);
+
+	void updateViscosity() { this->velocity += this->viscVelocity; }
+
 private:
 	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
 
@@ -124,6 +128,7 @@ private:
 
 	SPHConstant* constant;
 	Math::Vector3d<float> positionCorrection;
+	Math::Vector3d<float> viscVelocity;
 };
 
 	}

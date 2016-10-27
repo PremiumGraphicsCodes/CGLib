@@ -22,6 +22,8 @@ public:
 
 	void solveForce(const std::vector<PBSPHParticle*>& particles, const float dt);
 
+	void solveViscosity(const std::vector<PBSPHParticle*>& particles);
+
 private:
 	Math::Vector3d<float> getOverVector(const Math::Vector3d<float>& position);
 
