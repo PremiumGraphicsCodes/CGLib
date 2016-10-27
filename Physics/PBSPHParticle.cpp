@@ -72,7 +72,7 @@ void PBSPHParticle::forwardTime(const float timeStep)
 
 void PBSPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
-	this->force += externalForce * getDensity();
+	this->force += externalForce * constant->getDensity();
 }
 
 namespace {
@@ -123,6 +123,12 @@ void PBSPHParticle::addDensity(const PBSPHParticle& rhs)
 	const float distance = this->getPosition().getDistance(rhs.getPosition());
 	this->addDensity(kernel.getPoly6Kernel(distance, constant->getEffectLength()) * rhs.getMass());
 }
+
+void PBSPHParticle::addDensity(const float distance, const float mass)
+{
+	this->addDensity(kernel.getPoly6Kernel(distance, constant->getEffectLength()) * mass);
+}
+
 
 void PBSPHParticle::predictPosition(const float dt)
 {

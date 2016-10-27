@@ -5,6 +5,7 @@
 #include "IndexedFinder.h"
 #include "../Core/SpaceHash.h"
 #include "../Math/Vector3d.h"
+#include "PBSPHBoundarySolver.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
@@ -16,11 +17,13 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		p->init();
 	}
 
+	Box3d<float> box(Vector3d<float>(-10, 0, -10), Vector3d<float>(10, 10, 10));
+	PBSPHBoundarySolver boundarySolver(box);
 
-	//Vector3d<float> externalForce(0.0, -9.8f, 0.0f);
+	Vector3d<float> externalForce(0.0, -9.8f, 0.0f);
 	//Vector3d<float> externalForce(0.0f, 0.0f, 0.0f);
 	for (auto p : particles) {
-		//p->addExternalForce(externalForce);
+		p->addExternalForce(externalForce);
 		p->predictPosition(dt);
 	}
 
@@ -39,6 +42,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		for (auto p : particles) {
 			p->solveDensity();
 		}
+		boundarySolver.solveDensity(particles);
 		for (auto p : particles) {
 			p->solveConstrantGradient();
 		}
@@ -49,6 +53,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		for (auto p : particles) {
 			p->solvePositionCorrection();
 		}
+		boundarySolver.solveCorrectPosition(particles);
 		for (auto p : particles) {
 			p->updatePredictPosition(dt);
 		}

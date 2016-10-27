@@ -75,6 +75,8 @@ public:
 
 	void addDensity(const PBSPHParticle& rhs);
 
+	void addDensity(const float distance, const float mass);
+
 	Math::Vector3d<float> getNormal() const { return normal; }
 
 	bool isBoundary() const { return constant->isBoundary; }
@@ -94,6 +96,9 @@ public:
 	void updatePosition();
 
 	void solvePositionCorrection();
+
+	void addPositionCorrection(const Math::Vector3d<float>& pc) { this->positionCorrection += pc; }
+
 
 private:
 	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
