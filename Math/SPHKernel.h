@@ -13,15 +13,15 @@ class SPHKernel
 public:
 	SPHKernel() = default;
 
-	float getPoly6Kernel(const T distance, const T effectLength);
+	T getPoly6Kernel(const T distance, const T effectLength);
 
 	Math::Vector3d<T> getPoly6KernelGradient(const Math::Vector3d<T>& distanceVector, const T effectLength);
 
-	float getPoly6KernelLaplacian(const T distance, const T effectLength);
+	T getPoly6KernelLaplacian(const T distance, const T effectLength);
 
 	Math::Vector3d<T> getSpikyKernelGradient(const Math::Vector3d<T> &distanceVector, const T effectLength);
 
-	float getViscosityKernelLaplacian(const T distance, const T effectLength);
+	T getViscosityKernelLaplacian(const T distance, const T effectLength);
 
 	T getCubicSpline(const T q);
 

@@ -24,13 +24,33 @@ void PBSPHBoundarySolver::solveDensity(const std::vector<PBSPHParticle*>& partic
 	}
 }
 
+void PBSPHBoundarySolver::solveConstraintGradient(const std::vector<PBSPHParticle*>& particles)
+{
+	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+		const auto v = getOverVector(particles[i]->getPosition());
+		particles[i]->addConstrantGradient(-v);
+	}
+}
+
+
 void PBSPHBoundarySolver::solveCorrectPosition(const std::vector<PBSPHParticle*>& particles)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
 		const auto v = getOverVector(particles[i]->getPosition());
+		//if (v.getLength() > 1.0e-6) {
 		particles[i]->addPositionCorrection(-v);
+		//}
 	}
 }
+
+void PBSPHBoundarySolver::solveForce(const std::vector<PBSPHParticle*>& particles, const float dt)
+{
+	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+		const auto over = getOverVector(particles[i]->getPosition());
+		particles[i]->addExternalForce(-over / dt / dt);
+	}
+}
+
 
 
 Vector3d<float> PBSPHBoundarySolver::getOverVector(const Vector3d<float>& position)

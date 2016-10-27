@@ -97,13 +97,18 @@ public:
 
 	void solvePositionCorrection();
 
-	void addPositionCorrection(const Math::Vector3d<float>& pc) { this->positionCorrection += pc; }
+	//void addPositionCorrection(const Math::Vector3d<float>& pc) { this->positionCorrection += pc; }
+	void addPositionCorrection(const Math::Vector3d<float>& pc);
+
+	void addConstrantGradient(const Math::Vector3d<float>& distance);
 
 
 private:
 	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
 
 	Math::Vector3d<float> getPositionCorrection(const PBSPHParticle& rhs);
+
+	Math::Vector3d<float> getDiff(const PBSPHParticle& rhs) const;
 
 
 	float densityConstraint;

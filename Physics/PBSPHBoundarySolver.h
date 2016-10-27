@@ -16,7 +16,11 @@ public:
 
 	void solveDensity(const std::vector<PBSPHParticle*>& particles);
 
+	void solveConstraintGradient(const std::vector<PBSPHParticle*>& particles);
+
 	void solveCorrectPosition(const std::vector<PBSPHParticle*>& particles);
+
+	void solveForce(const std::vector<PBSPHParticle*>& particles, const float dt);
 
 private:
 	Math::Vector3d<float> getOverVector(const Math::Vector3d<float>& position);

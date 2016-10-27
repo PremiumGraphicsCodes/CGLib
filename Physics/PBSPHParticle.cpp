@@ -145,10 +145,15 @@ void PBSPHParticle::solveConstrantGradient()
 	}
 }
 
+void PBSPHParticle::addConstrantGradient(const Vector3d<float>& distanceVector)
+{
+	this->constraintGrad +=
+		1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+}
 
 Vector3d<float> PBSPHParticle::getConstraintGradient(const PBSPHParticle& rhs)
 {
-	const auto& distanceVector = this->getPosition() - rhs.getPosition();
+	const auto& distanceVector = getDiff(rhs);
 	return 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
 
@@ -156,7 +161,12 @@ void PBSPHParticle::solveDensityConstraint()
 {
 	this->densityConstraint = 0.0f;
 	const auto c = this->getDensity() / this->constant->getDensity() - 1.0f;
-	this->densityConstraint += this->constraintGrad.getLengthSquared();
+	auto sum = 0.0f;
+	for (auto n : neighbors) {
+		sum += this->constraintGrad.getLengthSquared();
+	}
+	sum += 1.0e-3;
+	this->densityConstraint = -c / sum;
 }
 
 void PBSPHParticle::solvePositionCorrection()
@@ -170,7 +180,7 @@ void PBSPHParticle::solvePositionCorrection()
 
 Vector3d<float> PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
-	const auto& distanceVector = this->getPosition() - rhs.getPosition();
+	const auto& distanceVector = getDiff(rhs);
 	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
 
@@ -198,5 +208,14 @@ void PBSPHParticle::updatePosition()
 	this->prevPosition = this->position;
 }
 
+void PBSPHParticle::addPositionCorrection(const Vector3d<float>& distanceVector)
+{
+	this->positionCorrection += distanceVector;
+	//const auto pc = 1.0f / this->constant->getDensity() * (this->densityConstraint + this->densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	//this->positionCorrection += pc;
+}
 
-
+Vector3d<float> PBSPHParticle::getDiff(const PBSPHParticle& rhs) const
+{
+	return this->getPosition() - rhs.getPosition();
+}
