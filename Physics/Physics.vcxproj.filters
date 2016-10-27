@@ -41,6 +41,12 @@
     <ClCompile Include="IISPHBoundarySolver.cpp">
       <Filter>IISPH</Filter>
     </ClCompile>
+    <ClCompile Include="PBSPHParticle.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="PBSPHSolver.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -87,6 +93,12 @@
     <ClInclude Include="IISPHBoundarySolver.h">
       <Filter>IISPH</Filter>
     </ClInclude>
+    <ClInclude Include="PBSPHParticle.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="PBSPHSolver.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
@@ -94,6 +106,9 @@
     </Filter>
     <Filter Include="IISPH">
       <UniqueIdentifier>{bfe07c1c-6f58-4479-ab7d-d94982b50b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PBSPH">
+      <UniqueIdentifier>{2be94e29-f7ba-4927-8266-eafba79d7605}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

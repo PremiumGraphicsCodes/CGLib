@@ -19,6 +19,7 @@ TEST(IISPHSolverTest, Test)
 
 	IISPHSolver solver(particles);
 
+	/*
 	for (int i = 0; i < 100; ++i) {
 		solver.simulate(0.001f, 1.25f);
 		std::cout
@@ -31,4 +32,5 @@ TEST(IISPHSolverTest, Test)
 //			<< particle2.getPosition().getY() << std::endl
 //			<< particle2.getPosition().getZ() << std::endl;
 	}
+	*/
 }
