@@ -105,12 +105,23 @@ void PBSPHParticle::solvePressureForce(const PBSPHParticle& rhs)
 	this->force += f;
 }
 
-void PBSPHParticle::solveViscosityForce(const PBSPHParticle& rhs)
+void PBSPHParticle::solveViscosity()
 {
-	const auto viscosityCoe = (this->constant->getViscosityCoe() + rhs.constant->getViscosityCoe()) * 0.5f;
+	Vector3d<float> viscVelocity(0,0,0);
+	const auto scale = 0.01f;
+	for (auto n : neighbors) {
+		viscVelocity += scale * solveViscosity(*n);
+	}
+	this->velocity += viscVelocity;
+}
+
+
+Vector3d<float> PBSPHParticle::solveViscosity(const PBSPHParticle& rhs)
+{
 	const auto& velocityDiff = (rhs.velocity - this->velocity);
 	const auto distance = getPosition().getDistance(rhs.getPosition());
-	this->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, constant->getEffectLength()) * rhs.getVolume());
+	const auto weight = kernel.getPoly6Kernel(distance, constant->getEffectLength());
+	return velocityDiff * weight;
 }
 
 void PBSPHParticle::addSelfDensity()
@@ -160,7 +171,7 @@ Vector3d<float> PBSPHParticle::getConstraintGradient(const PBSPHParticle& rhs)
 void PBSPHParticle::solveDensityConstraint()
 {
 	this->densityConstraint = 0.0f;
-	const auto c = this->getDensity() / this->constant->getDensity() - 1.0f;
+	const auto c = std::max( 0.0f, this->getDensity() / this->constant->getDensity() - 1.0f );
 	auto sum = 0.0f;
 	for (auto n : neighbors) {
 		sum += this->constraintGrad.getLengthSquared();
@@ -181,7 +192,8 @@ void PBSPHParticle::solvePositionCorrection()
 Vector3d<float> PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
-	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	const auto densityCorrection = getDensityConstraintCorrection(rhs);
+	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + densityCorrection) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
 
 void PBSPHParticle::solveDensity()
@@ -217,5 +229,16 @@ void PBSPHParticle::addPositionCorrection(const Vector3d<float>& distanceVector)
 
 Vector3d<float> PBSPHParticle::getDiff(const PBSPHParticle& rhs) const
 {
-	return this->getPosition() - rhs.getPosition();
+	//return this->getPosition() - rhs.getPosition();
+	return rhs.getPosition() - this->getPosition();
+}
+
+float PBSPHParticle::getDensityConstraintCorrection(const PBSPHParticle& rhs) const
+{
+	const float k = 0.1f;
+	const float n = 4;
+	const float dq = 0.1 * constant->getEffectLength();
+	const auto w1 = kernel.getPoly6Kernel(getDiff(rhs).getLength(), constant->getEffectLength());
+	const auto w2 = kernel.getPoly6Kernel(dq, constant->getEffectLength());
+	return -k * std::pow(w1 / w2, n);
 }

@@ -69,8 +69,6 @@ public:
 
 	void solvePressureForce(const PBSPHParticle& rhs);
 
-	void solveViscosityForce(const PBSPHParticle& rhs);
-
 	void addSelfDensity();
 
 	void addDensity(const PBSPHParticle& rhs);
@@ -102,6 +100,7 @@ public:
 
 	void addConstrantGradient(const Math::Vector3d<float>& distance);
 
+	void solveViscosity();
 
 private:
 	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
@@ -110,6 +109,9 @@ private:
 
 	Math::Vector3d<float> getDiff(const PBSPHParticle& rhs) const;
 
+	Math::Vector3d<float> solveViscosity(const PBSPHParticle& rhs);
+
+	float getDensityConstraintCorrection(const PBSPHParticle& rhs) const;
 
 	float densityConstraint;
 
