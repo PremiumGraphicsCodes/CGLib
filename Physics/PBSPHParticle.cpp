@@ -123,3 +123,35 @@ void PBSPHParticle::predictPosition(const float dt)
 	this->velocity += dt * this->force;
 	this->position += dt * this->velocity;
 }
+
+void PBSPHParticle::solveConstrantGradient()
+{
+	this->constraintGrad = Vector3d<float>(0, 0, 0);
+	for (auto n : neighbors) {
+		this->constraintGrad += n->getConstraintGradient(*n);
+	}
+}
+
+
+Vector3d<float> PBSPHParticle::getConstraintGradient(const PBSPHParticle& rhs)
+{
+	const auto& distanceVector = this->getPosition() - rhs.getPosition();
+	return 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+}
+
+void PBSPHParticle::solveDensityConstraint()
+{
+	this->densityConstraint = 0.0f;
+	const auto c = this->getDensity() / this->constant->getDensity() - 1.0f;
+	this->densityConstraint += this->constraintGrad.getLengthSquared();
+}
+
+Vector3d<float> PBSPHParticle::calulcatePositionCorrection(const PBSPHParticle& rhs)
+{
+	this->positionCorrection = Vector3d<float>(0, 0, 0);
+	for (auto n : neighbors) {
+		const auto& distanceVector = this->getPosition() - rhs.getPosition();
+		this->positionCorrection += 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	}
+	return positionCorrection;
+}

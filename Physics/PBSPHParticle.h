@@ -81,13 +81,28 @@ public:
 
 	void predictPosition(const float dt);
 
+	void solveConstrantGradient();
+
+	void solveDensityConstraint();
+
+
 private:
+	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
+
+	Math::Vector3d<float> calulcatePositionCorrection(const PBSPHParticle& rhs);
+
+
+	float densityConstraint;
+
 	std::list<PBSPHParticle*> neighbors;
 	Math::Vector3d<float> force;
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> normal;
 	Math::Vector3d<float> prevPosition;
+	Math::Vector3d<float> constraintGrad;
+
 	SPHConstant* constant;
+	Math::Vector3d<float> positionCorrection;
 };
 
 	}
