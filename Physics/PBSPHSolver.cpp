@@ -6,10 +6,19 @@
 #include "../Core/SpaceHash.h"
 #include "../Math/Vector3d.h"
 #include "PBSPHBoundarySolver.h"
+#include "PBSPHObject.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Physics;
+
+void PBSPHSolver::add(const PBSPHObject& object)
+{
+	for (auto p : object.getParticles()) {
+		particles.push_back(p);
+	}
+}
+
 
 void PBSPHSolver::simulate(const float dt, const float effectRadius)
 {
@@ -17,13 +26,11 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		p->init();
 	}
 
-	Box3d<float> box(Vector3d<float>(-10, 0, -10), Vector3d<float>(10, 10, 10));
-	PBSPHBoundarySolver boundarySolver(box);
+	//Box3d<float> box(Vector3d<float>(-10, 0, -10), Vector3d<float>(10, 10, 10));
+	PBSPHBoundarySolver boundarySolver(boundary);
 
 	boundarySolver.solveForce(particles, dt);
 
-	Vector3d<float> externalForce(0.0, -9.8f, 0.0f);
-	//Vector3d<float> externalForce(0.0f, 0.0f, 0.0f);
 	for (auto p : particles) {
 		p->addExternalForce(externalForce);
 		p->predictPosition(dt);

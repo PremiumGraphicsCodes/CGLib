@@ -3,22 +3,38 @@
 
 #include <vector>
 
+#include "../Math/Vector3d.h"
+#include "../Math/Box3d.h"
+
 namespace Crystal {
 	namespace Physics {
 		class PBSPHParticle;
+		class PBSPHObject;
 
-		class PBSPHSolver
-		{
-		public:
-			PBSPHSolver(const std::vector<PBSPHParticle*>& particles) :
-				particles(particles)
-			{}
+class PBSPHSolver
+{
+public:
+	PBSPHSolver()
+	{}
 
-			void simulate(const float dt, const float effectRadius);
+	explicit PBSPHSolver(const std::vector<PBSPHParticle*>& particles) :
+		particles(particles)
+	{}
 
-		private:
-			std::vector<PBSPHParticle*> particles;
-		};
+	void add(const PBSPHObject& object);
+
+	void simulate(const float dt, const float effectRadius);
+
+	void setBoundary(const Math::Box3d<float>& boundary) { this->boundary = boundary; }
+
+	void setExternalForce(const Math::Vector3d<float>& force) { this->externalForce = force; }
+
+private:
+	std::vector<PBSPHParticle*> particles;
+	Math::Box3d<float> boundary;
+	Math::Vector3d<float> externalForce;
+};
+
 	}
 }
 

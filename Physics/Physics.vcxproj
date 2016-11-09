@@ -36,6 +36,7 @@
     <ClInclude Include="NeighborFinder.h" />
     <ClInclude Include="OrientedParticle.h" />
     <ClInclude Include="PBSPHBoundarySolver.h" />
+    <ClInclude Include="PBSPHObject.h" />
     <ClInclude Include="PBSPHParticle.h" />
     <ClInclude Include="PBSPHSolver.h" />
     <ClInclude Include="SPHConstant.h" />
@@ -64,6 +65,7 @@
     <ClCompile Include="NeighborFinder.cpp" />
     <ClCompile Include="OrientedParticle.cpp" />
     <ClCompile Include="PBSPHBoundarySolver.cpp" />
+    <ClCompile Include="PBSPHObject.cpp" />
     <ClCompile Include="PBSPHParticle.cpp" />
     <ClCompile Include="PBSPHSolver.cpp" />
     <ClCompile Include="SPHParticle.cpp" />

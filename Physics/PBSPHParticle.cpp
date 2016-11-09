@@ -72,7 +72,7 @@ void PBSPHParticle::forwardTime(const float timeStep)
 
 void PBSPHParticle::addExternalForce(const Vector3d<float>& externalForce)
 {
-	this->force += externalForce * constant->getDensity();
+	this->force += externalForce * getMass();//constant->getDensity();
 }
 
 namespace {

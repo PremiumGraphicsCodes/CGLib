@@ -50,6 +50,9 @@
     <ClCompile Include="PBSPHBoundarySolver.cpp">
       <Filter>PBSPH</Filter>
     </ClCompile>
+    <ClCompile Include="PBSPHObject.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -103,6 +106,9 @@
       <Filter>PBSPH</Filter>
     </ClInclude>
     <ClInclude Include="PBSPHBoundarySolver.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="PBSPHObject.h">
       <Filter>PBSPH</Filter>
     </ClInclude>
   </ItemGroup>
