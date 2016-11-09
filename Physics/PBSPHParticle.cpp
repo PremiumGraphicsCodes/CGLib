@@ -108,7 +108,7 @@ void PBSPHParticle::solvePressureForce(const PBSPHParticle& rhs)
 void PBSPHParticle::solveViscosity()
 {
 	viscVelocity = Vector3d<float>(0,0,0);
-	const auto scale = 10.0f;
+	const auto scale = 0.001f;
 	for (auto n : neighbors) {
 		viscVelocity += scale * solveViscosity(*n);
 	}
@@ -167,15 +167,21 @@ void PBSPHParticle::addConstrantGradient(const Vector3d<float>& distanceVector)
 {
 	if (distanceVector.getLength() > 1.0e-3) {
 		this->constraintGrad +=
-			getMass() * 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+			getMass() * 1.0f / this->constant->getDensity() * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 	}
 }
 
 Vector3d<float> PBSPHParticle::getConstraintGradient(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
-	return getMass() * 1.0f / this->density * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	return getMass() * 1.0f / this->constant->getDensity() * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
+
+Vector3d<float> PBSPHParticle::solveBoundaryDensityConstraint(const Vector3d<float>& pos)
+{
+	return getMass() * 1.0f / this->constant->getDensity() * kernel.getSpikyKernelGradient(pos - this->getPosition(), constant->getEffectLength());
+}
+
 
 void PBSPHParticle::solveDensityConstraint()
 {
@@ -183,8 +189,9 @@ void PBSPHParticle::solveDensityConstraint()
 	const auto c = std::max( 0.0f, this->getDensity() / this->constant->getDensity() - 1.0f );
 	auto sum = 0.0f;
 	for (auto n : neighbors) {
-		sum += this->constraintGrad.getLengthSquared();
+		sum += n->constraintGrad.getLengthSquared();
 	}
+	//auto sum = this->constraintGrad.getLengthSquared();
 	sum += 1.0e-3;
 	this->densityConstraint = -c / sum;
 }

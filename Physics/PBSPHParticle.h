@@ -83,6 +83,8 @@ public:
 
 	void solveConstrantGradient();
 
+	Math::Vector3d<float> solveBoundaryDensityConstraint(const Math::Vector3d<float>& pos);
+
 	void solveDensityConstraint();
 
 	void solveDensity();

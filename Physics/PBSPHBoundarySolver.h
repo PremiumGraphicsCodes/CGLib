@@ -25,6 +25,10 @@ public:
 	void solveViscosity(const std::vector<PBSPHParticle*>& particles);
 
 private:
+	bool isBoundary(PBSPHParticle* particle);
+
+	Math::Vector3d<float> getBoundaryPosition(PBSPHParticle* particle);
+
 	Math::Vector3d<float> getOverVector(const Math::Vector3d<float>& position);
 
 	float getOverX(const float x);

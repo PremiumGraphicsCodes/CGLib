@@ -28,7 +28,6 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 
 	//Box3d<float> box(Vector3d<float>(-10, 0, -10), Vector3d<float>(10, 10, 10));
 	PBSPHBoundarySolver boundarySolver(boundary);
-
 	boundarySolver.solveForce(particles, dt);
 
 	for (auto p : particles) {
@@ -51,11 +50,11 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		for (auto p : particles) {
 			p->solveDensity();
 		}
-		boundarySolver.solveDensity(particles);
+		//boundarySolver.solveDensity(particles);
 		for (auto p : particles) {
 			p->solveConstrantGradient();
 		}
-		boundarySolver.solveConstraintGradient(particles);
+		//boundarySolver.solveConstraintGradient(particles);
 		for (auto p : particles) {
 			p->solveDensityConstraint();
 		}
@@ -72,7 +71,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 	for (auto p : particles) {
 		p->updateVelocity(dt);
 		p->solveViscosity();
-		boundarySolver.solveViscosity(particles);
+		//boundarySolver.solveViscosity(particles);
 		p->updateViscosity();
 		p->updatePosition();
 	//	p->integrate(dt);
