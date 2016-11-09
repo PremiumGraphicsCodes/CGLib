@@ -64,6 +64,10 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		p->setNeighbors(neighbors);
 	}
 	*/
+	SPHKernel<float> kernel(effectRadius);
+	for (auto p : particles) {
+		p->setKernel(&kernel);
+	}
 
 	for (int iter = 0; iter < 3; ++iter) {
 		#pragma omp parallel for

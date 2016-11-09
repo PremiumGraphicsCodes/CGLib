@@ -3,6 +3,34 @@
 using namespace Crystal::Math;
 
 template<typename T, typename int DIM>
+SPHKernel<T,DIM>::SPHKernel(const T effectLength) :
+	effectLength(effectLength)
+{
+	this->poly6KernelConstant = 315.0f / (64.0f * Math::Tolerance<T>::getPI() * pow(effectLength, 9));
+	this->spikyKernelGradConstant = 45.0f / (Math::Tolerance<T>::getPI() * pow(effectLength, 6));
+	this->effectLengthSquared = effectLength * effectLength;
+}
+
+
+template<typename T, typename int DIM>
+T SPHKernel<T,DIM>::getPoly6Kernel(const T distance)
+{
+	if (distance > effectLength) {
+		return T{ 0 };
+	}
+	return this->poly6KernelConstant * pow(effectLength * effectLength - distance * distance, 3);
+}
+
+template<typename T, typename int DIM>
+T SPHKernel<T, DIM>::getPoly6Kernel2(const T distanceSquared)
+{
+	if (distanceSquared > effectLengthSquared) {
+		return T{ 0 };
+	}
+	return this->poly6KernelConstant * pow(effectLengthSquared - distanceSquared, 3);
+}
+
+template<typename T, typename int DIM>
 T SPHKernel<T,DIM>::getPoly6Kernel(const T distance, const T effectLength)
 {
 	if (distance > effectLength) {
@@ -34,6 +62,17 @@ T SPHKernel<T,DIM>::getPoly6KernelLaplacian(const T distance, const T effectLeng
 	return poly6ConstantLaplacian * (effectLength * effectLength - distance * distance)
 		* (42.0f * distance * distance - 18.0f * effectLength * effectLength);
 }
+
+template<typename T, typename int DIM>
+Vector3d<T> SPHKernel<T, DIM>::getSpikyKernelGradient(const Vector3d<T> &distanceVector)
+{
+	const auto distance = distanceVector.getLength();
+	if (distance > effectLength) {
+		return Vector3d<T>(0, 0, 0);
+	}
+	return distanceVector * this->spikyKernelGradConstant * pow(effectLength - distance, 2) / distance;
+}
+
 
 template<typename T, typename int DIM>
 Vector3d<T> SPHKernel<T,DIM>::getSpikyKernelGradient(const Vector3d<T> &distanceVector, const T effectLength)

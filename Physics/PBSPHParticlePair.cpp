@@ -17,8 +17,6 @@ void PBSPHParticlePair::solveConstrantGradient()
 
 void PBSPHParticlePair::solveDensityConstraint()
 {
-	//particle1->solveDensityConstraint(particle2);
-	;
 }
 
 void PBSPHParticlePair::solvePositionCorrection()

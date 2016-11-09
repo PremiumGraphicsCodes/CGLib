@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "../Math/Vector3d.h"
+#include "../Math/SPHKernel.h"
 #include "../Core/Particle.h"
 
 #include "../Util/UnCopyable.h"
@@ -22,6 +23,8 @@ public:
 	PBSPHParticle(const Particle& particle, SPHConstant* constant);
 
 	PBSPHParticle(const Math::Vector3d<float>& center, float radius, SPHConstant* constant, const int id = -1);
+
+	void setKernel(Math::SPHKernel<float>* kernel) { this->kernel = kernel; }
 
 	virtual ~PBSPHParticle() {};
 
@@ -137,6 +140,7 @@ private:
 	SPHConstant* constant;
 	Math::Vector3d<float> positionCorrection;
 	Math::Vector3d<float> viscVelocity;
+	Math::SPHKernel<float>* kernel;
 };
 
 	}
