@@ -40,6 +40,7 @@
     <ClInclude Include="PBSPHObject.h" />
     <ClInclude Include="PBSPHParticle.h" />
     <ClInclude Include="PBSPHNeighborFinder.h" />
+    <ClInclude Include="PBSPHParticlePair.h" />
     <ClInclude Include="PBSPHSolver.h" />
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="SPHParticle.h" />
@@ -71,6 +72,7 @@
     <ClCompile Include="PBSPHNeighborFinder.cpp" />
     <ClCompile Include="PBSPHObject.cpp" />
     <ClCompile Include="PBSPHParticle.cpp" />
+    <ClCompile Include="PBSPHParticlePair.cpp" />
     <ClCompile Include="PBSPHSolver.cpp" />
     <ClCompile Include="SPHParticle.cpp" />
     <ClCompile Include="ParticlePair.cpp" />

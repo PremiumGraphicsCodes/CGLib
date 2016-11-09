@@ -33,6 +33,7 @@ void PBSPHParticle::setNeighbors(const std::list<PBSPHParticle*>& neighbors)
 
 void PBSPHParticle::init()
 {
+	neighbors.clear();
 	density = 0.0;
 	normal = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
 	force = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
@@ -163,6 +164,11 @@ void PBSPHParticle::solveConstrantGradient()
 	}
 }
 
+void PBSPHParticle::solveConstrantGradient(const PBSPHParticle& rhs)
+{
+	this->constraintGrad += this->getConstraintGradient(rhs);
+}
+
 void PBSPHParticle::addConstrantGradient(const Vector3d<float>& distanceVector)
 {
 	if (distanceVector.getLength() > 1.0e-3) {
@@ -208,7 +214,7 @@ void PBSPHParticle::solvePositionCorrection()
 Vector3d<float> PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
-	const auto densityCorrection = getDensityConstraintCorrection(rhs);
+	const auto densityCorrection = 0.0f;//getDensityConstraintCorrection(rhs);
 	return getMass() * 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + densityCorrection) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
 }
 

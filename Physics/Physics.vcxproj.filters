@@ -59,6 +59,9 @@
     <ClCompile Include="PBIndexedParticle.cpp">
       <Filter>PBSPH</Filter>
     </ClCompile>
+    <ClCompile Include="PBSPHParticlePair.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -121,6 +124,9 @@
       <Filter>PBSPH</Filter>
     </ClInclude>
     <ClInclude Include="PBIndexedParticle.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="PBSPHParticlePair.h">
       <Filter>PBSPH</Filter>
     </ClInclude>
   </ItemGroup>

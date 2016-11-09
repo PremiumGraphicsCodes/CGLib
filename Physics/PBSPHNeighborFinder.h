@@ -4,23 +4,11 @@
 #include "PBIndexedParticle.h"
 #include <vector>
 #include "ParticlePair.h"
+#include "PBSPHParticlePair.h"
 
 namespace Crystal {
 	namespace Physics {
 		class PBSPHParticle;
-
-		class PBSPHParticlePair
-		{
-		public:
-			PBSPHParticlePair(PBSPHParticle* p1, PBSPHParticle* p2) :
-				particle1(p1),
-				particle2(p2)
-			{}
-
-		private:
-			PBSPHParticle* particle1;
-			PBSPHParticle* particle2;
-		};
 
 		class PBSPHNeighborFinder final : private UnCopyable
 		{

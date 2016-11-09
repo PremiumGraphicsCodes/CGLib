@@ -25,6 +25,10 @@ public:
 
 	virtual ~PBSPHParticle() {};
 
+	void clearNeighbors() { neighbors.clear(); }
+
+	void addNeighbor(PBSPHParticle* n) { neighbors.push_back(n); }
+
 	void setNeighbors(const std::list<PBSPHParticle*>& neighbors);
 
 	float getDensityRatio() const;
@@ -82,6 +86,8 @@ public:
 	void predictPosition(const float dt);
 
 	void solveConstrantGradient();
+
+	void solveConstrantGradient(const PBSPHParticle& rhs);
 
 	Math::Vector3d<float> solveBoundaryDensityConstraint(const Math::Vector3d<float>& pos);
 

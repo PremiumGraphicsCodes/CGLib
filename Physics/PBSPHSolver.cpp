@@ -8,6 +8,8 @@
 #include "PBSPHBoundarySolver.h"
 #include "PBSPHObject.h"
 
+#include "PBSPHNeighborFinder.h"
+
 using namespace Crystal::Math;
 using namespace Crystal::Core;
 using namespace Crystal::Physics;
@@ -35,12 +37,25 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		p->predictPosition(dt);
 	}
 
+	/*
 	const int tableSize = static_cast<int>(particles.size());
 	IISPHSpaceHash<PBSPHParticle> space(effectRadius, tableSize);
 	for (auto p : particles) {
 		space.add(p);
 	}
+	*/
+	PBSPHNeighborFinder finder(effectRadius);
+	finder.add(particles);
+	finder.createPairs(particles);
+	const auto& pairs = finder.getPairs();
+	for (auto p : pairs) {
+		auto p1 = p.getParticle1();
+		auto p2 = p.getParticle2();
+		p1->addNeighbor(p2);
+		p2->addNeighbor(p1);
+	}
 
+	/*
 	//for (auto p : particles) {
 #pragma omp parallel for
 	for(int i = 0; i < particles.size(); ++i) {
@@ -48,6 +63,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		const auto& neighbors = space.getNeighbor(p);
 		p->setNeighbors(neighbors);
 	}
+	*/
 
 	for (int iter = 0; iter < 3; ++iter) {
 		#pragma omp parallel for
