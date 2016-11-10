@@ -73,3 +73,19 @@ float BubbleParticle::getKineticEnegy(const float mass) const
 {
 	return 0.5f * mass * velocity.getLengthSquared();
 }
+
+void BubbleParticle::solveTrappedAirPotential(const float effectRadius)
+{
+	totalTrappedAirPotential = 0.0f;
+	for (auto n : neighbors) {
+		totalTrappedAirPotential += getTrappedAirPotential(*n, effectRadius);
+	}
+}
+
+void BubbleParticle::solveCrestPotential(const float effectRadius)
+{
+	totalCrestPotential = 0.0f;
+	for (auto n : neighbors) {
+		totalCrestPotential += getCurvature(*n, effectRadius);
+	}
+}
