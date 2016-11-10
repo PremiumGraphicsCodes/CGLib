@@ -62,6 +62,12 @@
     <ClCompile Include="PBSPHParticlePair.cpp">
       <Filter>PBSPH</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleGenerator.cpp">
+      <Filter>Bubble</Filter>
+    </ClCompile>
+    <ClCompile Include="BubbleParticle.cpp">
+      <Filter>Bubble</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -129,6 +135,12 @@
     <ClInclude Include="PBSPHParticlePair.h">
       <Filter>PBSPH</Filter>
     </ClInclude>
+    <ClInclude Include="BubbleGenerator.h">
+      <Filter>Bubble</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleParticle.h">
+      <Filter>Bubble</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">
@@ -139,6 +151,9 @@
     </Filter>
     <Filter Include="PBSPH">
       <UniqueIdentifier>{2be94e29-f7ba-4927-8266-eafba79d7605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bubble">
+      <UniqueIdentifier>{dd7c2697-dcb4-44db-839a-a2018c7a1fdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
