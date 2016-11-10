@@ -27,7 +27,8 @@ T SPHKernel<T, DIM>::getPoly6Kernel2(const T distanceSquared)
 	if (distanceSquared > effectLengthSquared) {
 		return T{ 0 };
 	}
-	return this->poly6KernelConstant * pow(effectLengthSquared - distanceSquared, 3);
+	const auto a = effectLengthSquared - distanceSquared;
+	return this->poly6KernelConstant * a * a * a;
 }
 
 template<typename T, typename int DIM>

@@ -23,7 +23,7 @@ public:
 
 	void add(const PBSPHObject& object);
 
-	void simulate(const float dt, const float effectRadius);
+	void simulate(const float dt, const float effectRadius, const float searchRadius, const int maxIter);
 
 	void setBoundary(const Math::Box3d<float>& boundary) { this->boundary = boundary; }
 

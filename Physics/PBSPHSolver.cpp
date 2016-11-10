@@ -22,7 +22,7 @@ void PBSPHSolver::add(const PBSPHObject& object)
 }
 
 
-void PBSPHSolver::simulate(const float dt, const float effectRadius)
+void PBSPHSolver::simulate(const float dt, const float effectRadius, const float searchRadius, const int maxIter)
 {
 	for (auto p : particles) {
 		p->init();
@@ -44,7 +44,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		space.add(p);
 	}
 	*/
-	PBSPHNeighborFinder finder(effectRadius);
+	PBSPHNeighborFinder finder(searchRadius);
 	finder.add(particles);
 	finder.createPairs(particles);
 	const auto& pairs = finder.getPairs();
@@ -69,7 +69,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius)
 		p->setKernel(&kernel);
 	}
 
-	for (int iter = 0; iter < 3; ++iter) {
+	for (int iter = 0; iter < maxIter; ++iter) {
 		#pragma omp parallel for
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = particles[i];

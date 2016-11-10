@@ -151,7 +151,9 @@ void PBSPHParticle::solveDensityConstraint()
 	const auto c = std::max( 0.0f, this->getDensity() / this->constant->getDensity() - 1.0f );
 	auto sum = 0.0f;
 	for (auto n : neighbors) {
-		sum += n->constraintGrad.getLengthSquared();
+		if (n->getPosition().getDistanceSquared(this->getPosition()) < (this->constant->getEffectLength() * this->constant->getEffectLength())) {
+			sum += n->constraintGrad.getLengthSquared();
+		}
 	}
 	//auto sum = this->constraintGrad.getLengthSquared();
 	sum += 1.0e-3;
