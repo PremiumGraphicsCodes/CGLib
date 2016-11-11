@@ -68,6 +68,9 @@
     <ClCompile Include="BubbleParticle.cpp">
       <Filter>Bubble</Filter>
     </ClCompile>
+    <ClCompile Include="TinyParticle.cpp">
+      <Filter>Bubble</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
@@ -139,6 +142,9 @@
       <Filter>Bubble</Filter>
     </ClInclude>
     <ClInclude Include="BubbleParticle.h">
+      <Filter>Bubble</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyParticle.h">
       <Filter>Bubble</Filter>
     </ClInclude>
   </ItemGroup>
