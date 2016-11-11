@@ -69,9 +69,17 @@ float BubbleParticle::getMovingDelta() const
 	}
 }
 
-float BubbleParticle::getKineticEnegy(const float mass) const
+float BubbleParticle::getKineticEnegy() const
 {
 	return 0.5f * mass * velocity.getLengthSquared();
+}
+
+namespace {
+	float clamp(float v, float min, float max) {
+		const auto numerator = std::min<float>(v, max) - std::min<float>(v, max);
+		const auto denominator = max - min;
+		return numerator / denominator;
+	}
 }
 
 void BubbleParticle::solveTrappedAirPotential(const float effectRadius)
@@ -80,12 +88,38 @@ void BubbleParticle::solveTrappedAirPotential(const float effectRadius)
 	for (auto n : neighbors) {
 		totalTrappedAirPotential += getTrappedAirPotential(*n, effectRadius);
 	}
+	totalTrappedAirPotential = clamp(totalTrappedAirPotential, 5.0f, 20.0f);
 }
 
-void BubbleParticle::solveCrestPotential(const float effectRadius)
+void BubbleParticle::solveWaveCrestPotential(const float effectRadius)
 {
-	totalCrestPotential = 0.0f;
+	totalWaveCrestPotential = 0.0f;
 	for (auto n : neighbors) {
-		totalCrestPotential += getCurvature(*n, effectRadius);
+		totalWaveCrestPotential += getCurvature(*n, effectRadius);
+	}
+	totalWaveCrestPotential = clamp(totalWaveCrestPotential, 2.0f, 8.0f);
+}
+
+void BubbleParticle::solveKineticEnergy()
+{
+	kineticEnergyPotential = clamp(getKineticEnegy(), 5.0f, 50.0f);
+}
+
+float BubbleParticle::getGenerateParticleNumber(const float trappedAirCoe, const float waveCrestCoe, const float dt) const
+{
+	return kineticEnergyPotential * (trappedAirCoe * totalTrappedAirPotential + waveCrestCoe * totalWaveCrestPotential) * dt;
+}
+
+BubbleParticle::Type BubbleParticle::getType() const
+{
+	const auto neighborSize = neighbors.size();
+	if (neighborSize < 6) {
+		return BubbleParticle::Type::Spray;
+	}
+	else if (neighborSize > 20) {
+		return BubbleParticle::Type::Air;
+	}
+	else {
+		return BubbleParticle::Type::Foam;
 	}
 }

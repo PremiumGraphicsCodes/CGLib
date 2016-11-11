@@ -10,10 +10,17 @@ namespace Crystal {
 class BubbleParticle
 {
 public:
-	BubbleParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, const Math::Vector3d<float>& normal) :
+	enum class Type {
+		Spray,
+		Air,
+		Foam,
+	};
+
+	BubbleParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, const Math::Vector3d<float>& normal, const float mass) :
 		position(position),
 		velocity(velocity),
-		normal(normal)
+		normal(normal),
+		mass(mass)
 	{}
 
 	void setNeighbors(const std::list<BubbleParticle*>& neighbors) { this->neighbors = neighbors; }
@@ -28,21 +35,30 @@ public:
 
 	float getMovingDelta() const;
 
-	float getKineticEnegy(const float mass) const;
+	float getKineticEnegy() const;
 
 	void solveTrappedAirPotential(const float effectRadius);
 
-	void solveCrestPotential(const float effectRadius);
+	void solveWaveCrestPotential(const float effectRadius);
+
+	void solveKineticEnergy();
+
+	float getGenerateParticleNumber(const float trappedAirCoe, const float waveCrestCoe, const float dt) const;
+
+	Type getType() const;
 
 private:
 	Math::Vector3d<float> position;
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> normal;
+	float mass;
 	float effectRadius;
 
 	float totalTrappedAirPotential;
 
-	float totalCrestPotential;
+	float totalWaveCrestPotential;
+
+	float kineticEnergyPotential;
 
 	std::list<BubbleParticle*> neighbors;
 

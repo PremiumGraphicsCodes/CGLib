@@ -34,6 +34,8 @@ public:
 
 	void setNeighbors(const std::list<PBSPHParticle*>& neighbors);
 
+	std::list<PBSPHParticle*> getNeighbors() const { return neighbors; }
+
 	float getDensityRatio() const;
 
 	float getPressure() const;
