@@ -15,8 +15,6 @@ class BubbleGenerator
 public:
 	BubbleGenerator(const std::vector<PBSPHParticle*>& originalParticles);
 
-	void add(BubbleParticle* b);
-
 	~BubbleGenerator();
 
 	void generate(const float effectRadius, const float dt);

@@ -4,30 +4,31 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
 
-Vector3d<float> BubbleParticle::getNormalizedDistance(const BubbleParticle& rhs) const
+Vector3d<float> BubbleParticle::getNormalizedDistance(const PBSPHParticle& rhs) const
 {
-	return (this->position - rhs.position).normalized();
+	return (this->getPosition() - rhs.getPosition()).normalized();
 }
 
-Vector3d<float> BubbleParticle::getNormalizedVelocity(const BubbleParticle& rhs) const
+Vector3d<float> BubbleParticle::getNormalizedVelocity(const PBSPHParticle& rhs) const
 {
-	const auto vDiff = this->velocity - rhs.velocity;
+	const auto vDiff = this->getVelocity() - rhs.getVelocity();
 	if (vDiff.isZero()) {
 		return Vector3d<float>(0, 0, 0);
 	}
 	return vDiff.normalized();
 }
 
-float BubbleParticle::getDistance(const BubbleParticle& rhs) const
+float BubbleParticle::getDistance(const PBSPHParticle& rhs) const
 {
-	return rhs.position.getDistance(this->position);
+	return rhs.getPosition().getDistance(this->getPosition());
 }
 
-float BubbleParticle::getCurvature(const BubbleParticle& rhs, const float effectRadius) const
+float BubbleParticle::getCurvature(const PBSPHParticle& rhs, const float effectRadius) const
 {
 	const auto dist = getDistance(rhs);
-	const auto curvature = 1.0f - this->normal.getInnerProduct(rhs.normal) * getWeight(dist, effectRadius);
-	const auto innerProduct = rhs.getNormalizedDistance(*this).getInnerProduct(this->normal);
+	const auto curvature = 1.0f - this->getNormal().getInnerProduct(rhs.getNormal()) * getWeight(dist, effectRadius);
+	const auto dif = (rhs.getPosition() - this->getPosition()).normalized();
+	const auto innerProduct = dif.getInnerProduct(this->getNormal());
 	if (innerProduct >= 0.0f) {
 		return 0.0f;
 	}
@@ -36,7 +37,7 @@ float BubbleParticle::getCurvature(const BubbleParticle& rhs, const float effect
 	}
 }
 
-float BubbleParticle::getTrappedAirPotential(const BubbleParticle& rhs, const float effectRadius) const
+float BubbleParticle::getTrappedAirPotential(const PBSPHParticle& rhs, const float effectRadius) const
 {
 	const auto& vDiff = getNormalizedVelocity(rhs);
 	const auto& pDiff = getNormalizedDistance(rhs);
@@ -55,7 +56,7 @@ float BubbleParticle::getWeight(const float distance, const float effectRadius) 
 
 float BubbleParticle::getMovingDirectionCoe() const
 {
-	return velocity.getInnerProduct(normal);
+	return getVelocity().getInnerProduct(getNormal());
 }
 
 float BubbleParticle::getMovingDelta() const
@@ -71,7 +72,7 @@ float BubbleParticle::getMovingDelta() const
 
 float BubbleParticle::getKineticEnegy() const
 {
-	return 0.5f * mass * velocity.getLengthSquared();
+	return 0.5f * getMass() * getVelocity().getLengthSquared();
 }
 
 namespace {
@@ -85,6 +86,7 @@ namespace {
 void BubbleParticle::solveTrappedAirPotential(const float effectRadius)
 {
 	totalTrappedAirPotential = 0.0f;
+	const auto& neighbors = getNeighbors();
 	for (auto n : neighbors) {
 		totalTrappedAirPotential += getTrappedAirPotential(*n, effectRadius);
 	}
@@ -94,6 +96,7 @@ void BubbleParticle::solveTrappedAirPotential(const float effectRadius)
 void BubbleParticle::solveWaveCrestPotential(const float effectRadius)
 {
 	totalWaveCrestPotential = 0.0f;
+	const auto& neighbors = getNeighbors();
 	for (auto n : neighbors) {
 		totalWaveCrestPotential += getCurvature(*n, effectRadius);
 	}
@@ -112,7 +115,7 @@ float BubbleParticle::getGenerateParticleNumber(const float trappedAirCoe, const
 
 BubbleParticle::Type BubbleParticle::getType() const
 {
-	const auto neighborSize = neighbors.size();
+	const auto neighborSize = getNeighbors().size();
 	if (neighborSize < 6) {
 		return BubbleParticle::Type::Spray;
 	}

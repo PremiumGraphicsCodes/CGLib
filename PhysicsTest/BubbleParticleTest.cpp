@@ -7,18 +7,30 @@ using namespace Crystal::Physics;
 
 TEST(BubbleParticleTest, TestGetTrappedAirPotential)
 {
-	const BubbleParticle p1(Vector3d<float>(0,0,0), Vector3d<float>(0,0,0), Vector3d<float>(1,0,0), 1.0f);
-	const BubbleParticle p2(Vector3d<float>(1,0,0), Vector3d<float>(-1,0,0), Vector3d<float>(1,0,0), 1.0f);
-	const auto actual = p1.getTrappedAirPotential(p2, 2.0);
+	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
+	PBSPHParticle parent2(Vector3d<float>(1, 0, 0), 0.5f, &constant);
+	parent1.setVelocity(Vector3d<float>(0, 1, 0));
+	parent2.setVelocity(Vector3d<float>(0, -1, 0));
+	const BubbleParticle p1(&parent1);
+	const BubbleParticle p2(&parent2);
+	const auto actual = p1.getTrappedAirPotential(parent2, 2.0);
+	EXPECT_FLOAT_EQ(0.5f, actual);
 }
 
 TEST(BubbleParticleTest, TestGetCurvature)
 {
-	const BubbleParticle p1(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), 1.0f);
-	const BubbleParticle p2(Vector3d<float>(1, 0, 0), Vector3d<float>(-1, 0, 0), Vector3d<float>(1, 0, 0), 1.0f);
-	const auto actual = p1.getCurvature(p2, 2.0);
+	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
+	PBSPHParticle parent2(Vector3d<float>(1, 0, 0), 0.5f, &constant);
+	parent1.setNormal(Vector3d<float>(-1, 0, 0));
+	parent2.setNormal(Vector3d<float>(1, 0, 0));
+	const BubbleParticle p1(&parent1);
+	const BubbleParticle p2(&parent2);
+	const auto actual = p1.getCurvature(parent2, 2.0);
+	EXPECT_FLOAT_EQ(1.5f, actual);
 }
-
+/*
 TEST(BubbleParticleTest, TestGetMovingDirectionCoe)
 {
 	const BubbleParticle p1(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(1, 0, 0), 1.0f);
@@ -30,3 +42,4 @@ TEST(BubbleParticleTest, TestGetKineticEnegy)
 	const BubbleParticle p1(Vector3d<float>(0, 0, 0), Vector3d<float>(1, 0, 0), Vector3d<float>(1, 0, 0), 1.0f);
 	EXPECT_EQ(0.5f, p1.getKineticEnegy());
 }
+*/

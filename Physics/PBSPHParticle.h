@@ -84,6 +84,8 @@ public:
 
 	void addDensity(const float distance, const float mass);
 
+	void setNormal(const Math::Vector3d<float>& n) { this->normal = n; }
+
 	Math::Vector3d<float> getNormal() const { return normal; }
 
 	bool isBoundary() const { return constant->isBoundary; }

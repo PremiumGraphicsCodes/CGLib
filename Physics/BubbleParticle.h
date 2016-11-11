@@ -2,6 +2,7 @@
 #define __CRYSTAL_PHYSICS_BUBBLE_PARTICLE_H__
 
 #include "../Math/Vector3d.h"
+#include "PBSPHParticle.h"
 #include <list>
 
 namespace Crystal {
@@ -16,18 +17,15 @@ public:
 		Foam,
 	};
 
-	BubbleParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, const Math::Vector3d<float>& normal, const float mass) :
-		position(position),
-		velocity(velocity),
-		normal(normal),
-		mass(mass)
+	BubbleParticle(PBSPHParticle* parent) :
+		parent(parent)
 	{}
 
-	void setNeighbors(const std::list<BubbleParticle*>& neighbors) { this->neighbors = neighbors; }
+	std::list<PBSPHParticle*> getNeighbors() const { return parent->getNeighbors(); }
 
-	float getCurvature(const BubbleParticle& rhs, const float effectRadius) const;
+	float getCurvature(const PBSPHParticle& rhs, const float effectRadius) const;
 
-	float getTrappedAirPotential(const BubbleParticle& rhs, const float effectRadius) const;
+	float getTrappedAirPotential(const PBSPHParticle& rhs, const float effectRadius) const;
 
 	float getWeight(const float distance, const float effectRadius) const;
 
@@ -47,12 +45,10 @@ public:
 
 	Type getType() const;
 
+	float getMass() const { return parent->getMass(); }
+
 private:
-	Math::Vector3d<float> position;
-	Math::Vector3d<float> velocity;
-	Math::Vector3d<float> normal;
-	float mass;
-	float effectRadius;
+	PBSPHParticle* parent;
 
 	float totalTrappedAirPotential;
 
@@ -60,14 +56,18 @@ private:
 
 	float kineticEnergyPotential;
 
-	std::list<BubbleParticle*> neighbors;
-
 private:
-	Math::Vector3d<float> getNormalizedDistance(const BubbleParticle& rhs) const;
+	Math::Vector3d<float> getPosition() const { return parent->getPosition(); }
 
-	Math::Vector3d<float> getNormalizedVelocity(const BubbleParticle& rhs) const;
+	Math::Vector3d<float> getVelocity() const { return parent->getVelocity(); }
 
-	float getDistance(const BubbleParticle& rhs) const;
+	Math::Vector3d<float> getNormal() const { return parent->getNormal(); }
+
+	Math::Vector3d<float> getNormalizedDistance(const PBSPHParticle& rhs) const;
+
+	Math::Vector3d<float> getNormalizedVelocity(const PBSPHParticle& rhs) const;
+
+	float getDistance(const PBSPHParticle& rhs) const;
 
 };
 
