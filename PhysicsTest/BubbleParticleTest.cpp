@@ -89,11 +89,32 @@ TEST(BubbleParticleTest, TestGenerateParticleNumberByTrappedAir)
 	PBSPHConstant constant(1000.0f, 0.0f, 1.0f);
 	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
 	parent1.setVelocity(Vector3d<float>(0, 1, 0));
+	PBSPHParticle parent2(Vector3d<float>(1, 0, 0), 0.5f, &constant);
+	parent2.setVelocity(Vector3d<float>(0, -1, 0));
+	parent1.setNeighbors({ &parent2 });
 
 	BubbleParticle p1(&parent1);
-	p1.solveTrappedAirPotential(1.0f);
-	p1.solveWaveCrestPotential(1.0f);
+	p1.solveTrappedAirPotential(2.0f);
+	p1.solveWaveCrestPotential(2.0f);
 	p1.solveKineticEnergy();
 
-	const auto actual = p1.getGenerateParticleNumber(1.0f, 0.0f, 1.0f);
+	EXPECT_FLOAT_EQ(0.5f, p1.getGenerateParticleNumber(1.0f, 0.0f, 1.0f));
+}
+
+TEST(BubbleParticleTest, TestGenerateParticleNumberByWaveCrest)
+{
+	PBSPHConstant constant(1000.0f, 0.0f, 1.0f);
+	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
+	PBSPHParticle parent2(Vector3d<float>(1, 0, 0), 0.5f, &constant);
+	parent1.setVelocity(Vector3d<float>(0, 1, 0));
+	parent1.setNormal(Vector3d<float>(-1, 0, 0));
+	parent2.setNormal(Vector3d<float>(1, 0, 0));
+	parent1.setNeighbors({ &parent2 });
+
+	BubbleParticle p1(&parent1);
+	p1.solveTrappedAirPotential(2.0f);
+	p1.solveWaveCrestPotential(2.0f);
+	p1.solveKineticEnergy();
+
+	EXPECT_FLOAT_EQ(1.5f, p1.getGenerateParticleNumber(0.0f, 1.0f, 1.0f));
 }

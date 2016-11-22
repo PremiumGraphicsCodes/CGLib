@@ -24,10 +24,13 @@ public:
 
 	Math::Vector3d<float> getPosition() const { return position; }
 
+	bool isExpired() const;
+
 protected:
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> position;
 	float mass;
+	int lifeTime;
 	BubbleParticle* parent;
 };
 

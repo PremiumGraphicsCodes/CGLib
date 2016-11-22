@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BubbleGeneratorTest.cpp" />
     <ClCompile Include="BubbleParticleTest.cpp" />
     <ClCompile Include="BulletConverterTest.cpp" />
     <ClCompile Include="BulletInteractionTest.cpp" />

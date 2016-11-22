@@ -3,6 +3,13 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
+BubbleParticle::BubbleParticle(PBSPHParticle* parent) :
+	parent(parent),
+	totalTrappedAirPotential(0.0f),
+	totalWaveCrestPotential(0.0f),
+	kineticEnergyPotential(0.0f)
+{}
+
 
 Vector3d<float> BubbleParticle::getNormalizedDistance(const PBSPHParticle& rhs) const
 {
@@ -134,4 +141,36 @@ BubbleParticle::Type BubbleParticle::getType() const
 	else {
 		return BubbleParticle::Type::Foam;
 	}
+}
+
+#include "TinyBubbleParticle.h"
+#include "TinyFoamParticle.h"
+#include "TinySprayParticle.h"
+
+std::list<ITinyParticle*> BubbleParticle::generateTinyParticles(const int howMany)
+{
+	std::list<ITinyParticle*> results;
+	const auto type = getType();
+	if (type == Type::Spray) {
+		for (int i = 0; i < howMany; ++i) {
+			auto p = new TinySprayParticle(this->getPosition(), this->getVelocity(), this);
+			results.push_back(p);
+		}
+	}
+	else if (type == Type::Foam) {
+		for (int i = 0; i < howMany; ++i) {
+			auto p = new TinyFoamParticle(this->getPosition(), this->getVelocity(), this);
+			results.push_back(p);
+		}
+	}
+	else if (type == Type::Air) {
+		for (int i = 0; i < howMany; ++i) {
+			auto p = new TinyBubbleParticle(this->getPosition(), this->getVelocity(), this);
+			results.push_back(p);
+		}
+	}
+	else {
+		assert(false);
+	}
+	return results;
 }

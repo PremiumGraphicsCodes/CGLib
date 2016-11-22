@@ -7,7 +7,8 @@ using namespace Crystal::Physics;
 ITinyParticle::ITinyParticle(const Vector3d<float>& position, const Vector3d<float>& velocity, BubbleParticle* parent) :
 	position(position),
 	velocity(velocity),
-	parent(parent)
+	parent(parent),
+	lifeTime(10)
 {
 }
 
@@ -34,4 +35,10 @@ void ITinyParticle::integrate(const Vector3d<float>& externalForce, const float 
 {
 	updateVelocity(dt, externalForce);
 	position += dt * velocity;
+	lifeTime--;
+}
+
+bool ITinyParticle::isExpired() const
+{
+	return (lifeTime <= 0);
 }

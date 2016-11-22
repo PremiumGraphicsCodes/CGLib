@@ -7,6 +7,7 @@
 
 namespace Crystal {
 	namespace Physics {
+		class ITinyParticle;
 
 class BubbleParticle
 {
@@ -17,9 +18,7 @@ public:
 		Foam,
 	};
 
-	BubbleParticle(PBSPHParticle* parent) :
-		parent(parent)
-	{}
+	BubbleParticle(PBSPHParticle* parent);
 
 	std::list<PBSPHParticle*> getNeighbors() const { return parent->getNeighbors(); }
 
@@ -50,6 +49,8 @@ public:
 	void solveKineticEnergy();
 
 	float getGenerateParticleNumber(const float trappedAirCoe, const float waveCrestCoe, const float dt) const;
+
+	std::list<ITinyParticle*> generateTinyParticles(const int howMany);
 
 	Type getType() const;
 

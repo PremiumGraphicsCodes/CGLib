@@ -32,6 +32,9 @@
     <ClCompile Include="BubbleParticleTest.cpp">
       <Filter>Tiny</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleGeneratorTest.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tiny">
