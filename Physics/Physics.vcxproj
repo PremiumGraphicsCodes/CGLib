@@ -53,7 +53,10 @@
     <ClInclude Include="Spring.h" />
     <ClInclude Include="SurfaceBuilder.h" />
     <ClInclude Include="Surfels.h" />
-    <ClInclude Include="TinyParticle.h" />
+    <ClInclude Include="ITinyParticle.h" />
+    <ClInclude Include="TinyBubbleParticle.h" />
+    <ClInclude Include="TinyFoamParticle.h" />
+    <ClInclude Include="TinySprayParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundarySolver.cpp" />
@@ -87,7 +90,10 @@
     <ClCompile Include="Spring.cpp" />
     <ClCompile Include="SurfaceBuilder.cpp" />
     <ClCompile Include="Surfels.cpp" />
-    <ClCompile Include="TinyParticle.cpp" />
+    <ClCompile Include="ITinyParticle.cpp" />
+    <ClCompile Include="TinyBubbleParticle.cpp" />
+    <ClCompile Include="TinyFoamParticle.cpp" />
+    <ClCompile Include="TinySprayParticle.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A75C81D2-613A-4958-A669-A655964419A8}</ProjectGuid>

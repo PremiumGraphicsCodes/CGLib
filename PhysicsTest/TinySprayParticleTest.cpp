@@ -1,5 +1,5 @@
 #include "gtest\gtest.h"
-#include "../Physics/TinyParticle.h"
+#include "../Physics/TinySprayParticle.h"
 
 #include "../Physics/SPHConstant.h"
 #include "../Physics/PBSPHParticle.h"
@@ -15,7 +15,7 @@ TEST(TinySprayParticleTest, TestIntegrate)
 	BubbleParticle bp(&parent);
 
 	TinySprayParticle particle(Vector3d<float>(0, 0, 0), Vector3d<float>(0, 0, 0), &bp);
-	particle.integrate(Vector3d<float>(0.0, -9.8, 0.0), 1.0);
-	EXPECT_EQ(Vector3d<float>(0.0, -9.8, 0.0), particle.getVelocity());
-	EXPECT_EQ(Vector3d<float>(0.0, -9.8, 0.0), particle.getPosition());
+	particle.integrate(Vector3d<float>(0.0, -9.8f, 0.0), 1.0f);
+	EXPECT_EQ(Vector3d<float>(0.0, -9.8f, 0.0), particle.getVelocity());
+	EXPECT_EQ(Vector3d<float>(0.0, -9.8f, 0.0), particle.getPosition());
 }

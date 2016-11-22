@@ -63,13 +63,22 @@
       <Filter>PBSPH</Filter>
     </ClCompile>
     <ClCompile Include="BubbleGenerator.cpp">
-      <Filter>Bubble</Filter>
+      <Filter>Tiny</Filter>
     </ClCompile>
     <ClCompile Include="BubbleParticle.cpp">
-      <Filter>Bubble</Filter>
+      <Filter>Tiny</Filter>
     </ClCompile>
-    <ClCompile Include="TinyParticle.cpp">
-      <Filter>Bubble</Filter>
+    <ClCompile Include="ITinyParticle.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="TinySprayParticle.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyFoamParticle.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyBubbleParticle.cpp">
+      <Filter>Tiny</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,16 +148,25 @@
       <Filter>PBSPH</Filter>
     </ClInclude>
     <ClInclude Include="BubbleGenerator.h">
-      <Filter>Bubble</Filter>
+      <Filter>Tiny</Filter>
     </ClInclude>
     <ClInclude Include="BubbleParticle.h">
-      <Filter>Bubble</Filter>
-    </ClInclude>
-    <ClInclude Include="TinyParticle.h">
-      <Filter>Bubble</Filter>
+      <Filter>Tiny</Filter>
     </ClInclude>
     <ClInclude Include="PBSPHConstant.h">
       <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="ITinyParticle.h">
+      <Filter>Tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="TinySprayParticle.h">
+      <Filter>Tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyFoamParticle.h">
+      <Filter>Tiny</Filter>
+    </ClInclude>
+    <ClInclude Include="TinyBubbleParticle.h">
+      <Filter>Tiny</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,7 +179,7 @@
     <Filter Include="PBSPH">
       <UniqueIdentifier>{2be94e29-f7ba-4927-8266-eafba79d7605}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Bubble">
+    <Filter Include="Tiny">
       <UniqueIdentifier>{dd7c2697-dcb4-44db-839a-a2018c7a1fdd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
