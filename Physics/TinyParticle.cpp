@@ -32,8 +32,7 @@ Vector3d<float> ITinyParticle::getAveragedLocalVelocity() const
 
 void ITinyParticle::integrate(const Vector3d<float>& externalForce, const float dt)
 {
-	const auto acc = externalForce / mass;
-	velocity += dt * acc;
+	updateVelocity(dt, externalForce);
 	position += dt * velocity;
 }
 

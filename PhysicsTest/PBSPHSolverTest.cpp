@@ -7,9 +7,9 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-TEST(PBSPHSolverTest, Test)
+TEST(PBSPHSolverTest, TestSimulate)
 {
-	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 2.15f);
+	PBSPHConstant constant(1.0f, 0.0f, 2.15f);
 	PBSPHParticle particle1(Vector3d<float>(0.0, 0.0, 0), 0.125f, &constant);
 	PBSPHParticle particle2(Vector3d<float>(0.0, 1.0, 0), 0.125f, &constant);
 //	PBSPHParticle particle3(Vector3d<float>(0, 4.0, 0), 0.5f, &constant);

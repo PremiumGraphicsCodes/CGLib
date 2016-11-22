@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BubbleParticleTest.cpp" />
+    <ClCompile Include="BulletConverterTest.cpp" />
+    <ClCompile Include="BulletInteractionTest.cpp" />
+    <ClCompile Include="BulletRigidTest.cpp" />
+    <ClCompile Include="IISPHSolverTest.cpp" />
+    <ClCompile Include="IndexedFinderTest.cpp" />
+    <ClCompile Include="IndexedParticleTest.cpp" />
+    <ClCompile Include="OrientedParticleTest.cpp" />
+    <ClCompile Include="ParticlePairTest.cpp" />
+    <ClCompile Include="SPHParticleTest.cpp" />
+    <ClCompile Include="PhysicsObjectTest.cpp" />
+    <ClCompile Include="SpringTest.cpp" />
+    <ClCompile Include="SurfaceBuilderTest.cpp" />
+    <ClCompile Include="SurfelsTest.cpp" />
+    <ClCompile Include="TinyBubbleParticleTest.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="TinySprayParticleTest.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+    <ClCompile Include="PBSPHSolverTest.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="TinyFoamParticleTest.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tiny">
+      <UniqueIdentifier>{77b1fee5-61b4-4f11-8a6b-b18a601f88e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PBSPH">
+      <UniqueIdentifier>{87662ec4-8f8e-4de9-92a6-deae5c9cf43b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

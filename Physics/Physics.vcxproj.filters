@@ -147,6 +147,9 @@
     <ClInclude Include="TinyParticle.h">
       <Filter>Bubble</Filter>
     </ClInclude>
+    <ClInclude Include="PBSPHConstant.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Bullet">

@@ -10,7 +10,7 @@
 #include "../Core/Particle.h"
 
 #include "../Util/UnCopyable.h"
-#include "SPHConstant.h"
+#include "PBSPHConstant.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -20,9 +20,9 @@ class PBSPHParticle : public Core::Particle, private UnCopyable
 public:
 	PBSPHParticle(const int id = -1);
 
-	PBSPHParticle(const Particle& particle, SPHConstant* constant);
+	PBSPHParticle(const Particle& particle, PBSPHConstant* constant);
 
-	PBSPHParticle(const Math::Vector3d<float>& center, float radius, SPHConstant* constant, const int id = -1);
+	PBSPHParticle(const Math::Vector3d<float>& center, float radius, PBSPHConstant* constant, const int id = -1);
 
 	void setKernel(Math::SPHKernel<float>* kernel) { this->kernel = kernel; }
 
@@ -37,8 +37,6 @@ public:
 	std::list<PBSPHParticle*> getNeighbors() const { return neighbors; }
 
 	float getDensityRatio() const;
-
-	float getPressure() const;
 
 	float getMass() const;
 
@@ -87,8 +85,6 @@ public:
 	void setNormal(const Math::Vector3d<float>& n) { this->normal = n; }
 
 	Math::Vector3d<float> getNormal() const { return normal; }
-
-	bool isBoundary() const { return constant->isBoundary; }
 
 	void predictPosition(const float dt);
 
@@ -143,7 +139,7 @@ private:
 	Math::Vector3d<float> prevPosition;
 	Math::Vector3d<float> constraintGrad;
 
-	SPHConstant* constant;
+	PBSPHConstant* constant;
 	Math::Vector3d<float> positionCorrection;
 	Math::Vector3d<float> viscVelocity;
 	Math::SPHKernel<float>* kernel;

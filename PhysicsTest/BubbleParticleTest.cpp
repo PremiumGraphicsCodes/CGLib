@@ -7,7 +7,7 @@ using namespace Crystal::Physics;
 
 TEST(BubbleParticleTest, TestGetTrappedAirPotential)
 {
-	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	PBSPHConstant constant(1.0f, 0.0f, 1.0f);
 	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
 	PBSPHParticle parent2(Vector3d<float>(1, 0, 0), 0.5f, &constant);
 	parent1.setVelocity(Vector3d<float>(0, 1, 0));
@@ -20,7 +20,7 @@ TEST(BubbleParticleTest, TestGetTrappedAirPotential)
 
 TEST(BubbleParticleTest, TestGetCurvature)
 {
-	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	PBSPHConstant constant(1.0f, 0.0f, 1.0f);
 	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
 	PBSPHParticle parent2(Vector3d<float>(1, 0, 0), 0.5f, &constant);
 	parent1.setNormal(Vector3d<float>(-1, 0, 0));
@@ -33,7 +33,7 @@ TEST(BubbleParticleTest, TestGetCurvature)
 
 TEST(BubbleParticleTest, TestGetMovingDirectionCoe)
 {
-	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	PBSPHConstant constant(1.0f,0.0f, 1.0f);
 	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
 	parent1.setVelocity(Vector3d<float>(0, 1, 0));
 	parent1.setNormal(Vector3d<float>(0, 1, 0));
@@ -44,7 +44,7 @@ TEST(BubbleParticleTest, TestGetMovingDirectionCoe)
 
 TEST(BubbleParticleTest, TestGetKineticEnegy)
 {
-	SPHConstant constant(1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+	PBSPHConstant constant(1.0f, 0.0f,1.0f);
 	PBSPHParticle parent1(Vector3d<float>(0, 0, 0), 0.5f, &constant);
 	parent1.setVelocity(Vector3d<float>(0, 1, 0));
 	const BubbleParticle p1(&parent1);

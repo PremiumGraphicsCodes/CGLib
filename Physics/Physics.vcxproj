@@ -39,6 +39,7 @@
     <ClInclude Include="OrientedParticle.h" />
     <ClInclude Include="PBIndexedParticle.h" />
     <ClInclude Include="PBSPHBoundarySolver.h" />
+    <ClInclude Include="PBSPHConstant.h" />
     <ClInclude Include="PBSPHObject.h" />
     <ClInclude Include="PBSPHParticle.h" />
     <ClInclude Include="PBSPHNeighborFinder.h" />

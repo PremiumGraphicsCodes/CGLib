@@ -7,7 +7,7 @@
 #include "../Math/Box3d.h"
 #include "../Math/Sphere.h"
 #include "../Math/Index3d.h"
-#include "SPHConstant.h"
+#include "PBSPHConstant.h"
 
 namespace Crystal {
 	namespace Core {
@@ -22,9 +22,9 @@ class PBSPHObject
 public:
 	PBSPHObject() {};
 
-	PBSPHObject(const Math::Box3d<float>& box, const float divideLength, const SPHConstant& constant);
+	PBSPHObject(const Math::Box3d<float>& box, const float divideLength, const PBSPHConstant& constant);
 
-	PBSPHObject(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
+	PBSPHObject(const Math::Sphere<float>& sphere, const float divideLength, const PBSPHConstant& constant);
 
 	PBSPHObject(const std::vector<PBSPHParticle*>& particles);
 
@@ -74,9 +74,8 @@ public:
 private:
 	int nextId;
 	std::vector<PBSPHParticle*> particles;
-	SPHConstant constant;
+	PBSPHConstant constant;
 };
-
 
 	}
 }

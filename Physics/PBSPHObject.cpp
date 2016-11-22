@@ -13,7 +13,7 @@ PBSPHObject::PBSPHObject(const std::vector<PBSPHParticle*>& particles) :
 {
 }
 
-PBSPHObject::PBSPHObject(const Box3d<float>& box, const float divideLength, const SPHConstant& constant) :
+PBSPHObject::PBSPHObject(const Box3d<float>& box, const float divideLength, const PBSPHConstant& constant) :
 	constant(constant),
 	nextId(0)
 {
@@ -24,7 +24,7 @@ PBSPHObject::PBSPHObject(const Box3d<float>& box, const float divideLength, cons
 	}
 }
 
-PBSPHObject::PBSPHObject(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant) :
+PBSPHObject::PBSPHObject(const Sphere<float>& sphere, const float divideLength, const PBSPHConstant& constant) :
 	nextId(0)
 {
 	const auto points = sphere.toPoints(divideLength);
@@ -161,7 +161,6 @@ void PBSPHObject::setVelocity(const Vector3d<float>& velocity)
 	for (const auto& p : particles) {
 		p->setVelocity(velocity);
 	}
-
 }
 
 ParticleObject* PBSPHObject::toParticleObject() const
@@ -172,11 +171,3 @@ ParticleObject* PBSPHObject::toParticleObject() const
 	}
 	return new ParticleObject(ps);
 }
-
-/*
-PolygonMesh* PhysicsObject::toPolygonObject(const float isolevel, const int levelOfDetail, const Space3d<float>& space) const
-{
-std::unique_ptr<ParticleObject> particleObject( toParticleObject() );
-return particleObject->toPolygon(isolevel, levelOfDetail, space);
-}
-*/

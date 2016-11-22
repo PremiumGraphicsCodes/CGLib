@@ -12,12 +12,12 @@ PBSPHParticle::PBSPHParticle(const int id) :
 {
 }
 
-PBSPHParticle::PBSPHParticle(const Particle& particle, SPHConstant* constant) :
+PBSPHParticle::PBSPHParticle(const Particle& particle, PBSPHConstant* constant) :
 	Particle(particle),
 	constant(constant)
 {}
 
-PBSPHParticle::PBSPHParticle(const Vector3d<float>& center, float radius, SPHConstant* constant, const int id) :
+PBSPHParticle::PBSPHParticle(const Vector3d<float>& center, float radius, PBSPHConstant* constant, const int id) :
 	Particle(center, constant->getDensity(), radius, id),
 	constant(constant)
 {
@@ -42,11 +42,6 @@ void PBSPHParticle::init()
 float PBSPHParticle::getDensityRatio() const
 {
 	return density / constant->getDensity();
-}
-
-float PBSPHParticle::getPressure() const
-{
-	return constant->getPressureCoe() * (std::pow(getDensityRatio(), 1) - 1.0f);
 }
 
 float PBSPHParticle::getMass() const
@@ -156,7 +151,7 @@ void PBSPHParticle::solveDensityConstraint()
 		}
 	}
 	//auto sum = this->constraintGrad.getLengthSquared();
-	sum += 1.0e-3;
+	sum += 1.0e-3f;
 	this->densityConstraint = -c / sum;
 }
 
