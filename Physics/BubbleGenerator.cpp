@@ -46,6 +46,7 @@ void BubbleGenerator::generate(const float effectRadius, const float dt)
 		const auto newTinies = b->generateTinyParticles(howMany);
 		tinyParticles.insert(tinyParticles.end(), newTinies.begin(), newTinies.end());
 	}
+	sortByLifeTime();
 }
 
 void BubbleGenerator::proceedTime(const Vector3d<float>& externalForce, const float dt)
@@ -53,17 +54,38 @@ void BubbleGenerator::proceedTime(const Vector3d<float>& externalForce, const fl
 	for (auto t : tinyParticles) {
 		t->integrate(externalForce, dt);
 	}
+	sortByLifeTime();
+}
+
+void BubbleGenerator::sortByLifeTime()
+{
+	tinyParticles.sort(
+		[](ITinyParticle* p1, ITinyParticle* p2)->bool { return p1->getLifeTime() < p2->getLifeTime(); }
+	);
+
+}
+
+std::list<ITinyParticle*> BubbleGenerator::getExpireds() const
+{
+	std::list<ITinyParticle*> results;
+	for (auto p : tinyParticles) {
+		if (p->isExpired()) {
+			results.push_back(p);
+		}
+	}
+	return results;
+}
+
+void BubbleGenerator::remove(const std::list<ITinyParticle*>& particles)
+{
+	for (auto p : particles) {
+		auto ptr = p;
+		tinyParticles.remove(p);
+		delete ptr;
+	}
 }
 
 void BubbleGenerator::deleteExpireds()
 {
-	auto newEnd = std::remove_if(
-		tinyParticles.begin(),
-		tinyParticles.end(),
-		[](ITinyParticle* p)->bool{ return p->isExpired(); }
-	);
-	for (auto iter = newEnd; iter != tinyParticles.end(); ++iter) {
-		tinyParticles.erase(iter);
-		delete *iter;
-	}
+	remove(getExpireds());
 }

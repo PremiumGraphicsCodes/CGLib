@@ -23,13 +23,19 @@ public:
 
 	void proceedTime(const Math::Vector3d<float>& externalForce, const float dt);
 
+	std::list<ITinyParticle*> getExpireds() const;
+
+	void remove(const std::list<ITinyParticle*>& particles);
+
 	void deleteExpireds();
 
-	std::vector<ITinyParticle*> getTinys() { return tinyParticles; }
+	std::list<ITinyParticle*> getTinys() { return tinyParticles; }
+
+	void sortByLifeTime();
 
 private:
 	std::vector<BubbleParticle*> bubbleParticles;
-	std::vector<ITinyParticle*> tinyParticles;
+	std::list<ITinyParticle*> tinyParticles;
 	float effectRadius;
 };
 	}

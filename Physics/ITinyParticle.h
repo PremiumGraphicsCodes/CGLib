@@ -26,6 +26,8 @@ public:
 
 	bool isExpired() const;
 
+	int getLifeTime() const { return lifeTime; }
+
 protected:
 	Math::Vector3d<float> velocity;
 	Math::Vector3d<float> position;
