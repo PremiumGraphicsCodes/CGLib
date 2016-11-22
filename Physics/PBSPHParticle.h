@@ -121,6 +121,8 @@ public:
 
 	void updateViscosity() { this->velocity += this->viscVelocity; }
 
+	float getEffectLength() const { return constant->getEffectLength(); }
+
 private:
 	Math::Vector3d<float> getConstraintGradient(const PBSPHParticle& rhs);
 

@@ -10,9 +10,17 @@ namespace Crystal {
 class ITinyParticle
 {
 public:
-	ITinyParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
+	ITinyParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, BubbleParticle* parent);
 
 	void integrate(const Math::Vector3d<float>& externalForce, const float dt);
+
+	virtual void updateVelocity(const float dt, const Math::Vector3d<float>& gravity) = 0;
+
+	Math::Vector3d<float> getAveragedLocalVelocity() const;
+
+	Math::Vector3d<float> getVelocity() const { return velocity; }
+
+	Math::Vector3d<float> getPosition() const { return position; }
 
 protected:
 	Math::Vector3d<float> velocity;
@@ -25,9 +33,9 @@ protected:
 class TinySprayParticle : public ITinyParticle
 {
 public:
-	TinySprayParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
+	TinySprayParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, BubbleParticle* parent);
 
-	void integrate(const Math::Vector3d<float>& externalForce, const float dt);
+	void updateVelocity(const float dt, const Math::Vector3d<float>& gravity);
 
 private:
 };
@@ -35,7 +43,9 @@ private:
 class TinyFoamParticle : public ITinyParticle
 {
 public:
-	TinyFoamParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
+	TinyFoamParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, BubbleParticle* parent);
+
+	void updateVelocity(const float dt, const Math::Vector3d<float>& gravity);
 
 private:
 };
@@ -43,7 +53,9 @@ private:
 class TinyBubbleParticle : public ITinyParticle
 {
 public:
-	TinyBubbleParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
+	TinyBubbleParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity, BubbleParticle* parent);
+
+	void updateVelocity(const float dt, const Math::Vector3d<float>& gravity);
 
 private:
 };

@@ -34,6 +34,7 @@
     <ClCompile Include="SpringTest.cpp" />
     <ClCompile Include="SurfaceBuilderTest.cpp" />
     <ClCompile Include="SurfelsTest.cpp" />
+    <ClCompile Include="TinyBubbleParticleTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{51436043-10F6-42F3-85BE-F2FEAF480AFA}</ProjectGuid>

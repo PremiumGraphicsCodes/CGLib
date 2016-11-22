@@ -43,7 +43,7 @@ float BubbleParticle::getTrappedAirPotential(const PBSPHParticle& rhs, const flo
 	const auto& pDiff = getNormalizedDistance(rhs);
 	const auto vLength = vDiff.getLength();
 	const auto dist = getDistance(rhs);
-	return vLength * (1.0 - vDiff.getInnerProduct(pDiff) ) * getWeight(dist, effectRadius);
+	return vLength * (1.0f - vDiff.getInnerProduct(pDiff) ) * getWeight(dist, effectRadius);
 }
 
 float BubbleParticle::getWeight(const float distance, const float effectRadius) const

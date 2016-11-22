@@ -23,6 +23,10 @@ public:
 
 	std::list<PBSPHParticle*> getNeighbors() const { return parent->getNeighbors(); }
 
+	float getEffectLength() const { return parent->getEffectLength(); }
+
+	Math::Vector3d<float> getVelocity() const { return parent->getVelocity(); }
+
 	float getCurvature(const PBSPHParticle& rhs, const float effectRadius) const;
 
 	float getTrappedAirPotential(const PBSPHParticle& rhs, const float effectRadius) const;
@@ -58,8 +62,6 @@ private:
 
 private:
 	Math::Vector3d<float> getPosition() const { return parent->getPosition(); }
-
-	Math::Vector3d<float> getVelocity() const { return parent->getVelocity(); }
 
 	Math::Vector3d<float> getNormal() const { return parent->getNormal(); }
 
