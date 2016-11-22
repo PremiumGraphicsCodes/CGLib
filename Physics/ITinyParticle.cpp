@@ -20,8 +20,9 @@ Vector3d<float> ITinyParticle::getAveragedLocalVelocity() const
 	float denominator = 0.0f;
 	for (auto n : neighbors) {
 		const auto diff = this->position - n->getPosition();
-		numerator += n->getVelocity() * kernel.getPoly6Kernel2(parent->getEffectLength());
-		denominator += kernel.getPoly6Kernel2(parent->getEffectLength());
+		const auto weight = kernel.getPoly6Kernel2(diff.getLengthSquared());
+		numerator += n->getVelocity() * weight;
+		denominator += weight;
 	}
 	if (denominator == 0.0f) {
 		return Vector3d<float>(0,0,0);

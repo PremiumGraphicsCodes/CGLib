@@ -26,6 +26,7 @@
     <ClCompile Include="IISPHSolverTest.cpp" />
     <ClCompile Include="IndexedFinderTest.cpp" />
     <ClCompile Include="IndexedParticleTest.cpp" />
+    <ClCompile Include="ITinyParticleTest.cpp" />
     <ClCompile Include="OrientedParticleTest.cpp" />
     <ClCompile Include="ParticlePairTest.cpp" />
     <ClCompile Include="PBSPHSolverTest.cpp" />

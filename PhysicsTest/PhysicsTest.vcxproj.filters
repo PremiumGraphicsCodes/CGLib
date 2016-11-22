@@ -27,6 +27,9 @@
     <ClCompile Include="TinyFoamParticleTest.cpp">
       <Filter>Tiny</Filter>
     </ClCompile>
+    <ClCompile Include="ITinyParticleTest.cpp">
+      <Filter>Tiny</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Tiny">
