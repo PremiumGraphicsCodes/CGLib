@@ -41,7 +41,11 @@ public:
 
 	void solveTrappedAirPotential(const float effectRadius);
 
+	void clampTrappedAirPotential(const float min_ = 5.0f, const float max_ = 20.0f);
+
 	void solveWaveCrestPotential(const float effectRadius);
+
+	void clampWaveCrestPotential(const float min_ = 2.0f, const float max_ = 8.0f);
 
 	void solveKineticEnergy();
 
@@ -50,6 +54,10 @@ public:
 	Type getType() const;
 
 	float getMass() const { return parent->getMass(); }
+
+	float getTotalTrappedAirPotential() const { return totalTrappedAirPotential; }
+
+	float getTotalWeveCrestPotential() const { return totalWaveCrestPotential; }
 
 private:
 	PBSPHParticle* parent;

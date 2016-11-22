@@ -77,7 +77,7 @@ float BubbleParticle::getKineticEnegy() const
 
 namespace {
 	float clamp(float v, float min, float max) {
-		const auto numerator = std::min<float>(v, max) - std::min<float>(v, max);
+		const auto numerator = std::min<float>(v, max) - std::min<float>(v, min);
 		const auto denominator = max - min;
 		return numerator / denominator;
 	}
@@ -90,8 +90,13 @@ void BubbleParticle::solveTrappedAirPotential(const float effectRadius)
 	for (auto n : neighbors) {
 		totalTrappedAirPotential += getTrappedAirPotential(*n, effectRadius);
 	}
-	totalTrappedAirPotential = clamp(totalTrappedAirPotential, 5.0f, 20.0f);
 }
+
+void BubbleParticle::clampTrappedAirPotential(const float min_, const float max_)
+{
+	totalTrappedAirPotential = clamp(totalTrappedAirPotential, min_, max_);
+}
+
 
 void BubbleParticle::solveWaveCrestPotential(const float effectRadius)
 {
@@ -100,6 +105,10 @@ void BubbleParticle::solveWaveCrestPotential(const float effectRadius)
 	for (auto n : neighbors) {
 		totalWaveCrestPotential += getCurvature(*n, effectRadius);
 	}
+}
+
+void BubbleParticle::clampWaveCrestPotential(const float min_, const float max_)
+{
 	totalWaveCrestPotential = clamp(totalWaveCrestPotential, 2.0f, 8.0f);
 }
 
