@@ -2,6 +2,7 @@
 #include "Space3d.h"
 #include "Curve3d.h"
 #include "Quad3d.h"
+#include "Line3d.h"
 
 using namespace Crystal::Math;
 
@@ -307,6 +308,34 @@ Vector3d<T> Box3d<T>::getPosition(const Vector3d<T>& param) const
 	const auto y = start.getY() + length.getY() * param.getY();
 	const auto z = start.getZ() + length.getZ() * param.getZ();
 	return Vector3d<T>(x, y, z);
+}
+
+template<typename T>
+std::array<Line3d<T>, 12> Box3d<T>::toLines() const
+{
+	const auto minx = getMinX();
+	const auto miny = getMinY();
+	const auto minz = getMinZ();
+	const auto maxx = getMaxX();
+	const auto maxy = getMaxY();
+	const auto maxz = getMaxZ();
+
+	std::array<Line3d<T>, 12> lines;
+	lines[ 0] = Line3d<T>(Vector3d<T>(minx, miny, minz), Vector3d<T>(maxx, miny, minz));
+	lines[ 1] = Line3d<T>(Vector3d<T>(maxx, miny, minz), Vector3d<T>(maxx, miny, maxz));
+	lines[ 2] = Line3d<T>(Vector3d<T>(maxx, miny, maxz), Vector3d<T>(minx, miny, maxz));
+	lines[ 3] = Line3d<T>(Vector3d<T>(minx, miny, maxz), Vector3d<T>(minx, miny, minz));
+
+	lines[ 4] = Line3d<T>(Vector3d<T>(minx, maxy, minz), Vector3d<T>(maxx, maxy, minz));
+	lines[ 5] = Line3d<T>(Vector3d<T>(maxx, maxy, minz), Vector3d<T>(maxx, maxy, maxz));
+	lines[ 6] = Line3d<T>(Vector3d<T>(maxx, maxy, maxz), Vector3d<T>(minx, maxy, maxz));
+	lines[ 7] = Line3d<T>(Vector3d<T>(minx, maxy, maxz), Vector3d<T>(minx, maxy, minz));
+
+	lines[ 8] = Line3d<T>(Vector3d<T>(minx, miny, minz), Vector3d<T>(minx, maxy, minz));
+	lines[ 9] = Line3d<T>(Vector3d<T>(maxx, miny, minz), Vector3d<T>(maxx, maxy, minz));
+	lines[10] = Line3d<T>(Vector3d<T>(maxx, miny, maxz), Vector3d<T>(maxx, maxy, maxz));
+	lines[11] = Line3d<T>(Vector3d<T>(minx, miny, maxz), Vector3d<T>(minx, maxy, maxz));
+	return lines;
 }
 
 

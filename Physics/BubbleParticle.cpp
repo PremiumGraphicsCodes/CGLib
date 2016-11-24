@@ -148,6 +148,12 @@ BubbleParticle::Type BubbleParticle::getType() const
 	}
 }
 
+float BubbleParticle::getMass() const
+{
+	return parent->getMass();
+}
+
+
 #include "TinyBubbleParticle.h"
 #include "TinyFoamParticle.h"
 #include "TinySprayParticle.h"

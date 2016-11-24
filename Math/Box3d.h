@@ -10,6 +10,8 @@ namespace Crystal{
 		class Space3d;
 		template<typename>
 		class Quad3d;
+		template<typename>
+		class Line3d;
 template<typename T>
 class Box3d final
 {
@@ -117,6 +119,8 @@ public:
 	std::array< Curve3d<T>, 6 > toCurve3d(const int xdiv, const int ydiv, const int zdiv) const;
 
 	Vector3d<T> getPosition(const Vector3d<T>& param) const;
+
+	std::array<Line3d<T>, 12> toLines() const;
 
 private:
 	Vector3d<T> start;

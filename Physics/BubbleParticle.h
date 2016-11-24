@@ -56,7 +56,7 @@ public:
 
 	Type getType() const;
 
-	float getMass() const { return parent->getMass(); }
+	float getMass() const;
 
 	float getTotalTrappedAirPotential() const { return totalTrappedAirPotential; }
 
