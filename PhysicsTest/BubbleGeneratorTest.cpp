@@ -14,8 +14,10 @@ TEST(BubbleGeneratorTest, TestGenerate)
 	particle1.setVelocity(Vector3d<float>(1.0, 0.0, 0.0));
 	particle1.setNeighbors({ &particle2 });
 	BubbleGenerator generator({&particle1});
-	generator.generate(2.0f, 1.0f);
-	EXPECT_EQ(1, generator.getTinys().size());
+	generator.solvePotentials(2.0f);
+	//generator.clampPotentials();
+	generator.generate(1.0f);
+	EXPECT_EQ(500, generator.getTinys().size());
 }
 
 TEST(BubbleGeneratorTest, TestDeleteExpires)
@@ -27,7 +29,8 @@ TEST(BubbleGeneratorTest, TestDeleteExpires)
 	particle1.setVelocity(Vector3d<float>(1.0, 0.0, 0.0));
 	particle1.setNeighbors({ &particle2 });
 	BubbleGenerator generator({ &particle1 });
-	generator.generate(2.0f, 1.0f);
+	generator.solvePotentials(2.0f);
+	generator.generate(1.0f);
 	generator.proceedTime(Vector3d<float>(0, 0, 0), 1.0);
 	for (int i = 0; i < 10; ++i) {
 		generator.proceedTime(Vector3d<float>(0, 0, 0), 1);

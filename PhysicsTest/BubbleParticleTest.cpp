@@ -97,6 +97,7 @@ TEST(BubbleParticleTest, TestGenerateParticleNumberByTrappedAir)
 	p1.solveTrappedAirPotential(2.0f);
 	p1.solveWaveCrestPotential(2.0f);
 	p1.solveKineticEnergy();
+	p1.clampKineticEnegyPotential();
 
 	EXPECT_FLOAT_EQ(0.5f, p1.getGenerateParticleNumber(1.0f, 0.0f, 1.0f));
 }
@@ -115,6 +116,7 @@ TEST(BubbleParticleTest, TestGenerateParticleNumberByWaveCrest)
 	p1.solveTrappedAirPotential(2.0f);
 	p1.solveWaveCrestPotential(2.0f);
 	p1.solveKineticEnergy();
+	p1.clampKineticEnegyPotential();
 
 	EXPECT_FLOAT_EQ(1.5f, p1.getGenerateParticleNumber(0.0f, 1.0f, 1.0f));
 }

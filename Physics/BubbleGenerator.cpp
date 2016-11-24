@@ -6,6 +6,11 @@ using namespace Crystal::Physics;
 
 BubbleGenerator::BubbleGenerator(const std::vector<PBSPHParticle*>& originalParticles)
 {
+	add(originalParticles);
+}
+
+void BubbleGenerator::add(const std::vector<PBSPHParticle*>& originalParticles)
+{
 	for (auto particle : originalParticles) {
 		auto newParticle = new BubbleParticle(particle);
 		bubbleParticles.push_back(newParticle);
@@ -31,16 +36,26 @@ void BubbleGenerator::clear()
 	tinyParticles.clear();
 }
 
-
-void BubbleGenerator::generate(const float effectRadius, const float dt)
+void BubbleGenerator::solvePotentials(const float effectRadius)
 {
 	for (auto b : bubbleParticles) {
 		b->solveTrappedAirPotential(effectRadius);
 		b->solveWaveCrestPotential(effectRadius);
 		b->solveKineticEnergy();
-		//b->clampTrappedAirPotential();
-		//b->clampWaveCrestPotential();
 	}
+}
+
+void BubbleGenerator::clampPotentials()
+{
+	for (auto b : bubbleParticles) {
+		b->clampTrappedAirPotential();
+		b->clampWaveCrestPotential();
+		b->clampKineticEnegyPotential();
+	}
+}
+
+void BubbleGenerator::generate(const float dt)
+{
 	for (auto b : bubbleParticles) {
 		const auto howMany = b->getGenerateParticleNumber(1.0, 1.0, dt);
 		const auto newTinies = b->generateTinyParticles(howMany);

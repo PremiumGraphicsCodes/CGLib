@@ -13,13 +13,21 @@ namespace Crystal {
 class BubbleGenerator
 {
 public:
+	BubbleGenerator() = default;
+
 	BubbleGenerator(const std::vector<PBSPHParticle*>& originalParticles);
 
 	~BubbleGenerator();
 
+	void add(const std::vector<PBSPHParticle*>& originalParticles);
+
 	void clear();
 
-	void generate(const float effectRadius, const float dt);
+	void solvePotentials(const float effectRadius);
+
+	void clampPotentials();
+
+	void generate(const float dt);
 
 	void proceedTime(const Math::Vector3d<float>& externalForce, const float dt);
 
@@ -36,7 +44,6 @@ public:
 private:
 	std::vector<BubbleParticle*> bubbleParticles;
 	std::list<ITinyParticle*> tinyParticles;
-	float effectRadius;
 };
 	}
 }

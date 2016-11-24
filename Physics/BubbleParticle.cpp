@@ -116,12 +116,17 @@ void BubbleParticle::solveWaveCrestPotential(const float effectRadius)
 
 void BubbleParticle::clampWaveCrestPotential(const float min_, const float max_)
 {
-	totalWaveCrestPotential = clamp(totalWaveCrestPotential, 2.0f, 8.0f);
+	totalWaveCrestPotential = clamp(totalWaveCrestPotential, min_, max_);
 }
 
 void BubbleParticle::solveKineticEnergy()
 {
-	kineticEnergyPotential = clamp(getKineticEnegy(), 5.0f, 50.0f);
+	kineticEnergyPotential = getKineticEnegy();
+}
+
+void BubbleParticle::clampKineticEnegyPotential(const float min_, const float max_)
+{
+	kineticEnergyPotential = clamp(kineticEnergyPotential, min_, max_);
 }
 
 float BubbleParticle::getGenerateParticleNumber(const float trappedAirCoe, const float waveCrestCoe, const float dt) const

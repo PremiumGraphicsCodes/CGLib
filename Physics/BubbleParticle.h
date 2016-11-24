@@ -48,6 +48,8 @@ public:
 
 	void solveKineticEnergy();
 
+	void clampKineticEnegyPotential(const float min_ = 5.0f, const float max_ = 50.0f);
+
 	float getGenerateParticleNumber(const float trappedAirCoe, const float waveCrestCoe, const float dt) const;
 
 	std::list<ITinyParticle*> generateTinyParticles(const int howMany);
