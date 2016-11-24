@@ -99,7 +99,11 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 			const auto p = particles[i];
 			p->updatePredictPosition(dt);
 		}
-	} 
+	}
+
+	for (auto p : pairs) {
+		p.solveNormal();
+	}
 
 	for (auto p : particles) {
 		p->updateVelocity(dt);

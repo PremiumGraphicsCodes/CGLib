@@ -232,3 +232,10 @@ float PBSPHParticle::getDensityConstraintCorrection(const PBSPHParticle& rhs) co
 	const auto w2 = kernel->getPoly6Kernel(dq);
 	return -k * std::pow(w1 / w2, n);
 }
+
+void PBSPHParticle::solveNormal(const PBSPHParticle& rhs)
+{
+	const auto& distanceVector = this->getPosition() - rhs.getPosition();
+	this->normal += kernel->getPoly6KernelGradient(distanceVector, constant->getEffectLength()) * rhs.getVolume();
+	//pairs[i].getParticle1()->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, effectLength) * pairs[i].getParticle2()->getVolume());
+}

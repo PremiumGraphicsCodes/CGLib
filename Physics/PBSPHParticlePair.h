@@ -20,6 +20,8 @@ public:
 	
 	void solvePositionCorrection();
 
+	void solveNormal();
+
 	PBSPHParticle* getParticle1() { return particle1; }
 
 	PBSPHParticle* getParticle2() { return particle2; }

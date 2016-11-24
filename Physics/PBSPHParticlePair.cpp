@@ -24,4 +24,8 @@ void PBSPHParticlePair::solvePositionCorrection()
 	;
 }
 
-
+void PBSPHParticlePair::solveNormal()
+{
+	particle1->solveNormal(*particle2);
+	particle2->solveNormal(*particle1);
+}
