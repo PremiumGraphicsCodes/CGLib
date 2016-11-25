@@ -2,6 +2,7 @@
 #define __CRYSTAL_MATH_MATRIX_2D_H__
 
 #include "Tolerance.h"
+#include "Angle.h"
 
 #include <vector>
 #include <cassert>
@@ -26,6 +27,10 @@ public:
 	void setIdentity();
 
 	void setRotate(const T angle);
+
+	Angle<T> getRotationAngle() const;
+
+	bool isRotation() const;
 
 	static Matrix2d Identity() { return Matrix2d(1, 0, 0, 1); }
 

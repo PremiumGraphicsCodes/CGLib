@@ -76,6 +76,16 @@ Curve3d<T> Ellipsoid<T>::toCurve3d(const int uNum, const int vNum) const
 	return curve;
 }
 
+template<typename T>
+Matrix3d<T> Ellipsoid<T>::getScalingMatrix() const
+{
+	return Matrix3d<T>(
+		radii[0], 0, 0,
+		0, radii[1], 0,
+		0, 0, radii[2]
+		);
+}
+
 
 template class Ellipsoid<float>;
 template class Ellipsoid<double>;

@@ -25,6 +25,23 @@ void Matrix2d<T>::setIdentity()
 }
 
 template<typename T>
+Angle<T> Matrix2d<T>::getRotationAngle() const
+{
+	return Angle<T>(Radian<T>(std::acos(x[0])));
+}
+
+template<typename T>
+bool Matrix2d<T>::isRotation() const
+{
+	const auto& angle00 =  std::acos(getX00());
+	const auto& angle01 = -std::asin(getX01());
+	const auto& angle10 =  std::asin(getX10());
+	const auto& angle11 =  std::acos(getX11());
+	return (angle00 == angle01) && (angle10 == angle11);
+}
+
+
+template<typename T>
 Matrix2d<T> Matrix2d<T>::scale(const T factor)
 {
 	for (auto i = 0; i < 4; ++i) {
@@ -54,10 +71,10 @@ template<typename T>
 bool Matrix2d<T>::equals(const Matrix2d& rhs) const
 {
 	return
-		Tolerance<T>::isEqualStrictly(x[0], rhs.x[0]) &&
-		Tolerance<T>::isEqualStrictly(x[1], rhs.x[1]) &&
-		Tolerance<T>::isEqualStrictly(x[2], rhs.x[2]) &&
-		Tolerance<T>::isEqualStrictly(x[3], rhs.x[3]);
+		Tolerance<T>::isEqualLoosely(x[0], rhs.x[0]) &&
+		Tolerance<T>::isEqualLoosely(x[1], rhs.x[1]) &&
+		Tolerance<T>::isEqualLoosely(x[2], rhs.x[2]) &&
+		Tolerance<T>::isEqualLoosely(x[3], rhs.x[3]);
 }
 
 template<typename T>

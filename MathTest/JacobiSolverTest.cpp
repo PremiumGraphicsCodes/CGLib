@@ -17,26 +17,38 @@ TEST(JacobiSolverTest, Test)
 	EXPECT_DOUBLE_EQ(actual[2], 1.0);
 }
 
-
-TEST(JacobiSolverTest, TestSymmetric)
+TEST(JacobiSolverTest, TestGetDiagonalMatrix)
 {
-	using TypeParam = double;
-	Matrix<3, 3, TypeParam> m({ 1,0,1,0,1,-1,1,-1,0 });
-	JacobiSolver<3, 3, TypeParam> solver(m);
+	using T = double;
+	Matrix<3, 3, T> m({ 1,0,1,0,1,-1,1,-1,0 });
+	JacobiSolver<3, 3, T> solver(m);
 
-	auto actual = solver.solve(0.0000001);
-	EXPECT_TRUE(Tolerance<TypeParam>::isEqualLoosely(2.0, actual[0]));
-	EXPECT_TRUE(Tolerance<TypeParam>::isEqualLoosely(1.0, actual[1]));
-	EXPECT_TRUE(Tolerance<TypeParam>::isEqualLoosely(-1.0, actual[2]));
+	solver.solve(1.0e-6);
 
-	auto p = solver.getOrthogonalMatrix();
+	const auto& actual = solver.getDiagonalMatrix();
+	Matrix<3, 3, T> expected({ 2, 0, 0, 0, 1, 0, 0, 0, -1 });
+	EXPECT_EQ(expected, actual);
+}
 
-	Matrix3d<TypeParam> m1(p.a);
-	Matrix3d<TypeParam> m2(m.a);
+TEST(JacobiSolverTest, TestSolve)
+{
+	using T = double;
+	Matrix<3, 3, T> m({ 1,0,1,0,1,-1,1,-1,0 });
+	JacobiSolver<3, 3, T> solver(m);
+
+	const auto& actual = solver.solve(1.0e-6);
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(2.0, actual[0]));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(1.0, actual[1]));
+	EXPECT_TRUE(Tolerance<T>::isEqualLoosely(-1.0, actual[2]));
+
+	const auto& p = solver.getOrthogonalMatrix();
+
+	Matrix3d<T> m1(p.a);
+	Matrix3d<T> m2(m.a);
 	auto m3 = m1.getInverse();
 
 	auto pap = m3 * m2 * m1;
 
-	Matrix3d<TypeParam> expected(2, 0, 0, 0, 1, 0, 0, 0, -1);
+	Matrix3d<T> expected(2, 0, 0, 0, 1, 0, 0, 0, -1);
 	EXPECT_EQ(expected, pap);
 }

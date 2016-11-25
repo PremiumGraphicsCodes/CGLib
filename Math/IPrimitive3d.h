@@ -35,6 +35,14 @@ public:
 
 	Math::Quaternion<T> getOrientation() const { return orientation; }
 
+	Math::Matrix3d<T> getTranslateMatrix() const;
+
+	Math::Matrix3d<T> getRotationMatrix() const;
+
+	virtual Math::Matrix3d<T> getScalingMatrix() const;
+
+	Math::Matrix3d<T> getMatrix() const;
+
 protected:
 	Math::Vector3d<T> center;
 	Math::Quaternion<T> orientation;

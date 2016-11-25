@@ -98,6 +98,7 @@
     <ClCompile Include="Grid2d.cpp" />
     <ClCompile Include="Grid3d.cpp" />
     <ClCompile Include="Intersection3d.cpp" />
+    <ClCompile Include="IPrimitive3d.cpp" />
     <ClCompile Include="Kernel.cpp" />
     <ClCompile Include="Line2d.cpp" />
     <ClCompile Include="Line3d.cpp" />

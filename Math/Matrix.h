@@ -214,6 +214,23 @@ public:
 
 	std::array<T, ROW*COLUMN> a;
 
+	bool equals(const Matrix<ROW, COLUMN, T>& rhs) const {
+		for (int i = 0; i < a.size(); ++i) {
+			if (!Tolerance<T>::isEqualLoosely(this->a[i], rhs.a[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool operator==(const Matrix<ROW, COLUMN, T>& rhs) const {
+		return equals(rhs);
+	}
+
+	bool operator!=(const Matrix<ROW, COLUMN, T>& rhs) const {
+		return !equals(rhs);
+	}
+
 	constexpr int getColumn() const { return COLUMN; }
 
 	constexpr int getRow() const { return ROW; }

@@ -11,29 +11,31 @@ namespace Crystal {
 		template<typename T>
 		class Curve3d;
 
-template<typename T>
-class Ellipsoid : public IPrimitive3d<T>
-{
-public:
-	Ellipsoid();
+		template<typename T>
+		class Ellipsoid : public IPrimitive3d<T>
+		{
+		public:
+			Ellipsoid();
 
-	Ellipsoid(const Vector3d<T>& center, const T radius);
+			Ellipsoid(const Vector3d<T>& center, const T radius);
 
-	Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii);
+			Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii);
 
-	Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii, const Quaternion<T>& orientation);
+			Ellipsoid(const Vector3d<T>& center, const Vector3d<T>& radii, const Quaternion<T>& orientation);
 
-	T getVolume() const;
+			T getVolume() const;
 
-	Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
+			Vector3d<T> getPosition(const Angle<T> u, const Angle<T> v) const;
 
-	Vector3d<T> getRadii() const { return radii; }
+			Vector3d<T> getRadii() const { return radii; }
 
-	Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
+			Curve3d<T> toCurve3d(const int uNum, const int vNum) const;
 
-private:
-	Vector3d<T> radii;
-};
+			Matrix3d<T> getScalingMatrix() const override;
+
+		private:
+			Vector3d<T> radii;
+		};
 	}
 }
 

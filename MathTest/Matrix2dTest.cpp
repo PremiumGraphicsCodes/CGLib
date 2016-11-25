@@ -18,12 +18,22 @@ TYPED_TEST(Matrix2dTest, TestConstruct)
 	EXPECT_EQ(Matrix2d<TypeParam>::Identity(), m);
 }
 
-TYPED_TEST(Matrix2dTest, RotateTest)
+TYPED_TEST(Matrix2dTest, TestRotate)
 {
-	EXPECT_EQ(Matrix2d<TypeParam>::Identity(), Matrix2d<TypeParam>::Rotate(0.0));
+	using T = TypeParam;
+	EXPECT_EQ(Matrix2d<T>::Identity(), Matrix2d<T>::Rotate(0.0));
+	EXPECT_EQ(Matrix2d<T>(0, -1, 1, 0), Matrix2d<T>::Rotate(0.5 * Tolerance<T>::getPI()));
 }
 
-TYPED_TEST(Matrix2dTest, DeterminentTest)
+TYPED_TEST(Matrix2dTest, TestGetRotationAngle)
+{
+	using T = TypeParam;
+	const Matrix2d<T> m(0, -1, 1, 0);
+	m.isRotation();
+	EXPECT_EQ(Angle<T>::HalfPI(), m.getRotationAngle());
+}
+
+TYPED_TEST(Matrix2dTest, TestDeterminent)
 {
 	EXPECT_EQ(1, Matrix2d<TypeParam>::Identity().getDeterminant());
 	EXPECT_EQ(0, Matrix2d<TypeParam>::Zero().getDeterminant());

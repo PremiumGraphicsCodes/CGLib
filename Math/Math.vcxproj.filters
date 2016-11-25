@@ -132,6 +132,9 @@
     <ClCompile Include="Triangle3d.cpp">
       <Filter>Primitive3d</Filter>
     </ClCompile>
+    <ClCompile Include="IPrimitive3d.cpp">
+      <Filter>Primitive3d</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Quaternion.h" />

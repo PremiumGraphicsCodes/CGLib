@@ -11,18 +11,18 @@ class JacobiSolver
 {
 public:
 	JacobiSolver(const Matrix<ROW, COLUMN, T>& matrix) :
-		matrix(matrix)
+		diagonalMatrix(matrix)
 	{}
 
 	T getMaxvalue(int *p, int *q)
 	{
-		T max = fabs(matrix.get(0, 1));
+		T max = fabs(diagonalMatrix.get(0, 1));
 		*p = 0;
 		*q = 1;
 
-		for (int i = 0; i < matrix.getRow(); i++) {
-			for (int j = i + 1; j < matrix.getColumn(); j++) {
-				T temp = fabs(matrix.get(i, j));
+		for (int i = 0; i < diagonalMatrix.getRow(); i++) {
+			for (int j = i + 1; j < diagonalMatrix.getColumn(); j++) {
+				T temp = fabs(diagonalMatrix.get(i, j));
 
 				if (temp > max) {
 					max = temp;
@@ -43,9 +43,9 @@ public:
 			if (!(max = getMaxvalue(&p, &q))) {
 				break;
 			}
-			T app = matrix.get(p, p);
-			T apq = matrix.get(p, q);
-			T aqq = matrix.get(q, q);
+			T app = diagonalMatrix.get(p, p);
+			T apq = diagonalMatrix.get(p, q);
+			T aqq = diagonalMatrix.get(q, q);
 
 			T alpha = (app - aqq) / T{ 2 };
 			T beta = -apq;
@@ -58,39 +58,41 @@ public:
 			}
 
 			for (int i = 0; i < ROW; ++i) {
-				T tmp = c * matrix.get(p, i) - s * matrix.get(q, i);
-				matrix.set(q, i, s * matrix.get(p, i) + c * matrix.get(q, i));
-				matrix.set(p, i, tmp);
+				T tmp = c * diagonalMatrix.get(p, i) - s * diagonalMatrix.get(q, i);
+				diagonalMatrix.set(q, i, s * diagonalMatrix.get(p, i) + c * diagonalMatrix.get(q, i));
+				diagonalMatrix.set(p, i, tmp);
 			}
 
 			for (int i = 0; i < ROW; ++i) {
-				matrix.set(i, p, matrix.get(p, i));
-				matrix.set(i, q, matrix.get(q, i));
+				diagonalMatrix.set(i, p, diagonalMatrix.get(p, i));
+				diagonalMatrix.set(i, q, diagonalMatrix.get(q, i));
 			}
 
-			matrix.set(p, p, c*c*app + s*s*aqq - 2 * s*c*apq);
-			matrix.set(p, q, s*c*(app - aqq) + (c*c - s*s)*apq);
-			matrix.set(q, p, s*c*(app - aqq) + (c*c - s*s)*apq);
-			matrix.set(q, q, s*s*app + c*c*aqq + 2 * s*c*apq);
+			diagonalMatrix.set(p, p, c*c*app + s*s*aqq - 2 * s*c*apq);
+			diagonalMatrix.set(p, q, s*c*(app - aqq) + (c*c - s*s)*apq);
+			diagonalMatrix.set(q, p, s*c*(app - aqq) + (c*c - s*s)*apq);
+			diagonalMatrix.set(q, q, s*s*app + c*c*aqq + 2 * s*c*apq);
 
 			for (int i = 0; i < ROW; ++i) {
-				T tmp = c * eigenVector.get(i, p) - s*eigenVector.get(i, q);
-				eigenVector.set(i, q, s*eigenVector.get(i, p) + c * eigenVector.get(i, q));
-				eigenVector.set(i, p, tmp);
+				T tmp = c * orthogonalMatrix.get(i, p) - s*orthogonalMatrix.get(i, q);
+				orthogonalMatrix.set(i, q, s*orthogonalMatrix.get(i, p) + c * orthogonalMatrix.get(i, q));
+				orthogonalMatrix.set(i, p, tmp);
 			}
 		} while (max >= eps);
 		Vector<ROW, T> v;
 		for (int i = 0; i < ROW; ++i) {
-			v.set(i, matrix.get(i, i));
+			v.set(i, diagonalMatrix.get(i, i));
 		}
 		return v;
 	}
 
-	Matrix<ROW, COLUMN, T> getOrthogonalMatrix() const { return eigenVector; }
+	Matrix<ROW, COLUMN, T> getOrthogonalMatrix() const { return orthogonalMatrix; }
+
+	Matrix<ROW, COLUMN, T> getDiagonalMatrix() const { return diagonalMatrix; }
 
 private:
-	Matrix<ROW, COLUMN, T> matrix;
-	Matrix<ROW, COLUMN, T> eigenVector;
+	Matrix<ROW, COLUMN, T> diagonalMatrix;
+	Matrix<ROW, COLUMN, T> orthogonalMatrix;
 };
 
 	}
