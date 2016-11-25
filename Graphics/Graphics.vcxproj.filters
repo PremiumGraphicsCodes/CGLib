@@ -64,6 +64,9 @@
     <ClCompile Include="MaterialRepository.cpp">
       <Filter>Material</Filter>
     </ClCompile>
+    <ClCompile Include="EllipseBuffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColorMap.h" />
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="MaterialRepository.h">
       <Filter>Material</Filter>
+    </ClInclude>
+    <ClInclude Include="EllipseBuffer.h">
+      <Filter>Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

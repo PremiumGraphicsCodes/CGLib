@@ -158,25 +158,45 @@ float BubbleParticle::getMass() const
 #include "TinyFoamParticle.h"
 #include "TinySprayParticle.h"
 
+#include <random>
+
+namespace {
+	float getRandom() {
+		std::mt19937 mt(100);
+		std::uniform_real_distribution<float> dist(0.0f, 1.0f);
+		return dist(mt);
+	}
+
+	Vector3d<float> getRandomize(const Vector3d<float>& v) {
+		const auto x = v.getX() + getRandom() * 0.1;
+		const auto y = v.getY() + getRandom() * 0.1;
+		const auto z = v.getZ() + getRandom() * 0.1;
+		return Vector3d<float>(x, y, z);
+	}
+}
+
 std::list<ITinyParticle*> BubbleParticle::generateTinyParticles(const int howMany)
 {
 	std::list<ITinyParticle*> results;
 	const auto type = getType();
 	if (type == Type::Spray) {
 		for (int i = 0; i < howMany; ++i) {
-			auto p = new TinySprayParticle(this->getPosition(), this->getVelocity(), this);
+			const auto& pos = getRandomize(this->getPosition());
+			auto p = new TinySprayParticle(pos, this->getVelocity(), this);
 			results.push_back(p);
 		}
 	}
 	else if (type == Type::Foam) {
 		for (int i = 0; i < howMany; ++i) {
-			auto p = new TinyFoamParticle(this->getPosition(), this->getVelocity(), this);
+			const auto& pos = getRandomize(this->getPosition());
+			auto p = new TinyFoamParticle(pos, this->getVelocity(), this);
 			results.push_back(p);
 		}
 	}
 	else if (type == Type::Air) {
 		for (int i = 0; i < howMany; ++i) {
-			auto p = new TinyBubbleParticle(this->getPosition(), this->getVelocity(), this);
+			const auto& pos = getRandomize(this->getPosition());
+			auto p = new TinyBubbleParticle(pos, this->getVelocity(), this);
 			results.push_back(p);
 		}
 	}

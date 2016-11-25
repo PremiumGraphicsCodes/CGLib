@@ -15,6 +15,13 @@ Ellipse<T>::Ellipse(const Vector2d<T>& radii) :
 }
 
 template<typename T>
+Ellipse<T>::Ellipse(const Vector2d<T>& radii, const Angle<T>& angle) :
+	radii(radii),
+	angle(angle)
+{
+}
+
+template<typename T>
 T Ellipse<T>::getArea() const
 {
 	return radii.getX() * radii.getY() * Tolerance<T>::getPI();

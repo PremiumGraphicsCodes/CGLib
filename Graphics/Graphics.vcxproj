@@ -24,6 +24,7 @@
     <ClCompile Include="ColorMap.cpp" />
     <ClCompile Include="ColorRGBA.cpp" />
     <ClCompile Include="DrawableID.cpp" />
+    <ClCompile Include="EllipseBuffer.cpp" />
     <ClCompile Include="EllipsoidBuffer.cpp" />
     <ClCompile Include="IBuffer.cpp" />
     <ClCompile Include="ICamera.cpp" />
@@ -57,6 +58,7 @@
     <ClInclude Include="ColoredPolygon.h" />
     <ClInclude Include="ColorMap.h" />
     <ClInclude Include="DrawableID.h" />
+    <ClInclude Include="EllipseBuffer.h" />
     <ClInclude Include="EllipsoidBuffer.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IBuffer.h" />
