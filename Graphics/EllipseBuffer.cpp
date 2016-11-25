@@ -6,7 +6,7 @@ using namespace Crystal::Graphics;
 
 void EllipseBuffer::add(const Ellipse<float>& ellipse, const ColorRGBA<float>& color)
 {
-	positions.add(ellipse.getCenter());
+	positions.add(ellipse.getPosition3d());
 	radii.add(ellipse.getRadii());
 	colors.add(color);
 	angles.add(ellipse.getAngle().getRadian().get());

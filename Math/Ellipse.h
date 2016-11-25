@@ -4,6 +4,7 @@
 #include "Curve2d.h"
 #include "Angle.h"
 #include "Vector2d.h"
+#include "Vector3d.h"
 
 namespace Crystal {
 	namespace Math {
@@ -18,7 +19,11 @@ public:
 
 	Ellipse(const Vector2d<T>& radii, const Angle<T>& angle);
 
+	Ellipse(const Vector3d<T>& position3d, const Vector2d<T>& radii, const Angle<T>& angle);
+
 	T getArea() const;
+
+	Vector3d<T> getPosition3d() const { return position3d; }
 
 	Vector2d<T> getCenter() const { return center; }
 
@@ -37,6 +42,7 @@ public:
 	void rotate(const Angle<T>& angle) { this->angle += angle; }
 
 private:
+	Vector3d<T> position3d;
 	Vector2d<T> radii;
 	Vector2d<T> center;
 	Angle<T> angle;
