@@ -27,7 +27,7 @@ Matrix3d<T> IPrimitive3d<T>::getScalingMatrix() const
 template<typename T>
 Matrix3d<T> IPrimitive3d<T>::getMatrix() const
 {
-	return getScalingMatrix() * getRotationMatrix() * getTranslateMatrix();
+	return getScalingMatrix() * getRotationMatrix() + getTranslateMatrix();
 }
 
 template class IPrimitive3d<float>;

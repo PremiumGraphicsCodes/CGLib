@@ -35,11 +35,13 @@ public:
 		return max;
 	}
 
-	Vector<ROW, T> solve(const T eps) {
+	Vector<ROW, T> solve(const T eps, const int maxIter = 100) {
 		T max;
 		int p;
 		int q;
+		int iter = 0;
 		do {
+			iter++;
 			if (!(max = getMaxvalue(&p, &q))) {
 				break;
 			}
@@ -78,7 +80,7 @@ public:
 				orthogonalMatrix.set(i, q, s*orthogonalMatrix.get(i, p) + c * orthogonalMatrix.get(i, q));
 				orthogonalMatrix.set(i, p, tmp);
 			}
-		} while (max >= eps);
+		} while (max >= eps && iter < maxIter);
 		Vector<ROW, T> v;
 		for (int i = 0; i < ROW; ++i) {
 			v.set(i, diagonalMatrix.get(i, i));
