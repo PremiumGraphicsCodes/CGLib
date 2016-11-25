@@ -35,25 +35,16 @@ TYPED_TEST(Matrix2dTest, TestGetRotationAngle)
 
 TYPED_TEST(Matrix2dTest, TestDeterminent)
 {
-	EXPECT_EQ(1, Matrix2d<TypeParam>::Identity().getDeterminant());
-	EXPECT_EQ(0, Matrix2d<TypeParam>::Zero().getDeterminant());
+	using T = TypeParam;
+	EXPECT_EQ(1, Matrix2d<T>::Identity().getDeterminant());
+	EXPECT_EQ(0, Matrix2d<T>::Zero().getDeterminant());
 }
 
 TYPED_TEST(Matrix2dTest, InverseTest)
 {
-	{
-		Matrix2d<TypeParam> m = Matrix2d<TypeParam>::Identity();
-		EXPECT_TRUE(m.hasInverse());
-		const Matrix2d<TypeParam>& i = m.getInverse();
-		EXPECT_EQ(Matrix2d<TypeParam>::Identity(), i);
-	}
-
-	{
-		Matrix2d<TypeParam> m( 2, 5, 1, 3 );
-		const Matrix2d<TypeParam>& actual = m.getInverse();
-		const Matrix2d<TypeParam> expected(3, -5, -1, 2 );
-		EXPECT_EQ(expected, actual);
-	}
+	using T = TypeParam;
+	EXPECT_EQ(Matrix2d<T>::Identity(), Matrix2d<T>::Identity().getInverse());
+	EXPECT_EQ(Matrix2d<T>(3, -5, -1, 2), Matrix2d<T>(2, 5, 1, 3).getInverse());
 }
 
 

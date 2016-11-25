@@ -16,6 +16,13 @@ Matrix2d<T>::Matrix2d( const T x00, const T x01, const T x10, const T x11 )
 }
 
 template<typename T>
+Matrix2d<T>::Matrix2d(const std::array<T, 4>& v) :
+	x(v)
+{
+}
+
+
+template<typename T>
 void Matrix2d<T>::setIdentity()
 {
 	x[0] = 1;
@@ -40,6 +47,14 @@ bool Matrix2d<T>::isRotation() const
 	return (angle00 == angle01) && (angle10 == angle11);
 }
 
+template<typename T>
+Matrix2d<T> Matrix2d<T>::Rotate(const T angle)
+{
+	Matrix2d<T> matrix;
+	matrix.setRotate(angle);
+	return matrix;
+}
+
 
 template<typename T>
 Matrix2d<T> Matrix2d<T>::scale(const T factor)
@@ -57,6 +72,21 @@ Matrix2d<T> Matrix2d<T>::getScaled(const T factor) const
 	return matrix.scale(factor);
 }
 
+template<typename T>
+Matrix2d<T> Matrix2d<T>::add(const Matrix2d<T>& rhs)
+{
+	for (auto i = 0; i < 4; ++i) {
+		x[i] *= rhs.x[i];
+	}
+	return *this;
+}
+
+template<typename T>
+Matrix2d<T> Matrix2d<T>::getAdd(const Matrix2d<T>& rhs) const
+{
+	Matrix2d matrix = *this;
+	return matrix.add(rhs);
+}
 
 template<typename T>
 void Matrix2d<T>::setRotate(const T angle)
@@ -75,6 +105,12 @@ bool Matrix2d<T>::equals(const Matrix2d& rhs) const
 		Tolerance<T>::isEqualLoosely(x[1], rhs.x[1]) &&
 		Tolerance<T>::isEqualLoosely(x[2], rhs.x[2]) &&
 		Tolerance<T>::isEqualLoosely(x[3], rhs.x[3]);
+}
+
+template<typename T>
+T Matrix2d<T>::getDeterminant() const
+{
+	return getX00() * getX11() - getX10() * getX01();
 }
 
 template<typename T>

@@ -22,6 +22,8 @@ public:
 		const T x10, const T x11
 		);
 
+	explicit Matrix2d(const std::array<T, 4>& v);
+
 	~Matrix2d() = default;
 
 	void setIdentity();
@@ -36,16 +38,11 @@ public:
 
 	static Matrix2d<T> Zero() { return Matrix2d(0, 0, 0, 0); }
 
-	static Matrix2d Rotate(const T angle)
-	{
-		Matrix2d matrix;
-		matrix.setRotate(angle);
-		return matrix;
-	}
+	static Matrix2d Rotate(const T angle);
 
 	bool equals(const Matrix2d& rhs) const;
 
-	T getDeterminant() const { return getX00() * getX11() - getX10() * getX01(); }
+	T getDeterminant() const;
 
 	bool hasInverse() const;
 
@@ -59,17 +56,9 @@ public:
 
 	Matrix2d getScaled(const T factor) const;
 
-	Matrix2d add(const Matrix2d& rhs) {
-		for (auto i = 0; i < 4; ++i) {
-			x[i] *= rhs.x[i];
-		}
-		return *this;
-	}
+	Matrix2d add(const Matrix2d& rhs);
 
-	Matrix2d getAdd(const Matrix2d& rhs) const {
-		Matrix2d matrix = *this;
-		return matrix.add(rhs);
-	}
+	Matrix2d getAdd(const Matrix2d& rhs) const;
 
 	bool operator==(const Matrix2d& rhs) const { return equals(rhs); }
 
