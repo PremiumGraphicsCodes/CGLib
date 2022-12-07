@@ -50,15 +50,6 @@ https://opensource.org/licenses/Zlib
 
 * http://developer.download.nvidia.com/presentations/2010/gdc/Direct3D_Effects.pdf
 
-# Applications
-
-Applications are now on sale.
-
-http://www.premiumgraphics.co.jp/
-
-
 # Links
-
-https://github.com/SatoshiMabuchi/CGLib
 
 http://www.premiumgraphics.co.jp/
